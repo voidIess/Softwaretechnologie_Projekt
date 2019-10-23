@@ -23,7 +23,7 @@ __Teilnehmer:__
 
 == Bemerkungen
 5 Gruppenmitglieder wurden zum Git Repository eingeladen. +
-Markus _____ wurde als Scrum Master gewählt.
+Markus Wieland wurde als Scrum Master gewählt.
 
 == Retrospektive des letzten Sprints
 *Issue referenziert die Issue ID von GitHub*
