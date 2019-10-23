@@ -1,0 +1,53 @@
+= Protokoll Gruppe 16
+
+Treffen am 15.10.2019
+
+Ort:      HSZ/304 +
+Beginn:   18:20 Uhr +
+Ende:     19:00 Uhr
+
+__Schriftführer: Lea Häusler__
+
+*Nächstes Treffen:* +
+22.10.2019, 18:10 Uhr, HSZ/304
+
+__Teilnehmer:__
+//Tabellarisch oder Aufzählung, Kennzeichnung von Teilnehmern mit besonderer Rolle (z.B. Kunde)
+
+- Anita Fritzsche (Tutorin)
+- Julius Schmitt
+- Bill Kippe
+- Markus _____
+- Vu ____
+- Lea Häusler
+
+== Bemerkungen
+5 Gruppenmitglieder wurden zum Git Repository eingeladen. +
+Markus _____ wurde als Scrum Master gewählt.
+
+== Retrospektive des letzten Sprints
+*Issue referenziert die Issue ID von GitHub*
+// Wie ist der Status der im letzten Sprint erstellten Issues/veteilten Aufgaben?
+
+// See http://asciidoctor.org/docs/user-manual/=tables
+[option="headers"]
+|===
+|Issue |Aufgabe |Status |Bemerkung
+|…     |…       |…      |…
+|===
+
+
+== Aktueller Stand
+Anmerkungen und Kritik zum aktuellen Stand der Software, den Diagrammen und den
+Dokumenten.
+
+== Planung des nächsten Sprints
+*Issue referenziert die Issue ID von GitHub*
+
+// See http://asciidoctor.org/docs/user-manual/=tables
+[option="headers"]
+|===
+|Issue |Titel |Beschreibung |Verantwortlicher |Status
+|…     |…     |…            |…                |…
+|===
+
