@@ -23,7 +23,7 @@ __Teilnehmer:__
 
 == Bemerkungen
 Auf Grund des Rücktrittes eines Teammitgliedes wurde die Aufgabenstellung angepasst: +
-Die Möglichkeit für Mitarbeiter Urlaubsanträge zu stellen entfällt. 
+Die Möglichkeit für Mitarbeiter Urlaubsanträge zu stellen entfällt.
 Desweiteren gibt es keine Verpflichtung mehr für die Anwesenheit eines Trainers, einer Thekenkraft und einer Reinigungskraft.
 
 == Retrospektive des letzten Sprints
@@ -34,7 +34,7 @@ Desweiteren gibt es keine Verpflichtung mehr für die Anwesenheit eines Trainers
 [option="headers"]
 |===
 |Issue |Aufgabe |Status |Bemerkung
-|…     |…       |…      |…
+|…     |guestbook   |fertig      |…
 |===
 
 
@@ -49,6 +49,12 @@ Kundengespräch wurde geführt. Erste Fragen sind Beantwortet.
 [option="headers"]
 |===
 |Issue |Titel |Beschreibung |Verantwortlicher |Status
-|…     |    |…            |…                |…
+|…     |Pflichtenheft erstellen  |…            |alle           |noch nicht begonnen
+|…     |Rabatte    |Rabatte zum Videoshop hinzufügen|Vu                |noch nicht begonnen
+|…     |Bewertungen    |Bewertungen zum Videoshop hinzufügen|Lea                |noch nicht begonnen
+|…     |Bestellungen    |Bestellungen zum Videoshop hinzufügen|Julius       |noch nicht begonnen
+|…     |Registrierung    |Registrierung des Videoshops verbessern |Markus   |noch nicht begonnen
+|…     |Kategorien    |Kategorien zum Videoshop hinzufügen |Markus       |noch nicht begonnen
+|…     |pdf    |Pdf-Funktion zum Videoshop hinzufügen|Vu                |noch nicht begonnen
 |===
 
