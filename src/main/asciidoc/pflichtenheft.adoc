@@ -16,8 +16,24 @@ Dieses Dokument benötigt ein Inhaltsverzeichnis. Es existieren mehrere Einbindu
 Eine kurze Beschreibung des Dokuments. Wenige Absätze.
 
 == Aufgabenstellung und Zielsetzung
-Text aus Aufgabenstellung kopieren und ggfs. präzisieren.
-Insbesondere ergänzen, welche Ziele mit dem Abschluss des Projektes erreicht werden sollen.
+Es soll eine Software für den Einsatz in einem Fitnessstudio entwickelt werden. Dabei sollen verschiedene Geschäftsfelder berücksichtigt werden. In der Mitarbeiterverwaltung können die Mitarbeiter des Fitnessstudios eingestellt, bearbeitet und entlassen werden. Die Mitarbeiter haben verschiedene Aufgaben (Thekenkraft/Trainer) und Löhne.
+
+Zum Monatsende wird für jeden Mitarbeiter ein Lohnschein als PDF erstellt. Die Mitarbeiter sollen einen eigenen Login bekommen, um den Dienstplan zu betrachten und den Lohnschein abzurufen. Der Dienstplan muss ebenfalls von Mitarbeitern erstellt und bearbeitet werden können.
+
+Es sollen ebenfalls alle Mitglieder verwaltet werden können. Diese können in den Club aufgenommen, bearbeitet und entlassen werden. Bei der Aufnahme soll ein Login erstellt werden, damit der Kunde von zu Hause aus seinen nächsten Trainingstermin samt Trainingsplan nachschlagen kann, Rechnungen betrachten kann und um persönliche Daten zu ändern. Für jedes Mitglied kann ein individueller Trainingsplan durch den Trainer erstellt und als PDF ausgegeben werden. Bei der Aufnahme wird ein Vertrag abgeschlossen für den Laufzeit und monatliche Gebühren in seinem Kundenkonto festgelegt werden.
+
+Die monatlichen Gebühren werden per Sepa-Lastschrift vom Kunden abgebucht.
+
+Jedes Mitglied erhält einen Code mit dem es beliebig viele neue Mitglieder anwerben kann. Wird dieser Code bei der Registrierung eines anderen Mitgliedes angegeben, so wird ein bestimmter Betrag auf das Kundenkonto des Codeinhabers gutgeschrieben, welches er nur an der Theke verbrauchen kann und nicht ausgezahlt wird. Jeder Kunde kann während seiner Mitgliedschaft mit einem Trainer ein Probetraining vereinbaren, entweder direkt im Studio oder über das Internetportal des Studios. Eine Mitgliedschaft kann pro Jahr für einen Monat ohne Gründe ausgesetzt werden.
+
+Des Weiteren gibt es einen Eingangs- und Verkaufsbereich, dort meldet sich jedes Mitglied bei Betreten des Studios an und bei verlassen ab. An der Theke können auch Getränke, Nahrungsergänzungsmittel oder Zubehör erworben werden, diese werden bar bezahlt oder direkt vom Kundenkonto abgebucht.
+Am Ende des Monats wird für jeden Kunden eine Rechnung über sein Kundenkonto als PDF erstellt.
+
+Die Artikel des Verkaufsbereiches lassen sich ebenfalls verwalten. Es müssen Artikel hinzugefügt, bearbeitet und gelöscht werden können. Bei unterschreiten der Mindestmenge werden die Artikel einer Nachbestellliste hinzugefügt und für die Mitarbeiter sichtbar gemacht. Artikel die für den Verzehr gedacht sind, haben ein Verfallsdatum, welches bei jedem Programmstart überprüft wird.
+Für verschiedene Artikel soll man für einen bestimmten Zeitraum einen Rabatt angeben können.
+
+Ebenfalls sollen Statistiken über laufende Kosten, Einnahmen, Kundenverhalten und Verkaufsartikel grafisch dargestellt werden.
+Verschiedene Einstellungen wie Vertragslaufzeit, monatliche Gebühren, Neuwerbungsprämie, Öffnungszeiten usw. sollen sich einfach global verändern lassen.
 
 == Produktnutzung
 In welchem Kontext soll das System später genutzt werden? Welche Rahmenbedingungen gelten?
