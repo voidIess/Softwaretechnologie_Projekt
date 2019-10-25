@@ -40,7 +40,56 @@ In welchem Kontext soll das System später genutzt werden? Welche Rahmenbedingun
 Zusätzlich kurze Einleitung für fachfremde Personen
 
 == Interessensgruppen (Stakeholders)
-Welche realen und juristischen Personen(-gruppen) haben Einfluss auf die Anforderungen im Projekt?
+
+[options="header", cols="2, ^1, 4, 4"]
+|===
+|Name
+|Priorität (1..5)
+|Beschreibung
+|Aufgabe
+
+|{company_name}
+|5
+|Der Kunde des Projekts.
+a|
+- Mehr Mitgliedschaften verkaufen
+- Einfache Kosten-Verwaltung
+- Nutzungsdaten speichern
+- Inventar immer gefüllt
+- Statistiken über das Kundenverhalten einsehen
+
+|Kunde
+|4
+|Der Kunde des Fitnessstudios
+a|
+- Planung des eigenen Trainingserfolgs
+- Einfache Verwaltung der Mitgliedschaft
+- Digitalisierung der Zahlung
+- Einfachere Kommunikation mit dem Trainer
+
+|Mitarbeiter
+|3
+|Mitarbeiter des Fitnessstudios
+a|
+- Einfache Verwaltung des Dienstplans
+- Überblick über das Lager
+
+|Chef
+|2
+|Leiter des Fitnessstudios
+a|
+- Bearbeitung der Mitarbeiterdaten
+- Globale Variablen leicht bearbeiten
+
+|Entwickler
+|3
+|Sind für die Implementierung und spätere Wartung der Software verantwortlich.
+a|
+- Einfache Erweiterung mit Funktionen 
+- Geringer Wartungsaufwand
+- Gute debugging Mechanismen
+
+|===
 
 == Systemgrenze und Top-Level-Architektur
 
