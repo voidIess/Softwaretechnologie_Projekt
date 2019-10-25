@@ -46,7 +46,7 @@ Zusätzlich kurze Einleitung für fachfremde Personen
 |Name
 |Priorität (1..5)
 |Beschreibung
-|Aufgabe
+|Ziel
 
 |{company_name}
 |5
@@ -57,6 +57,7 @@ a|
 - Nutzungsdaten speichern
 - Inventar immer gefüllt
 - Statistiken über das Kundenverhalten einsehen
+- Verwaltung der Mitarbeiter
 
 |Kunde
 |4
@@ -72,7 +73,7 @@ a|
 |Mitarbeiter des Fitnessstudios
 a|
 - Einfache Verwaltung des Dienstplans
-- Überblick über das Lager
+- Überblick über das Inventar
 
 |Chef
 |2
