@@ -177,6 +177,26 @@ Der Chef des Fitnessstudios muss sich als Boss im System anmelden.
 |Funktionelle Anforderung    |-
 |===
 
+[cols="1h, 3"]
+[[UC120]]
+|===
+|ID |**<<UC120>>*
+|Name |Show Statistics
+|Beschreibung                |Der Boss soll sich die Statistiken über Kaufverhalten, Anwesenheitszeit und Umsatz ansehen können.
+|Actors                     |Boss
+|Trigger                    |
+Boss möchte sich Statistiken ansehen.
+|Vorbedingungen a|
+Der Chef des Fitnessstudios muss sich als Boss im System anmelden. Die Statistiken müssen ausgewertet und angelegt worden sein.
+|Wichtige Schritte           a|
+
+  1. Chef meldet sich als Boss an
+  2.Chef navigiert zu den Statistiken.
+|Anhang                 |-
+|Funktionelle Anforderung    |-
+|===
+
+
 
 [cols="1h, 3"]
 [[UC301]]
