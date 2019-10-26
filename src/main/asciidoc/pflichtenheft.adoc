@@ -261,6 +261,21 @@ Es muss ein Inventar geben. Der Mitarbeiter muss als Staff angemeldet sein.
 |===
 
 [cols="1h, 3"]
+[[UC210]]
+|===
+|ID |**<<UC210>>**
+|Name | Manage Discounts
+|Beschreibung                | Ein Staff möchte einen Rabatt einstellen.
+|Akteur                     |Staff
+|Auslöser               | Es wurde eine Anfrage für ein Probetraining gesendet. Ein Staff drückt auf „Anfragen bearbeiten“.
+|Vorbedingungen a| Staff muss angemeldet sein. Es muss ein Objekt existieren auf die ein Rabatt angewendet werden kann.
+|Wichtige Schritte           a| ???
+
+|Anhang                 |-
+|Funktionelle Anforderung    |-
+|===
+
+[cols="1h, 3"]
 [[UC301]]
 |===
 |ID |**<<UC301>>**
@@ -333,24 +348,6 @@ _CheckIn_:
 _CheckOut:_:
 1.	Nutzer verlässt das Studio.
 2.	Nutzer ist im System als abwesend markiert.
-|Anhang                 |-
-|Funktionelle Anforderung    |-
-|===
-
-[cols="1h, 3"]
-[[UC330]]
-|===
-|ID |**<<UC330>>**
-|Name |Activate Account
-|Beschreibung                | Ein neues Nutzerkonto muss von einem Mitarbeiter freigegeben werden.
-|Akteur                     |Staff
-|Auslöser               | Ein neues Nutzerkonto wurde erstellt und muss jetzt noch freigegeben werden. Der Mitarbeiter drückt dafür in der Liste der Mitglieder auf akzeptieren.
-|Vorbedingungen a| Es muss ein noch nicht freigegeben Konto geben.
-|Wichtige Schritte           a| 1. Mitarbeiter meldet sich als Staff an.
-2. Mitarbeiter navigiert zu „Nutzeraccounts freigeben“.
-3. Alle nicht freigegeben Nutzeraccounts werden angezeigt.
-4. Durch drücken auf akzeptieren wird der Account freigegeben.
-5. Das Mitglied kann sich jetzt anmelden.
 |Anhang                 |-
 |Funktionelle Anforderung    |-
 |===
@@ -528,20 +525,6 @@ _CheckOut:_:
 |Funktionelle Anforderung    |-
 |===
 
-[cols="1h, 3"]
-[[UC710]]
-|===
-|ID |**<<UC710>>**
-|Name | Manage Discounts
-|Beschreibung                | Ein Staff möchte einen Rabatt einstellen.
-|Akteur                     |Staff
-|Auslöser               | Es wurde eine Anfrage für ein Probetraining gesendet. Ein Staff drückt auf „Anfragen bearbeiten“.
-|Vorbedingungen a| Staff muss angemeldet sein. Es muss ein Objekt existieren auf die ein Rabatt angewendet werden kann.
-|Wichtige Schritte           a| ???
-
-|Anhang                 |-
-|Funktionelle Anforderung    |-
-|===
 
 [cols="1h, 3"]
 [[UC720]]
@@ -562,7 +545,23 @@ _CheckOut:_:
 |Funktionelle Anforderung    |-
 |===
 
-
+[cols="1h, 3"]
+[[UC730]]
+|===
+|ID |**<<UC730>>**
+|Name |Activate Account
+|Beschreibung                | Ein neues Nutzerkonto muss von einem Mitarbeiter freigegeben werden.
+|Akteur                     |Staff
+|Auslöser               | Ein neues Nutzerkonto wurde erstellt und muss jetzt noch freigegeben werden. Der Mitarbeiter drückt dafür in der Liste der Mitglieder auf akzeptieren.
+|Vorbedingungen a| Es muss ein noch nicht freigegeben Konto geben.
+|Wichtige Schritte           a| 1. Mitarbeiter meldet sich als Staff an.
+2. Mitarbeiter navigiert zu „Nutzeraccounts freigeben“.
+3. Alle nicht freigegeben Nutzeraccounts werden angezeigt.
+4. Durch drücken auf akzeptieren wird der Account freigegeben.
+5. Das Mitglied kann sich jetzt anmelden.
+|Anhang                 |-
+|Funktionelle Anforderung    |-
+|===
 
 == Funktionale Anforderungen
 
