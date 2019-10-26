@@ -154,6 +154,29 @@ Der Chef des Fitnessstudios muss sich als Boss im System anmelden.
 |Funktionelle Anforderung    |-
 |===
 
+[[UC110]] (+ [[UC111]])
+|===
+|ID |**<<UC101>> & << <<UC111>>**
+|Name |Edit/Add/Remove Staff
+|Beschreibung                |Der Boss soll neue Mitarbeiter hinzufügen, bestehende Mitarbeiter bearbeiten und alte Mitarbeiter entfernen können.
+|Actors                     |Boss
+|Trigger                    |
+Boss möchte etwas an den Mitarbeitern „ändern“.
+|Vorbedingungen a|
+Der Chef des Fitnessstudios muss sich als Boss im System anmelden.
+|Wichtige Schritte           a|
+
+  1. Chef meldet sich als Boss an
+  2.Chef navigiert zu den Mitarbeitern.
+ 3.Chef drückt den „Bearbeiten“, „Hinzufügen“, „Löschen“ Button
+  4. Der Chef ändert/fügt die Details hinzu.
+5. Der Chef drückt auf Speichern
+6. Die Mitarbeiterliste wurden gespeichert.
+
+|Anhang                 |-
+|Funktionelle Anforderung    |-
+|===
+
 
 [cols="1h, 3"]
 [[UC301]]
