@@ -128,6 +128,39 @@ Für komplexere Anwendungsfälle ein UML-Sequenzdiagramm ergänzen.
 Einfache Anwendungsfälle mit einem Absatz beschreiben.
 Die typischen Anwendungsfälle (Anlegen, Ändern, Löschen) können zu einem einzigen zusammengefasst werden.
 
+[cols="1h, 3"]
+[[UC301]]
+|===
+|ID |**<<UC301>>**
+|Name |Login/Logout
+|Beschreibung                |Ein Nutzer sollte sich anmelden können, um bestimmte Features nutzen zu können.
+Diesen Prozess kann man mit Abmelden rückgängig machen.
+|Actors                     |User
+|Trigger                    |
+_Login_: Nutzer möchte „versteckte“ Features nutzen.
+
+_Logout_: Nutzer möchte das System wieder verlassen.
+|Vorbedingungen a|
+_Login_: Nutzer ist noch nicht angemeldet. (Unregistered User)
+
+_Logout_: Nutzer ist angemeldet.
+|Wichtige Schritte           a|
+_Login_:
+
+  1. Nutzer drückt „Anmelden/Login“
+  2. Nutzer gibt seine Zugangsdaten ein
+  3. Nutzer drückt den „Login“ Button
+
+_Logout_:
+
+  1. Nutzer drückt "Ausloggen" 
+  2. Nutzer ist abgemeldet und ihm wird der Home Bildschirm gezeigt.
+
+|Anhang                 |-
+|Funktionelle Anforderung    |-
+|===
+
+
 == Funktionale Anforderungen
 
 === Muss-Kriterien
