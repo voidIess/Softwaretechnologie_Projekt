@@ -314,6 +314,28 @@ Es darf noch nicht ein Kundenkonto mit den Angaben geben.
 |Funktionelle Anforderung    |-
 |===
 
+[cols="1h, 3"]
+[[UC320]]
+|===
+|ID |**<<UC320>>**
+|Name |CheckIn & CheckOut
+|Beschreibung                | Der Nutzer soll beim Betreten des Fitnessstudios im System als Anwesend markiert werden. Mit dem Prozess CheckOut kann man den Vorgang umkehren.
+|Akteur                     |Unregistered User
+|Auslöse                    |_CheckIn_: Nutzer betritt das Fitnessstudio.
+_CheckOut_: Nutzer verlässt das Fitnessstudio.
+|Vorbedingungen a| _CheckIn_: Nutzer ist noch nicht im Fitnessstudio.
+_CheckOut_: Nutzer ist im Fitnessstudio.
+|Wichtige Schritte           a|
+
+_CheckIn_:
+1.	Nutzer betritt das Fitnessstudio.
+2.	Im System ist der Nutzer jetzt anwesend.
+_CheckOut:_:
+1.	Nutzer verlässt das Studio.
+2.	Nutzer ist im System als abwesend markiert.
+|Anhang                 |-
+|Funktionelle Anforderung    |-
+|===
 
 
 == Funktionale Anforderungen
