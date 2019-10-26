@@ -154,9 +154,9 @@ Der Chef des Fitnessstudios muss sich als Boss im System anmelden.
 |Funktionelle Anforderung    |-
 |===
 
-[[UC110]] (+ [[UC111]])
+[[UC110]]  [[UC111]]
 |===
-|ID |**<<UC101>> & << <<UC111>>**
+|ID |**<<UC101>> & <<UC111>>**
 |Name |Edit/Add/Remove Staff
 |Beschreibung                |Der Boss soll neue Mitarbeiter hinzufügen, bestehende Mitarbeiter bearbeiten und alte Mitarbeiter entfernen können.
 |Actors                     |Boss
