@@ -196,6 +196,26 @@ Der Chef des Fitnessstudios muss sich als Boss im System anmelden. Die Statistik
 |Funktionelle Anforderung    |-
 |===
 
+[cols="1h, 3"]
+[[UC201]]
+|===
+|ID |**<<UC201>>*
+|Name |Manage Inventory Items
+|Beschreibung                |Die Mitarbeiter sollen die Artikel des Inventar des Fitnessstudios verwalten könne.
+|Actors                     |Staff
+|Trigger                    |
+Mitarbeiter möchte das Inventar verwalten/bearbeiten.
+|Vorbedingungen a|
+Der Mitarbeiter muss als Staff im System angemeldet sein. Es muss ein Inventar geben. 
+|Wichtige Schritte           a|
+
+  1. Mitarbeiter meldet sich als Staff an.
+  2.Mitarbeiter navigiert zum Inventar.
+3. Mitarbeiter führt die verwaltende Aufgabe aus.
+4. Änderungen sollen gespeichert werden.
+|Anhang                 |-
+|Funktionelle Anforderung    |-
+|===
 
 
 [cols="1h, 3"]
