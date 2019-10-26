@@ -137,8 +137,8 @@ Die typischen Anwendungsfälle (Anlegen, Ändern, Löschen) können zu einem ein
 |ID |**<<UC101>>**
 |Name |Edit Global Variables
 |Beschreibung                |Der Boss soll die allgemeinen Details (Öffnungszeiten etc.) des Fitnessstudios ändern können. (Chef ist in diesem Fall der wirklich Chef und Boss die Rolle im System)
-|Actors                     |Boss
-|Trigger                    |
+|Akteur                     |Boss
+|Auslöser                    |
 Boss möchte die allgemeinen Details ändern.
 |Vorbedingungen a|
 Der Chef des Fitnessstudios muss sich als Boss im System anmelden.
@@ -159,8 +159,8 @@ Der Chef des Fitnessstudios muss sich als Boss im System anmelden.
 |ID |**<<UC101>> & <<UC111>>**
 |Name |Edit/Add/Remove Staff
 |Beschreibung                |Der Boss soll neue Mitarbeiter hinzufügen, bestehende Mitarbeiter bearbeiten und alte Mitarbeiter entfernen können.
-|Actors                     |Boss
-|Trigger                    |
+|Akteur                     |Boss
+|Auslöser                    |
 Boss möchte etwas an den Mitarbeitern „ändern“.
 |Vorbedingungen a|
 Der Chef des Fitnessstudios muss sich als Boss im System anmelden.
@@ -183,8 +183,8 @@ Der Chef des Fitnessstudios muss sich als Boss im System anmelden.
 |ID |**<<UC120>>**
 |Name |Show Statistics
 |Beschreibung                |Der Boss soll sich die Statistiken über Kaufverhalten, Anwesenheitszeit und Umsatz ansehen können.
-|Actors                     |Boss
-|Trigger                    |
+|Akteur                     |Boss
+|Auslöser                    |
 Boss möchte sich Statistiken ansehen.
 |Vorbedingungen a|
 Der Chef des Fitnessstudios muss sich als Boss im System anmelden. Die Statistiken müssen ausgewertet und angelegt worden sein.
@@ -202,8 +202,8 @@ Der Chef des Fitnessstudios muss sich als Boss im System anmelden. Die Statistik
 |ID |**<<UC201>>**
 |Name |Manage Inventory Items
 |Beschreibung                |Die Mitarbeiter sollen die Artikel des Inventar des Fitnessstudios verwalten könne.
-|Actors                     |Staff
-|Trigger                    |
+|Akteur                     |Staff
+|Auslöser                    |
 Mitarbeiter möchte das Inventar verwalten/bearbeiten.
 |Vorbedingungen a|
 Der Mitarbeiter muss als Staff im System angemeldet sein. Es muss ein Inventar geben. 
@@ -223,8 +223,8 @@ Der Mitarbeiter muss als Staff im System angemeldet sein. Es muss ein Inventar g
 |ID |**<<UC202>>**
 |Name |Sell Items
 |Beschreibung                |Mitglieder sollen etwas kaufen können.
-|Actors                     |Staff & Customer
-|Trigger                    |
+|Akteur                     |Staff & Customer
+|Auslöser                    |
 Mitglied kauft etwas an der Theke.
 |Vorbedingungen a|
 Der Mitarbeiter muss als Staff im System angemeldet sein. Es muss ein Inventar geben. 
@@ -246,8 +246,8 @@ Der Mitarbeiter muss als Staff im System angemeldet sein. Es muss ein Inventar g
 |ID |**<<UC203>>**
 |Name |Show Inventory
 |Beschreibung                |Mitarbeiter wird Inventar gezeigt
-|Actors                     |Staff 
-|Trigger                    |
+|Akteur                     |Staff 
+|Auslöser                    |
 Mitarbeiter möchte Inventar ansehen.
 |Vorbedingungen a|
 Es muss ein Inventar geben. Der Mitarbeiter muss als Staff angemeldet sein.
@@ -267,8 +267,8 @@ Es muss ein Inventar geben. Der Mitarbeiter muss als Staff angemeldet sein.
 |Name |Login/Logout
 |Beschreibung                |Ein Nutzer sollte sich anmelden können, um bestimmte Features nutzen zu können.
 Diesen Prozess kann man mit Abmelden rückgängig machen.
-|Actors                     |User
-|Trigger                    |
+|Akteur                     |User
+|Auslöser                    |
 _Login_: Nutzer möchte „versteckte“ Features nutzen.
 
 _Logout_: Nutzer möchte das System wieder verlassen.
@@ -298,8 +298,8 @@ _Logout_:
 |ID |**<<UC302>>**
 |Name |Sell Items
 |Beschreibung                |Eine Person soll ein Kundenkonto erstellen können.
-|Actors                     |Unregistered User
-|Trigger                    |
+|Akteur                     |Unregistered User
+|Auslöser                    |
 Neues Kundenkonto soll erstellt werden.
 |Vorbedingungen a|
 Es darf noch nicht ein Kundenkonto mit den Angaben geben. 
