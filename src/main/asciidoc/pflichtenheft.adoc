@@ -441,7 +441,58 @@ _CheckOut:_:
 |Funktionelle Anforderung    |-
 |===
 
+[cols="1h, 3"]
+[[UC502]]
+|===
+|ID |**<<UC502>>**
+|Name |Show Trainings
+|Beschreibung  | Der Customer soll seine Trainingstermine sehen. 
+|Akteur                     |Customer
+|Auslöser               | Customer möchte seine Termine sehen und klickt auf „Trainingsplan“
+|Vorbedingungen a| Der User muss als „Customer“ angemeldet sein und es muss ein Trainingsplan existieren.
+|Wichtige Schritte           a| 1. Der User muss sich als Customer anmelden.
+2. Der Customer navigiert zu Trainingsplan
+3. Dem Nutzer wird eine Liste seiner Termine angezeigt.
+|Anhang                 |-
+|Funktionelle Anforderung    |-
+|===
 
+[cols="1h, 3"]
+[[UC510]]
+|===
+|ID |**<<UC510>>**
+|Name |Request Tryout
+|Beschreibung                | Ein Customer fragt ein Probetraining an.
+|Akteur                     |Customer
+|Auslöser               | Ein Customer möchte seine Probetraining einlösen und klickt auf die Schaltfläche „Probetraining anfordern“.
+|Vorbedingungen a| Der User muss sich als Customer anmelden. Er darf sein Probetraining noch nicht genutzt haben.
+|Wichtige Schritte           a| 1. Customer meldet sich an.
+2. Customer klickt auf die Schaltfläche.
+3. Es wird überprüft ob er ein Probetraining bereits gemacht hat. 
+4. Wenn nicht kann er einen Antrag ausfüllen. Dabei kann er einen beliebigen Trainer und Termin angeben.
+5. Durch „Absenden“ wird die Anfrage gesendet. 
+|Anhang                 |-
+|Funktionelle Anforderung    |-
+|===
+
+[cols="1h, 3"]
+[[UC520]]
+|===
+|ID |**<<UC520>>**
+|Name | Accept/Decline Request
+|Beschreibung                | Die Anfrage eines Customers für ein Probetraining soll bearbeitet werden.
+|Akteur                     |Staff
+|Auslöser               | Es wurde eine Anfrage für ein Probetraining gesendet. Ein Staff drückt auf „Anfragen bearbeiten“.
+|Vorbedingungen a| Der User muss als Staff angemeldet sein. 
+|Wichtige Schritte           a| 1. Staff meldet sich an.
+2. Staff navigiert zu Anfragen bearbeiten
+3. Wenn Anfragen vorhanden sind, werden diese angezeigt.
+4. Durch drücken auf „Annehmen“ kann man die Anfrage annehmen, durch „Ablehnen“ kann man die Anfrage ablehnen.
+5. Wenn die Anfrage angenommen wurde wird dem Nutzer der Termin bestätigt. Er kann absofort kein Probetraining mehr anfragen. Wenn nicht erhält der Nutzer die Möglichkeit einen anderen Termin zu wählen. In diesem Fall hat er also immer noch sein freies Probetraining.
+
+|Anhang                 |-
+|Funktionelle Anforderung    |-
+|===
 
 
 == Funktionale Anforderungen
