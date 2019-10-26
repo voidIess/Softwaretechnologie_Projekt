@@ -241,6 +241,26 @@ Der Mitarbeiter muss als Staff im System angemeldet sein. Es muss ein Inventar g
 |===
 
 [cols="1h, 3"]
+[[UC203]]
+|===
+|ID |**<<UC203>>**
+|Name |Show Inventory
+|Beschreibung                |Mitarbeiter wird Inventar gezeigt
+|Actors                     |Staff 
+|Trigger                    |
+Mitarbeiter möchte Inventar ansehen.
+|Vorbedingungen a|
+Es muss ein Inventar geben. Der Mitarbeiter muss als Staff angemeldet sein.
+|Wichtige Schritte           a|
+
+  1. Mitarbeiter meldet sich als Staff an.
+  2. Mitarbeiter navigiert zum Inventar.
+3. Liste wird angezeigt.
+|Anhang                 |-
+|Funktionelle Anforderung    |-
+|===
+
+[cols="1h, 3"]
 [[UC301]]
 |===
 |ID |**<<UC301>>**
