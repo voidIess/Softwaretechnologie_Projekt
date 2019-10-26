@@ -104,16 +104,15 @@ Dokumentieren Sie ihre Top-Level-Architektur mit Hilfe eines Komponentendiagramm
 
 === Akteure
 
-Akteure sind die Benutzer des Software-Systems oder Nachbarsysteme, welche darauf zugreifen. Dokumentieren Sie die Akteure in einer Tabelle. Diese Tabelle gibt einen Überblick über die Akteure und beschreibt sie kurz. Die Tabelle hat also mindestens zwei Spalten (Akteur Name und Kommentar).
-Weitere relevante Spalten können bei Bedarf ergänzt werden.
+Akteure sind die Benutzer des Software-Systems oder Nachbarsysteme, welche darauf zugreifen. Die folgende Tabelle fasst alle Akteuer des Systems zusammen und enthält eine Beschreibung des Akteurs. Abstrakte Akteure (eine Obergruppe, welche andere Akteure gruppiert, in _Italic_ geschrieben) sind da um zu generalisieren und zu gruppieren.
 
 // See http://asciidoctor.org/docs/user-manual/#tables
 [options="header"]
 [cols="1,4"]
 |===
 |Name |Beschreibung
-|_User_ | Repräsentiert jede Person, welche einen Nutzeraccount besitzt, eingeloggt ist und mit dem System interagiert. Dabei ist die Rolle des Accounts egal.
-|_Unregistered User_ | Repräsentiert jede Person, welche mit dem System interagiert, aber sich noch nicht eingeloggt hat. Darunter zählen auch alle Nutzer der Anwendung, welche noch keinen Nutzeraccount haben.
+|_User_ | Repräsentiert jeden Nutzer des Systems. Dabei ist es egal, ob der Nutzer überhaupt einen Nutzeraccount besitzt.
+|Unregistered User | Repräsentiert jede Person, welche mit dem System interagiert, aber sich noch nicht eingeloggt hat. Darunter zählen auch alle Nutzer der Anwendung, welche noch keinen Nutzeraccount haben. 
 |Staff | Jeder registrierte Nutzer mit der Rolle „STAFF“. Diese Rolle repräsentiert die Mitarbeiter des Fitnessstudios, welche die Anwendung zum verwalten des Dienstplans und Inventars nutzen. Außerdem sollen sie Nutzerkonten _aktivieren_ können.
 |Boss | Jeder registierte Nutzer mit der Rolle „BOSS“. Er ist allmächtig und kann alles. Seine Hauptaufgabe ist das Verwalten der Mitarbeiter.
 |Customer| Jeder registrierte Nutzer mit der Rolle „CUSTOMER“. Diese Role repräsentiert die Mitglieder des Fitnessstudios, welche die Anwendung nutzen um Details ihre Mitgliedschaft einzusehen und um ihr Training zu planen.
