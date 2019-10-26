@@ -292,6 +292,29 @@ _Logout_:
 |Funktionelle Anforderung    |-
 |===
 
+[cols="1h, 3"]
+[[UC302]]
+|===
+|ID |**<<UC302>>**
+|Name |Sell Items
+|Beschreibung                |Eine Person soll ein Kundenkonto erstellen können.
+|Actors                     |Unregistered User
+|Trigger                    |
+Neues Kundenkonto soll erstellt werden.
+|Vorbedingungen a|
+Es darf noch nicht ein Kundenkonto mit den Angaben geben. 
+|Wichtige Schritte           a|
+
+  1. Unregistered User drückt auf „Registrieren“.
+  2. Unregistered User gibt die notweniden Anmeldedaten ein.
+3. Neues Kundenkonto wird erstellt.
+4. Nach Freigabe durch Staff kann unregistered User sich mit dem Konto anmelden.
+5. Unregistered User gelangt zurück zum Homebildschirm.
+|Anhang                 |-
+|Funktionelle Anforderung    |-
+|===
+
+
 
 == Funktionale Anforderungen
 
