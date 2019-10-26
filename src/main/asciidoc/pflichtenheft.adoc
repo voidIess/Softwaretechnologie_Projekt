@@ -406,6 +406,42 @@ _CheckOut:_:
 |Funktionelle Anforderung    |-
 |===
 
+[cols="1h, 3"]
+[[UC420]]
+|===
+|ID |**<<UC420>>**
+|Name |Show Bill
+|Beschreibung  | Der Nutzer soll seine monatliche Rechnung ansehen können.
+|Akteur                     |Customer
+|Auslöser               | Nutzer möchte seine Rechnung sehen und klickt in seinem Profil auf „Rechnung“.
+|Vorbedingungen a| Der User muss angemeldet sein als Customer und es muss eine Rechnung erstellt werden.
+|Wichtige Schritte           a| 1. Customer meldet sich an.
+2. Customer geht auf sein Profil.
+3. Customer klickt auf „Rechnung“.
+4. Dem Customer wird die Rechnung angezeigt. (Als PDF)
+|Anhang                 |-
+|Funktionelle Anforderung    |-
+|===
+
+[cols="1h, 3"]
+[[UC501]]
+|===
+|ID |**<<UC501>>**
+|Name |Create Training
+|Beschreibung                | Ein Mitarbeiter erstellt ein Trainingsplan.
+|Akteur                     |Staff
+|Auslöser               | Mitarbeiter möchte Trainingsplan erstellen und navigiert zu Trainingsplan.
+|Vorbedingungen a| User muss als Staff angemeldet sein.
+|Wichtige Schritte           a| 1. Staff meldet sich an.
+2. Staff navigiert zu Trainingsplan erstellen.
+3. Gibt Daten ein.
+4. Speichern
+5. Nutzer wird Trainingsplan zugewiesen.
+|Anhang                 |-
+|Funktionelle Anforderung    |-
+|===
+
+
 
 
 == Funktionale Anforderungen
