@@ -180,7 +180,7 @@ Der Chef des Fitnessstudios muss sich als Boss im System anmelden.
 [cols="1h, 3"]
 [[UC120]]
 |===
-|ID |**<<UC120>>*
+|ID |**<<UC120>>**
 |Name |Show Statistics
 |Beschreibung                |Der Boss soll sich die Statistiken über Kaufverhalten, Anwesenheitszeit und Umsatz ansehen können.
 |Actors                     |Boss
