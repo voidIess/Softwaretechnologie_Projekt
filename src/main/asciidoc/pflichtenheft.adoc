@@ -139,7 +139,7 @@ Die typischen Anwendungsfälle (Anlegen, Ändern, Löschen) können zu einem ein
 |Beschreibung                |Der Boss soll die allgemeinen Details (Öffnungszeiten etc.) des Fitnessstudios ändern können. (Chef ist in diesem Fall der wirklich Chef und Boss die Rolle im System)
 |Akteur                     |Boss
 |Auslöser                    |
-Boss möchte die allgemeinen Details ändern.
+Boss möchte die allgemeinen Details ändern und drückt auf bearbeiten neben den Details.
 |Vorbedingungen a|
 Der Chef des Fitnessstudios muss sich als Boss im System anmelden.
 |Wichtige Schritte           a|
@@ -161,7 +161,7 @@ Der Chef des Fitnessstudios muss sich als Boss im System anmelden.
 |Beschreibung                |Der Boss soll neue Mitarbeiter hinzufügen, bestehende Mitarbeiter bearbeiten und alte Mitarbeiter entfernen können.
 |Akteur                     |Boss
 |Auslöser                    |
-Boss möchte etwas an den Mitarbeitern „ändern“.
+Boss möchte etwas an den Mitarbeitern „ändern“ und navigiert zur Mitarbeiterliste.
 |Vorbedingungen a|
 Der Chef des Fitnessstudios muss sich als Boss im System anmelden.
 |Wichtige Schritte           a|
@@ -183,9 +183,9 @@ Der Chef des Fitnessstudios muss sich als Boss im System anmelden.
 |ID |**<<UC120>>**
 |Name |Show Statistics
 |Beschreibung                |Der Boss soll sich die Statistiken über Kaufverhalten, Anwesenheitszeit und Umsatz ansehen können.
-|Akteur                     |Boss
+|Akteur  |Boss
 |Auslöser                    |
-Boss möchte sich Statistiken ansehen.
+Boss möchte sich Statistiken ansehen und navigiert zu Statistiken.
 |Vorbedingungen a|
 Der Chef des Fitnessstudios muss sich als Boss im System anmelden. Die Statistiken müssen ausgewertet und angelegt worden sein.
 |Wichtige Schritte           a|
@@ -201,10 +201,10 @@ Der Chef des Fitnessstudios muss sich als Boss im System anmelden. Die Statistik
 |===
 |ID |**<<UC201>>**
 |Name |Manage Inventory Items
-|Beschreibung                |Die Mitarbeiter sollen die Artikel des Inventar des Fitnessstudios verwalten könne.
+|Beschreibung                |Die Mitarbeiter sollen die Artikel des Inventar des Fitnessstudios verwalten können.
 |Akteur                     |Staff
 |Auslöser                    |
-Mitarbeiter möchte das Inventar verwalten/bearbeiten.
+Mitarbeiter möchte das Inventar verwalten/bearbeiten und navigiert zum Inventar.
 |Vorbedingungen a|
 Der Mitarbeiter muss als Staff im System angemeldet sein. Es muss ein Inventar geben. 
 |Wichtige Schritte           a|
@@ -225,7 +225,7 @@ Der Mitarbeiter muss als Staff im System angemeldet sein. Es muss ein Inventar g
 |Beschreibung                |Mitglieder sollen etwas kaufen können.
 |Akteur                     |Staff & Customer
 |Auslöser                    |
-Mitglied kauft etwas an der Theke.
+Mitglied kauft etwas an der Theke und der Staff trägt es ein.
 |Vorbedingungen a|
 Der Mitarbeiter muss als Staff im System angemeldet sein. Es muss ein Inventar geben. 
 |Wichtige Schritte           a|
@@ -248,7 +248,7 @@ Der Mitarbeiter muss als Staff im System angemeldet sein. Es muss ein Inventar g
 |Beschreibung                |Mitarbeiter wird Inventar gezeigt
 |Akteur                     |Staff 
 |Auslöser                    |
-Mitarbeiter möchte Inventar ansehen.
+Mitarbeiter möchte Inventar ansehen und navigiert zum Inventar.
 |Vorbedingungen a|
 Es muss ein Inventar geben. Der Mitarbeiter muss als Staff angemeldet sein.
 |Wichtige Schritte           a|
@@ -300,7 +300,7 @@ _Logout_:
 |Beschreibung                |Eine Person soll ein Kundenkonto erstellen können.
 |Akteur                     |Unregistered User
 |Auslöser                    |
-Neues Kundenkonto soll erstellt werden.
+Neues Kundenkonto soll erstellt werden und der Unregistered User drückt auf registrieren.
 |Vorbedingungen a|
 Es darf noch nicht ein Kundenkonto mit den Angaben geben. 
 |Wichtige Schritte           a|
@@ -321,7 +321,7 @@ Es darf noch nicht ein Kundenkonto mit den Angaben geben.
 |Name |CheckIn & CheckOut
 |Beschreibung                | Der Nutzer soll beim Betreten des Fitnessstudios im System als Anwesend markiert werden. Mit dem Prozess CheckOut kann man den Vorgang umkehren.
 |Akteur                     |Unregistered User
-|Auslöse                    |_CheckIn_: Nutzer betritt das Fitnessstudio.
+|Auslöser                    |_CheckIn_: Nutzer betritt das Fitnessstudio und meldet sich mit seiner Chipkarte an.
 _CheckOut_: Nutzer verlässt das Fitnessstudio.
 |Vorbedingungen a| _CheckIn_: Nutzer ist noch nicht im Fitnessstudio.
 _CheckOut_: Nutzer ist im Fitnessstudio.
@@ -344,13 +344,64 @@ _CheckOut:_:
 |Name |Activate Account
 |Beschreibung                | Ein neues Nutzerkonto muss von einem Mitarbeiter freigegeben werden.
 |Akteur                     |Staff
-|Auslöser               | Ein neues Nutzerkonto wurde erstellt und muss jetzt noch freigegeben werden.
+|Auslöser               | Ein neues Nutzerkonto wurde erstellt und muss jetzt noch freigegeben werden. Der Mitarbeiter drückt dafür in der Liste der Mitglieder auf akzeptieren.
 |Vorbedingungen a| Es muss ein noch nicht freigegeben Konto geben.
 |Wichtige Schritte           a| 1. Mitarbeiter meldet sich als Staff an.
 2. Mitarbeiter navigiert zu „Nutzeraccounts freigeben“.
 3. Alle nicht freigegeben Nutzeraccounts werden angezeigt.
 4. Durch drücken auf akzeptieren wird der Account freigegeben.
 5. Das Mitglied kann sich jetzt anmelden.
+|Anhang                 |-
+|Funktionelle Anforderung    |-
+|===
+
+[cols="1h, 3"]
+[[UC401]]
+|===
+|ID |**<<UC401>>**
+|Name |Show Recruiting Code
+|Beschreibung                | Nutzer soll seinen Anwerberkode sehen.
+|Akteur                     |Customer
+|Auslöser               | Nutzer möchte seinen Kode sein und geht auf sein Profil.
+|Vorbedingungen a| Der Kode muss vergeben worden sein.
+|Wichtige Schritte           a| 1. Customer meldet sich an.
+2. Customer geht auf sein Profil.
+3. Customer sieht seinen Anwerberkode.
+|Anhang                 |-
+|Funktionelle Anforderung    |-
+|===
+[cols="1h, 3"]
+[[UC410]]
+|===
+|ID |**<<UC410>>**
+|Name |Show Contract Details
+|Beschreibung                | Nutzer sieht seine Vertragsdetails.
+|Akteur                     |Customer
+|Auslöser               | Nutzer möchte seine Vertragsdetails sehen und drückt auf Profil.
+|Vorbedingungen a| Nutzer muss einen Vertrag bei der Anmeldung abgeschlossen werden.
+|Wichtige Schritte           a| 1. Customer meldet sich an.
+2. Customer geht auf sein Profil.
+3. Customer sieht seinen Vertragsdetails.
+|Anhang                 |-
+|Funktionelle Anforderung    |-
+|===
+
+[cols="1h, 3"]
+[[UC411]]
+|===
+|ID |**<<UC411>>**
+|Name |Pause Contract for one Month
+|Beschreibung                | Nutzer soll seinen Vertrag für einen Monat pausieren.
+|Akteur                     |Customer
+|Auslöser               | Nutzer möchte seinen Vertrag für einen Monat pausieren und drückt im Profil auf Vertrag pausieren.
+|Vorbedingungen a| Nutzer muss einen Vertrag bei der Anmeldung abgeschlossen werden.
+|Wichtige Schritte           a| 1. Customer meldet sich an.
+2. Customer geht auf sein Profil.
+3. Customer drückt auf „Vertrag pausieren“.
+4. Customer bestätigt.
+5. Vertrag wird für einen Monat pausiert.
+6. Erst im nächsten Jahr soll es wieder möglich sein seinen Vertrag zu pausieren.
+
 |Anhang                 |-
 |Funktionelle Anforderung    |-
 |===
