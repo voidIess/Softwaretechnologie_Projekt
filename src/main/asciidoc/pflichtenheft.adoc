@@ -217,6 +217,28 @@ Der Mitarbeiter muss als Staff im System angemeldet sein. Es muss ein Inventar g
 |Funktionelle Anforderung    |-
 |===
 
+[cols="1h, 3"]
+[[UC202]]
+|===
+|ID |**<<UC202>>**
+|Name |Sell Items
+|Beschreibung                |Mitglieder sollen etwas kaufen können.
+|Actors                     |Staff & Customer
+|Trigger                    |
+Mitglied kauft etwas an der Theke.
+|Vorbedingungen a|
+Der Mitarbeiter muss als Staff im System angemeldet sein. Es muss ein Inventar geben. 
+|Wichtige Schritte           a|
+
+  1. Mitarbeiter meldet sich als Staff an.
+  2.Mitarbeiter trägt den Verkauf ein (Wer, Was)
+3. Fügt etwas zu den Statistiken hinzu
+4. Das Konto des Mitglieds wird belastet, wenn er nicht bar bezahlt.
+5. Der Kauf wird in der Rechnung des Mitglieds gespeichert.
+6. Im Inventar wird die Anzahl des gekauften Artikels um 1 verringert.
+|Anhang                 |-
+|Funktionelle Anforderung    |-
+|===
 
 [cols="1h, 3"]
 [[UC301]]
