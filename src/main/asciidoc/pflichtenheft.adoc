@@ -112,8 +112,13 @@ Weitere relevante Spalten können bei Bedarf ergänzt werden.
 [cols="1,4"]
 |===
 |Name |Beschreibung
-|...  |...
+|_User_ | Repräsentiert jede Person, welche einen Nutzeraccount besitzt, eingeloggt ist und mit dem System interagiert. Dabei ist die Rolle des Accounts egal.
+|_Unregistered User_ | Repräsentiert jede Person, welche mit dem System interagiert, aber sich noch nicht eingeloggt hat. Darunter zählen auch alle Nutzer der Anwendung, welche noch keinen Nutzeraccount haben.
+|Staff | Jeder registrierte Nutzer mit der Rolle „STAFF“. Diese Rolle repräsentiert die Mitarbeiter des Fitnessstudios, welche die Anwendung zum verwalten des Dienstplans und Inventars nutzen. Außerdem sollen sie Nutzerkonten _aktivieren_ können.
+|Boss | Jeder registierte Nutzer mit der Rolle „BOSS“. Er ist allmächtig und kann alles. Seine Hauptaufgabe ist das Verwalten der Mitarbeiter.
+|Customer| Jeder registrierte Nutzer mit der Rolle „CUSTOMER“. Diese Role repräsentiert die Mitglieder des Fitnessstudios, welche die Anwendung nutzen um Details ihre Mitgliedschaft einzusehen und um ihr Training zu planen.
 |===
+
 
 === Überblick Anwendungsfalldiagramm
 Anwendungsfall-Diagramm, das alle Anwendungsfälle und alle Akteure darstellt
