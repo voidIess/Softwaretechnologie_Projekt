@@ -132,6 +132,30 @@ Einfache Anwendungsfälle mit einem Absatz beschreiben.
 Die typischen Anwendungsfälle (Anlegen, Ändern, Löschen) können zu einem einzigen zusammengefasst werden.
 
 [cols="1h, 3"]
+[[UC101]]
+|===
+|ID |**<<UC101>>**
+|Name |Edit Global Variables
+|Beschreibung                |Der Boss soll die allgemeinen Details (Öffnungszeiten etc.) des Fitnessstudios ändern können. (Chef ist in diesem Fall der wirklich Chef und Boss die Rolle im System)
+|Actors                     |Boss
+|Trigger                    |
+Boss möchte die allgemeinen Details ändern.
+|Vorbedingungen a|
+Der Chef des Fitnessstudios muss sich als Boss im System anmelden.
+|Wichtige Schritte           a|
+
+  1. Chef meldet sich als Boss an
+  2. Chef drückt den „Bearbeiten“ Button neben den Details.
+  3. Der Chef ändert die Details.
+4. Der Chef drückt auf Speichern
+5. Die Details wurden gespeichert und jetzt für jeden angezeigt.
+
+|Anhang                 |-
+|Funktionelle Anforderung    |-
+|===
+
+
+[cols="1h, 3"]
 [[UC301]]
 |===
 |ID |**<<UC301>>**
