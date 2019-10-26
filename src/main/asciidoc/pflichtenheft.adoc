@@ -494,6 +494,75 @@ _CheckOut:_:
 |Funktionelle Anforderung    |-
 |===
 
+[cols="1h, 3"]
+[[UC601]] & [[UC602]]
+|===
+|ID |**<<UC601>> & <<UC601>>**
+|Name |Show Roster & Edit Roster
+|Beschreibung  | Ein Staff soll den Dienstplan sehen und bearbeiten könne. 
+|Akteur                     |Staff
+|Auslöser               | Staff möchte den Dienstplan bearbeiten und drückt auf „Dienstplan“.
+|Vorbedingungen a| Der Staff muss angemeldet sein.
+|Wichtige Schritte           a| 1. Der Staff muss sich anmelden.
+2. Der Staff navigiert zu Dienstplan.
+3. Der Staff sieht den Dienstplan.
+4. Durch drücken von „Bearbeiten“ kann er bestimmte Termine bearbeiten und erstellen. Dabei muss er angeben welcher Kollege wann welchen Dienst macht.
+5. Durch Speichern wird der Eintrag gespeichert.
+|Anhang                 |-
+|Funktionelle Anforderung    |-
+|===
+
+[cols="1h, 3"]
+[[UC701]] & [[UC702]]
+|===
+|ID |**<<UC701>> & <<UC702>>**
+|Name |Remove & Edit Customer
+|Beschreibung                | Ein Staff bearbeitet die Liste der Customer.
+|Akteur                     |Staff
+|Auslöser               | Ein Staff möchte Customer bearbeiten und drückt auf „Mitglieder bearbeiten“.
+|Vorbedingungen a| Der Staff muss angemeldet sein. 
+|Wichtige Schritte           a| 1. Staff muss sich anmelden.
+2. Staff navigiert zu „Mitglieder bearbeiten“.
+3. Staff bearbeitet die Liste der Customer. (Entfernen, Details bearbeiten)
+|Anhang                 |-
+|Funktionelle Anforderung    |-
+|===
+
+[cols="1h, 3"]
+[[UC710]]
+|===
+|ID |**<<UC710>>**
+|Name | Manage Discounts
+|Beschreibung                | Ein Staff möchte einen Rabatt einstellen.
+|Akteur                     |Staff
+|Auslöser               | Es wurde eine Anfrage für ein Probetraining gesendet. Ein Staff drückt auf „Anfragen bearbeiten“.
+|Vorbedingungen a| Staff muss angemeldet sein. Es muss ein Objekt existieren auf die ein Rabatt angewendet werden kann.
+|Wichtige Schritte           a| ???
+
+|Anhang                 |-
+|Funktionelle Anforderung    |-
+|===
+
+[cols="1h, 3"]
+[[UC720]]
+|===
+|ID |**<<UC720>>**
+|Name | Add Credits
+|Beschreibung                | Ein Staff hat an der Theke von einem Customer Geld erhalten und soll dieses nun auf sein Guthabenkonto laden.
+|Akteur                     |Staff
+|Auslöser               | Ein Staff möchte für einen Customer Geld aufladen und drückt auf Guthaben hinzufügen.
+|Vorbedingungen a| Staff muss angemeldet sein. 
+|Wichtige Schritte           a| 1. Staff muss sich anmelden.
+2. Staff navigiert zu „Guthaben hinzufügen“.
+3. Staff wählt Customer aus und gibt Betrag ein.
+4. Der Betrag wird auf das Guthabenkonto des Customers überwiesen. 
+5. Eine Bemerkung soll auf der Rechnung des Customers erscheinen.
+
+|Anhang                 |-
+|Funktionelle Anforderung    |-
+|===
+
+
 
 == Funktionale Anforderungen
 
