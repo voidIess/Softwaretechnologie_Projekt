@@ -337,6 +337,25 @@ _CheckOut:_:
 |Funktionelle Anforderung    |-
 |===
 
+[cols="1h, 3"]
+[[UC330]]
+|===
+|ID |**<<UC330>>**
+|Name |Activate Account
+|Beschreibung                | Ein neues Nutzerkonto muss von einem Mitarbeiter freigegeben werden.
+|Akteur                     |Staff
+|Auslöser               | Ein neues Nutzerkonto wurde erstellt und muss jetzt noch freigegeben werden.
+|Vorbedingungen a| Es muss ein noch nicht freigegeben Konto geben.
+|Wichtige Schritte           a| 1. Mitarbeiter meldet sich als Staff an.
+2. Mitarbeiter navigiert zu „Nutzeraccounts freigeben“.
+3. Alle nicht freigegeben Nutzeraccounts werden angezeigt.
+4. Durch drücken auf akzeptieren wird der Account freigegeben.
+5. Das Mitglied kann sich jetzt anmelden.
+|Anhang                 |-
+|Funktionelle Anforderung    |-
+|===
+
+
 
 == Funktionale Anforderungen
 
