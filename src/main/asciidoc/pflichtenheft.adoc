@@ -199,7 +199,7 @@ Der Chef des Fitnessstudios muss sich als Boss im System anmelden. Die Statistik
 [cols="1h, 3"]
 [[UC201]]
 |===
-|ID |**<<UC201>>*
+|ID |**<<UC201>>**
 |Name |Manage Inventory Items
 |Beschreibung                |Die Mitarbeiter sollen die Artikel des Inventar des Fitnessstudios verwalten könne.
 |Actors                     |Staff
