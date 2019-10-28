@@ -507,7 +507,7 @@ _CheckOut:_:
 |===
 
 [cols="1h, 3"]
-[[UC601]] & [[UC602]]
+[[UC601]] [[UC602]]
 |===
 |ID |**<<UC601>> & <<UC601>>**
 |Name |Show Roster & Edit Roster
@@ -525,7 +525,7 @@ _CheckOut:_:
 |===
 
 [cols="1h, 3"]
-[[UC701]] & [[UC702]]
+[[UC701]] [[UC702]]
 |===
 |ID |**<<UC701>> & <<UC702>>**
 |Name |Remove & Edit Customer
