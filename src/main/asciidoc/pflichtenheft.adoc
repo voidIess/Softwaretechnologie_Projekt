@@ -1,7 +1,9 @@
 = Pflichtenheft
-:project_name: Projektname
+:project_name: Fitnessstudio
+:company_name: Fitnessstudio e.V.
 :toc: macro
 :toc-title: Inhaltsverzeichnis
+
 == __{project_name}__
 
 [options="header"]
@@ -14,7 +16,11 @@
 toc::[]
 
 == 1 Zusammenfassung
-Eine kurze Beschreibung des Dokuments. Wenige Absätze.
+Dieses Dokument spiegelt das Pflichtenheft des Projekts {project_name} für die Firma {company_name} wider.
+Es stellt einen Überblick über die zu erstellende Software und ihre Funktionen als Basis für die Kommunikation zwischen
+den Interessengruppen, hauptsächlich der Kunde und das Entwicklungsteam. Dieses Dokument bildet die vertragliche Grundlage
+zwischen Auftraggeber und -nehmer. Dafür muss es von beiden Seiten beständig aktualisiert und bestätigt werden.
+Das Pflichtenheft sammelt alle Funktionen, die die Software bringen muss und deren angestrebte Umsetzung.
 
 == 2 Aufgabenstellung und Zielsetzung
 Es soll eine Software für den Einsatz in einem Fitnessstudio entwickelt werden. Dabei sollen verschiedene
