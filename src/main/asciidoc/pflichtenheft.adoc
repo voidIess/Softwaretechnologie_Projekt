@@ -931,6 +931,84 @@ Dieser Abschnitt stellt eine Vereinigung von Glossar und der Beschreibung von Kl
 Mithilfe von Akzeptanztests wird geprüft, ob die Software die funktionalen Erwartungen und Anforderungen im Gebrauch erfüllt. Diese sollen und können aus den Anwendungsfallbeschreibungen und den UML-Sequenzdiagrammen abgeleitet werden. D.h., pro (komplexen) Anwendungsfall gibt es typischerweise mindestens ein Sequenzdiagramm (welches ein Szenarium beschreibt). Für jedes Szenarium sollte es einen Akzeptanztestfall geben. Listen Sie alle Akzeptanztestfälle in tabellarischer Form auf.
 Jeder Testfall soll mit einer ID versehen werde, um später zwischen den Dokumenten (z.B. im Test-Plan) referenzieren zu können.
 
+:Pre: Vorbedingungen
+:Event: Ereignis
+:Result: Erwartetes Ergebnis
+
+[cols="1h, 4"]
+|===
+|ID            |<<AT0101>>
+|Anwendungsfall      |<<UC0101>>
+|{Pre}        a|Der Nutzer ist als "Boss" angemeldet.
+|{Event}      a|Der Nutzer wählt "Bearbeiten", ändert die Details und drückt "Speichern".
+|{Result}     a|
+- Die Bearbeitungsfelder verschwinden
+- Die geänderten Details sind sichtbar
+- Jeder Nutzer greift nun auf die aktuallisierten Daten zu
+
+
+|===
+
+[cols="1h, 4"]
+|===
+|ID            |<<AT0301>>
+|Anwendungsfall      |<<UC0301>>
+|{Pre}        a|Es sind Nutzer im System registriert.
+|{Event}      a|Ein unauthentifizierter Nutzer navigiert zur Login Ansicht, gibt die Daten eines im System exentierendes Nutzers (01234567, pass123) ein und wählt "Login".
+|{Result}     a|
+- Der Nutzer ist nun in der Rolle "Customer", "Staff" oder "Boss" authentifiziert
+- Der Nutzer wird zu einer Willkommensansicht mit persönlicher Begrüßung weitergeleitet
+- Der Nutzer hat nun Zugriff auf alle Informationen und Funktionen, die mit seiner Rolle erreichbar sind
+|===
+
+
+[cols="1h, 4"]
+|===
+|ID            |<<AT0111>>
+|Anwendungsfall      |<<UC0111>>
+|{Pre}        a|Der Nutzer ist als "Boss" angemeldet.
+|{Event}      a|Der Nutzer steuert zur "Mitarbeiterliste" und wählt für einen Mitarbeiter "bearbeiten" aus. Er ändert die Eingaben und drückt "speichern".
+|{Result}     a|
+- Der Nutzer wird wieder zur Mitarbeizerliste geleitet
+- Die geänderten Informationen sind sichtbar und vom System übernommen
+|===
+
+
+[cols="1h, 4"]
+|===
+|ID            |<<AT0202>>
+|Anwendungsfall      |<<UC0202>>
+|{Pre}        a|Der Nutzer ist als "Staff" angemeldet. Das Inventar ist nicht leer. Das Guthaben des Kunden deckt die zukaufenden Artikel ab.
+|{Event}      a|Der Nutzer wählt "Neuer Verkauf", wählt die gewünschten Artikel aus und gibt dazu die folgenden Informationen an:
+
+- _Identifikaionsnummer_: 01234567
+- _Zahlungsart_: Guthaben
+
+Der Nutzer wählt die Option "verkaufen".
+
+|{Result}     a|
+- Nutzer wird zur Startseite zurückgeführt
+- Ein neuer Kauf mit Datum, Uhrzeit und den angegebenen Daten wird gespeichert
+- Die Anzahl der Artikel im Inventar wird verringert
+- Das Guthaben des Kunden wird um den errechneten Betrag verringert
+- Der Kauf wird auf der monatlichen Rechnung des Kunden sichtbar sein
+|===
+
+
+[cols="1h, 4"]
+|===
+|ID            |<<AT0730>>
+|Anwendungsfall      |<<UC0730>>
+|{Pre}        a|Der Nutzer ist als "Staff" angemeldet. Ein anderer Nutzer hat sich erfolgreich registriert.
+|{Event}      a|Der Nutzer wählt "Nutzeraccounts freigeben" und betsätigt einen Account mit "aktivieren".
+|{Result}     a|
+- Der Nutzer bleibt auf der Account-Aktivierungs Ansicht
+- Der ausgewählte Account ist nicht mehr sichtbar
+- ein neuer "Customer" mit den Daten aus der Registrierung wird erstellt und einer eindeutigen Nummer zugeordnet
+- Die Identifizierungsnummer wird angezeigt
+- Der Kunde kann sich nun in sein Konto einloggen und alle Funktionen nutzen
+|===
+
 == Glossar
 Sämtliche Begriffe, die innerhalb des Projektes verwendet werden und deren gemeinsames Verständnis aller beteiligten Stakeholder essentiell ist, sollten hier aufgeführt werden.
 Insbesondere Begriffe der zu implementierenden Domäne wurden bereits beschrieben, jedoch gibt es meist mehr Begriffe, die einer Beschreibung bedürfen. +
