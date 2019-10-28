@@ -260,16 +260,16 @@ Der Staff muss im System angemeldet sein. Es muss ein Inventar geben.
 |===
 |ID |**<<UC203>>**
 |Name |Show Inventory
-|Beschreibung                |Mitarbeiter wird Inventar gezeigt
+|Beschreibung                |Staff wird Inventar gezeigt
 |Akteur                     |Staff 
 |Auslöser                    |
-Mitarbeiter möchte Inventar ansehen und navigiert zum Inventar.
+Staff möchte Inventar ansehen und navigiert zum Inventar.
 |Vorbedingungen a|
-Es muss ein Inventar geben. Der Mitarbeiter muss als Staff angemeldet sein.
+Es muss ein Inventar geben. Der Staff muss angemeldet sein.
 |Wichtige Schritte           a|
 
-  1. Mitarbeiter meldet sich als Staff an.
-  2. Mitarbeiter navigiert zum Inventar.
+  1. Staff meldet sich an.
+  2. Staff navigiert zum Inventar.
 3. Liste wird angezeigt.
 |Anhang                 |-
 |Funktionelle Anforderung    |**<<F0610>>**, **<<F0210>>**
@@ -295,28 +295,28 @@ Es muss ein Inventar geben. Der Mitarbeiter muss als Staff angemeldet sein.
 |===
 |ID |**<<UC301>>**
 |Name |Login/Logout
-|Beschreibung                |Ein Nutzer sollte sich anmelden können, um bestimmte Features nutzen zu können.
+|Beschreibung                |Ein User sollte sich anmelden können, um bestimmte Features nutzen zu können.
 Diesen Prozess kann man mit Abmelden rückgängig machen.
 |Akteur                     |User
 |Auslöser                    |
-_Login_: Nutzer möchte „versteckte“ Features nutzen.
+_Login_: User möchte „versteckte“ Features nutzen.
 
-_Logout_: Nutzer möchte das System wieder verlassen.
+_Logout_: User möchte das System wieder verlassen.
 |Vorbedingungen a|
-_Login_: Nutzer ist noch nicht angemeldet. (Unregistered User)
+_Login_: User ist noch nicht angemeldet. (Unregistered User)
 
-_Logout_: Nutzer ist angemeldet.
+_Logout_: User ist angemeldet.
 |Wichtige Schritte           a|
 _Login_:
 
-  1. Nutzer drückt „Anmelden/Login“
-  2. Nutzer gibt seine Zugangsdaten ein
-  3. Nutzer drückt den „Login“ Button
+  1. User drückt „Anmelden/Login“
+  2. User gibt seine Zugangsdaten ein
+  3. User drückt den „Login“ Button
 
 _Logout_:
 
-  1. Nutzer drückt "Ausloggen" 
-  2. Nutzer ist abgemeldet und ihm wird der Home Bildschirm gezeigt.
+  1. User drückt "Ausloggen" 
+  2. User ist abgemeldet und ihm wird der Home Bildschirm gezeigt.
 
 |Anhang                 |-
 |Funktionelle Anforderung    |**<<F0210>>**
@@ -336,7 +336,7 @@ Es darf noch nicht ein Kundenkonto mit den Angaben geben.
 |Wichtige Schritte           a|
 
   1. Unregistered User drückt auf „Registrieren“.
-  2. Unregistered User gibt die notweniden Anmeldedaten ein.
+  2. Unregistered User gibt die notwendigen Anmeldedaten ein.
 3. Neues Kundenkonto wird erstellt.
 4. Nach Freigabe durch Staff kann unregistered User sich mit dem Konto anmelden.
 5. Unregistered User gelangt zurück zum Homebildschirm.
@@ -349,20 +349,20 @@ Es darf noch nicht ein Kundenkonto mit den Angaben geben.
 |===
 |ID |**<<UC320>>**
 |Name |CheckIn & CheckOut
-|Beschreibung                | Der Nutzer soll beim Betreten des Fitnessstudios im System als Anwesend markiert werden. Mit dem Prozess CheckOut kann man den Vorgang umkehren.
-|Akteur                     |Unregistered User
-|Auslöser                    |_CheckIn_: Nutzer betritt das Fitnessstudio und meldet sich mit seiner Chipkarte an.
-_CheckOut_: Nutzer verlässt das Fitnessstudio.
+|Beschreibung                | Der Customer soll beim Betreten des Fitnessstudios im System als Anwesend markiert werden. Mit dem Prozess CheckOut kann man den Vorgang umkehren.
+|Akteur                     |Customer
+|Auslöser                    |_CheckIn_: Customer betritt das Fitnessstudio und meldet sich mit seiner Chipkarte an.
+_CheckOut_: Customer verlässt das Fitnessstudio.
 |Vorbedingungen a| _CheckIn_: Nutzer ist noch nicht im Fitnessstudio.
 _CheckOut_: Nutzer ist im Fitnessstudio.
 |Wichtige Schritte           a|
 
 _CheckIn_:
-1.	Nutzer betritt das Fitnessstudio.
-2.	Im System ist der Nutzer jetzt anwesend.
+1.	Customer betritt das Fitnessstudio.
+2.	Im System ist der Customer jetzt anwesend.
 _CheckOut:_:
-1.	Nutzer verlässt das Studio.
-2.	Nutzer ist im System als abwesend markiert.
+1.	Customer verlässt das Studio.
+2.	Customer ist im System als abwesend markiert.
 |Anhang                 |-
 |Funktionelle Anforderung    |**<<F1010>>**
 |===
@@ -372,9 +372,9 @@ _CheckOut:_:
 |===
 |ID |**<<UC401>>**
 |Name |Show Recruiting Code
-|Beschreibung                | Nutzer soll seinen Anwerberkode sehen.
+|Beschreibung                | Customer soll seinen Anwerberkode sehen.
 |Akteur                     |Customer
-|Auslöser               | Nutzer möchte seinen Kode sein und geht auf sein Profil.
+|Auslöser               | Customer möchte seinen Kode sein und geht auf sein Profil.
 |Vorbedingungen a| Der Kode muss vergeben worden sein.
 |Wichtige Schritte           a| 1. Customer meldet sich an.
 2. Customer geht auf sein Profil.
@@ -387,10 +387,10 @@ _CheckOut:_:
 |===
 |ID |**<<UC410>>**
 |Name |Show Contract Details
-|Beschreibung                | Nutzer sieht seine Vertragsdetails.
+|Beschreibung                | Customer sieht seine Vertragsdetails.
 |Akteur                     |Customer
-|Auslöser               | Nutzer möchte seine Vertragsdetails sehen und drückt auf Profil.
-|Vorbedingungen a| Nutzer muss einen Vertrag bei der Anmeldung abgeschlossen werden.
+|Auslöser               | Customer möchte seine Vertragsdetails sehen und drückt auf Profil.
+|Vorbedingungen a| Customer muss einen Vertrag bei der Anmeldung abgeschlossen werden.
 |Wichtige Schritte           a| 1. Customer meldet sich an.
 2. Customer geht auf sein Profil.
 3. Customer sieht seinen Vertragsdetails.
@@ -403,10 +403,10 @@ _CheckOut:_:
 |===
 |ID |**<<UC411>>**
 |Name |Pause Contract for one Month
-|Beschreibung                | Nutzer soll seinen Vertrag für einen Monat pausieren.
+|Beschreibung                | Customer soll seinen Vertrag für einen Monat pausieren.
 |Akteur                     |Customer
-|Auslöser               | Nutzer möchte seinen Vertrag für einen Monat pausieren und drückt im Profil auf Vertrag pausieren.
-|Vorbedingungen a| Nutzer muss einen Vertrag bei der Anmeldung abgeschlossen werden.
+|Auslöser               | Customer möchte seinen Vertrag für einen Monat pausieren und drückt im Profil auf Vertrag pausieren.
+|Vorbedingungen a| Customer muss einen Vertrag bei der Anmeldung abgeschlossen werden.
 |Wichtige Schritte           a| 1. Customer meldet sich an.
 2. Customer geht auf sein Profil.
 3. Customer drückt auf „Vertrag pausieren“.
@@ -423,10 +423,10 @@ _CheckOut:_:
 |===
 |ID |**<<UC420>>**
 |Name |Show Bill
-|Beschreibung  | Der Nutzer soll seine monatliche Rechnung ansehen können.
+|Beschreibung  | Der Customer soll seine monatliche Rechnung ansehen können.
 |Akteur                     |Customer
-|Auslöser               | Nutzer möchte seine Rechnung sehen und klickt in seinem Profil auf „Rechnung“.
-|Vorbedingungen a| Der User muss angemeldet sein als Customer und es muss eine Rechnung erstellt werden.
+|Auslöser               | Customer möchte seine Rechnung sehen und klickt in seinem Profil auf „Rechnung“.
+|Vorbedingungen a| Der Customer muss angemeldet sein und es muss eine Rechnung erstellt werden.
 |Wichtige Schritte           a| 1. Customer meldet sich an.
 2. Customer geht auf sein Profil.
 3. Customer klickt auf „Rechnung“.
@@ -440,15 +440,15 @@ _CheckOut:_:
 |===
 |ID |**<<UC501>>**
 |Name |Create Training
-|Beschreibung                | Ein Mitarbeiter erstellt ein Trainingsplan.
+|Beschreibung                | Ein Staff erstellt ein Trainingsplan.
 |Akteur                     |Staff
-|Auslöser               | Mitarbeiter möchte Trainingsplan erstellen und navigiert zu Trainingsplan.
-|Vorbedingungen a| User muss als Staff angemeldet sein.
+|Auslöser               | Staff möchte Trainingsplan erstellen und navigiert zu Trainingsplan.
+|Vorbedingungen a| Staff muss angemeldet sein.
 |Wichtige Schritte           a| 1. Staff meldet sich an.
 2. Staff navigiert zu Trainingsplan erstellen.
 3. Gibt Daten ein.
 4. Speichern
-5. Nutzer wird Trainingsplan zugewiesen.
+5. Customer wird Trainingsplan zugewiesen.
 |Anhang                 |-
 |Funktionelle Anforderung    |**<<F0820>>**, **<<F0210>>**
 |===
@@ -461,8 +461,8 @@ _CheckOut:_:
 |Beschreibung  | Der Customer soll seine Trainingstermine sehen. 
 |Akteur                     |Customer
 |Auslöser               | Customer möchte seine Termine sehen und klickt auf „Trainingsplan“
-|Vorbedingungen a| Der User muss als „Customer“ angemeldet sein und es muss ein Trainingsplan existieren.
-|Wichtige Schritte           a| 1. Der User muss sich als Customer anmelden.
+|Vorbedingungen a| Der Customer muss angemeldet sein und es muss ein Trainingsplan existieren.
+|Wichtige Schritte           a| 1. Customer meldet sich an.
 2. Der Customer navigiert zu Trainingsplan
 3. Dem Nutzer wird eine Liste seiner Termine angezeigt.
 |Anhang                 |-
@@ -565,15 +565,15 @@ _CheckOut:_:
 |===
 |ID |**<<UC730>>**
 |Name |Activate Account
-|Beschreibung                | Ein neues Nutzerkonto muss von einem Mitarbeiter freigegeben werden.
+|Beschreibung                | Ein neues Nutzerkonto muss von einem Staff freigegeben werden.
 |Akteur                     |Staff
-|Auslöser               | Ein neues Nutzerkonto wurde erstellt und muss jetzt noch freigegeben werden. Der Mitarbeiter drückt dafür in der Liste der Mitglieder auf akzeptieren.
+|Auslöser               | Ein neues Nutzerkonto wurde erstellt und muss jetzt noch freigegeben werden. Der Staff drückt dafür in der Liste der Mitglieder auf akzeptieren.
 |Vorbedingungen a| Es muss ein noch nicht freigegeben Konto geben.
-|Wichtige Schritte           a| 1. Mitarbeiter meldet sich als Staff an.
-2. Mitarbeiter navigiert zu „Nutzeraccounts freigeben“.
+|Wichtige Schritte           a| 1. Staff meldet sich an.
+2. Staff navigiert zu „Nutzeraccounts freigeben“.
 3. Alle nicht freigegeben Nutzeraccounts werden angezeigt.
 4. Durch drücken auf akzeptieren wird der Account freigegeben.
-5. Das Mitglied kann sich jetzt anmelden.
+5. Das Staff kann sich jetzt anmelden.
 |Anhang                 |-
 |Funktionelle Anforderung    |**<<F0222>>**, **<<F0210>>**
 |===
