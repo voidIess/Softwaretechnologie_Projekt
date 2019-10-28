@@ -166,7 +166,7 @@ Der Chef des Fitnessstudios muss sich als Boss im System anmelden.
 5. Die Details wurden gespeichert und jetzt für jeden angezeigt.
 
 |Anhang                 |-
-|Funktionelle Anforderung    |-
+|Funktionelle Anforderung    |**<<F0100>>**, **<<F0210>>**
 |===
 
 [[UC110]]  [[UC111]]
@@ -189,7 +189,7 @@ Der Chef des Fitnessstudios muss sich als Boss im System anmelden.
 6. Die Mitarbeiterliste wurden gespeichert.
 
 |Anhang                 |-
-|Funktionelle Anforderung    |-
+|Funktionelle Anforderung    |**<<F0410>>**, **<<F0420>>**, **<<F0210>>**
 |===
 
 [cols="1h, 3"]
@@ -208,7 +208,7 @@ Der Chef des Fitnessstudios muss sich als Boss im System anmelden. Die Statistik
   1. Chef meldet sich als Boss an
   2.Chef navigiert zu den Statistiken.
 |Anhang                 |-
-|Funktionelle Anforderung    |-
+|Funktionelle Anforderung    |**<<F1000>>**, **<<F0210>>**
 |===
 
 [cols="1h, 3"]
@@ -229,7 +229,7 @@ Der Mitarbeiter muss als Staff im System angemeldet sein. Es muss ein Inventar g
 3. Mitarbeiter führt die verwaltende Aufgabe aus.
 4. Änderungen sollen gespeichert werden.
 |Anhang                 |-
-|Funktionelle Anforderung    |-
+|Funktionelle Anforderung    |**<<F0620>>**, **<<F0210>>**
 |===
 
 [cols="1h, 3"]
@@ -252,7 +252,7 @@ Der Mitarbeiter muss als Staff im System angemeldet sein. Es muss ein Inventar g
 5. Der Kauf wird in der Rechnung des Mitglieds gespeichert.
 6. Im Inventar wird die Anzahl des gekauften Artikels um 1 verringert.
 |Anhang                 |-
-|Funktionelle Anforderung    |-
+|Funktionelle Anforderung    |**<<F0630>>**, **<<F0210>>**, **<<F0600>>**
 |===
 
 [cols="1h, 3"]
@@ -272,7 +272,7 @@ Es muss ein Inventar geben. Der Mitarbeiter muss als Staff angemeldet sein.
   2. Mitarbeiter navigiert zum Inventar.
 3. Liste wird angezeigt.
 |Anhang                 |-
-|Funktionelle Anforderung    |-
+|Funktionelle Anforderung    |**<<F0610>>**, **<<F0210>>**
 |===
 
 [cols="1h, 3"]
@@ -287,7 +287,7 @@ Es muss ein Inventar geben. Der Mitarbeiter muss als Staff angemeldet sein.
 |Wichtige Schritte           a| ???
 
 |Anhang                 |-
-|Funktionelle Anforderung    |-
+|Funktionelle Anforderung    |**<<F0640>>**
 |===
 
 [cols="1h, 3"]
@@ -319,7 +319,7 @@ _Logout_:
   2. Nutzer ist abgemeldet und ihm wird der Home Bildschirm gezeigt.
 
 |Anhang                 |-
-|Funktionelle Anforderung    |-
+|Funktionelle Anforderung    |**<<F0210>>**
 |===
 
 [cols="1h, 3"]
@@ -341,7 +341,7 @@ Es darf noch nicht ein Kundenkonto mit den Angaben geben.
 4. Nach Freigabe durch Staff kann unregistered User sich mit dem Konto anmelden.
 5. Unregistered User gelangt zurück zum Homebildschirm.
 |Anhang                 |-
-|Funktionelle Anforderung    |-
+|Funktionelle Anforderung    |**<<F0221>>**, **<<F0222>>**, **<<F0210>>**
 |===
 
 [cols="1h, 3"]
@@ -364,7 +364,7 @@ _CheckOut:_:
 1.	Nutzer verlässt das Studio.
 2.	Nutzer ist im System als abwesend markiert.
 |Anhang                 |-
-|Funktionelle Anforderung    |-
+|Funktionelle Anforderung    |**<<F1010>>**
 |===
 
 [cols="1h, 3"]
@@ -380,7 +380,7 @@ _CheckOut:_:
 2. Customer geht auf sein Profil.
 3. Customer sieht seinen Anwerberkode.
 |Anhang                 |-
-|Funktionelle Anforderung    |-
+|Funktionelle Anforderung    |**<<F0730>>**, **<<F0210>>**
 |===
 [cols="1h, 3"]
 [[UC410]]
@@ -395,7 +395,7 @@ _CheckOut:_:
 2. Customer geht auf sein Profil.
 3. Customer sieht seinen Vertragsdetails.
 |Anhang                 |-
-|Funktionelle Anforderung    |-
+|Funktionelle Anforderung    |**<<F0710>>**, **<<F0210>>**
 |===
 
 [cols="1h, 3"]
@@ -415,7 +415,7 @@ _CheckOut:_:
 6. Erst im nächsten Jahr soll es wieder möglich sein seinen Vertrag zu pausieren.
 
 |Anhang                 |-
-|Funktionelle Anforderung    |-
+|Funktionelle Anforderung    |**<<F0720>>**, **<<F0210>>**
 |===
 
 [cols="1h, 3"]
@@ -432,7 +432,7 @@ _CheckOut:_:
 3. Customer klickt auf „Rechnung“.
 4. Dem Customer wird die Rechnung angezeigt. (Als PDF)
 |Anhang                 |-
-|Funktionelle Anforderung    |-
+|Funktionelle Anforderung    |**<<F0710>>**, **<<F0210>>**
 |===
 
 [cols="1h, 3"]
@@ -450,7 +450,7 @@ _CheckOut:_:
 4. Speichern
 5. Nutzer wird Trainingsplan zugewiesen.
 |Anhang                 |-
-|Funktionelle Anforderung    |-
+|Funktionelle Anforderung    |**<<F0820>>**, **<<F0210>>**
 |===
 
 [cols="1h, 3"]
@@ -466,7 +466,7 @@ _CheckOut:_:
 2. Der Customer navigiert zu Trainingsplan
 3. Dem Nutzer wird eine Liste seiner Termine angezeigt.
 |Anhang                 |-
-|Funktionelle Anforderung    |-
+|Funktionelle Anforderung    |**<<F0810>>**, **<<F0210>>**
 |===
 
 [cols="1h, 3"]
@@ -484,7 +484,7 @@ _CheckOut:_:
 4. Wenn nicht kann er einen Antrag ausfüllen. Dabei kann er einen beliebigen Trainer und Termin angeben.
 5. Durch „Absenden“ wird die Anfrage gesendet. 
 |Anhang                 |-
-|Funktionelle Anforderung    |-
+|Funktionelle Anforderung    |**<<F0831>>**, **<<F0210>>**
 |===
 
 [cols="1h, 3"]
@@ -503,7 +503,7 @@ _CheckOut:_:
 5. Wenn die Anfrage angenommen wurde wird dem Nutzer der Termin bestätigt. Er kann absofort kein Probetraining mehr anfragen. Wenn nicht erhält der Nutzer die Möglichkeit einen anderen Termin zu wählen. In diesem Fall hat er also immer noch sein freies Probetraining.
 
 |Anhang                 |-
-|Funktionelle Anforderung    |-
+|Funktionelle Anforderung    |**<<F0832>>**, **<<F0210>>**
 |===
 
 [cols="1h, 3"]
@@ -521,7 +521,7 @@ _CheckOut:_:
 4. Durch drücken von „Bearbeiten“ kann er bestimmte Termine bearbeiten und erstellen. Dabei muss er angeben welcher Kollege wann welchen Dienst macht.
 5. Durch Speichern wird der Eintrag gespeichert.
 |Anhang                 |-
-|Funktionelle Anforderung    |-
+|Funktionelle Anforderung    |**<<F0910>>**, **<<F0920>>**, **<<F0210>>**
 |===
 
 [cols="1h, 3"]
@@ -537,7 +537,7 @@ _CheckOut:_:
 2. Staff navigiert zu „Mitglieder bearbeiten“.
 3. Staff bearbeitet die Liste der Customer. (Entfernen, Details bearbeiten)
 |Anhang                 |-
-|Funktionelle Anforderung    |-
+|Funktionelle Anforderung    |**<<F0310>>**, **<<F0210>>**
 |===
 
 
@@ -557,7 +557,7 @@ _CheckOut:_:
 5. Eine Bemerkung soll auf der Rechnung des Customers erscheinen.
 
 |Anhang                 |-
-|Funktionelle Anforderung    |-
+|Funktionelle Anforderung    |**<<F0510>>**, **<<F0210>>**
 |===
 
 [cols="1h, 3"]
@@ -575,7 +575,7 @@ _CheckOut:_:
 4. Durch drücken auf akzeptieren wird der Account freigegeben.
 5. Das Mitglied kann sich jetzt anmelden.
 |Anhang                 |-
-|Funktionelle Anforderung    |-
+|Funktionelle Anforderung    |**<<F0222>>**, **<<F0210>>**
 |===
 
 == Funktionale Anforderungen
@@ -593,7 +593,7 @@ Anfordeungen die das Programm auf alle Fälle erfüllen muss.
 |Name
 |Beschreibung
 
-|[F0100]
+|**<<F0100>>**[[F0100]]
 |v0.1
 |Allgemeine Informationen ändern
 a|
@@ -604,7 +604,7 @@ Das System soll diese Informationen über das Fitnessstudio global speichern und
 * Öffnungszeiten
 * Einladungsprämie
 
-|[F0210]
+|**<<F0210>>**[[F0210]]
 |v0.1
 |Authentifizierung
 a|
@@ -615,7 +615,8 @@ Das System muss zwischen öffentlich zugänglichen und geschützten Informatione
 
 Der Nutzer muss durch den Login in eine der Gruppen Kunde, Mitarbeiter oder Boss eingeordnet werden, welche verschiedene Rechte haben. Durch ein Logout erlischen diese wieder.
 
-|[F0221]
+
+|**<<F0221>>**[[F0221]]
 |v0.1
 |Registrierung
 a|
@@ -626,15 +627,15 @@ Es muss möglich sein unregistrierte Nutzer über die Auswahl "registrieren" in 
 * Passwort
 * Einladungs Code (optional)
 
-Das System muss alle so registrierten Nutzer persistent speichern. Erst nach der Freigabe des Accounts ([F0222]) durch einen Mitarbeiter muss der Kunde in die Mitgliederliste aufgenommen werden. Er erhält eine eindeutige Identifikationsnummer und kann sich nun mit dieser und seinem Passwort anmelden ([F0210]).
+Das System muss alle so registrierten Nutzer persistent speichern. Erst nach der Freigabe des Accounts **<<F0222>>**) durch einen Mitarbeiter muss der Kunde in die Mitgliederliste aufgenommen werden. Er erhält eine eindeutige Identifikationsnummer und kann sich nun mit dieser und seinem Passwort anmelden (**<<F0210>>**).
 
-|[F0222]
+|**<<F0222>>**[[F0222]]
 |v0.1
 |Aktivierung eines Accounts
 a|
-Wählt ein Mitarbieter die Funktion "aktivieren" für einen registrierten ([F0221]) Neukunden aus, wird diesem eine eindeutige Nummer zugeordnet mit der er in das System eingetragen wird. Erst damit ist es dem Nutzer möglich sich als Kunde anzumelden ([F0210]).
+Wählt ein Mitarbieter die Funktion "aktivieren" für einen registrierten (**<<F0221>>**) Neukunden aus, wird diesem eine eindeutige Nummer zugeordnet mit der er in das System eingetragen wird. Erst damit ist es dem Nutzer möglich sich als Kunde anzumelden (**<<F0210>>**).
 
-|[F0300] und [F0400]
+|**<<F0300>>** & **<<F0400>>** [[F0300]] [[F0400]]
 |v0.1
 |Kunden und Mitarbeiter
 a|
@@ -647,19 +648,19 @@ Das System muss:
 
 der Kunden und Mitarbeiter dauerhaft speichern.
 
-|[F0310]
+|**<<F0310>>** [[F0310]]
 |v0.1
 |Kunden bearbeiten und löschen
 a|
 Das System muss es authentifizierten Mitarbeitern möglich machen einzelne Details eines Kunden zu bearbeiten oder seinen Account zu löschen.
 
-|[F0410]
+|**<<F0410>>** [[F0410]]
 |v0.1
 |Mitarbeiter bearbeiten und löschen
 a|
 Das Systen muss es dem Boss möglich machen einzelne Details eines Mitarbeiters zu bearbeiten oder seinen Account zu löschen.
 
-|[F0420]
+|**<<F0420>>** [[F0420]]
 |v0.1
 |Mitarbeiter hinzufügen
 a|
@@ -671,19 +672,19 @@ Das System muss den Boss Mitarbeiter hinzufügen lassen. Dafür müssen:
 
 angegeben werden. Eine Identifikationsnummer muss vom System generiert werden.
 
-|[F0500]
+|**<<F0500>>** [[F0500]]
 |v0.1
 |Guthabenkonto
 a|
 Das System muss für jeden Kunden einen Betrag als Guthaben seines Kontos persistent speichern.
 
-|[F0510]
+|**<<F0510>>** [[F0510]]
 |v0.1
 |Guthaben erhöhen
 a|
 Das System muss authentifizierte Mitarbeiter den Betrag des Guthabenkontos eines beliebeigen Kunden um einen manuell eingegebenen Betrag erhöhen lassen.
 
-|[F0600]
+|**<<F0600>>** [[F0600]]
 |v0.1
 |Inventar
 a|
@@ -694,25 +695,25 @@ Das System muss Daten über das Verkaufsinventar dauerhaft speichern. Dazu gehö
 * Mindestanzahl
 * aktueller Rabatt (optional)
 
-|[F0610]
+|**<<F0610>>** [[F0610]]
 |v1.0
 |Inventar anzeigen
 a|
 Das System muss es den authentifizierten Mitarbeitern möglich machen Name und Anzahl der Artikel im Inventar einzusehen. Das unterschreiten der Mindestmenge muss hierbei farblich angezeigt werden.
 
-|[F0620]
+|**<<F0620>>** [[F0620]]
 |v1.0
 |Inventar bearbeiten
 a|
 Das System muss es authentifizierten Mitarbietern ermöglichen Artikel aus dem Inventar zu entfernen oder neue hinzuzufügen.
 
-|[F0630]
+|**<<F0630>>** [[F0630]]
 |v1.0
 |Artikel verkaufen
 a|
-Das System muss den authentifizierten Mitarbieter Artikel aus dem Inventar verkaufen lassen. Nachdem die Artikel ausgewählt wurden muss eine registrierte Kundennummer verlangt werden und die Optionen "bar" oder mit "Guthaben" zahlen müssen angebbar sein. Das Inventar wird vom System aktualisiert. Der Kauf wird in die Statistiken ([F1000]) und die monatliche Rechnung des Kunden ([F0710]) übernommen.
+Das System muss den authentifizierten Mitarbieter Artikel aus dem Inventar verkaufen lassen. Nachdem die Artikel ausgewählt wurden muss eine registrierte Kundennummer verlangt werden und die Optionen "bar" oder mit "Guthaben" zahlen müssen angebbar sein. Das Inventar wird vom System aktualisiert. Der Kauf wird in die Statistiken (**<<F1000>>**) und die monatliche Rechnung des Kunden (**<<F0710>>**) übernommen.
 
-|[F0710]
+|**<<F0710>>** [[F0710]]
 |v1.0
 |Vertragsdetails anzeigen
 a|
@@ -722,13 +723,13 @@ Das System muss einem authentifizierten Kunden Informationen über seinen Vertra
 * Vertragslaufzeit
 * Rechnung des letzten Monats (als PDF)
 
-|[F0720]
+|**<<F0720>>** [[F0720]]
 |v1.0
 |Vertrag pausieren
 a|
 Das System muss es jedem Kunden einmal pro Jahr ermöglichen die Auswahl "Vertrag pausieren" zu treffen. Für den nächsten Monat werden keine Beitragskosten berechnet und die Vertragslaufzeit wird um einen Monat verlängert.
 
-|[F0800]
+|**<<F0800>>** [[F0800]]
 |v1.0
 |Trainingstermin
 a|
@@ -739,31 +740,31 @@ Das System muss für jeden Kunden einen Trainigstermin dauerhaft speichern könn
 * Datum
 * Anfangs- und Endzeiten
 
-|[F0810]
+|**<<F0810>>** [[F0810]]
 |v1.0
 |Trainingstermin anzeigen
 a|
 Das System muss den nächsten vereinbarten Trainingstermin für einen authentifizierten Kunden sichtbar machen.
 
-|[F0820]
+|**<<F0820>>** [[F0820]]
 |v1.0
 |Trainingstermin erstellen
 a|
-Das System muss es authentifizierten Mitarbeitern ermöglichen einen neuen Trainingstermin für einen beliebigen Kunden zu speichern. Das System aktualisiert ggf. die Anzeige ([F0810]) des Kunden.
+Das System muss es authentifizierten Mitarbeitern ermöglichen einen neuen Trainingstermin für einen beliebigen Kunden zu speichern. Das System aktualisiert ggf. die Anzeige (**<<F0810>>**) des Kunden.
 
-|[F0831]
+|**<<F0831>>** [[F0831]]
 |v1.0
 |Probetraining anfragen
 a|
-Das System muss jedem authentifizierten Kunden die Möglichkeit bieten über "Probetraining anfordern" eine Anfrage mit den Merkmalen aus [F0800] zu senden. Wurde diese Anfrage einmal angenommen ([F0832]) wird der Kunde vom System vermerkt und kann keine Anfragen mehr senden.
+Das System muss jedem authentifizierten Kunden die Möglichkeit bieten über "Probetraining anfordern" eine Anfrage mit den Merkmalen aus **<<F0800>>** zu senden. Wurde diese Anfrage einmal angenommen (**<<F0832>>**) wird der Kunde vom System vermerkt und kann keine Anfragen mehr senden.
 
-|[F0832]
+|**<<F0832>>** [[F0832]]
 |v1.0
 |Probetraining annehmen/ablehnen
 a|
-Das System muss jedem authentifizierten Mitarbeiter unter "Anfragen bearbeiten" eine Liste der aktuellen, unbeantworteten Anfragen anzeigen. Wird eine der beiden Optionen "annehmen" oder "ablehnen" gewählt, wird diese dem Kunden angezeigt und der bearbeitete Eintag muss aus der Liste entfernt werden. In dem Fall einer angenommenen Anfrage erstellt das System einen Trainingtermin ([F0800]) für den angegebenen Kunden.
+Das System muss jedem authentifizierten Mitarbeiter unter "Anfragen bearbeiten" eine Liste der aktuellen, unbeantworteten Anfragen anzeigen. Wird eine der beiden Optionen "annehmen" oder "ablehnen" gewählt, wird diese dem Kunden angezeigt und der bearbeitete Eintag muss aus der Liste entfernt werden. In dem Fall einer angenommenen Anfrage erstellt das System einen Trainingtermin (**<<F0800>>**) für den angegebenen Kunden.
 
-|[F0900]
+|**<<F0900>>** [[F0900]]
 |v1.0
 |Dienstplan
 a|
@@ -774,17 +775,17 @@ Das System soll in der Lage sein den aktuellen Dienstplan zu speichern. Ein Dien
 * Datum
 * Anfangs- und Endzeiten
 
-|[F0910]
+|**<<F0910>>** [[F0910]]
 |v1.0
 |Dienstplan anzeigen
 a|
 Das System muss es jedem authentifizierten Mitarbeiter ermöglichen den aktuellen Dienstplan einzusehen. Dieser wird tabellarisch als Kalender angezeigt.
 
-|[F0920]
+|**<<F0920>>** [[F0920]]
 |v1.0
 |Dienstplan bearbeiten
 a|
-Das System muss einzelne Dienste, der in [0900] beschriebenen Form, von jedem authentifizierten Mitarbieter bearbeiten, löschen oder hinzugügen lassen können.
+Das System muss einzelne Dienste, der in **<<F0900>>** beschriebenen Form, von jedem authentifizierten Mitarbieter bearbeiten, löschen oder hinzugügen lassen können.
 
 |===
 
@@ -798,25 +799,25 @@ Anforderungen die das Programm leisten können soll, aber für den korrekten Bet
 |Name
 |Beschreibung
 
-|[F0640]
+|**<<F0640>>** [[F0640]]
 |v1.0
 |Rabatte verwalten
 a|
 Das System soll es authentifizierten Mitarbeitern erlauben zu einzelnen Artikeln des Inventars Rabatte hinzuzufügen, zu ändern oder zu entfernen. Dazu wird manuell ein Prozentsatz eingegeben, welcher vom System als aktueller Rabatt gespeichert wird.
 
-|[F0730]
+|**<<F0730>>** [[F0730]]
 |v1.0
 |Anwerbe Code anzeigen
 a|
-Das System soll jedem aktivierten ([F0222]) Kundenkonto einen eindeutigen Code zur Verfügung stellen. Wird ein Neukonto mit diesem Code freigegeben, erhöht das System das Guthaben des Altkunden um einen festgelegten Wert. Der Code kann dabei beliebig oft angezeigt und von neuen Kunden während der Registrierung ([F0221]) angegeben werden.
+Das System soll jedem aktivierten (**<<F0222>>**) Kundenkonto einen eindeutigen Code zur Verfügung stellen. Wird ein Neukonto mit diesem Code freigegeben, erhöht das System das Guthaben des Altkunden um einen festgelegten Wert. Der Code kann dabei beliebig oft angezeigt und von neuen Kunden während der Registrierung (**<<F0221>>**) angegeben werden.
 
-|[F1000]
+|**<<F1000>>** [[F1000]]
 |v1.0
 |Statistiken anzeigen
 a|
 Das System soll dem Boss eine graphische Übersicht über Kundenverhalten (Anwesenheitszeiten, Käufe) und Umsatz (Löhne, Beiträge, Verkäufe) geben.
 
-|F[1010]
+|**<<F1010>>** [[F1010]]
 |v0.1
 |Check-In/-Out
 a|
