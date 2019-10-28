@@ -192,8 +192,7 @@ Der Boss des Fitnessstudios muss sich im System anmelden.
 |Funktionelle Anforderung    |**<<F0410>>**, **<<F0420>>**, **<<F0210>>**
 |===
 
-image::models/edit Staff.jpg
-
+image::./models/analysis/sequence_edit_staff.jpg[Use Case diagram, 100%, 100%, pdfwidth=100%, title= "Use case diagram des Projekts", align=center]
 
 [cols="1h, 3"]
 [[UC120]]
@@ -257,6 +256,8 @@ Der Staff muss im System angemeldet sein. Es muss ein Inventar geben.
 |Anhang                 |-
 |Funktionelle Anforderung    |**<<F0630>>**, **<<F0210>>**, **<<F0600>>**
 |===
+
+image::./models/analysis/sequence_sell_item.jpg[Use Case diagram, 100%, 100%, pdfwidth=100%, title= "Use case diagram des Projekts", align=center]
 
 [cols="1h, 3"]
 [[UC203]]
@@ -580,6 +581,8 @@ _CheckOut:_:
 |Anhang                 |-
 |Funktionelle Anforderung    |**<<F0222>>**, **<<F0210>>**
 |===
+
+image::./models/analysis/sequence_getNotActiveAccountsf.jpg[Use Case diagram, 100%, 100%, pdfwidth=100%, title= "Use case diagram des Projekts", align=center]
 
 == Funktionale Anforderungen
 In diesem Abschnitt wird beschrieben, was das zu erstellende Programm leisten soll.
