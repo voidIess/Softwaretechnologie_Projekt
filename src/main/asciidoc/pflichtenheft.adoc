@@ -159,10 +159,10 @@ Boss möchte die allgemeinen Details ändern und drückt auf bearbeiten neben de
 Der Chef des Fitnessstudios muss sich als Boss im System anmelden.
 |Wichtige Schritte           a|
 
-  1. Chef meldet sich als Boss an
-  2. Chef drückt den „Bearbeiten“ Button neben den Details.
-  3. Der Chef ändert die Details.
-4. Der Chef drückt auf Speichern
+  1. Als Boss anmelden
+  2. Boss drückt den „Bearbeiten“ Button neben den Details.
+  3. Der Boss ändert die Details.
+4. Der Boss drückt auf Speichern
 5. Die Details wurden gespeichert und jetzt für jeden angezeigt.
 
 |Anhang                 |-
@@ -178,15 +178,15 @@ Der Chef des Fitnessstudios muss sich als Boss im System anmelden.
 |Auslöser                    |
 Boss möchte etwas an den Mitarbeitern „ändern“ und navigiert zur Mitarbeiterliste.
 |Vorbedingungen a|
-Der Chef des Fitnessstudios muss sich als Boss im System anmelden.
+Der Boss des Fitnessstudios muss sich im System anmelden.
 |Wichtige Schritte           a|
 
-  1. Chef meldet sich als Boss an
-  2.Chef navigiert zu den Mitarbeitern.
- 3.Chef drückt den „Bearbeiten“, „Hinzufügen“, „Löschen“ Button
-  4. Der Chef ändert/fügt die Details hinzu.
-5. Der Chef drückt auf Speichern
-6. Die Mitarbeiterliste wurden gespeichert.
+  1. Boss meldet sich an
+  2.Boss navigiert zu den "Mitarbeiterliste".
+ 3.Boss drückt den „Bearbeiten“, „Hinzufügen“, „Löschen“ Button
+  4. Der Boss ändert/fügt die Details hinzu.
+5. Der Boss drückt auf Speichern
+6. Die Änderungen an den Staffs wurden gespeichert.
 
 |Anhang                 |-
 |Funktionelle Anforderung    |**<<F0410>>**, **<<F0420>>**, **<<F0210>>**
@@ -202,11 +202,11 @@ Der Chef des Fitnessstudios muss sich als Boss im System anmelden.
 |Auslöser                    |
 Boss möchte sich Statistiken ansehen und navigiert zu Statistiken.
 |Vorbedingungen a|
-Der Chef des Fitnessstudios muss sich als Boss im System anmelden. Die Statistiken müssen ausgewertet und angelegt worden sein.
+Der Boss des Fitnessstudios muss sich anmelden. Die Statistiken müssen ausgewertet und angelegt worden sein.
 |Wichtige Schritte           a|
 
-  1. Chef meldet sich als Boss an
-  2.Chef navigiert zu den Statistiken.
+  1. Boss meldet sich als Boss an
+2. Boss navigiert zu den Statistiken.
 |Anhang                 |-
 |Funktionelle Anforderung    |**<<F1000>>**, **<<F0210>>**
 |===
@@ -216,17 +216,17 @@ Der Chef des Fitnessstudios muss sich als Boss im System anmelden. Die Statistik
 |===
 |ID |**<<UC201>>**
 |Name |Manage Inventory Items
-|Beschreibung                |Die Mitarbeiter sollen die Artikel des Inventar des Fitnessstudios verwalten können.
+|Beschreibung                |Die Staffs sollen die Artikel des Inventar des Fitnessstudios verwalten können.
 |Akteur                     |Staff
 |Auslöser                    |
-Mitarbeiter möchte das Inventar verwalten/bearbeiten und navigiert zum Inventar.
+Staff möchte das Inventar verwalten/bearbeiten und navigiert zum Inventar.
 |Vorbedingungen a|
-Der Mitarbeiter muss als Staff im System angemeldet sein. Es muss ein Inventar geben. 
+Der Staff muss im System angemeldet sein. Es muss ein Inventar geben. 
 |Wichtige Schritte           a|
 
-  1. Mitarbeiter meldet sich als Staff an.
-  2.Mitarbeiter navigiert zum Inventar.
-3. Mitarbeiter führt die verwaltende Aufgabe aus.
+  1. Staff meldet sich an.
+  2.Staff navigiert zum Inventar.
+3. Staff führt die verwaltende Aufgabe aus.
 4. Änderungen sollen gespeichert werden.
 |Anhang                 |-
 |Funktionelle Anforderung    |**<<F0620>>**, **<<F0210>>**
@@ -237,18 +237,18 @@ Der Mitarbeiter muss als Staff im System angemeldet sein. Es muss ein Inventar g
 |===
 |ID |**<<UC202>>**
 |Name |Sell Items
-|Beschreibung                |Mitglieder sollen etwas kaufen können.
+|Beschreibung                |Customer sollen etwas kaufen können.
 |Akteur                     |Staff & Customer
 |Auslöser                    |
-Mitglied kauft etwas an der Theke und der Staff trägt es ein.
+Customer kauft etwas an der Theke und der Staff trägt es ein.
 |Vorbedingungen a|
-Der Mitarbeiter muss als Staff im System angemeldet sein. Es muss ein Inventar geben. 
+Der Staff muss im System angemeldet sein. Es muss ein Inventar geben. 
 |Wichtige Schritte           a|
 
-  1. Mitarbeiter meldet sich als Staff an.
-  2.Mitarbeiter trägt den Verkauf ein (Wer, Was)
+  1. Staff meldet sich an.
+  2.Staff trägt den Verkauf ein (Wer, Was)
 3. Fügt etwas zu den Statistiken hinzu
-4. Das Konto des Mitglieds wird belastet, wenn er nicht bar bezahlt.
+4. Das Konto des Customers wird belastet, wenn er nicht bar bezahlt.
 5. Der Kauf wird in der Rechnung des Mitglieds gespeichert.
 6. Im Inventar wird die Anzahl des gekauften Artikels um 1 verringert.
 |Anhang                 |-
