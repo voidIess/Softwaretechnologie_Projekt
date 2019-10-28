@@ -192,6 +192,9 @@ Der Boss des Fitnessstudios muss sich im System anmelden.
 |Funktionelle Anforderung    |**<<F0410>>**, **<<F0420>>**, **<<F0210>>**
 |===
 
+image::models/edit Staff.jpg
+
+
 [cols="1h, 3"]
 [[UC120]]
 |===
