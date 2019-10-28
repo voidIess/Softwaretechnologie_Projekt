@@ -248,11 +248,13 @@ Der Staff muss im System angemeldet sein. Es muss ein Inventar geben.
 |Wichtige Schritte           a|
 
   1. Staff meldet sich an.
-  2.Staff trägt den Verkauf ein (Wer, Was)
-3. Fügt etwas zu den Statistiken hinzu
+2. Staff trägt den Verkauf ein (Wer, Was).
+3. Fügt etwas zu den Statistiken hinzu.
 4. Das Konto des Customers wird belastet, wenn er nicht bar bezahlt.
-5. Der Kauf wird in der Rechnung des Mitglieds gespeichert.
+5. Der Kauf wird in der Rechnung des Customers gespeichert.
 6. Im Inventar wird die Anzahl des gekauften Artikels um 1 verringert.
+7. Die Statistiken werden aktualisiert.
+
 |Anhang                 |-
 |Funktionelle Anforderung    |**<<F0630>>**, **<<F0210>>**, **<<F0600>>**
 |===
