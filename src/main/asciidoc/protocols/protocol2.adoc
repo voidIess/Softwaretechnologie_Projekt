@@ -49,7 +49,7 @@ Kundengespräch wurde geführt. Erste Fragen sind Beantwortet.
 [option="headers"]
 |===
 |Issue |Titel |Beschreibung |Verantwortlicher |Status
-|…     |Pflichtenheft erstellen  |…            |alle           |noch nicht begonnen
+|…     |Pflichtenheft erstellen  |…            |alle           |in Arbeit
 |…     |Rabatte    |Rabatte zum Videoshop hinzufügen|Vu                |noch nicht begonnen
 |…     |Bewertungen    |Bewertungen zum Videoshop hinzufügen|Lea                |noch nicht begonnen
 |…     |Bestellungen    |Bestellungen zum Videoshop hinzufügen|Julius       |noch nicht begonnen
