@@ -1,5 +1,9 @@
 = Pflichtenheft
-:project_name: Projektname
+:project_name: Fitnessstudio
+:company_name: Fitnessstudio e.V.
+:toc: macro
+:toc-title: Inhaltsverzeichnis
+
 == __{project_name}__
 
 [options="header"]
@@ -9,13 +13,16 @@
 |0.1     | In Arbeit   | 10.10.2019          | Autor       | Initiale Version
 |===
 
-== Inhaltsverzeichnis
-Dieses Dokument benötigt ein Inhaltsverzeichnis. Es existieren mehrere Einbindungsmöglichkeiten.
+toc::[]
 
-== Zusammenfassung
-Eine kurze Beschreibung des Dokuments. Wenige Absätze.
+== 1 Zusammenfassung
+Dieses Dokument spiegelt das Pflichtenheft des Projekts {project_name} für die Firma {company_name} wider.
+Es stellt einen Überblick über die zu erstellende Software und ihre Funktionen als Basis für die Kommunikation zwischen
+den Interessengruppen, hauptsächlich der Kunde und das Entwicklungsteam. Dieses Dokument bildet die vertragliche Grundlage
+zwischen Auftraggeber und -nehmer. Dafür muss es von beiden Seiten beständig aktualisiert und bestätigt werden.
+Das Pflichtenheft sammelt alle Funktionen, die die Software bringen muss und deren angestrebte Umsetzung.
 
-== Aufgabenstellung und Zielsetzung
+== 2 Aufgabenstellung und Zielsetzung
 Es soll eine Software für den Einsatz in einem Fitnessstudio entwickelt werden. Dabei sollen verschiedene
 Geschäftsfelder berücksichtigt werden. In der Mitarbeiterverwaltung können die Mitarbeiter des Fitnessstudios eingestellt,
 bearbeitet und entlassen werden. Die Mitarbeiter haben verschiedene Aufgaben (Thekenkraft/Trainer) und Löhne.
@@ -50,11 +57,11 @@ einen Rabatt angeben können.
 Online und nur für den Chef sind Statistiken über laufende Kosten, Einnahmen, Kundenverhalten und Verkaufsartikel grafisch dargestellt.
 Sowie verschiedene Einstellungen wie Vertragslaufzeit, monatliche Gebühren, Einladungsprämie, Öffnungszeiten usw. verwaltbar.
 
-== Produktnutzung
+== 3 Produktnutzung
 In welchem Kontext soll das System später genutzt werden? Welche Rahmenbedingungen gelten?
 Zusätzlich kurze Einleitung für fachfremde Personen
 
-== Interessensgruppen (Stakeholders)
+== 4 Interessensgruppen (Stakeholders)
 
 [options="header", cols="2, ^1, 4, 4"]
 |===
@@ -107,17 +114,17 @@ a|
 
 |===
 
-== Systemgrenze und Top-Level-Architektur
+== 5 Systemgrenze und Top-Level-Architektur
 
-=== Kontextdiagramm
+=== 5.1 Kontextdiagramm
 image:models/analysis/fitnessstudio_context.svg[fitnessstudio_context]
 
-=== Top-Level-Architektur
+=== 5.2 Top-Level-Architektur
 image::models/analysis/fitnessstudio_top_level.svg[fitnessstudio_top_level]
 
-== Anwendungsfälle
+== 6 Anwendungsfälle
 
-=== Akteure
+=== 6.1 Akteure
 
 Akteure sind die Benutzer des Software-Systems oder Nachbarsysteme, welche darauf zugreifen. Die folgende Tabelle fasst alle Akteuer des Systems zusammen und enthält eine Beschreibung des Akteurs. Abstrakte Akteure (eine Obergruppe, welche andere Akteure gruppiert, in _Italic_ geschrieben) sind da um zu generalisieren und zu gruppieren.
 
@@ -134,13 +141,13 @@ Akteure sind die Benutzer des Software-Systems oder Nachbarsysteme, welche darau
 |===
 
 
-=== Überblick Anwendungsfalldiagramm
+=== 6.2 Überblick Anwendungsfalldiagramm
 Anwendungsfall-Diagramm, das alle Anwendungsfälle und alle Akteure darstellt.
 
 [[use_case_diagram]]
 image::./models/use-case-diagramm.jpg[Use Case diagram, 100%, 100%, pdfwidth=100%, title= "Use case diagram des Projekts", align=center]
 
-=== Anwendungsfallbeschreibungen
+=== 6.3 Anwendungsfallbeschreibungen
 Dieser Unterabschnitt beschreibt die Anwendungsfälle. In dieser Beschreibung müssen noch nicht alle Sonderfälle und Varianten berücksichtigt werden. Schwerpunkt ist es, die wichtigsten Anwendungsfälle des Systems zu finden. Wichtig sind solche Anwendungsfälle, die für den Auftraggeber, den Nutzer den größten Nutzen bringen.
 Für komplexere Anwendungsfälle ein UML-Sequenzdiagramm ergänzen.
 Einfache Anwendungsfälle mit einem Absatz beschreiben.
@@ -586,12 +593,12 @@ _CheckOut:_:
 
 image::./models/analysis/sequence_getNotActiveAccounts.jpg[Sequenzdiagramm, 100%, 100%, pdfwidth=100%,align=center]
 
-== Funktionale Anforderungen
+== 7 Funktionale Anforderungen
 In diesem Abschnitt wird beschrieben, was das zu erstellende Programm leisten soll.
 Dabei wird sich vor allem auf die eigentliche Implementierung bezogen. Im Vergleich zur Anwendungsfallbeschreibung wird hier demnach eher die technische Sicht verdeutlicht.
 
 
-=== Muss-Kriterien
+=== 7.1 Muss-Kriterien
 Anfordeungen die das Programm auf alle Fälle erfüllen muss.
 
 [options="header", cols="2h, 1, 3, 12"]
@@ -821,7 +828,7 @@ Das System muss die Aufenthaltszeiten der Kunden im Fittnessstudio dauerhaft spe
 
 |===
 
-=== Kann-Kriterien
+=== 7.2 Kann-Kriterien
 Anforderungen die das Programm leisten können soll, aber für den korrekten Betrieb entbehrlich sind.
 
 [options="header", cols="2h, 1, 3, 12"]
@@ -881,28 +888,28 @@ Das System kann einem authentifizierten Kunden alle anstehenden Trainigstermine 
 
 |===
 
-== Nicht-Funktionale Anforderungen
+== 8 Nicht-Funktionale Anforderungen
 
-=== Qualitätsziele
+=== 8.1 Qualitätsziele
 
 Dokumentieren Sie in einer Tabelle die Qualitätsziele, welche das System erreichen soll, sowie deren Priorität.
 
-=== Konkrete Nicht-Funktionale Anforderungen
+=== 8.2 Konkrete Nicht-Funktionale Anforderungen
 
 Beschreiben Sie Nicht-Funktionale Anforderungen, welche dazu dienen, die zuvor definierten Qualitätsziele zu erreichen.
 Achten Sie darauf, dass deren Erfüllung (mindestens theoretisch) messbar sein muss.
 
-== GUI Prototyp
+== 9 GUI Prototyp
 
 In diesem Kapitel soll ein Entwurf der Navigationsmöglichkeiten und Dialoge des Systems erstellt werden.
 Idealerweise entsteht auch ein grafischer Prototyp, welcher dem Kunden zeigt, wie sein System visuell umgesetzt werden soll.
 Konkrete Absprachen - beispielsweise ob der grafische Prototyp oder die Dialoglandkarte höhere Priorität hat - sind mit dem Kunden zu treffen.
 
-=== Überblick: Dialoglandkarte
+=== 9.1 Überblick: Dialoglandkarte
 Erstellen Sie ein Übersichtsdiagramm, das das Zusammenspiel Ihrer Masken zur Laufzeit darstellt. Also mit welchen Aktionen zwischen den Masken navigiert wird.
 //Die nachfolgende Abbildung zeigt eine an die Pinnwand gezeichnete Dialoglandkarte. Ihre Karte sollte zusätzlich die Buttons/Funktionen darstellen, mit deren Hilfe Sie zwischen den Masken navigieren.
 
-=== Dialogbeschreibung
+=== 9.2 Dialogbeschreibung
 Für jeden Dialog:
 
 1. Kurze textuelle Dialogbeschreibung eingefügt: Was soll der jeweilige Dialog? Was kann man damit tun? Überblick?
@@ -910,14 +917,14 @@ Für jeden Dialog:
 3. Maskenelemente (Ein/Ausgabefelder, Aktionen wie Buttons, Listen, …)
 4. Evtl. Maskendetails, spezielle Widgets
 
-== Datenmodell
+== 10 Datenmodell
 
-=== Überblick: Klassendiagramm
+=== 10.1 Überblick: Klassendiagramm
 UML-Analyseklassendiagramm
 [[class_diagram]]
 image::./models/analysis/class_diagram.svg[class_diagram]
 
-=== Klassen und Enumerationen
+=== 10.2 Klassen und Enumerationen
 Dieser Abschnitt stellt eine Vereinigung von Glossar und der Beschreibung von Klassen/Enumerationen dar. Jede Klasse und Enumeration wird in Form eines Glossars textuell beschrieben. Zusätzlich werden eventuellen Konsistenz- und Formatierungsregeln aufgeführt.
 
 // See http://asciidoctor.org/docs/user-manual/#tables
@@ -927,7 +934,7 @@ Dieser Abschnitt stellt eine Vereinigung von Glossar und der Beschreibung von Kl
 |…                  |…            |
 |===
 
-== Akzeptanztestfälle
+== 11 Akzeptanztestfälle
 Mithilfe von Akzeptanztests wird geprüft, ob die Software die funktionalen Erwartungen und Anforderungen im Gebrauch erfüllt. Diese sollen und können aus den Anwendungsfallbeschreibungen und den UML-Sequenzdiagrammen abgeleitet werden. D.h., pro (komplexen) Anwendungsfall gibt es typischerweise mindestens ein Sequenzdiagramm (welches ein Szenarium beschreibt). Für jedes Szenarium sollte es einen Akzeptanztestfall geben. Listen Sie alle Akzeptanztestfälle in tabellarischer Form auf.
 Jeder Testfall soll mit einer ID versehen werde, um später zwischen den Dokumenten (z.B. im Test-Plan) referenzieren zu können.
 
@@ -1009,10 +1016,12 @@ Der Nutzer wählt die Option "verkaufen".
 - Der Kunde kann sich nun in sein Konto einloggen und alle Funktionen nutzen
 |===
 
-== Glossar
+
+== 12 Glossar
+
 Sämtliche Begriffe, die innerhalb des Projektes verwendet werden und deren gemeinsames Verständnis aller beteiligten Stakeholder essentiell ist, sollten hier aufgeführt werden.
 Insbesondere Begriffe der zu implementierenden Domäne wurden bereits beschrieben, jedoch gibt es meist mehr Begriffe, die einer Beschreibung bedürfen. +
 Beispiel: Was bedeutet "Kunde"? Ein Nutzer des Systems? Der Kunde des Projektes (Auftraggeber)?
 
-== Offene Punkte
+== 13 Offene Punkte
 Offene Punkte werden entweder direkt in der Spezifikation notiert. Wenn das Pflichtenheft zum finalen Review vorgelegt wird, sollte es keine offenen Punkte mehr geben.
