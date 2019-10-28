@@ -55,6 +55,6 @@ Kundengespräch wurde geführt. Erste Fragen sind Beantwortet.
 |…     |Bestellungen    |Bestellungen zum Videoshop hinzufügen|Julius       |noch nicht begonnen
 |…     |Registrierung    |Registrierung des Videoshops verbessern |Markus   |noch nicht begonnen
 |…     |Kategorien    |Kategorien zum Videoshop hinzufügen |Markus       |noch nicht begonnen
-|…     |pdf    |Pdf-Funktion zum Videoshop hinzufügen|Bill              |fertig
+|…     |pdf    |Pdf-Funktion zum Videoshop hinzufügen|Bill              |noch nicht begonnen
 |===
 
