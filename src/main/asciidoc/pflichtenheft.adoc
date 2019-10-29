@@ -938,19 +938,20 @@ Dieser Abschnitt stellt eine Vereinigung von Glossar und der Beschreibung von Kl
 |===
 |Klasse/Enumeration |Beschreibung |
 |Person                  |Allgemeine Darstellung einer realen Person, die eine Darstellung im System hat. Diese Darstellung wird nur erstellt, wenn sich ein Benutzer beim System anmeldet, und nur verwendet, wenn er sich authentifiziert.            |
-|Staff                  |stellt eine Thekenkraft dar, die Artikel, wie Getränke oder Trainingsgeräte verkaufen können            |
-|Boss                  |…            |
+|Staff                  |stellt eine Thekenkraft dar, die Artikel, wie Getränke oder Trainingsgeräte verkaufen kann und Mitglieder verwalten kann            |
+|Boss                  |Chef des FitnessStudios, der die Mitglieder und Mitarbeiter verwalten kann und verschiedene Einstellungen wie Öffnungszeiten, Vertraglaufzeit ändern kann            |
 |Member                  |Mitglied des FitnessStudios            |
-|Statistic                  |die Statistiken über das Fitnessstudio wird vom Administrator zugegriffen .            |
-|Article                  |              |
-|Bar                  |…            |
-|Studio                  |zentrale Klasse des Systems, das das Fitnessstudio selbst darstellt.            |
-|Trainingplan                  |…            |
-|Discount                  |…            |
-|Roster                  |…            |
-|Role                  |Eine Rolle wird verwendet, um authentifizierte Benutzer mit unterschiedlichen Rechten im System zu unterscheiden. Je nach Rolle stehen unterschiedliche Funktionen zur Verfügung.            |
-|Invoice                  |…            |
-|Account                  |            |
+|Statistic                  |die Statistiken über das Fitnessstudio wird vom Administrator zugegriffen            |
+|Article                  | stellt einen Artikel zum Verkaufen im Studio dar, Dieser hat einen Namen, eine Mindestmenge, einen Preis und evtl. Mindesthaltbarkeitsdatum               |
+|Bar                  |die Theke des Studios            |
+|Studio                  |zentrale Klasse des Systems, das das Fitnessstudio selbst darstellt            |
+|Trainingplan                  |wird durch einen Trainer mit dem jeweiligen Mitglied erstellt oder bearbeitet.            |
+|Discount                  |ein Rabatt kann auf einzelne Artikel gegeben werden. Dieser hat einen bestimmten Zeitraum            |
+|Roster                  |stellt den Dienstplan dar, in dem die Mitarbeiter eingeteilt sind.           |
+|Role                  |Eine Rolle wird verwendet, um authentifizierte Benutzer mit unterschiedlichen Rechten im System zu unterscheiden. Je nach Rolle stehen unterschiedliche Funktionen zur Verfügung            |
+|Invoice                  |die monatliche Rechnung eines Mitgliedes. Auf dieser Rechnung sind der Mitgliedsbeitrag und gekaufte Artikel verzeichnet            |
+|Payslip                  |ein Lohnschein wird zum Monatsende für jeden Mitarbeiter als PDF erstellt            |
+|Account                  |stellt eine Konto dar, die verschiedene Informationen und Rollen für Mitglieder, Mitarbeiter und Chef hat            |
 |Login                  |erfolgreiche Authentifizierung nach Eingabe der korrekten Anmeldeinformationen eines Benutzers            |
 |===
 
