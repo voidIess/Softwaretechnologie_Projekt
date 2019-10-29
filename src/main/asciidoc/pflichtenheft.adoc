@@ -1048,7 +1048,7 @@ Beispiel: Was bedeutet "Kunde"? Ein Nutzer des Systems? Der Kunde des Projektes 
 [[glossar]]
 |===
 |Begriff                   |Beschreibung
-|Administrator          | Synonym for a Boss
+|Customer               | Kunde des Fitnessstudios.
 |Client                 | {Client_Description}
 |Contractor             | Company responsible for implementing the software
 |Inventory              | {domain_ref}
