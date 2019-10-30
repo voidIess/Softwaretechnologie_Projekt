@@ -2,24 +2,28 @@
 
 Treffen am 29.10.2019
 
-Ort:      Ort des Treffens +
-Beginn:   xx:xx Uhr +
-Ende:     xx:xx Uhr
+Ort:      HSZ/304 +
+Beginn:   18:00 Uhr +
+Ende:     19:50 Uhr
 
-__Schriftführer:__
+__Schriftführer: Markus Wieland__
 
 *Nächstes Treffen:* +
-XX.XX.20XX, xx:xx Uhr, Ort des nächsten Treffens
+05.11.2019, 18:15 Uhr, HSZ/freier Seminarraum
 
 __Teilnehmer:__
 //Tabellarisch oder Aufzählung, Kennzeichnung von Teilnehmern mit besonderer Rolle (z.B. Kunde)
 
-- Teilnehmer 1
-- Teilnehmer 2
-- ...
+- Anita Fritzsche (Tutorin/Kundin)
+- Julius Schmitt
+- Bill Kippe
+- Markus Wieland
+- Quang Vu Ha
+- Lea Häusler
 
 == Bemerkungen
-Verwarnungen, besondere Vorfälle, Organisatorisches, wichtige getroffene Entscheidungen
+Leas Aufgabenstellung für den Prototyp wurde ein wenig angepasst. (Bewertungen)
+Commits sollen aussagende Bezeichnungen haben.
 
 == Retrospektive des letzten Sprints
 *Issue referenziert die Issue ID von GitHub*
@@ -29,13 +33,19 @@ Verwarnungen, besondere Vorfälle, Organisatorisches, wichtige getroffene Entsch
 [option="headers"]
 |===
 |Issue |Aufgabe |Status |Bemerkung
-|…     |…       |…      |…
+|…     |Pflichtenheft Prototyp   |fertig      |…
+|…     |Rabatte    |Rabatte zum Videoshop hinzufügen|Vu                |noch nicht begonnen
+|…     |Bewertungen    |Bewertungen zum Videoshop hinzufügen|Lea                |angefangen
+|…     |Bestellungen    |Bestellungen zum Videoshop hinzufügen|Julius       |noch nicht begonnen
+|…     |Registrierung    |Registrierung des Videoshops verbessern |Markus   |abgeschlossen
+|…     |Kategorien    |Kategorien zum Videoshop hinzufügen |Markus       |abgeschlossen
+|…     |pdf    |Pdf-Funktion zum Videoshop hinzufügen|Bill              |angefangen
 |===
 
 
 == Aktueller Stand
-Anmerkungen und Kritik zum aktuellen Stand der Software, den Diagrammen und den
-Dokumenten.
+Kundengespräch wurde geführt. Pflichtenheft soweit ok. Letzter Feinschliff am Pflichtenheft bis zum 03.11.2019. Arbeiten an Prototyp des Videoshops kommen gut voran.
+
 
 == Planung des nächsten Sprints
 *Issue referenziert die Issue ID von GitHub*
@@ -44,6 +54,12 @@ Dokumenten.
 [option="headers"]
 |===
 |Issue |Titel |Beschreibung |Verantwortlicher |Status
-|…     |…     |…            |…                |…
+|…     |Pflichtenheft beenden  |…            |alle           |in Arbeit
+|…     |Pflichtenheft Glossar    |Glossar Abschnitt ausfüllen |  …             |angefangen
+|…     |Pflichtenheft Qualitätsziele    |Abschnitt Qualitätsziele ausfüllen |…                |noch nicht begonnen
+|…     |Pflichtenheft GUI Prototyp    |fotos von Prototyp hochladen und beschreiben|Julius + Wer Zeit hat |bangefangen
+|…     |Pflichtenheft Akzeptanztests   |Akzeptanztests für die einzelnen Anwendungsfälle |Lea   |angefangen
+|…     |Pflichtenheft Klassendiagramm   |Wie "füttern" wir die Statistiken? Wie werden Nutzer freigeschalten? Wie wird die Rechnung mit Daten befüllt? Wie wird der Vertrag gespeichert? Diese vier Punkte müssen noch im Klassendiagramm untergebracht werden |Vu   |noch nicht begonnen
+|…     |Pflichtenheft Anwendungsfälle    |Anwendungsfall für Vertrag zu Nutzer Account hinzufügen |Markus       |noch nicht begonnen
+|…     |Videoshop Prototyp beenden    |Alle Teilaufgaben beenden|alle              |angefangen
 |===
-
