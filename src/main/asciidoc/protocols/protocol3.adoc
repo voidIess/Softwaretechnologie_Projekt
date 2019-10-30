@@ -34,12 +34,12 @@ Commits sollen aussagende Bezeichnungen haben.
 |===
 |Issue |Aufgabe |Status |Bemerkung
 |…     |Pflichtenheft Prototyp|fertig|…
-|…     |Rabatte               |noch nicht begonnen       |Vu  
+|…     |Rabatte               |abgeschlossen       |Vu  
 |…     |Bewertungen           |angefangen   |Lea                
 |…     |Bestellungen          |noch nicht begonnen |Julius       
 |…     |Registrierung         |abgeschlossen|Markus   
 |…     |Kategorien            |abgeschlossen |Markus       
-|…     |pdf                   |angefangen  |Bill             
+|…     |pdf                   |abgeschlossen  |Bill             
 |===
 
 
