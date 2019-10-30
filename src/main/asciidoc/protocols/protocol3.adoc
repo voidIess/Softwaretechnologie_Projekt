@@ -33,13 +33,13 @@ Commits sollen aussagende Bezeichnungen haben.
 [option="headers"]
 |===
 |Issue |Aufgabe |Status |Bemerkung
-|…     |Pflichtenheft Prototyp   |fertig      |…
-|…     |Rabatte    |Rabatte zum Videoshop hinzufügen|Vu                |noch nicht begonnen
-|…     |Bewertungen    |Bewertungen zum Videoshop hinzufügen|Lea                |angefangen
-|…     |Bestellungen    |Bestellungen zum Videoshop hinzufügen|Julius       |noch nicht begonnen
-|…     |Registrierung    |Registrierung des Videoshops verbessern |Markus   |abgeschlossen
-|…     |Kategorien    |Kategorien zum Videoshop hinzufügen |Markus       |abgeschlossen
-|…     |pdf    |Pdf-Funktion zum Videoshop hinzufügen|Bill              |angefangen
+|…     |Pflichtenheft Prototyp|fertig|…
+|…     |Rabatte               |noch nicht begonnen       |Vu  
+|…     |Bewertungen           |angefangen   |Lea                
+|…     |Bestellungen          |noch nicht begonnen |Julius       
+|…     |Registrierung         |abgeschlossen|Markus   
+|…     |Kategorien            |abgeschlossen |Markus       
+|…     |pdf                   |angefangen  |Bill             
 |===
 
 
