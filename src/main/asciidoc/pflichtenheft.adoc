@@ -303,7 +303,11 @@ Es muss ein Inventar geben. Der Staff muss angemeldet sein.
 |Akteur                     |Staff
 |Auslöser               | Es wurde eine Anfrage für ein Probetraining gesendet. Ein Staff drückt auf „Anfragen bearbeiten“.
 |Vorbedingungen a| Staff muss angemeldet sein. Es muss ein Objekt existieren auf die ein Rabatt angewendet werden kann.
-|Wichtige Schritte           a| ???
+|Wichtige Schritte           a| 1. Der Staff muss angemeldet sein.
+2. Der Staff navigiert zum Inventar.
+3. Der Staff drückt auf Rabatt neben dem entsprechenden Artikel.
+4. Der Staff gibt den Rabatt ein.
+5. Der Staff speichert.
 
 |Anhang                 |-
 |Funktionelle Anforderung    |**<<F0640>>**
@@ -370,18 +374,20 @@ Es darf noch nicht ein Kundenkonto mit den Angaben geben.
 |Name |CheckIn & CheckOut
 |Beschreibung                | Der Customer soll beim Betreten des Fitnessstudios im System als Anwesend markiert werden. Mit dem Prozess CheckOut kann man den Vorgang umkehren.
 |Akteur                     |Customer
-|Auslöser                    |_CheckIn_: Customer betritt das Fitnessstudio und meldet sich mit seiner Chipkarte an.
-_CheckOut_: Customer verlässt das Fitnessstudio.
+|Auslöser                    |_CheckIn_: Customer betritt das Fitnessstudio und meldet sich mit seiner Chipkarte an. (Staff trägt ihn als Aktiv ein)
+_CheckOut_: Customer verlässt das Fitnessstudio. (Staff trägt ihn als inaktiv ein)
 |Vorbedingungen a| _CheckIn_: Nutzer ist noch nicht im Fitnessstudio.
 _CheckOut_: Nutzer ist im Fitnessstudio.
 |Wichtige Schritte           a|
 
 _CheckIn_:
 1.	Customer betritt das Fitnessstudio.
-2.	Im System ist der Customer jetzt anwesend.
+2. Ein angemeldeter Staff setzt den Status des Customers auf aktiv.
+3.	Im System ist der Customer jetzt anwesend.
 _CheckOut:_:
 1.	Customer verlässt das Studio.
-2.	Customer ist im System als abwesend markiert.
+2. Ein angemeldeter Staff setzt den Status des Customers auf inaktiv.
+3.	Customer ist im System als abwesend markiert.
 |Anhang                 |-
 |Funktionelle Anforderung    |**<<F1010>>**
 |===
