@@ -903,8 +903,22 @@ Das System kann einem authentifizierten Kunden alle anstehenden Trainigstermine 
 == 8 Nicht-Funktionale Anforderungen
 
 === 8.1 Qualitätsziele
+Die folgende Tabelle zeigt, welche Qualitätsanforderungen in welchem Umfang erfüllt werden müssen.
+Die erste Spalte listet die Qualitätsanforderungen auf, während in den folgenden Spalten ein "x" verwendet wird, um die Priorität zu kennzeichnen.
+Die zugewiesene Priorität muss bei der Formulierung der konkreten nichtfunktionalen Anforderungen berücksichtigt werden.
 
-Dokumentieren Sie in einer Tabelle die Qualitätsziele, welche das System erreichen soll, sowie deren Priorität.
+1 = Nicht wichtig ..
+5 = Sehr wichtig
+[options="header", cols="3h, ^1, ^1, ^1, ^1, ^1"]
+|===
+|Qualitätsanforderungen           | 1 | 2 | 3 | 4 | 5
+|Wartbarkeit          |   |   |   | x |
+|Benutzbarkeit                |   |   | x |   |
+|Effizienz                 |   |   |   | x |
+|Funktionalität                 |   |   |   |  | x
+|Übertragbarkeit                 |   | x |   |  | 
+|Zuverlässigkeit                 |   |   | x |  | 
+|===
 
 === 8.2 Konkrete Nicht-Funktionale Anforderungen
 
