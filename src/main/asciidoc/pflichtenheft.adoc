@@ -916,7 +916,7 @@ Die zugewiesene Priorität muss bei der Formulierung der konkreten nichtfunktion
 |Benutzbarkeit                |   |   | x |   |
 |Effizienz                 |   |   |   | x |
 |Funktionalität                 |   |   |   |  | x
-|Übertragbarkeit                 |   | x |   |  | 
+|Übertragbarkeit                 | x  |  |   |  | 
 |Zuverlässigkeit                 |   |   | x |  | 
 |===
 
