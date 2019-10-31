@@ -652,7 +652,7 @@ Es muss möglich sein unregistrierte Nutzer über die Auswahl "registrieren" in 
 * E-Mai Adresse (noch keinem Nutzerkonto zugeordnet)
 * voller Name
 * Passwort
-* Einladungs Code (optional)
+* Einladungscode (optional)
 
 Das System muss alle so registrierten Nutzer persistent speichern. Erst nach der Freigabe des Accounts **<<F0222>>**) durch einen Mitarbeiter muss der Kunde in die Mitgliederliste aufgenommen werden. Er erhält eine eindeutige Identifikationsnummer und kann sich nun mit dieser und seinem Passwort anmelden (**<<F0210>>**).
 
@@ -718,6 +718,7 @@ a| [[F0600]]
 Das System muss Daten über das Verkaufsinventar dauerhaft speichern. Dazu gehören:
 
 * Name
+* Preis
 * Anzahl
 * Mindestanzahl
 * aktueller Rabatt (optional)
@@ -986,47 +987,121 @@ Jeder Testfall soll mit einer ID versehen werde, um später zwischen den Dokumen
 
 [cols="1h, 4"]
 |===
-|ID            |<<AT0101>>
-|Anwendungsfall      |<<UC0101>>
+|ID            |<<AT1010>>
+|Anwendungsfall      |<<UC101>>
 |{Pre}        a|Der Nutzer ist als "Boss" angemeldet.
 |{Event}      a|Der Nutzer wählt "Bearbeiten", ändert die Details und drückt "Speichern".
 |{Result}     a|
 - Die Bearbeitungsfelder verschwinden
 - Die geänderten Details sind sichtbar
 - Jeder Nutzer greift nun auf die aktuallisierten Daten zu
-
-
-|===
-
-[cols="1h, 4"]
-|===
-|ID            |<<AT0301>>
-|Anwendungsfall      |<<UC0301>>
-|{Pre}        a|Es sind Nutzer im System registriert.
-|{Event}      a|Ein unauthentifizierter Nutzer navigiert zur Login Ansicht, gibt die Daten eines im System exentierendes Nutzers (01234567, pass123) ein und wählt "Login".
-|{Result}     a|
-- Der Nutzer ist nun in der Rolle "Customer", "Staff" oder "Boss" authentifiziert
-- Der Nutzer wird zu einer Willkommensansicht mit persönlicher Begrüßung weitergeleitet
-- Der Nutzer hat nun Zugriff auf alle Informationen und Funktionen, die mit seiner Rolle erreichbar sind
 |===
 
 
 [cols="1h, 4"]
 |===
-|ID            |<<AT0111>>
-|Anwendungsfall      |<<UC0111>>
+|ID            |<<AT1111>>
+|Anwendungsfall      |<<UC111>>
 |{Pre}        a|Der Nutzer ist als "Boss" angemeldet.
-|{Event}      a|Der Nutzer steuert zur "Mitarbeiterliste" und wählt für einen Mitarbeiter "bearbeiten" aus. Er ändert die Eingaben und drückt "speichern".
+|{Event}      a|Der Nutzer navigiert zur "Mitarbeiterliste" und drückt "Hinzufügen", gibt folgende Daten ein und wählt "Speichern":
+
+- _E-Mail-Adresse_: karli.naue@gmail.com
+- _Vorname_: Karli
+- _Nachname_: Naue
+- _Passwort_: hallo123
+
 |{Result}     a|
-- Der Nutzer wird wieder zur Mitarbeizerliste geleitet
-- Die geänderten Informationen sind sichtbar und vom System übernommen
+- ein neuer Mitarbeiter wurde erstellt und mit einer neun eindeutigen Nummer (z.B. 01230132) gespeichert
+- es ist möglich sich mit '01230132' und 'hallo123' anzumelden
+- der Nutzer wird zur Mitarbeiterliste mit dem neuen Mitarbeiter zurückgeführt
 |===
 
 
 [cols="1h, 4"]
 |===
-|ID            |<<AT0202>>
-|Anwendungsfall      |<<UC0202>>
+|ID            |<<AT1112>>
+|Anwendungsfall      |<<UC111>>
+|{Pre}        a|Der Nutzer ist als "Boss" angemeldet. Die Mitarbeiterliste ist nicht leer.
+|{Event}      a|Der Nutzer navigiert zur "Mitarbeiterliste" und drückt "Bearbeiten", ändert den Nachnamen zu 'heyne', die E-Mail-Adresse zu 'karli.heyne@gmail.com' und wählt "Speichern".
+|{Result}     a|
+- die Daten des gespeicherten Mitarbeiters wurden im System geändert
+- es kann sich nur noch mit den neuen Daten eingeloggt werden
+- der Nutzer wird zur Mitarbeiterliste mit dem geänderten Mitarbeiter zurückgeführt
+|===
+
+
+[cols="1h, 4"]
+|===
+|ID            |<<AT1113>>
+|Anwendungsfall      |<<UC111>>
+|{Pre}        a|Der Nutzer ist als "Boss" angemeldet. Die Mitarbeiterliste ist nicht leer.
+|{Event}      a|Der Nutzer navigiert zur "Mitarbeiterliste", drückt "Löschen" und wählt "Bestätigen".
+|{Result}     a|
+- der ausgewählte Mitarbeiter wurde aus dem System entfernt
+- es kann sich nicht mehr den Zugangsdaten des Mitarbeiters eingeloggt werden
+- der Nutzer wird zur Mitarbeiterliste ohne den gelöschten Mitarbeiter zurückgeführt
+|===
+
+
+[cols="1h, 4"]
+|===
+|ID            |<<AT1200>>
+|Anwendungsfall      |<<UC120>>
+|{Pre}        a|Der Nutzer ist als "Boss" angemeldet.
+|{Event}      a|Der Nutzer navigiert zu "Statistiken".
+|{Result}     a|
+- es werden graphische Darstellungen des Umsatzes des Fitnessstudios und der Anwesenheitszeiten der Kunden angezeigt
+|===
+
+
+[cols="1h, 4"]
+|===
+|ID            |<<AT2011>>
+|Anwendungsfall      |<<UC201>>
+|{Pre}        a|Der Nutzer ist als "Staff" oder "Boss" angemeldet.
+|{Event}      a|Der Nutzer navigiert zum Inventar und wählt "Artikel hinzufügen" gibt folgende Daten ein und wählt "Speichern":
+
+- _Name_: Boxsack
+- _Preis_: 119.95
+- _Anzahl_: 34
+- _Mindestanzahl_: 10
+
+|{Result}     a|
+- der neue Artikel wurde zum Inventar hizugefügt
+- der Nutzer wird zum Inventar zurückgeleitet
+|===
+
+
+[cols="1h, 4"]
+|===
+|ID            |<<AT2012>>
+|Anwendungsfall      |<<UC201>>
+|{Pre}        a|Der Nutzer ist als "Staff" oder "Boss" angemeldet. Das Inventar ist nicht leer.
+|{Event}      a|Der Nutzer navigiert zum Inventar und wählt "Bearbeiten", ändert den Preis zu 195.19 und wählt "Speichern".
+|{Result}     a|
+- die geänderten Daten werden für den Artikel gespeichert
+- bei dem nächsten Verkauf des Artikels werden 195.15€ berechnet
+- der Nutzer wird zum Inventar zurückgeleitet
+|===
+
+
+[cols="1h, 4"]
+|===
+|ID            |<<AT2013>>
+|Anwendungsfall      |<<UC201>>
+|{Pre}        a|Der Nutzer ist als "Staff" oder "Boss" angemeldet. Das Inventar ist nicht leer.
+|{Event}      a|Der Nutzer navigiert zum Inventar, drückt "Löschen" und wählt "Bestätigen".
+|{Result}     a|
+- der ausgewählte Artikel wurde aus dem System entfernt
+- er kann nicht mehr verkauft, bearbeitet oder angesehen werden
+- der Nutzer wird zum Inventar zurückgeleitet
+|===
+
+
+[cols="1h, 4"]
+|===
+|ID            |<<AT2020>>
+|Anwendungsfall      |<<UC202>>
 |{Pre}        a|Der Nutzer ist als "Staff" angemeldet. Das Inventar ist nicht leer. Das Guthaben des Kunden deckt die zukaufenden Artikel ab.
 |{Event}      a|Der Nutzer wählt "Neuer Verkauf", wählt die gewünschten Artikel aus und gibt dazu die folgenden Informationen an:
 
@@ -1046,8 +1121,97 @@ Der Nutzer wählt die Option "verkaufen".
 
 [cols="1h, 4"]
 |===
-|ID            |<<AT0730>>
-|Anwendungsfall      |<<UC0730>>
+|ID            |<<AT2030>>
+|Anwendungsfall      |<<UC203>>
+|{Pre}        a|Der Nutzer ist als "Staff" angemeldet.
+|{Event}      a|Der Nutzer navigiert zum Inventar.
+|{Result}     a|
+- es wird eine Lister der Artikel des Inventars angezeigt
+- alle Artikel deren Anzahl die Mindestmenge unterschritten hat, sind farblich markiert
+|===
+
+
+[cols="1h, 4"]
+|===
+|ID            |<<AT2100>>
+|Anwendungsfall      |<<UC210>>
+|{Pre}        a|Der Nutzer ist als "Staff" angemeldet. Das Inventar ist nicht leer.
+|{Event}      a|Der Nutzer navigiert zum Inventar, wählt einen Artikel, drückt "Rabatt hinzufügen" und gibt '50' ein.
+|{Result}     a|
+- der Rabatt des Artikels wurde im System aufgenommen
+- der gewählte Artikel wird nun für 50% des Preises verkauft
+|===
+
+
+[cols="1h, 4"]
+|===
+|ID            |<<AT3011>>
+|Anwendungsfall      |<<UC301>>
+|{Pre}        a|Es sind Nutzer im System registriert.
+|{Event}      a|Ein unauthentifizierter Nutzer navigiert zur Login Ansicht, gibt die Daten eines im System exentierendes Nutzers (01234567, pass123) ein und wählt "Login".
+|{Result}     a|
+- Der Nutzer ist in der Rolle "Customer", "Staff" oder "Boss" authentifiziert
+- Der Nutzer wird zu einer Willkommensansicht mit persönlicher Begrüßung weitergeleitet
+- Der Nutzer hat Zugriff auf alle Informationen und Funktionen, die mit seiner Rolle erreichbar sind
+|===
+
+
+[cols="1h, 4"]
+|===
+|ID            |<<AT3012>>
+|Anwendungsfall      |<<UC301>>
+|{Pre}        a|Ein angemeldeter Nutzer nutzt das System.
+|{Event}      a|Der Nutzer drückt "Logout".
+|{Result}     a|
+- der Nutzer ist unauthentifiziert und hat nur noch die öffentlichen Rechte
+- er wird zum Home Bildschirm geleitet
+|===
+
+
+[cols="1h, 4"]
+|===
+|ID            |<<AT3021>>
+|Anwendungsfall      |<<UC302>>
+|{Pre}        a|Der Nutzer ist noch nicht registriert und unauthentifiziert
+|{Event}      a|Er wählt "Registrieren" und gibt folgende Daten ein:
+
+- _E-Mail-Adresse_: karli.naue@gmail.com
+- _Vorname_: Karli
+- _Nachname_: Naue
+- _Passwort_: hallo123
+- _Einladungscode_: 57xfr3B4
+
+|{Result}     a|
+- sobald das Konto freigegeben wurde, wird ein neuer Kunde erstellt und dem Einladenden wurd ein Betrag gutgeschrieben
+- der Nutzer ist immer noch unauthentifiziert und wird zum Home Bildschirm zurückgeleitet
+|===
+
+
+[cols="1h, 4"]
+|===
+|ID            |<<AT3022>>
+|Anwendungsfall      |<<UC302>>
+|{Pre}        a|Der Nutzer ist schon registriert und unauthentifiziert
+|{Event}      a|Er wählt "Registrieren" und gibt folgende Daten ein:
+
+- _E-Mail-Adresse_: karli.naue@gmail.com
+- _Vorname_: Karli
+- _Nachname_: Naue
+- _Passwort_: hallo123
+- _Einladungscode_: 57xfr3B4
+
+|{Result}     a|
+- es wird eine Fehlernachricht ausgegeben, da ein Nutzer mit den angegebenen Daten schon existiert
+|===
+
+
+
+
+
+[cols="1h, 4"]
+|===
+|ID            |<<AT7300>>
+|Anwendungsfall      |<<UC730>>
 |{Pre}        a|Der Nutzer ist als "Staff" angemeldet. Ein anderer Nutzer hat sich erfolgreich registriert.
 |{Event}      a|Der Nutzer wählt "Nutzeraccounts freigeben" und betsätigt einen Account mit "aktivieren".
 |{Result}     a|
