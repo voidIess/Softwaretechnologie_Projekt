@@ -56,7 +56,7 @@ Kundengespräch wurde geführt. Pflichtenheft soweit ok. Letzter Feinschliff am 
 |Issue |Titel |Beschreibung |Verantwortlicher |Status
 |…     |Pflichtenheft beenden  |…            |alle           |in Arbeit
 |…     |Pflichtenheft Glossar    |Glossar Abschnitt ausfüllen |  …             |angefangen
-|…     |Pflichtenheft Qualitätsziele    |Abschnitt Qualitätsziele ausfüllen |…                |noch nicht begonnen
+|…     |Pflichtenheft Qualitätsziele    |Abschnitt Qualitätsziele ausfüllen |Markus               |noch nicht begonnen
 |…     |Pflichtenheft GUI Prototyp    |Fotos von Prototyp hochladen und beschreiben|Julius + Wer Zeit hat |angefangen
 |…     |Pflichtenheft Akzeptanztests   |Akzeptanztests für die einzelnen Anwendungsfälle |Lea   |angefangen
 |…     |Pflichtenheft Klassendiagramm   |Wie "füttern" wir die Statistiken? Wie werden Nutzer freigeschalten? Wie wird die Rechnung mit Daten befüllt? Wie wird der Vertrag gespeichert? Diese vier Punkte müssen noch im Klassendiagramm untergebracht werden |Vu   |noch nicht begonnen
