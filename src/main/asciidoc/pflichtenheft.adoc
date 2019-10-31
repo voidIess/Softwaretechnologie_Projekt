@@ -948,7 +948,8 @@ Für jeden Dialog:
 === 10.1 Überblick: Klassendiagramm
 UML-Analyseklassendiagramm
 [[class_diagram]]
-image::./models/analysis/class_diagram.svg[class_diagram]
+image::./models/analysis/analysis_class_diagram.svg[class_diagram]
+
 
 === 10.2 Klassen und Enumerationen
 Dieser Abschnitt stellt eine Vereinigung von Glossar und der Beschreibung von Klassen/Enumerationen dar. Jede Klasse und Enumeration wird in Form eines Glossars textuell beschrieben. Zusätzlich werden eventuellen Konsistenz- und Formatierungsregeln aufgeführt.
