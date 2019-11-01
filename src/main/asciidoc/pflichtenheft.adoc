@@ -930,6 +930,7 @@ Die zugewiesene Priorität muss bei der Formulierung der konkreten nichtfunktion
 [cols="1h, 4"]
 |===
 |Ziel |Beschreibung 
+|Zuverlässigkeit|Um die Zuverlässigkeit des Systems zu gewährleisten schreiben wir Anwendungs- und Akzeptanztests. So können Fehler leichter erkannt und die Zuverlässigkeit gewährleistet werden.
 |Betriebszeit|Das System soll nur zu kurzen Wartungszeiten offline genommen werden. Sonst soll das System immer erreichbar sein. 
 |Sicherheit| Die Daten der Nutzer sollen sicher verschlüsselt gespeichert werden.
 |Effizienz|Der Code soll effizient sein. Redundanzen sollen vermieden werden, dass eine hohe Geschwindigkeit möglich ist.
