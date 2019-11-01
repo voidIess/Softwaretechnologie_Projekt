@@ -182,9 +182,10 @@ Der Chef des Fitnessstudios muss sich als Boss im System anmelden.
 |Funktionelle Anforderung    |**<<F0100>>**, **<<F0210>>**
 |===
 
-[[UC110]]  [[UC111]]
+[cols="1h, 3"]
+[[UC110,UC111]]
 |===
-|ID |**<<UC101>> & <<UC111>>**
+|ID |**<<UC110>> & <<UC111>>**
 |Name |Edit/Add/Remove Staff
 |Beschreibung                |Der Boss soll neue Mitarbeiter hinzufügen, bestehende Mitarbeiter bearbeiten und alte Mitarbeiter entfernen können.
 |Akteur                     |Boss
@@ -195,11 +196,11 @@ Der Boss des Fitnessstudios muss sich im System anmelden.
 |Wichtige Schritte           a|
 
   1. Boss meldet sich an
-  2.Boss navigiert zu den "Mitarbeiterliste".
- 3.Boss drückt den „Bearbeiten“, „Hinzufügen“, „Löschen“ Button
+  2. Boss navigiert zu den "Mitarbeiterliste".
+  3. Boss drückt den „Bearbeiten“, „Hinzufügen“, „Löschen“ Button
   4. Der Boss ändert/fügt die Details hinzu.
-5. Der Boss drückt auf Speichern
-6. Die Änderungen an den Staffs wurden gespeichert.
+  5. Der Boss drückt auf Speichern
+  6. Die Änderungen an den Staffs wurden gespeichert.
 
 |Anhang                 |-
 |Funktionelle Anforderung    |**<<F0410>>**, **<<F0420>>**, **<<F0210>>**
@@ -301,7 +302,7 @@ Es muss ein Inventar geben. Der Staff muss angemeldet sein.
 |Name | Manage Discounts
 |Beschreibung                | Ein Staff möchte einen Rabatt einstellen.
 |Akteur                     |Staff
-|Auslöser               | Es wurde eine Anfrage für ein Probetraining gesendet. Ein Staff drückt auf „Anfragen bearbeiten“.
+|Auslöser               | Ein Staff wählt Rabatt bearbeiten.
 |Vorbedingungen a| Staff muss angemeldet sein. Es muss ein Objekt existieren auf die ein Rabatt angewendet werden kann.
 |Wichtige Schritte           a| 1. Der Staff muss angemeldet sein.
 2. Der Staff navigiert zum Inventar.
@@ -349,7 +350,7 @@ _Logout_:
 [[UC302]]
 |===
 |ID |**<<UC302>>**
-|Name |Sell Items
+|Name |Register
 |Beschreibung                |Eine Person soll ein Kundenkonto erstellen können.
 |Akteur                     |Unregistered User
 |Auslöser                    |
@@ -532,9 +533,9 @@ _CheckOut:_:
 |===
 
 [cols="1h, 3"]
-[[UC601]] [[UC602]]
+[[UC601,UC602]]
 |===
-|ID |**<<UC601>> & <<UC601>>**
+|ID |**<<UC601>> & <<UC602>>**
 |Name |Show Roster & Edit Roster
 |Beschreibung  | Ein Staff soll den Dienstplan sehen und bearbeiten könne. 
 |Akteur                     |Staff
@@ -550,7 +551,7 @@ _CheckOut:_:
 |===
 
 [cols="1h, 3"]
-[[UC701]] [[UC702]]
+[[UC701,UC702]]
 |===
 |ID |**<<UC701>> & <<UC702>>**
 |Name |Remove & Edit Customer
