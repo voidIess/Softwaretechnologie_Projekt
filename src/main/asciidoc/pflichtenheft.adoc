@@ -934,6 +934,7 @@ Die zugewiesene Priorität muss bei der Formulierung der konkreten nichtfunktion
 |Sicherheit| Die Daten der Nutzer sollen sicher verschlüsselt gespeichert werden.
 |Effizienz|Der Code soll effizient sein. Redundanzen sollen vermieden werden, dass eine hohe Geschwindigkeit möglich ist.
 |Funktionalität|Das System soll niemals abstürzen und alle Funktionen soll richtig funktionieren.
+|===
 
 == 9 GUI Prototyp
 
