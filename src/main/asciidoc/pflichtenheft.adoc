@@ -1243,19 +1243,16 @@ Beispiel: Was bedeutet "Kunde"? Ein Nutzer des Systems? Der Kunde des Projektes 
 [options="header", cols="1h, 4"]
 [[glossar]]
 |===
-|Begriff                   |Beschreibung
-|Customer               | Kunde des Fitnessstudios.
-|Client                 | {Client_Description}
-|Contractor             | Company responsible for implementing the software
-|Inventory              | {domain_ref}
-|InventoryItem          | {domain_ref}
+|Begriff                | Beschreibung
+|Customer (Kunde)       | Kunde des Fitnessstudios.
 |Login                  | Erfolgreiche Authentifizierung nach Eingabge der (korrekten) Zugangsdaten des Nutzers.
-|Nutzer                 | Jeder der mit dem System interagiert. (Synonym für Akteur User)
-|Register/Registration  | Prozess der Erstellung eines neuen Accounts im System. 
-|ROLE/Role              | {domain_ref}
-|Stock                  | Amount of discs of one type that are available
-|System                 | General term for the software system that has to be implemented during this project.
-|User                   | {domain_ref}
+|User (Nutzer)          | Jeder der mit dem System interagiert. (Synonym für Akteur User)
+|Staff (Mitarbeiter)          | Mitarbeiter des Fitnessstudios.
+|Boss (Chef)          | Chef des Fitnessstudios.
+|Registrierung/Registrieren  | Prozess der Erstellung eines neuen Accounts im System. 
+|Rolle              | Art des Nutzers. (Kunde, Mitarbeiter, Chef).
+|System                 | Genereller Begriff für das System, was während des Entwicklungsprozesses implementiert werden soll.
+
 |Fitnessstudio              | {Videoshop_Description}
 |===
 
