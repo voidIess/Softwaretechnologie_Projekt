@@ -912,19 +912,27 @@ Die zugewiesene Priorität muss bei der Formulierung der konkreten nichtfunktion
 5 = Sehr wichtig
 [options="header", cols="3h, ^1, ^1, ^1, ^1, ^1"]
 |===
-|Qualitätsanforderungen           | 1 | 2 | 3 | 4 | 5
-|Wartbarkeit          |   |   |   | x |
-|Benutzbarkeit                |   |   | x |   |
-|Effizienz                 |   |   |   | x |
-|Funktionalität                 |   |   |   |  | x
-|Übertragbarkeit                 | x  |  |   |  | 
-|Zuverlässigkeit                 |   |   | x |  | 
+|Qualitätsanforderungen| 1 | 2 | 3 | 4 | 5
+|Wartbarkeit           |   |   |   | x |
+|Benutzbarkeit         |   |   | x |   |
+|Effizienz             |   |   |   | x |
+|Funktionalität        |   |   |   |   | x
+|Übertragbarkeit       | x |   |   |   | 
+|Zuverlässigkeit       |   |   | x |   |
+|Sicherheit            |   |   | x |   |
+|Nutzerfreundlichkeit  |   | x |   |   |
+|Erreichbarkeit        |   | x |   |   |
 |===
 
 === 8.2 Konkrete Nicht-Funktionale Anforderungen
 
-Beschreiben Sie Nicht-Funktionale Anforderungen, welche dazu dienen, die zuvor definierten Qualitätsziele zu erreichen.
-Achten Sie darauf, dass deren Erfüllung (mindestens theoretisch) messbar sein muss.
+[options="header"]
+|===
+|Ziel |Beschreibung |
+|Betriebszeit|Das System soll nur zu kurzen Wartungszeiten offline genommen werden. Sonst soll das System immer erreichbar sein. |
+|Sicherheit| Die Daten der Nutzer sollen sicher verschlüsselt gespeichert werden.|
+|Effizienz|Der Code soll effizient sein. Redundanzen sollen vermieden werden, dass eine hohe Geschwindigkeit möglich ist.|
+|Funktionalität|Das System soll niemals abstürzen und alle Funktionen soll richtig funktionieren.|
 
 == 9 GUI Prototyp
 
