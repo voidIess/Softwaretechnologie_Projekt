@@ -1205,7 +1205,153 @@ Der Nutzer wählt die Option "verkaufen".
 |===
 
 
+[cols="1h, 4"]
+|===
+|ID            |<<AT3201>>
+|Anwendungsfall      |<<UC320>>
+|{Pre}        a|Der Nutzer ist als "Staff" angemeldet. Die Kundenliste ist nicht leer.
+|{Event}      a|Er navigiert zum ausgewählten Kunden in der Kundenliste und wählt "CeckIn".
+|{Result}     a|
+- ________________
+- eine Bestätigungsnachricht wird angezeigt (Karli Naue ist jetzt aktiv.)
+|===
 
+
+[cols="1h, 4"]
+|===
+|ID            |<<AT3202>>
+|Anwendungsfall      |<<UC320>>
+|{Pre}        a|Der Nutzer ist als "Staff" angemeldet. Die Kundenliste ist nicht leer. Mindestens ein Kunde ist gerade im Fitnessstudio aktiv.
+|{Event}      a|Der Nutzer navigiert zum ausgewählten Kunden in der Kundenliste und wählt "CheckOut".
+|{Result}     a|
+- __________________
+- eine Bestätigungsnachricht wird angezeigt (Karli Naue ist jetzt inaktiv.)
+|===
+
+
+[cols="1h, 4"]
+|===
+|ID            |<<AT4010>>
+|Anwendungsfall      |<<UC401>>
+|{Pre}        a|Der Nutzer ist als "Customer" angemeldet.
+|{Event}      a|Der Nutzer geht zu seinem Profil.
+|{Result}     a|
+- unter anderem wird dort ein Einladungscode (57xfr3B4) angezeigt
+|===
+
+
+[cols="1h, 4"]
+|===
+|ID            |<<AT4100>>
+|Anwendungsfall      |<<UC410>>
+|{Pre}        a|Der Nutzer ist als "Customer" angemeldet.
+|{Event}      a|Der Nutzer geht zu seinem Profil.
+|{Result}     a|
+- unter anderem werden dort seine Vertragsdetails angezeigt:
+* Vertragslaufzeit: 1 Jahr
+* Beitrag (monatl.): 35€
+|===
+
+
+[cols="1h, 4"]
+|===
+|ID            |<<AT4110>>
+|Anwendungsfall      |<<UC411>>
+|{Pre}        a|Der Nutzer ist als "Customer" angemeldet.
+|{Event}      a|Der Nutzer geht zu seinem Profil und wählt "Vertrag pausieren".
+|{Result}     a|
+- der nächste Monat wird als Vertragspause im Kunden gespeichert
+- im Nächsten Monat werden keine Beitragskosten auf die Rechnung gesetzt und die Vertragslaufzeit wird um einen Monat verlängert
+- erst nach einem jahr kann der Vertrag wieder pausiert werden
+|===
+
+
+[cols="1h, 4"]
+|===
+|ID            |<<AT4200>>
+|Anwendungsfall      |<<UC420>>
+|{Pre}        a|Der Nutzer ist als "Customer" angemeldet.
+|{Event}      a|Der Nutzer wählt in seinem Profil "Rechnung" aus.
+|{Result}     a|
+- es wird eine PDF-Datei geöffnet, welche die Rechnung des letzten Monats beinhaltet
+|===
+
+
+[cols="1h, 4"]
+|===
+|ID            |<<AT5010>>
+|Anwendungsfall      |<<UC501>>
+|{Pre}        a|Der Nutzer ist als "Staff" angemeldet.
+|{Event}      a|Der Nutzer navigiert zum Dienstplan, wählt "Trainingstermin erstellen" und gibt folgende Daten an:
+
+- _Kundennummer_: 01230132
+- _Mitarbeiternummer_: 08708708
+- _Datum_: 05.11.2019
+- _Anfangszeit_: 10:00
+- _Endzeit_: 11:30
+
+und wählt "Speichern".
+
+|{Result}     a|
+- es wird ein neuer Trainingstermin erstellt und dem Kunden ggf. als nächster Termin angezeigt
+- der Nutzer wird wieder zum Dienstplan geleitet
+|===
+
+
+[cols="1h, 4"]
+|===
+|ID            |<<AT5020>>
+|Anwendungsfall      |<<UC502>>
+|{Pre}        a|Der Nutzer ist als "Customer" angemeldet und es wurde ein Trainigstermin erstellt.
+|{Event}      a|Er befindet sich auf seiner Startseite.
+|{Result}     a|
+- neben "Nächster Trainingstermin" steht sein nächstes Training (05.11.2019, 10:00 Uhr).
+|===
+
+
+[cols="1h, 4"]
+|===
+|ID            |<<AT5100>>
+|Anwendungsfall      |<<UC510>>
+|{Pre}        a|Der Nutzer ist als "Customer" angemeldet und hatte noch kein Probetraining.
+|{Event}      a|Er wählt "Probetraining anfordern", gibt folgende Daten an:
+
+- _Kundennummer_: 01230132
+- _Wunschtrainer_: -Keine Angabe-
+- _Datum_: 05.11.2019
+- _Anfangszeit_: 10:00
+- _Endzeit_: 11:30
+
+und wählt "Speichern".
+|{Result}     a|
+- es wird ein neues Training mit den angegebenen Daten und dem Status "requested" erzeugt
+- der Button "Probetrainig anfordern" ist nicht mehr wählbar, es sei denn es folgt eine Ablehnung
+|===
+
+
+[cols="1h, 4"]
+|===
+|ID            |<<AT5201>>
+|Anwendungsfall      |<<UC520>>
+|{Pre}        a|Der Nutzer ist als "Staff" angemeldet. Es gibt ein angefragtes Probetraining.
+|{Event}      a|Er navigiert zu "Anfragen bearbeiten" und wählt für eine Anfrage "Annehmen" aus.
+|{Result}     a|
+- es wird ein Dialog angezeigt, der eine Mitarbeiternummer abfragt, dabei wird der Wunsch des Kunden angezeigt
+- Wählt der Nutzer nach seiner Angabe (08708708) speichern, wird der Status des Trainigstermins auf "accepted" gesetzt
+- es wird wieder die Anfragenliste, ohne den angenommenen Termin angezeigt
+|===
+
+
+[cols="1h, 4"]
+|===
+|ID            |<<AT5201>>
+|Anwendungsfall      |<<UC520>>
+|{Pre}        a|Der Nutzer ist als "Staff" angemeldet. Es gibt ein angefragtes Probetraining.
+|{Event}      a|Er navigiert zu "Anfragen bearbeiten" und wählt für eine Anfrage "Ablehnen" aus.
+|{Result}     a|
+- der Trainingstermin wurde aus dem System gelöscht
+- es wird wieder die Anfragenliste, ohne den abgelehnten Termin angezeigt
+|===
 
 
 [cols="1h, 4"]
