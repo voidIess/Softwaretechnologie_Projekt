@@ -912,19 +912,30 @@ Die zugewiesene Priorität muss bei der Formulierung der konkreten nichtfunktion
 5 = Sehr wichtig
 [options="header", cols="3h, ^1, ^1, ^1, ^1, ^1"]
 |===
-|Qualitätsanforderungen           | 1 | 2 | 3 | 4 | 5
-|Wartbarkeit          |   |   |   | x |
-|Benutzbarkeit                |   |   | x |   |
-|Effizienz                 |   |   |   | x |
-|Funktionalität                 |   |   |   |  | x
-|Übertragbarkeit                 | x  |  |   |  | 
-|Zuverlässigkeit                 |   |   | x |  | 
+|Qualitätsanforderungen| 1 | 2 | 3 | 4 | 5
+|Wartbarkeit           |   |   |   | x |
+|Benutzbarkeit         |   |   | x |   |
+|Effizienz             |   |   |   | x |
+|Funktionalität        |   |   |   |   | x
+|Übertragbarkeit       | x |   |   |   | 
+|Zuverlässigkeit       |   |   | x |   |
+|Sicherheit            |   |   | x |   |
+|Nutzerfreundlichkeit  |   | x |   |   |
+|Erreichbarkeit        |   | x |   |   |
 |===
 
 === 8.2 Konkrete Nicht-Funktionale Anforderungen
 
-Beschreiben Sie Nicht-Funktionale Anforderungen, welche dazu dienen, die zuvor definierten Qualitätsziele zu erreichen.
-Achten Sie darauf, dass deren Erfüllung (mindestens theoretisch) messbar sein muss.
+[options="header"]
+[cols="1h, 4"]
+|===
+|Ziel |Beschreibung 
+|Zuverlässigkeit|Um die Zuverlässigkeit des Systems zu gewährleisten schreiben wir Anwendungs- und Akzeptanztests. So können Fehler leichter erkannt und die Zuverlässigkeit gewährleistet werden.
+|Betriebszeit|Das System soll nur zu kurzen Wartungszeiten offline genommen werden. Sonst soll das System immer erreichbar sein. 
+|Sicherheit| Die Daten der Nutzer sollen sicher verschlüsselt gespeichert werden.
+|Effizienz|Der Code soll effizient sein. Redundanzen sollen vermieden werden, dass eine hohe Geschwindigkeit möglich ist.
+|Funktionalität|Das System soll niemals abstürzen und alle Funktionen soll richtig funktionieren.
+|===
 
 == 9 GUI Prototyp
 
@@ -1378,20 +1389,16 @@ Beispiel: Was bedeutet "Kunde"? Ein Nutzer des Systems? Der Kunde des Projektes 
 [options="header", cols="1h, 4"]
 [[glossar]]
 |===
-|Begriff                   |Beschreibung
-|Customer               | Kunde des Fitnessstudios.
-|Client                 | {Client_Description}
-|Contractor             | Company responsible for implementing the software
-|Inventory              | {domain_ref}
-|InventoryItem          | {domain_ref}
+|Begriff                | Beschreibung
+|Customer (Kunde)       | Kunde des Fitnessstudios.
 |Login                  | Erfolgreiche Authentifizierung nach Eingabge der (korrekten) Zugangsdaten des Nutzers.
-|Nutzer                 | Jeder der mit dem System interagiert. (Synonym für Akteur User)
-|Register/Registration  | Prozess der Erstellung eines neuen Accounts im System. 
-|ROLE/Role              | {domain_ref}
-|Stock                  | Amount of discs of one type that are available
-|System                 | General term for the software system that has to be implemented during this project.
-|User                   | {domain_ref}
-|Fitnessstudio              | {Videoshop_Description}
+|User (Nutzer)          | Jeder der mit dem System interagiert. (Synonym für Akteur User)
+|Staff (Mitarbeiter)          | Mitarbeiter des Fitnessstudios.
+|Boss (Chef)          | Chef des Fitnessstudios.
+|Registrierung/Registrieren  | Prozess der Erstellung eines neuen Accounts im System. 
+|Rolle              | Art des Nutzers. (Kunde, Mitarbeiter, Chef).
+|System                 | Genereller Begriff für das System, was während des Entwicklungsprozesses implementiert werden soll.
+|Fitnessstudio              | Zentrale Klasse des Systems. Sie repräsentiert das Fitnessstudio an sich.
 |===
 
 == 13 Offene Punkte
