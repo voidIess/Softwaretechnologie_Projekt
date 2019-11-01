@@ -1073,7 +1073,7 @@ Jeder Testfall soll mit einer ID versehen werde, um später zwischen den Dokumen
 |{Event}      a|Der Nutzer navigiert zum Inventar und wählt "Artikel hinzufügen" gibt folgende Daten ein und wählt "Speichern":
 
 - _Name_: Boxsack
-- _Preis_: 119.95
+- _Preis_: 119,95
 - _Anzahl_: 34
 - _Mindestanzahl_: 10
 
@@ -1091,7 +1091,7 @@ Jeder Testfall soll mit einer ID versehen werde, um später zwischen den Dokumen
 |{Event}      a|Der Nutzer navigiert zum Inventar und wählt "Bearbeiten", ändert den Preis zu 195.19 und wählt "Speichern".
 |{Result}     a|
 - die geänderten Daten werden für den Artikel gespeichert
-- bei dem nächsten Verkauf des Artikels werden 195.15€ berechnet
+- bei dem nächsten Verkauf des Artikels werden 195,15€ berechnet
 - der Nutzer wird zum Inventar zurückgeleitet
 |===
 
@@ -1221,9 +1221,9 @@ Der Nutzer wählt die Option "verkaufen".
 |ID            |<<AT3201>>
 |Anwendungsfall      |<<UC320>>
 |{Pre}        a|Der Nutzer ist als "Staff" angemeldet. Die Kundenliste ist nicht leer.
-|{Event}      a|Er navigiert zum ausgewählten Kunden in der Kundenliste und wählt "CeckIn".
+|{Event}      a|Er navigiert zum ausgewählten Kunden in der Kundenliste und wählt "CheckIn".
 |{Result}     a|
-- ________________
+- der ausgewählte Kunde wird auf aktiv geschalten
 - eine Bestätigungsnachricht wird angezeigt (Karli Naue ist jetzt aktiv.)
 |===
 
@@ -1235,7 +1235,7 @@ Der Nutzer wählt die Option "verkaufen".
 |{Pre}        a|Der Nutzer ist als "Staff" angemeldet. Die Kundenliste ist nicht leer. Mindestens ein Kunde ist gerade im Fitnessstudio aktiv.
 |{Event}      a|Der Nutzer navigiert zum ausgewählten Kunden in der Kundenliste und wählt "CheckOut".
 |{Result}     a|
-- __________________
+- der ausgewählte Kunde wird auf inaktiv
 - eine Bestätigungsnachricht wird angezeigt (Karli Naue ist jetzt inaktiv.)
 |===
 
@@ -1355,13 +1355,97 @@ und wählt "Speichern".
 
 [cols="1h, 4"]
 |===
-|ID            |<<AT5201>>
+|ID            |<<AT5202>>
 |Anwendungsfall      |<<UC520>>
 |{Pre}        a|Der Nutzer ist als "Staff" angemeldet. Es gibt ein angefragtes Probetraining.
 |{Event}      a|Er navigiert zu "Anfragen bearbeiten" und wählt für eine Anfrage "Ablehnen" aus.
 |{Result}     a|
 - der Trainingstermin wurde aus dem System gelöscht
 - es wird wieder die Anfragenliste, ohne den abgelehnten Termin angezeigt
+|===
+
+
+[cols="1h, 4"]
+|===
+|ID            |<<AT6011>>
+|Anwendungsfall      |<<UC601>>
+|{Pre}        a|Der Nutzer ist als "Staff" angemeldet.
+|{Event}      a|Er navigiert zum Diestplan, wählt "Eintrag hinzufügen", gibt folgende Daten an:
+
+- _Mitarbeiternummer_: 08708708
+- _Rolle_: Trainer
+- _Datum_: 06.11.2019
+- _Anfangszeit_: 09:00
+- _Endzeit_: 15:00
+
+und drückt "Speichern".
+
+|{Result}     a|
+- ein neuer Dienstplaneintrag mit den angegebenen Daten wird erstellt
+- der Nutzer wird zum Dienstplan mit dem neuen Eintrag zurückgeleitet
+|===
+
+
+[cols="1h, 4"]
+|===
+|ID            |<<AT6012>>
+|Anwendungsfall      |<<UC601>>
+|{Pre}        a|Der Nutzer ist als "Staff" angemeldet. Es existiert ein Dienst im Plan.
+|{Event}      a|Er navigiert zum Diestplan, wählt für einen Eintrag "Bearbeiten" aus, ändert die Rolle von Trainer zu Bar und drückt "Speichern".
+|{Result}     a|
+- die geänderten Daten werden für diesen Dienst gespeichert
+- der Nutzer wird zum Dienstplan mit dem geänderten Eintrag zurückgeleitet
+|===
+
+
+[cols="1h, 4"]
+|===
+|ID            |<<AT6013>>
+|Anwendungsfall      |<<UC601>>
+|{Pre}        a|Der Nutzer ist als "Staff" angemeldet. Es existiert ein Dienst im Plan.
+|{Event}      a|Er navigiert zum Diestplan, wählt für einen Eintrag "Löschen" aus und drückt "Speichern".
+|{Result}     a|
+- der gewählte Dienst wird aus dem System gelöscht
+- der Nutzer wird zum Dienstplan mit dem gelöschten Eintrag zurückgeleitet
+|===
+
+
+[cols="1h, 4"]
+|===
+|ID            |<<AT7010>>
+|Anwendungsfall      |<<UC701>>
+|{Pre}        a|Der Nutzer ist als "Staff" angemeldet. Die Kundenliste ist nicht leer.
+|{Event}      a|Der Nutzer navigiert zu einem Mitglied in der "Kundenliste" und drückt "Bearbeiten", ändert die E-Mail-Adresse von 'd0f45t@hotmail.com' zu 'dof45t@hotmail.com' und wählt "Speichern".
+|{Result}     a|
+- die Daten des gespeicherten Kunden wurden im System geändert
+- es kann sich nur noch mit den neuen Daten eingeloggt werden
+- der Nutzer wird zur Kundenliste mit dem geänderten Kunden zurückgeführt
+|===
+
+
+[cols="1h, 4"]
+|===
+|ID            |<<AT7020>>
+|Anwendungsfall      |<<UC702>>
+|{Pre}        a|Der Nutzer ist als "Staff" angemeldet. Die Kundenliste ist nicht leer.
+|{Event}      a|Der Nutzer navigiert zu einem Kunden der "Kundenliste", drückt "Löschen" und wählt "Bestätigen".
+|{Result}     a|
+- der ausgewählte Kunde wurde aus dem System entfernt
+- es kann sich nicht mehr den Zugangsdaten des Kunden eingeloggt werden
+- der Nutzer wird zur Mitarbeiterliste ohne den gelöschten Kunden zurückgeführt
+|===
+
+
+[cols="1h, 4"]
+|===
+|ID            |<<AT7020>>
+|Anwendungsfall      |<<UC702>>
+|{Pre}        a|Der Nutzer ist als "Staff" angemeldet. Die Kundenliste ist nicht leer.
+|{Event}      a|Der Nutzer navigiert zu "Guthaben hinzufügen", wählt einen Kunden (01230132), gibt den Betrag an (15,00) und drückt "Bestätigen".
+|{Result}     a|
+- das Guthaben des Kunden wird um 15,00€ erhöht
+- die Rechnung des Kunden wird ergänzt
+- der Nutzer landet wieder auf der Startseite
 |===
 
 
