@@ -1252,8 +1252,7 @@ Beispiel: Was bedeutet "Kunde"? Ein Nutzer des Systems? Der Kunde des Projektes 
 |Registrierung/Registrieren  | Prozess der Erstellung eines neuen Accounts im System. 
 |Rolle              | Art des Nutzers. (Kunde, Mitarbeiter, Chef).
 |System                 | Genereller Begriff für das System, was während des Entwicklungsprozesses implementiert werden soll.
-
-|Fitnessstudio              | {Videoshop_Description}
+|Fitnessstudio              | Zentrale Klasse des Systems. Sie repräsentiert das Fitnessstudio an sich.
 |===
 
 == 13 Offene Punkte
