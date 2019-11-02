@@ -962,7 +962,7 @@ Für jeden Dialog:
 === 10.1 Überblick: Klassendiagramm
 UML-Analyseklassendiagramm
 [[class_diagram]]
-image::./models/analysis/analysis_class_diagram.svg[class_diagram]
+image::./models/analysis/analysis class diagram.svg[class_diagram]
 
 
 === 10.2 Klassen und Enumerationen
@@ -980,7 +980,7 @@ Dieser Abschnitt stellt eine Vereinigung von Glossar und der Beschreibung von Kl
 |Article                  | stellt einen Artikel zum Verkaufen im Studio dar, Dieser hat einen Namen, eine Mindestmenge, einen Preis und evtl. Mindesthaltbarkeitsdatum               |
 |Bar                  |die Theke des Studios            |
 |Studio                  |zentrale Klasse des Systems, das das Fitnessstudio selbst darstellt            |
-|Trainingplan                  |wird durch einen Trainer mit dem jeweiligen Mitglied erstellt oder bearbeitet.            |
+|TrainingSchedule                  |wird durch einen Trainer mit dem jeweiligen Mitglied erstellt oder bearbeitet.            |
 |Discount                  |ein Rabatt kann auf einzelne Artikel gegeben werden. Dieser hat einen bestimmten Zeitraum            |
 |Roster                  |stellt den Dienstplan dar, in dem die Mitarbeiter eingeteilt sind.           |
 |Role                  |Eine Rolle wird verwendet, um authentifizierte Benutzer mit unterschiedlichen Rechten im System zu unterscheiden. Je nach Rolle stehen unterschiedliche Funktionen zur Verfügung            |
