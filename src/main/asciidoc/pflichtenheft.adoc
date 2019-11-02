@@ -4,6 +4,7 @@
 :toc: macro
 :toc-title: Inhaltsverzeichnis
 
+[discrete]
 == __{project_name}__
 
 [options="header"]
