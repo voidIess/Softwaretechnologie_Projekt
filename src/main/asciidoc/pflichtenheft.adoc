@@ -17,55 +17,55 @@
 toc::[]
 
 == 1 Zusammenfassung
-Dieses Dokument spiegelt das Pflichtenheft des Projekts {project_name} für die Firma {company_name} wider.
+Dieses Dokument spiegelt das Pflichtenheft des Projekts {project_name} für die Firma {company_name} wider. +
 Es stellt einen Überblick über die zu erstellende Software und ihre Funktionen als Basis für die Kommunikation zwischen
-den Interessengruppen, hauptsächlich der Kunde und das Entwicklungsteam. Dieses Dokument bildet die vertragliche Grundlage
-zwischen Auftraggeber und -nehmer. Dafür muss es von beiden Seiten beständig aktualisiert und bestätigt werden.
+den Interessengruppen, hauptsächlich {company_name} und das Entwicklungsteam. +
+Dieses Dokument bildet die vertragliche Grundlage zwischen Auftraggeber und -nehmer. Dafür muss es von beiden Seiten beständig aktualisiert und bestätigt werden.
 Das Pflichtenheft sammelt alle Funktionen, die die Software bringen muss und deren angestrebte Umsetzung.
 
 == 2 Aufgabenstellung und Zielsetzung
 Es soll eine Software für den Einsatz in einem Fitnessstudio entwickelt werden. Dabei sollen verschiedene
-Geschäftsfelder berücksichtigt werden. In der Mitarbeiterverwaltung können die Mitarbeiter des Fitnessstudios eingestellt,
+Geschäftsfelder berücksichtigt werden. In der Mitarbeiterverwaltung können die Mitarbeiter(_Staff_) des Fitnessstudios eingestellt,
 bearbeitet und entlassen werden. Die Mitarbeiter haben verschiedene Aufgaben (Thekenkraft/Trainer) und Löhne.
 
-Zum Monatsende wird für jeden Mitarbeiter ein Lohnschein als PDF erstellt. Die Mitarbeiter sollen einen eigenen Login bekommen,
-um den Dienstplan zu betrachten und den Lohnschein abzurufen. Der Dienstplan muss ebenfalls von Mitarbeitern erstellt
+Zum Monatsende wird für jeden Mitarbeiter ein Lohnschein (_Payslip_) als PDF erstellt. Die Mitarbeiter sollen einen eigenen Login (_Login_) bekommen,
+um den Dienstplan (_Roster_) zu betrachten und den Lohnschein abzurufen. Der Dienstplan muss ebenfalls von Mitarbeitern erstellt
 und bearbeitet werden können.
 
-Es sollen ebenfalls alle Mitglieder verwaltet werden können. Diese können in das Studio aufgenommen, bearbeitet und entlassen werden.
-Um als Mitglied aufgenommen zu werden muss ein Vertrag abgeschlossen werden. Bei der Aufnahme soll ein Log-in erstellt werden,
-mit dem der Kunde von zu Hause aus persönliche Daten, Vertrag und Probetraining verwalten kann.
+Es sollen ebenfalls alle Mitglieder (_Customer_) verwaltet werden können. Diese können in das Studio aufgenommen, bearbeitet und entlassen werden.
+Um als Mitglied aufgenommen zu werden muss ein Vertrag abgeschlossen werden. +
+Bei der Aufnahme (_Registrierung_) soll ein Log-in erstellt werden, mit dem der Kunde von zu Hause aus persönliche Daten, Vertrag und Probetraining verwalten kann.
 Die monatlichen Gebühren werden per SEPA-Lastschrift vom Kunden abgebucht.
 
-Jedes Mitglied erhält einen Code, mit dem es beliebig viele neue Mitglieder anwerben kann.
-Wird dieser Code bei der Registrierung eines anderen Mitgliedes angegeben, so wird ein bestimmter Betrag
-auf das Kundenkonto des Codeinhabers gutgeschrieben.
+Jedes Mitglied erhält einen Code (_ReferralCode_), mit dem es beliebig viele neue Mitglieder anwerben kann.
+Wird dieser Code bei der Registrierung eines anderen Mitgliedes angegeben, so wird ein bestimmter Betrag auf das Kundenkonto des Codeinhabers gutgeschrieben.
 Jeder Kunde kann während seiner Mitgliedschaft mit einem Trainer ein Probetraining vereinbaren,
 entweder direkt im Studio oder über das Internetportal des Studios. Eine Mitgliedschaft kann pro Jahr für einen Monat
 ohne Gründe ausgesetzt und später nachgeholt werden.
 
-Des Weiteren gibt es einen Eingangs- und Verkaufsbereich, dort meldet sich jedes Mitglied mit seiner Kunden-ID
+Des Weiteren gibt es einen Eingangs- und Verkaufsbereich (_Bar_), dort meldet sich jedes Mitglied mit seiner Kunden-ID
 bei Betreten des Studios an und bei Verlassen ab. An der Theke können auch Getränke, Nahrungsergänzungsmittel
-oder Zubehör erworben werden, diese werden bar bezahlt oder direkt vom Kundenkonto abgebucht.
-Mitglied können dann monatlich sich ihre Rechnung online als PDF ausgeben lassen.
+oder Zubehör (_Article_) erworben werden, diese werden bar bezahlt oder direkt vom Kundenkonto abgebucht.
+Mitglied können dann monatlich sich ihre Rechnung (_Invoice_) online als PDF ausgeben lassen.
 
 Die Artikel des Verkaufsbereiches lassen sich ebenfalls verwalten. Es müssen Artikel hinzugefügt, bearbeitet
 und gelöscht werden können. Unterschreiten Artikel die Mindestmenge, dann werden sie einer Bestellliste hinzugefügt
-und für die Mitarbeiter sichtbar gemacht. Artikel, die für den Verzehr gedacht sind, haben ein Verfallsdatum,
+und für die Mitarbeiter sichtbar gemacht. +
+Artikel, die für den Verzehr gedacht sind, haben ein Verfallsdatum (_expirationDate_),
 welches bei jedem Programmstart überprüft wird. Für erschiedene Artikel soll man für einen bestimmten Zeitraum
-einen Rabatt angeben können.
+einen Rabatt (_Discount_) angeben können.
 
-Online und nur für den Chef sind Statistiken über laufende Kosten, Einnahmen, Kundenverhalten und Verkaufsartikel grafisch dargestellt.
+Online und nur für den Chef (_Boss_) sind Statistiken (_Statistic_) über laufende Kosten, Einnahmen, Kundenverhalten und Verkaufsartikel grafisch dargestellt.
 Sowie verschiedene Einstellungen wie Vertragslaufzeit, monatliche Gebühren, Einladungsprämie, Öffnungszeiten usw. verwaltbar.
 
 == 3 Produktnutzung
-Die Software soll auf einem Server laufen und dabei durchgängig über das Internet mit einem Browser
+Die Software (_System_) soll auf einem Server laufen und dabei durchgängig über das Internet mit einem Browser
 (z. B. Google Chrome, Firefox oder Safari) erreichbar sein. Hauptnutzungsgebiete sind dabei die Mitarbeiterverwaltung,
-die Verkaufsstelle (Theke) und die Mitgliederverwaltung. Alle Felder sind über die gleiche Applikation mit verschiedenen
-Log-ins erreichbar.
+die Verkaufsstelle (_Bar_) und die Mitgliederverwaltung. Alle Felder sind über die gleiche Applikation mit verschiedenen
+Log-ins (_Login_) erreichbar.
 
-Alle sich anhäufende Daten sollen dabei dauerhaft in Form einer Datenbank gespeichert werden. Vertrauliche Daten,
-wie z. B. Passwörter, sollen verschlüsselt gesichert werden. Für den Umgang mit der Datenbank wird kein technisches
+Alle sich anhäufende Daten sollen dabei dauerhaft in Form einer Datenbank gespeichert werden. +
+Vertrauliche Daten, wie z. B. Passwörter, sollen verschlüsselt gesichert werden. Für den Umgang mit der Datenbank wird kein technisches
 Verständnis verausgesetzt, denn deren Verwaltung wird in der Website nutzerfreundlich dargestellt.
 
 == 4 Interessensgruppen (Stakeholders)
