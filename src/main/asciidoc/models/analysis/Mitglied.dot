@@ -1,0 +1,12 @@
+digraph Mitarbeiter{
+node [shape=box];
+
+    Mitglied[shape=plaintext];
+    mitglied_training[label="Mitglied Trainig"];
+    Mitglied -> mitglied_training[label="Trainig"];
+    mitglied_kundenkonto[label="Mitglied Kundenkonto Übersicht"];
+    Mitglied -> mitglied_kundenkonto [label="Account"];
+    mitglied_pausieren[label="Mitglied Ansicht pausieren"];
+    mitglied_kundenkonto -> mitglied_pausieren [label="Mitgliedschaft pausieren"];
+    mitglied_pausieren -> mitglied_kundenkonto [label="Bestätigen"];
+}

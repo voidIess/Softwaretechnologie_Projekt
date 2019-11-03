@@ -1,0 +1,44 @@
+digraph Mitarbeiter{
+    node [shape=box];
+
+    mitglied_suche [label="Mitglied Suche"];
+    Mitarbeiter[shape=plaintext];
+    Mitarbeiter -> mitglied_suche [label="Mitglieder"];
+    ansicht_mitarbeiter [label="Mitglied Ansicht\ndurch Mitarbeiter"];
+    mitglied_suche -> ansicht_mitarbeiter [label="Anzeigen"];
+    konto_aufladen [label="Kundenkonto aufladen"];
+    ansicht_mitarbeiter -> konto_aufladen [label="Aufladen"];
+    konto_aufladen -> ansicht_mitarbeiter [label="Hinzufügen/Abbrechen"];
+    ansicht_mitarbeiter -> ansicht_mitarbeiter [label ="Check Out/Check In"];
+    mitglied_loeschen [label="Mitglied löschen bestätigen"];
+    ansicht_mitarbeiter -> mitglied_loeschen [label="Mitglied entfernen"];
+
+    inventar_verkauf_uebersicht [label="Inventar Verkauf\nÜbersicht"];
+    Mitarbeiter -> inventar_verkauf_uebersicht [label="Thekenverkauf"];
+    inventar_verkauf_uebersicht -> inventar_verkauf_uebersicht [label="Hinzufügen"];
+    inventar_warenkorb [label="Inventar Warenkorb"];
+    inventar_verkauf_uebersicht -> inventar_warenkorb [label="Warenkorb"];
+    inventar_warenkorb -> inventar_verkauf_uebersicht [label="Artikelübersicht"];
+    inventar_warenkorb -> Mitarbeiter [label="Verkaufen"];
+    inventar_verwaltung [label="Inventar Verwaltung"];
+    inventar_verkauf_uebersicht -> inventar_verwaltung [label="Verwalten"];
+    inventar_verwaltung -> inventar_verkauf_uebersicht [label="Verkauf"];
+    inventar_produkt_bearbeiten [label="Inventar Produkt\nbearbeiten"];
+    inventar_verwaltung -> inventar_produkt_bearbeiten [label="Bearbeiten"];
+    inventar_produkt_bearbeiten -> inventar_verwaltung [label="Speichenn/Verwerfen"];
+    inventar_hinzufuegen [label="Inventar Artikel hinzufügen"];
+    inventar_verwaltung -> inventar_hinzufuegen [label="Neuen Artikel\nhinzufügen"];
+    inventar_hinzufuegen -> inventar_verwaltung [label="Speichern/Verwalten"];
+
+    mitarbeiter_account [label="Mitarbeiter Accountverwaltung/\nProbetraining"];
+    Mitarbeiter -> mitarbeiter_account [label="Account"];
+    dienstplan_uebersicht [label="Dienstplan Übersicht"];
+    mitarbeiter_account -> dienstplan_uebersicht [label="Dienstplan"];
+    dienstplan_hinzufuegen [label="Dienstplan Eintrag hinzufügen"];
+    dienstplan_uebersicht -> dienstplan_hinzufuegen [label="Schicht hinzufügen"];
+    dienstplan_hinzufuegen -> dienstplan_uebersicht [label="Speichern/Verwerfen"];
+    dienstplan_bearbeiten [label="Dienstplan Eintrag bearbeiten"];
+    dienstplan_uebersicht -> dienstplan_bearbeiten [label="Bearbeiten"];
+    dienstplan_bearbeiten -> dienstplan_uebersicht [label="Speichern/\nVerwerfen/Löschen"];
+
+}

@@ -1,0 +1,16 @@
+digraph unregistered_user{
+    node [shape=box];
+
+    unregistered_user[label="Unregistered User", shape=plaintext];
+    user[label="User", shape=plaintext];
+    user[label="User"];
+    login[label="Login"];
+    logout_erfolgreich[label="Logout erfolgreich"];
+    unregistered_user -> login -> user;
+    user -> logout_erfolgreich[label="Logout"];
+    logout_erfolgreich -> unregistered_user;
+
+    aktivierung[label="Mitglied Aktivierung Vertrag"];
+    unregistered_user -> Registrieren -> aktivierung;
+
+}

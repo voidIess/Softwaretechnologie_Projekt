@@ -1,0 +1,19 @@
+digraph unregistered_user{
+    node [shape=box];
+
+    Boss[shape=plaintext];
+    uebersicht_mitarbeiter[label="Übersicht Mitarbeiter"];
+    Boss -> uebersicht_mitarbeiter[label="Mitarbeiter"];
+    mitarbeiter_anlegen[label="Neuen Mitarbeiter anlegen"];
+    uebersicht_mitarbeiter -> mitarbeiter_anlegen[label="Mitarbeiter hinzufügen"];
+    mitarbeiter_anlegen -> uebersicht_mitarbeiter[label="Speichern/Verwerfen"];
+    mitarbeiter_bearbeiten[label="Mitarbeiter bearbeiten"];
+    uebersicht_mitarbeiter -> mitarbeiter_bearbeiten[label="Bearbeiten"];
+    mitarbeiter_bearbeiten -> uebersicht_mitarbeiter[label="Speichern/Verwalten/Löschen"];
+
+    Boss -> verwaltung_statistiken[label="Verwaltung"];
+    verwaltung_statistiken[label="Verwaltung Statistiken"];
+    verwaltung_einstellungen[label="Verwaltung Einstellungen"];
+    verwaltung_statistiken -> verwaltung_einstellungen[label="Einstellungen"];
+    verwaltung_einstellungen -> verwaltung_statistiken[label="Statistiken"];
+}
