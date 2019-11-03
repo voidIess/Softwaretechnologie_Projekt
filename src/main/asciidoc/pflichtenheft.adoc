@@ -11,7 +11,7 @@
 [cols="1, 1, 1, 1, 4"]
 |===
 |Version | Status      | Bearbeitungsdatum   | Autoren(en) |  Vermerk
-|0.1     | In Arbeit   | 10.10.2019          | Autor       | Initiale Version
+|0.1     | Abgeschlossen   | 03.10.2019          | Julius Schmitt, Lea Häusler, Quang Vu Ha, Bill Kippe, Markus Wieland       | Initiale Version
 |===
 
 toc::[]
@@ -1604,5 +1604,3 @@ Beispiel: Was bedeutet "Kunde"? Ein Nutzer des Systems? Der Kunde des Projektes 
 |Fitnessstudio              | Zentrale Klasse des Systems. Sie repräsentiert das Fitnessstudio an sich.
 |===
 
-== 13 Offene Punkte
-Offene Punkte werden entweder direkt in der Spezifikation notiert. Wenn das Pflichtenheft zum finalen Review vorgelegt wird, sollte es keine offenen Punkte mehr geben.
