@@ -988,6 +988,8 @@ Dieser Abschnitt stellt eine Vereinigung von Glossar und der Beschreibung von Kl
 |Payslip                  |ein Lohnschein wird zum Monatsende für jeden Mitarbeiter als PDF erstellt            |
 |Account                  |stellt eine Konto dar, die verschiedene Informationen und Rollen für Mitglieder, Mitarbeiter und Chef hat            |
 |Login                  |erfolgreiche Authentifizierung nach Eingabe der korrekten Anmeldeinformationen eines Benutzers            |
+|Trainingtype                  |Eine Trainingsart wird verwendet, um Probetraining und normales Training zu unterscheiden.            |
+
 |===
 
 == 11 Akzeptanztestfälle
