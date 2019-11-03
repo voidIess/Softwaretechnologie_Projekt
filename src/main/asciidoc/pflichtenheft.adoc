@@ -45,7 +45,7 @@ ohne Gründe ausgesetzt und später nachgeholt werden.
 
 Des Weiteren gibt es einen Eingangs- und Verkaufsbereich (_Bar_), dort meldet sich jedes Mitglied mit seiner Kunden-ID
 bei Betreten des Studios an und bei Verlassen ab. An der Theke können auch Getränke, Nahrungsergänzungsmittel
-oder Zubehör (_Article_) erworben werden, diese werden bar bezahlt oder direkt vom Kundenkonto abgebucht.
+oder Zubehör (_Article_) erworben werden, diese werden bar bezahlt oder direkt vom Guthabenkonto abgebucht.
 Mitglied können dann monatlich sich ihre Rechnung (_Invoice_) online als PDF ausgeben lassen.
 
 Die Artikel des Verkaufsbereiches lassen sich ebenfalls verwalten. Es müssen Artikel hinzugefügt, bearbeitet
@@ -769,7 +769,7 @@ Das System muss es jedem Kunden einmal pro Jahr ermöglichen die Auswahl "Vertra
 |v1.0
 |Anwerbe Code anzeigen
 a| [[F0730]]
-Das System muss jedem aktivierten (**<<F0222>>**) Kundenkonto einen eindeutigen Code zur Verfügung stellen. Wird ein Neukonto mit diesem Code freigegeben, erhöht das System das Guthaben des Altkunden um einen festgelegten Wert. Der Code kann dabei beliebig oft angezeigt und von neuen Kunden während der Registrierung (**<<F0221>>**) angegeben werden.
+Das System muss jedem aktivierten (**<<F0222>>**) Guthabenkontoeinen eindeutigen Code zur Verfügung stellen. Wird ein Neukonto mit diesem Code freigegeben, erhöht das System das Guthaben des Altkunden um einen festgelegten Wert. Der Code kann dabei beliebig oft angezeigt und von neuen Kunden während der Registrierung (**<<F0221>>**) angegeben werden.
 
 |**<<F0800>>**
 |v1.0
@@ -1585,10 +1585,6 @@ und drückt "Speichern".
 
 == 12 Glossar
 
-Sämtliche Begriffe, die innerhalb des Projektes verwendet werden und deren gemeinsames Verständnis aller beteiligten Stakeholder essentiell ist, sollten hier aufgeführt werden.
-Insbesondere Begriffe der zu implementierenden Domäne wurden bereits beschrieben, jedoch gibt es meist mehr Begriffe, die einer Beschreibung bedürfen. +
-Beispiel: Was bedeutet "Kunde"? Ein Nutzer des Systems? Der Kunde des Projektes (Auftraggeber)?
-
 [options="header", cols="1h, 4"]
 [[glossar]]
 |===
@@ -1602,5 +1598,14 @@ Beispiel: Was bedeutet "Kunde"? Ein Nutzer des Systems? Der Kunde des Projektes 
 |Rolle              | Art des Nutzers. (Kunde, Mitarbeiter, Chef).
 |System                 | Genereller Begriff für das System, was während des Entwicklungsprozesses implementiert werden soll.
 |Fitnessstudio              | Zentrale Klasse des Systems. Sie repräsentiert das Fitnessstudio an sich.
+|Dienstplan | Der Dienstplan ist eine Übersicht für die Mitarbeiter, in der sie erkennen können, wer wann als was arbeiten muss.
+|Trainingsplan| Trainingsplan ist eine Übersicht über die anstehenden Trainings des Kunden des Fitnessstudios.
+|Trainingstermin| Trainingstermin beschreibt einen Termin in dem Trainingsplan.
+|Guthabenkonto|Das Guthabenkonto ist ein Konto des Kunden des Fitnessstudios. Auf dieses Konto kann er Geld einzahlen, jedoch nicht wieder abheben. Über dieses Konto kann er z.B. Käufe an der Theke bezahlen. Auch Kundenkonto genannt.
+|Artikel|Ein Artikel beschreibt Gegenstände, welche im Fitnessstudio erworben werden können. Dazu zählen unter anderem Getränke und Nahrungsergänzungsmittel, allerdings auch Hantel und andere Trainingsgeräte.
+|Inventar| Das Inventar beschreibt die Gesamtheit aller Artikel des Fitnessstudios.
+|Nachbestellliste|Die Nachbestellliste enthält alle Artikel, welche nachgekauft werden müssen, da sie entweder abgelaufen sind, oder zu wenig Exemplare vorhanden sind. Dabei handelt es sich jedoch nicht um eine wirklich Liste. Die Liste wird nur im Hintergrund verwendet um im Inventar die entsprechenden Artikel zu markieren.
+|Einchecken/Auschecken| Wenn ein Kunde das Fitnessstudio betritt, wird er im System angemeldet (eingecheckt). So kann der Chef des Fitnessstudios Statistiken über Anwesenheitszeit und Sonstiges sehen. Verlässt er das Fitnessstudio, wird dies ebenfalls im System vermerkt (ausgecheckt).
+|Code (ReferralCode)| Jeder Kunde bekommt so einen Code. Diesen Code kann er seinen Freunden und Bekannten geben. Geben sie diesen Code beim Registrieren im Fitnessstudio an, so erhält der Besitzer des Codes eine Prämie.
 |===
 
