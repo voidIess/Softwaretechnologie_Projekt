@@ -55,7 +55,7 @@ Kundengespräch wurde geführt. Pflichtenheft soweit ok. Letzter Feinschliff am 
 |===
 |Issue |Titel |Beschreibung |Verantwortlicher |Status
 |…     |Pflichtenheft beenden  |…            |alle           |in Arbeit
-|…     |Pflichtenheft Glossar    |Glossar Abschnitt ausfüllen |  …             |angefangen
+|…     |Pflichtenheft Glossar    |Glossar Abschnitt ausfüllen |  Markus             |angefangen
 |…     |Pflichtenheft Qualitätsziele    |Abschnitt Qualitätsziele ausfüllen |Markus               |noch nicht begonnen
 |…     |Pflichtenheft GUI Prototyp    |Fotos von Prototyp hochladen und beschreiben|Julius + Wer Zeit hat |angefangen
 |…     |Pflichtenheft Akzeptanztests   |Akzeptanztests für die einzelnen Anwendungsfälle |Lea   |angefangen
