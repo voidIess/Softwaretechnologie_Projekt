@@ -946,16 +946,42 @@ Idealerweise entsteht auch ein grafischer Prototyp, welcher dem Kunden zeigt, wi
 Konkrete Absprachen - beispielsweise ob der grafische Prototyp oder die Dialoglandkarte höhere Priorität hat - sind mit dem Kunden zu treffen.
 
 === 9.1 Überblick: Dialoglandkarte
-Erstellen Sie ein Übersichtsdiagramm, das das Zusammenspiel Ihrer Masken zur Laufzeit darstellt. Also mit welchen Aktionen zwischen den Masken navigiert wird.
-//Die nachfolgende Abbildung zeigt eine an die Pinnwand gezeichnete Dialoglandkarte. Ihre Karte sollte zusätzlich die Buttons/Funktionen darstellen, mit deren Hilfe Sie zwischen den Masken navigieren.
+image::models/analysis/unregistered_user.png[]
+image::models/analysis/Boss.png[]
+image::models/analysis/Mitarbeiter.png[]
+image::models/analysis/Mitglied.png[]
 
 === 9.2 Dialogbeschreibung
-Für jeden Dialog:
-
-1. Kurze textuelle Dialogbeschreibung eingefügt: Was soll der jeweilige Dialog? Was kann man damit tun? Überblick?
-2. Maskenentwürfe (Screenshot, Mockup)
-3. Maskenelemente (Ein/Ausgabefelder, Aktionen wie Buttons, Listen, …)
-4. Evtl. Maskendetails, spezielle Widgets
+image::models/analysis/Startseite.png[]
+image::models/analysis/Dienstplan_Eintrag_bearbeiten.png[]
+image::models/analysis/Dienstplan_Eintrag_hinzufügen.png[]
+image::models/analysis/Dienstplan_Übersicht.png[]
+image::models/analysis/Inventar_Artikel_hinzufügen.png[]
+image::models/analysis/Inventar_Produkt_bearbeiten.png[]
+image::models/analysis/Inventar_Produkt_verwalten.png[]
+image::models/analysis/Inventar_Verkauf_Übersicht.png[]
+image::models/analysis/Inventar_Warenkorb.png[]
+image::models/analysis/Inventarverwaltung.png[]
+image::models/analysis/Kundenkonto_aufladen.png[]
+image::models/analysis/Login.png[]
+image::models/analysis/Logout_erfolgreich.png[]
+image::models/analysis/Mitarbeiter_Accountverwaltung_Probetrainings.png[]
+image::models/analysis/Mitarbeiter_bearbeiten.png[]
+image::models/analysis/Mitglied_Aktivierung_Vertrag.png[]
+image::models/analysis/Mitglied_Ansicht_durch_Mitarbeiter_eingecheckt.png[]
+image::models/analysis/Mitglied_Ansicht_durch_Mitarbeiter_nicht_eingecheckt.png[]
+image::models/analysis/Mitglied_Ansicht_durch_Mitarbeiter_pausiert.png[]
+image::models/analysis/Mitglied_Ansicht_pausieren.png[]
+image::models/analysis/Mitglied_Kundenkonto_Übersicht.png[]
+image::models/analysis/Mitglied_löschen_Bestätigung.png[]
+image::models/analysis/Mitglied_Training.png[]
+image::models/analysis/Mitglieder_Suche.png[]
+image::models/analysis/Neuen_Mitarbeiter_anlegen.png[]
+image::models/analysis/Probetraining_Anfrage_stellen.png[]
+image::models/analysis/Registrierung.png[]
+image::models/analysis/Verwaltung_Einstellung.png[]
+image::models/analysis/Verwaltung_Statistiken.png[]
+image::models/analysis/Übersicht_Mitarbeiter.png[]
 
 == 10 Datenmodell
 
