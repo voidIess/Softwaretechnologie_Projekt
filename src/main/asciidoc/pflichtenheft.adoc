@@ -155,10 +155,7 @@ Anwendungsfall-Diagramm, das alle Anwendungsfälle und alle Akteure darstellt.
 image::./models/analysis/use-case-diagramm.jpg[Use Case diagram, 100%, 100%, pdfwidth=100%, title= "Use case diagram des Projekts", align=center]
 
 === 6.3 Anwendungsfallbeschreibungen
-Dieser Unterabschnitt beschreibt die Anwendungsfälle. In dieser Beschreibung müssen noch nicht alle Sonderfälle und Varianten berücksichtigt werden. Schwerpunkt ist es, die wichtigsten Anwendungsfälle des Systems zu finden. Wichtig sind solche Anwendungsfälle, die für den Auftraggeber, den Nutzer den größten Nutzen bringen.
-Für komplexere Anwendungsfälle ein UML-Sequenzdiagramm ergänzen.
-Einfache Anwendungsfälle mit einem Absatz beschreiben.
-Die typischen Anwendungsfälle (Anlegen, Ändern, Löschen) können zu einem einzigen zusammengefasst werden.
+Dieser Unterabschnitt beschreibt die wichtigsten Anwendungsfälle des Systems. Wichtig sind solche Anwendungsfälle, die für den Auftraggeber, den Nutzer den größten Nutzen bringen.
 
 [cols="1h, 3"]
 [[UC101]]
@@ -613,7 +610,7 @@ Dabei wird sich vor allem auf die eigentliche Implementierung bezogen. Im Vergle
 
 
 === 7.1 Muss-Kriterien
-Anfordeungen die das Programm auf alle Fälle erfüllen muss.
+Anforderungen, die das Programm auf alle Fälle erfüllen muss.
 
 [options="header", cols="2h, 1, 3, 12"]
 |===
@@ -940,10 +937,8 @@ Die zugewiesene Priorität muss bei der Formulierung der konkreten nichtfunktion
 |===
 
 == 9 GUI Prototyp
-
+In diesem Kapitel wurde ein Entwurf der Navigationsmöglichkeiten und Dialoge des Systems erstellt. Zusätzlich gibt es auch einen ersten grafiscgen Prototyp, der zeigen soll, wie das System visuell umgesetzt werden soll.
 In diesem Kapitel soll ein Entwurf der Navigationsmöglichkeiten und Dialoge des Systems erstellt werden.
-Idealerweise entsteht auch ein grafischer Prototyp, welcher dem Kunden zeigt, wie sein System visuell umgesetzt werden soll.
-Konkrete Absprachen - beispielsweise ob der grafische Prototyp oder die Dialoglandkarte höhere Priorität hat - sind mit dem Kunden zu treffen.
 
 === 9.1 Überblick: Dialoglandkarte
 image::models/analysis/unregistered_user.png[]
@@ -1108,8 +1103,7 @@ Dieser Abschnitt stellt eine Vereinigung von Glossar und der Beschreibung von Kl
 |===
 
 == 11 Akzeptanztestfälle
-Mithilfe von Akzeptanztests wird geprüft, ob die Software die funktionalen Erwartungen und Anforderungen im Gebrauch erfüllt. Diese sollen und können aus den Anwendungsfallbeschreibungen und den UML-Sequenzdiagrammen abgeleitet werden. D.h., pro (komplexen) Anwendungsfall gibt es typischerweise mindestens ein Sequenzdiagramm (welches ein Szenarium beschreibt). Für jedes Szenarium sollte es einen Akzeptanztestfall geben. Listen Sie alle Akzeptanztestfälle in tabellarischer Form auf.
-Jeder Testfall soll mit einer ID versehen werde, um später zwischen den Dokumenten (z.B. im Test-Plan) referenzieren zu können.
+Mithilfe von Akzeptanztests wird geprüft, ob die Software die funktionalen Erwartungen und Anforderungen im Gebrauch erfüllt.
 
 :Pre: Vorbedingungen
 :Event: Ereignis
