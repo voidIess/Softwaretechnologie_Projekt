@@ -1,1 +1,75 @@
+= Protokoll Gruppe 16
+
+Treffen am 25.11.2019
+
+Ort:      APB/E006 +
+Beginn:   16:40 Uhr +
+Ende:     18:00 Uhr
+
+__Schriftführer: Markus Wieland__
+
+*Nächstes Treffen:* +
+12.11.2019, 16:40 Uhr, APB/E006
+
+__Teilnehmer:__
+//Tabellarisch oder Aufzählung, Kennzeichnung von Teilnehmern mit besonderer Rolle (z.B. Kunde)
+
+- Anita Fritzsche (Tutorin/Kundin)
+- Julius Schmitt
+- Bill Kippe
+- Markus Wieland
+- Quang Vu Ha
+- Lea Häusler
+
+== Bemerkungen
+Leas Aufgabenstellung für den Prototyp wurde ein wenig angepasst. (Bewertungen)
+Commits sollen aussagende Bezeichnungen haben.
+
+== Retrospektive des letzten Sprints
+*Issue referenziert die Issue ID von GitHub*
+// Wie ist der Status der im letzten Sprint erstellten Issues/veteilten Aufgaben?
+
+// See http://asciidoctor.org/docs/user-manual/=tables
+[option="headers"]
+|===
+|Issue |Aufgabe |Status |Bemerkung
+|…     |Pflichtenheft beenden                                                  |abgeschlossen|alle
+|…     |Pflichtenheft Kontextdiagramm, Top-Level-Architektur und ersten Kapitel|abgeschlossen|Bill
+|…     |Pflichtenheft Funktionelle Anforderungen & Akzeptanztests              |abgeschlossen|Lea
+|…     |Pflichtenheft Use-Case-Diagramm und Beschreibung                       |abgeschlossen|Markus
+|…     |Pflichtenheft GUI Prototyp                                             |abgeschlossen|Julius
+|…     |Pflichtenheft UML-Analyse Diagramm                                     |abgeschlossen|Vu
+|…     |Videoshop Prototyp beenden      |abgeschlossen |alle 
+|…     |Videoshop Rabatte               |abgeschlossen |Vu
+|…     |Videoshop Bewertungen           |abgeschlossen |Lea                
+|…     |Videoshop Bestellungen          |abgeschlossen |Julius       
+|…     |Videoshop Registrierung         |abgeschlossen |Markus   
+|…     |Videoshop Kategorien            |abgeschlossen |Markus       
+|…     |Videoshop pdf                   |abgeschlossen |Bill             
+|===
+
+
+== Aktueller Stand
+Das Pflichtenheft ist fertig und abgegeben. Es gibt nur Kleinigkeiten zu bemängeln. Prototyp Aufgaben erfüllt und alle funktionieren. Erster Meilenstein geschafft.
+Nächster Meilenstein: Sonntag, 17.11.2019.
+
+
+
+
+== Planung des nächsten Sprints
+*Issue referenziert die Issue ID von GitHub*
+
+// See http://asciidoctor.org/docs/user-manual/=tables
+[option="headers"]
+|===
+|Issue |Titel |Beschreibung |Verantwortlicher |Status
+|…     |Pflichtenheft beenden  |…            |alle           |in Arbeit
+|…     |Pflichtenheft Glossar    |Glossar Abschnitt ausfüllen |  Markus             |angefangen
+|…     |Pflichtenheft Qualitätsziele    |Abschnitt Qualitätsziele ausfüllen |Markus               |noch nicht begonnen
+|…     |Pflichtenheft GUI Prototyp    |Fotos von Prototyp hochladen und beschreiben|Julius + Wer Zeit hat |angefangen
+|…     |Pflichtenheft Akzeptanztests   |Akzeptanztests für die einzelnen Anwendungsfälle |Lea   |angefangen
+|…     |Pflichtenheft Klassendiagramm   |Wie "füttern" wir die Statistiken? Wie werden Nutzer freigeschalten? Wie wird die Rechnung mit Daten befüllt? Wie wird der Vertrag gespeichert? Diese vier Punkte müssen noch im Klassendiagramm untergebracht werden |Vu   |noch nicht begonnen
+|…     |Pflichtenheft Anwendungsfälle    |Anwendungafälle überarbeiten |Markus       |angefangen
+|…     |Videoshop Prototyp beenden    |Alle Teilaufgaben beenden|alle              |angefangen
+|===
 
