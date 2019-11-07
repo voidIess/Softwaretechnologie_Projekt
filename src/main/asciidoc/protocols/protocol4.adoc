@@ -63,6 +63,7 @@ Nächster Meilenstein: Sonntag, 17.11.2019.
 |Issue |Titel |Beschreibung |Verantwortlicher |Status
 |…     |Entwurfsklassendiagramm erstellen  |…            |alle           |in Arbeit
 |…     |Module für Prototypen finden und aufteilen  |…            |alle           |in Arbeit
+|…     |Test Plan ausfüllen  |…            |alle           |in Arbeit
 
 |===
 
