@@ -1,6 +1,10 @@
 @startuml
 
-package "org.salespoint" {
+class Gym {
+    + {static} main(args: String[])
+}
+
+package org.salespoint {
     package "useraccount" {
 
         class UserAccount {
@@ -11,9 +15,9 @@ package "org.salespoint" {
 }
 
 
-package  "dummy" {
-     User o-- UserAccount : - userAccount
+package "AdminManagement" {
 
+     User o-- UserAccount : - userAccount
      abstract class User {
         - userID: Long
         - fistName: String
@@ -24,7 +28,7 @@ package  "dummy" {
 
 }
 
-package "Member Management" {
+package "MemberManagement" {
 
     org.springframework.CrudRepository <|-- MemberRepository
     MemberRepository o-- "0..*" Member
@@ -35,14 +39,20 @@ package "Member Management" {
     User <|-- Member
     Member "1" *-- "1" CreditAccount: - creditAccount
     Member "1" *-- "0..*" Training: - training
+    Member "0..*" o-- "1" Contract: - contract
     class Member {
         - isPaused: boolean
         - lastPaused: LocalDate
+        - registrationDate: LocalDate
         - isFreeTrained: boolean
+        - startDate: LocalDate
+        - exerciseTime: Long
 
         + Member(userAccount: UserAccount, fistName: String, lastName: String)
         + requestTraining(staff: Staff, time: LocalDateTime): void
-
+        + changeContract(contract: Contract): void
+        + checkIn(): void
+        + checkOut(): void
     }
 
 
@@ -53,8 +63,8 @@ package "Member Management" {
         + payOut(amount: Money): boolean
     }
 
-    Staff o-- Training: - trainer
-    Staff o-- TrainingState: - state
+    StaffManagement.Staff o-- Training: - trainer
+    StaffManagement.Staff o-- TrainingState: - state
     class Training {
         - startTime: LocalDateTime
         - duration: int
@@ -69,12 +79,32 @@ package "Member Management" {
         REQUESTED
         ACCEPTED
     }
+
+    class Contract {
+        - contractId: Long
+        - name: String
+        - description: String
+        - price: Money
+        - duration: int
+
+        + Contract(name: String, description: String, price: Money, expirationDate: LocalDate)
+        + update(name: String, description: String, price: Money, expirationDate: LocalDate)
+    }
+
+    org.springframework.CrudRepository <|-- ContractRepository
+    ContractRepository o-- "0..*" Contract: - contracts
+    class ContractRepository {
+
+    }
 }
 
-package "Staff Management" {
+package "StaffManagement" {
+
     User <|-- Staff
     class Staff {
+        - salary: Money
 
+        + Staff(userAccount: UserAccount, fistName: String, lastName: String)
     }
 
 
@@ -120,9 +150,10 @@ package org.springframework {
     }
 }
 
-package pdf {
+package "pdf" {
 
     org.springframework.AbstractView <|-- PdfView
+    PdfGenerator <.. PdfView : "use"
     class PdfView {
 
     }
@@ -145,9 +176,8 @@ package pdf {
     }
 
 
-
-
-
 }
+
+
 
 @enduml
