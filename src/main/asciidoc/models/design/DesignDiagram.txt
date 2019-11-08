@@ -1,0 +1,153 @@
+@startuml
+
+package "org.salespoint" {
+    package "useraccount" {
+
+        class UserAccount {
+
+        }
+
+    }
+}
+
+
+package  "dummy" {
+     User o-- UserAccount : - userAccount
+
+     abstract class User {
+        - userID: Long
+        - fistName: String
+        - lastName: String
+
+        + User(userAccount: UserAccount, fistName: String, lastName: String)
+     }
+
+}
+
+package "Member Management" {
+
+    org.springframework.CrudRepository <|-- MemberRepository
+    MemberRepository o-- "0..*" Member
+    class MemberRepository {
+
+    }
+
+    User <|-- Member
+    Member "1" *-- "1" CreditAccount: - creditAccount
+    Member "1" *-- "0..*" Training: - training
+    class Member {
+        - isPaused: boolean
+        - lastPaused: LocalDate
+        - isFreeTrained: boolean
+
+        + Member(userAccount: UserAccount, fistName: String, lastName: String)
+        + requestTraining(staff: Staff, time: LocalDateTime): void
+
+    }
+
+
+    class CreditAccount {
+        - credit: Money
+
+        + payIn(amount: Money): void
+        + payOut(amount: Money): boolean
+    }
+
+    Staff o-- Training: - trainer
+    Staff o-- TrainingState: - state
+    class Training {
+        - startTime: LocalDateTime
+        - duration: int
+        - description: String
+
+        + Training(startTime: LocalDateTime, duration: int, description: String, trainer: Staff)
+        + accept(): void
+        + reject(): void
+    }
+
+    enum TrainingState {
+        REQUESTED
+        ACCEPTED
+    }
+}
+
+package "Staff Management" {
+    User <|-- Staff
+    class Staff {
+
+    }
+
+
+    Roster o-- "0..*" RosterEntry  : - entries
+    class Roster {
+
+        - week: LocalDate
+
+        + Roster(week: LocalDate)
+        + addEntry(rosterEntry: RosterEntry)
+        + removeEntry(rosterEntry: RosterEntry)
+    }
+
+    RosterEntry o-- "1" Staff: - staff
+    RosterEntry o-- "1" Role: - role
+    class RosterEntry {
+        - rosterEntryId: Long
+        - startTime: LocalDateTime
+        - duration: int
+
+        + RosterEntry(staff: Staff, startTime: LocalDateTime, duration: int)
+    }
+
+    enum Role {
+        COUNTER
+        TRAINER
+    }
+
+    org.springframework.CrudRepository <|-- RosterRepository
+    RosterRepository o-- "0..*" Roster
+    class RosterRepository {
+
+    }
+}
+
+package org.springframework {
+    class CrudRepository {
+
+    }
+
+    class AbstractView {
+        renderMergedOutputModel(Map<String, Object> map, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse): void
+    }
+}
+
+package pdf {
+
+    org.springframework.AbstractView <|-- PdfView
+    class PdfView {
+
+    }
+
+    interface PdfGenerator {
+        + {abstract} {static} generatePdf(o: Object, document: Document): void
+    }
+
+
+    PdfGenerator <|.. InvoicePdfGenerator
+    class InvoicePdfGenerator {
+        - InvoicePdfGenerator()
+        + {abstract} {static} generatePdf(invoice: Object, document: Document): void
+    }
+
+    PdfGenerator <|.. PayslipPdfGenerator
+    class PayslipPdfGenerator {
+         - InvoicePdfGenerator()
+         + {abstract} {static} generatePdf(paySlip: Object, document: Document): void
+    }
+
+
+
+
+
+}
+
+@enduml
