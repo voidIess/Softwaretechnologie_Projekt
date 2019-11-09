@@ -5,6 +5,29 @@ class Gym {
 }
 
 package org.salespoint {
+
+    package "useraccount" {
+        class UserAccount
+    }
+    
+    package catalog {
+        Interface Catalog <T extends Product>
+        Class Product
+    }
+    
+    package inventory {
+        Interface UniqueInventory <T extends UniqueInventoryItem>
+        Class UniqueInventoryItem
+    }
+    
+    package core {
+        Interface DataInitializer
+    }
+    
+    package quantity {
+        Class Quantity
+        Enum Metric
+
     package "useraccount" {
 
         class UserAccount {
@@ -177,6 +200,71 @@ package "pdf" {
 
 
 }
+
+package "BarManagement" {
+
+    Catalog <|.. ArticleCatalog
+    Interface ArticleCatalog <Article> 
+
+    CatalogInitializer o--> "1" ArticleCatalog: - articleCatalog
+    DataInitializer <|.. CatalogInitializer
+    Class CatalogInitializer {
+        + CatalogInitializer(articleCatalog: ArticleCatalog)
+        + initialize(): void
+    }
+
+    Product <|-- Article
+    Article o--> "0..*" Discount: - discounts
+    Metric <.. Article: <<use>>
+    Class Article {
+        - String: description
+        - int: minimalAmount
+        
+        + Article(String: name, String: description, MonetaryAmount: price, metric: Metric, int: minimalAmount)
+        + addDiscount(): boolean
+        + removeDiscount(): Discount
+        + findBestAvailableDiscount(): Discount
+    
+    }
+    
+    Class Discount {
+        - LocalDate: startDate
+        - LocalDate: endDate
+        - int: percent
+        
+        + Discount(startDate: LocalDate, endDate: LocalDate, percent: int)
+        + isAvailable(): boolean
+    }
+    
+    ArticleInventory "1" <--o InventoryInitializer: - articleInventory
+    UniqueInventory <|.. ArticleInventory
+    Interface ArticleInventory <ArticleInventoryItem> {
+        + hasExpiredArticles(): boolean
+        + getExpiredArticles(): List<ArticleInventoryItem>
+        + deleteExpiredArticles(): boolean
+    }
+    
+    InventoryInitializer o--> "1" ArticleCatalog: - articleCatalog
+    DataInitializer <|.. InventoryInitializer
+    Class InventoryInitializer {
+        + InventoryInitializer(articleInventory: ArticleInventory, articleCatalog: ArticleCatalog)
+        + initialize(): void
+    }
+    
+    UniqueInventoryItem <|-- ArticleInventoryItem
+    Quantity <.. ArticleInventoryItem: <<use>>
+    Class ArticleInventoryItem {
+        - List<LocalDate>: expirationDates
+        
+        + ArticleInventoryItem(Article article, Quantity quantity)
+        + hasExpiredItems(): boolean
+        + getNumberOfExpiredItems(): int
+        + deleteExpiredItems(): boolean
+
+    }
+    
+}
+
 
 
 
