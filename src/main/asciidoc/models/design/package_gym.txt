@@ -1,0 +1,20 @@
+namespace gym {
+    GymWebConfiguration <.. Gym: <<use>>
+    WebSecurityConfiguration <..Gym: <<use>>
+    org.springframework.SpringApplication <.. Gym: <<use>>
+    class Gym {
+      + {static} main(args: String[])
+    }
+
+    org.springframework.WebMvcConfigurer <.. GymWebConfiguration: <<use>>
+    org.springframework.ViewControllerRegistry <.. GymWebConfiguration: <<use>>
+    class GymWebConfiguration {
+        + addViewControllers(view: ViewControllerRegistry): void
+    }
+
+    org.springframework.HttpSecurity <.. WebSecurityConfiguration: <<use>>
+    org.salespoint.SalespointSecurityConfiguration <-- WebSecurityConfiguration
+    class WebSecurityConfiguration {
+        + configure(http: HttpSecurity): void
+    }
+}
