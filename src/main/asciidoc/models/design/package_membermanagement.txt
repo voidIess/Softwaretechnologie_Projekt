@@ -1,0 +1,96 @@
+namespace MemberManagement {
+
+    MemberManagement "1" <-- MemberController: - manager
+    class MemberController {
+        + MemberController(memberMangement: MemberMangement)
+        + register(form: RegistrationForm, result: Errors)
+    }
+
+
+    RegistrationForm <.. MemberManagement
+    MemberRepository "1" <-- MemberManagement: - members
+    class MemberManagement {
+        createCustomer(form: RegistrationForm): Customer
+        findAll(): Streamable
+    }
+
+
+    interface RegistrationForm {
+        + getFirstName(): String
+        + getLastName(): String
+        + getReferralCode(): ReferralCode
+    }
+
+    org.springframework.CrudRepository <|.. MemberRepository
+    MemberRepository o-- "0..*" Member
+    class MemberRepository {
+        {abstract} findByUserAccount(userAccount: UserAccount): Member
+        {abstract} findByValidation(validation: boolean): Streamable
+    }
+
+    AdminManagement.User <|-- Member
+    Member "1" *-- "1" CreditAccount: - creditAccount
+    Member "1" *-- "0..*" Training: - training
+    Member "0..*" o-- "1" Contract: - contract
+    java.time.LocalDate <.. Member: <<use>>
+    class Member {
+        - isConfirmed: boolean
+        - isPaused: boolean
+        - lastPaused: LocalDate
+        - registrationDate: LocalDate
+        - isFreeTrained: boolean
+        - startDate: LocalDate
+        - exerciseTime: Long
+
+        + Member()
+        + Member(userAccount: UserAccount, fistName: String, lastName: String)
+        + confirm(): void
+        + requestTraining(staff: Staff, time: LocalDateTime): void
+        + changeContract(contract: Contract): void
+        + checkIn(): void
+        + checkOut(): void
+    }
+
+    class CreditAccount {
+        - credit: Money
+
+        + payIn(amount: Money): void
+        + payOut(amount: Money): boolean
+    }
+
+    StaffManagement.Staff o-- Training: - trainer
+    Training o-- TrainingState: - state
+    java.time.LocalDateTime <.. Training: <<use>>
+    class Training {
+        - startTime: LocalDateTime
+        - duration: int
+        - description: String
+
+        + Training(startTime: LocalDateTime, duration: int, description: String, trainer: Staff)
+        + accept(): void
+        + reject(): void
+    }
+
+    enum TrainingState {
+        REQUESTED
+        ACCEPTED
+    }
+
+    org.javamoney.moneta.Money <.. Contract: <<use>>
+    class Contract {
+        - contractId: Long
+        - name: String
+        - description: String
+        - price: Money
+        - duration: int
+
+        + Contract(name: String, description: String, price: Money, expirationDate: LocalDate)
+        + update(name: String, description: String, price: Money, expirationDate: LocalDate)
+    }
+
+    org.springframework.CrudRepository <|.. ContractRepository
+    ContractRepository o-- "0..*" Contract: - contracts
+    class ContractRepository {
+
+    }
+}
