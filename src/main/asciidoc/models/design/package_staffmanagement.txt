@@ -6,6 +6,33 @@ namespace StaffManagement {
 
         + Staff(userAccount: UserAccount, fistName: String, lastName: String)
     }
+    
+    class StaffController {
+    
+        + StaffController()
+    }
+    
+    class RosterController {
+        + RosterController(rosterManagment: RosterManagment)
+        + addEntry(form: RosterEntryForm, result: Errors)
+        + deleteEntry (form: RosterEntryForm)
+    }
+    
+    RosterManagment  o-- "1" RosterRepository
+    RosterEntryForm <.. RosterManagment: <<use>>
+    RosterController o-- "1" RosterManagment
+    class RosterManagment {
+        + RosterManagment(rosters: RosterRepository)
+        + createRosterEntry(form: RosterEntryForm)
+        + deleteRosterEntry(entry: RosterEntry)
+    }
+    
+    class RosterEntryForm{
+        +getStaff():Staff
+        +getStartTime():LocalDateTime
+        +getDuration():int
+    }
+    
 
 
     Roster o-- "0..*" RosterEntry  : - entries
@@ -26,6 +53,7 @@ namespace StaffManagement {
         - rosterEntryId: Long
         - startTime: LocalDateTime
         - duration: int
+        - staff: Staff
 
         + RosterEntry(staff: Staff, startTime: LocalDateTime, duration: int)
     }
