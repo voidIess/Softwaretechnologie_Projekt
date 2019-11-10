@@ -1,0 +1,12 @@
+namespace AdminManagement {
+
+     User o-- org.salespoint.useraccount.UserAccount : - userAccount
+     class User {
+        - userID: Long
+        - fistName: String
+        - lastName: String
+
+        + User(userAccount: UserAccount, fistName: String, lastName: String)
+     }
+
+}
