@@ -1,0 +1,43 @@
+namespace StaffManagement {
+    org.javamoney.moneta.Money <.. Staff: <<use>>
+    AdminManagement.User <|-- Staff
+    class Staff {
+        - salary: Money
+
+        + Staff(userAccount: UserAccount, fistName: String, lastName: String)
+    }
+
+
+    Roster o-- "0..*" RosterEntry  : - entries
+    java.time.LocalDate <.. Roster: <<use>>
+    class Roster {
+
+        - week: LocalDate
+
+        + Roster(week: LocalDate)
+        + addEntry(rosterEntry: RosterEntry)
+        + removeEntry(rosterEntry: RosterEntry)
+    }
+
+    RosterEntry o-- "1" Staff: - staff
+    RosterEntry o-- "1" Role: - role
+    java.time.LocalDateTime <.. RosterEntry: <<use>>
+    class RosterEntry {
+        - rosterEntryId: Long
+        - startTime: LocalDateTime
+        - duration: int
+
+        + RosterEntry(staff: Staff, startTime: LocalDateTime, duration: int)
+    }
+
+    enum Role {
+        COUNTER
+        TRAINER
+    }
+
+    org.springframework.CrudRepository <|.. RosterRepository
+    RosterRepository o-- "0..*" Roster
+    class RosterRepository {
+
+    }
+}
