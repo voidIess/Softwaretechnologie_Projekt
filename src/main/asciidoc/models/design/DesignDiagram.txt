@@ -1,47 +1,45 @@
 @startuml
 
+
+
 class Gym {
     + {static} main(args: String[])
 }
 
-package org.salespoint {
+namespace org.salespoint {
 
-    package "useraccount" {
-        class UserAccount
+    namespace useraccount {
+        class UserAccount {
+
+        }
     }
     
-    package catalog {
+    namespace catalog {
         Interface Catalog <T extends Product>
         Class Product
     }
     
-    package inventory {
+    namespace inventory {
         Interface UniqueInventory <T extends UniqueInventoryItem>
         Class UniqueInventoryItem
     }
     
-    package core {
+    namespace core {
         Interface DataInitializer
     }
     
-    package quantity {
+    namespace quantity {
         Class Quantity
         Enum Metric
-
-    package "useraccount" {
-
-        class UserAccount {
-
-        }
-
     }
+
 }
 
 
-package "AdminManagement" {
+namespace AdminManagement {
 
-     User o-- UserAccount : - userAccount
-     abstract class User {
+     User o-- org.salespoint.useraccount.UserAccount : - userAccount
+     class User {
         - userID: Long
         - fistName: String
         - lastName: String
@@ -51,7 +49,7 @@ package "AdminManagement" {
 
 }
 
-package "MemberManagement" {
+namespace MemberManagement {
 
     org.springframework.CrudRepository <|.. MemberRepository
     MemberRepository o-- "0..*" Member
@@ -59,10 +57,11 @@ package "MemberManagement" {
 
     }
 
-    User <|-- Member
+    AdminManagement.User <|-- Member
     Member "1" *-- "1" CreditAccount: - creditAccount
     Member "1" *-- "0..*" Training: - training
     Member "0..*" o-- "1" Contract: - contract
+    java.time.LocalDate <.. Member: <<use>>
     class Member {
         - isPaused: boolean
         - lastPaused: LocalDate
@@ -87,6 +86,7 @@ package "MemberManagement" {
 
     StaffManagement.Staff o-- Training: - trainer
     Training o-- TrainingState: - state
+    java.time.LocalDateTime <.. Training: <<use>>
     class Training {
         - startTime: LocalDateTime
         - duration: int
@@ -102,6 +102,7 @@ package "MemberManagement" {
         ACCEPTED
     }
 
+    org.javamoney.moneta.Money <.. Contract: <<use>>
     class Contract {
         - contractId: Long
         - name: String
@@ -120,9 +121,9 @@ package "MemberManagement" {
     }
 }
 
-package "StaffManagement" {
-
-    User <|-- Staff
+namespace StaffManagement {
+    org.javamoney.moneta.Money <.. Staff: <<use>>
+    AdminManagement.User <|-- Staff
     class Staff {
         - salary: Money
 
@@ -131,6 +132,7 @@ package "StaffManagement" {
 
 
     Roster o-- "0..*" RosterEntry  : - entries
+    java.time.LocalDate <.. Roster: <<use>>
     class Roster {
 
         - week: LocalDate
@@ -142,6 +144,7 @@ package "StaffManagement" {
 
     RosterEntry o-- "1" Staff: - staff
     RosterEntry o-- "1" Role: - role
+    java.time.LocalDateTime <.. RosterEntry: <<use>>
     class RosterEntry {
         - rosterEntryId: Long
         - startTime: LocalDateTime
@@ -162,7 +165,7 @@ package "StaffManagement" {
     }
 }
 
-package org.springframework {
+namespace org.springframework {
     interface CrudRepository {
 
     }
@@ -172,7 +175,7 @@ package org.springframework {
     }
 }
 
-package "pdf" {
+namespace pdf {
 
     org.springframework.AbstractView <|-- PdfView
     PdfGenerator <.. PdfView : "use"
@@ -200,21 +203,21 @@ package "pdf" {
 
 }
 
-package "BarManagement" {
+namespace BarManagement {
 
-    Catalog <|.. ArticleCatalog
+    org.salespoint.catalog.Catalog <|.. ArticleCatalog
     Interface ArticleCatalog <Article> 
 
     CatalogInitializer o--> "1" ArticleCatalog: - articleCatalog
-    DataInitializer <|.. CatalogInitializer
+    org.salespoint.core.DataInitializer <|.. CatalogInitializer
     Class CatalogInitializer {
         + CatalogInitializer(articleCatalog: ArticleCatalog)
         + initialize(): void
     }
 
-    Product <|-- Article
+    org.salespoint.catalog.Product <|-- Article
     Article o--> "0..*" Discount: - discounts
-    Metric <.. Article: <<use>>
+    org.salespoint.quantity.Metric <.. Article: <<use>>
     Class Article {
         - String: description
         - int: minimalAmount
@@ -236,7 +239,7 @@ package "BarManagement" {
     }
     
     ArticleInventory "1" <--o InventoryInitializer: - articleInventory
-    UniqueInventory <|.. ArticleInventory
+    org.salespoint.inventory.UniqueInventory <|.. ArticleInventory
     Interface ArticleInventory <ArticleInventoryItem> {
         + hasExpiredArticles(): boolean
         + getExpiredArticles(): List<ArticleInventoryItem>
@@ -244,14 +247,14 @@ package "BarManagement" {
     }
     
     InventoryInitializer o--> "1" ArticleCatalog: - articleCatalog
-    DataInitializer <|.. InventoryInitializer
+    org.salespoint.core.DataInitializer <|.. InventoryInitializer
     Class InventoryInitializer {
         + InventoryInitializer(articleInventory: ArticleInventory, articleCatalog: ArticleCatalog)
         + initialize(): void
     }
     
-    UniqueInventoryItem <|-- ArticleInventoryItem
-    Quantity <.. ArticleInventoryItem: <<use>>
+    org.salespoint.inventory.UniqueInventoryItem <|-- ArticleInventoryItem
+    org.salespoint.quantity.Quantity <.. ArticleInventoryItem: <<use>>
     Class ArticleInventoryItem {
         - List<LocalDate>: expirationDates
         
@@ -264,22 +267,14 @@ package "BarManagement" {
     
 }
 
-package org.javamoney.moneta {
-
+namespace org.javamoney.moneta {
     class Money
-
 }
 
-package java.time {
-
-    Class LocalDate
-    Class LocalDateTime
-
+namespace java.time {
+    class LocalDate
+    class LocalDateTime
 }
-
-
-'layout
-StaffManagement.Staff o-[hidden]- TrainingState: - state
 
 
 
