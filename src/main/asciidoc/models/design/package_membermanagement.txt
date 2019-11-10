@@ -1,32 +1,72 @@
+@startuml
+'author: Bill
+
+/' TODO:
+'
+'
+'/
+
+hide empty attributes
+hide empty methods
+
+
+
 namespace MemberManagement {
+    'hide empty attributes interface 
 
     MemberManagement "1" <-- MemberController: - manager
+    org.springframework.Model <.. MemberController: <<use>>
+    org.springframework.Errors <.. MemberController: <<use>>
+    pdf.PdfGenerator <.. MemberController: <<use>>
     class MemberController {
         + MemberController(memberMangement: MemberMangement)
-        + register(form: RegistrationForm, result: Errors)
+        + register(form: RegistrationForm, result: Errors): String
+        + getMember(Model model, Optional<UserAccount> userAccount): String
+        + getBillPdf(Model model, Optional<UserAccount> userAccount): String
+        + members(Model model, Optional<UserAccount> userAccount): String
+        + validate(Model model, memberId: String, Optional<UserAccount> userAccount): String
+        + payIn(Model model, memberId: String, amount: String, Optional<UserAccount> userAccount): String
+        + payOut(Model model, memberId: String, amount: String,  Optional<UserAccount> userAccount): String
+        + checkIn(Model model, memberId: String): String
+        + checkOut(Model model, memberId: String): String
+        + changeContract(Model model, contractId: String, Optional<UserAccount> userAccount): String
     }
+    
 
 
     RegistrationForm <.. MemberManagement
     MemberRepository "1" <-- MemberManagement: - members
+    Member <.. MemberManagement: <<use>>
     class MemberManagement {
-        createCustomer(form: RegistrationForm): Customer
+        createMember(form: RegistrationForm): Customer
+        validateMember(memberId: String): Customer
+        payInAccount(memberId: String, amount: String): void
+        payOutAccount(memberId: String, amount: String): boolean
+        checkMemberIn(memberId: String): void
+        checkMemberOut(memberId: String): void
+        updateContract(memberId: String, contractId: String)
         findAll(): Streamable
     }
+    
 
 
     interface RegistrationForm {
         + getFirstName(): String
         + getLastName(): String
+        + getContract(): Contract
         + getReferralCode(): ReferralCode
     }
+    
+    
 
     org.springframework.CrudRepository <|.. MemberRepository
-    MemberRepository o-- "0..*" Member
-    class MemberRepository {
+    interface MemberRepository {
         {abstract} findByUserAccount(userAccount: UserAccount): Member
         {abstract} findByValidation(validation: boolean): Streamable
+        {abstract} findAll(): Streamable
     }
+    
+    
 
     AdminManagement.User <|-- Member
     Member "1" *-- "1" CreditAccount: - creditAccount
@@ -43,25 +83,55 @@ namespace MemberManagement {
         - exerciseTime: Long
 
         + Member()
-        + Member(userAccount: UserAccount, fistName: String, lastName: String)
+        + Member(userAccount: UserAccount, fistName: String, lastName: String, contract: Contract)
         + confirm(): void
         + requestTraining(staff: Staff, time: LocalDateTime): void
         + changeContract(contract: Contract): void
         + checkIn(): void
         + checkOut(): void
     }
-
+    
+    
+    org.javamoney.moneta.Money <.. CreditAccount: <<use>>
     class CreditAccount {
         - credit: Money
 
         + payIn(amount: Money): void
         + payOut(amount: Money): boolean
     }
-
+    
+  
+    TrainingManagement "1" <-- TrainingController: - manager
+    org.springframework.Model <.. TrainingController: <<use>>
+    class TrainingController {
+        + TrainingController(trainingManagement: TraniningManagement)
+        + requestTraining(model: Model, trainer: String, startTime: String, duration: String, description: String, Optional<UserAccount> userAccount): String
+        + requestTrialTraining(model: Model, trainer: String, startTime: String, duration: String, description: String, Optional<UserAccount> userAccount): String
+        + deleteTraining(model: Model, trainingId: String, Optional<UserAccount> userAccount): String
+        + validateTraining(model: Model, trainingId: String, trainingState: String,  Optional<UserAccount> userAccount): String
+    }
+    
+    
+    
+    Training <.. TrainingManagement : <<use>>
+    MemberRepository "1" <-- TrainingManagement: - members
+    StaffManagement.StaffRepository "1" <-- TrainingManagement: - staffs
+    TrainingRepository "1" <-- TrainingManagement: - trainings 
+    class TrainingManagement {
+        + TrainingManagement(trainings: TrainingRepository, members: MemberRepository, staffs: StaffRepository, userAccounts: UserAccountManager)
+        + createTrainingRequest(rainingType: TrainingType, trainer: String, startTime: String, duration: String, description: String, Optional<UserAccount> userAccount): Training      
+        + deleteTraining(trainingId: String, Optional<UserAccount> userAccount): void
+        + validateTraining(trainingId: String, trainingState: String, Optional<UserAccount> userAccount): Training
+    }
+    
+    
+  
     StaffManagement.Staff o-- Training: - trainer
     Training o-- TrainingState: - state
+    Training o-- TrainingType: - type
     java.time.LocalDateTime <.. Training: <<use>>
     class Training {
+        - trainingId: long
         - startTime: LocalDateTime
         - duration: int
         - description: String
@@ -70,12 +140,40 @@ namespace MemberManagement {
         + accept(): void
         + reject(): void
     }
+    
+    org.springframework.CrudRepository <|.. TrainingRepository
+    interface TrainingRepository {
+        + findAll(): Streamable        
+    }
 
     enum TrainingState {
         REQUESTED
         ACCEPTED
     }
-
+  
+    enum TrainingType {
+        NORMAL
+        TRIAL
+    }
+    
+    ContractManagement "1" <-- ContractController: - manager
+    org.springframework.Model <.. ContractController: <<use>>
+    class ContractController {
+        + ContractController(contractManager: ContractManager)
+        + editContract(contractId: String, name: String, description: String, price: String, expirationTime: String, Optional<UserAccount> userAccount): String
+        + removeContract(contractId: String, Optional<UserAccount> userAccount): String
+        + addContract(name: String, description: String, price: String, expirationTime: String, Optional<UserAccount> userAccount): String
+    }
+    
+    Contract <.. ContractManagement: <<use>>
+    ContractRepository "1" <-- ContractManagement: - contracts
+    class ContractManagement {
+        + editContract(contractId: String, name: String, description: String,  price: String, expirationTime: String): Contract
+        + createContract(name: String, description: String, price: String, expirationTime: String): Contract
+        + deleteContract(contractId: String): void
+    }   
+    
+    
     org.javamoney.moneta.Money <.. Contract: <<use>>
     class Contract {
         - contractId: Long
@@ -84,13 +182,29 @@ namespace MemberManagement {
         - price: Money
         - duration: int
 
-        + Contract(name: String, description: String, price: Money, expirationDate: LocalDate)
-        + update(name: String, description: String, price: Money, expirationDate: LocalDate)
+        + Contract(name: String, description: String, price: Money, expirationTime: int)
+        + update(name: String, description: String, price: Money, expirationTime: int)
     }
 
     org.springframework.CrudRepository <|.. ContractRepository
     ContractRepository o-- "0..*" Contract: - contracts
-    class ContractRepository {
-
+    interface ContractRepository {
+        deleteByContractId(contractId: long): long
     }
 }
+
+namespace org.springframework {
+    interface Model
+    interface CrudRepository
+    interface Errors
+}
+
+namespace pdf {
+    interface PdfGenerator 
+}
+
+namespace AdminManagement {
+    abstract class User 
+}
+
+@enduml
