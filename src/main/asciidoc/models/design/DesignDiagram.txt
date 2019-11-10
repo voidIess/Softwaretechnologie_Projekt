@@ -53,7 +53,7 @@ package "AdminManagement" {
 
 package "MemberManagement" {
 
-    org.springframework.CrudRepository <|-- MemberRepository
+    org.springframework.CrudRepository <|.. MemberRepository
     MemberRepository o-- "0..*" Member
     class MemberRepository {
 
@@ -78,7 +78,6 @@ package "MemberManagement" {
         + checkOut(): void
     }
 
-
     class CreditAccount {
         - credit: Money
 
@@ -87,7 +86,7 @@ package "MemberManagement" {
     }
 
     StaffManagement.Staff o-- Training: - trainer
-    StaffManagement.Staff o-- TrainingState: - state
+    Training o-- TrainingState: - state
     class Training {
         - startTime: LocalDateTime
         - duration: int
@@ -114,7 +113,7 @@ package "MemberManagement" {
         + update(name: String, description: String, price: Money, expirationDate: LocalDate)
     }
 
-    org.springframework.CrudRepository <|-- ContractRepository
+    org.springframework.CrudRepository <|.. ContractRepository
     ContractRepository o-- "0..*" Contract: - contracts
     class ContractRepository {
 
@@ -156,7 +155,7 @@ package "StaffManagement" {
         TRAINER
     }
 
-    org.springframework.CrudRepository <|-- RosterRepository
+    org.springframework.CrudRepository <|.. RosterRepository
     RosterRepository o-- "0..*" Roster
     class RosterRepository {
 
@@ -164,7 +163,7 @@ package "StaffManagement" {
 }
 
 package org.springframework {
-    class CrudRepository {
+    interface CrudRepository {
 
     }
 
@@ -220,7 +219,7 @@ package "BarManagement" {
         - String: description
         - int: minimalAmount
         
-        + Article(String: name, String: description, MonetaryAmount: price, metric: Metric, int: minimalAmount)
+        + Article(String: name, String: description, Money: price, metric: Metric, int: minimalAmount)
         + addDiscount(): boolean
         + removeDiscount(): Discount
         + findBestAvailableDiscount(): Discount
@@ -265,6 +264,22 @@ package "BarManagement" {
     
 }
 
+package org.javamoney.moneta {
+
+    class Money
+
+}
+
+package java.time {
+
+    Class LocalDate
+    Class LocalDateTime
+
+}
+
+
+'layout
+StaffManagement.Staff o-[hidden]- TrainingState: - state
 
 
 
