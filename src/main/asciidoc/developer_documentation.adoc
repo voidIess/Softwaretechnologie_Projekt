@@ -94,7 +94,7 @@ Eine Liste an benötigter Hardware, welche man zur Bedienung des Systems benöti
 * Monitor
 * Internetanschluss
 
-===Software - Vorgaben 
+=== Software - Vorgaben 
 
 Eine Liste der benötigten Software, welche benötigt wird um die Anwendung zu benutzen.
 
