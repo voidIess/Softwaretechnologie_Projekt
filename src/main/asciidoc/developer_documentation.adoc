@@ -132,7 +132,7 @@ image:models/analysis/fitnessstudio_context.svg[fitnessstudio_context]
 |===
 
 === Softwarearchitektur
-* Beschreibung der Architektur anhand der Top-Level-Architektur oder eines Client-Server-Diagramms
+image::models/analysis/fitnessstudio_top_level.svg[fitnessstudio_top_level]
 
 === Entwurfsentscheidungen
 * Verwendete Muster
