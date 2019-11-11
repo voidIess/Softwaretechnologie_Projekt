@@ -11,7 +11,7 @@ namespace StaffManagement {
     class StaffController {
     
         + StaffController(staffManagement: StaffManagement)
-        + printPDF(model:Model)
+        + printPDF(model:Model):String
     }
     
     pdf.PdfGenerator <.. StaffManagement: <<use>>
@@ -25,8 +25,8 @@ namespace StaffManagement {
     
     class RosterController {
         + RosterController(rosterManagement: RosterManagement)
-        + addEntry(form: RosterEntryForm, result: Errors)
-        + deleteEntry (form: RosterEntryForm)
+        + addEntry(form: RosterEntryForm, result: Errors):String
+        + deleteEntry (form: RosterEntryForm):String
     }
     
     RosterManagement --> "1" RosterRepository: "-rosters"
