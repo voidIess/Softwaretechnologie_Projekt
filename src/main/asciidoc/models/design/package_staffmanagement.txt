@@ -38,7 +38,7 @@ namespace StaffManagement {
         + deleteRosterEntry(entry: RosterEntry)
     }
     
-    class RosterEntryForm{
+    interface RosterEntryForm{
         +getStaff():UserAccountIdentifier
         +getStartTime():LocalDateTime
         +getDuration():int
