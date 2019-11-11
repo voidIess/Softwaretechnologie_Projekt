@@ -7,22 +7,33 @@ namespace StaffManagement {
         + Staff(userAccount: UserAccount, fistName: String, lastName: String)
     }
     
+    
     class StaffController {
     
-        + StaffController()
+        + StaffController(staffManagement: StaffManagement)
+        + printPDF(model:Model)
+    }
+    
+    pdf.PdfGenerator <.. StaffManagement: <<use>>
+    StaffController o-- "1" StaffManagement: "-staffManagement"
+    StaffManagement o-- "1" StaffRepository: "-staffs"
+    Staff <.. StaffManagement: <<use>>
+    class StaffManagement{
+        + staffManagement (staffRepository: StaffRepository)
+        + createPDF(staff: Staff)
     }
     
     class RosterController {
-        + RosterController(rosterManagment: RosterManagment)
+        + RosterController(rosterManagement: RosterManagement)
         + addEntry(form: RosterEntryForm, result: Errors)
         + deleteEntry (form: RosterEntryForm)
     }
     
-    RosterManagment  o-- "1" RosterRepository
-    RosterEntryForm <.. RosterManagment: <<use>>
-    RosterController o-- "1" RosterManagment
-    class RosterManagment {
-        + RosterManagment(rosters: RosterRepository)
+    RosterManagement  o-- "1" RosterRepository: "-rosters"
+    RosterEntryForm <.. RosterManagement: <<use>>
+    RosterController o-- "1" RosterManagement: "-rosterManagement"
+    class RosterManagement {
+        + RosterManagement(rosters: RosterRepository)
         + createRosterEntry(form: RosterEntryForm)
         + deleteRosterEntry(entry: RosterEntry)
     }
@@ -66,6 +77,17 @@ namespace StaffManagement {
     org.springframework.CrudRepository <|.. RosterRepository
     RosterRepository o-- "0..*" Roster
     class RosterRepository {
-
+        {abstract} findByUserAccount(userAccount: UserAccount): Member
+        {abstract} findByValidation(validation: boolean): Streamable
+        {abstract} findAll(): Streamable
+    }
+    
+    org.springframwork.CrudRepository <|.. StaffRepository
+    class StaffRepository {
+        {abstract} findByUserAccount(userAccount: UserAccount): Member
+        {abstract} findByValidation(validation: boolean): Streamable
+        {abstract} findAll(): Streamable
     }
 }
+
+
