@@ -3,7 +3,6 @@
 
 package org.salespoint {
 
-        Interface UniqueInventory <T extends UniqueInventoryItem>
         Interface Inventory <T extends InventoryItem>
         Class UserAccount
         Interface Catalog <T extends Product>
@@ -19,7 +18,7 @@ package org.salespoint {
     
 }
 
-package "BarManagement" {
+package "barmanagement" {
 
     Catalog <|-- ArticleCatalog
     Interface ArticleCatalog <Article> 
@@ -61,8 +60,8 @@ package "BarManagement" {
         + getMemberID(): String
     }
         
-        InventoryController o--> "0..1" ArticleCatalog: - catalog
-        InventoryController o-->  Inventory
+        InventoryController o--> "1" ArticleCatalog: - catalog
+        InventoryController o-->  "1" Inventory: - inventory
         Class InventoryController {
         + InventoryController()
         + addArticle(model: Model, form: ArticleForm, errors: Errors): String
@@ -71,14 +70,14 @@ package "BarManagement" {
         + stock(model: Model): String
     }
 
-        BarController o-->  Inventory
-        BarController o--> "0..1" ArticleCatalog: - catalog
+        BarController o-->  "1" Inventory: - inventory
+        BarController o--> "1" ArticleCatalog: - catalog
         Cart <.. BarController
         Cash <.. BarController
         UserAccount <.. BarController
         Quantity <.. BarController
         OrderStatus <.. BarController
-        BarController --> "1" OrderManager: - ordermanager
+        BarController o--> "1" OrderManager: - orderManager
         Class BarController {
         + BarController()
         + initializeCart(): Cart
@@ -89,8 +88,8 @@ package "BarManagement" {
 
     }
 
-        CatalogController o--> "0..1" ArticleCatalog: - catalog
-        CatalogController o-->  Inventory
+        CatalogController o--> "1" ArticleCatalog: - catalog
+        CatalogController o-->  "1" Inventory: - inventory
         Class CatalogController {
         + CatalogController(articleCatalog ArticleCatalog, inventory UniqueInventory<UniqueInventoryItem>)
         + catalog(Model model): String
@@ -98,7 +97,7 @@ package "BarManagement" {
     }
     
     
-    CatalogDataInitializer o--> "0..1" ArticleCatalog: - articleCatalog
+    CatalogInitializer o--> "1" ArticleCatalog: - catalog
     DataInitializer <|.. CatalogInitializer
     Class CatalogInitializer {
         + CatalogInitializer(articleCatalog: ArticleCatalog)
@@ -106,8 +105,8 @@ package "BarManagement" {
     }
 
     
-    InventoryInitializer o--> "0..1" ArticleCatalog: - articleCatalog
-    InventoryInitializer o-->  UniqueInventory
+    InventoryInitializer o--> "1" ArticleCatalog: - catalog
+    InventoryInitializer o--> "1" Inventory: - inventory
     Quantity <.. InventoryInitializer
     DataInitializer <|.. InventoryInitializer
     Class InventoryInitializer {
