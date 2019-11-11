@@ -9,8 +9,6 @@
 hide empty attributes
 hide empty methods
 
-
-
 namespace MemberManagement {
     'hide empty attributes interface 
 
@@ -37,15 +35,17 @@ namespace MemberManagement {
     RegistrationForm <.. MemberManagement
     MemberRepository "1" <-- MemberManagement: - members
     Member <.. MemberManagement: <<use>>
+    org.salespoint.UserAccountManager "1" <-- MemberManagement: -userAccounts
     class MemberManagement {
-        createMember(form: RegistrationForm): Customer
-        validateMember(memberId: String): Customer
-        payInAccount(memberId: String, amount: String): void
-        payOutAccount(memberId: String, amount: String): boolean
-        checkMemberIn(memberId: String): void
-        checkMemberOut(memberId: String): void
-        updateContract(memberId: String, contractId: String)
-        findAll(): Streamable
+        + MemberManagement(members: MemberRepository, userAccounts: UserAccountManager)
+        + createMember(form: RegistrationForm): Customer
+        + validateMember(memberId: String, Optional<UserAccount> userAccount): Customer
+        + payInAccount(memberId: String, amount: String, Optional<UserAccount> userAccount): void
+        + payOutAccount(memberId: String, amount: String, Optional<UserAccount> userAccount): boolean
+        + checkMemberIn(memberId: String): void
+        + checkMemberOut(memberId: String): void
+        + updateContract(memberId: String, contractId: String, Optional<UserAccount> userAccount): void
+        + findAll(): Streamable
     }
     
 
@@ -116,7 +116,8 @@ namespace MemberManagement {
     Training <.. TrainingManagement : <<use>>
     MemberRepository "1" <-- TrainingManagement: - members
     StaffManagement.StaffRepository "1" <-- TrainingManagement: - staffs
-    TrainingRepository "1" <-- TrainingManagement: - trainings 
+    TrainingRepository "1" <-- TrainingManagement: - trainings
+    org.salespoint.UserAccountManager "1" <-- TrainingManagement: -userAccounts
     class TrainingManagement {
         + TrainingManagement(trainings: TrainingRepository, members: MemberRepository, staffs: StaffRepository, userAccounts: UserAccountManager)
         + createTrainingRequest(rainingType: TrainingType, trainer: String, startTime: String, duration: String, description: String, Optional<UserAccount> userAccount): Training      
@@ -167,7 +168,9 @@ namespace MemberManagement {
     
     Contract <.. ContractManagement: <<use>>
     ContractRepository "1" <-- ContractManagement: - contracts
+    org.salespoint.UserAccountManager "1" <-- ContractManagement: -userAccounts
     class ContractManagement {
+        + ContractManagement(contracts: ContractRepository, userAccounts: UserAccountManager)
         + editContract(contractId: String, name: String, description: String,  price: String, expirationTime: String): Contract
         + createContract(name: String, description: String, price: String, expirationTime: String): Contract
         + deleteContract(contractId: String): void
@@ -207,4 +210,8 @@ namespace AdminManagement {
     abstract class User 
 }
 
+namespace org.salespoint {
+    interface UserAccountManager
+}
+  
 @enduml
