@@ -16,7 +16,7 @@ namespace StaffManagement {
     
     pdf.PdfGenerator <.. StaffManagement: <<use>>
     StaffController o-- "1" StaffManagement: "-staffManagement"
-    StaffManagement o-- "1" StaffRepository: "-staffs"
+    StaffManagement --> "1" StaffRepository: "-staffs"
     Staff <.. StaffManagement: <<use>>
     class StaffManagement{
         + staffManagement (staffRepository: StaffRepository)
@@ -29,7 +29,7 @@ namespace StaffManagement {
         + deleteEntry (form: RosterEntryForm)
     }
     
-    RosterManagement  o-- "1" RosterRepository: "-rosters"
+    RosterManagement --> "1" RosterRepository: "-rosters"
     RosterEntryForm <.. RosterManagement: <<use>>
     RosterController o-- "1" RosterManagement: "-rosterManagement"
     class RosterManagement {
