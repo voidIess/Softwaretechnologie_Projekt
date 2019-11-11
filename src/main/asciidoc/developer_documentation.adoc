@@ -139,9 +139,9 @@ image::models/analysis/fitnessstudio_top_level.svg[fitnessstudio_top_level]
 Client Server Model
 
 
-^
-|
-|
+^<br>
+|<br>
+|<br>
 |
 
 === Entwurfsentscheidungen
