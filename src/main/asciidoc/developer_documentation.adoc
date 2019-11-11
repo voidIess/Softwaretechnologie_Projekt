@@ -8,7 +8,41 @@
 = Entwicklerdokumentation
 
 == Einführung und Ziele
-* Aufgabenstellung
+
+=== Aufgabenstellung
+Es soll eine Software für den Einsatz in einem Fitnessstudio entwickelt werden. Dabei sollen verschiedene
+Geschäftsfelder berücksichtigt werden. In der Mitarbeiterverwaltung können die Mitarbeiter(_Staff_) des Fitnessstudios eingestellt,
+bearbeitet und entlassen werden. Die Mitarbeiter haben verschiedene Aufgaben (Thekenkraft/Trainer) und Löhne.
+
+Zum Monatsende wird für jeden Mitarbeiter ein Lohnschein (_Payslip_) als PDF erstellt. Die Mitarbeiter sollen einen eigenen Login (_Login_) bekommen,
+um den Dienstplan (_Roster_) zu betrachten und den Lohnschein abzurufen. Der Dienstplan muss ebenfalls von Mitarbeitern erstellt
+und bearbeitet werden können.
+
+Es sollen ebenfalls alle Mitglieder (_Customer_) verwaltet werden können. Diese können in das Studio aufgenommen, bearbeitet und entlassen werden.
+Um als Mitglied aufgenommen zu werden muss ein Vertrag abgeschlossen werden. +
+Bei der Aufnahme (_Registrierung_) soll ein Log-in erstellt werden, mit dem der Kunde von zu Hause aus persönliche Daten, Vertrag und Probetraining verwalten kann.
+Die monatlichen Gebühren werden per SEPA-Lastschrift vom Kunden abgebucht.
+
+Jedes Mitglied erhält einen Code (_ReferralCode_), mit dem es beliebig viele neue Mitglieder anwerben kann.
+Wird dieser Code bei der Registrierung eines anderen Mitgliedes angegeben, so wird ein bestimmter Betrag auf das Kundenkonto des Codeinhabers gutgeschrieben.
+Jeder Kunde kann während seiner Mitgliedschaft mit einem Trainer ein Probetraining vereinbaren,
+entweder direkt im Studio oder über das Internetportal des Studios. Eine Mitgliedschaft kann pro Jahr für einen Monat
+ohne Gründe ausgesetzt und später nachgeholt werden.
+
+Des Weiteren gibt es einen Eingangs- und Verkaufsbereich (_Bar_), dort meldet sich jedes Mitglied mit seiner Kunden-ID
+bei Betreten des Studios an und bei Verlassen ab. An der Theke können auch Getränke, Nahrungsergänzungsmittel
+oder Zubehör (_Article_) erworben werden, diese werden bar bezahlt oder direkt vom Guthabenkonto abgebucht.
+Mitglied können dann monatlich sich ihre Rechnung (_Invoice_) online als PDF ausgeben lassen.
+
+Die Artikel des Verkaufsbereiches lassen sich ebenfalls verwalten. Es müssen Artikel hinzugefügt, bearbeitet
+und gelöscht werden können. Unterschreiten Artikel die Mindestmenge, dann werden sie einer Bestellliste hinzugefügt
+und für die Mitarbeiter sichtbar gemacht. +
+Artikel, die für den Verzehr gedacht sind, haben ein Verfallsdatum (_expirationDate_),
+welches bei jedem Programmstart überprüft wird. Für erschiedene Artikel soll man für einen bestimmten Zeitraum
+einen Rabatt (_Discount_) angeben können.
+
+Online und nur für den Chef (_Boss_) sind Statistiken (_Statistic_) über laufende Kosten, Einnahmen, Kundenverhalten und Verkaufsartikel grafisch dargestellt.
+Sowie verschiedene Einstellungen wie Vertragslaufzeit, monatliche Gebühren, Einladungsprämie, Öffnungszeiten usw. verwaltbar.
 * Qualitätsziele
 
 == Randbedingungen
