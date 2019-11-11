@@ -20,7 +20,7 @@ namespace StaffManagement {
     Staff <.. StaffManagement: <<use>>
     class StaffManagement{
         + staffManagement (staffRepository: StaffRepository)
-        + createPDF(staff: Staff)
+        + createPDF(staffID: UserAccountIdentifier)
     }
     
     class RosterController {
@@ -39,7 +39,7 @@ namespace StaffManagement {
     }
     
     class RosterEntryForm{
-        +getStaff():Staff
+        +getStaff():UserAccountIdentifier
         +getStartTime():LocalDateTime
         +getDuration():int
     }
