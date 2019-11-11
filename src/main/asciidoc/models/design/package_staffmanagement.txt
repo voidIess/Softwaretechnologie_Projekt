@@ -75,14 +75,14 @@ namespace StaffManagement {
     }
 
     org.springframework.CrudRepository <|.. RosterRepository
-    RosterRepository o-- "0..*" Roster
+    RosterRepository o-- "0..*" Roster: - rosterEntries
     class RosterRepository {
         {abstract} findByUserAccount(userAccount: UserAccount): Member
         {abstract} findByValidation(validation: boolean): Streamable
         {abstract} findAll(): Streamable
     }
     
-    org.springframwork.CrudRepository <|.. StaffRepository
+    org.springframework.CrudRepository <|.. StaffRepository
     class StaffRepository {
         {abstract} findByUserAccount(userAccount: UserAccount): Member
         {abstract} findByValidation(validation: boolean): Streamable
