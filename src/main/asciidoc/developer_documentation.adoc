@@ -67,7 +67,7 @@ Die zugewiesene Priorität muss bei der Formulierung der konkreten nichtfunktion
 |Erreichbarkeit        |   | x |   |   |
 |===
 
-=== 8.2 Konkrete Nicht-Funktionale Anforderungen
+=== Konkrete Nicht-Funktionale Anforderungen
 
 [options="header"]
 [cols="1h, 4"]
