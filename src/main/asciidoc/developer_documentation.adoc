@@ -43,7 +43,43 @@ einen Rabatt (_Discount_) angeben können.
 
 Online und nur für den Chef (_Boss_) sind Statistiken (_Statistic_) über laufende Kosten, Einnahmen, Kundenverhalten und Verkaufsartikel grafisch dargestellt.
 Sowie verschiedene Einstellungen wie Vertragslaufzeit, monatliche Gebühren, Einladungsprämie, Öffnungszeiten usw. verwaltbar.
-* Qualitätsziele
+
+=== Qualitätsziele
+
+=== Qualitätsanforderungen
+Die folgende Tabelle zeigt, welche Qualitätsanforderungen in welchem Umfang erfüllt werden müssen.
+Die erste Spalte listet die Qualitätsanforderungen auf, während in den folgenden Spalten ein "x" verwendet wird, um die Priorität zu kennzeichnen.
+Die zugewiesene Priorität muss bei der Formulierung der konkreten nichtfunktionalen Anforderungen berücksichtigt werden.
+
+1 = Nicht wichtig ..
+5 = Sehr wichtig
+[options="header", cols="3h, ^1, ^1, ^1, ^1, ^1"]
+|===
+|Qualitätsanforderungen| 1 | 2 | 3 | 4 | 5
+|Wartbarkeit           |   |   |   | x |
+|Benutzbarkeit         |   |   | x |   |
+|Effizienz             |   |   |   | x |
+|Funktionalität        |   |   |   |   | x
+|Übertragbarkeit       | x |   |   |   | 
+|Zuverlässigkeit       |   |   | x |   |
+|Sicherheit            |   |   | x |   |
+|Nutzerfreundlichkeit  |   | x |   |   |
+|Erreichbarkeit        |   | x |   |   |
+|===
+
+=== 8.2 Konkrete Nicht-Funktionale Anforderungen
+
+[options="header"]
+[cols="1h, 4"]
+|===
+|Ziel |Beschreibung 
+|Zuverlässigkeit|Um die Zuverlässigkeit des Systems zu gewährleisten schreiben wir Anwendungs- und Akzeptanztests. So können Fehler leichter erkannt und die Zuverlässigkeit gewährleistet werden.
+|Betriebszeit|Das System soll nur zu kurzen Wartungszeiten offline genommen werden. Sonst soll das System immer erreichbar sein. 
+|Sicherheit| Die Daten der Nutzer sollen sicher verschlüsselt gespeichert werden.
+|Effizienz|Der Code soll effizient sein. Redundanzen sollen vermieden werden, dass eine hohe Geschwindigkeit möglich ist.
+|Funktionalität|Das System soll niemals abstürzen und alle Funktionen soll richtig funktionieren.
+|===
+
 
 == Randbedingungen
 * Hardware-Vorgaben
@@ -51,7 +87,7 @@ Sowie verschiedene Einstellungen wie Vertragslaufzeit, monatliche Gebühren, Ein
 * Vorgaben zum Betrieb des Software
 
 == Kontextabgrenzung
-* Kontextdiagramm
+image:models/analysis/fitnessstudio_context.svg[fitnessstudio_context]
 
 == Lösungsstrategie
 === Erfüllung der Qualitätsziele
