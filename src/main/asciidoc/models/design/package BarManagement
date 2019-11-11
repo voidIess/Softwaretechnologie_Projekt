@@ -1,0 +1,121 @@
+@startuml
+
+
+package org.salespoint {
+
+        Interface UniqueInventory <T extends UniqueInventoryItem>
+        Interface Inventory <T extends InventoryItem>
+        Class UserAccount
+        Interface Catalog <T extends Product>
+        Class Product
+        Interface DataInitializer
+        Class Cash
+        Class Quantity
+        Class Cart
+        Enum OrderStatus
+        Interface OrderManager<T extends Order>
+    
+        
+    
+}
+
+package "BarManagement" {
+
+    Catalog <|-- ArticleCatalog
+    Interface ArticleCatalog <Article> 
+
+    Product <|-- Article
+    Article o--> "0..*" Discount: - discounts
+    Class Article {
+        - art: String
+        - description: String
+        - expriationDate: LocalDate
+        - discount: Discount
+        
+        + Article(name: String, art: String, description: String, price: Money, discount: Discount, expriationDate: LocalDate)
+        + addDiscount(): boolean
+        + removeDiscount(): Discount
+    
+    }
+    
+    Class Discount {
+        - LocalDate: startDate
+        - LocalDate: endDate
+        - int: percent
+        
+        + Discount(startDate: LocalDate, endDate: LocalDate, percent: int)
+        + isAvailable(): boolean
+    }
+
+        Interface ArticleForm {
+        + getName(): String
+        + getArt(): String
+        + getDescription(): String
+        + getPrice(): String
+        + getDiscount(): String
+        + getExpriationDate(): String
+        + getAmount(): String
+    }
+
+        Interface BarForm {
+        + getMemberID(): String
+    }
+        
+        InventoryController o--> "0..1" ArticleCatalog: - catalog
+        InventoryController o-->  Inventory
+        Class InventoryController {
+        + InventoryController()
+        + addArticle(model: Model, form: ArticleForm, errors: Errors): String
+        + editArticle(form: ArticleForm, model: Model): String
+        + deleteArticle(id: ProductIdentifier, model: Model): String
+        + stock(model: Model): String
+    }
+
+        BarController o-->  Inventory
+        BarController o--> "0..1" ArticleCatalog: - catalog
+        Cart <.. BarController
+        Cash <.. BarController
+        UserAccount <.. BarController
+        Quantity <.. BarController
+        OrderStatus <.. BarController
+        BarController --> "1" OrderManager: - ordermanager
+        Class BarController {
+        + BarController()
+        + initializeCart(): Cart
+        + addArticle(article: Article, number: int, cart: Cart, model: Model): String
+        + buy(form: BarForm, model: Model): String
+        + basket(cart: Cart, form: BarForm): String
+        + orders(model: Model): String
+
+    }
+
+        CatalogController o--> "0..1" ArticleCatalog: - catalog
+        CatalogController o-->  Inventory
+        Class CatalogController {
+        + CatalogController(articleCatalog ArticleCatalog, inventory UniqueInventory<UniqueInventoryItem>)
+        + catalog(Model model): String
+        + detail(article Article, model Model): String
+    }
+    
+    
+    CatalogDataInitializer o--> "0..1" ArticleCatalog: - articleCatalog
+    DataInitializer <|.. CatalogInitializer
+    Class CatalogInitializer {
+        + CatalogInitializer(articleCatalog: ArticleCatalog)
+        + initialize(): void
+    }
+
+    
+    InventoryInitializer o--> "0..1" ArticleCatalog: - articleCatalog
+    InventoryInitializer o-->  UniqueInventory
+    Quantity <.. InventoryInitializer
+    DataInitializer <|.. InventoryInitializer
+    Class InventoryInitializer {
+        + InventoryInitializer(inventory: UniqueInventory<UniqueInventoryItem>, articleCatalog: ArticleCatalog)
+        + initialize(): void
+    }
+    
+    
+}
+
+@enduml
