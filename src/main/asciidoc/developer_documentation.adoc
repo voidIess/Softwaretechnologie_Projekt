@@ -96,12 +96,14 @@ Eine Liste an benötigter Hardware, welche man zur Bedienung des Systems benöti
 
 === Software - Vorgaben 
 
-Eine Liste der benötigten Software, welche benötigt wird um die Anwendung zu benutzen.
+Eine Liste der Software, welche benötigt wird um die Anwendung zu benutzen.
 
 Die folgende (oder neuere) Java Version wird benötgit:
+
 * Java 11
 
 Die folgende (oder neuere) Suchmaschinen-Version wird benötigt:
+
 * Internet Explorer/ Edge 10.0
 * Firefox 4.0
 * Google Chrome 4.0
