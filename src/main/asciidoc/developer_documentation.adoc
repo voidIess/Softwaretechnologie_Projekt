@@ -71,7 +71,10 @@ Die zugewiesene Priorität muss bei der Formulierung der konkreten nichtfunktion
 
 
 TODO
-========================
+TODO
+TODO
+
+
 Zuverlässigkeit::
 This characteristic represents the degree of effectiveness and efficiency with which a product or system can be modified to improve it, correct it or adapt it to changes in environment, and in requirements.
 
