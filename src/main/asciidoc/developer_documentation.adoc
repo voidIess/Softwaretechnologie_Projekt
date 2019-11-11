@@ -2,7 +2,7 @@
 [cols="1, 3, 3"]
 |===
 |Version | Bearbeitungsdatum   | Autor 
-|...	| ... | ...
+|v1.0	| 11.11.2019  | Julius Schmitt, Bill Kippe, Markus Wieland, Quang Vu Ha, Lea Häusler
 |===
 
 = Entwicklerdokumentation
@@ -69,33 +69,30 @@ Die zugewiesene Priorität muss bei der Formulierung der konkreten nichtfunktion
 
 ==== Beschreibung der Anforderung
 
+Wartbarkeit::
+Beschreibt, wie einfach es ist, das System zu warten. 
 
-TODO
-TODO
-TODO
+Benutzbarkeit::
+Qualität der Bedienung des Programms durch einen Nutzer.
 
+Effizienz::
+Beschreibt, wie effizient das Programm funktioniert.
+
+Funktionalität:: 
+
+Übertragbarkeit::
 
 Zuverlässigkeit::
-This characteristic represents the degree of effectiveness and efficiency with which a product or system can be modified to improve it, correct it or adapt it to changes in environment, and in requirements.
-
-Usability::
-Degree to which a product or system can be used by specified users to achieve specified goals with effectiveness, efficiency and satisfaction in a specified context of use.
+Wahrscheinlichkeit der fehlerfreien Funktion des Programms.
 
 Sicherheit::
 Grad mit dem das System personenbezogene Daten und Informationen schützt.
 
+Nutzerfreundlichkeit::
+Grad
 
-[options="header"]
-[cols="1h, 4"]
-|===
-|Anforderung |Beschreibung 
-|Zuverlässigkeit|Um die Zuverlässigkeit des Systems zu gewährleisten schreiben wir Anwendungs- und Akzeptanztests. So können Fehler leichter erkannt und die Zuverlässigkeit gewährleistet werden.
-|Betriebszeit|Das System soll nur zu kurzen Wartungszeiten offline genommen werden. Sonst soll das System immer erreichbar sein. 
-|Sicherheit| Die Daten der Nutzer sollen sicher verschlüsselt gespeichert werden.
-|Effizienz|Der Code soll effizient sein. Redundanzen sollen vermieden werden, dass eine hohe Geschwindigkeit möglich ist.
-|Funktionalität|Das System soll niemals abstürzen und alle Funktionen soll richtig funktionieren.
-|===
-
+Erreichbarkeit::
+Beschreibt wie durchgehend das System 
 
 == Randbedingungen
 
