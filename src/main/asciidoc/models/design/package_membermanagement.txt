@@ -124,8 +124,44 @@ namespace MemberManagement {
         + deleteTraining(trainingId: String, Optional<UserAccount> userAccount): void
         + validateTraining(trainingId: String, trainingState: String, Optional<UserAccount> userAccount): Training
     }
-    
-    
+
+    InvoiceEntry ..> javax.money.MonetaryAmount : <<use>>
+    InvoiceEntry ..> java.time.LocalDateTime : <<use>>
+    interface InvoiceEntry{
+        + {abstract} getValue() : javax.money.MonetaryAmount
+        + {abstract} getDescription() : String
+        + {abstract} getMember() : Member
+        + {abstract} getTime() : Optional<java.time.LocalDateTime>
+    }
+
+    ChargeEntry --|> InvoiceEntry
+    ChargeEntry o-- "1" Member : - member
+    class ChargeEntry {
+        - value : javax.money.MonetaryAmount
+        - time : java.time.LocalDateTime
+    }
+
+    org.salespoint.ProductPaymentEntry --o OrderEntry : - orderEntry
+    OrderEntry --|> InvoiceEntry
+    class OrderEntry
+
+    Invoice "1" *-- "1" Member: -user
+    Invoice o-- "0..*" InvoiceEntry : - entrys: Streamable
+    class Invoice {
+        + getEntrys() : ArryList<InvoiceEntry>
+
+    }
+
+    InvoiceEntryRepository "1" o-- "0..*" InvoiceEntry
+    InvoiceEntryRepository --|> org.springframework.CrudRepository
+    interface InvoiceEntryRepository{
+        findByMember() : Streamable
+    }
+
+    InvoiceManager ..> Invoice : <<use>>
+    class InvoiceManager{
+        generateLastInvoice(member: Member): invoice
+    }
   
     StaffManagement.Staff o-- Training: - trainer
     Training o-- TrainingState: - state
@@ -141,7 +177,8 @@ namespace MemberManagement {
         + accept(): void
         + reject(): void
     }
-    
+
+
     org.springframework.CrudRepository <|.. TrainingRepository
     interface TrainingRepository {
         + findAll(): Streamable        
@@ -202,6 +239,7 @@ namespace org.springframework {
     interface Errors
 }
 
+
 namespace pdf {
     interface PdfGenerator 
 }
@@ -212,6 +250,9 @@ namespace AdminManagement {
 
 namespace org.salespoint {
     interface UserAccountManager
+        AccountancyEntry <|-- ProductPaymentEntry
+        class AccountancyEntry
+        class ProductPaymentEntry
 }
   
 @enduml
