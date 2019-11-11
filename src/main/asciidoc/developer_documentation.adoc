@@ -83,18 +83,31 @@ Die zugewiesene Priorität muss bei der Formulierung der konkreten nichtfunktion
 
 == Randbedingungen
 
-=== Benötigte Hardware
+=== Hardware - Vorgaben
 
 Eine Liste an benötigter Hardware, welche man zur Bedienung des Systems benötigt.
 
-*Server
-*Computer
-*Tastatur
-*Maus
-*Monitor
+* Server
+* Computer
+* Tastatur
+* Maus
+* Monitor
+* Internetanschluss
 
-* Hardware-Vorgaben
-* Software-Vorgaben
+===Software - Vorgaben 
+
+Eine Liste der benötigten Software, welche benötigt wird um die Anwendung zu benutzen.
+
+Die folgende (oder neuere) Java Version wird benötgit:
+* Java 11
+
+Die folgende (oder neuere) Suchmaschinen-Version wird benötigt:
+* Internet Explorer/ Edge 10.0
+* Firefox 4.0
+* Google Chrome 4.0
+* Opera 9.6
+
+
 === Produktnutzung
 Die Software (_System_) soll auf einem Server laufen und dabei durchgängig über das Internet mit einem Browser
 (z. B. Google Chrome, Firefox oder Safari) erreichbar sein. Hauptnutzungsgebiete sind dabei die Mitarbeiterverwaltung,
