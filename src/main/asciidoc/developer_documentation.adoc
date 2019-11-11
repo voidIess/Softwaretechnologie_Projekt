@@ -82,9 +82,28 @@ Die zugewiesene Priorität muss bei der Formulierung der konkreten nichtfunktion
 
 
 == Randbedingungen
+
+=== Benötigte Hardware
+
+Eine Liste an benötigter Hardware, welche man zur Bedienung des Systems benötigt.
+
+*Server
+*Computer
+*Tastatur
+*Maus
+*Monitor
+
 * Hardware-Vorgaben
 * Software-Vorgaben
-* Vorgaben zum Betrieb des Software
+=== Produktnutzung
+Die Software (_System_) soll auf einem Server laufen und dabei durchgängig über das Internet mit einem Browser
+(z. B. Google Chrome, Firefox oder Safari) erreichbar sein. Hauptnutzungsgebiete sind dabei die Mitarbeiterverwaltung,
+die Verkaufsstelle (_Bar_) und die Mitgliederverwaltung. Alle Felder sind über die gleiche Applikation mit verschiedenen
+Log-ins (_Login_) erreichbar.
+
+Alle sich anhäufende Daten sollen dabei dauerhaft in Form einer Datenbank gespeichert werden. +
+Vertrauliche Daten, wie z. B. Passwörter, sollen verschlüsselt gesichert werden. Für den Umgang mit der Datenbank wird kein technisches
+Verständnis verausgesetzt, denn deren Verwaltung wird in der Website nutzerfreundlich dargestellt. 
 
 == Kontextabgrenzung
 image:models/analysis/fitnessstudio_context.svg[fitnessstudio_context]
