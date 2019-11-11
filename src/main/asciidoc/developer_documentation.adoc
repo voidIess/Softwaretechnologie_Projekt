@@ -134,6 +134,16 @@ image:models/analysis/fitnessstudio_context.svg[fitnessstudio_context]
 === Softwarearchitektur
 image::models/analysis/fitnessstudio_top_level.svg[fitnessstudio_top_level]
 
+
+
+Client Server Model
+
+
+^
+|
+|
+|
+
 === Entwurfsentscheidungen
 * Verwendete Muster
 * Persistenz
