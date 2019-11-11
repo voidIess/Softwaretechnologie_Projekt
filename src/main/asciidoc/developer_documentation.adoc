@@ -46,7 +46,7 @@ Sowie verschiedene Einstellungen wie Vertragslaufzeit, monatliche Gebühren, Ein
 
 === Qualitätsziele
 
-=== Qualitätsanforderungen
+==== Qualitätsanforderungen
 Die folgende Tabelle zeigt, welche Qualitätsanforderungen in welchem Umfang erfüllt werden müssen.
 Die erste Spalte listet die Qualitätsanforderungen auf, während in den folgenden Spalten ein "x" verwendet wird, um die Priorität zu kennzeichnen.
 Die zugewiesene Priorität muss bei der Formulierung der konkreten nichtfunktionalen Anforderungen berücksichtigt werden.
@@ -67,7 +67,7 @@ Die zugewiesene Priorität muss bei der Formulierung der konkreten nichtfunktion
 |Erreichbarkeit        |   | x |   |   |
 |===
 
-=== Konkrete Nicht-Funktionale Anforderungen
+==== Konkrete Nicht-Funktionale Anforderungen
 
 [options="header"]
 [cols="1h, 4"]
