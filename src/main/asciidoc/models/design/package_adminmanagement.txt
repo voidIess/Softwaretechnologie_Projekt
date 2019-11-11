@@ -22,7 +22,7 @@ namespace AdminManagement {
      MemberManagement.MemberRepository <.. StatisticManagement: <<use>>
      org.salespoint.OrderManager <.. StatisticManagement: <<use>>
      class StatisticManagement {
-        + StaffManagement (members: MemberRepository, orders: OderRepository)
+        + StaffManagement (members: MemberRepository, orders: OderManager)
         + getEarnings():EarningsForm
         + getAttendance(): AttendanceForm
      }
