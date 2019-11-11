@@ -67,12 +67,25 @@ Die zugewiesene Priorität muss bei der Formulierung der konkreten nichtfunktion
 |Erreichbarkeit        |   | x |   |   |
 |===
 
-==== Konkrete Nicht-Funktionale Anforderungen
+==== Beschreibung der Anforderung
+
+
+TODO
+========================
+Zuverlässigkeit::
+This characteristic represents the degree of effectiveness and efficiency with which a product or system can be modified to improve it, correct it or adapt it to changes in environment, and in requirements.
+
+Usability::
+Degree to which a product or system can be used by specified users to achieve specified goals with effectiveness, efficiency and satisfaction in a specified context of use.
+
+Sicherheit::
+Grad mit dem das System personenbezogene Daten und Informationen schützt.
+
 
 [options="header"]
 [cols="1h, 4"]
 |===
-|Ziel |Beschreibung 
+|Anforderung |Beschreibung 
 |Zuverlässigkeit|Um die Zuverlässigkeit des Systems zu gewährleisten schreiben wir Anwendungs- und Akzeptanztests. So können Fehler leichter erkannt und die Zuverlässigkeit gewährleistet werden.
 |Betriebszeit|Das System soll nur zu kurzen Wartungszeiten offline genommen werden. Sonst soll das System immer erreichbar sein. 
 |Sicherheit| Die Daten der Nutzer sollen sicher verschlüsselt gespeichert werden.
