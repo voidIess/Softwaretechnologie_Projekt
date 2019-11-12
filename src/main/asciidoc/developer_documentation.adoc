@@ -163,6 +163,33 @@ Client Server Model
 * Benutzeroberfläche
 * Verwendung externer Frameworks
 
+== User Interface
+
+Im  folgenden wird eine Übersicht über die Dialoge des in der Webanwendung gegeben.
+Jedes Rechteck stellt eine Ansicht, also ein HTML Dokument da. Zwischen diesen wird durch den
+Benutzer hin und her gewechselt. Ein Pfeil stellt dabei einen Übergang in eine Richtung da.
+Die Notation am Pfeil steht für den Button, welcher für den entsprechenden Übergang gedrückt wurde.
+Jedes der folgenden Diagramme behandelt den Ablauf aus einer anderen Perspektive, abhängig als
+was der Benutzer eingeloggt ist. Eine Rolle ohne Rechteckt beschreibt eine beliebige Ansicht der
+betreffenden Rolle. Zu beachten ist, dass alle Optionen des _staff_ auch für den _boss_ gelten.
+
+Dialogoptionen eines _unregistered_user_
+
+image::models/analysis/unregistered_user.png[]
+
+Dialogoptionen eines _boss_
+
+image::models/analysis/Boss.png[]
+
+Dialogoptionen eines _staff_
+
+image::models/analysis/Mitarbeiter.png[]
+
+Dialogoptionen eines _member_
+
+image::models/analysis/Mitglied.png[]
+
+== _TODO
 [options="header", cols="1,3,3"]
 |===
 |Externe Klasse |Pfad der externen Klasse |Verwendet von (Klasse der eigenen Anwendung)
