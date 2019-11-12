@@ -12,7 +12,7 @@ Nach welchem Schema sind die Tests benannt?
 
 *Bsp.*
 
-*U - Unit Test, I - Integrationstest*
+*U - Unit Test, I - Integrationstest, S - Systemtest*
 
 *U-1, U-2, I-1*
 
@@ -44,5 +44,17 @@ Jede testbezogene Aufgabe muss einem Ansprechpartner zugeordnet werden.
 [options="headers"]
 |===
 |ID |Anwendungsfall |Vorbedingungen |Eingabe |Ausgabe
-|…  |…              |…              |…       |…
+
+|U-1
+|Discount d.isAvailable()
+|LocalDate.now() ist zwischen d.startDate und d.endDate
+|-
+|true
+
+|U-2
+|Discount d.isAvailable()
+|LocalDate.now() ist nicht zwischen d.startDate und d.endDate
+|-
+|false
+
 |===
