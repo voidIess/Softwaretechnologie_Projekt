@@ -17,7 +17,7 @@ namespace MemberManagement {
     org.springframework.Errors <.. MemberController: <<use>>
     pdf.PdfGenerator <.. MemberController: <<use>>
     class MemberController {
-        + MemberController(memberMangement: MemberMangement)
+        + MemberController(memberManagement: MemberManagement)
         + register(form: RegistrationForm, result: Errors): String
         + getMember(Model model, Optional<UserAccount> userAccount): String
         + getBillPdf(Model model, Optional<UserAccount> userAccount): String
@@ -29,7 +29,7 @@ namespace MemberManagement {
         + checkOut(Model model, memberId: String): String
         + changeContract(Model model, contractId: String, Optional<UserAccount> userAccount): String
     }
-    
+
 
 
     RegistrationForm <.. MemberManagement
@@ -47,7 +47,7 @@ namespace MemberManagement {
         + updateContract(memberId: String, contractId: String, Optional<UserAccount> userAccount): void
         + findAll(): Streamable
     }
-    
+
 
 
     interface RegistrationForm {
@@ -56,8 +56,8 @@ namespace MemberManagement {
         + getContract(): Contract
         + getReferralCode(): ReferralCode
     }
-    
-    
+
+
 
     org.springframework.CrudRepository <|.. MemberRepository
     interface MemberRepository {
@@ -65,8 +65,8 @@ namespace MemberManagement {
         {abstract} findByValidation(validation: boolean): Streamable
         {abstract} findAll(): Streamable
     }
-    
-    
+
+
 
     AdminManagement.User <|-- Member
     Member "1" *-- "1" CreditAccount: - creditAccount
@@ -90,8 +90,8 @@ namespace MemberManagement {
         + checkIn(): void
         + checkOut(): void
     }
-    
-    
+
+
     org.javamoney.moneta.Money <.. CreditAccount: <<use>>
     class CreditAccount {
         - credit: Money
@@ -99,20 +99,20 @@ namespace MemberManagement {
         + payIn(amount: Money): void
         + payOut(amount: Money): boolean
     }
-    
-  
+
+
     TrainingManagement "1" <-- TrainingController: - manager
     org.springframework.Model <.. TrainingController: <<use>>
     class TrainingController {
-        + TrainingController(trainingManagement: TraniningManagement)
+        + TrainingController(trainingManagement: TrainingManagement)
         + requestTraining(model: Model, trainer: String, startTime: String, duration: String, description: String, Optional<UserAccount> userAccount): String
         + requestTrialTraining(model: Model, trainer: String, startTime: String, duration: String, description: String, Optional<UserAccount> userAccount): String
         + deleteTraining(model: Model, trainingId: String, Optional<UserAccount> userAccount): String
         + validateTraining(model: Model, trainingId: String, trainingState: String,  Optional<UserAccount> userAccount): String
     }
-    
-    
-    
+
+
+
     Training <.. TrainingManagement : <<use>>
     MemberRepository "1" <-- TrainingManagement: - members
     StaffManagement.StaffRepository "1" <-- TrainingManagement: - staffs
@@ -120,7 +120,7 @@ namespace MemberManagement {
     org.salespoint.UserAccountManager "1" <-- TrainingManagement: -userAccounts
     class TrainingManagement {
         + TrainingManagement(trainings: TrainingRepository, members: MemberRepository, staffs: StaffRepository, userAccounts: UserAccountManager)
-        + createTrainingRequest(rainingType: TrainingType, trainer: String, startTime: String, duration: String, description: String, Optional<UserAccount> userAccount): Training      
+        + createTrainingRequest(rainingType: TrainingType, trainer: String, startTime: String, duration: String, description: String, Optional<UserAccount> userAccount): Training
         + deleteTraining(trainingId: String, Optional<UserAccount> userAccount): void
         + validateTraining(trainingId: String, trainingState: String, Optional<UserAccount> userAccount): Training
     }
@@ -146,9 +146,9 @@ namespace MemberManagement {
     class OrderEntry
 
     Invoice "1" *-- "1" Member: -user
-    Invoice o-- "0..*" InvoiceEntry : - entrys: Streamable
+    Invoice o-- "0..*" InvoiceEntry : - entries: Streamable
     class Invoice {
-        + getEntrys() : ArryList<InvoiceEntry>
+        + getEntries() : ArrayList<InvoiceEntry>
 
     }
 
@@ -158,11 +158,11 @@ namespace MemberManagement {
         findByMember() : Streamable
     }
 
-    InvoiceManager ..> Invoice : <<use>>
-    class InvoiceManager{
+    InvoiceManagement ..> Invoice : <<use>>
+    class InvoiceManagement{
         generateLastInvoice(member: Member): invoice
     }
-  
+
     StaffManagement.Staff o-- Training: - trainer
     Training o-- TrainingState: - state
     Training o-- TrainingType: - type
@@ -181,19 +181,19 @@ namespace MemberManagement {
 
     org.springframework.CrudRepository <|.. TrainingRepository
     interface TrainingRepository {
-        + findAll(): Streamable        
+        + findAll(): Streamable
     }
 
     enum TrainingState {
         REQUESTED
         ACCEPTED
     }
-  
+
     enum TrainingType {
         NORMAL
         TRIAL
     }
-    
+
     ContractManagement "1" <-- ContractController: - manager
     org.springframework.Model <.. ContractController: <<use>>
     class ContractController {
@@ -202,7 +202,7 @@ namespace MemberManagement {
         + removeContract(contractId: String, Optional<UserAccount> userAccount): String
         + addContract(name: String, description: String, price: String, expirationTime: String, Optional<UserAccount> userAccount): String
     }
-    
+
     Contract <.. ContractManagement: <<use>>
     ContractRepository "1" <-- ContractManagement: - contracts
     org.salespoint.UserAccountManager "1" <-- ContractManagement: -userAccounts
@@ -211,9 +211,9 @@ namespace MemberManagement {
         + editContract(contractId: String, name: String, description: String,  price: String, expirationTime: String): Contract
         + createContract(name: String, description: String, price: String, expirationTime: String): Contract
         + deleteContract(contractId: String): void
-    }   
-    
-    
+    }
+
+
     org.javamoney.moneta.Money <.. Contract: <<use>>
     class Contract {
         - contractId: Long
@@ -241,11 +241,11 @@ namespace org.springframework {
 
 
 namespace pdf {
-    interface PdfGenerator 
+    interface PdfGenerator
 }
 
 namespace AdminManagement {
-    abstract class User 
+    abstract class User
 }
 
 namespace org.salespoint {
@@ -254,5 +254,5 @@ namespace org.salespoint {
         class AccountancyEntry
         class ProductPaymentEntry
 }
-  
+
 @enduml
