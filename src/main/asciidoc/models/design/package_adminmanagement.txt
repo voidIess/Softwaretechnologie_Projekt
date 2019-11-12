@@ -1,0 +1,44 @@
+namespace AdminManagement {
+
+     User o-- org.salespoint.useraccount.UserAccount : - userAccount
+     class User {
+        - userID: Long
+        - fistName: String
+        - lastName: String
+
+        + User(userAccount: UserAccount, fistName: String, lastName: String)
+     }
+     
+     StatisticController o-- "1" StatisticManagement: "- statisticManagement"
+     class StatisticController {
+        + StatisticController(statisticsManagement: StatisticManagement)
+        + earnings(form: EarningsForm, model: Model):String
+        + Attendance (form: AttendanceForm, model: Model):String
+     }
+     
+     
+     EarningsForm <.. StatisticManagement
+     AttendanceForm <.. StatisticManagement
+     MemberManagement.MemberRepository <.. StatisticManagement: <<use>>
+     org.salespoint.OrderManager <.. StatisticManagement: <<use>>
+     class StatisticManagement {
+        + StaffManagement (members: MemberRepository, orders: OrderManager)
+        + getEarnings():EarningsForm
+        + getAttendance(): AttendanceForm
+     }
+     
+     java.time.LocalDate <.. EarningsForm: <<use>>
+     interface EarningsForm{
+        getAmount():int
+        getEarnings():double
+        getTime():LocalDate
+     }
+     
+     java.time.LocalDate <.. AttendanceForm: <<use>>
+     interface AttendanceForm{
+        getAmount():int
+        getTotalTime():double
+        getTime():LocalDate
+     }
+
+}

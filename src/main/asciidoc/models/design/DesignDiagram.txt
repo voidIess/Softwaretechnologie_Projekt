@@ -1,0 +1,300 @@
+@startuml
+
+
+namespace gym {
+
+    GymWebConfiguration <.. Gym: <<use>>
+    WebSecurityConfiguration <..Gym: <<use>>
+    org.springframework.SpringApplication <.. Gym: <<use>>
+    class Gym {
+      + {static} main(args: String[])
+    }
+
+    org.springframework.WebMvcConfigurer <.. GymWebConfiguration: <<use>>
+    org.springframework.ViewControllerRegistry <.. GymWebConfiguration: <<use>>
+    class GymWebConfiguration {
+        + addViewControllers(view: ViewControllerRegistry): void
+    }
+
+    org.springframework.HttpSecurity <.. WebSecurityConfiguration: <<use>>
+    org.salespoint.SalespointSecurityConfiguration <-- WebSecurityConfiguration
+    class WebSecurityConfiguration {
+        + configure(http: HttpSecurity): void
+    }
+}
+
+namespace org.salespoint {
+
+    namespace useraccount {
+        class UserAccount {
+
+        }
+    }
+    
+    namespace catalog {
+        Interface Catalog <T extends Product>
+        Class Product
+    }
+    
+    namespace inventory {
+        Interface UniqueInventory <T extends UniqueInventoryItem>
+        Class UniqueInventoryItem
+    }
+    
+    namespace core {
+        Interface DataInitializer
+    }
+    
+    namespace quantity {
+        Class Quantity
+        Enum Metric
+    }
+
+    class SalespointSecurityConfiguration
+
+}
+
+
+namespace AdminManagement {
+
+     User o-- org.salespoint.useraccount.UserAccount : - userAccount
+     class User {
+        - userID: Long
+        - fistName: String
+        - lastName: String
+
+        + User(userAccount: UserAccount, fistName: String, lastName: String)
+     }
+
+}
+
+namespace MemberManagement {
+
+    org.springframework.CrudRepository <|.. MemberRepository
+    MemberRepository o-- "0..*" Member
+    class MemberRepository {
+
+    }
+
+    AdminManagement.User <|-- Member
+    Member "1" *-- "1" CreditAccount: - creditAccount
+    Member "1" *-- "0..*" Training: - training
+    Member "0..*" o-- "1" Contract: - contract
+    java.time.LocalDate <.. Member: <<use>>
+    class Member {
+        - isPaused: boolean
+        - lastPaused: LocalDate
+        - registrationDate: LocalDate
+        - isFreeTrained: boolean
+        - startDate: LocalDate
+        - exerciseTime: Long
+
+        + Member(userAccount: UserAccount, fistName: String, lastName: String)
+        + requestTraining(staff: Staff, time: LocalDateTime): void
+        + changeContract(contract: Contract): void
+        + checkIn(): void
+        + checkOut(): void
+    }
+
+    class CreditAccount {
+        - credit: Money
+
+        + payIn(amount: Money): void
+        + payOut(amount: Money): boolean
+    }
+
+    StaffManagement.Staff o-- Training: - trainer
+    Training o-- TrainingState: - state
+    java.time.LocalDateTime <.. Training: <<use>>
+    class Training {
+        - startTime: LocalDateTime
+        - duration: int
+        - description: String
+
+        + Training(startTime: LocalDateTime, duration: int, description: String, trainer: Staff)
+        + accept(): void
+        + reject(): void
+    }
+
+    enum TrainingState {
+        REQUESTED
+        ACCEPTED
+    }
+
+    org.javamoney.moneta.Money <.. Contract: <<use>>
+    class Contract {
+        - contractId: Long
+        - name: String
+        - description: String
+        - price: Money
+        - duration: int
+
+        + Contract(name: String, description: String, price: Money, expirationDate: LocalDate)
+        + update(name: String, description: String, price: Money, expirationDate: LocalDate)
+    }
+
+    org.springframework.CrudRepository <|.. ContractRepository
+    ContractRepository o-- "0..*" Contract: - contracts
+    class ContractRepository {
+
+    }
+}
+
+namespace StaffManagement {
+    org.javamoney.moneta.Money <.. Staff: <<use>>
+    AdminManagement.User <|-- Staff
+    class Staff {
+        - salary: Money
+
+        + Staff(userAccount: UserAccount, fistName: String, lastName: String)
+    }
+
+
+    Roster o-- "0..*" RosterEntry  : - entries
+    java.time.LocalDate <.. Roster: <<use>>
+    class Roster {
+
+        - week: LocalDate
+
+        + Roster(week: LocalDate)
+        + addEntry(rosterEntry: RosterEntry)
+        + removeEntry(rosterEntry: RosterEntry)
+    }
+
+    RosterEntry o-- "1" Staff: - staff
+    RosterEntry o-- "1" Role: - role
+    java.time.LocalDateTime <.. RosterEntry: <<use>>
+    class RosterEntry {
+        - rosterEntryId: Long
+        - startTime: LocalDateTime
+        - duration: int
+
+        + RosterEntry(staff: Staff, startTime: LocalDateTime, duration: int)
+    }
+
+    enum Role {
+        COUNTER
+        TRAINER
+    }
+
+    org.springframework.CrudRepository <|.. RosterRepository
+    RosterRepository o-- "0..*" Roster
+    class RosterRepository {
+
+    }
+}
+
+namespace org.springframework {
+    interface CrudRepository {
+
+    }
+
+    class AbstractView {
+        renderMergedOutputModel(Map<String, Object> map, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse): void
+    }
+}
+
+namespace pdf {
+
+    org.springframework.AbstractView <|-- PdfView
+    PdfGenerator <.. PdfView : "use"
+    class PdfView {
+
+    }
+
+    interface PdfGenerator {
+        + {abstract} {static} generatePdf(o: Object, document: Document): void
+    }
+
+
+    PdfGenerator <|.. InvoicePdfGenerator
+    class InvoicePdfGenerator {
+        - InvoicePdfGenerator()
+        + {abstract} {static} generatePdf(invoice: Object, document: Document): void
+    }
+
+    PdfGenerator <|.. PayslipPdfGenerator
+    class PayslipPdfGenerator {
+         - InvoicePdfGenerator()
+         + {abstract} {static} generatePdf(paySlip: Object, document: Document): void
+    }
+
+
+}
+
+namespace BarManagement {
+
+    org.salespoint.catalog.Catalog <|.. ArticleCatalog
+    Interface ArticleCatalog <Article> 
+
+    CatalogInitializer o--> "1" ArticleCatalog: - articleCatalog
+    org.salespoint.core.DataInitializer <|.. CatalogInitializer
+    Class CatalogInitializer {
+        + CatalogInitializer(articleCatalog: ArticleCatalog)
+        + initialize(): void
+    }
+
+    org.salespoint.catalog.Product <|-- Article
+    Article o--> "0..*" Discount: - discounts
+    org.salespoint.quantity.Metric <.. Article: <<use>>
+    Class Article {
+        - String: description
+        - int: minimalAmount
+        
+        + Article(String: name, String: description, Money: price, metric: Metric, int: minimalAmount)
+        + addDiscount(): boolean
+        + removeDiscount(): Discount
+        + findBestAvailableDiscount(): Discount
+    
+    }
+    
+    Class Discount {
+        - LocalDate: startDate
+        - LocalDate: endDate
+        - int: percent
+        
+        + Discount(startDate: LocalDate, endDate: LocalDate, percent: int)
+        + isAvailable(): boolean
+    }
+    
+    ArticleInventory "1" <--o InventoryInitializer: - articleInventory
+    org.salespoint.inventory.UniqueInventory <|.. ArticleInventory
+    Interface ArticleInventory <ArticleInventoryItem> {
+        + hasExpiredArticles(): boolean
+        + getExpiredArticles(): List<ArticleInventoryItem>
+        + deleteExpiredArticles(): boolean
+    }
+    
+    InventoryInitializer o--> "1" ArticleCatalog: - articleCatalog
+    org.salespoint.core.DataInitializer <|.. InventoryInitializer
+    Class InventoryInitializer {
+        + InventoryInitializer(articleInventory: ArticleInventory, articleCatalog: ArticleCatalog)
+        + initialize(): void
+    }
+    
+    org.salespoint.inventory.UniqueInventoryItem <|-- ArticleInventoryItem
+    org.salespoint.quantity.Quantity <.. ArticleInventoryItem: <<use>>
+    Class ArticleInventoryItem {
+        - List<LocalDate>: expirationDates
+        
+        + ArticleInventoryItem(Article article, Quantity quantity)
+        + hasExpiredItems(): boolean
+        + getNumberOfExpiredItems(): int
+        + deleteExpiredItems(): boolean
+
+    }
+    
+}
+
+namespace org.javamoney.moneta {
+    class Money
+}
+
+namespace java.time {
+    class LocalDate
+    class LocalDateTime
+}
+
+
+
+@enduml

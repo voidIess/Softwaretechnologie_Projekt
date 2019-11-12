@@ -1,0 +1,23 @@
+@startuml
+
+    GymWebConfiguration <.. Application: <<use>>
+    WebSecurityConfiguration <..Application: <<use>>
+    org.springframework.SpringApplication <.. Application: <<use>>
+    class Application {
+      + {static} main(args: String[])
+    }
+
+    org.springframework.WebMvcConfigurer <.. GymWebConfiguration: <<use>>
+    org.springframework.ViewControllerRegistry <.. GymWebConfiguration: <<use>>
+    class GymWebConfiguration {
+        + addViewControllers(view: ViewControllerRegistry): void
+    }
+
+    org.springframework.HttpSecurity <.. WebSecurityConfiguration: <<use>>
+    org.salespoint.SalespointSecurityConfiguration <-- WebSecurityConfiguration
+    class WebSecurityConfiguration {
+        + configure(http: HttpSecurity): void
+    }
+
+
+@enduml
