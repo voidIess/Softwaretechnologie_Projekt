@@ -1,10 +1,10 @@
 @startuml
 
 
-namespace gym {
-    GymWebConfiguration <.. Gym: <<use>>
-    WebSecurityConfiguration <..Gym: <<use>>
-    org.springframework.SpringApplication <.. Gym: <<use>>
+
+    GymWebConfiguration <.. Application: <<use>>
+    WebSecurityConfiguration <..Application: <<use>>
+    org.springframework.SpringApplication <.. Application: <<use>>
     class Application {
       + {static} main(args: String[])
     }
@@ -20,6 +20,6 @@ namespace gym {
     class WebSecurityConfiguration {
         + configure(http: HttpSecurity): void
     }
-}
+
 
 @enduml
