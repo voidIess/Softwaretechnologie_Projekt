@@ -24,7 +24,7 @@ package "barmanagement" {
     Interface ArticleCatalog <Article> 
 
     Product <|-- Article
-    Article o--> "0..*" Discount: - discounts
+    Article o--> "0..1" Discount: - discount
     Class Article {
         - art: String
         - description: String
@@ -110,7 +110,7 @@ package "barmanagement" {
     Quantity <.. InventoryInitializer
     DataInitializer <|.. InventoryInitializer
     Class InventoryInitializer {
-        + InventoryInitializer(inventory: UniqueInventory<UniqueInventoryItem>, articleCatalog: ArticleCatalog)
+        + InventoryInitializer(inventory: Inventory<InventoryItem>, articleCatalog: ArticleCatalog)
         + initialize(): void
     }
     
