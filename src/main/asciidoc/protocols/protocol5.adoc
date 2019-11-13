@@ -41,9 +41,9 @@ Derzeitig Terminfindung für Zwischenpräsentation.
 [option="headers"]
 |===
 |Issue |Aufgabe |Status |Bemerkung
-|…     |Entwurfsklassendiagramm erstellen|abgeschlossen|alle
-|…     |Module für Prototypen finden und aufteilen|abgeschlossen|alle
-|…     |Test Plan ausfüllen             |angefangen|Lea           
+|     |Entwurfsklassendiagramm erstellen|abgeschlossen|alle
+|     |Module für Prototypen finden und aufteilen|abgeschlossen|alle
+|     |Test Plan ausfüllen             |angefangen|Lea           
 |===
 
 
@@ -60,9 +60,15 @@ Nächster Meilenstein: Sonntag, 17.11.2019.
 [option="headers"]
 |===
 |Issue |Titel |Beschreibung |Verantwortlicher |Status
-|…     |Entwurfsklassendiagramm erstellen  |…            |alle           |in Arbeit
-|…     |Module für Prototypen finden und aufteilen  |…            |alle           |in Arbeit
-|…     |Test Plan ausfüllen  |…            |alle           |in Arbeit
+|#1     |SVGs der Entwurfsdiagramme  |…            |Markus          |in Arbeit
+|#2     |Testplan ausfüllen  |…            |Lea         |in Arbeit
+|#3     |Prototyp (StaffManagement)  |…            |Markus          |in Arbeit
+|#4     |Prototyp (MemberManagement)  |…            |Bill          |in Arbeit
+|#5     |Prototyp (StaffManagement)  |…            |Lea          |in Arbeit
+|#6     |Prototyp (BarManagement)  |…            |Julius          |in Arbeit
+|#7     |Prototyp (Globale Variablen)  |…            |Vu          |in Arbeit
+|#8     |Entwickler Dokumentation   |…            |alle          |in Arbeit
+
 
 |===
 
