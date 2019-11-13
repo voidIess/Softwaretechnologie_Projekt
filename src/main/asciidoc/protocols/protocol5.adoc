@@ -1,0 +1,68 @@
+= Protokoll Gruppe 16
+
+Treffen am 12.11.2019
+
+Ort:      APB/E023 +
+Beginn:   16:40 Uhr +
+Ende:     17:45 Uhr
+
+__Schriftführer: Markus Wieland__
+
+*Nächstes Treffen:* +
+19.11.2019, 16:40 Uhr, APB
+
+__Teilnehmer:__
+//Tabellarisch oder Aufzählung, Kennzeichnung von Teilnehmern mit besonderer Rolle (z.B. Kunde)
+
+- Anita Fritzsche (Tutorin/Kundin)
+- Julius Schmitt
+- Bill Kippe
+- Markus Wieland
+- Quang Vu Ha
+- Lea Häusler
+
+== Bemerkungen
+Die Entwicklerdoku soll soweit ausgefüllt werden, wie wir es können.
+Jenkins hat jetzt alle Branches.
+
+Für Prototyp:
+* noch keine Persistenz (auch in der richtigen Anwendung Persistenz zum Schluss)
+* Es wäre besser wenn die Features am Ende zusammengeführt werden, aber kein Zwang
+
+Derzeitig Terminfindung für Zwischenpräsentation.
+30 Minuten Vortrag. 10 Minuten Funktionen präsentieren, 10 Minuten Entwicklungsprozess und 10 Minuten Disussion. Mit Powerpoint Präsentation.
+
+
+== Retrospektive des letzten Sprints
+*Issue referenziert die Issue ID von GitHub*
+// Wie ist der Status der im letzten Sprint erstellten Issues/veteilten Aufgaben?
+
+// See http://asciidoctor.org/docs/user-manual/=tables
+[option="headers"]
+|===
+|Issue |Aufgabe |Status |Bemerkung
+|…     |Entwurfsklassendiagramm erstellen|abgeschlossen|alle
+|…     |Module für Prototypen finden und aufteilen|abgeschlossen|alle
+|…     |Test Plan ausfüllen             |angefangen|Lea           
+|===
+
+
+== Aktueller Stand
+Das Entwurfsdiagramm ist fertig und in Module aufgeteilt. Jeder hat ein Feature bekommen, welches nun bis zum nächsten Meilenstein programmiert werden soll.
+Am Ende sollen die Features zusammen gemergt werden.
+Nächster Meilenstein: Sonntag, 17.11.2019.
+
+
+== Planung des nächsten Sprints
+*Issue referenziert die Issue ID von GitHub*
+
+// See http://asciidoctor.org/docs/user-manual/=tables
+[option="headers"]
+|===
+|Issue |Titel |Beschreibung |Verantwortlicher |Status
+|…     |Entwurfsklassendiagramm erstellen  |…            |alle           |in Arbeit
+|…     |Module für Prototypen finden und aufteilen  |…            |alle           |in Arbeit
+|…     |Test Plan ausfüllen  |…            |alle           |in Arbeit
+
+|===
+
