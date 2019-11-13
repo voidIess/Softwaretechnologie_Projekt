@@ -23,7 +23,6 @@ public class BarController {
 	String SellingCatalog(Model model){
 
 		model.addAttribute("catalog", catalog);
-		model.addAttribute("name", "catalog.Article.title");
 
 		return("sell_catalog");
 	}

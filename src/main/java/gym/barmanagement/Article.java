@@ -10,14 +10,14 @@ public class Article extends org.salespointframework.catalog.Product {
 	private String art;
 	private String description;
 	private LocalDate expirationDate;
-	private Optional<Discount> discount;
+	//private Optional<Discount> discount;
 
 	public Article(String name, MonetaryAmount price, String art, String description, LocalDate expirationDate) {
 		super(name, price);
 		this.art = art;
 		this.description = description;
 		this.expirationDate = expirationDate;
-		this.discount = Optional.empty();
+		//this.discount = Optional.empty();
 	}
 
 
