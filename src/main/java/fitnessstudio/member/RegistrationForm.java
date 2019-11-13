@@ -1,4 +1,4 @@
-package member;
+package fitnessstudio.member;
 
 import javax.validation.constraints.NotEmpty;
 

@@ -1,4 +1,4 @@
-package member;
+package fitnessstudio.member;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

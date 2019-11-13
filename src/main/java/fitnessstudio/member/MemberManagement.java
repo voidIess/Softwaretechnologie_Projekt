@@ -1,4 +1,4 @@
-package member;
+package fitnessstudio.member;
 
 import org.salespointframework.useraccount.Password;
 import org.salespointframework.useraccount.Role;

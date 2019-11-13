@@ -1,4 +1,4 @@
-package member;
+package fitnessstudio.member;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.util.Streamable;
