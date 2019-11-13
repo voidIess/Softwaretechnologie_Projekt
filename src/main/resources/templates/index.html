@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+
+    <title th:text="#{home.title}">Gym</title>
+</head>
+<body>
+<div class="ui container">
+    <header>
+        <h1 th:text="#{home.title}">Gym</h1>
+    </header>
+
+    <h2 th:text="#{home.welcome}">Willkommen zu unserem Videoshop.</h2>
+    <p sec:authorize="isAuthenticated()" th:text="${'Hallo ' + #authentication?.name}">Hallo Nutzer</p>
+</div>
+</body>
+</html>
