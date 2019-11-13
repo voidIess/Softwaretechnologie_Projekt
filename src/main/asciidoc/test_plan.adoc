@@ -1,16 +1,18 @@
 = Test-Plan
 
-Dieser Testplan stellt eine vereinfachte Version der IEEE 829-1998 Vorlage dar.
+Dieser Testplan stellt eine vereinfachte Version der IEEE 829-1998 Vorlage dar. +
+Er befasst sich mit der Fitnessstudio Website, die von der Gruppe 16 im Rahmen des Softwaretechnologieprojektes 2019/20 an der Universität Dresden erstellt wird.
 
 == Einführung
-Wozu dient das Dokument? Zielgruppe?
+Um ein organisiertes und systematisches Testen zu ermöglichen, werden in diesem Dokument zum System passende Testfälle entworfen. Außerdem werden die Anforderungen an Hard- und Software definiert. +
+Der Testplan richtet sich an den Kunden, an das Entwicklerteam und dabei insbesondere an die Implementierer der Testklassen.
 
 == Aufbau der Testbezeichner
 Nach welchem Schema sind die Tests benannt?
 
 *Bsp.*
 
-*U - Unit Test, I - Integrationstest*
+*U - Unit Test, I - Integrationstest, S - Systemtest*
 
 *U-1, U-2, I-1*
 
@@ -19,7 +21,8 @@ Nach welchem Schema sind die Tests benannt?
 == Zu testende Funktionalitäten
 
 == Nicht zu testende Funktionalitäten
-z.B. Bibliotheken von Drittanbietern (eigene Tests beschränken sich auf Schnittstelle, bzw. Zusammenspiel).
+Die Bibliotheken java.time und org.javamoney.moneta, sowie das Framework Spring und SalesPoint müssen nicht erneut getesten werden. Hier stehen nur die Schnittstellen zu systemeigenen Klassen im Fokus. +
+Einfache Methoden von Java-Klassen, wie z.B. setter und getter, die lediglich auf ein Attribut eines Objektes zugreifen, brauchen nicht getestet zu werden.
 
 == Herangehensweise
 *Bsp.:*
@@ -41,5 +44,17 @@ Jede testbezogene Aufgabe muss einem Ansprechpartner zugeordnet werden.
 [options="headers"]
 |===
 |ID |Anwendungsfall |Vorbedingungen |Eingabe |Ausgabe
-|…  |…              |…              |…       |…
+
+|U-1
+|Discount d.isAvailable()
+|LocalDate.now() ist zwischen d.startDate und d.endDate
+|-
+|true
+
+|U-2
+|Discount d.isAvailable()
+|LocalDate.now() ist nicht zwischen d.startDate und d.endDate
+|-
+|false
+
 |===
