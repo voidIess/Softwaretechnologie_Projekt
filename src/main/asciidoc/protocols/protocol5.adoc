@@ -26,6 +26,7 @@ Die Entwicklerdoku soll soweit ausgefüllt werden, wie wir es können.
 Jenkins hat jetzt alle Branches.
 
 Für Prototyp:
+
 * noch keine Persistenz (auch in der richtigen Anwendung Persistenz zum Schluss)
 * Es wäre besser wenn die Features am Ende zusammengeführt werden, aber kein Zwang
 
