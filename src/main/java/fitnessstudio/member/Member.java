@@ -27,4 +27,20 @@ public class Member {
 		this.lastName = lastName;
 
 	}
+
+	public long getMemberId() {
+		return memberId;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public String getUserName() {
+		return userAccount.getUsername();
+	}
 }
