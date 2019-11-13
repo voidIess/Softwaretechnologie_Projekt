@@ -20,6 +20,13 @@ Nach welchem Schema sind die Tests benannt?
 
 == Zu testende Funktionalitäten
 
+- Anmeldung und Registrierung
+- Mitgliederverwaltung
+- Mitarbeiterverwaltung
+- Artikelverwaltung
+- Statistiken
+- PDF erstellen
+
 == Nicht zu testende Funktionalitäten
 Die Bibliotheken java.time und org.javamoney.moneta, sowie das Framework Spring und SalesPoint müssen nicht erneut getesten werden. Hier stehen nur die Schnittstellen zu systemeigenen Klassen im Fokus. +
 Einfache Methoden von Java-Klassen, wie z.B. setter und getter, die lediglich auf ein Attribut eines Objektes zugreifen, brauchen nicht getestet zu werden.
@@ -38,7 +45,8 @@ Einfache Methoden von Java-Klassen, wie z.B. setter und getter, die lediglich au
 * Wie kommuniziert die Software während des Testens? Internet? Netzwerk?
 
 == Testfälle und Verantwortlichkeit
-Jede testbezogene Aufgabe muss einem Ansprechpartner zugeordnet werden.
+Jede testbezogene Aufgabe muss einem Ansprechpartner zugeordnet werden. +
+Artikelverwaltung
 
 // See http://asciidoctor.org/docs/user-manual/#tables
 [options="headers"]
