@@ -53,16 +53,40 @@ Artikelverwaltung
 |===
 |ID |Anwendungsfall |Vorbedingungen |Eingabe |Ausgabe
 
-|U-1
-|Discount d.isAvailable()
-|LocalDate.now() ist zwischen d.startDate und d.endDate
+|U-01
+|Discount.isAvailable()
+|aktuelles Datum liegt zwischen Start- und Enddatum des Rabattes
 |-
 |true
 
-|U-2
-|Discount d.isAvailable()
-|LocalDate.now() ist nicht zwischen d.startDate und d.endDate
+|U-02
+|Discount.isAvailable()
+|aktuelles Datum liegt nicht zwischen Start- und Enddatum des Rabattes
 |-
 |false
+
+|U-03
+|Article.addDiscount()
+|es existierte noch kein Rabatt für diesen Artikel
+|ein bestimmter Rabatt (enthält Start-, Enddatum und Prozentwert)
+|null
+
+|U-04
+|Article.addDiscount()
+|es existierte bereits ein Rabatt für diesen Artikel
+|ein bestimmter Rabatt (enthält Start-, Enddatum und Prozentwert)
+|alter Rabatt
+
+|U-05
+|Article.removeDiscount()
+|es existierte bereits ein Rabatt für diesen Artikel
+|-
+|alter Rabatt
+
+|U-06
+|Article.addDiscount()
+|es existierte noch kein Rabatt für diesen Artikel
+|-
+|null
 
 |===
