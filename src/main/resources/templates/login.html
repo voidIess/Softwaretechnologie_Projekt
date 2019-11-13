@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+
+    <title>Fitnessstudio</title>
+</head>
+<body>
+<div class="ui container">
+    <header>
+        <h1>Fitnessstudio</h1>
+    </header>
+    <nav th:include="navigation :: navigation"></nav>
+
+    <form class="ui form" role="form" th:action="@{/login}" method="post">
+
+        <div class="field">
+            <label th:text="#{login.username}" for="username">Username</label>
+            <input type="text" id="username" name="username" autofocus="autofocus"/> <br/>
+        </div>
+
+        <div class="field">
+            <label th:text="#{login.password}" for="password">Password</label>
+            <input type="password" id="password" name="password"/> <br/>
+        </div>
+
+        <button type="submit" th:text="#{login.login}" class="ui button">Log in</button>
+    </form>
+</div>
+</body>
+</html>
