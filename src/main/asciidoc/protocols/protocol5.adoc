@@ -61,7 +61,7 @@ Nächster Meilenstein: Sonntag, 17.11.2019.
 [option="headers"]
 |===
 |Issue |Titel |Beschreibung |Verantwortlicher |Status
-|#1     |SVGs der Entwurfsdiagramme  |…            |Markus          |in Arbeit
+|#1     |SVGs der Entwurfsdiagramme  |…            |Markus          |abgeschlossen
 |#2     |Testplan ausfüllen  |…            |Lea         |in Arbeit
 |#3     |Prototyp (StaffManagement)  |…            |Markus          |in Arbeit
 |#4     |Prototyp (MemberManagement)  |…            |Bill          |in Arbeit
