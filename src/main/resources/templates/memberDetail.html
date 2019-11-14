@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://thymeleaf.org">
 <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+
     <script th:src="@{/webjars/jquery/jquery.min.js}"
             src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script th:src="@{/webjars/Semantic-UI/semantic.min.js}"
@@ -11,30 +12,25 @@
           href="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css" type="text/css"/>
     <link th:href="@{/resources/css/style.css}" rel="stylesheet"
           href="../static/resources/css/style.css" type="text/css"/>
-    <title>Mitglied Home</title>
+
+    <title> Benutzer Konto</title>
 </head>
 <body>
 <div class="ui container">
     <header>
-        <h1>Benutzer Informationen</h1>
+        <h1>Benutzer Konto</h1>
     </header>
-    <table class="ui celled table">
-        <thead>
-        <tr>
-            <th>Vorname</th>
-            <th>Nachname</th>
-            <th>Login Name</th>
-        </tr>
-        </thead>
-        <tbody th:remove="all-but-first">
-        <tr th:each=" customer : ${memberList}">
-            <td th:text="${customer.firstName}">Vorname</td>
-            <td th:text="${customer.lastName}">Nachname</td>
-            <td th:text="${customer.userName}">UserName</td>
-            <td th:text="${customer.memberId}">MemberId</td>
-        </tr>
-        </tbody>
-    </table>
+    <div class="ui items">
+        <div class="item">
+            <div class="content">
+                <a class="header">Benutzerdaten</a>
+                <div class="meta">
+                    <span th:text="${member.firstName}">Vorname</span>
+                    <span th:text="${member.lastName}">Nachname</span>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 </body>
 </html>
