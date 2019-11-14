@@ -45,6 +45,12 @@ public class MemberController {
 		return "members";
 	}
 
+	@GetMapping("/member")
+	public String member(Model model) {
+		model.addAttribute("member");
+		return "member";
+	}
+
 
 
 }

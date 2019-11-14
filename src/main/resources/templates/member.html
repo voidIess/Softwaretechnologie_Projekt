@@ -11,31 +11,30 @@
           href="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css" type="text/css"/>
     <link th:href="@{/resources/css/style.css}" rel="stylesheet"
           href="../static/resources/css/style.css" type="text/css"/>
-    <title th:text="#{home.title}">Gym</title>
+    <title>Mitglied Home</title>
 </head>
 <body>
 <div class="ui container">
     <header>
-        <h1 th:text="#{home.title}">Gym</h1>
+        <h1>Benutzer Informationen</h1>
     </header>
-    <form class="ui form" role="form" th:action="@{/login}" method="post">
-
-        <div class="field">
-            <label th:text="#{login.username}" for="username">Username</label>
-            <input type="text" id="username" name="username" autofocus="autofocus"/> <br/>
-        </div>
-
-        <div class="field">
-            <label th:text="#{login.password}" for="password">Password</label>
-            <input type="password" id="password" name="password"/> <br/>
-        </div>
-
-        <button type="submit" th:text="#{login.login}" class="ui button">Log in</button>
-        <a th:href="@{~/register}">
-            <label th:text="#{login.register}">Registrieren</label>
-        </a>
-
-    </form>
+    <table class="ui celled table">
+        <thead>
+        <tr>
+            <th>Vorname</th>
+            <th>Nachname</th>
+            <th>Login Name</th>
+        </tr>
+        </thead>
+        <tbody th:remove="all-but-first">
+        <tr th:each=" customer : ${memberList}">
+            <td th:text="${customer.firstName}">Vorname</td>
+            <td th:text="${customer.lastName}">Nachname</td>
+            <td th:text="${customer.userName}">UserName</td>
+            <td th:text="${customer.memberId}">MemberId</td>
+        </tr>
+        </tbody>
+    </table>
 </div>
 </body>
 </html>
