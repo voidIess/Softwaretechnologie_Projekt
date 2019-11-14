@@ -14,7 +14,7 @@ import javax.transaction.Transactional;
 @Transactional
 public class MemberManagement {
 
-	public final Role MEMBER_ROLE = Role.of("MEMBER");
+	public static final Role MEMBER_ROLE = Role.of("MEMBER");
 
 	private final MemberRepository members;
 	private final UserAccountManager userAccounts;
@@ -23,7 +23,7 @@ public class MemberManagement {
 	/**
 	 * Creates a new {@link MemberManagement} with the given {@link MemberRepository} and {@link UserAccountManager}.
 	 *
-	 * @param members must not be {@literal null}.
+	 * @param members      must not be {@literal null}.
 	 * @param userAccounts must not be {@literal null}.
 	 */
 	MemberManagement(MemberRepository members, UserAccountManager userAccounts) {
@@ -34,14 +34,14 @@ public class MemberManagement {
 		this.userAccounts = userAccounts;
 	}
 
-	public Member createMember(RegistrationForm form, Errors result){
+	public Member createMember(RegistrationForm form, Errors result) {
 		Assert.notNull(form, "Registration form must not be null");
 
 		var firstName = form.getFirstName();
 		var lastName = form.getLastName();
 		var password = Password.UnencryptedPassword.of(form.getPassword());
 
-		if (userAccounts.findByUsername(form.getUserName()).isPresent()){
+		if (userAccounts.findByUsername(form.getUserName()).isPresent()) {
 			result.rejectValue("userName", "register.duplicate.userAccountName");
 			return null;
 		} else {

@@ -43,4 +43,8 @@ public class Member {
 	public String getUserName() {
 		return userAccount.getUsername();
 	}
+
+	public UserAccount getUserAccount() {
+		return userAccount;
+	}
 }
