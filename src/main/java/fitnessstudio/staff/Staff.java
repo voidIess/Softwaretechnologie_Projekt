@@ -23,10 +23,11 @@ public class Staff {
 
 	Staff() {}
 
-	Staff(UserAccount userAccount, String firstName, String lastName){
+	Staff(UserAccount userAccount, String firstName, String lastName, Money salary){
 		this.userAccount = userAccount;
 		this.firstName = firstName;
 		this.lastName = lastName;
+		this.salary = salary;
 	}
 
 	public void setSalary (Money money) {
