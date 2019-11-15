@@ -3,6 +3,7 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+
     <script th:src="@{/webjars/jquery/jquery.min.js}"
             src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script th:src="@{/webjars/Semantic-UI/semantic.min.js}"
@@ -11,17 +12,24 @@
           href="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css" type="text/css"/>
     <link th:href="@{/resources/css/style.css}" rel="stylesheet"
           href="../static/resources/css/style.css" type="text/css"/>
-    <title th:text="#{home.title}">Gym</title>
 </head>
 <body>
-<div class="ui container">
-    <header>
-        <h1 th:text="#{home.title}">Gym</h1>
-    </header>
-    <nav th:include="navigation :: navigation"></nav>
+<nav th:fragment="navigation">
+    <div class="ui menu">
+        <a class="item" href="memberDetail.html" th:href="@{/member/home}" sec:authorize="hasRole('MEMBER')"
+           th:text="#{nav.member.home}">Home</a>
 
-    <h2 th:text="#{home.welcome}">Willkommen zu unserem Videoshop.</h2>
-    <p sec:authorize="isAuthenticated()" th:text="${'Hallo ' + #authentication?.name}">Hallo Nutzer</p>
-</div>
+        <a class="item" href="members.html" th:href="@{/members}" sec:authorize="hasRole('BOSS')"
+           th:text="#{nav.boss.members}">Mitglieder</a>
+
+        <div class="right menu">
+            <a class="item" th:href="@{/login}" sec:authorize="!isAuthenticated()" th:text="#{nav.login}">Login</a>
+            <form class="item" sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post">
+                <button type="submit" class="ui button" th:text="#{nav.logout}">Logout</button>
+            </form>
+        </div>
+    </div>
+    <br/>
+</nav>
 </body>
 </html>

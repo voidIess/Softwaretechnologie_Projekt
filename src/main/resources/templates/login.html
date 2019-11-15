@@ -14,8 +14,11 @@
 </head>
 <body>
 <div class="login-box">
+    <header>
+        <h1>Login</h1>
+    </header>
+    <nav th:include="navigation :: navigation"></nav>
 
-    <h1>Login</h1>
     <form class="ui form" role="form" th:action="@{/login}" method="post">
 
         <div class="textbox">

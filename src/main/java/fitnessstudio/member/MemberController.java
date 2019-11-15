@@ -50,7 +50,7 @@ public class MemberController {
 	}
 
 
-	@GetMapping("/member")
+	@GetMapping("/member/home")
 	public String detail(@LoggedIn Optional<UserAccount> userAccount, Model model) {
 		return userAccount.map(user -> {
 
