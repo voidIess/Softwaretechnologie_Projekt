@@ -67,33 +67,6 @@ Die zugewiesene Priorität muss bei der Formulierung der konkreten nichtfunktion
 |Erreichbarkeit        |   | x |   |   |
 |===
 
-==== Beschreibung der Anforderung
-
-Wartbarkeit::
-Beschreibt, wie einfach es ist, das System zu warten. 
-
-Benutzbarkeit::
-Qualität der Bedienung des Programms durch einen Nutzer.
-
-Effizienz::
-Beschreibt, wie effizient das Programm funktioniert.
-
-Funktionalität:: 
-
-Übertragbarkeit::
-
-Zuverlässigkeit::
-Wahrscheinlichkeit der fehlerfreien Funktion des Programms.
-
-Sicherheit::
-Grad mit dem das System personenbezogene Daten und Informationen schützt.
-
-Nutzerfreundlichkeit::
-Grad
-
-Erreichbarkeit::
-Beschreibt wie durchgehend das System 
-
 == Randbedingungen
 
 === Hardware - Vorgaben
