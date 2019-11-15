@@ -4,7 +4,7 @@ body{
   padding: 0;
   font-family: sans-serif;
   background: url("../images/login.jpg") no-repeat;
-  background-size: cover;
+  background-size:auto;
 }
 .login-box{
   width: 280px;
@@ -54,3 +54,5 @@ body{
   cursor: pointer;
   margin: 12px 0;
 }
+
+
