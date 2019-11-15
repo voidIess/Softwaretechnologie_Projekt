@@ -35,16 +35,16 @@ public class RosterDataInitializer implements DataInitializer {
 	@Override
 	public void initialize() {
 
-		Roster roster = new Roster(1);
+		//Roster roster = new Roster(1);
 		//UserAccount userAccount, String firstName, String lastName
 		Staff staff = new Staff(userAccounts.create("Mar14511", Password.UnencryptedPassword.of("123"), Role.of("STAFF")),"Markus", "Wieland", Money.of(100, "EUR"));
 		LocalDateTime date = LocalDateTime.now();
 
 		RosterEntry rosterEntry = new RosterEntry(StaffRole.COUNTER,staff,date,119);
 
-		roster.addEntry(rosterEntry);
+		//roster.addEntry(rosterEntry);
 
-		rosters.save(roster);
+		rosters.save(rosterEntry);
 		LOG.info("ID:" + rosterEntry.getRosterId());
 
 		LOG.info("Creating default BOSS (user: 'boss', pass: '123')");

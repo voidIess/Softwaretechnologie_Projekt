@@ -2,6 +2,7 @@ package fitnessstudio.staff;
 
 import fitnessstudio.member.MemberManagement;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -17,10 +18,16 @@ import java.util.Optional;
 @Controller
 public class StaffController {
 
+	private final RosterRepository catalog;
+
+	StaffController(RosterRepository repository) {
+		this.catalog = repository;
+	}
+
 	//@PreAuthorize("hasRole('STAFF')")
 	@RequestMapping(path = "/roster", method = RequestMethod.GET)
 	String roster(@RequestParam Optional<String> name, Model model) {
-		model.addAttribute("name", name.orElse("World"));
+		model.addAttribute("roster",catalog.findByRole(StaffRole.COUNTER, Sort.by("rosterEntryId").descending()));
 		return "roster";
 	}
 }

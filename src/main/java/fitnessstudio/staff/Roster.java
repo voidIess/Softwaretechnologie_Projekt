@@ -8,13 +8,13 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
+//@Entity
 public class Roster {
-	@Id
-	@GeneratedValue
+	//@Id
+	//@GeneratedValue
 	private long rosterId;
 	private int week;
-	@OneToMany(targetEntity=RosterEntry.class, mappedBy="rosterEntryId")
+	//@OneToMany(targetEntity=RosterEntry.class, mappedBy="rosterEntryId")
 	private List<RosterEntry> entries;
 
 	Roster(int week) {

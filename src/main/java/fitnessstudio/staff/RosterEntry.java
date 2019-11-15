@@ -1,6 +1,7 @@
 package fitnessstudio.staff;
 
 import com.mysema.commons.lang.Assert;
+import org.salespointframework.catalog.Product;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -10,7 +11,7 @@ import java.time.LocalDateTime;
 public class RosterEntry {
 	@Id @GeneratedValue (strategy = GenerationType.IDENTITY)
 	private long rosterEntryId;
-	@OneToOne(targetEntity=Staff.class)
+	@OneToOne(targetEntity=Staff.class, cascade = {CascadeType.ALL})
 	private  Staff staff;
 	private  LocalDateTime startTime;
 	private  int duration;

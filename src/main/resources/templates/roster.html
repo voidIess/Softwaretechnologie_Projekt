@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -14,6 +15,56 @@
 </head>
 <body>
 <h1 th:text="${'Hello, ' + name + '!'}">Hello!</h1>
+
+<h1>einfache Tabelle</h1>
+
+<table class="ui celled table">
+    <thead>
+    <tr><th>Name</th>
+        <th>Age</th>
+        <th>Job</th>
+    </tr></thead>
+    <tbody>
+    <tr>
+        <td data-label="Name">James</td>
+        <td data-label="Age">24</td>
+        <td data-label="Job">Engineer</td>
+    </tr>
+    <tr>
+        <td data-label="Name">Jill</td>
+        <td data-label="Age">26</td>
+        <td data-label="Job">Engineer</td>
+    </tr>
+    <tr>
+        <td data-label="Name">Elyse</td>
+        <td data-label="Age">24</td>
+        <td data-label="Job">Designer</td>
+    </tr>
+    </tbody>
+</table>
+
+
+
+<th:block th:each="rosterEntry : ${roster}">
+    <tr>
+        <td th:text="${rosterEntry.role}">A Smoke Test'</td>
+    </tr>
+</th:block>
+
+
+<div class="ui link cards" th:remove="all-but-first">
+    <div class="ui card" th:each="rosterEntry : ${roster}">
+        <!---------
+        <div class="content">
+            <a class="header" th:href="@{/rosterEntry/{id}(id=${rosterEntry.rosterEntryId})}" th:text="${disc.name}">Last Action Hero</a>
+        </div>
+        ------->
+        <div class="content">
+            <div class="description" th:text="${{rosterEntry.duration}}">9.99 €</div>
+        </div>
+        <div class="extra content" th:text="${rosterEntry.role}"> Action</div>
+    </div>
+</div>
 
 </body>
 </html>
