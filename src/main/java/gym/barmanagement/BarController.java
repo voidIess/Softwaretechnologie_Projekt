@@ -22,7 +22,7 @@ public class BarController {
 	@GetMapping("/sell_catalog")
 	String SellingCatalog(Model model){
 
-		model.addAttribute("catalog", catalog.findAll());
+		model.addAttribute("inventory", inventory.findAll());
 
 		return("sell_catalog");
 	}

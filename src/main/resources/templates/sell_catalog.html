@@ -10,10 +10,11 @@
     <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
 </head>
 <body>
-<div class="ui link cards" th:remove="all-but-first">
-    <div class="ui card" th:each="article : ${catalog}">
+<div th:remove="all-but-first">
+    <div class="list" th:each="item : ${inventory}">
         <div class="content">
-            <a class="header" th:text="${article.name}">Spinatsalat</a>
+            <a class="header" th:text="${item.getProduct().name}">Spinatsalat</a>
+            <a class="content" th:text="${item.getQuantity()}"></a>
         </div>
     </div>
 </div>
