@@ -7,6 +7,7 @@ import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
 import org.javamoney.moneta.Money;
 
+import javax.money.Monetary;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Map;
@@ -18,7 +19,7 @@ public class PayslipPdfGenerator implements PdfGenerator {
 	public static Document generatePdf(Map<String, Object> payslip, Document d) throws IOException {
 
 		Paragraph title = new Paragraph("Gehaltsabrechnung " + LocalDate.now().toString());
-		title.setFont(PdfFontFactory.createFont(FontConstants.COURIER));
+		title.setFont(PdfFontFactory.createFont(FontConstants.COURIER_BOLD));
 		title.setFontSize(18f);
 		title.setBold();
 		d.add(title);
@@ -26,6 +27,7 @@ public class PayslipPdfGenerator implements PdfGenerator {
 		float[] columnWidth = {200f, 200f};
 		Table table = new Table(columnWidth);
 		table.setFont(PdfFontFactory.createFont(FontConstants.COURIER));
+		title.setFontSize(12f);
 		table.setMarginTop(20f);
 
 		table.addCell("Arbeitgeber");
@@ -42,7 +44,7 @@ public class PayslipPdfGenerator implements PdfGenerator {
 		table.addCell("25%");
 
 		table.addCell("Nettogehalt");
-		table.addCell(salary.divide(0.75).toString()).setBold();
+		table.addCell(salary.multiply(0.75).with(Monetary.getDefaultRounding()).toString()).setBold();
 
 		d.add(table);
 
