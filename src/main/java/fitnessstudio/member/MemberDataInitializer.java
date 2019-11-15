@@ -36,8 +36,10 @@ public class MemberDataInitializer implements DataInitializer {
 		}
 
 		LOG.info("Creating default BOSS (user: 'boss', pass: '123'");
-
 		userAccountManager.create("boss", Password.UnencryptedPassword.of("123"), Role.of("BOSS"));
+
+		LOG.info("Creating default MEMBER (user: 'member', pass: '123'");
+		memberManagement.createMember(new RegistrationForm("FirstName", "LastName", "member", "123"), null);
 
 	}
 }

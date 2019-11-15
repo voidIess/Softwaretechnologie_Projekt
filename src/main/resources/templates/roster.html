@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.js"></script>
+    <link rel="stylesheet" href="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css" type="text/css"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/style.css}"/>
+    <title th:text="#{home.title}">Gym</title>
+</head>
+<body>
+
+<h1>Dienstplan</h1>
+
+<table class="ui celled table">
+    <thead>
+    <tr>
+        <th>Mitarbeiter</th>
+        <th>Von</th>
+        <th>Bis</th>
+        <th>Job</th>
+        <th>Löschen</th>
+    </tr>
+    </thead>
+    <th:block th:each="rosterEntry : ${roster}">
+        <tr>
+            <td th:text="${rosterEntry.staff}">A Smoke Test'</td>
+            <td th:text="${rosterEntry.startTime} ">A Smoke Test'</td>
+            <td th:text="${rosterEntry.endTime}">A Smoke Test'</td>
+            <td th:text="${rosterEntry.role}">A Smoke Test'</td>
+            <td>
+                <a class="ui red button" th:href="@{/roster/delete/{id}/(id=${rosterEntry.rosterEntryId})}">Löschen</a>
+            </td>
+        </tr>
+    </th:block>
+
+</table>
+<a class="fluid ui button" href="/roster/newRoster">Eintrag hinzuf&uuml;gen</a>
+</body>
+</html>
