@@ -175,7 +175,7 @@ image::models/analysis/Mitglied.png[]
 
 === StaffManagement Package ===
 
-image::./models/design/staffmanagement.svg
+image::models/design/staffmanagement.svg[]
 
 [options="header"]
 |=== 
