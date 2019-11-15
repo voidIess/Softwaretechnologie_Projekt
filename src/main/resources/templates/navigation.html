@@ -13,6 +13,10 @@
 <body>
 <nav th:fragment="navigation">
     <div class="ui menu">
+
+        <a class="item" href="index.html" th:href="@{/}"
+           th:text="#{homePage.title}">Home</a>
+
         <a class="item" href="memberDetail.html" th:href="@{/member/home}" sec:authorize="hasRole('MEMBER')"
            th:text="#{nav.member.home}">Home</a>
 
