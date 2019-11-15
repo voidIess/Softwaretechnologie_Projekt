@@ -37,11 +37,11 @@ public class StaffController {
 	//TODO: add Entry for Roster
 
 
-	// Fängt ab, wenn jemand mit einer Rolle != Staff auf die Seite möchte
+	/*// Fängt ab, wenn jemand mit einer Rolle != Staff auf die Seite möchte
 	@ExceptionHandler({AccessDeniedException.class})
 	public String error() {
 		return "redirect:/";
-	}
+	}*/
 
 	// Zeigt den Roster an
 	@PreAuthorize("hasRole('STAFF')")
