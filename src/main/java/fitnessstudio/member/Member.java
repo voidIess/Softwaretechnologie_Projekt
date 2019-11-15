@@ -56,7 +56,7 @@ public class Member {
 		return userAccount;
 	}
 
-	public CreditAccount getCreditAccount() {
-		return creditAccount;
+	public void payIn(Money amount){
+		creditAccount.payIn(amount);
 	}
 }

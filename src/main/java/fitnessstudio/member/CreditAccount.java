@@ -2,7 +2,6 @@ package fitnessstudio.member;
 
 import org.javamoney.moneta.Money;
 
-import javax.money.MonetaryAmount;
 import javax.persistence.Embeddable;
 import javax.persistence.Lob;
 
@@ -15,15 +14,17 @@ public class CreditAccount {
 		this.credit = Money.of(0, "EUR");
 	}
 
-	public MonetaryAmount payIn(Money amount) {
-		return credit.add(amount);
+	public void payIn(Money amount) {
+		credit = credit.add(amount);
 	}
 
 	public Money payOut(Money amount) {
 		if (credit.isLessThan(amount)) {
-			return credit.add(credit.negate());
+			credit = credit.add(credit.negate());
+			return credit;
 		}
-		return credit.add(amount.negate());
+		credit = credit.add(amount.negate());
+		return credit;
 	}
 
 	public Money getCredit() {

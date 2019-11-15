@@ -5,7 +5,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 
-import javax.money.Monetary;
 import javax.money.MonetaryAmount;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -39,14 +38,26 @@ class CreditAccountTest {
 		Money amount = Money.of(50, "EUR");
 		MonetaryAmount oldCredit = creditAccount.getCredit();
 
-		assertThat(creditAccount.payIn(amount).isEqualTo(amount.add(oldCredit))).isTrue();
+		creditAccount.payIn(amount);
+		assertThat(creditAccount.getCredit().isEqualTo(oldCredit.add(amount)));
 	}
 
 	@Test
 	@Order(4)
+	void payOutTest() {
+		Money amount = Money.of(10, "EUR");
+		MonetaryAmount oldCredit = creditAccount.getCredit();
+
+		creditAccount.payOut(amount);
+		assertThat(creditAccount.getCredit().isEqualTo(oldCredit.add(amount.negate())));
+	}
+
+	@Test
+	@Order(5)
 	void creditShouldBeZeroWhenPayOutToBig() {
 		Money amount = Money.of(100, "EUR");
-		assertThat(creditAccount.payOut(amount).isZero()).isTrue();
+		creditAccount.payOut(amount);
+		assertThat(creditAccount.getCredit().isZero()).isTrue();
 	}
 
 }
