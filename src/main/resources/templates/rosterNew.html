@@ -9,12 +9,14 @@
     <link rel="stylesheet" type="text/css" th:href="@{/resources/css/style.css}"/>
     <title th:text="#{home.title}">Neuer Dienstplaneintrag</title>
 </head>
-<body>
 
+<body>
+<header>
+    <h1 th:text="#{roster.title}">Neuen Dienstplaneintrag erstellen</h1>
+</header>
+<nav th:include="navigation :: navigation"></nav>
 <div class="ui container">
-    <header>
-        <h1 th:text="#{roster.title}">Neuen Dienstplaneintrag erstellen</h1>
-    </header>
+
     <form method="post" role="form" class="ui form" id="form" th:action="@{/roster/newRoster}" th:object="${form}">
         <div class="ui negative message" th:if="${#fields.hasErrors('*')}">
             <p>Einige Angaben sind nicht korrekt.</p>

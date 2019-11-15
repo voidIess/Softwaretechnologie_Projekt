@@ -40,7 +40,7 @@ public class RosterDataInitializer implements DataInitializer {
 
 		//Roster roster = new Roster(1);
 		//UserAccount userAccount, String firstName, String lastName
-		Staff staff = new Staff(userAccounts.create("Mar14511", Password.UnencryptedPassword.of("123"), Role.of("STAFF")),"Markus", "Wieland", Money.of(100, "EUR"));
+		Staff staff = new Staff(userAccounts.create("staff", Password.UnencryptedPassword.of("123"), Role.of("STAFF")),"Markus", "Wieland", Money.of(100, "EUR"));
 		Staff staff2 = new Staff(userAccounts.create("Obi", Password.UnencryptedPassword.of("123"), Role.of("STAFF")),"Obi", "Babobi", Money.of(10000, "EUR"));
 		LocalDateTime date = LocalDateTime.of(2019, Month.JANUARY,1, 12, 00);
 

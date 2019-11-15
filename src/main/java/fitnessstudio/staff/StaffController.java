@@ -42,7 +42,7 @@ public class StaffController {
 	}*/
 
 	@GetMapping("/roster/delete/{id}")
-	String detail(@PathVariable Long id, Model model) {
+	String delete(@PathVariable Long id, Model model) {
 
 		rosterManagement.deleteEntry(id);
 
