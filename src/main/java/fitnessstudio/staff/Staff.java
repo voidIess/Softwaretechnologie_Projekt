@@ -57,5 +57,10 @@ public class Staff {
 	public UserAccount getUserAccount() {
 		return userAccount;
 	}
+
+	@Override
+	public String toString(){
+		return lastName + ", " + firstName + "(ID: " + staffId + ")";
+	}
 }
 

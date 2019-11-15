@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
 import java.time.LocalDateTime;
+import java.time.Month;
 
 @Component
 public class RosterDataInitializer implements DataInitializer {
@@ -38,13 +39,15 @@ public class RosterDataInitializer implements DataInitializer {
 		//Roster roster = new Roster(1);
 		//UserAccount userAccount, String firstName, String lastName
 		Staff staff = new Staff(userAccounts.create("Mar14511", Password.UnencryptedPassword.of("123"), Role.of("STAFF")),"Markus", "Wieland", Money.of(100, "EUR"));
-		LocalDateTime date = LocalDateTime.now();
+		LocalDateTime date = LocalDateTime.of(2019, Month.JANUARY,1, 12, 00);
 
 		RosterEntry rosterEntry = new RosterEntry(StaffRole.COUNTER,staff,date,119);
+		RosterEntry rosterEntry2 = new RosterEntry(StaffRole.COUNTER,staff,date,60);
 
 		//roster.addEntry(rosterEntry);
 
 		rosters.save(rosterEntry);
+		rosters.save(rosterEntry2);
 		LOG.info("ID:" + rosterEntry.getRosterId());
 
 		LOG.info("Creating default BOSS (user: 'boss', pass: '123')");

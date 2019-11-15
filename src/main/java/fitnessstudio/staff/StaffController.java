@@ -24,7 +24,7 @@ public class StaffController {
 		this.catalog = repository;
 	}
 
-	//@PreAuthorize("hasRole('STAFF')")
+	@PreAuthorize("hasRole('STAFF')")
 	@RequestMapping(path = "/roster", method = RequestMethod.GET)
 	String roster(@RequestParam Optional<String> name, Model model) {
 		model.addAttribute("roster",catalog.findByRole(StaffRole.COUNTER, Sort.by("rosterEntryId").descending()));
