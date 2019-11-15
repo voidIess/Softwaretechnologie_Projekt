@@ -14,7 +14,6 @@
 </head>
 <body>
 
-
 <h1>Dienstplan</h1>
 
 <table class="ui celled table">
@@ -26,8 +25,6 @@
         <th>Job</th>
     </tr>
     </thead>
-
-
     <th:block th:each="rosterEntry : ${roster}">
         <tr>
             <td th:text="${rosterEntry.staff}">A Smoke Test'</td>
@@ -37,8 +34,5 @@
         </tr>
     </th:block>
 </table>
-
-
-
 </body>
 </html>
