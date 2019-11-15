@@ -16,8 +16,8 @@
         <a class="item" href="memberDetail.html" th:href="@{/member/home}" sec:authorize="hasRole('MEMBER')"
            th:text="#{nav.member.home}">Home</a>
 
-        <a class="item" href="members.html" th:href="@{/members}" sec:authorize="hasRole('BOSS')"
-           th:text="#{nav.boss.members}">Mitglieder</a>
+        <a class="item" href="members.html" th:href="@{/admin/members}" sec:authorize="hasRole('BOSS')"
+           th:text="#{nav.admin.members}">Mitglieder</a>
 
         <a class="item" href="roster.html" th:href="@{/roster}" sec:authorize="hasRole('STAFF')"
            th:text="#{roster.title}">Dienstplan</a>

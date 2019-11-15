@@ -42,7 +42,7 @@ public class MemberController {
 		return "redirect:/";
 	}
 
-	@GetMapping("/members")
+	@GetMapping("/admin/members")
 	@PreAuthorize("hasRole('BOSS')")
 	public String members(Model model) {
 		model.addAttribute("memberList", memberManagement.findAll());
