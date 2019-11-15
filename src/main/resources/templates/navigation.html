@@ -19,6 +19,9 @@
         <a class="item" href="members.html" th:href="@{/members}" sec:authorize="hasRole('BOSS')"
            th:text="#{nav.boss.members}">Mitglieder</a>
 
+        <a class="item" href="roster.html" th:href="@{/roster}" sec:authorize="hasRole('STAFF')"
+           th:text="#{roster.title}">Dienstplan</a>
+
         <div class="right menu">
             <a class="item" th:href="@{/login}" sec:authorize="!isAuthenticated()" th:text="#{nav.login}">Login</a>
             <form class="item" sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post">
