@@ -60,7 +60,7 @@ public class Staff {
 
 	@Override
 	public String toString(){
-		return lastName + ", " + firstName + "(ID: " + staffId + ")";
+		return lastName + ", " + firstName + " (ID: " + staffId + ")";
 	}
 }
 

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.js"></script>
+    <link rel="stylesheet" href="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css" type="text/css"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/style.css}"/>
+    <title th:text="#{home.title}">Neuer Dienstplaneintrag</title>
+</head>
+<body>
+
+<div class="ui container">
+    <header>
+        <h1 th:text="#{roster.title}">Neuen Dienstplaneintrag erstellen</h1>
+    </header>
+    <form method="post" role="form" class="ui form" id="form" th:action="@{/roster/newRoster}" th:object="${form}">
+        <div class="ui negative message" th:if="${#fields.hasErrors('*')}">
+            <p>Einige Angaben sind nicht korrekt.</p>
+        </div>
+
+        <div class="field">
+            <label th:text="#{roster.staff}" for="staffs">Mitarbeiter</label>
+            <select class="form-control" th:field="*{staffs}"  id="staffs">
+
+                <option th:each="staff : ${staffs}" th:value="${staff.staffId}" th:text="${staff.toString()}"></option>
+            </select>
+        </div>
+
+        <div class="field">
+            <label th:text="#{roster.role}" for="roles">Mitarbeiter</label>
+            <select class="form-control" th:field="*{roles}"  id="roles">
+                <option th:each="role : ${roles}" th:value="${role}" th:text="${role}"></option>
+            </select>
+        </div>
+
+
+        <div class="field">
+            <label th:text="#{roster.duration}" for="lastName">Nachname</label>
+            <input id="lastName" name="address" th:field="*{duration}" th:errorclass="fieldError" max= "120" min="1" type="number" value="120" required="required"/><br/>
+            <p th:if="${#fields.hasErrors('duration')}" th:errors="*{duration}">Der Nachname darf nicht leer sein.</p>
+        </div>
+
+        <div class="field">
+            <label for="userName">Tag</label>
+            <input id="userName" name="name" th:field="*{date}" th:errorclass="fieldError" type="datetime-local" required="required"/><br/>
+            <div class="ui negative message" th:if="${#fields.hasErrors('date')}" th:errors="*{date}">
+                <p>Der Name darf nicht leer sein.</p>
+            </div>
+        </div>
+
+        <button type="submit" class="ui button" th:text="#{roster.create}">Registrieren</button>
+    </form>
+</div>
+
+</body>
+</html>
