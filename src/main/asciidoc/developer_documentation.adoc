@@ -180,6 +180,16 @@ image::models/design/staffmanagement.svg[]
 [options="header"]
 |=== 
 |Klasse/Enumeration |Description
+|StaffController | Ein Spring MVC Controller, welcher Anfragen auf den Dienstplan und Lohnschein bearbeitet.
+|RosterEntryForm | Ein Interface, um die Eingaben des Mitarbeiters zu bearbeiten/validieren.
+|RosterManagement | Eine Klasse, mit der man aus den Eingaben eines Mitarbeiters ein _RosterEntry_ erzeugen kann und diesen dann dort auch bearbeiten.
+|RosterRepository | Ein Repository Interface zum Verwalten von RosterEntry Instanzen.
+|Roster | Fässt alle _RosterEntry's_ einer Woche zusammen.
+|RosterEntry | Eine Objekt um die Dienstplaneinträge im System zu verwalten.
+|StallRole | Eine Enumeration für die Aufgaben, welche ein Mitarbeiter in einer Schicht erledigen kann.
+|Staff| Das Objekt eines Mitarbeiters im System.
+|StaffManagement | Eine Klasse um die PDFs für den Lohnschein zu erstellen und zur Verwaltung der Mitarbeiter.
+|StaffRepository | Ein Repository Interface zum Verwalten von Mitarbeitern.
 |===
 
 === Rückverfolgbarkeit zwischen Analyse- und Entwurfsmodell
