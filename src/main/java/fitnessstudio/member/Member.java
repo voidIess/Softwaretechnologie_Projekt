@@ -1,16 +1,15 @@
 package fitnessstudio.member;
 
+import org.javamoney.moneta.Money;
 import org.salespointframework.useraccount.UserAccount;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 @Entity
 public class Member {
 
-	@Id @GeneratedValue
+	@Id
+	@GeneratedValue
 	private long memberId;
 
 	private String firstName;
@@ -19,10 +18,15 @@ public class Member {
 	@OneToOne
 	private UserAccount userAccount;
 
-	Member() {}
+	@Embedded
+	private CreditAccount creditAccount;
 
-	Member(UserAccount userAccount, String firstName, String lastName){
+	public Member() {
+	}
+
+	public Member(UserAccount userAccount, String firstName, String lastName) {
 		this.userAccount = userAccount;
+		this.creditAccount = new CreditAccount();
 		this.firstName = firstName;
 		this.lastName = lastName;
 
@@ -44,7 +48,15 @@ public class Member {
 		return userAccount.getUsername();
 	}
 
+	public Money getCredit() {
+		return creditAccount.getCredit();
+	}
+
 	public UserAccount getUserAccount() {
 		return userAccount;
+	}
+
+	public CreditAccount getCreditAccount() {
+		return creditAccount;
 	}
 }
