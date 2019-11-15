@@ -20,6 +20,7 @@
         <th>Von</th>
         <th>Bis</th>
         <th>Job</th>
+        <th>Löschen</th>
     </tr>
     </thead>
     <th:block th:each="rosterEntry : ${roster}">
@@ -28,6 +29,9 @@
             <td th:text="${rosterEntry.startTime} ">A Smoke Test'</td>
             <td th:text="${rosterEntry.endTime}">A Smoke Test'</td>
             <td th:text="${rosterEntry.role}">A Smoke Test'</td>
+            <td>
+                <a class="ui red button" th:href="@{/roster/delete/{id}/(id=${rosterEntry.rosterEntryId})}">Löschen</a>
+            </td>
         </tr>
     </th:block>
 

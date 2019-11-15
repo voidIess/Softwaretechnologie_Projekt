@@ -14,7 +14,7 @@ import java.time.format.DateTimeFormatter;
 public class RosterEntry {
 	@Id @GeneratedValue (strategy = GenerationType.IDENTITY)
 	private long rosterEntryId;
-	@OneToOne(targetEntity=Staff.class, cascade = {CascadeType.ALL})
+	@OneToOne(targetEntity=Staff.class)
 	private  Staff staff;
 	private  LocalDateTime startTime;
 	private  LocalDateTime endTime;
@@ -43,7 +43,7 @@ public class RosterEntry {
 		}
 	}
 
-	public long getRosterId() {
+	public long getRosterEntryId() {
 		return rosterEntryId;
 	}
 

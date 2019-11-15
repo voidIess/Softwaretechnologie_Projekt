@@ -21,6 +21,13 @@ public class RosterManagement {
 		this.staffs = staffs;
 	}
 
+	public void deleteEntry(Long id){
+		Optional<RosterEntry> roster = rosters.findById(id);
+		RosterEntry current_entry = roster.orElse(null);
+		if(current_entry != null)
+			rosters.delete(current_entry);
+	}
+
 	public RosterEntry createRosterEntry(RosterEntryForm form, Errors result) {
 		Assert.notNull(form, "Registration form must not be null");
 

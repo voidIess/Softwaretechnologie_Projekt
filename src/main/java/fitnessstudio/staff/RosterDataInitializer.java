@@ -51,10 +51,9 @@ public class RosterDataInitializer implements DataInitializer {
 
 		rosters.save(rosterEntry);
 		rosters.save(rosterEntry2);
-		staffs.save(staff2);
 		staffs.save(staff);
-		LOG.info("ID:" + rosterEntry.getRosterId());
-
+		staffs.save(staff2);
+		LOG.info("ID:" + rosterEntry.getRosterEntryId());
 		LOG.info("Creating default BOSS (user: 'boss', pass: '123')");
 
 
