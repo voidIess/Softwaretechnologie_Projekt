@@ -172,6 +172,11 @@ image::models/analysis/Mitglied.png[]
 == Bausteinsicht
 * Entwurfsklassendiagramme der einzelnen Packages
 
+
+=== StaffManagement Package ===
+
+image::model/design/staffmanagement.svg
+
 [options="header"]
 |=== 
 |Klasse/Enumeration |Description
