@@ -15,7 +15,8 @@ public class RosterManagement {
 	private final StaffRepository staffs;
 
 	RosterManagement(RosterRepository rosters, StaffRepository staffs) {
-		Assert.notNull(rosters, "MemberRepository must not be null!");
+		Assert.notNull(rosters, "RosterRepository must not be null!");
+		Assert.notNull(staffs, "StaffRepository must not be null!");
 		this.rosters = rosters;
 		this.staffs = staffs;
 	}

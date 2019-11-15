@@ -1,9 +1,12 @@
 package fitnessstudio.staff;
 
+import com.mysema.commons.lang.Assert;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,6 +24,10 @@ public class StaffController {
 	private final RosterManagement rosterManagement;
 
 	StaffController(RosterRepository repository, StaffRepository staffs, RosterManagement rosterManagement) {
+		Assert.notNull(repository, "RosterRepository must not be null");
+		Assert.notNull(staffs, "StaffRepository must not be null");
+		Assert.notNull(rosterManagement, "RosterManagement must not be null");
+
 		this.rosterManagement = rosterManagement;
 		this.staffs = staffs;
 		this.catalog = repository;
@@ -29,6 +36,14 @@ public class StaffController {
 	//TODO: catch exception if role != staff
 	//TODO: add Entry for Roster
 
+
+	// Fängt ab, wenn jemand mit einer Rolle != Staff auf die Seite möchte
+	@ExceptionHandler({AccessDeniedException.class})
+	public String error() {
+		return "redirect:/";
+	}
+
+	// Zeigt den Roster an
 	@PreAuthorize("hasRole('STAFF')")
 	@GetMapping(path = "/roster")
 	String roster(Model model) {
@@ -36,15 +51,13 @@ public class StaffController {
 		return "roster";
 	}
 
+	//Seite zu einen neuen RosterEintrag
 	@GetMapping("/roster/newRoster")
 	@PreAuthorize("hasRole('STAFF')")
 	public String rosterEntry(Model model, RosterEntryForm form, Errors results) {
-
 		List<String> roles = new ArrayList<>();
 		roles.add("Thekenkraft");
 		roles.add("Trainer");
-
-
 		model.addAttribute("form", form);
 		model.addAttribute("error", results);
 		model.addAttribute("staffs", staffs.findAll());
@@ -52,16 +65,14 @@ public class StaffController {
 		return "rosterNew";
 	}
 
+	//Erstellt einen neuen Eintrag
+
 	@PostMapping("/roster/newRoster")
 	public String newRosterEntry(@Valid @ModelAttribute("form") RosterEntryForm form, Model model, Errors result) {
-
+		rosterManagement.createRosterEntry(form, result);
 		if (result.hasErrors()) {
 			return rosterEntry(model, form, result);
 		}
-
-		rosterManagement.createRosterEntry(form, result);
 		return "redirect:/roster";
 	}
-
-
 }
