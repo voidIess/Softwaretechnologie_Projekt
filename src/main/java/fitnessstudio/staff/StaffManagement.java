@@ -4,8 +4,6 @@ import com.mysema.commons.lang.Assert;
 import org.salespointframework.useraccount.*;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
-import javax.validation.constraints.AssertTrue;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;

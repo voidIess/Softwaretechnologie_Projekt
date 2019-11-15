@@ -17,7 +17,7 @@ public class PayslipPdfGenerator implements PdfGenerator {
 
 	public static Document generatePdf(Map<String, Object> payslip, Document d) throws IOException {
 
-		Paragraph title = new Paragraph("Gehaltsabrechnung" + LocalDate.now().toString());
+		Paragraph title = new Paragraph("Gehaltsabrechnung " + LocalDate.now().toString());
 		title.setFont(PdfFontFactory.createFont(FontConstants.COURIER));
 		title.setFontSize(18f);
 		title.setBold();
@@ -42,7 +42,7 @@ public class PayslipPdfGenerator implements PdfGenerator {
 		table.addCell("25%");
 
 		table.addCell("Nettogehalt");
-		table.addCell(salary.divide(4).toString()).setBold();
+		table.addCell(salary.divide(0.75).toString()).setBold();
 
 		d.add(table);
 
