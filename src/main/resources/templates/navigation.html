@@ -29,6 +29,9 @@
         <a class="item" href="staffDetail.html" th:href="@{/staff}" sec:authorize="hasRole('STAFF')"
            th:text="#{staffDetail.title}">Benutzerkonto</a>
 
+        <a class="item" href="sell_catalog.html" th:href="@{/sell_catalog}" sec:authorize="hasRole('STAFF')"
+           th:text="#{sell_catalog.title}">Artikel verkaufen</a>
+
         <div class="right menu">
             <a class="item" th:href="@{/login}" sec:authorize="!isAuthenticated()" th:text="#{nav.login}">Login</a>
             <form class="item" sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post">
