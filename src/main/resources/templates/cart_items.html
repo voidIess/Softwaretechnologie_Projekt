@@ -15,9 +15,6 @@
         <h1 th:text="#{cart_items.title}">Warenkorb</h1>
     </header>
     </br>
-    <div>
-        <span th:text="${cart.isEmpty()}">default</span>
-    </div>
     <div th:remove="all-but-first">
         <div class="list" th:each="cartItem : ${cart}">
             <div>

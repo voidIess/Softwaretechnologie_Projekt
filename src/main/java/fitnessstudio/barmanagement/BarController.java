@@ -6,19 +6,21 @@ import org.salespointframework.inventory.UniqueInventoryItem;
 import org.salespointframework.order.Cart;
 import org.salespointframework.order.CartItem;
 import org.salespointframework.quantity.Quantity;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 
 @Controller
+@SessionAttributes("cart")
 public class BarController {
 
 	private final BarCatalog catalog;
 	private final UniqueInventory<UniqueInventoryItem> inventory;
+
+	private static final Logger LOG = LoggerFactory.getLogger(CatalogDataInitializer.class);
 
 	public BarController(BarCatalog catalog, UniqueInventory<UniqueInventoryItem> inventory) {
 		this.catalog = catalog;
@@ -48,15 +50,17 @@ public class BarController {
 		Quantity allreadyOrderedQuantity = cart.stream().filter(x -> x.getProduct()
 			.equals(article)).findFirst().map(CartItem::getQuantity).orElse(Quantity.NONE);
 
-		//if(!allreadyOrderedQuantity.add(Quantity.of(number)).isGreaterThan(inventoryQuantity)) {
+		if(!allreadyOrderedQuantity.add(Quantity.of(number)).isGreaterThan(inventoryQuantity)) {
 			cart.addOrUpdateItem(article, Quantity.of(number));
-		//}
-		return ("redirect:cart_items");
+		}
+
+		//LOG.info(cart.stream().map(x -> x.getProductName() + " " + x.getQuantity()).reduce("", ((x, y) -> x + y) ));
+
+		return ("redirect:sell_catalog");
 	}
 
 	@GetMapping("/cart_items")
 	String cartItems() {
-		//model.addAttribute("cart", cart);
 		return ("cart_items");
 	}
 
