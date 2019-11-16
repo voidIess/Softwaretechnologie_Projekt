@@ -186,8 +186,15 @@ image::models/analysis/Mitglied.png[]
 == Bausteinsicht
 * Entwurfsklassendiagramme der einzelnen Packages
 
+=== AdminManagement Package 
 
-=== StaffManagement Package ===
+iamge::models/design/adminmanagement.svg[]
+
+=== MemberManagement Package
+
+image::models/design/membermanagement.svg[]
+
+=== StaffManagement Package
 
 image::models/design/staffmanagement.svg[]
 
@@ -205,6 +212,8 @@ image::models/design/staffmanagement.svg[]
 |StaffManagement | Eine Klasse um die PDFs für den Lohnschein zu erstellen und zur Verwaltung der Mitarbeiter.
 |StaffRepository | Ein Repository Interface zum Verwalten von Mitarbeitern.
 |===
+
+=== PDF Package
 
 === Rückverfolgbarkeit zwischen Analyse- und Entwurfsmodell
 
