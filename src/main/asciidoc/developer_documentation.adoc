@@ -352,7 +352,10 @@ image::models/design/pdf.svg[]
 |===
 
 == Laufzeitsicht
-* Komponentenbezogene Sequenzdiagramme, welche darstellen, wie die Anwendung mit externen Frameworks (zB. Salespoint, Spring) interagiert.
+
+=== StaffManagement
+
+image::models/design/staffManagemenetSequenz.jpg[]
 
 == Technische Schulden
 * Auflistung der nicht erreichten Quality Gates und der zugehörigen SonarQube Issues
