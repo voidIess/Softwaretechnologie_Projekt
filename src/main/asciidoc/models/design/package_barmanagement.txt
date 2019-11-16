@@ -86,7 +86,7 @@ package "barmanagement" {
         + BarController()
         + initializeCart(): Cart
         + addArticle(article: Article, number: int, cart: Cart, model: Model): String
-        + buy(form: BarForm, model: Model): String
+        + sell(form: BarForm, model: Model): String
         + basket(cart: Cart, form: BarForm): String
         + orders(model: Model): String
 
