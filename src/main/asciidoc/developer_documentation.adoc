@@ -345,6 +345,20 @@ image::models/design/pdf.svg[]
 |InvoicePdfGenerator| Eine Klasse, welche Rechnung PDFs erstellt.
 |===
 
+=== StudioManagnement Package
+
+image::models/design/Studiomanagement.svg[]
+[options="header"]
+|=== 
+|Klasse/Enumeration | Beschreibung
+|Studio | Eine Klasse, welche ein Studio im System repräsentiert.
+|StudioRepository | Ein Interface, um Studio Instanzen zu speichern/verwalten.
+|StudioService | Eine Klasse, zum logischen Verwaltung des Studiorepositories.
+|StudioInitializer | Eine Klasse, welche Einträge in das Studio initializiert (beim Start des Systems).
+|StudioController | Ein Interface, zum Verwalten von globalen Variablen des Fitnessstudios. 
+|StudioForm | Eine Klasse, um die Eingaben im System für die globalen Variablen des Fitnessstudios zu bearbeiten.
+|===
+
 === Rückverfolgbarkeit zwischen Analyse- und Entwurfsmodell
 
 [options="header"]
