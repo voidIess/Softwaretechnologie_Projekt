@@ -337,7 +337,10 @@ image::models/design/pdf.svg[]
 [options="header"]
 |=== 
 |Klasse/Enumeration | Beschreibung
-
+|PdfGenerator| Ein Interface, um verschiedene PDFs erzeugen zu können. 
+|PdfView|Eine Klasse, welche das PDF zeigt.
+|PaySlipPdfGenerator| Eine Klasse, welche Lohnschein PDfs erstellt.
+|InvoicePdfGenerator| Eine Klasse, welche Rechnung PDFs erstellt.
 |===
 
 === Rückverfolgbarkeit zwischen Analyse- und Entwurfsmodell
@@ -345,10 +348,7 @@ image::models/design/pdf.svg[]
 [options="header"]
 |===
 |Klasse/Enumeration (Analysemodell) |Klasse/Enumeration (Entwurfsmodell)
-|PdfGenerator| Ein Interface, um verschiedene PDFs erzeugen zu können. 
-|PdfView|Eine Klasse, welche das PDF zeigt.
-|PaySlipPdfGenerator| Eine Klasse, welche Lohnschein PDfs erstellt.
-|InvoicePdfGenerator| Eine Klasse, welche Rechnung PDFs erstellt.
+
 |===
 
 == Laufzeitsicht
