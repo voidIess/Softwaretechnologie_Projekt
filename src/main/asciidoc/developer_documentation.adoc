@@ -187,7 +187,7 @@ image::models/analysis/Mitglied.png[]
 
 === AdminManagement Package 
 
-iamge::models/design/adminmanagement.svg[]
+image::models/design/adminmanagement.svg[]
 
 [options="header"]
 |=== 
@@ -196,7 +196,7 @@ iamge::models/design/adminmanagement.svg[]
 
 === BarManagement Package
 
-iamge::models/design/barmanagement.svg[]
+image::models/design/barmanagement.svg[]
 
 [options="header"]
 |=== 
@@ -215,6 +215,11 @@ image::models/design/gympackage.svg[]
 === MemberManagement Package
 
 image::models/design/membermanagement.svg[]
+
+[options="header"]
+|=== 
+|Klasse/Enumeration | Beschreibung
+|===
 
 === StaffManagement Package
 
@@ -237,7 +242,7 @@ image::models/design/staffmanagement.svg[]
 
 === PDF Package
 
-image::model/design/pdf.svg[]
+image::models/design/pdf.svg[]
 
 [options="header"]
 |=== 
