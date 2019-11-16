@@ -367,6 +367,14 @@ image::models/design/pdf.svg[]
 
 == Laufzeitsicht
 
+=== AdminManagement
+
+image::models/design/adminManagementSequenz.jpg[]
+
+=== BarManagement
+
+=== MemberManagement
+
 === StaffManagement
 
 image::models/design/staffManagementSequenz.jpg[]
