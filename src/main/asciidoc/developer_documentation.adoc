@@ -373,6 +373,9 @@ image::models/design/adminManagementSequenz.jpg[]
 
 === BarManagement
 
+image::models/design/barSequenz1.jpg[]
+image::models/design/barSequenz2.jpg[]
+
 === MemberManagement
 
 === StaffManagement
