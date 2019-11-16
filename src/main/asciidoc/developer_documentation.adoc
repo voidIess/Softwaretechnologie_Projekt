@@ -206,10 +206,11 @@ image::models/analysis/Mitglied.png[]
 * Barmanagement.BarController
 
 |Spring.SpringApplication |org.springframework.boot.SpringApplication a|
-*gym.Application
+* gym.Application
 |Spring.ViewControllerRegistry |org.springframework.web.servlet.config.annotation.ViewControllerRegistry  a| 
 * gym.GymWebConfiguration
-|Spring.WebMvcConfigurer |org.springframework.web.servlet.config.annotation.WebMvcConfigurer  a| *gym.WebSecurityConfiguration
+|Spring.WebMvcConfigurer |org.springframework.web.servlet.config.annotation.WebMvcConfigurer  a| 
+* gym.WebSecurityConfiguration
 |Spring.HttpSecurity |org.springframework.security.config.annotation.web.builders.HttpSecurity a| 
 * gym.WebSecurityConfiguration
 |Salespoint.SalespointSecurityConfiguration |org.salespointframework.SalespointSecurityConfiguration a| 
@@ -229,7 +230,8 @@ image::models/analysis/Mitglied.png[]
 * membermanagement.Membermanagement
 * membermanagement.TrainingManagement
 * membermanagement.ContractManagement
-|Spring.AbstractView|org.springframework.web.servlet.view.AbstractView|*pdf.PdfView
+|Spring.AbstractView|org.springframework.web.servlet.view.AbstractView a|
+* pdf.PdfView
 |===
 
 == Bausteinsicht
