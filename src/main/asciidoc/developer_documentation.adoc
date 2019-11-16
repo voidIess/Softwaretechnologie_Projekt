@@ -348,7 +348,19 @@ image::models/design/pdf.svg[]
 [options="header"]
 |===
 |Klasse/Enumeration (Analysemodell) |Klasse/Enumeration (Entwurfsmodell)
-
+|Role|staffmanagement.StaffRole
+|Member|memberManagement.Member
+|TrainingType | memberfmanagement.TrainingType
+|TrainingSchedule | membermanagment.Training
+|Staff| staffmanagement.Staff
+|Person | adminmanagement.User
+|Roster| staffmanagement.Roster
+|Invoice | barmanagement.Invoice
+|Article | barmanagement.Article
+|Account | membermanagement.CreditAccount
+|Bar|barmanagement.BarController
+|Payslip|barmanagement.StaffController
+|Statistics|adminmanagement.StatisticController
 |===
 
 == Laufzeitsicht
