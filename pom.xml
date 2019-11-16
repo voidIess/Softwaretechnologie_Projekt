@@ -79,6 +79,12 @@
 		</repository>
 
 		<repository>
+			<id>itext</id>
+			<name>iText Repository - releases</name>
+			<url>https://repo.itextsupport.com/releases</url>
+		</repository>
+
+		<repository>
 			<id>salespointframework</id>
 			<url>https://www.st.inf.tu-dresden.de/SalesPoint/repository</url>
 		</repository>
