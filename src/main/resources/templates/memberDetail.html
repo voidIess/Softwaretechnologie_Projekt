@@ -9,8 +9,7 @@
     <script th:src="@{/webjars/Semantic-UI/semantic.min.js}"
             src="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.js"></script>
     <link rel="stylesheet" href="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css" type="text/css"/>
-    <link th:href="@{/resources/css/style.css}" rel="stylesheet"
-          href="../static/resources/css/style.css" type="text/css"/>
+    <link rel="stylesheet" href="../static/resources/css/memberDetail.css" type="text/css"/>
 
     <title> Benutzer Konto</title>
 </head>
@@ -23,10 +22,26 @@
     <div class="ui items">
         <div class="item">
             <div class="content">
-                <a class="header">Benutzerdaten</a>
                 <div class="meta">
+                    <h3 class="header">Benutzerdaten</h3>
+                    <p>Name</p>
                     <span th:text="${member.firstName}">Vorname</span>
                     <span th:text="${member.lastName}">Nachname</span>
+                </div>
+                <div class="meta">
+                    <h3 class="header">Guthaben</h3>
+                    <span th:text="${{member.credit}}">0.00 €</span>
+                    <form class="ui form" method="post" th:action="@{/member/payin}">
+                        <input type="hidden" name="memberId" value="0" th:value="${member.memberId}"/>
+                        <div class="field">
+                            <label for="amount">Betrag</label>
+                            <input id="amount" type="number" name="amount" min="0.01" max="9999" value="0.01"
+                                   step="0.01"/><br/>
+                        </div>
+                        <button type="submit" class="ui labeled icon button">
+                            <i class="payIn"></i><span> Aufladen </span>
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>

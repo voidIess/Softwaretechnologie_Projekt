@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.js"></script>
+    <link rel="stylesheet" href="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css" type="text/css"/>
+    <link th:href="@{/resources/css/style.css}" rel="stylesheet"
+          href="../static/resources/css/style.css" type="text/css"/>
+
+    <title>Mitarbeiter Konto</title>
+</head>
+
+<body>
+
+<div class="ui container">
+    <header>
+        <h1>Benutzer Konto</h1>
+    </header>
+    <nav th:include="navigation :: navigation"></nav>
+    <div class="ui items">
+        <div class="item">
+            <div class="content">
+                <h class="header">Benutzerdaten</h>
+                <div class="meta">
+                    <span th:text="${staff.firstName}">Vorname</span>
+                    <span th:text="${staff.lastName}">Nachname</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="column">
+    <form sec:authorize="hasRole('STAFF')" class="ui form" method="post" th:action="@{/printPdf}">
+        <button type="submit" class="ui button" style="float: right" th:text="#{staffDetail.printPdf}">Rechnung ausdrucken</button>
+    </form>
+</div>
+
+</body>
+</html>

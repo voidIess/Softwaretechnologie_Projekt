@@ -1,5 +1,6 @@
 package fitnessstudio.member;
 
+import org.javamoney.moneta.Money;
 import org.salespointframework.useraccount.UserAccount;
 import org.salespointframework.useraccount.web.LoggedIn;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -7,9 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.Assert;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.Optional;
@@ -62,6 +61,22 @@ public class MemberController {
 			}
 			return "redirect:/login";
 		}).orElse("redirect:/login");
+	}
+
+	@PostMapping("/member/payin")
+	public String payIn(@LoggedIn Optional<UserAccount> userAccount, @RequestParam("amount") double amount) {
+		Money money = Money.of(amount,"EUR");
+		return userAccount.map(user -> {
+
+			Optional<Member> member = memberManagement.findByUserAccount(user);
+
+			if (member.isPresent()) {
+				memberManagement.memberPayIn(member.get(), money);
+				return "redirect:/member/home";
+			}
+			return "redirect:/login";
+		}).orElse("redirect:/login");
+
 	}
 
 }

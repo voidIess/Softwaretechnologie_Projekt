@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css" type="text/css"/>
+
+    <title>Artikel verkaufen</title>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<div th:remove="all-but-first">
+    <div class="list" th:each="item : ${inventory}">
+        <div class="content">
+            <form  method="post" th:action="@{/cart}">
+                <input type="hidden" name="pid" value="0" th:value="${item.id}"/>
+                <span class="header" th:text="${item.getProduct().name}">Spinatsalat</span>
+                <span class="content" th:text="${item.getQuantity()}"></span>
+                <input id="number" type="number" name="number" min="1" step="1" value="1"/>
+                <button type="submit" class="ui labeled icon button">
+                    <a>Hinzufügen</a>
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

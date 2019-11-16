@@ -1,5 +1,6 @@
 package fitnessstudio.member;
 
+import org.javamoney.moneta.Money;
 import org.salespointframework.useraccount.Password;
 import org.salespointframework.useraccount.Role;
 import org.salespointframework.useraccount.UserAccount;
@@ -60,8 +61,13 @@ public class MemberManagement {
 		return members.findById(id);
 	}
 
-	public Optional<Member> findByUserAccount(UserAccount userAccount){
+	public Optional<Member> findByUserAccount(UserAccount userAccount) {
 		return members.findByUserAccount(userAccount);
+	}
+
+	public void memberPayIn(Member member, Money amount) {
+		member.payIn(amount);
+		members.save(member);
 	}
 
 }
