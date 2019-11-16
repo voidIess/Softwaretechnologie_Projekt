@@ -1,7 +1,9 @@
 @startuml
 
 
-package org.salespoint {
+namespace AdminManagement {
+
+     package org.salespoint {
 
         Interface Inventory <T extends InventoryItem>
         Class UserAccount
@@ -46,7 +48,9 @@ package "barmanagement" {
         + isAvailable(): boolean
     }
 
-        Interface ArticleForm {
+  InventoryController ..> ArticleForm: <<use>>
+  BarController ..> BarForm: <<use>>
+        class ArticleForm {
         + getName(): String
         + getArt(): String
         + getDescription(): String
@@ -56,7 +60,7 @@ package "barmanagement" {
         + getAmount(): String
     }
 
-        Interface BarForm {
+        class BarForm {
         + getMemberID(): String
     }
         
@@ -114,7 +118,8 @@ package "barmanagement" {
         + initialize(): void
     }
     
-    
+
 }
 
+  
 @enduml
