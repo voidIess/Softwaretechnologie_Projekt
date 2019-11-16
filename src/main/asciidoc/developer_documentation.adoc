@@ -181,6 +181,37 @@ image::models/analysis/Mitglied.png[]
 * pdf.PDFGenerator
 * pdf.PaySlipGenerator
 * pdf.InvoiceGenerator
+|Salespoint.useraccount | org.salespointframework.useraccount.UserAccount a|
+* Adminmanagement.User
+* Barmanagement.BarController
+|Salespoint.OrderManager | org.salespointframework.order.OrderManager a|
+* Adminmanagement.StatisticManagement
+* Barmanagement.BarController
+|Salespoint.Product | org.salespointframework.catalog.Product a|
+* Barmanagement.Article
+|Salespoint.Cash | org.salespointframework.payment.Cash a|
+* Barmanagement.BarController
+|Salespoint.Cart | org.salespointframework.order.Cart a|
+* Barmanagement.BarController
+|Salespoint.OrderStatus | org.salespointframework.order.OrderStatus a|
+* Barmanagement.BarController
+
+|Salespoint.Quantity | org.salespointframework.quantity.Quantity a|
+* Barmanagement.BarController
+|Salespoint.DataInitializer | org.salespointframework.core.DataInitializer a|
+* Barmanagement.BarController
+|Salespoint.Inventory | org.salespointframework.inventory.UniqueInventory a|
+* Barmanagement.BarController
+|Salespoint.Catalog | org.salespointframework.catalog.Catalog a|
+* Barmanagement.BarController
+
+|Spring.SpringApplication |org.springframework.boot.SpringApplication a|
+*gym.Application
+|Spring.ViewControllerRegistry |org.springframework.web.servlet.config.annotation.ViewControllerRegistry  a| 
+* gym.GymWebConfiguration
+|Spring.WebMvcConfigurer |org.springframework.web.servlet.config.annotation.WebMvcConfigurer  a| *gym.WebSecurityConfiguration
+|Spring.HttpSecurity |org.springframework.security.config.annotation.web.builders.HttpSecurity a| 
+* gym.WebSecurityConfiguration
 |===
 
 == Bausteinsicht
@@ -192,6 +223,11 @@ image::models/design/adminmanagement.svg[]
 [options="header"]
 |=== 
 |Klasse/Enumeration | Beschreibung
+|StatisticManagement | Eine Klasse für die Verwaltung und Analyse von Statistiken.
+|EarningsForm | Eine Klasse, um die Einnahmen des Studios zu bearbeiten/validieren.
+|AttendanceForm | Eine Klasse, um die Anwesenheit von Nutzern zu bearbeiten/validieren.
+|StatisticController | Ein Spring MVC Controller, welcher Anfragen auf die Statistiken bearbeitet.
+|User | Eine Klasse um einen User im System zu repräsentieren.
 |===
 
 === BarManagement Package
@@ -201,6 +237,16 @@ image::models/design/barmanagement.svg[]
 [options="header"]
 |=== 
 |Klasse/Enumeration | Beschreibung
+|Article | Eine Klasse, welche einen Artikel des Fitnessstudios im System repräsentiert.
+|Discount | Eine Klasse, welche Rabatte im Fitnessstudios repräsentiert.
+|BarController | Ein Spring MVC Controller, welcher Käufe im Fitnessstudio verwaltet.
+|InventoryInitializer | Eine Klasse, welche Einträge in das Inventar initializiert (beim Start des Systems).
+|CatalogInitializer | Eine Klasse, welche Einträge in den Katalog initializiert (beim Start des Systems).
+|ArticleCatalog | Ein Interface, zum Verwalten von Katalogeinträgen.
+|InventoryController | Ein Spring MVC Controller, welcher Einträge im Inventar verwaltet. 
+|CatalogController | Ein Spring MVC Controller, welcher Einträge im Inventar verwaltet. 
+|ArticleForm | Eine Klasse, um die Eingaben im System für einen Artikel zu bearbeiten/validieren.
+|BarForm | Eine Klasse, um den Nutzer im System zu bekommen.
 |===
 
 === Gym Package 
@@ -210,6 +256,9 @@ image::models/design/gympackage.svg[]
 [options="header"]
 |=== 
 |Klasse/Enumeration | Beschreibung
+|Application | Zentrale Klasse des Systems.
+|GymWebConfiguration  | Klasse um den Pfad "/login" direkt zu dem Template login.html zu führen.
+|WebSecurityConfiguration|Konfigurationsklasse um zentrale Sicherheit und Login/Logout Optionen.
 |===
 
 === MemberManagement Package
@@ -229,7 +278,7 @@ image::models/design/staffmanagement.svg[]
 |=== 
 |Klasse/Enumeration | Beschreibung
 |StaffController | Ein Spring MVC Controller, welcher Anfragen auf den Dienstplan und Lohnschein bearbeitet.
-|RosterEntryForm | Ein Interface, um die Eingaben des Mitarbeiters zu bearbeiten/validieren.
+|RosterEntryForm | Eine Klasse, um die Eingaben des Mitarbeiters zu bearbeiten/validieren.
 |RosterManagement | Eine Klasse, mit der man aus den Eingaben eines Mitarbeiters ein _RosterEntry_ erzeugen kann und diesen dann dort auch bearbeiten.
 |RosterRepository | Ein Repository Interface zum Verwalten von RosterEntry Instanzen.
 |Roster | Fässt alle _RosterEntry's_ einer Woche zusammen.
