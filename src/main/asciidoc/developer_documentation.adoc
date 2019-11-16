@@ -120,9 +120,11 @@ image:models/analysis/fitnessstudio_context.svg[fitnessstudio_context]
 === Softwarearchitektur
 image::models/analysis/fitnessstudio_top_level.svg[fitnessstudio_top_level]
 
+_Top Level Architektur_
 
+image::models/design/ClientServerModel.jpg[]
 
-Client Server Model
+_Client Server Model_
 
 
 ^<br>
