@@ -1,6 +1,7 @@
 package fitnessstudio.studio;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -25,6 +26,7 @@ public class StudioController {
 	}
 
 
+	@PreAuthorize("hasRole('ROLE_BOSS')")
 	@GetMapping("/studio")
 	public String editStudio(Model model, StudioForm studioForm) {
 		model.addAttribute("studio", studioService.getStudio());
@@ -33,6 +35,7 @@ public class StudioController {
 	}
 
 
+	@PreAuthorize("hasRole('ROLE_BOSS')")
 	@PostMapping("/studio")
 	public String editStudio(StudioForm studioForm, Model model, Errors errors) {
 		Studio studio = studioService.getStudio();
