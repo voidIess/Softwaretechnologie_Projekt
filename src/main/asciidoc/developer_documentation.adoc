@@ -176,7 +176,8 @@ image::models/analysis/Mitglied.png[]
 [options="header", cols="1,3,3"]
 |===
 |Externe Klasse |Pfad der externen Klasse |Verwendet von (Klasse der eigenen Anwendung)
-|itextpdf | com.itextpdf | * pdf.PDFView
+|itextpdf | com.itextpdf a| 
+* pdf.PDFView
 * pdf.PDFGenerator
 * pdf.PaySlipGenerator
 * pdf.InvoiceGenerator
