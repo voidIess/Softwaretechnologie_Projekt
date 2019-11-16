@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<html lang="en">
+<head>
+    <link href="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css" rel="stylesheet" type="text/css"/>
+
+    <title th:text="#{cart_items.title}">Warenkorb</title>
+    <meta content="text/html; charset=UTF-8" http-equiv="content-type"/>
+</head>
+<body>
+<div class="ui container">
+    <nav th:include="navigation :: navigation"></nav>
+    <header>
+        <h1 th:text="#{cart_items.title}">Warenkorb</h1>
+    </header>
+    </br>
+    <div>
+        <span th:text="${cart.isEmpty()}">default</span>
+    </div>
+    <div th:remove="all-but-first">
+        <div class="list" th:each="cartItem : ${cart}">
+            <div>
+                <span class="header" th:text="${cartItem.getProduct().name}">Spinatsalat</span>
+                <span class="content" th:text="${cartItem.getQuantity()}"></span>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

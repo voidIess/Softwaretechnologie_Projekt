@@ -13,20 +13,18 @@
     <nav th:include="navigation :: navigation"></nav>
     <header>
         <h1 th:text="#{sell_catalog.title}">Artikel verkaufen</h1>
-    </header>
+    </header></br>
     <div th:remove="all-but-first">
-        <div class="list" th:each="item : ${inventory}">
-            <div class="content">
-                <form method="post" th:action="@{/cart}">
-                    <input name="pid" th:value="${item.id}" type="hidden" value="0"/>
-                    <span class="header" th:text="${item.getProduct().name}">Spinatsalat</span>
-                    <span class="content" th:text="${item.getQuantity()}"></span>
-                    <input id="number" min="1" name="number" step="1" type="number" value="1"/>
-                    <button class="ui labeled icon button" type="submit">
-                        <a>Hinzufügen</a>
-                    </button>
-                </form>
-            </div>
+        <div class="list" th:each="item :${ inventory}">
+            <form method="post" th:action="@{/addItemToCart}">
+                <input name="pid" th:value="${item.getProduct().id}" type="hidden" value="0"/>
+                <span class="header" th:text="${item.getProduct().name}">Spinatsalat</span>
+                <span class="content" th:text="${item.getQuantity()}"></span>
+                <input id="number" min="1" name="number" step="1" type="number" value="1"/>
+                <button class="ui labeled icon button" type="submit">
+                    <a>Hinzufügen</a>
+                </button>
+            </form>
         </div>
     </div>
 </div>
