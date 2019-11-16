@@ -184,11 +184,33 @@ image::models/analysis/Mitglied.png[]
 |===
 
 == Bausteinsicht
-* Entwurfsklassendiagramme der einzelnen Packages
 
 === AdminManagement Package 
 
 iamge::models/design/adminmanagement.svg[]
+
+[options="header"]
+|=== 
+|Klasse/Enumeration | Beschreibung
+|===
+
+=== BarManagement Package
+
+iamge::models/design/barmanagement.svg[]
+
+[options="header"]
+|=== 
+|Klasse/Enumeration | Beschreibung
+|===
+
+=== Gym Package 
+
+image::models/design/gympackage.svg[]
+
+[options="header"]
+|=== 
+|Klasse/Enumeration | Beschreibung
+|===
 
 === MemberManagement Package
 
@@ -214,6 +236,13 @@ image::models/design/staffmanagement.svg[]
 |===
 
 === PDF Package
+
+image::model/design/pdf.svg[]
+
+[options="header"]
+|=== 
+|Klasse/Enumeration | Beschreibung
+|===
 
 === Rückverfolgbarkeit zwischen Analyse- und Entwurfsmodell
 
