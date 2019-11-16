@@ -1,4 +1,4 @@
-package gym.barmanagement;
+package fitnessstudio.barmanagement;
 
 import org.salespointframework.inventory.UniqueInventory;
 import org.salespointframework.inventory.UniqueInventoryItem;

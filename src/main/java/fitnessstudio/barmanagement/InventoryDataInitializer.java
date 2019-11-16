@@ -1,5 +1,6 @@
-package gym.barmanagement;
+package fitnessstudio.barmanagement;
 
+import fitnessstudio.barmanagement.BarCatalog;
 import org.salespointframework.core.DataInitializer;
 import org.salespointframework.inventory.UniqueInventory;
 import org.salespointframework.inventory.UniqueInventoryItem;

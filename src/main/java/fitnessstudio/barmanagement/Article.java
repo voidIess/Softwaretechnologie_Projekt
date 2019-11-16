@@ -1,4 +1,4 @@
-package gym.barmanagement;
+package fitnessstudio.barmanagement;
 
 import javax.money.MonetaryAmount;
 import javax.persistence.Entity;

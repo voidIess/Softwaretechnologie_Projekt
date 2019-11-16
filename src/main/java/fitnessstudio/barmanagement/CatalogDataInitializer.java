@@ -1,4 +1,4 @@
-package gym.barmanagement;
+package fitnessstudio.barmanagement;
 
 import org.javamoney.moneta.Money;
 import org.salespointframework.core.DataInitializer;
