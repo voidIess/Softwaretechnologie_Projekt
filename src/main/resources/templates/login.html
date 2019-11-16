@@ -3,27 +3,38 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <script th:src="@{/webjars/jquery/jquery.min.js}"
+            src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script th:src="@{/webjars/Semantic-UI/semantic.min.js}"
+            src="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.js"></script>
 
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/login.css}" />
     <title th:text="#{home.title}">Gym</title>
 </head>
 <body>
-<div class="ui container">
+<div class="login-box">
     <header>
-        <h1 th:text="#{home.title}">Gym</h1>
+        <h1>Login</h1>
     </header>
+
+
     <form class="ui form" role="form" th:action="@{/login}" method="post">
 
-        <div class="field">
-            <label th:text="#{login.username}" for="username">Username</label>
-            <input type="text" id="username" name="username" autofocus="autofocus"/> <br/>
+        <div class="textbox">
+            <i class="fas fa-user"></i>
+            <input type="text" placeholder="Username" id="username" name="username" autofocus="autofocus"/> <br/>
         </div>
 
-        <div class="field">
-            <label th:text="#{login.password}" for="password">Password</label>
-            <input type="password" id="password" name="password"/> <br/>
+        <div class="textbox">
+            <i class="fas fa-lock"></i>
+            <input type="password" placeholder="Password" id="password" name="password"/> <br/>
         </div>
 
-        <button type="submit" th:text="#{login.login}" class="ui button">Log in</button>
+        <input type="submit" class="btn" value="Sign in">
+        <a th:href="@{~/register}">
+            <input type="button" class="btn" value="Sign up">
+        </a>
+
     </form>
 </div>
 </body>

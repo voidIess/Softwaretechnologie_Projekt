@@ -1,3 +1,4 @@
+package fitnessstudio;
 /*
  * Copyright 2014-2019 the original author or authors.
  *
@@ -13,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package gym;
 
 import org.salespointframework.EnableSalespoint;
 import org.salespointframework.SalespointSecurityConfiguration;
