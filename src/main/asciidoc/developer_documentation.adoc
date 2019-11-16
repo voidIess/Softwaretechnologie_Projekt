@@ -212,6 +212,24 @@ image::models/analysis/Mitglied.png[]
 |Spring.WebMvcConfigurer |org.springframework.web.servlet.config.annotation.WebMvcConfigurer  a| *gym.WebSecurityConfiguration
 |Spring.HttpSecurity |org.springframework.security.config.annotation.web.builders.HttpSecurity a| 
 * gym.WebSecurityConfiguration
+|Salespoint.SalespointSecurityConfiguration |org.salespointframework.SalespointSecurityConfiguration a| 
+* videoshop.WebSecurityConfiguration
+
+|Spring.CrudRepository |org.springframework.data.repository.CrudRepository a|
+* membermanagement.InvoiceEntryRepository
+* membermanagement.MemberRepository
+* membermanagement.TrainingRepository
+|Spring.Errors |org.springframework.validation.Errors |
+* membermanagement.MemberController
+|Spring.Model |org.springframework.ui.Model a|
+* membermanagement.MemberController
+* membermanagement.TrainingController
+* membermanagement.ContractController
+|Salespoint.UserAccountManager |org.salespointframework.useraccount.UserAccountManager a|
+* membermanagement.Membermanagement
+* membermanagement.TrainingManagement
+* membermanagement.ContractManagement
+|Spring.AbstractView|org.springframework.web.servlet.view.AbstractView|*pdf.PdfView
 |===
 
 == Bausteinsicht
@@ -268,6 +286,29 @@ image::models/design/membermanagement.svg[]
 [options="header"]
 |=== 
 |Klasse/Enumeration | Beschreibung
+|ContractRepository| Ein Interface, um Vertrags-Instanzen zu speichern und zu verwalten.
+|ContractManagement| Eine Klasse, um Verträge zu verwalten.
+|ContractController |Ein Spring MVC Controller, welcher Vertragsänderungen in der Anwendung verwaltet.
+|MemberRepository | Ein Interface, um Mitglieder Instanzen zu speichern/verwalten.
+|Contract| Eine Klasse, welche die Verträge im System repräsentiert.
+|TrainingsManagement | Eine Klasse um Trainingseinträge zu bearbeiten.
+|MemberManagement | Eine Klasse, um Mitgliederdaten zu bearbeiten.
+|RegistrationForm | Eine Klasse, um Eingaben eines neuen Mitglieds im System im System zu erhalten.
+|InvoiceManagement| Eine Klasse, welche Rechnungen von Mitgliedern bearbeitet und verwaltet.
+|Invoice| Eine Klasse, welche Rechnungen einens Mitglieds repräsentiert.
+|ChargeEntry| Eine Klasse, welche Aufladungen auf das Guthabenkonto repräsentiert.
+|Member | Eine Klasse, welche Mitglieder im System repräsentieren.
+|TrainingRepository| Ein Interface, um Training Instanzen zu speichern/verwalten.
+|CreditAccount| Eine Klasse, welche ein Guthabenkonto eines Nutzers im System repräsentiert.
+|TrainingState| Eine Enumeration, welche den aktuellen Status der Anfrage auf ein Training repräsentiert.
+|TrainingType| Eine Enumeration, welche die verschiedenen Arten eines Trainings repräsentiert.
+|TrainingController| Ein Spring MVC Controller, welcher Trainingsänderungen in der Anwendung verwaltet.
+|OrderEntry| Eine Klasse, welche Bestellungseinträge im System repräsentiert.
+|InvoiceEntryRepository| Ein Interface, um Rechnungseinträge Instanzen zu speichern/verwalten.
+|InvoiceEntry| Eine Klasse, welche Rechnungseinträge im System repräsentiert.
+|Training| Eine Klasse, welche Trainings im System repräsentiert.
+|MemberController | Ein Spring MVC Controller, welcher Mitgliederänderungen in der Anwendung verwaltet.
+
 |===
 
 === StaffManagement Package
@@ -296,6 +337,7 @@ image::models/design/pdf.svg[]
 [options="header"]
 |=== 
 |Klasse/Enumeration | Beschreibung
+
 |===
 
 === Rückverfolgbarkeit zwischen Analyse- und Entwurfsmodell
@@ -303,6 +345,10 @@ image::models/design/pdf.svg[]
 [options="header"]
 |===
 |Klasse/Enumeration (Analysemodell) |Klasse/Enumeration (Entwurfsmodell)
+|PdfGenerator| Ein Interface, um verschiedene PDFs erzeugen zu können. 
+|PdfView|Eine Klasse, welche das PDF zeigt.
+|PaySlipPdfGenerator| Eine Klasse, welche Lohnschein PDfs erstellt.
+|InvoicePdfGenerator| Eine Klasse, welche Rechnung PDFs erstellt.
 |===
 
 == Laufzeitsicht
