@@ -355,7 +355,7 @@ image::models/design/pdf.svg[]
 
 === StaffManagement
 
-image::models/design/staffManagemenetSequenz.jpg[]
+image::models/design/staffManagementSequenz.jpg[]
 
 == Technische Schulden
 * Auflistung der nicht erreichten Quality Gates und der zugehörigen SonarQube Issues
