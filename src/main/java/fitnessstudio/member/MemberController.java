@@ -42,7 +42,7 @@ public class MemberController {
 	}
 
 	@GetMapping("/admin/members")
-	@PreAuthorize("hasRole('STAFF') or hasRole('BOSS')")
+	@PreAuthorize("hasRole('STAFF')")
 	public String members(Model model) {
 		model.addAttribute("memberList", memberManagement.findAllAuthorized());
 		model.addAttribute("unauthorizedMember", memberManagement.findAllUnauthorized().size());
@@ -50,7 +50,7 @@ public class MemberController {
 	}
 
 	@GetMapping("/admin/authorizeMember")
-	@PreAuthorize("hasRole('STAFF') or hasRole('BOSS')")
+	@PreAuthorize("hasRole('STAFF')")
 	public String authorizeMember(Model model) {
 		model.addAttribute("unauthorizedMember", memberManagement.findAllUnauthorized());
 		return "authorizeMember";
@@ -87,14 +87,14 @@ public class MemberController {
 	}
 
 	@GetMapping("/member/delete/{id}")
-	@PreAuthorize("hasRole('STAFF') or hasRole('BOSS')")
+	@PreAuthorize("hasRole('STAFF')")
 	public String delete(@PathVariable long id, Model model){
 		memberManagement.deleteMember(id);
 		return "redirect:/admin/authorizeMember";
 	}
 
 	@GetMapping("/member/authorize/{id}")
-	@PreAuthorize("hasRole('STAFF') or hasRole('BOSS')")
+	@PreAuthorize("hasRole('STAFF')")
 	public String authorize(@PathVariable long id, Model model){
 		memberManagement.authorizeMember(id);
 		return "redirect:/admin/authorizeMember";
