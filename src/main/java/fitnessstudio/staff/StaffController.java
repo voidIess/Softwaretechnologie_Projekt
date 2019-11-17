@@ -58,7 +58,7 @@ public class StaffController {
 	}
 
 	// Zeigt den Roster an
-	@PreAuthorize("hasRole('STAFF')")
+	@PreAuthorize("hasRole('STAFF') or hasRole('BOSS')")
 	@GetMapping(path = "/roster")
 	String roster(Model model) {
 		model.addAttribute("roster",catalog.findAll());
@@ -98,7 +98,7 @@ public class StaffController {
 
 	//Seite zu einen neuen RosterEintrag
 	@GetMapping("/roster/newRoster")
-	@PreAuthorize("hasRole('STAFF')")
+	@PreAuthorize("hasRole('STAFF') or hasRole('BOSS')")
 	public String rosterEntry(Model model, RosterEntryForm form, Errors results) {
 		List<String> roles = new ArrayList<>();
 		roles.add("Thekenkraft");
@@ -112,6 +112,7 @@ public class StaffController {
 
 	//Erstellt einen neuen Eintrag
 
+	@PreAuthorize("hasRole('STAFF') or hasRole('BOSS')")
 	@PostMapping("/roster/newRoster")
 	public String newRosterEntry(@Valid @ModelAttribute("form") RosterEntryForm form, Model model, Errors result) {
 		rosterManagement.createRosterEntry(form, result);
