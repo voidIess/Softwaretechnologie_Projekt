@@ -5,7 +5,7 @@
 <head>
     <link href="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css" rel="stylesheet" type="text/css"/>
 
-    <title th:text="#{sell_catalog.title}">>Artikel verkaufen</title>
+    <title th:text="#{sell_catalog.title}">Artikel verkaufen</title>
     <meta content="text/html; charset=UTF-8" http-equiv="content-type"/>
 </head>
 <body>
@@ -13,18 +13,27 @@
     <nav th:include="navigation :: navigation"></nav>
     <header>
         <h1 th:text="#{sell_catalog.title}">Artikel verkaufen</h1>
-    </header></br>
-    <div th:remove="all-but-first">
-        <div class="list" th:each="item :${ inventory}">
-            <form method="post" th:action="@{/addItemToCart}">
-                <input name="pid" th:value="${item.getProduct().id}" type="hidden" value="0"/>
-                <span class="header" th:text="${item.getProduct().name}">Spinatsalat</span>
-                <span class="content" th:text="${item.getQuantity()}"></span>
-                <input id="number" min="1" name="number" step="1" type="number" value="1"/>
-                <button class="ui labeled icon button" type="submit">
-                    <a>Hinzufügen</a>
-                </button>
-            </form>
+    </header>
+    </br>
+    <div class="ui center aligned container">
+        <div th:remove="all-but-first">
+            <div class="ui divided items" th:each="item :${ inventory}">
+                <form method="post" th:action="@{/addItemToCart}">
+                    <div class="ui columns stackable grid container">
+                        <input name="pid" th:value="${item.getProduct().id}" type="hidden" value="0"/>
+                        <div class="ui left floated column">
+                            <div class="ui small header" th:text="${item.getProduct().name}">Spinatsalat</div>
+                            <div th:text="${item.getQuantity()}">42</div>
+                        </div>
+                        <div class="ui right floated column">
+                            <input class="ui input" id="number" min="1" name="number" step="1" type="number" value="1"/>
+                            <button class="ui right floated button" type="submit">
+                                <a>Hinzufügen</a>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>
