@@ -392,7 +392,7 @@ image::models/design/barSequenz2.jpg[]
 
 === MemberManagement
 
-image::models/design/MemberManagement1.jpg[]
+image::models/design/MemberManagementSequenz1.jpg[]
 
 === StaffManagement
 
