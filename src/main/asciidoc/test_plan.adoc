@@ -8,13 +8,9 @@ Um ein organisiertes und systematisches Testen zu ermöglichen, werden in diesem
 Der Testplan richtet sich an den Kunden, an das Entwicklerteam und dabei insbesondere an die Implementierer der Testklassen.
 
 == Aufbau der Testbezeichner
-Nach welchem Schema sind die Tests benannt?
+U - Unit Test, I - Integrationstest, S - Systemtest
 
-*Bsp.*
-
-*U - Unit Test, I - Integrationstest, S - Systemtest*
-
-*U-1, U-2, I-1*
+U-01, U-02, I-01
 
 == Test Gegenstände
 
@@ -243,5 +239,117 @@ a|
 |es wird min ein Nullobjekt übergeben
 |Name, Beschreibung, monatlicher Beitrag, Auslaufdatum
 |NullPointerException
+
+|U-07
+|ContractManagement.editContract
+|es existiert ein Vertrag mit dieser ID
+|ID, Name, Beschreibung, monatlicher Beitrag, Auslaufdatum
+|alter Vertrag
+
+|U-07
+|ContractManagement.editContract
+|es existiert kein Vertrag mit dieser ID
+|ID, Name, Beschreibung, monatlicher Beitrag, Auslaufdatum
+|Fehlermeldung
+
+|U-07
+|ContractManagement.createContract
+a|
+- es existiert kein Vertrag mit diesem Namen
+- das Auslaufdatum liegt in der Zukunft
+|Name, Beschreibung, monatlicher Beitrag, Auslaufdatum
+|Vertrag
+
+|U-07
+|ContractManagement.createContract
+a|
+- es existiert ein Vertrag mit diesem Namen oder
+- das Auslaufdatum liegt in der Vergangenheit
+|Name, Beschreibung, monatlicher Beitrag, Auslaufdatum
+|Fehlermeldung
+
+|U-07
+|ContractManagement.deleteContract
+|ein Vertrag mit der gegebenen ID existiert
+|VertragsID
+|-
+
+|U-07
+|ContractManagement.deleteContract
+|ein Vertrag mit der gegebenen ID existiert nicht
+|VertragsID
+|Fehlermeldung
+
+|===
+
+Mitarbeiterverwaltung
+
+[options="headers"]
+|===
+|ID |Anwendungsfall |Vorbedingungen |Eingabe |Ausgabe
+
+|U-07
+|Roster.addEntry
+a|
+- der Eintrag ist nicht null
+- es existiert kein anderer Eintrag mit diesem Mitarbeiter zur selben Zeit
+|Dienstplaneintrag
+|-
+
+|U-07
+|Roster.addEntry
+|der Eintrag ist null
+|Dienstplaneintrag
+|NullPointerException
+
+|U-07
+|Roster.addEntry
+|es existiert ein anderer Eintrag mit diesem Mitarbeiter zur selben Zeit
+|Dienstplaneintrag
+|Fehlermeldung
+
+|U-07
+|Roster.removeEntry
+|der gegebene Eintrag existiert in dem Dienstplan
+|Dienstplaneintrag
+|true
+
+|U-07
+|Roster.removeEntry
+|der gegebene Eintrag existiert nicht in dem Dienstplan
+|Dienstplaneintrag
+|false
+
+|U-07
+|RosterManagement.deleteRosterEntry
+|der gegebene Eintrag existiert in dem Dienstplan
+|EintragsID
+|true
+
+|U-07
+|RosterManagement.deleteRosterEntry
+|der gegebene Eintrag existiert nicht in dem Dienstplan
+|EintragsID
+|false
+
+|===
+
+PDF Erstellung
+
+[options="headers"]
+|===
+|ID |Anwendungsfall |Vorbedingungen |Eingabe |Ausgabe
+
+|U-07
+|StaffManagement.createPDF
+|es existiert ein Mitarbeiter zu der gegebenen ID
+|MitarbeiterID
+|Document
+
+|U-07
+|StaffManagement.createPDF
+|es existiert kein Mitarbeiter zu der gegebenen ID
+|MitarbeiterID
+|Fehlermeldung
 
 |===
