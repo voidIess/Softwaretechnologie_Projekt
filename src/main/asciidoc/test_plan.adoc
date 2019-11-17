@@ -24,6 +24,7 @@ Nach welchem Schema sind die Tests benannt?
 - Mitgliederverwaltung
 - Mitarbeiterverwaltung
 - Artikelverwaltung
+- Fitnessstudiodetails verwalten
 - Statistiken
 - PDF erstellen
 
@@ -54,39 +55,193 @@ Artikelverwaltung
 |ID |Anwendungsfall |Vorbedingungen |Eingabe |Ausgabe
 
 |U-01
-|Discount.isAvailable()
+|Discount.isAvailable
 |aktuelles Datum liegt zwischen Start- und Enddatum des Rabattes
 |-
 |true
 
 |U-02
-|Discount.isAvailable()
+|Discount.isAvailable
 |aktuelles Datum liegt nicht zwischen Start- und Enddatum des Rabattes
 |-
 |false
 
 |U-03
-|Article.addDiscount()
+|Article.addDiscount
 |es existierte noch kein Rabatt für diesen Artikel
 |ein bestimmter Rabatt (enthält Start-, Enddatum und Prozentwert)
 |null
 
 |U-04
-|Article.addDiscount()
+|Article.addDiscount
 |es existierte bereits ein Rabatt für diesen Artikel
 |ein bestimmter Rabatt (enthält Start-, Enddatum und Prozentwert)
 |alter Rabatt
 
 |U-05
-|Article.removeDiscount()
+|Article.removeDiscount
 |es existierte bereits ein Rabatt für diesen Artikel
 |-
 |alter Rabatt
 
 |U-06
-|Article.addDiscount()
+|Article.removeDiscount
 |es existierte noch kein Rabatt für diesen Artikel
 |-
 |null
+
+|===
+
+Fitnessstudiodetails verwalten
+
+[options="headers"]
+|===
+|ID |Anwendungsfall |Vorbedingungen |Eingabe |Ausgabe
+
+|I-07
+|StudioService.getStudio
+|ein Studio existiert
+|-
+|aktuelles Fitnessstudio
+
+|I-07
+|StudioService.saveStudio
+|das gegebene Studio ist nicht null
+|Studio
+|-
+
+|I-07
+|StudioService.saveStudio
+|das gegebene Studio ist null
+|Studio
+|NullPointerException
+
+|===
+
+Statistiken verwalten
+
+[options="headers"]
+|===
+|ID |Anwendungsfall |Vorbedingungen |Eingabe |Ausgabe
+
+|I-07
+|StatisticManagement.getEarnings
+|-
+|-
+|Einnahmen des Tages
+
+|I-07
+|StatisticManagement.getAttendance
+|-
+|-
+|Anwesenheitszeiten des Tages
+
+|===
+
+Mitgliederverwaltung
+
+[options="headers"]
+|===
+|ID |Anwendungsfall |Vorbedingungen |Eingabe |Ausgabe
+
+|U-07
+|Member.confirm
+|der Mitarbeiter wurde mit gültigen Parametern angelegt
+|-
+|-
+
+|U-07
+|Member.confirm
+|der Mitarbeiter wurde ohne Parameter angelegt
+|-
+|Fehlermeldung
+
+|U-07
+|Member.requestTrainig
+a|
+- der Mitarbeiter existiert im System
+- das Datum liegt in der Zukunft
+- Zeit und Datum liegen innerhalb der Öffnungszeiten
+|Zeit und Datum, Mitarbeiter
+|-
+
+|U-07
+|Member.requestTrainig
+a|
+- der Mitarbeiter existiert nicht im System oder
+- das Datum liegt in der Vergangenheit oder
+- Zeit und Datum liegen außerhalb der Öffnungszeiten
+|Zeit und Datum, Mitarbeiter
+|Fehlermeldung
+
+|I-07
+|Member.changeContract
+|der neue Vertrag ist nicht null
+|neuer Vertrag
+|-
+
+|I-07
+|Member.changeContract
+|der neue Vertrag ist null
+|neuer Vertrag
+|NullPointerException
+
+|U-07
+|Training.reject
+|der Trainingsstautus ist nicht ACCEPTED
+|-
+|-
+
+|U-07
+|Training.reject
+|der Trainingsstautus ist ACCEPTED
+|-
+|Fehlermeldung
+
+|U-07
+|MemberManagement.payOutAccount
+a|
+- Mitglied und Account existieren
+- der Betrag ist geringer/gleich des Guthabens
+|MitgliedsID, Betrag, useraccount
+|-
+
+|U-07
+|MemberManagement.payOutAccount
+a|
+- Mitglied und Account existieren nicht
+- der Betrag ist größer als das Guthabens
+|MitgliedsID, Betrag, useraccount
+|Fehlermeldung
+
+|I-07
+|MemberManagement.checkMemberIn/Out
+|ein zur ID zugehöriges Mitglied existiert
+|MitgliedsID
+|-
+
+|I-07
+|MemberManagement.checkMemberIn/Out
+|ein zur ID zugehöriges Mitglied existiert nicht
+|MitgliedsID
+|Fehlermeldung
+
+|U-07
+|Contract.update
+|keine Nullobjekte werden übergeben
+|Name, Beschreibung, monatlicher Beitrag, Auslaufdatum
+|-
+
+|U-07
+|Contract.update
+|keine Nullobjekte werden übergeben
+|Name, Beschreibung, monatlicher Beitrag, Auslaufdatum
+|-
+
+|U-07
+|Contract.update
+|es wird min ein Nullobjekt übergeben
+|Name, Beschreibung, monatlicher Beitrag, Auslaufdatum
+|NullPointerException
 
 |===
