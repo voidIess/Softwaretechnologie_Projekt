@@ -42,10 +42,18 @@ public class MemberController {
 	}
 
 	@GetMapping("/admin/members")
-	@PreAuthorize("hasRole('BOSS')")
+	@PreAuthorize("hasRole('STAFF') or hasRole('BOSS')")
 	public String members(Model model) {
-		model.addAttribute("memberList", memberManagement.findAll());
+		model.addAttribute("memberList", memberManagement.findAllAuthorized());
+		model.addAttribute("unauthorizedMember", memberManagement.findAllUnauthorized().size());
 		return "members";
+	}
+
+	@GetMapping("/admin/authorizeMember")
+	@PreAuthorize("hasRole('STAFF') or hasRole('BOSS')")
+	public String authorizeMember(Model model) {
+		model.addAttribute("unauthorizedMember", memberManagement.findAllUnauthorized());
+		return "authorizeMember";
 	}
 
 
@@ -76,7 +84,20 @@ public class MemberController {
 			}
 			return "redirect:/login";
 		}).orElse("redirect:/login");
+	}
 
+	@GetMapping("/member/delete/{id}")
+	@PreAuthorize("hasRole('STAFF') or hasRole('BOSS')")
+	public String delete(@PathVariable long id, Model model){
+		memberManagement.deleteMember(id);
+		return "redirect:/admin/authorizeMember";
+	}
+
+	@GetMapping("/member/authorize/{id}")
+	@PreAuthorize("hasRole('STAFF') or hasRole('BOSS')")
+	public String authorize(@PathVariable long id, Model model){
+		memberManagement.authorizeMember(id);
+		return "redirect:/admin/authorizeMember";
 	}
 
 }

@@ -19,6 +19,9 @@
         <h1>Mitgliederliste</h1>
     </header>
 
+    <p>Es sind <b><span th:text="${unauthorizedMember}">0</span></b> freizuschalten</p>
+    <a th:href="@{/admin/authorizeMember}">Freischalten</a>
+
     <table class="ui celled table">
         <thead>
         <tr>

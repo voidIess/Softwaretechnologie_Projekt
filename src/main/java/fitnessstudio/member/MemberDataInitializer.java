@@ -1,5 +1,6 @@
 package fitnessstudio.member;
 
+import org.apache.juli.logging.Log;
 import org.salespointframework.core.DataInitializer;
 import org.salespointframework.useraccount.Password;
 import org.salespointframework.useraccount.Role;
@@ -39,7 +40,10 @@ public class MemberDataInitializer implements DataInitializer {
 		userAccountManager.create("boss", Password.UnencryptedPassword.of("123"), Role.of("BOSS"));
 
 		LOG.info("Creating default MEMBER (user: 'member', pass: '123'");
-		memberManagement.createMember(new RegistrationForm("FirstName", "LastName", "member", "123"), null);
+		memberManagement.createMember(new RegistrationForm("FirstName", "LastName", "member", "123"), null).getUserAccount().setEnabled(true);
+
+		LOG.info("Creating unauthorized MEMBER (user: 'member2', pass: '123'");
+		memberManagement.createMember(new RegistrationForm("FirstName", "LastName", "member2", "123"), null);
 
 	}
 }

@@ -29,7 +29,7 @@ public class Member {
 		this.creditAccount = new CreditAccount();
 		this.firstName = firstName;
 		this.lastName = lastName;
-
+		userAccount.setEnabled(false);
 	}
 
 	public long getMemberId() {

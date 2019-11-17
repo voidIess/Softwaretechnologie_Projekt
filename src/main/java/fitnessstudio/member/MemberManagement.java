@@ -11,7 +11,10 @@ import org.springframework.util.Assert;
 import org.springframework.validation.Errors;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 @Transactional
@@ -53,9 +56,34 @@ public class MemberManagement {
 		}
 	}
 
+	public void deleteMember(Long memberId) {
+		Optional<Member> member = findById(memberId);
+		member.ifPresent(members::delete);
+	}
+
+	public void authorizeMember(Long memberId) {
+		Optional<Member> member = findById(memberId);
+		member.ifPresent(m -> m.getUserAccount().setEnabled(true));
+	}
+
 	public Streamable<Member> findAll() {
 		return members.findAll();
 	}
+
+	public List<Member> findAllUnauthorized() {
+		return userAccounts.findDisabled()
+			.stream().map(this::findByUserAccount)
+			.flatMap(member -> member.stream()
+				.flatMap(Stream::of)).collect(Collectors.toList());
+	}
+
+	public List<Member> findAllAuthorized() {
+		return userAccounts.findEnabled()
+			.stream().map(this::findByUserAccount)
+			.flatMap(member -> member.stream()
+				.flatMap(Stream::of)).collect(Collectors.toList());
+	}
+
 
 	public Optional<Member> findById(long id) {
 		return members.findById(id);
