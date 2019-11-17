@@ -9,31 +9,52 @@
     <meta content="text/html; charset=UTF-8" http-equiv="content-type"/>
 </head>
 <body>
+<div class="ui masthead vertical segment">
+    <div class="ui container">
+        <nav th:include="navigation :: navigation"></nav>
+        <header>
+            <h1 th:text="#{sell_catalog.title}">Artikel verkaufen</h1>
+        </header>
+
+        <br>
+    </div>
+</div>
+<br>
 <div class="ui container">
-    <nav th:include="navigation :: navigation"></nav>
-    <header>
-        <h1 th:text="#{sell_catalog.title}">Artikel verkaufen</h1>
-    </header>
-    </br>
-    <div class="ui center aligned container">
-        <div th:remove="all-but-first">
-            <div class="ui divided items" th:each="item :${ inventory}">
-                <form method="post" th:action="@{/addItemToCart}">
-                    <input name="pid" th:value="${item.getProduct().id}" type="hidden" value="0"/>
+    <div class="ui header">
+        Artikelübersicht
+        <a class="ui right floated button"  th:href="@{/cart_items}">
+            <i class="cart icon"></i>
+            Bestellung
+        </a>
+    </div>
+    <br>
+    <div th:remove="all-but-first">
+        <div class="container" th:each="item :${ inventory}">
+            <form method="post" th:action="@{/addItemToCart}">
+                <input name="pid" th:value="${item.getProduct().id}" type="hidden" value="0"/>
+                <div class="ui segment">
                     <div class="ui grid">
-                        <div class="ui left floated column">
-                            <div class="ui small header" th:text="${item.getProduct().name}">Spinatsalat</div>
+                        <div class="ui three wide left floated column">
+                            <div class="ui header" th:text="${item.getProduct().name}">Spinatsalat</div>
                             <div th:text="${item.getProduct().getPrice()}">42</div>
                         </div>
-                        <div class="ui right floated column">
-                            <input class="ui input" id="number" min="1" name="number" step="1" type="number" value="1"/>
-                            <button class="ui right floated button" type="submit">
-                                <a>Hinzufügen</a>
-                            </button>
+                        <div class="ui six wide right floated column">
+                            <div class="right floated ui secondary menu">
+                                <div class="item">
+                                    <input class="ui input" id="number" min="1" name="number" step="1" type="number"
+                                           value="1"/>
+                                </div>
+                                <div class="item">
+                                    <button class="ui button" type="submit">
+                                        <a>Hinzufügen</a>
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </form>
-            </div>
+                </div>
+            </form>
         </div>
     </div>
 </div>
