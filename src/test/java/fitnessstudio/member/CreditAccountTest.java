@@ -4,14 +4,15 @@ import org.javamoney.moneta.Money;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
-
-import javax.money.MonetaryAmount;
+import org.junit.jupiter.api.TestInstance;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class CreditAccountTest {
 
 	private CreditAccount creditAccount;
+	private String currency = "EUR";
 
 	@BeforeEach
 	void setUp() {
@@ -27,7 +28,7 @@ class CreditAccountTest {
 	@Test
 	@Order(2)
 	void payOutShouldBeZeroWhenCreditZero() {
-		Money amount = Money.of(100, "EUR");
+		Money amount = Money.of(100, currency);
 		assertThat(creditAccount.payOut(amount).isZero()).isTrue();
 	}
 
@@ -35,29 +36,24 @@ class CreditAccountTest {
 	@Test
 	@Order(3)
 	void payInTest() {
-		Money amount = Money.of(50, "EUR");
-		MonetaryAmount oldCredit = creditAccount.getCredit();
-
-		creditAccount.payIn(amount);
-		assertThat(creditAccount.getCredit().isEqualTo(oldCredit.add(amount)));
+		creditAccount.payIn(Money.of(50, currency));
+		assertThat(creditAccount.getCredit().isEqualTo(Money.of(50, currency))).isTrue();
 	}
 
 	@Test
 	@Order(4)
 	void payOutTest() {
-		Money amount = Money.of(10, "EUR");
-		MonetaryAmount oldCredit = creditAccount.getCredit();
-
-		creditAccount.payOut(amount);
-		assertThat(creditAccount.getCredit().isEqualTo(oldCredit.add(amount.negate())));
+		creditAccount.payIn(Money.of(40, currency));
+		creditAccount.payOut(Money.of(30, currency));
+		assertThat(creditAccount.getCredit().isEqualTo(Money.of(10, currency))).isTrue();
 	}
 
 	@Test
 	@Order(5)
 	void creditShouldBeZeroWhenPayOutToBig() {
-		Money amount = Money.of(100, "EUR");
-		creditAccount.payOut(amount);
-		assertThat(creditAccount.getCredit().isZero()).isTrue();
+		Money amount = Money.of(40, currency);
+		creditAccount.payIn(amount);
+		assertThat(creditAccount.payOut(Money.of(100, currency)).isEqualTo(amount)).isTrue();
 	}
 
 }

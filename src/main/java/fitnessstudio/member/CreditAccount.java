@@ -20,8 +20,9 @@ public class CreditAccount {
 
 	public Money payOut(Money amount) {
 		if (credit.isLessThan(amount)) {
-			credit = credit.add(credit.negate());
-			return credit;
+			Money oldCredit = credit;
+			credit = Money.of(0, "EUR");
+			return oldCredit;
 		}
 		credit = credit.add(amount.negate());
 		return credit;
