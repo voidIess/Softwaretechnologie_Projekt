@@ -66,6 +66,18 @@ Ansprechpartner: Vu
 |Studio
 |NullPointerException
 
+|U-1-03
+|StudioService.getStudio
+|-
+|-
+|NullPointerException
+
+|U-1-04
+|StudioService.getStudio
+|-
+|-
+|Studio
+
 |I-1-01
 |StudioController.editStudio
 |-
