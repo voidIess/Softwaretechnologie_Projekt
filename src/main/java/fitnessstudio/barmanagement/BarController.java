@@ -8,6 +8,7 @@ import org.salespointframework.order.CartItem;
 import org.salespointframework.quantity.Quantity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -28,6 +29,8 @@ public class BarController {
 	}
 
 
+
+	@PreAuthorize("hasRole('STAFF') or hasRole('BOSS')")
 	@GetMapping("/sell_catalog")
 	String SellingCatalog(Model model){
 
@@ -40,6 +43,7 @@ public class BarController {
 		return new Cart();
 	}
 
+	@PreAuthorize("hasRole('STAFF') or hasRole('BOSS')")
 	@PostMapping("/addItemToCart")
 	String addItem(@RequestParam("pid") Article article, @RequestParam("number") int number, @ModelAttribute Cart cart) {
 
@@ -54,11 +58,12 @@ public class BarController {
 			cart.addOrUpdateItem(article, Quantity.of(number));
 		}
 
-		//LOG.info(cart.stream().map(x -> x.getProductName() + " " + x.getQuantity()).reduce("", ((x, y) -> x + y) ));
+		LOG.info(cart.stream().map(x -> x.getProductName() + " " + x.getQuantity()).reduce("", ((x, y) -> x + y) ));
 
 		return ("redirect:sell_catalog");
 	}
 
+	@PreAuthorize("hasRole('STAFF') or hasRole('BOSS')")
 	@GetMapping("/cart_items")
 	String cartItems() {
 		return ("cart_items");
