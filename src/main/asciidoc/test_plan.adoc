@@ -8,24 +8,25 @@ Um ein organisiertes und systematisches Testen zu ermöglichen, werden in diesem
 Der Testplan richtet sich an den Kunden, an das Entwicklerteam und dabei insbesondere an die Implementierer der Testklassen.
 
 == Aufbau der Testbezeichner
-U - Unit Test, I - Integrationstest, S - Systemtest
+Testbezeichner: x-y-zz
 
-U-01, U-02, I-01
+x: U - Unit Test, I - Integrationstest, S - Systemtest
+y: Nummer der Funktionalität (siehe zu testende Funktionalitäten)
+zz: aufsteigende Nummerierung
 
 == Test Gegenstände
 
 == Zu testende Funktionalitäten
 
-- Anmeldung und Registrierung
-- Mitgliederverwaltung
-- Mitarbeiterverwaltung
-- Artikelverwaltung
-- Fitnessstudiodetails verwalten
-- Statistiken
-- PDF erstellen
+1. Fitnessstudiodetails verwalten
+2. Mitgliederverwaltung
+3. Mitarbeiterverwaltung
+4. Artikelverwaltung
+5. PDF erstellen
+6. Statistiken
 
 == Nicht zu testende Funktionalitäten
-Die Bibliotheken java.time und org.javamoney.moneta, sowie das Framework Spring und SalesPoint müssen nicht erneut getesten werden. Hier stehen nur die Schnittstellen zu systemeigenen Klassen im Fokus. +
+Die Bibliotheken java.time und org.javamoney.moneta, iText, sowie das Framework Spring und SalesPoint müssen nicht erneut getesten werden. Hier stehen nur die Schnittstellen zu systemeigenen Klassen im Fokus. +
 Einfache Methoden von Java-Klassen, wie z.B. setter und getter, die lediglich auf ein Attribut eines Objektes zugreifen, brauchen nicht getestet zu werden.
 
 == Herangehensweise
@@ -42,117 +43,64 @@ Einfache Methoden von Java-Klassen, wie z.B. setter und getter, die lediglich au
 * Wie kommuniziert die Software während des Testens? Internet? Netzwerk?
 
 == Testfälle und Verantwortlichkeit
-Jede testbezogene Aufgabe muss einem Ansprechpartner zugeordnet werden. +
-Artikelverwaltung
 
 // See http://asciidoctor.org/docs/user-manual/#tables
-[options="headers"]
-|===
-|ID |Anwendungsfall |Vorbedingungen |Eingabe |Ausgabe
 
-|U-01
-|Discount.isAvailable
-|aktuelles Datum liegt zwischen Start- und Enddatum des Rabattes
-|-
-|true
+=== Fitnessstudiodetails verwalten 
 
-|U-02
-|Discount.isAvailable
-|aktuelles Datum liegt nicht zwischen Start- und Enddatum des Rabattes
-|-
-|false
-
-|U-03
-|Article.addDiscount
-|es existierte noch kein Rabatt für diesen Artikel
-|ein bestimmter Rabatt (enthält Start-, Enddatum und Prozentwert)
-|null
-
-|U-04
-|Article.addDiscount
-|es existierte bereits ein Rabatt für diesen Artikel
-|ein bestimmter Rabatt (enthält Start-, Enddatum und Prozentwert)
-|alter Rabatt
-
-|U-05
-|Article.removeDiscount
-|es existierte bereits ein Rabatt für diesen Artikel
-|-
-|alter Rabatt
-
-|U-06
-|Article.removeDiscount
-|es existierte noch kein Rabatt für diesen Artikel
-|-
-|null
-
-|===
-
-Fitnessstudiodetails verwalten
+Ansprechpartner: Vu
 
 [options="headers"]
 |===
 |ID |Anwendungsfall |Vorbedingungen |Eingabe |Ausgabe
 
-|I-07
-|StudioService.getStudio
-|ein Studio existiert
-|-
-|aktuelles Fitnessstudio
-
-|I-07
+|U-1-01
 |StudioService.saveStudio
 |das gegebene Studio ist nicht null
 |Studio
 |-
 
-|I-07
+|U-1-02
 |StudioService.saveStudio
 |das gegebene Studio ist null
 |Studio
 |NullPointerException
 
+|I-1-01
+|StudioController.editStudio
+|-
+|Studiovariablen
+|-
+
+|I-1-02
+|StudioController.editStudio
+|-
+|Studiovariablen, Errors
+|Fehlernachrichten
+
 |===
 
-Statistiken verwalten
+=== Mitgliederverwaltung 
+
+Ansprechpartner: Bill
 
 [options="headers"]
 |===
 |ID |Anwendungsfall |Vorbedingungen |Eingabe |Ausgabe
 
-|I-07
-|StatisticManagement.getEarnings
-|-
-|-
-|Einnahmen des Tages
-
-|I-07
-|StatisticManagement.getAttendance
-|-
-|-
-|Anwesenheitszeiten des Tages
-
-|===
-
-Mitgliederverwaltung
-
-[options="headers"]
-|===
-|ID |Anwendungsfall |Vorbedingungen |Eingabe |Ausgabe
-
-|U-07
+|U-2-01
 |Member.confirm
 |der Mitarbeiter wurde mit gültigen Parametern angelegt
 |-
 |-
 
-|U-07
+|U-2-02
 |Member.confirm
 |der Mitarbeiter wurde ohne Parameter angelegt
 |-
 |Fehlermeldung
 
-|U-07
+|I-2-01
 |Member.requestTrainig
 a|
 - der Mitarbeiter existiert im System
@@ -161,7 +109,7 @@ a|
 |Zeit und Datum, Mitarbeiter
 |-
 
-|U-07
+|I-2-02
 |Member.requestTrainig
 a|
 - der Mitarbeiter existiert nicht im System oder
@@ -170,31 +118,31 @@ a|
 |Zeit und Datum, Mitarbeiter
 |Fehlermeldung
 
-|I-07
+|I-2-03
 |Member.changeContract
 |der neue Vertrag ist nicht null
 |neuer Vertrag
 |-
 
-|I-07
+|I-2-04
 |Member.changeContract
 |der neue Vertrag ist null
 |neuer Vertrag
 |NullPointerException
 
-|U-07
+|U-2-03
 |Training.reject
 |der Trainingsstautus ist nicht ACCEPTED
 |-
 |-
 
-|U-07
+|U-2-04
 |Training.reject
 |der Trainingsstautus ist ACCEPTED
 |-
 |Fehlermeldung
 
-|U-07
+|I-2-05
 |MemberManagement.payOutAccount
 a|
 - Mitglied und Account existieren
@@ -202,7 +150,7 @@ a|
 |MitgliedsID, Betrag, useraccount
 |-
 
-|U-07
+|I-2-06
 |MemberManagement.payOutAccount
 a|
 - Mitglied und Account existieren nicht
@@ -210,49 +158,43 @@ a|
 |MitgliedsID, Betrag, useraccount
 |Fehlermeldung
 
-|I-07
+|I-2-07
 |MemberManagement.checkMemberIn/Out
 |ein zur ID zugehöriges Mitglied existiert
 |MitgliedsID
 |-
 
-|I-07
+|I-2-08
 |MemberManagement.checkMemberIn/Out
 |ein zur ID zugehöriges Mitglied existiert nicht
 |MitgliedsID
 |Fehlermeldung
 
-|U-07
+|U-2-07
 |Contract.update
 |keine Nullobjekte werden übergeben
 |Name, Beschreibung, monatlicher Beitrag, Auslaufdatum
 |-
 
-|U-07
-|Contract.update
-|keine Nullobjekte werden übergeben
-|Name, Beschreibung, monatlicher Beitrag, Auslaufdatum
-|-
-
-|U-07
+|U-2-08
 |Contract.update
 |es wird min ein Nullobjekt übergeben
 |Name, Beschreibung, monatlicher Beitrag, Auslaufdatum
 |NullPointerException
 
-|U-07
+|I-2-09
 |ContractManagement.editContract
 |es existiert ein Vertrag mit dieser ID
 |ID, Name, Beschreibung, monatlicher Beitrag, Auslaufdatum
 |alter Vertrag
 
-|U-07
+|I-2-10
 |ContractManagement.editContract
 |es existiert kein Vertrag mit dieser ID
 |ID, Name, Beschreibung, monatlicher Beitrag, Auslaufdatum
 |Fehlermeldung
 
-|U-07
+|I-2-11
 |ContractManagement.createContract
 a|
 - es existiert kein Vertrag mit diesem Namen
@@ -260,7 +202,7 @@ a|
 |Name, Beschreibung, monatlicher Beitrag, Auslaufdatum
 |Vertrag
 
-|U-07
+|I-2-12
 |ContractManagement.createContract
 a|
 - es existiert ein Vertrag mit diesem Namen oder
@@ -268,13 +210,13 @@ a|
 |Name, Beschreibung, monatlicher Beitrag, Auslaufdatum
 |Fehlermeldung
 
-|U-07
+|I-2-13
 |ContractManagement.deleteContract
 |ein Vertrag mit der gegebenen ID existiert
 |VertragsID
 |-
 
-|U-07
+|I-2-14
 |ContractManagement.deleteContract
 |ein Vertrag mit der gegebenen ID existiert nicht
 |VertragsID
@@ -282,13 +224,15 @@ a|
 
 |===
 
-Mitarbeiterverwaltung
+=== Mitarbeiterverwaltung
+
+Ansprechpartner: Markus
 
 [options="headers"]
 |===
 |ID |Anwendungsfall |Vorbedingungen |Eingabe |Ausgabe
 
-|U-07
+|U-3-01
 |Roster.addEntry
 a|
 - der Eintrag ist nicht null
@@ -296,37 +240,37 @@ a|
 |Dienstplaneintrag
 |-
 
-|U-07
+|U-3-02
 |Roster.addEntry
 |der Eintrag ist null
 |Dienstplaneintrag
 |NullPointerException
 
-|U-07
+|U-3-03
 |Roster.addEntry
 |es existiert ein anderer Eintrag mit diesem Mitarbeiter zur selben Zeit
 |Dienstplaneintrag
 |Fehlermeldung
 
-|U-07
+|U-3-04
 |Roster.removeEntry
 |der gegebene Eintrag existiert in dem Dienstplan
 |Dienstplaneintrag
 |true
 
-|U-07
+|U-3-05
 |Roster.removeEntry
 |der gegebene Eintrag existiert nicht in dem Dienstplan
 |Dienstplaneintrag
 |false
 
-|U-07
+|I-3-01
 |RosterManagement.deleteRosterEntry
 |der gegebene Eintrag existiert in dem Dienstplan
 |EintragsID
 |true
 
-|U-07
+|U-3-02
 |RosterManagement.deleteRosterEntry
 |der gegebene Eintrag existiert nicht in dem Dienstplan
 |EintragsID
@@ -334,22 +278,92 @@ a|
 
 |===
 
-PDF Erstellung
+=== Artikelverwaltung
+
+Ansprechpartner: Julius, Vu, Lea
 
 [options="headers"]
 |===
 |ID |Anwendungsfall |Vorbedingungen |Eingabe |Ausgabe
 
-|U-07
+|U-4-01
+|Discount.isAvailable
+|aktuelles Datum liegt zwischen Start- und Enddatum des Rabattes
+|-
+|true
+
+|U-4-02
+|Discount.isAvailable
+|aktuelles Datum liegt nicht zwischen Start- und Enddatum des Rabattes
+|-
+|false
+
+|I-4-01
+|Article.addDiscount
+|es existierte noch kein Rabatt für diesen Artikel
+|ein bestimmter Rabatt (enthält Start-, Enddatum und Prozentwert)
+|null
+
+|I-4-02
+|Article.addDiscount
+|es existierte bereits ein Rabatt für diesen Artikel
+|ein bestimmter Rabatt (enthält Start-, Enddatum und Prozentwert)
+|alter Rabatt
+
+|I-4-03
+|Article.removeDiscount
+|es existierte bereits ein Rabatt für diesen Artikel
+|-
+|alter Rabatt
+
+|I-4-04
+|Article.removeDiscount
+|es existierte noch kein Rabatt für diesen Artikel
+|-
+|null
+
+|===
+
+=== PDF-Erstellung
+
+Ansprechpartner: Bill, Lea
+
+[options="headers"]
+|===
+|ID |Anwendungsfall |Vorbedingungen |Eingabe |Ausgabe
+
+|I-5-01
 |StaffManagement.createPDF
 |es existiert ein Mitarbeiter zu der gegebenen ID
 |MitarbeiterID
 |Document
 
-|U-07
+|I-5-02
 |StaffManagement.createPDF
 |es existiert kein Mitarbeiter zu der gegebenen ID
 |MitarbeiterID
 |Fehlermeldung
+
+|===
+
+=== Statistiken verwalten
+
+Ansprechpartner: Markus, Bill
+
+[options="headers"]
+|===
+|ID |Anwendungsfall |Vorbedingungen |Eingabe |Ausgabe
+
+|U-6-01
+|StatisticManagement.getEarnings
+|-
+|-
+|Einnahmen des Tages
+
+|U-6-02
+|StatisticManagement.getAttendance
+|-
+|-
+|Anwesenheitszeiten des Tages
 
 |===
