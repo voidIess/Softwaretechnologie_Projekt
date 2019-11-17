@@ -27,10 +27,17 @@
                     <p>Name</p>
                     <span th:text="${member.firstName}">Vorname</span>
                     <span th:text="${member.lastName}">Nachname</span>
+                    <p></p>
+                    <h3 class="header">Bonuscode</h3>
+                    <span th:text="${member.getMemberId()}">0000</span>
                 </div>
+
                 <div class="meta">
                     <h3 class="header">Guthaben</h3>
                     <span th:text="${{member.credit}}">0.00 €</span>
+
+                    <h4 class="header">Aufladen</h4>
+
                     <form class="ui form" method="post" th:action="@{/member/payin}">
                         <input type="hidden" name="memberId" value="0" th:value="${member.memberId}"/>
                         <div class="field">
@@ -43,6 +50,8 @@
                         </button>
                     </form>
                 </div>
+
+
             </div>
         </div>
     </div>

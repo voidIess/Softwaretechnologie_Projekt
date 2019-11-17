@@ -8,10 +8,13 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.validation.Valid;
+
 
 @Controller
 public class StudioController {
 
+	private static final String ERROR = "error";
 	@Autowired
 	private StudioService studioService;
 
@@ -37,7 +40,18 @@ public class StudioController {
 
 	@PreAuthorize("hasRole('ROLE_BOSS')")
 	@PostMapping("/studio")
-	public String editStudio(StudioForm studioForm, Model model, Errors errors) {
+	public String editStudio(@Valid StudioForm studioForm, Model model, Errors errors) {
+		if (Integer.parseInt(studioForm.getContractTerm()) < 1) {
+			model.addAttribute(ERROR, "Contract term must at least 1 month");
+			return "error";
+		} else if (Integer.parseInt(studioForm.getMonthlyFees()) < 0) {
+			model.addAttribute(ERROR, "Hey Boss we shouldn't give our member money monthly");
+			return "error";
+		} else if (Integer.parseInt(studioForm.getAdvertisingBonus()) < 0) {
+			model.addAttribute(ERROR, "Advertising bonus should at least 0 EURO");
+			return "error";
+		}
+
 		Studio studio = studioService.getStudio();
 		studio.setOpeningTimes(studioForm.getOpeningTimes());
 		studio.setMonthlyFees(studioForm.getMonthlyFees());

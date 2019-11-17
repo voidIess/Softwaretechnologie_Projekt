@@ -20,7 +20,7 @@
         <a class="item" href="memberDetail.html" th:href="@{/member/home}" sec:authorize="hasRole('MEMBER')"
            th:text="#{nav.member.home}">Home</a>
 
-        <a class="item" href="members.html" th:href="@{/admin/members}" sec:authorize="hasRole('BOSS')"
+        <a class="item" href="members.html" th:href="@{/admin/members}" sec:authorize="hasRole('BOSS') or hasRole('STAFF')"
            th:text="#{nav.admin.members}">Mitglieder</a>
 
         <a class="item" href="roster.html" th:href="@{/roster}" sec:authorize="hasRole('STAFF')"

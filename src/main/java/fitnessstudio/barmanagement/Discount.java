@@ -1,4 +1,4 @@
-package gym.barmanagement;
+package fitnessstudio.barmanagement;
 
 public class Discount {
 }
