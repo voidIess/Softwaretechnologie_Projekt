@@ -10,8 +10,8 @@ Der Testplan richtet sich an den Kunden, an das Entwicklerteam und dabei insbeso
 == Aufbau der Testbezeichner
 Testbezeichner: x-y-zz
 
-x: U - Unit Test, I - Integrationstest, S - Systemtest
-y: Nummer der Funktionalität (siehe zu testende Funktionalitäten)
+x: U - Unit Test, I - Integrationstest, S - Systemtest +
+y: Nummer der Funktionalität (siehe zu testende Funktionalitäten) +
 zz: aufsteigende Nummerierung
 
 == Test Gegenstände
