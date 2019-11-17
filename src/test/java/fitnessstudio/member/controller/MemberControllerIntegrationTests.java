@@ -39,6 +39,36 @@ class MemberControllerIntegrationTests {
 	}
 
 	@Test
+	void preventPublicAccessForMemberPayIn() throws Exception {
+		mockMvc.perform(post("/member/payin"))
+			.andExpect(status().isForbidden());
+	}
+
+	@Test
+	void preventPublicAccessForMemberDelete() throws Exception {
+		mockMvc.perform(get("/member/delete/{id}", "1"))
+			.andExpect(status().is3xxRedirection())
+			.andExpect(header().string(HttpHeaders.LOCATION, endsWith("/login")));
+
+	}
+
+	@Test
+	void preventPublicAccessForMemberAuthorize() throws Exception {
+		mockMvc.perform(get("/member/authorize/{id}", "1"))
+			.andExpect(status().is3xxRedirection())
+			.andExpect(header().string(HttpHeaders.LOCATION, endsWith("/login")));
+
+	}
+	
+
+	@Test
+	void registerIsAccessibleForPublic() throws Exception {
+		mockMvc.perform(get("/register"))
+			.andExpect(status().isOk())
+			.andExpect(model().attributeExists("form"));
+	}
+
+	@Test
 	@WithMockUser(username = "staff", roles = "STAFF")
 	void membersIsAccessibleForAdmin() throws Exception {
 		mockMvc.perform(get("/admin/members"))
@@ -54,4 +84,5 @@ class MemberControllerIntegrationTests {
 			.andExpect(status().isOk()) //
 			.andExpect(model().attributeExists("unauthorizedMember"));
 	}
+
 }
