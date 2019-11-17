@@ -19,11 +19,11 @@
         <div th:remove="all-but-first">
             <div class="ui divided items" th:each="item :${ inventory}">
                 <form method="post" th:action="@{/addItemToCart}">
-                    <div class="ui columns stackable grid container">
-                        <input name="pid" th:value="${item.getProduct().id}" type="hidden" value="0"/>
+                    <input name="pid" th:value="${item.getProduct().id}" type="hidden" value="0"/>
+                    <div class="ui grid">
                         <div class="ui left floated column">
                             <div class="ui small header" th:text="${item.getProduct().name}">Spinatsalat</div>
-                            <div th:text="${item.getQuantity()}">42</div>
+                            <div th:text="${item.getProduct().getPrice()}">42</div>
                         </div>
                         <div class="ui right floated column">
                             <input class="ui input" id="number" min="1" name="number" step="1" type="number" value="1"/>
