@@ -15,6 +15,7 @@ import javax.validation.Valid;
 public class StudioController {
 
 	private static final String ERROR = "error";
+	private static final String STATUS = "status";
 	@Autowired
 	private StudioService studioService;
 
@@ -43,13 +44,16 @@ public class StudioController {
 	public String editStudio(@Valid StudioForm studioForm, Model model, Errors errors) {
 		if (Integer.parseInt(studioForm.getContractTerm()) < 1) {
 			model.addAttribute(ERROR, "Contract term must at least 1 month");
-			return "error";
+			model.addAttribute(STATUS, "400");
+			return ERROR;
 		} else if (Integer.parseInt(studioForm.getMonthlyFees()) < 0) {
 			model.addAttribute(ERROR, "Hey Boss we shouldn't give our member money monthly");
-			return "error";
+			model.addAttribute(STATUS, "400");
+			return ERROR;
 		} else if (Integer.parseInt(studioForm.getAdvertisingBonus()) < 0) {
 			model.addAttribute(ERROR, "Advertising bonus should at least 0 EURO");
-			return "error";
+			model.addAttribute(STATUS, "400");
+			return ERROR;
 		}
 
 		Studio studio = studioService.getStudio();

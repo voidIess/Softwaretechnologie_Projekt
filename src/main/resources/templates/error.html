@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" dir="ltr" xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
     <script th:src="@{/webjars/jquery/jquery.min.js}"
@@ -11,8 +11,8 @@
   </head>
   <body>
     <div class="container">
-      <h2>Oops! Page not found.</h2>
-      <h1>404</h1>
+      <h2>Oops! Something went wrong.</h2>
+      <h1 th:text="${status}"></h1>
       <p>We can't find the page you're looking for.</p>
       <p th:text="${error}"></p>
       <a th:href="@{~/}">Go back home</a>
