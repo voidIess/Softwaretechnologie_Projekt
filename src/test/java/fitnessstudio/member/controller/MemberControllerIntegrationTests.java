@@ -59,7 +59,6 @@ class MemberControllerIntegrationTests {
 			.andExpect(header().string(HttpHeaders.LOCATION, endsWith("/login")));
 
 	}
-	
 
 	@Test
 	void registerIsAccessibleForPublic() throws Exception {
