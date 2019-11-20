@@ -52,10 +52,22 @@ public class MemberManagement {
 		if (userAccounts.findByUsername(form.getUserName()).isPresent()) {
 			result.rejectValue("userName", "register.duplicate.userAccountName");
 			return null;
-		} else {
-			var userAccount = userAccounts.create(form.getUserName(), password, MEMBER_ROLE);
-			return members.save(new Member(userAccount, firstName, lastName, iban, bic));
 		}
+
+		if (iban.length() != 22){
+			result.rejectValue("iban", "register.iban.wrongSize");
+			return null;
+		}
+
+		if (bic.length() < 8 || bic.length() > 11){
+			result.rejectValue("bic", "register.bic.wrongSize");
+			return null;
+		}
+
+		var userAccount = userAccounts.create(form.getUserName(), password, MEMBER_ROLE);
+
+		return members.save(new Member(userAccount, firstName, lastName, iban, bic));
+
 	}
 
 	public void deleteMember(Long memberId) {

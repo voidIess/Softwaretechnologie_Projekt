@@ -40,10 +40,10 @@ public class MemberDataInitializer implements DataInitializer {
 			Role.of("BOSS"), Role.of("STAFF"));
 
 		LOG.info("Creating default MEMBER (user: 'member', pass: '123'");
-		memberManagement.createMember(new RegistrationForm("FirstName", "LastName", "member", "123", "iban", "bic"), null).getUserAccount().setEnabled(true);
+		memberManagement.createMember(new RegistrationForm("FirstName", "LastName", "member", "123", "1234567891234567891234", "111111111"), null).getUserAccount().setEnabled(true);
 
 		LOG.info("Creating unauthorized MEMBER (user: 'member2', pass: '123'");
-		memberManagement.createMember(new RegistrationForm("FirstName", "LastName", "member2", "123", "iban", "bic"), null);
+		memberManagement.createMember(new RegistrationForm("FirstName", "LastName", "member2", "123", "1234567891234567891234", "111111111"), null);
 
 	}
 }
