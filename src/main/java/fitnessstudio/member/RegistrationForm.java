@@ -16,11 +16,20 @@ class RegistrationForm {
 	@NotEmpty(message = "{RegistrationForm.password.NotEmpty}") //
 	private final String password;
 
-	public RegistrationForm(String firstName, String lastName, String userName, String password) {
+	@NotEmpty(message = "{RegistrationForm.iban.NotEmpty}") //
+	private final String iban;
+
+	@NotEmpty(message = "{RegistrationForm.bic.NotEmpty}") //
+	private final String bic;
+
+
+	public RegistrationForm(String firstName, String lastName, String userName, String password, String iban, String bic) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.userName = userName;
 		this.password = password;
+		this.iban = iban;
+		this.bic = bic;
 	}
 
 	public String getFirstName() {
@@ -35,8 +44,13 @@ class RegistrationForm {
 		return userName;
 	}
 
-	public String getPassword() {
+	public String getPassword() { return password;}
 
-		return password;
+	public String getIban() {
+		return iban;
+	}
+
+	public String getBic() {
+		return bic;
 	}
 }

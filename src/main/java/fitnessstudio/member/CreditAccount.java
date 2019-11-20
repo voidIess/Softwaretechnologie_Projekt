@@ -10,8 +10,17 @@ public class CreditAccount {
 	@Lob
 	private Money credit;
 
+	String iban;
+	String bic;
+
 	public CreditAccount() {
 		this.credit = Money.of(0, "EUR");
+	}
+
+	public CreditAccount(String iban, String bic){
+		this();
+		this.iban = iban;
+		this.bic = bic;
 	}
 
 	public void payIn(Money amount) {
@@ -32,5 +41,11 @@ public class CreditAccount {
 		return this.credit;
 	}
 
+	public String getIban() {
+		return iban;
+	}
 
+	public String getBic() {
+		return bic;
+	}
 }

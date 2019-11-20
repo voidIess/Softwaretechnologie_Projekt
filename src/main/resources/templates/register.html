@@ -20,6 +20,8 @@
     </header>
 
     <form method="post" role="form" class="ui form" id="form" th:action="@{/register}" th:object="${form}">
+        <h2>Benutzerdaten</h2>
+
         <div class="ui negative message" th:if="${#fields.hasErrors('*')}">
             <p>Einige Angaben sind nicht korrekt.</p>
         </div>
@@ -53,6 +55,27 @@
             <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Das Passwort darf
                 nicht leer sein.</p>
         </div>
+
+        <h2>Kontodaten</h2>
+
+        <div class="field">
+            <label for="iban">IBAN</label>
+            <input id="iban" name="iban" th:field="*{iban}" th:errorclass="fieldError" type="text" required="required"/><br/>
+            <div class="ui negative message" th:if="${#fields.hasErrors('iban')}" th:errors="*{iban}">
+                <p>IBAN darf nicht leer sein.</p>
+            </div>
+        </div>
+
+        <div class="field">
+            <label for="bic">BIC</label>
+            <input id="bic" name="bic" th:field="*{bic}" th:errorclass="fieldError" type="text" required="required"/><br/>
+            <div class="ui negative message" th:if="${#fields.hasErrors('bic')}" th:errors="*{bic}">
+                <p>BIC darf nicht leer sein.</p>
+            </div>
+        </div>
+
+        <h2>Vertrag auswählen</h2>
+        <p>#TODO VERTRAG</p>
         <button type="submit" class="ui button" th:text="#{register.submit}">Registrieren</button>
     </form>
 </div>

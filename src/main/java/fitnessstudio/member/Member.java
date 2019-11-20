@@ -24,9 +24,9 @@ public class Member {
 	public Member() {
 	}
 
-	public Member(UserAccount userAccount, String firstName, String lastName) {
+	public Member(UserAccount userAccount, String firstName, String lastName, String iban, String bic) {
 		this.userAccount = userAccount;
-		this.creditAccount = new CreditAccount();
+		this.creditAccount = new CreditAccount(iban, bic);
 		this.firstName = firstName;
 		this.lastName = lastName;
 		userAccount.setEnabled(false);
@@ -55,6 +55,8 @@ public class Member {
 	public UserAccount getUserAccount() {
 		return userAccount;
 	}
+
+	public CreditAccount getCreditAccount() {return creditAccount;}
 
 	public void payIn(Money amount){
 		creditAccount.payIn(amount);

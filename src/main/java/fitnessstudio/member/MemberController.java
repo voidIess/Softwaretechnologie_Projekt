@@ -15,7 +15,10 @@ import java.util.Optional;
 
 @Controller
 public class MemberController {
+
+	private static final String REDIRECT_LOGIN = "redirect:/login";
 	private final MemberManagement memberManagement;
+
 
 	MemberController(MemberManagement memberManagement) {
 		Assert.notNull(memberManagement, "MemberManagement must not be null");
@@ -67,8 +70,8 @@ public class MemberController {
 				model.addAttribute("member", member.get());
 				return "memberDetail";
 			}
-			return "redirect:/login";
-		}).orElse("redirect:/login");
+			return REDIRECT_LOGIN;
+		}).orElse(REDIRECT_LOGIN);
 	}
 
 	@PostMapping("/member/payin")
@@ -82,8 +85,8 @@ public class MemberController {
 				memberManagement.memberPayIn(member.get(), money);
 				return "redirect:/member/home";
 			}
-			return "redirect:/login";
-		}).orElse("redirect:/login");
+			return REDIRECT_LOGIN;
+		}).orElse(REDIRECT_LOGIN);
 	}
 
 	@GetMapping("/member/delete/{id}")

@@ -46,13 +46,15 @@ public class MemberManagement {
 		var firstName = form.getFirstName();
 		var lastName = form.getLastName();
 		var password = Password.UnencryptedPassword.of(form.getPassword());
+		var iban = form.getIban();
+		var bic = form.getBic();
 
 		if (userAccounts.findByUsername(form.getUserName()).isPresent()) {
 			result.rejectValue("userName", "register.duplicate.userAccountName");
 			return null;
 		} else {
 			var userAccount = userAccounts.create(form.getUserName(), password, MEMBER_ROLE);
-			return members.save(new Member(userAccount, firstName, lastName));
+			return members.save(new Member(userAccount, firstName, lastName, iban, bic));
 		}
 	}
 
