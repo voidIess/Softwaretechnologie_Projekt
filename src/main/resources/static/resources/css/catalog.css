@@ -9,7 +9,7 @@ body{
 
 .container h1{
   font-size: 100px;
-  margin: 0;
+  margin: 20px 0 0;
   font-weight: 900;
   letter-spacing: 9px;
   background: url("../images/login.jpg") center no-repeat;
@@ -31,4 +31,8 @@ body{
 
 .container a:hover{
   background: #e55039;
+}
+
+.table.celled{
+  margin-top:80px;
 }

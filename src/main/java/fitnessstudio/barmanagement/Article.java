@@ -1,5 +1,7 @@
 package fitnessstudio.barmanagement;
 
+import org.javamoney.moneta.Money;
+import org.jetbrains.annotations.NotNull;
 import org.salespointframework.catalog.Product;
 
 import javax.money.MonetaryAmount;
@@ -29,9 +31,23 @@ public class Article extends Product {
 
 	}
 
+	@NotNull
+	@Override
+	public MonetaryAmount getPrice() {
+		LocalDate today = LocalDate.now();
+		if (discount.getPercent() == 0 || today.compareTo(discount.getEndDate()) > 0 ||
+			discount.getStartDate().compareTo(today) > 0) {
+			return super.getPrice();
+		} else {
+			double deduction = super.getPrice().getNumber().longValue() * ((double) discount.getPercent() / 100);
+			return Money.of(super.getPrice().getNumber().longValue() - deduction, "EUR");
+		}
+	}
+
 	public String getArt() {
 		return art;
 	}
+
 
 	public void setArt(String art) {
 		this.art = art;

@@ -18,25 +18,27 @@ public interface ArticleForm {
 	String getDescription();
 
 	@NotEmpty
+	@Digits(fraction = 0, integer = 5)
 	String getPrice();
 
-	@DateTimeFormat(pattern = "dd.mm.yyyy")
-	String getExpriationDate();
+	@NotEmpty
+	@DateTimeFormat(pattern = "dd.MM.yyyy")
+	String getExpiationDate();
 
 	@NotEmpty
 	@Size(min = 1, max = 99, message = "percent of discount from 0-99")
 	String getPercentDiscount();
 
 	@NotEmpty
-	@DateTimeFormat(pattern = "dd.mm.yyyy")
+	@DateTimeFormat(pattern = "dd.MM.yyyy")
 	String getStartDiscount();
 
 	@NotEmpty
-	@DateTimeFormat(pattern = "dd.mm.yyyy")
+	@DateTimeFormat(pattern = "dd.MM.yyyy")
 	String getEndDiscount();
 
 	@NotEmpty
-	@Digits(fraction = 0, integer = 10)
+	@Digits(fraction = 0, integer = 5)
 	String getNubmer();
 
 }
