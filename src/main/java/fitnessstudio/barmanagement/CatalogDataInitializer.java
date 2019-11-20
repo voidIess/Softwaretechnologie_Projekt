@@ -4,7 +4,6 @@ import org.javamoney.moneta.Money;
 import org.salespointframework.core.DataInitializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -16,10 +15,13 @@ public class CatalogDataInitializer implements DataInitializer {
 
 	private static final Logger LOG = LoggerFactory.getLogger(CatalogDataInitializer.class);
 
-	@Autowired
-	private ArticleCatalog catalog;
-	@Autowired
-	private DiscountRepository discountRepository;
+	private final ArticleCatalog catalog;
+	private final DiscountRepository discountRepository;
+
+	public CatalogDataInitializer(ArticleCatalog catalog, DiscountRepository discountRepository) {
+		this.catalog = catalog;
+		this.discountRepository = discountRepository;
+	}
 
 
 	@Override

@@ -6,6 +6,5 @@ import org.springframework.stereotype.Controller;
 @Controller
 public class InventoryController {
 
-	@Autowired
-	private ArticleCatalog catalog;
+
 }

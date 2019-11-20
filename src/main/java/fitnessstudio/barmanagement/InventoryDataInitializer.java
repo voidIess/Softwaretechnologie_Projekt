@@ -4,16 +4,18 @@ import org.salespointframework.core.DataInitializer;
 import org.salespointframework.inventory.UniqueInventory;
 import org.salespointframework.inventory.UniqueInventoryItem;
 import org.salespointframework.quantity.Quantity;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class InventoryDataInitializer implements DataInitializer {
 
-	@Autowired
-	private ArticleCatalog catalog;
-	@Autowired
-	private UniqueInventory<UniqueInventoryItem> inventory;
+	private final ArticleCatalog catalog;
+	private final UniqueInventory<UniqueInventoryItem> inventory;
+
+	public InventoryDataInitializer(UniqueInventory<UniqueInventoryItem> inventory, ArticleCatalog catalog) {
+		this.inventory = inventory;
+		this.catalog = catalog;
+	}
 
 
 	@Override
