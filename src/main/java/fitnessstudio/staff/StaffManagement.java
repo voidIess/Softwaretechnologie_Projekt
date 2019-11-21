@@ -31,6 +31,7 @@ public class StaffManagement {
 		Staff staff = opt.get();
 
 		Map<String, Object> map = new HashMap<>();
+		map.put("id", staff.getStaffId());
 		map.put("firstName", staff.getFirstName());
 		map.put("lastName", staff.getLastName());
 		map.put("salary", staff.getSalary());
