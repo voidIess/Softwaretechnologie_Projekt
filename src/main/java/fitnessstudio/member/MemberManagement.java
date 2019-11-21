@@ -1,5 +1,6 @@
 package fitnessstudio.member;
 
+import fitnessstudio.staff.Staff;
 import org.javamoney.moneta.Money;
 import org.salespointframework.useraccount.Password;
 import org.salespointframework.useraccount.Role;
@@ -11,7 +12,9 @@ import org.springframework.util.Assert;
 import org.springframework.validation.Errors;
 
 import javax.transaction.Transactional;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -112,4 +115,17 @@ public class MemberManagement {
 		members.save(member);
 	}
 
+	Map<String, Object> createPdfInvoice(UserAccount account) {
+
+		Optional<Member> opt = members.findByUserAccount(account);
+		Assert.isTrue(opt.isPresent(), "There is no existing member for this account");
+		Member member = opt.get();
+
+		Map<String, Object> map = new HashMap<>();
+		map.put("id", member.getMemberId());
+		map.put("firstName", member.getFirstName());
+		map.put("lastName", member.getLastName());
+
+		return map;
+	}
 }

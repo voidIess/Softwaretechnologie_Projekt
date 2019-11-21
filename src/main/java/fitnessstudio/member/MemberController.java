@@ -103,4 +103,16 @@ public class MemberController {
 		return "redirect:/admin/authorizeMember";
 	}
 
+	@PostMapping("/printPdfInvoice")
+	public String printPdfInvoice(@LoggedIn Optional<UserAccount> userAccount, Model model) {
+
+		if (userAccount.isEmpty()) {
+			return "redirect:/login";
+		}
+
+		model.addAttribute("type", "invoice");
+		model.addAllAttributes(memberManagement.createPdfInvoice(userAccount.get()));
+
+		return "pdfView";
+	}
 }

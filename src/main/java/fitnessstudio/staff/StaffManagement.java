@@ -24,7 +24,7 @@ public class StaffManagement {
 		return staffRepo.findByUserAccount(userAccount);
 	}
 
-	Map<String, Object> createPdf(UserAccount account) {
+	Map<String, Object> createPdfPayslip(UserAccount account) {
 
 		Optional<Staff> opt = staffRepo.findByUserAccount(account);
 		Assert.isTrue(opt.isPresent(), "There is no existing staff for this account");

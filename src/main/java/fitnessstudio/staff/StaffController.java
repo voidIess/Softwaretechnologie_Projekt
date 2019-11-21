@@ -83,15 +83,15 @@ public class StaffController {
 
 	// prints payslip of given staff
 	@PreAuthorize("hasRole('STAFF')")
-	@PostMapping("/printPdf")
-	public String printPdf(@LoggedIn Optional<UserAccount> userAccount, Model model) {
+	@PostMapping("/printPdfPayslip")
+	public String printPdfPayslip(@LoggedIn Optional<UserAccount> userAccount, Model model) {
 
 		if (userAccount.isEmpty()) {
 			return "redirect:/login";
 		}
 
 		model.addAttribute("type", "payslip");
-		model.addAllAttributes(staffManagement.createPdf(userAccount.get()));
+		model.addAllAttributes(staffManagement.createPdfPayslip(userAccount.get()));
 
 		return "pdfView";
 	}

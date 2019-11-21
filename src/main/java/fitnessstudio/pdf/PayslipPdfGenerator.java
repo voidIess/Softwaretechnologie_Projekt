@@ -21,20 +21,6 @@ public class PayslipPdfGenerator implements PdfGenerator {
 
 	public static Document generatePdf(Map<String, Object> payslip, Document d) throws IOException {
 
-		d.setFont(PdfFontFactory.createFont(FontConstants.HELVETICA));
-
-		Paragraph title = new Paragraph("Gehaltsabrechnung");
-		title.setFontSize(22f);
-		title.setBold();
-		d.add(title);
-
-		String month = PdfGenerator.getGermanMonth(LocalDate.now().getMonthValue());
-		String year = Integer.toString(LocalDate.now().getYear());
-		Paragraph date = new Paragraph(month + " " + year);
-		date.setTextAlignment(TextAlignment.RIGHT);
-		date.setBold();
-		d.add(date);
-
 		float[] columnWidth = {200f, 200f};
 		Table table = new Table(columnWidth);
 		table.setMarginTop(30f);
