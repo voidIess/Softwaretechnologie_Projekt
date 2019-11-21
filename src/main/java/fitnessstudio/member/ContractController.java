@@ -5,9 +5,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.Assert;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
@@ -18,7 +16,7 @@ public class ContractController {
 	private static final String REDIRECT_LOGIN = "redirect:/login";
 	private final ContractManagement contractManagement;
 
-	ContractController(ContractManagement contractManagement){
+	ContractController(ContractManagement contractManagement) {
 		Assert.notNull(contractManagement, "ContractManagement must not be null");
 
 		this.contractManagement = contractManagement;
@@ -37,6 +35,13 @@ public class ContractController {
 	public String createNew(@Valid ContractForm form, Model model) {
 		contractManagement.createContract(form);
 
-		return "redirect:/";
+		return "redirect:/admin/contracts";
+	}
+
+
+	@GetMapping("admin/contracts")
+	public String contracts(Model model) {
+		model.addAttribute("contractList", contractManagement.getAllContracts());
+		return "contracts";
 	}
 }

@@ -1,14 +1,12 @@
 package fitnessstudio.member;
 
 import org.javamoney.moneta.Money;
-import org.salespointframework.useraccount.Password;
 import org.salespointframework.useraccount.UserAccountManager;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
-import org.springframework.validation.Errors;
 
 import javax.transaction.Transactional;
-import java.util.Optional;
+import java.util.List;
 
 @Service
 @Transactional
@@ -17,7 +15,7 @@ public class ContractManagement {
 	private final ContractRepository contracts;
 	private final UserAccountManager userAccounts;
 
-	public ContractManagement(ContractRepository contracts, UserAccountManager userAccounts){
+	public ContractManagement(ContractRepository contracts, UserAccountManager userAccounts) {
 		Assert.notNull(contracts, "ContractRepository must not be null");
 		Assert.notNull(userAccounts, "UserAccountManager must not be null");
 
@@ -34,5 +32,9 @@ public class ContractManagement {
 		var duration = form.getDuration();
 
 		return contracts.save(new Contract(name, description, price, duration));
+	}
+
+	public List<Contract> getAllContracts() {
+		return contracts.findAll().toList();
 	}
 }
