@@ -12,6 +12,9 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.support.SessionStatus;
+
+import javax.validation.Valid;
 
 
 @Controller
@@ -34,6 +37,27 @@ public class BarController {
 
 		model.addAttribute("inventory", inventory.findAll());
 		return ("sell_catalog");
+	}
+
+	@PostMapping("/sell")
+	public String sell(@ModelAttribute Cart cart, @Valid BarForm form, SessionStatus status) {
+
+		// TODO: get member
+
+		// TODO: choose cash or credit
+
+		// TODO: check credit enough money
+
+		// TODO: pay
+
+		// TODO: update member( update credit and add invoice)
+
+		// TODO: check if quantity = 0( add to "Nachbestelliste )
+
+		// TODO: update stock
+
+		status.setComplete();
+		return "redirect:/";
 	}
 
 	@ModelAttribute("cart")
