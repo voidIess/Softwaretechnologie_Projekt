@@ -29,10 +29,13 @@
                         <span th:text="${member.firstName}">Vorname</span>
                         <span th:text="${member.lastName}">Nachname</span>
                     </p>
-                    <p class="header">Bonuscode:
+                    <p>Vertrag:
+                        <span th:text="${member.contract.name}">Vertrag</span>
+                    </p>
+                    <p>Bonuscode:
                         <span th:text="${member.getMemberId()}">0000</span>
                     </p>
-                    <p class="header">Guthaben:
+                    <p>Guthaben:
                         <span th:text="${{member.credit}}">0.00 €</span>
                     </p></b>
 
