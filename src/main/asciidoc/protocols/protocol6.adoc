@@ -67,14 +67,12 @@ Nächster Meilenstein: Sonntag, 01.12.2019.
 [option="headers"]
 |===
 |Issue |Titel |Beschreibung |Verantwortlicher |Status
-|#1     |SVGs der Entwurfsdiagramme  |…            |Markus          |abgeschlossen
-|#2     |Testplan ausfüllen  |…            |Lea         |in Arbeit
-|#3     |Prototyp (StaffManagement)  |…            |Markus          |in Arbeit
-|#4     |Prototyp (MemberManagement)  |…            |Bill          |in Arbeit
-|#5     |Prototyp (StaffManagement)  |…            |Lea          |in Arbeit
-|#6     |Prototyp (BarManagement)  |…            |Julius          |in Arbeit
-|#7     |Prototyp (Globale Variablen)  |…            |Vu          |in Arbeit
-|#8     |Entwickler Dokumentation   |…            |alle          |in Arbeit
+
+|     |Basisfunktionalität (StaffManagement - Roster)  |…            |Markus          |in Arbeit
+|     |Basisfunktionalität (MemberManagement)  |…            |Bill          |in Arbeit
+|     |Basisfunktionalität (StaffManagement)  |…            |Lea          |in Arbeit
+|     |Basisfunktionalität (BarManagement)  |…            |Julius          |in Arbeit
+|     |Basisfunktionalität (Globale Variablen)  |…            |Vu          |in Arbeit
 
 
 |===
