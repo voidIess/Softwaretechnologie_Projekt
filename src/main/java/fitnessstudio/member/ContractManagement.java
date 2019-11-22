@@ -7,6 +7,7 @@ import org.springframework.util.Assert;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -36,5 +37,9 @@ public class ContractManagement {
 
 	public List<Contract> getAllContracts() {
 		return contracts.findAll().toList();
+	}
+
+	public Optional<Contract> findById(Long contractId){
+		return contracts.findById(contractId);
 	}
 }

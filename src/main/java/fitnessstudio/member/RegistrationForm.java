@@ -1,6 +1,7 @@
 package fitnessstudio.member;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 class RegistrationForm {
 
@@ -19,17 +20,20 @@ class RegistrationForm {
 	@NotEmpty(message = "{RegistrationForm.iban.NotEmpty}") //
 	private final String iban;
 
-	@NotEmpty(message = "{RegistrationForm.bic.NotEmpty}") //
+	@NotEmpty(message = "{RegistrationForm.bic.NotEmpty}")
 	private final String bic;
 
+	@NotNull(message = "{RegistrationForm.contract.NotNull")
+	private final Long contract;
 
-	public RegistrationForm(String firstName, String lastName, String userName, String password, String iban, String bic) {
+	public RegistrationForm(String firstName, String lastName, String userName, String password, String iban, String bic, Long contract) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.userName = userName;
 		this.password = password;
 		this.iban = iban;
 		this.bic = bic;
+		this.contract = contract;
 	}
 
 	public String getFirstName() {
@@ -52,5 +56,9 @@ class RegistrationForm {
 
 	public String getBic() {
 		return bic;
+	}
+
+	public Long getContract(){
+		return contract;
 	}
 }

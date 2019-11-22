@@ -19,6 +19,12 @@
         <h1>Verträge</h1>
     </header>
 
+    <a th:href="@{/admin/contract/create}">
+        <button class="ui blue button">
+            Vertrag erstellen
+        </button>
+    </a>
+
     <table class="ui celled table">
         <thead>
         <tr>
@@ -26,7 +32,8 @@
             <th>Name</th>
             <th>Beschreibung</th>
             <th>Preis</th>
-            <th>Dauer</th>
+            <th>Laufzeit (in Tagen)</th>
+            <th>Anzahl an Abbonnenten</th>
         </tr>
         </thead>
         <tbody th:remove="all-but-first">
@@ -36,6 +43,7 @@
             <td th:text="${contract.description}">Beschreibung</td>
             <td th:text="${contract.price}">Preis</td>
             <td th:text="${contract.duration}">Dauer</td>
+            <td th:text="${contract.getNumOfSubs()}">0</td>
         </tr>
         </tbody>
     </table>

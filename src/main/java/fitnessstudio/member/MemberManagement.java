@@ -27,6 +27,7 @@ public class MemberManagement {
 
 	private final MemberRepository members;
 	private final UserAccountManager userAccounts;
+	private final ContractManagement contractManagement;
 
 
 	/**
@@ -35,12 +36,14 @@ public class MemberManagement {
 	 * @param members      must not be {@literal null}.
 	 * @param userAccounts must not be {@literal null}.
 	 */
-	MemberManagement(MemberRepository members, UserAccountManager userAccounts) {
+	MemberManagement(MemberRepository members, UserAccountManager userAccounts, ContractManagement contractManagement) {
 		Assert.notNull(members, "MemberRepository must not be null!");
 		Assert.notNull(userAccounts, "UserAccountManager must not be null!");
+		Assert.notNull(contractManagement, "ContractManagement must not be null!");
 
 		this.members = members;
 		this.userAccounts = userAccounts;
+		this.contractManagement = contractManagement;
 	}
 
 	public Member createMember(RegistrationForm form, Errors result) {
@@ -51,6 +54,7 @@ public class MemberManagement {
 		var password = Password.UnencryptedPassword.of(form.getPassword());
 		var iban = form.getIban();
 		var bic = form.getBic();
+		var contract = form.getContract();
 
 		if (userAccounts.findByUsername(form.getUserName()).isPresent()) {
 			result.rejectValue("userName", "register.duplicate.userAccountName");
@@ -67,9 +71,16 @@ public class MemberManagement {
 			return null;
 		}
 
-		var userAccount = userAccounts.create(form.getUserName(), password, MEMBER_ROLE);
+		if (contract == null){
+			result.rejectValue("contract", "register.contract.missing");
+			return null;
+		}
 
-		return members.save(new Member(userAccount, firstName, lastName, iban, bic));
+		var userAccount = userAccounts.create(form.getUserName(), password, MEMBER_ROLE);
+		var member = new Member(userAccount, firstName, lastName, iban, bic);
+
+		member.setContract(contractManagement.findById(contract).get());
+		return members.save(member);
 
 	}
 
@@ -80,7 +91,9 @@ public class MemberManagement {
 
 	public void authorizeMember(Long memberId) {
 		Optional<Member> member = findById(memberId);
-		member.ifPresent(m -> m.getUserAccount().setEnabled(true));
+		member.ifPresent(m -> {
+			m.authorize();
+		});
 	}
 
 	public Streamable<Member> findAll() {

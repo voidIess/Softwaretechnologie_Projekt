@@ -75,7 +75,11 @@
         </div>
 
         <h2>Vertrag auswählen</h2>
-        <p>#TODO VERTRAG</p>
+        <select th:field="*{contract}">
+            <option th:each="contract : ${contractList}"
+                    th:value="${contract.contractId}"
+                    th:text="${contract.name}">leer</option>
+        </select><br/>
         <button type="submit" class="ui button" th:text="#{register.submit}">Registrieren</button>
     </form>
 </div>

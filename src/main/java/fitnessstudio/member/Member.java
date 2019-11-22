@@ -21,6 +21,9 @@ public class Member {
 	@Embedded
 	private CreditAccount creditAccount;
 
+	@ManyToOne
+	private Contract contract;
+
 	public Member() {
 	}
 
@@ -60,5 +63,18 @@ public class Member {
 
 	public void payIn(Money amount){
 		creditAccount.payIn(amount);
+	}
+
+	public Contract getContract() {
+		return contract;
+	}
+
+	public void setContract(Contract contract){
+		this.contract = contract;
+	}
+
+	public void authorize(){
+		getUserAccount().setEnabled(true);
+		getContract().subscribe(this);
 	}
 }

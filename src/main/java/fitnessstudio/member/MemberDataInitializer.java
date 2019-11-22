@@ -18,15 +18,17 @@ public class MemberDataInitializer implements DataInitializer {
 
 	private final UserAccountManager userAccountManager;
 	private final MemberManagement memberManagement;
+	private final MemberRepository members;
 
 
-	MemberDataInitializer(UserAccountManager userAccountManager, MemberManagement memberManagement){
+	MemberDataInitializer(UserAccountManager userAccountManager, MemberManagement memberManagement, MemberRepository members){
 
 		Assert.notNull(userAccountManager, "UserAccountManager must not be null");
 		Assert.notNull(memberManagement, "MemberManagement must not be null");
 
 		this.memberManagement = memberManagement;
 		this.userAccountManager = userAccountManager;
+		this.members = members;
 	}
 
 	@Override
@@ -39,11 +41,11 @@ public class MemberDataInitializer implements DataInitializer {
 		userAccountManager.create("boss", Password.UnencryptedPassword.of("123"),
 			Role.of("BOSS"), Role.of("STAFF"));
 
-		LOG.info("Creating default MEMBER (user: 'member', pass: '123'");
-		memberManagement.createMember(new RegistrationForm("FirstName", "LastName", "member", "123", "1234567891234567891234", "111111111"), null).getUserAccount().setEnabled(true);
+		//LOG.info("Creating default MEMBER (user: 'member', pass: '123'");
+		//memberManagement.createMember(new RegistrationForm("FirstName", "LastName", "member", "123", "1234567891234567891234", "111111111", 6L), null).getUserAccount().setEnabled(true);
 
-		LOG.info("Creating unauthorized MEMBER (user: 'member2', pass: '123'");
-		memberManagement.createMember(new RegistrationForm("FirstName", "LastName", "member2", "123", "1234567891234567891234", "111111111"), null);
+		//LOG.info("Creating unauthorized MEMBER (user: 'member2', pass: '123'");
+		//memberManagement.createMember(new RegistrationForm("FirstName", "LastName", "member2", "123", "1234567891234567891234", "111111111", 6L), null);
 
 	}
 }

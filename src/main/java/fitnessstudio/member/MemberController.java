@@ -18,18 +18,22 @@ public class MemberController {
 
 	private static final String REDIRECT_LOGIN = "redirect:/login";
 	private final MemberManagement memberManagement;
+	private final ContractManagement contractManagement;
 
 
-	MemberController(MemberManagement memberManagement) {
+	MemberController(MemberManagement memberManagement, ContractManagement contractManagement) {
 		Assert.notNull(memberManagement, "MemberManagement must not be null");
+		Assert.notNull(contractManagement, "ContractManagement must not be null");
 
 		this.memberManagement = memberManagement;
+		this.contractManagement = contractManagement;
 	}
 
 	@GetMapping("/register")
 	public String register(Model model, RegistrationForm form, Errors results) {
 		model.addAttribute("form", form);
 		model.addAttribute("error", results);
+		model.addAttribute("contractList", contractManagement.getAllContracts());
 		return "register";
 	}
 
