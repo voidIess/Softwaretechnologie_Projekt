@@ -2,20 +2,24 @@ package fitnessstudio.barmanagement;
 
 import fitnessstudio.member.Member;
 import org.salespointframework.inventory.InventoryItem;
-import org.salespointframework.inventory.MultiInventory;
+import org.salespointframework.inventory.InventoryItems;
+import org.salespointframework.inventory.UniqueInventoryItem;
 import org.salespointframework.order.Cart;
 import org.salespointframework.order.CartItem;
+import org.salespointframework.order.OrderManager;
 import org.salespointframework.payment.PaymentMethod;
 import org.salespointframework.quantity.Quantity;
 import org.springframework.data.util.Streamable;
+import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.SessionAttributes;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.money.MonetaryAmount;
 import java.time.LocalDate;
+import java.util.Iterator;
+import java.util.stream.Stream;
 
+@Service
 public class BarManager {
 
 	private ExpiringInventory inventory;
@@ -34,10 +38,11 @@ public class BarManager {
 	}
 
 
-	public Streamable<ExpiringInventoryItem> getExipredItems(){
+	public InventoryItems<ExpiringInventoryItem> getExipredItems() {
 		return inventory.findByExpirationDateAfterOrderByExpirationDateAsc(LocalDate.now());
 	}
-	public boolean addArticleToCart(Article article, Quantity quantity){
+
+	public boolean addArticleToCart(Article article, Quantity quantity) {
 
 		Quantity inventoryQuantity = inventory.findByProduct(article).getTotalQuantity();
 
@@ -51,37 +56,66 @@ public class BarManager {
 
 		return !addingQuantity.equals(Quantity.NONE);
 	}
-	public Iterable<Article> getAllArticles(){
+
+	public Iterable<Article> getAllArticles() {
 		return catalog.findAll();
 	}
-	public Streamable<Article> getAvailableArticles(){
+
+	// return articles, which are in stock and not expired
+	public Streamable<UniqueInventoryItem> getAvailableArticles() {
+		return Streamable.of(catalog.findAll())
+			.map(x -> new UniqueInventoryItem(x, inventory.findByProductAndExpirationDateBefore(x, LocalDate.now()).getTotalQuantity()))
+			.filter(x -> !x.getQuantity().isZeroOrNegative());
+	}
+
+	public Streamable<CartItem> getCartItems() {
+		return cart;
+	}
+
+	public MonetaryAmount getCartPrice() {
+		return cart.getPrice();
+	}
+
+	public void checkoutCart(Member customer, PaymentMethod paymentMethod) {
+		//TODO implement this
 		throw new NotImplementedException();
 	}
-	public Streamable<CartItem> getCartItems(){
-		throw new NotImplementedException();
+
+	public void addNewArticleToCatalog(Article article) {
+		catalog.save(article);
 	}
-	public MonetaryAmount getCartPrice(){
-		throw new NotImplementedException();
+
+	public void removeArticleFromCatalog(Article article) {
+		// TODO check if this is necessary
+		inventory.deleteAll(inventory.findByProduct(article));
+		catalog.delete(article);
 	}
-	public void checkoutCart(Member customer, PaymentMethod paymentMethod){
-		throw new NotImplementedException();
+
+	public void removeExpiredArticlesFromInventory() {
+		inventory.deleteAll(this.getExipredItems());
+
 	}
-	public void addNewArticleToCatalog(){
-		throw new NotImplementedException();
+
+	public void restockInventory(Quantity quantity, Article article, LocalDate expirationDate) {
+		ExpiringInventoryItem item = inventory.findByProduct(article)
+			.filter(x -> expirationDate.equals(x.getExpirationDate()))
+			.iterator().next();
+
+		item.increaseQuantity(quantity);
+		inventory.save(item);
 	}
-	public void removeArticleFromCatalog(){
-		throw new NotImplementedException();
+
+	public Streamable<Article> getLowStockArticles() {
+		return Streamable.of(catalog.findAll()).filter(
+			x -> inventory.findByProductAndExpirationDateBefore(x, LocalDate.now()).stream()
+				.map(InventoryItem::getQuantity)
+				.reduce(Quantity.NONE, Quantity::add)
+				.isLessThan(x.getSufficientQuantity()));
 	}
-	public void removeExpiredArticlesFromInventory(){
-		throw new NotImplementedException();
-	}
-	public void restockInventory(Quantity quantity, Article article, LocalDate expirationDate){
-		throw new NotImplementedException();
-	}
-	public Streamable<Article> getLowStockArticles(){
-		throw new NotImplementedException();
-	}
-	public Quantity getArticleQuantity(Article article){
-		throw new NotImplementedException();
+
+	public Quantity getArticleQuantity(Article article) {
+		return inventory.findByProductAndExpirationDateBefore(article, LocalDate.now()).stream()
+			.map(InventoryItem::getQuantity)
+			.reduce(Quantity.NONE, Quantity::add);
 	}
 }

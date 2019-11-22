@@ -1,5 +1,7 @@
 package fitnessstudio.barmanagement;
 
+import org.salespointframework.quantity.Quantity;
+
 import javax.money.MonetaryAmount;
 import javax.persistence.Entity;
 import java.time.LocalDate;
@@ -9,7 +11,7 @@ import java.util.Optional;
 public class Article extends org.salespointframework.catalog.Product {
 	private String art;
 	private String description;
-	private LocalDate expirationDate;
+	private Quantity sufficientQuantity;
 	//private Optional<Discount> discount;
 
 
@@ -19,10 +21,10 @@ public class Article extends org.salespointframework.catalog.Product {
 		super(name, price);
 		this.art = art;
 		this.description = description;
-		this.expirationDate = expirationDate;
 		//this.discount = Optional.empty();
 	}
 
-
-
+	public Quantity getSufficientQuantity() {
+		return sufficientQuantity;
+	}
 }
