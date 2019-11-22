@@ -1,0 +1,81 @@
+= Protokoll Gruppe 16
+
+Treffen am 19.11.2019
+
+Ort:      APB/E023 +
+Beginn:   16:40 Uhr +
+Ende:     17:15 Uhr
+
+__Schriftführer: Markus Wieland__
+
+*Nächstes Treffen:* +
+29.11.2019, 16:40 Uhr, APB (Zwischenpräsentation)
+
+__Teilnehmer:__
+//Tabellarisch oder Aufzählung, Kennzeichnung von Teilnehmern mit besonderer Rolle (z.B. Kunde)
+
+- Anita Fritzsche (Tutorin/Kundin)
+- Julius Schmitt
+- Bill Kippe
+- Markus Wieland
+- Quang Vu Ha
+- Lea Häusler
+
+== Bemerkungen
+
+Nächsten Dienstag findet kein Kundentreffen statt. Dieses wird mit am Freitag den 29.11. gemacht. An diesem Tag ist auch der Termin für die Zwischenpräsentation.
+
+Die Zwischenpräsentation wird mit der anderen Gruppe zusammen gemacht. Wir stellen uns gegenseitig unseren Fortschritt vor. Inhalt der Präsentation soll sein:#
+
+* 10 Minuten Features vorstellen
+* 10 Minuten Herangehensweise (Powerpoint)
+* 10 Minuten zur Diskussion mit der anderen Gruppe.
+
+== Retrospektive des letzten Sprints
+*Issue referenziert die Issue ID von GitHub*
+// Wie ist der Status der im letzten Sprint erstellten Issues/veteilten Aufgaben?
+
+// See http://asciidoctor.org/docs/user-manual/=tables
+[option="headers"]
+|===
+|Issue |Aufgabe |Status |Bemerkung
+|#1     |SVGs der Entwurfsdiagramme     |abgeschlossen|Markus         
+|#2     |Testplan ausfüllen             |abgeschlossen|Lea         
+|#3     |Prototyp (StaffManagement)     |abgeschlossen|Markus     
+|#4     |Prototyp (MemberManagement)    |abgeschlossen|Bill         
+|#5     |Prototyp (StaffManagement)     |abgeschlossen|Lea         
+|#6     |Prototyp (BarManagement)       |abgeschlossen|Julius          
+|#7     |Prototyp (Globale Variablen)   |abgeschlossen|Vu      
+|#8     |Entwickler Dokumentation       |abgeschlossen|alle         
+
+
+|===
+
+
+== Aktueller Stand
+
+Die Entwurfsdiagramme der einzelnen Packages sind fertig und in die Entwicklerdoku eingetragen. Der Prototyp besteht aus allen Features und ist voll einsatzbereit. Der Testplan ist fertig.
+
+Nun geht es darum die Basisfunktionalitäten zu implementieren. Wir dürfen dafür auf dem Prototypen aufbauen.
+
+Nächster Meilenstein: Sonntag, 01.12.2019. 
+
+== Planung des nächsten Sprints
+*Issue referenziert die Issue ID von GitHub*
+
+// See http://asciidoctor.org/docs/user-manual/=tables
+[option="headers"]
+|===
+|Issue |Titel |Beschreibung |Verantwortlicher |Status
+|#1     |SVGs der Entwurfsdiagramme  |…            |Markus          |abgeschlossen
+|#2     |Testplan ausfüllen  |…            |Lea         |in Arbeit
+|#3     |Prototyp (StaffManagement)  |…            |Markus          |in Arbeit
+|#4     |Prototyp (MemberManagement)  |…            |Bill          |in Arbeit
+|#5     |Prototyp (StaffManagement)  |…            |Lea          |in Arbeit
+|#6     |Prototyp (BarManagement)  |…            |Julius          |in Arbeit
+|#7     |Prototyp (Globale Variablen)  |…            |Vu          |in Arbeit
+|#8     |Entwickler Dokumentation   |…            |alle          |in Arbeit
+
+
+|===
+
