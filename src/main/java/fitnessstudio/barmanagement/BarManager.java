@@ -1,12 +1,10 @@
 package fitnessstudio.barmanagement;
 
 import fitnessstudio.member.Member;
-import org.salespointframework.inventory.InventoryItem;
 import org.salespointframework.inventory.InventoryItems;
 import org.salespointframework.inventory.UniqueInventoryItem;
 import org.salespointframework.order.Cart;
 import org.salespointframework.order.CartItem;
-import org.salespointframework.order.OrderManager;
 import org.salespointframework.payment.PaymentMethod;
 import org.salespointframework.quantity.Quantity;
 import org.springframework.data.util.Streamable;
@@ -16,8 +14,6 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.money.MonetaryAmount;
 import java.time.LocalDate;
-import java.util.Iterator;
-import java.util.stream.Stream;
 
 @Service
 public class BarManager {
@@ -107,15 +103,11 @@ public class BarManager {
 
 	public Streamable<Article> getLowStockArticles() {
 		return Streamable.of(catalog.findAll()).filter(
-			x -> inventory.findByProductAndExpirationDateBefore(x, LocalDate.now()).stream()
-				.map(InventoryItem::getQuantity)
-				.reduce(Quantity.NONE, Quantity::add)
+			x -> inventory.findByProductAndExpirationDateBefore(x, LocalDate.now()).getTotalQuantity()
 				.isLessThan(x.getSufficientQuantity()));
 	}
 
 	public Quantity getArticleQuantity(Article article) {
-		return inventory.findByProductAndExpirationDateBefore(article, LocalDate.now()).stream()
-			.map(InventoryItem::getQuantity)
-			.reduce(Quantity.NONE, Quantity::add);
+		return inventory.findByProductAndExpirationDateBefore(article, LocalDate.now()).getTotalQuantity();
 	}
 }
