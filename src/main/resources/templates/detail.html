@@ -39,6 +39,10 @@
             <td>Menge</td>
             <td th:text="${quantity}">Menge</td>
         </tr>
+        <tr>
+            <td>Mhd</td>
+            <td th:text="${article.expirationDate}">mhd</td>
+        </tr>
         </tbody>
 
 
@@ -46,7 +50,7 @@
     <!-- Edit button -->
     <div class="ui one column centered grid">
         <div class="column">
-            <a th:href="@{/artikel/edit/{id}(id=${article.id})}">
+            <a th:href="@{/article/edit/{id}(id=${article.id})}">
                 <button class="ui blue button">
                     <i class="edit icon"></i>Artikel bearbeiten
                 </button>
@@ -56,7 +60,7 @@
 
     <!-- Delete button -->
         <div class="column">
-            <a th:href="@{/artikel/delete/{id}(id=${article.id})}">
+            <a th:href="@{/article/detail/{id}(id=${article.id})}">
                 <button class="ui red button right floated">
                     <i class="trash icon"></i>Artikel löschen
                 </button>

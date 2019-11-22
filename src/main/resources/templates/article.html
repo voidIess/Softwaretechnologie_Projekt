@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css" type="text/css"/>
     <link th:href="@{/resources/css/style.css}" rel="stylesheet"
           href="../static/resources/css/style.css" type="text/css"/>
-
+    <title>Katalog</title>
 </head>
 <body>
 
@@ -22,59 +22,61 @@
 
         <fieldset>
             <Label>Name</Label><label for="name"></label><input type="text" th:field="*{name}"
-                                                                                 id="name"
-                                                                                 required/>
+                                                                id="name"
+                                                                required/>
         </fieldset>
 
         <fieldset>
             <Label>Preis in Euro</Label><label for="price"></label><input type="number" th:field="*{price}"
-                                                              id="price"
-                                                              required/>
+                                                                          id="price"
+                                                                          required/>
         </fieldset>
 
         <fieldset>
             <Label>Art</Label><label for="art"></label><input type="text" th:field="*{art}"
-                                                                                 id="art"
-                                                                                 required/>
+                                                              id="art"
+                                                              required/>
         </fieldset>
 
         <fieldset>
             <Label>Beschreibung</Label><label for="description"></label><input type="text" th:field="*{description}"
-                                                                                 id="description"
-                                                                                 required/>
+                                                                               id="description"
+                                                                               required/>
         </fieldset>
 
         <fieldset>
-            <Label>Mindesthaltbarkeitsdatum</Label><label for="expirationDate"></label><input type="date" th:field="*{expiationDate}"
-                                                                                 id="expirationDate"
-                                                                                 required/>
+            <Label>Mindesthaltbarkeitsdatum</Label><label for="expirationDate"></label><input type="date"
+                                                                                              th:field="*{expiationDate}"
+                                                                                              id="expirationDate"
+                                                                                              required/>
         </fieldset>
 
         <fieldset>
             <Label>Rabatt vom</Label><label for="startDiscount"></label><input type="date"
-                                                                                 th:field="*{startDiscount}"
-                                                                                 id="startDiscount"
-                                                                                 required/>
+                                                                               th:field="*{startDiscount}"
+                                                                               id="startDiscount"
+                                                                               required/>
         </fieldset>
 
         <fieldset>
-            <Label>Rabatt in Prozent</Label><label for="percentDiscount"></label><input type="number" th:field="*{percentDiscount}"
-                                                                               id="percentDiscount" required/>
+            <Label>Rabatt in Prozent</Label><label for="percentDiscount"></label><input type="number"
+                                                                                        th:field="*{percentDiscount}"
+                                                                                        id="percentDiscount" required/>
         </fieldset>
 
 
         <fieldset>
             <Label>Rabatt bis</Label><label for="endDiscount"></label><input type="date"
-                                                                                  th:field="*{endDiscount}"
-                                                                                  id="endDiscount"
-                                                                                  required/>
+                                                                             th:field="*{endDiscount}"
+                                                                             id="endDiscount"
+                                                                             required/>
         </fieldset>
 
         <fieldset>
             <Label>Anzahl</Label><label for="number"></label><input type="number"
-                                                                             th:field="*{nubmer}"
-                                                                             id="number"
-                                                                             required/>
+                                                                    th:field="*{number}"
+                                                                    id="number"
+                                                                    required/>
         </fieldset>
 
 

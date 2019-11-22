@@ -12,7 +12,7 @@ body{
   margin: 20px 0 0;
   font-weight: 900;
   letter-spacing: 3px;
-  background: url("../images/login.jpg") no-repeat;
+  background: url("../images/login.jpg") center no-repeat;
   -webkit-text-fill-color: transparent;
   -webkit-background-clip: text;
 }
@@ -34,5 +34,5 @@ body{
 }
 
 .table.celled{
-  margin-top:80px;
+  margin-top:70px;
 }

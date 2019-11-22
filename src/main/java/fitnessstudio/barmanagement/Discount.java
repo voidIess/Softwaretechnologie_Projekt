@@ -14,7 +14,6 @@ public class Discount {
 	private LocalDate startDate;
 	private LocalDate endDate;
 	private int percent;
-
 	public Discount() {
 	}
 
@@ -22,6 +21,10 @@ public class Discount {
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.percent = percent;
+	}
+
+	public Long getId() {
+		return id;
 	}
 
 	public LocalDate getStartDate() {

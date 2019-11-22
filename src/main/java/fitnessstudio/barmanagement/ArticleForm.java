@@ -39,6 +39,6 @@ public interface ArticleForm {
 
 	@NotEmpty
 	@Digits(fraction = 0, integer = 5)
-	String getNubmer();
+	String getNumber();
 
 }

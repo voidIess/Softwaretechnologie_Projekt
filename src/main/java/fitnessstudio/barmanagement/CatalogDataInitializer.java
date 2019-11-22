@@ -40,6 +40,6 @@ public class CatalogDataInitializer implements DataInitializer {
 			"10kg", endDate, discount));
 		catalog.save(new Article("Serious Mass", Money.of(13.37, EURO), "Essen",
 			"gesund",
-			LocalDate.MIN, discount));
+			endDate, discount));
 	}
 }

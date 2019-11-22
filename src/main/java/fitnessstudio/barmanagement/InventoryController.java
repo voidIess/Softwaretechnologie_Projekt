@@ -2,18 +2,22 @@ package fitnessstudio.barmanagement;
 
 
 import org.javamoney.moneta.Money;
+import org.salespointframework.catalog.ProductIdentifier;
 import org.salespointframework.inventory.UniqueInventory;
 import org.salespointframework.inventory.UniqueInventoryItem;
 import org.salespointframework.quantity.Quantity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
 @Controller
 public class InventoryController {
@@ -45,13 +49,33 @@ public class InventoryController {
 
 		Discount discount = new Discount(startDate, endDate, Integer.parseInt(form.getPercentDiscount()));
 
-
-		Article article = new Article(form.getName(), Money.of(new BigDecimal(form.getPrice()), "EUR"),
-			form.getArt(), form.getDescription(), expirationDate, discount);
+		Article article = new Article(form.getName(),
+			Money.of(new BigDecimal(form.getPrice()), "EUR"),
+			form.getArt(),
+			form.getDescription(),
+			expirationDate,
+			discount);
 		discountRepository.save(discount);
 		catalog.save(article);
-		inventory.save(new UniqueInventoryItem(article, Quantity.of(Integer.parseInt(form.getNubmer()))));
+		inventory.save(new UniqueInventoryItem(article, Quantity.of(Integer.parseInt(form.getNumber()))));
 		return "redirect:/catalog";
 	}
+
+	@GetMapping("/article/detail/{id}")
+	public String delete(@PathVariable ProductIdentifier id) {
+
+		inventory.findAll().forEach(uniqueInventoryItem -> {
+			Article article = (Article) uniqueInventoryItem.getProduct();
+			if (Objects.equals(article.getId(), id)) {
+				inventory.delete(uniqueInventoryItem);
+				catalog.delete(article);
+			}
+		});
+
+		return "redirect:/catalog";
+	}
+
+
+	// TODO: editArticle
 
 }

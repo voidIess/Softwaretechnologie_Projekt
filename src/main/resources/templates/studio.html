@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css" type="text/css"/>
     <link th:href="@{/resources/css/style.css}" rel="stylesheet"
           href="../static/resources/css/style.css" type="text/css"/>
-    <title th:text="#{register.title}">Registrierung</title>
+    <title>Studio</title>
 
 </head>
 <body>
@@ -19,8 +19,7 @@
 <div class="container">
     <form method="post" role="form" class="ui form" id="form" th:action="@{/studio}" th:object="${studioForm}">
 
-        <h3>Hello Boss</h3>
-        <h4>May the force be with you</h4>
+        <h1>Studio bearbeiten</h1>
 
         <fieldset>
             <Label>Opening Times</Label><label for="openingTimes"></label><input type="text" th:field="*{openingTimes}"
