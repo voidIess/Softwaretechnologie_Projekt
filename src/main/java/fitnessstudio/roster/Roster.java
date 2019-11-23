@@ -35,7 +35,7 @@ public class Roster {
 	}
 
 	public void addEntry (int shift, int day, RosterEntry rosterEntry) {
-		TableRow tableRow =rows.get(shift);
+		TableRow tableRow = rows.get(shift);
 		tableRow.addEntry(day, rosterEntry);
 		RosterManager.saveTableRow(tableRow);
 	}

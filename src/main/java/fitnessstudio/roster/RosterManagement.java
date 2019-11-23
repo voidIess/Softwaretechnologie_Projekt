@@ -26,11 +26,13 @@ public class RosterManagement {
 		this.slots = slots;
 	}
 
-
 	public void createRosterEntry(RosterEntryForm rosterEntryForm, Errors result) {
 
 		Staff staff = staffs.findById(Long.valueOf(rosterEntryForm.getStaff())).orElse(null);
-		if (staff == null) result.reject("roster.error.staff", "Dieser Staff existiert nicht.");
+		if (staff == null) {
+			result.reject("roster.error.staff", "Dieser Staff existiert nicht.");
+			return;
+		}
 
 		Roster roster = RosterManager.getRoster();
 		StaffRole role;
@@ -58,6 +60,12 @@ public class RosterManagement {
 				}
 			}
 		}
+	}
+
+	public void editRosterEntry (RosterEntryForm form, Errors result){
+		RosterEntry rosterEntry = RosterManager.getEntryById(Long.parseLong(form.getDay()));
+		rosterEntry.setRole(RosterManager.getRoleByString(form.getRole()));
+		RosterManager.saveRosterEntry(rosterEntry);
 	}
 
 	public void createRosterEntry(int day, int shift, RosterEntry rosterEntry) {

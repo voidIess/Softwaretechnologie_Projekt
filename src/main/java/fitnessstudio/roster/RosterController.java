@@ -64,17 +64,26 @@ public class RosterController {
 	}
 
 	@PreAuthorize("hasRole('STAFF') or hasRole('BOSS')")
+	@PostMapping("/roster/edit")
+	String edit(@Valid @ModelAttribute("form") RosterEntryForm form, Model model, Errors result) {
+		rosterManagement.editRosterEntry(form, result);
+		return "redirect:/roster";
+	}
+
+	@PreAuthorize("hasRole('STAFF') or hasRole('BOSS')")
 	@GetMapping("/roster/detail/{day}/{slot}/{id}")
-	String detail(@PathVariable Long day, @PathVariable Long slot, @PathVariable Long id, Model model) {
+	String detail(@PathVariable Long day, @PathVariable Long slot, @PathVariable Long id, RosterEntryForm form,  Model model) {
 		model.addAttribute("shift", day);
+		model.addAttribute("slot", RosterManager.getRowById(day));
 		model.addAttribute("day", slot);
+		model.addAttribute("form", form);
 		model.addAttribute("rosterEntry", RosterManager.getEntryById(id));
 		model.addAttribute("roles", RosterManager.getRoles());
-		//rosterManagement.deleteRosterEntry(slot, id);
 		return "rosterDetail";
 	}
 
 	//TODO: Tests
-	//TODO: Bearbeiten und löschen
+	//TODO: Crash sicher machen
 	//TODO: Nichts hinzufügen, wenn er bereits arbeitet, da sonst die sachen da ausgewählt werden.
+	//TODO: Nach Mitarbeitern filtern
 }

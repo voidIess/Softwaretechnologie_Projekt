@@ -1,5 +1,6 @@
 package fitnessstudio.roster;
 
+import fitnessstudio.staff.StaffRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -25,8 +26,6 @@ public class RosterManager {
 		return rosterManager;
 	}
 
-
-
 	@Autowired
 	public void setRosterEntryRepository(RosterEntryRepository rosterEntryRepository) {
 		this.rosterEntryRepository = rosterEntryRepository;
@@ -36,10 +35,12 @@ public class RosterManager {
 	public void setRosterRepository(RosterRepository rosterRepository) {
 		this.rosterRepository = rosterRepository;
 	}
+
 	@Autowired
 	public void setTableRowRepository(TableRowRepository tableRowRepository) {
 		this.tableRowRepository = tableRowRepository;
 	}
+
 	@Autowired
 	public void setSlotRepository(SlotRepository slotRepository) {
 		this.slotRepository = slotRepository;
@@ -69,8 +70,17 @@ public class RosterManager {
 		return rosterEntryRepository.findById(id).orElse(null);
 	}
 
+	public static TableRow getRowById(Long id){
+		return tableRowRepository.findById(id).orElse(null);
+	}
+
 	public static Roster getRoster() {
 		return rosterRepository.findAll().iterator().next();
+	}
+
+	public static StaffRole getRoleByString(String role){
+		if (role.equals("Trainer")) return StaffRole.TRAINER;
+		else return StaffRole.COUNTER;
 	}
 
 	public static List<String> getRoles(){
@@ -79,7 +89,5 @@ public class RosterManager {
 		roles.add("Trainer");
 		return roles;
 	}
-
-
 
 }
