@@ -3,6 +3,9 @@ package fitnessstudio.roster;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Component
 public class RosterManager {
 
@@ -68,6 +71,13 @@ public class RosterManager {
 
 	public static Roster getRoster() {
 		return rosterRepository.findAll().iterator().next();
+	}
+
+	public static List<String> getRoles(){
+		List<String> roles = new ArrayList<>();
+		roles.add("Thekenkraft");
+		roles.add("Trainer");
+		return roles;
 	}
 
 

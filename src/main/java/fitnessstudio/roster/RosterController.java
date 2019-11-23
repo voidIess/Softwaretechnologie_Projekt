@@ -40,10 +40,7 @@ public class RosterController {
 	String new_roster_entry(Model model, RosterEntryForm form, Errors errors) {
 		model.addAttribute("form", form);
 		model.addAttribute("times", RosterManager.getRoster().getRows());
-		List<String> roles = new ArrayList<>();
-		roles.add("Thekenkraft");
-		roles.add("Trainer");
-		model.addAttribute("roles", roles);
+		model.addAttribute("roles", RosterManager.getRoles());
 		model.addAttribute("staffs", staffs.findAll());
 		model.addAttribute("errors", errors);
 		return "rosterNew";
@@ -59,17 +56,20 @@ public class RosterController {
 		return "redirect:/roster";
 	}
 
+	@PreAuthorize("hasRole('STAFF') or hasRole('BOSS')")
 	@GetMapping("/roster/detail/delete/{slot}/{id}")
 	String delete(@PathVariable Long slot, @PathVariable Long id, Model model) {
 		rosterManagement.deleteRosterEntry(slot, id);
 		return "redirect:/roster";
 	}
 
+	@PreAuthorize("hasRole('STAFF') or hasRole('BOSS')")
 	@GetMapping("/roster/detail/{day}/{slot}/{id}")
 	String detail(@PathVariable Long day, @PathVariable Long slot, @PathVariable Long id, Model model) {
 		model.addAttribute("shift", day);
 		model.addAttribute("day", slot);
 		model.addAttribute("rosterEntry", RosterManager.getEntryById(id));
+		model.addAttribute("roles", RosterManager.getRoles());
 		//rosterManagement.deleteRosterEntry(slot, id);
 		return "rosterDetail";
 	}

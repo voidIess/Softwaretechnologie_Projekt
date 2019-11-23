@@ -51,7 +51,7 @@ public class RosterEntry implements Comparable<RosterEntry> {
 		this.staff = staff;
 	}
 
-	private String roleToString () {
+	public String roleToString () {
 		if (role == StaffRole.COUNTER){
 			return "Thekenkraft";
 		} else {
