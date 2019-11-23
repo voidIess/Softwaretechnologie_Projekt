@@ -24,7 +24,7 @@
            th:text="#{nav.admin.members}">Mitglieder</a>
 
         <a class="item" href="contracts.html" th:href="@{/admin/contracts}" sec:authorize="hasRole('BOSS') or hasRole('STAFF')"
-           th:text="#{nav.admin.contracts}">Verträge</a>
+           th:text="#{nav.admin.contracts}">Verträge bearbeiten</a>
 
         <a class="item" href="roster.html" th:href="@{/roster}" sec:authorize="hasRole('BOSS') or hasRole('STAFF')"
            th:text="#{roster.title}">Dienstplan</a>

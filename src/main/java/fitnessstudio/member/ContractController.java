@@ -76,4 +76,9 @@ public class ContractController {
 		return REDIRECT_CONTRACTS;
 	}
 
+	@GetMapping("/contract_information")
+	public String contractInformation(Model model){
+		model.addAttribute("contractList", contractManagement.getAllContracts());
+		return "contract_information";
+	}
 }

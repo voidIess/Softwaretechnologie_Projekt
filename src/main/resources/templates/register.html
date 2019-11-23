@@ -75,6 +75,7 @@
         </div>
 
         <h2>Vertrag auswählen</h2>
+        <a th:href="@{/contract_information}" target="_blank">Details</a>
         <select th:field="*{contract}">
             <option th:each="contract : ${contractList}"
                     th:value="${contract.contractId}"
