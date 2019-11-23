@@ -4,6 +4,7 @@ import org.javamoney.moneta.Money;
 import org.salespointframework.useraccount.UserAccount;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 public class Member {
@@ -24,10 +25,25 @@ public class Member {
 	@ManyToOne
 	private Contract contract;
 
+	private LocalDate startDate;
+	private LocalDate lastPause;
+
+	//Exercise time in minutes
+	private long exerciseTime;
+
+	private boolean isFreeTrained;
+
+	private boolean isPaused;
+
 	public Member() {
+		isPaused = false;
+		exerciseTime = 0;
+		isFreeTrained = false;
 	}
 
 	public Member(UserAccount userAccount, String firstName, String lastName, String iban, String bic) {
+		this();
+
 		this.userAccount = userAccount;
 		this.creditAccount = new CreditAccount(iban, bic);
 		this.firstName = firstName;
@@ -76,5 +92,26 @@ public class Member {
 	public void authorize(){
 		getUserAccount().setEnabled(true);
 		getContract().subscribe(this);
+		startDate = LocalDate.now();
+	}
+
+	public LocalDate getStartDate() {
+		return startDate;
+	}
+
+	public LocalDate getLastPause() {
+		return lastPause;
+	}
+
+	public long getExerciseTime() {
+		return exerciseTime;
+	}
+
+	public boolean isFreeTrained() {
+		return isFreeTrained;
+	}
+
+	public boolean isPaused() {
+		return isPaused;
 	}
 }
