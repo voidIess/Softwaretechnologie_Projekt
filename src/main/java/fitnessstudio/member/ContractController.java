@@ -43,18 +43,21 @@ public class ContractController {
 
 
 	@GetMapping("/admin/contracts")
+	@PreAuthorize("hasRole('BOSS')")
 	public String contracts(Model model) {
 		model.addAttribute("contractList", contractManagement.getAllContracts());
 		return "contracts";
 	}
 
 	@GetMapping("/admin/contract/delete/{id}")
+	@PreAuthorize("hasRole('BOSS')")
 	public String delete(@PathVariable long id, Model model){
 		contractManagement.deleteContract(id);
 		return REDIRECT_CONTRACTS;
 	}
 
 	@GetMapping("/admin/contract/detail/{id}")
+	@PreAuthorize("hasRole('BOSS')")
 	public String detail(@PathVariable long id, Model model){
 		Optional<Contract> contract = contractManagement.findById(id);
 		if (contract.isPresent()){
@@ -67,6 +70,7 @@ public class ContractController {
 	}
 
 	@PostMapping("/admin/contract/detail/{id}")
+	@PreAuthorize("hasRole('BOSS')")
 	public String editContract(@PathVariable Long id, @Valid ContractForm form){
 		contractManagement.editContract(id, form);
 		return REDIRECT_CONTRACTS;
