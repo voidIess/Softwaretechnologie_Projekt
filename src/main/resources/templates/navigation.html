@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css" type="text/css"/>
     <link  rel="stylesheet"
           href="../static/resources/css/style.css" type="text/css"/>
+    <link rel="stylesheet" href="../static/resources/css/dropdown.css" type="text/css"/>
 </head>
 <body>
 <nav th:fragment="navigation">
@@ -20,11 +21,17 @@
         <a class="item" href="memberDetail.html" th:href="@{/member/home}" sec:authorize="hasRole('MEMBER')"
            th:text="#{nav.member.home}">Home</a>
 
-        <a class="item" href="members.html" th:href="@{/admin/members}" sec:authorize="hasRole('BOSS') or hasRole('STAFF')"
-           th:text="#{nav.admin.members}">Mitglieder</a>
+        <div class="dropdown" sec:authorize="hasRole('BOSS')">
+            <div class="item" th:text="#{nav.admin}">Admin</div>
+            <div class="dropdown-content">
+                <a class="item" href="members.html" th:href="@{/admin/members}" sec:authorize="hasRole('BOSS') or hasRole('STAFF')"
+                   th:text="#{nav.admin.members}">Mitglieder</a>
 
-        <a class="item" href="contracts.html" th:href="@{/admin/contracts}" sec:authorize="hasRole('BOSS') or hasRole('STAFF')"
-           th:text="#{nav.admin.contracts}">Verträge bearbeiten</a>
+                <a class="item" href="contracts.html" th:href="@{/admin/contracts}" sec:authorize="hasRole('BOSS') or hasRole('STAFF')"
+                   th:text="#{nav.admin.contracts}">Verträge bearbeiten</a>
+
+            </div>
+        </div>
 
         <a class="item" href="roster.html" th:href="@{/roster}" sec:authorize="hasRole('BOSS') or hasRole('STAFF')"
            th:text="#{roster.title}">Dienstplan</a>
