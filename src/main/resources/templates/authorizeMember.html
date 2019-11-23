@@ -20,6 +20,7 @@
         <th>Nutzername</th>
         <th>Vorname</th>
         <th>Nachname</th>
+        <th>Vertrag</th>
         <th>Freischalten</th>
         <th>Ablehnen</th>
     </tr>
@@ -30,6 +31,7 @@
             <td th:text="${member.userName} ">Nutzername</td>
             <td th:text="${member.firstName}">Vorname</td>
             <td th:text="${member.lastName}">Nachname</td>
+            <td th:text="${member.contract.name}">Vertrag</td>
             <td>
                 <a class="ui green button" th:href="@{/member/authorize/{id}/(id=${member.memberId})}">Freischalten</a>
             </td>

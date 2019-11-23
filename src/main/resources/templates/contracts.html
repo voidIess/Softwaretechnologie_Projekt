@@ -34,6 +34,7 @@
             <th>Preis</th>
             <th>Laufzeit (in Tagen)</th>
             <th>Anzahl an Abbonnenten</th>
+            <th>Bearbeiten</th>
         </tr>
         </thead>
         <tbody th:remove="all-but-first">
@@ -44,6 +45,13 @@
             <td th:text="${contract.price}">Preis</td>
             <td th:text="${contract.duration}">Dauer</td>
             <td th:text="${contract.getNumOfSubs()}">0</td>
+            <td>
+                <a th:href="@{/admin/contract/detail/{id}/(id=${contract.contractId})}">
+                    <button class="ui blue button">
+                        <i class="edit"></i>
+                    </button>
+                </a>
+            </td>
         </tr>
         </tbody>
     </table>

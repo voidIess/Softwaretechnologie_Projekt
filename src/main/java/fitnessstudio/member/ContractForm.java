@@ -4,20 +4,42 @@ import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-public interface ContractForm {
+class ContractForm {
 
 	@NotEmpty(message = "{ContractForm.name.NotEmpty")
-	String getName();
+	private final String name;
 
 	@NotEmpty(message = "{ContractForm.description.NotEmpty")
-	String getDescription();
+	private final String description;
 
 	@NotNull(message = "{ContractForm.price.NotEmpty")
 	@Digits(fraction = 2, integer = 3)
-	Double getPrice();
+	private final Double price;
 
 	@NotNull(message = "{ContractForm.duration.NotEmpty}")
 	@Digits(fraction = 0, integer = 4)
-	Integer getDuration();
+	private final Integer duration;
 
+	public ContractForm(String name, String description, Double price, Integer duration) {
+		this.name = name;
+		this.description = description;
+		this.price = price;
+		this.duration = duration;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public Double getPrice() {
+		return price;
+	}
+
+	public Integer getDuration() {
+		return duration;
+	}
 }

@@ -6,14 +6,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
+import java.util.Optional;
 
 @Controller
 public class ContractController {
 
 	private static final String REDIRECT_LOGIN = "redirect:/login";
+	private static final String REDIRECT_CONTRACTS = "redirect:/admin/contracts";
 	private final ContractManagement contractManagement;
 
 	ContractController(ContractManagement contractManagement) {
@@ -32,16 +36,40 @@ public class ContractController {
 
 	@PostMapping("/admin/contract/create")
 	@PreAuthorize("hasRole('BOSS')")
-	public String createNew(@Valid ContractForm form, Model model) {
+	public String createNew(@Valid @ModelAttribute("form") ContractForm form, Model model) {
 		contractManagement.createContract(form);
-
-		return "redirect:/admin/contracts";
+		return REDIRECT_CONTRACTS;
 	}
 
 
-	@GetMapping("admin/contracts")
+	@GetMapping("/admin/contracts")
 	public String contracts(Model model) {
 		model.addAttribute("contractList", contractManagement.getAllContracts());
 		return "contracts";
 	}
+
+	@GetMapping("/admin/contract/delete/{id}")
+	public String delete(@PathVariable long id, Model model){
+		contractManagement.deleteContract(id);
+		return REDIRECT_CONTRACTS;
+	}
+
+	@GetMapping("/admin/contract/detail/{id}")
+	public String detail(@PathVariable long id, Model model){
+		Optional<Contract> contract = contractManagement.findById(id);
+		if (contract.isPresent()){
+			Contract c = contract.get();
+			model.addAttribute("contract", c);
+			model.addAttribute("form", new ContractForm(c.getName(), c.getDescription(), c.getPrice().getNumber().doubleValue(), c.getDuration()));
+			return "contractDetail";
+		}
+		return REDIRECT_CONTRACTS;
+	}
+
+	@PostMapping("/admin/contract/detail/{id}")
+	public String editContract(@PathVariable Long id, @Valid ContractForm form){
+		contractManagement.editContract(id, form);
+		return REDIRECT_CONTRACTS;
+	}
+
 }

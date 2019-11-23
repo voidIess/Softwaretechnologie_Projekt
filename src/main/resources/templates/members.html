@@ -28,6 +28,7 @@
             <th>Vorname</th>
             <th>Nachname</th>
             <th>Login Name</th>
+            <th>Vertrag</th>
             <th>Mitglieder Nummer</th>
         </tr>
         </thead>
@@ -36,6 +37,7 @@
             <td th:text="${customer.firstName}">Vorname</td>
             <td th:text="${customer.lastName}">Nachname</td>
             <td th:text="${customer.userName}">UserName</td>
+            <td th:text="${customer.contract.name}">Vertrag</td>
             <td th:text="${customer.memberId}">MemberId</td>
         </tr>
         </tbody>

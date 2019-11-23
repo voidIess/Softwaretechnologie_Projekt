@@ -111,7 +111,7 @@ public class MemberController {
 	public String printPdfInvoice(@LoggedIn Optional<UserAccount> userAccount, Model model) {
 
 		if (userAccount.isEmpty()) {
-			return "redirect:/login";
+			return REDIRECT_LOGIN;
 		}
 
 		model.addAttribute("type", "invoice");

@@ -27,12 +27,30 @@ public class ContractManagement {
 	public Contract createContract(ContractForm form) {
 		Assert.notNull(form, "ContractForm must not be null");
 
-		var name = form.getName();
-		var description = form.getDescription();
-		var price = Money.of(form.getPrice(), "EUR");
-		var duration = form.getDuration();
+		String name = form.getName();
+		String description = form.getDescription();
+		Money price = Money.of(form.getPrice(), "EUR");
+		int duration = form.getDuration();
 
 		return contracts.save(new Contract(name, description, price, duration));
+	}
+
+	public void editContract(Long contractId, ContractForm form){
+		Assert.notNull(contractId, "ContractId must not be null");
+		Assert.notNull(form, "ContractForm must not be null");
+
+		Optional<Contract> optionalContract = findById(contractId);
+		if (optionalContract.isPresent()){
+			Contract contract = optionalContract.get();
+			contract.update(form.getName(), form.getDescription(), Money.of(form.getPrice(), "EUR"), form.getDuration());
+		}
+	}
+
+	public void deleteContract(Long contractId){
+		Assert.notNull(contractId, "ContractId must not be null");
+
+		Optional<Contract> contract = findById(contractId);
+		contract.ifPresent(contracts::delete);
 	}
 
 	public List<Contract> getAllContracts() {
@@ -40,6 +58,8 @@ public class ContractManagement {
 	}
 
 	public Optional<Contract> findById(Long contractId){
+		Assert.notNull(contractId, "ContractId must not be null");
+
 		return contracts.findById(contractId);
 	}
 }
