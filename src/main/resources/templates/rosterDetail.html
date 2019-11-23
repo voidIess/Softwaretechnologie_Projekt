@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.js"></script>
+    <link rel="stylesheet" href="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css" type="text/css"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/style.css}"/>
+    <title th:text="#{home.title}">Neuer Dienstplaneintrag</title>
+</head>
+
+<body>
+<header>
+    <h1 th:text="#{roster.title}">Neuen Dienstplaneintrag erstellen</h1>
+</header>
+<nav th:include="navigation :: navigation"></nav>
+
+
+<div class="card">
+    <div class="card-header">
+        <h4 th:text="${rosterEntry.getStaff().toString()}" class="card-title"></h4>
+    </div>
+    <div class="card-body">
+        <blockquote class="entrytext" th:text="${rosterEntry.getRole()}"></blockquote>
+    </div>
+    <div class="card-footer">
+        <footer class="date" th:text="${day} + ' '  + ${shift}">Datum</footer>
+    </div>
+    <a class="ui red button" th:href="@{/roster/detail/delete/{slot}/{id}/(slot=${day},id=${rosterEntry.rosterEntryId})}">Löschen</a>
+</div>
+
+</body>
+</html>
