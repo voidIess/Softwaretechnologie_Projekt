@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.js"></script>
+    <link rel="stylesheet" href="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css" type="text/css"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/style.css}"/>
+    <title th:text="#{home.title}">Dienstplaneintrag</title>
+</head>
+
+<body>
+<header>
+    <h1 th:text="#{roster.title}">Neuen Dienstplaneintrag erstellen</h1>
+</header>
+<nav th:include="navigation :: navigation"></nav>
+
+
+<div class="card">
+
+    <form method="post" role="form" class="ui form" id="form" th:action="@{/roster/edit}" th:object="${form}">
+
+        <div class="ui negative message" th:if="${#fields.hasErrors('*')}">
+            <p th:each="err : ${#fields.errors('*')}" th:text="${err}"></p>
+        </div>
+
+        <div class="field">
+            <input class="form-control"  name="staff" type="hidden" id="staff" th:value="${rosterEntry.getStaff().staffId}"/>
+            <b><span th:text="${rosterEntry.getStaff().toString()}"></span></b>
+        </div>
+
+        <div class="field">
+            <input class="form-control" name="times" type="hidden" id="times"  th:value="${slot.getTime()}"/>
+            <span th:text="${slot.getTime()}"></span>
+        </div>
+
+        <div class="field">
+            <input class="form-control" th:name="day" type="hidden" id="day"  th:value="${rosterEntry.rosterEntryId}"/>
+        </div>
+
+        <div class="field">
+            <label th:text="#{roster.role}" for="role">Rolle</label>
+            <select id="role" name="role"  class="ui fluid dropdown">
+                <option th:each="role : ${roles}" th:value="${role}" th:text="${role}" th:selected="${role==rosterEntry.roleToString()}"></option>
+            </select>
+        </div>
+
+        <button type="submit" class="ui blue button">Speichern</button> <a class="ui red button" th:href="@{/roster/detail/delete/{slot}/{id}/(slot=${day},id=${rosterEntry.rosterEntryId})}">Löschen</a>
+
+    </form>
+
+
+</body>
+</html>

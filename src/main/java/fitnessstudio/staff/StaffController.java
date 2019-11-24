@@ -21,48 +21,15 @@ import java.util.List;
 @Controller
 public class StaffController {
 
-
-	private final RosterRepository catalog;
 	private final StaffRepository staffs;
-	private final RosterManagement rosterManagement;
 	private final StaffManagement staffManagement;
 
-	StaffController(RosterRepository repository, StaffRepository staffs, RosterManagement rosterManagement, StaffManagement staffManagement) {
-		Assert.notNull(repository, "RosterRepository must not be null");
+	StaffController(StaffRepository staffs, StaffManagement staffManagement) {
 		Assert.notNull(staffs, "StaffRepository must not be null");
-		Assert.notNull(rosterManagement, "RosterManagement must not be null");
 		Assert.notNull(staffManagement, "StaffManagement must not be null");
-
-		this.rosterManagement = rosterManagement;
 		this.staffs = staffs;
-		this.catalog = repository;
+
 		this.staffManagement = staffManagement;
-	}
-
-	//TODO: catch exception if role != staff
-	//TODO: add Entry for Roster
-
-
-	/*// Fängt ab, wenn jemand mit einer Rolle != Staff auf die Seite möchte
-	@ExceptionHandler({AccessDeniedException.class})
-	public String error() {
-		return "redirect:/";
-	}*/
-
-	@GetMapping("/roster/delete/{id}")
-	String delete(@PathVariable Long id, Model model) {
-
-		rosterManagement.deleteEntry(id);
-
-		return "redirect:/roster";
-	}
-
-	// Zeigt den Roster an
-	@PreAuthorize("hasRole('STAFF') or hasRole('BOSS')")
-	@GetMapping(path = "/roster")
-	String roster(Model model) {
-		model.addAttribute("roster",catalog.findAll());
-		return "roster";
 	}
 
 	// shows information about one staff
@@ -94,31 +61,5 @@ public class StaffController {
 		model.addAllAttributes(staffManagement.createPdfPayslip(userAccount.get()));
 
 		return "pdfView";
-	}
-
-	//Seite zu einen neuen RosterEintrag
-	@GetMapping("/roster/newRoster")
-	@PreAuthorize("hasRole('STAFF') or hasRole('BOSS')")
-	public String rosterEntry(Model model, RosterEntryForm form, Errors results) {
-		List<String> roles = new ArrayList<>();
-		roles.add("Thekenkraft");
-		roles.add("Trainer");
-		model.addAttribute("form", form);
-		model.addAttribute("error", results);
-		model.addAttribute("staffs", staffs.findAll());
-		model.addAttribute("roles", roles);
-		return "rosterNew";
-	}
-
-	//Erstellt einen neuen Eintrag
-
-	@PreAuthorize("hasRole('STAFF') or hasRole('BOSS')")
-	@PostMapping("/roster/newRoster")
-	public String newRosterEntry(@Valid @ModelAttribute("form") RosterEntryForm form, Model model, Errors result) {
-		rosterManagement.createRosterEntry(form, result);
-		if (result.hasErrors()) {
-			return rosterEntry(model, form, result);
-		}
-		return "redirect:/roster";
 	}
 }
