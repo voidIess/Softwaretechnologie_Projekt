@@ -81,6 +81,15 @@
                     th:value="${contract.contractId}"
                     th:text="${contract.name}">leer</option>
         </select><br/>
+
+        <div class="field">
+            <label for="bonusCode">Bonus Code</label>
+            <input id="bonusCode" name="bonusCode" th:field="*{bonusCode}" th:errorclass="fieldError" type="text"/><br/>
+            <div class="ui negative message" th:if="${#fields.hasErrors('bonusCode')}" th:errors="*{bonusCode}">
+                <p>Bonus Code nicht gefunden.</p>
+            </div>
+        </div>
+
         <button type="submit" class="ui button" th:text="#{register.submit}">Registrieren</button>
     </form>
 </div>
