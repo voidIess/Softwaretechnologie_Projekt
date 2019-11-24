@@ -26,7 +26,9 @@ class RegistrationForm {
 	@NotNull(message = "{RegistrationForm.contract.NotNull")
 	private final Long contract;
 
-	public RegistrationForm(String firstName, String lastName, String userName, String password, String iban, String bic, Long contract) {
+	private final String bonusCode;
+
+	public RegistrationForm(String firstName, String lastName, String userName, String password, String iban, String bic, Long contract, String bonusCode) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.userName = userName;
@@ -34,6 +36,7 @@ class RegistrationForm {
 		this.iban = iban;
 		this.bic = bic;
 		this.contract = contract;
+		this.bonusCode = bonusCode;
 	}
 
 	public String getFirstName() {
@@ -48,7 +51,9 @@ class RegistrationForm {
 		return userName;
 	}
 
-	public String getPassword() { return password;}
+	public String getPassword() {
+		return password;
+	}
 
 	public String getIban() {
 		return iban;
@@ -58,7 +63,11 @@ class RegistrationForm {
 		return bic;
 	}
 
-	public Long getContract(){
+	public Long getContract() {
 		return contract;
+	}
+
+	public String getBonusCode() {
+		return bonusCode;
 	}
 }

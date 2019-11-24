@@ -1,6 +1,8 @@
 package fitnessstudio.member;
 
 import fitnessstudio.staff.Staff;
+import fitnessstudio.studio.Studio;
+import fitnessstudio.studio.StudioService;
 import org.javamoney.moneta.Money;
 import org.salespointframework.useraccount.Password;
 import org.salespointframework.useraccount.Role;
@@ -12,6 +14,7 @@ import org.springframework.util.Assert;
 import org.springframework.validation.Errors;
 
 import javax.transaction.Transactional;
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,7 +31,7 @@ public class MemberManagement {
 	private final MemberRepository members;
 	private final UserAccountManager userAccounts;
 	private final ContractManagement contractManagement;
-
+	private final StudioService studioService;
 
 	/**
 	 * Creates a new {@link MemberManagement} with the given {@link MemberRepository} and {@link UserAccountManager}.
@@ -36,14 +39,16 @@ public class MemberManagement {
 	 * @param members      must not be {@literal null}.
 	 * @param userAccounts must not be {@literal null}.
 	 */
-	MemberManagement(MemberRepository members, UserAccountManager userAccounts, ContractManagement contractManagement) {
+	MemberManagement(MemberRepository members, UserAccountManager userAccounts, ContractManagement contractManagement, StudioService studioService) {
 		Assert.notNull(members, "MemberRepository must not be null!");
 		Assert.notNull(userAccounts, "UserAccountManager must not be null!");
 		Assert.notNull(contractManagement, "ContractManagement must not be null!");
+		Assert.notNull(studioService, "StudioService must not be null!");
 
 		this.members = members;
 		this.userAccounts = userAccounts;
 		this.contractManagement = contractManagement;
+		this.studioService = studioService;
 	}
 
 	public Member createMember(RegistrationForm form, Errors result) {
@@ -74,6 +79,23 @@ public class MemberManagement {
 		if (contract == null){
 			result.rejectValue("contract", "register.contract.missing");
 			return null;
+		}
+
+		var bonusCode = form.getBonusCode();
+		if (!bonusCode.isEmpty()){
+			Optional<Member> receiverOptional = members.findById(Long.parseLong(bonusCode));
+			if (receiverOptional.isEmpty()) {
+				result.rejectValue("bonusCode", "register.bonusCode.notFound");
+				return null;
+			} else {
+				Member receiver = receiverOptional.get();
+
+				//Money bonus = Money.of(20, "EUR");
+
+				receiver.payIn(Money.of(new BigDecimal(studioService.getStudio().getAdvertisingBonus()), "EUR"));
+				members.save(receiver);
+			}
+
 		}
 
 		var userAccount = userAccounts.create(form.getUserName(), password, MEMBER_ROLE);
