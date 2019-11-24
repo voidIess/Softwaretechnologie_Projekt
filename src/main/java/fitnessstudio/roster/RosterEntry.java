@@ -57,14 +57,14 @@ public class RosterEntry implements Comparable<RosterEntry> {
 		} else {
 			return "Trainer";
 		}
-	}
+	} 	// Konvertiert die Aufgabe des Staffs in einen String mit deutscher Übersetzung
 
 	@Override
 	public String toString(){
 		return staff.getLastName() + ", " + staff.getFirstName()+ " " + staff.getStaffId();
 	}
 
-	@Override
+	@Override	// Um im Dienstplan die Einträge nach den Aufgaben zu sortieren
 	public int compareTo(RosterEntry rosterEntry){
 		if (rosterEntry.getRole().equals(StaffRole.COUNTER)) return 1;
 		else return -1;

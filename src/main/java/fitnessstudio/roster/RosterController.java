@@ -58,14 +58,14 @@ public class RosterController {
 
 	@PreAuthorize("hasRole('STAFF') or hasRole('BOSS')")
 	@GetMapping("/roster/detail/delete/{slot}/{id}")
-	String delete(@PathVariable Long slot, @PathVariable Long id, Model model) {
+	String delete(@PathVariable Long slot, @PathVariable Long id) {
 		rosterManagement.deleteRosterEntry(slot, id);
 		return "redirect:/roster";
 	}
 
 	@PreAuthorize("hasRole('STAFF') or hasRole('BOSS')")
 	@PostMapping("/roster/edit")
-	String edit(@Valid @ModelAttribute("form") RosterEntryForm form, Model model, Errors result) {
+	String edit(@Valid @ModelAttribute("form") RosterEntryForm form, Errors result) {
 		rosterManagement.editRosterEntry(form, result);
 		return "redirect:/roster";
 	}

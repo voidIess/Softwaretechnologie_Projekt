@@ -20,6 +20,8 @@ public class RosterManagement {
 	RosterManagement(RosterRepository rosterRepository, SlotRepository slots,StaffRepository staffRepository, RosterEntryRepository rosterEntryRepository) {
 		Assert.notNull(rosterRepository, "RosterRepository darf nicht 'null' sein.");
 		Assert.notNull(staffRepository, "StaffRepository darf nicht 'null' sein.");
+		Assert.notNull(slots, "Das SlotRepository darf nicht 'null' sein");
+		Assert.notNull(rosterEntryRepository, "Das RosterEntryRepository darf nicht 'null' sein.");
 		this.rosterRepository = rosterRepository;
 		this.staffs = staffRepository;
 		this.rosterEntryRepository = rosterEntryRepository;
@@ -79,9 +81,7 @@ public class RosterManagement {
 		Assert.notNull(slot, "Es gibt keinen Slot mit dieser ID");
 
 		Optional<RosterEntry> roster = rosterEntryRepository.findById(id);
-		RosterEntry rosterEntry1 = roster.orElse(null);
-		if (rosterEntry1 != null)
-			slot.deleteEntry(rosterEntry1);
+		roster.ifPresent(slot::deleteEntry);
 		RosterManager.saveSlot(slot);
 	}
 }
