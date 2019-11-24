@@ -37,7 +37,7 @@ public class RosterDataInitializer implements DataInitializer {
 		LOG.info("Create Staff (username: obi, passwort: 123)");
 
 		Staff staff3 = new Staff(userAccounts.create("aßmann", Password.UnencryptedPassword.of("123"), Role.of("STAFF")),"Uwe", "Aßmann", Money.of(10000, "EUR"));
-		LOG.info("Create Staff (username: obi, passwort: 123)");
+		LOG.info("Create Staff (username: aßmann, passwort: 123)");
 
 		staffs.save(staff);
 		staffs.save(staff2);
