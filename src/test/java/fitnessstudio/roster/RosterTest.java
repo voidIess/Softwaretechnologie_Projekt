@@ -18,9 +18,4 @@ class RosterTest {
 		roster = RosterManager.getRoster();
 	}
 
-	@Test
-	void doesInitWork() {
-		assertThat(roster == null).isTrue();
-	}
-
 }
