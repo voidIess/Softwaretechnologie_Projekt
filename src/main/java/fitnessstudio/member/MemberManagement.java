@@ -160,6 +160,7 @@ public class MemberManagement {
 		map.put("id", member.getMemberId());
 		map.put("firstName", member.getFirstName());
 		map.put("lastName", member.getLastName());
+		map.put("contract", member.getContract());
 
 		return map;
 	}

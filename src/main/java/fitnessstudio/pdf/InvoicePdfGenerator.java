@@ -6,6 +6,7 @@ import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.property.TextAlignment;
+import fitnessstudio.member.Contract;
 import fitnessstudio.studio.Studio;
 import fitnessstudio.studio.StudioRepository;
 
@@ -19,18 +20,20 @@ public class InvoicePdfGenerator implements PdfGenerator {
 
 	public static Document generatePdf(Map<String, Object> invoice, com.itextpdf.layout.Document d) throws IOException {
 
-		float[] columnWidth = {200f, 200f};
-		Table table = new Table(columnWidth);
-		table.setMarginTop(30f);
-
 		Paragraph p = new Paragraph("Kundeninformation");
 		p.setBold();
 		d.add(p);
 		d.add(new Paragraph("Name: " + invoice.get("firstName") + " " + invoice.get("lastName")));
 		d.add(new Paragraph("ID: " + invoice.get("id")));
 
-		table.addCell("Monatlicher Beitrag");
-		table.addCell("Es gibt noch keine Verträge");
+		d.add(new Paragraph("Monatlicher Beitrag").setBold());
+
+		float[] columnWidth = {200f, 200f};
+		Table table = new Table(columnWidth);
+
+		Contract contract = (Contract) invoice.get("contract");
+		table.addCell(contract.getName());
+		table.addCell(contract.getPrice().toString());
 
 		d.add(table);
 
