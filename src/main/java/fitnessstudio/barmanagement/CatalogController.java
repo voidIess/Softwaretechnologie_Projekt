@@ -8,6 +8,7 @@ import org.salespointframework.quantity.Quantity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.Objects;
@@ -31,7 +32,7 @@ public class CatalogController {
 	}
 
 	@GetMapping("/article/{article}")
-	public String detail(@PathVariable Article article, Model model) {
+	public String detail(@PathVariable @ModelAttribute Article article, Model model) {
 
 		var quantity = inventory.findByProductIdentifier(Objects.requireNonNull(article.getId()))
 			.map(InventoryItem::getQuantity)

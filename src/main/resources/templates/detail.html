@@ -9,11 +9,14 @@
             src="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.js"></script>
     <link rel="stylesheet" href="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css" type="text/css"/>
     <link rel="stylesheet" type="text/css" th:href="@{/resources/css/detail.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/toggle.css}"/>
     <title th:text="${article.name}">Artikelname</title>
 </head>
 <body>
 <div class="ui container">
     <nav th:include="navigation :: navigation"></nav>
+    <nav th:include="toggle :: toggle"></nav>
+
     <header>
         <h1 th:text="${article.name}" style="text-align: center">Artikelname</h1>
     </header>
@@ -68,7 +71,6 @@
     </form>
 
 </div>
-
 
 </body>
 </html>
