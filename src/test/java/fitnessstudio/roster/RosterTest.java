@@ -1,8 +1,6 @@
 package fitnessstudio.roster;
 
-import fitnessstudio.member.CreditAccount;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
@@ -15,7 +13,15 @@ class RosterTest {
 
 	@BeforeEach
 	void setUp() {
-		roster = RosterManager.getRoster();
+		roster = new Roster(1);
+	}
+
+	@Test
+	void testInitRoster(){
+		assertThat(roster.getRows().size()==roster.AMOUNT_ROWS).isTrue();
+		for (TableRow tableRow : roster.getRows()){
+			assertThat(tableRow.getSlots().size() == 7).isTrue();
+		}
 	}
 
 }
