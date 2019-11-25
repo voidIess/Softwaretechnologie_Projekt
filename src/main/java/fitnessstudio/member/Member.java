@@ -35,10 +35,13 @@ public class Member {
 
 	private boolean isPaused;
 
+	private boolean isAttendant;
+
 	public Member() {
 		isPaused = false;
 		exerciseTime = 0;
 		isFreeTrained = false;
+		isAttendant = false;
 	}
 
 	public Member(UserAccount userAccount, String firstName, String lastName, String iban, String bic) {
@@ -95,6 +98,14 @@ public class Member {
 		startDate = LocalDate.now();
 	}
 
+	public void checkIn() {
+		isAttendant = true;
+	}
+
+	public void checkOut() {
+		isAttendant = false;
+	}
+
 	public LocalDate getStartDate() {
 		return startDate;
 	}
@@ -113,5 +124,9 @@ public class Member {
 
 	public boolean isPaused() {
 		return isPaused;
+	}
+
+	public boolean isAttendant () {
+		return isAttendant;
 	}
 }

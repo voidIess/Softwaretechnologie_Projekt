@@ -30,6 +30,7 @@
             <th>Login Name</th>
             <th>Vertrag</th>
             <th>Mitglieder Nummer</th>
+            <th>Status</th>
         </tr>
         </thead>
         <tbody th:remove="all-but-first">
@@ -39,6 +40,8 @@
             <td th:text="${customer.userName}">UserName</td>
             <td th:text="${customer.contract.name}">Vertrag</td>
             <td th:text="${customer.memberId}">MemberId</td>
+            <td th:if="${customer.isAttendant()}" th:text="#{members.isAttendant}">anwesend</td>
+            <td th:if="${!customer.isAttendant()}" th:text="#{members.isNotAttendant}">nicht anwesend</td>
         </tr>
         </tbody>
     </table>

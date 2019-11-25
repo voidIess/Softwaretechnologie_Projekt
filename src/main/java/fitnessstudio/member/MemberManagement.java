@@ -164,4 +164,14 @@ public class MemberManagement {
 
 		return map;
 	}
+
+	public void checkMemberIn(Long memberId) {
+		Optional<Member> member = findById(memberId);
+		member.ifPresent(Member::checkIn);
+	}
+
+	public void checkMemberOut(Long memberId) {
+		Optional<Member> member = findById(memberId);
+		member.ifPresent(Member::checkOut);
+	}
 }
