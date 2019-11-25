@@ -5,18 +5,23 @@
 <div th:fragment="cart_items">
     <div class="ui container">
         <div class="ui header">
-            <div th:text="#{cart_items.title}">Warenkorb</div>
+            <span th:text="#{cart_items.title}">Warenkorb</span>
             <a class="ui right floated button" th:href="@{/sell_catalog}">
                 <i class="cart icon"></i>
                 Bestellung
             </a>
         </div>
         <br>
-        <div th:remove="all-but-first">
-            <div class="list" th:each="cartItem : ${cart}">
-                <div>
-                    <span class="header" th:text="${cartItem.getProduct().name}">Spinatsalat</span>
-                    <span class="content" th:text="${cartItem.getQuantity()}"></span>
+        <div class="container" th:each="cartItem : ${cart}">
+            <div class="ui segment">
+                <div class="ui four column grid">
+
+                    <div class="ui three wide left floated column">
+                        <div class="ui header" th:text="${cartItem.getProduct().name}">Spinatsalat</div>
+                    </div>
+                    <div class="ui six wide right floated column">
+                        <div class="content" th:text="${cartItem.getQuantity()}"></div>
+                    </div>
                 </div>
             </div>
         </div>
