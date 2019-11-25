@@ -19,6 +19,7 @@ public class StaffDataInitlializer implements DataInitializer {
 	private final StaffRepository staffs;
 	private final UserAccountManager userAccounts;
 
+
 	StaffDataInitlializer(StaffRepository staffs, UserAccountManager userAccounts){
 		this.userAccounts = userAccounts;
 		this.staffs = staffs;

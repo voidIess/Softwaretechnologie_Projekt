@@ -61,9 +61,6 @@
                         </button>
                     </form>
                     <h2>Rechnung</h2>
-                    <p>Monatliche Gebühren:
-                        <span>0.00€</span>
-                    </p>
                     <div class="column">
                         <form class="ui form" method="post" th:action="@{/printPdfInvoice}">
                             <button type="submit" class="ui button" th:text="#{memberDetail.printPdfInvoice}">Rechnung anzeigen</button>
