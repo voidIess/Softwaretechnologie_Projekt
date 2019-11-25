@@ -1,43 +1,24 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
 
-<html lang="en">
-<head>
-    <link href="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css" rel="stylesheet" type="text/css"/>
+<html th:replace="site_template :: template(#{sell_catalog.title}, ~{::cart_items})"></html>
 
-    <title th:text="#{cart_items.title}">Warenkorb</title>
-    <meta content="text/html; charset=UTF-8" http-equiv="content-type"/>
-</head>
-<body>
-<body>
-<div class="ui masthead vertical segment">
+<div th:fragment="cart_items">
     <div class="ui container">
-        <nav th:include="navigation :: navigation"></nav>
-        <header>
-            <h1 th:text="#{cart_items.title}">Artikel verkaufen</h1>
-        </header>
-
+        <div class="ui header">
+            <div th:text="#{cart_items.title}">Warenkorb</div>
+            <a class="ui right floated button" th:href="@{/sell_catalog}">
+                <i class="cart icon"></i>
+                Bestellung
+            </a>
+        </div>
         <br>
-    </div>
-</div>
-<br>
-<div class="ui container">
-    <div class="ui header">
-        <div th:text="#{cart_items.title}">Warenkorb</div>
-        <a class="ui right floated button"  th:href="@{/cart_items}">
-            <i class="cart icon"></i>
-            Bestellung
-        </a>
-    </div>
-    <br>
-    <div th:remove="all-but-first">
-        <div class="list" th:each="cartItem : ${cart}">
-            <div>
-                <span class="header" th:text="${cartItem.getProduct().name}">Spinatsalat</span>
-                <span class="content" th:text="${cartItem.getQuantity()}"></span>
+        <div th:remove="all-but-first">
+            <div class="list" th:each="cartItem : ${cart}">
+                <div>
+                    <span class="header" th:text="${cartItem.getProduct().name}">Spinatsalat</span>
+                    <span class="content" th:text="${cartItem.getQuantity()}"></span>
+                </div>
             </div>
         </div>
     </div>
 </div>
-</body>
-</html>
