@@ -77,3 +77,10 @@ input:checked + .slider:before {
 .slider.round:before {
     border-radius: 50%;
 }
+
+#toggle
+{
+    position: absolute;
+    top: 70px;
+    right: 300px;
+}

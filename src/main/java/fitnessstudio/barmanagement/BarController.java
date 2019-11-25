@@ -3,8 +3,7 @@ package fitnessstudio.barmanagement;
 import org.salespointframework.inventory.InventoryItem;
 import org.salespointframework.inventory.UniqueInventory;
 import org.salespointframework.inventory.UniqueInventoryItem;
-import org.salespointframework.order.Cart;
-import org.salespointframework.order.CartItem;
+import org.salespointframework.order.*;
 import org.salespointframework.quantity.Quantity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,10 +23,12 @@ public class BarController {
 	private static final Logger LOG = LoggerFactory.getLogger(CatalogDataInitializer.class);
 	private final ArticleCatalog catalog;
 	private final UniqueInventory<UniqueInventoryItem> inventory;
+	private final OrderManager<Order> orderManager;
 
-	public BarController(ArticleCatalog catalog, UniqueInventory<UniqueInventoryItem> inventory) {
+	public BarController(ArticleCatalog catalog, UniqueInventory<UniqueInventoryItem> inventory, OrderManager<Order> orderManager) {
 		this.catalog = catalog;
 		this.inventory = inventory;
+		this.orderManager = orderManager;
 	}
 
 
@@ -85,7 +86,15 @@ public class BarController {
 		return ("redirect:sell_catalog");
 	}
 
-	@PreAuthorize("hasRole('STAFF') or hasRole('BOSS')")
+
+	@GetMapping("/orders")
+	@PreAuthorize("hasRole('STAFF')")
+	public String orders(Model model) {
+		model.addAttribute("ordersCompleted", orderManager.findBy(OrderStatus.COMPLETED));
+		return "orders";
+	}
+
+	@PreAuthorize("hasRole('STAFF')")
 	@GetMapping("/cart_items")
 	String cartItems() {
 		return ("cart_items");

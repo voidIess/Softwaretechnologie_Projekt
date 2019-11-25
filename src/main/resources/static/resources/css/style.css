@@ -23,6 +23,10 @@ h2 {
 	color: var(--heading-color);
 }
 
+h3 {
+	color: var(--heading-color);
+}
+
 p {
 	color: var(--heading-color);
 }
@@ -42,3 +46,4 @@ br {
 text {
 	color: var(--heading-color);
 }
+

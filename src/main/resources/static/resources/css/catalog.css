@@ -16,6 +16,30 @@ body {
 
 }
 
+.container h2 {
+    color: var(--heading-color);
+}
+
+p {
+    color: var(--heading-color);
+}
+
+span {
+    color: var(--heading-color);
+}
+
+label {
+    color: var(--heading-color);
+}
+
+br {
+    color: var(--heading-color);
+}
+
+text {
+    color: var(--heading-color);
+}
+
 .container button {
     text-decoration: none;
     background: #4caf50;
