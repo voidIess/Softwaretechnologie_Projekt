@@ -17,9 +17,9 @@ public class Roster {
 	@OneToMany
 	private List<TableRow> rows;				// Es gibt x Reihen pro Tag, beliebig anpassbar wenn man die Schichten verändern möchte.
 
-	private static final int AMOUNT_ROWS = 8;	// Die Anzahl der Reihen
-	private static final int DURATION = 120;	// Die Dauer einer Schicht
-	private static final LocalDateTime STARTTIME = LocalDateTime.of(	// Beginn der ersten Schicht
+	public static final int AMOUNT_ROWS = 8;	// Die Anzahl der Reihen
+	public static final int DURATION = 120;	// Die Dauer einer Schicht
+	public static final LocalDateTime STARTTIME = LocalDateTime.of(	// Beginn der ersten Schicht
 		2000,								// 01.01.2000, 06:00, das Datum ist dabei egal
 		1,
 		1,
@@ -44,9 +44,8 @@ public class Roster {
 		return rosterId;
 	}
 
-	// Hier werden die x Zeilen in der Tabelle angelegt
+	// Hier werden die x (AMOUNT_ROWS) Zeilen in der Tabelle angelegt
 	private void init(){
-
 		Assert.notNull(rows, "Die Liste der Schichten darf nicht 'null' sein.");
 		for (int i = 0; i < AMOUNT_ROWS;i++){
 			TableRow tableRow = new TableRow(STARTTIME.plusMinutes(i*DURATION),DURATION);
@@ -56,7 +55,7 @@ public class Roster {
 	}
 
 	public List<TableRow> getRows(){
-		Assert.notNull(rows, "Die Liste der Schichten darf nicht 'null' sein.");
+		Assert.notNull(rows, "Die Liste der Schichten existiert nicht.");
 		return rows;
 	}
 

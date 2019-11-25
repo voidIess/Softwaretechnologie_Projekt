@@ -23,7 +23,7 @@ public class RosterController {
 
 	RosterController(RosterManagement rosterManagement, StaffRepository staffRepository){
 		Assert.notNull(rosterManagement, "RosterManagement darf nicht 'null' sein.");
-		Assert.notNull(staffRepository, "Das StaffRepository darf nicht null sein.");
+		Assert.notNull(staffRepository, "Das StaffRepository darf nicht 'null' sein.");
 		this.staffs = staffRepository;
 		this.rosterManagement = rosterManagement;
 	}
@@ -67,6 +67,7 @@ public class RosterController {
 	@PostMapping("/roster/edit")
 	String edit(@Valid @ModelAttribute("form") RosterEntryForm form, Errors result) {
 		rosterManagement.editRosterEntry(form, result);
+
 		return "redirect:/roster";
 	}
 
