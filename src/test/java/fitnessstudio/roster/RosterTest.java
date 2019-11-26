@@ -47,5 +47,5 @@ class RosterTest {
 			assertThat(tableRow.getSlots().size() == 7).isTrue();
 		}
 	}
-	
+
 }
