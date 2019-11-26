@@ -17,7 +17,7 @@ public class StatisticController {
 		this.statisticManagement = statisticManagement;
 	}
 
-	@GetMapping("/attendanceStatistic")
+	@GetMapping("/admin/attendanceStatistic")
 	@PreAuthorize("hasRole('BOSS')")
 	public String showAttendanceStatistic(Model model) {
 		model.addAttribute("averageTime", statisticManagement.getAverageTimeToday());

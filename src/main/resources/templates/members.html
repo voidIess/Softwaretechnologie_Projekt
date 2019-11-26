@@ -31,6 +31,7 @@
             <th>Vertrag</th>
             <th>Mitglieder Nummer</th>
             <th>Status</th>
+            <th>Check in/out</th>
         </tr>
         </thead>
         <tbody th:remove="all-but-first">
@@ -42,6 +43,12 @@
             <td th:text="${customer.memberId}">MemberId</td>
             <td th:if="${customer.isAttendant()}" th:text="#{members.isAttendant}">anwesend</td>
             <td th:if="${!customer.isAttendant()}" th:text="#{members.isNotAttendant}">nicht anwesend</td>
+            <td th:if="${customer.isAttendant()}">
+                <a class="ui red button" th:href="@{/member/checkout/{id}/(id=${customer.getMemberId()})}">check out</a>
+            </td>
+            <td th:if="${!customer.isAttendant()}">
+                <a class="ui green button" th:href="@{/member/checkin/{id}/(id=${customer.getMemberId()})}">check in</a>
+            </td>
         </tr>
         </tbody>
     </table>

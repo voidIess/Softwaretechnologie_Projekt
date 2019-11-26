@@ -28,6 +28,10 @@
                 <a class="item" href="contracts.html" th:href="@{/admin/contracts}"
                    sec:authorize="hasRole('BOSS') or hasRole('STAFF')"
                    th:text="#{nav.admin.contracts}">Verträge bearbeiten</a>
+
+                <a class="item" href="attendanceStatistic.html" th:href="@{/admin/attendanceStatistic}"
+                    sec:authorize="hasRole('BOSS')"
+                    th:text="#{nav.admin.statistics}">Statistiken</a>
             </div>
         </div>
 
