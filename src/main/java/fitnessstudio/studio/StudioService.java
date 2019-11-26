@@ -1,13 +1,15 @@
 package fitnessstudio.studio;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class StudioService {
 
-	@Autowired
-	StudioRepository studioRepository;
+	private final StudioRepository studioRepository;
+
+	public StudioService(StudioRepository studioRepository) {
+		this.studioRepository = studioRepository;
+	}
 
 	public Studio getStudio() {
 		return studioRepository.findAll().iterator().next();

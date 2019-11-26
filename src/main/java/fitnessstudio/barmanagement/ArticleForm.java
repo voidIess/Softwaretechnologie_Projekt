@@ -18,12 +18,12 @@ public interface ArticleForm {
 	String getDescription();
 
 	@NotEmpty
-	@Digits(fraction = 0, integer = 5)
+	@Digits(fraction = 2, integer = 5)
 	String getPrice();
 
 	@NotEmpty
 	@DateTimeFormat(pattern = "dd.MM.yyyy")
-	String getExpiationDate();
+	String getExpirationDate();
 
 	@NotEmpty
 	@Size(min = 1, max = 99, message = "percent of discount from 0-99")
