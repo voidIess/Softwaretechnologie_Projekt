@@ -177,6 +177,6 @@ public class MemberManagement {
 
 	public void checkMemberOut(Long memberId) {
 		Optional<Member> member = findById(memberId);
-		member.ifPresent(m -> statisticManagement.addAttendance(m, m.checkOut()));
+		member.ifPresent(m -> statisticManagement.addAttendance(memberId, m.checkOut()));
 	}
 }

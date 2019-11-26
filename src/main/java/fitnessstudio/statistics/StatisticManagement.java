@@ -17,12 +17,12 @@ public class StatisticManagement {
 		this.attendances = attendances;
 	}
 
-	public void addAttendance(Member member, long duration) {
+	public void addAttendance(long memberId, long duration) {
 		if(attendances.findById(LocalDate.now()).isEmpty()) {
 			attendances.save(new Attendance(LocalDate.now()));
 		}
 		Attendance attendance = attendances.findById(LocalDate.now()).get();
-		attendance.addMember(member);
+		attendance.addMember(memberId);
 		attendance.addTime(duration);
 	}
 

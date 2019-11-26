@@ -17,13 +17,13 @@ public class Attendance {
 	private LocalDate date;
 
 	@ElementCollection
-	private Set<Member> members;
+	private Set<Long> memberIds;
 
 	@ElementCollection
 	private List<Long> attendanceTimes;
 
 	public Attendance() {
-		members = new HashSet<>();
+		memberIds = new HashSet<>();
 		attendanceTimes = new LinkedList<>();
 		date = LocalDate.now();
 	}
@@ -34,7 +34,7 @@ public class Attendance {
 	}
 
 	public int getMemberAmount() {
-		return members.size();
+		return memberIds.size();
 	}
 
 	public long getAverageTime() {
@@ -49,8 +49,8 @@ public class Attendance {
 		return date;
 	}
 
-	public boolean addMember(Member member) {
-		return members.add(member);
+	public boolean addMember(Long memberId) {
+		return memberIds.add(memberId);
 	}
 
 	public void addTime(long time) {
