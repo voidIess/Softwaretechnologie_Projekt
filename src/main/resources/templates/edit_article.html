@@ -26,7 +26,7 @@
 
         <fieldset>
             <Label>Preis in Euro</Label><label for="price"></label><input type="number" th:field="*{price}"
-                                                                          id="price"
+                                                                          id="price" step="0.01"
                                                                           required/>
         </fieldset>
 
@@ -44,7 +44,7 @@
 
         <fieldset>
             <Label>Mindesthaltbarkeitsdatum</Label><label for="expirationDate"></label><input type="date"
-                                                                                              th:field="*{expiationDate}"
+                                                                                              th:field="*{expirationDate}"
                                                                                               id="expirationDate"
                                                                                               required/>
         </fieldset>

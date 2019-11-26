@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
 
 
 @Controller
@@ -16,8 +17,13 @@ public class StudioController {
 
 	private static final String ERROR = "error";
 	private static final String STATUS = "status";
+
+	private final StudioService studioService;
+
 	@Autowired
-	private StudioService studioService;
+	public StudioController(StudioService studioService) {
+		this.studioService = studioService;
+	}
 
 	@GetMapping("/")
 	public String index(Model model) {
@@ -32,9 +38,35 @@ public class StudioController {
 
 	@PreAuthorize("hasRole('ROLE_BOSS')")
 	@GetMapping("/studio")
-	public String editStudio(Model model, StudioForm studioForm) {
-		model.addAttribute("studio", studioService.getStudio());
-		model.addAttribute("studioForm", studioForm);
+	public String editStudio(Model model) {
+
+		Studio studio = studioService.getStudio();
+		model.addAttribute("studio", studio);
+
+		// for keeping previous value in input field
+		model.addAttribute("studioForm", new StudioForm() {
+			@Override
+			public @NotEmpty String getOpeningTimes() {
+				return studio.getOpeningTimes();
+			}
+
+			@Override
+			public @NotEmpty String getContractTerm() {
+				return studio.getContractTerm();
+			}
+
+			@Override
+			public @NotEmpty String getMonthlyFees() {
+				return studio.getMonthlyFees();
+			}
+
+			@Override
+			public @NotEmpty String getAdvertisingBonus() {
+				return studio.getAdvertisingBonus();
+			}
+		});
+
+
 		return "studio";
 	}
 

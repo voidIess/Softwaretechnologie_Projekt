@@ -3,18 +3,16 @@
 <head>
 
     <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
-    <script th:src="@{/webjars/jquery/jquery.min.js}"
-            src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script th:src="@{/webjars/Semantic-UI/semantic.min.js}"
-            src="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.js"></script>
     <link rel="stylesheet" href="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css" type="text/css"/>
     <link th:href="@{/resources/css/style.css}" rel="stylesheet"
           href="../static/resources/css/style.css" type="text/css"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/toggle.css}"/>
     <title>Studio</title>
 
 </head>
 <body>
-
+<nav th:include="navigation :: navigation"></nav>
+<nav th:include="toggle :: toggle"></nav>
 
 <div class="container">
     <form method="post" role="form" class="ui form" id="form" th:action="@{/studio}" th:object="${studioForm}">
@@ -23,7 +21,7 @@
 
         <fieldset>
             <Label>Opening Times</Label><label for="openingTimes"></label><input type="text" th:field="*{openingTimes}"
-                                                                                 id="openingTimes" tabindex="2"
+                                                                                 id="openingTimes"
                                                                                  required/>
         </fieldset>
 
@@ -31,7 +29,7 @@
             <Label>Contract term</Label><label for="contractTerm"></label><input type="number"
                                                                                  th:field="*{contractTerm}"
                                                                                  id="contractTerm"
-                                                                                 tabindex="1" required/>
+                                                                                 required/>
         </fieldset>
 
         <fieldset>
