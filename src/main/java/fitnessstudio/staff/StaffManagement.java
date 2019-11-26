@@ -5,6 +5,7 @@ import org.salespointframework.useraccount.*;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -37,6 +38,11 @@ public class StaffManagement {
 		map.put("salary", staff.getSalary());
 
 		return map;
+	}
+
+
+	public List<Staff> getAllStaffs(){
+		return staffRepo.findAll().toList();
 	}
 
 }

@@ -29,6 +29,5 @@ public class PdfView extends AbstractView {
 		document = PdfGenerator.generatePdf(map, document);
 		document.close();
 
-
 	}
 }

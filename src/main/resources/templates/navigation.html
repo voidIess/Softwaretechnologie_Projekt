@@ -45,8 +45,9 @@
             Theke Verwaltung
             <i class="dropdown icon"></i>
             <div class="menu">
-                <a class="item" href="sell_catalog.html" th:href="@{/catalog}" sec:authorize="hasRole('STAFF')"
+                <a class="item" href="catalog.html" th:href="@{/catalog}" sec:authorize="hasRole('STAFF')"
                    th:text="#{catalog.title}">Artikel</a>
+                <a class="item" href="orders.html" th:href="@{/orders}">Bestellungen</a>
                 <a class="item" href="stock.html" th:href="@{/stock}">Lager</a>
                 <a class="item" href="sell_catalog.html" th:href="@{/sell_catalog}"
                    th:text="#{sell_catalog.title}">Artikel verkaufen</a>

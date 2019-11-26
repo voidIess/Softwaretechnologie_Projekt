@@ -10,11 +10,13 @@
     <link rel="stylesheet" href="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css" type="text/css"/>
     <link th:href="@{/resources/css/style.css}" rel="stylesheet"
           href="../static/resources/css/style.css" type="text/css"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/toggle.css}"/>
     <title>Mitgliederliste</title>
 </head>
 <body>
 <div class="ui container">
     <nav th:include="navigation :: navigation"></nav>
+    <nav th:include="toggle :: toggle"></nav>
     <header>
         <h1>Mitgliederliste</h1>
     </header>

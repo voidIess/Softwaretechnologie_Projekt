@@ -4,10 +4,12 @@ import org.javamoney.moneta.Money;
 import org.salespointframework.core.DataInitializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
 @Component
+@Order(10)
 public class ContractDataInitializer implements DataInitializer {
 	private static final Logger LOG = LoggerFactory.getLogger(ContractDataInitializer.class);
 

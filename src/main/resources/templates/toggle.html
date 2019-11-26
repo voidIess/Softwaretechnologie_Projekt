@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/style.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/toggle.css}"/>
+</head>
+<body>
+<toggle th:fragment="toggle">
+    <div id="toggle" class="theme-switch-wrapper">
+        <label class="theme-switch" for="checkbox">
+            <input type="checkbox" id="checkbox"/>
+            <div class="slider round"></div>
+        </label>
+        <em> Dunkelmodus</em>
+    </div>
+
+    <script th:inline="javascript">
+        const toggleSwitch = document.querySelector('.theme-switch input[type="checkbox"]');
+
+        const currentTheme = localStorage.getItem('theme') ? localStorage.getItem('theme') : null;
+
+        if (currentTheme) {
+            document.documentElement.setAttribute('data-theme', currentTheme);
+
+            if (currentTheme === 'dark') {
+                toggleSwitch.checked = true;
+            }
+        }
+
+        function switchTheme(e) {
+            if (e.target.checked) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+                localStorage.setItem('theme', 'light');
+            }
+        }
+
+        toggleSwitch.addEventListener('change', switchTheme, false);
+
+
+    </script>
+</toggle>
+
+
+</body>
+</html>

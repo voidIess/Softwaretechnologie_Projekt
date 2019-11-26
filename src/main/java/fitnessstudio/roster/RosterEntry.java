@@ -13,7 +13,7 @@ public class RosterEntry implements Comparable<RosterEntry> {
 	private long rosterEntryId;
 	private StaffRole role;
 
-	@OneToOne(cascade = CascadeType.REMOVE)
+	@OneToOne
 	private Staff staff;
 
 	RosterEntry(){}

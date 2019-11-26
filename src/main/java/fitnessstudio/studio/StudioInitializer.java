@@ -7,8 +7,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class StudioInitializer implements DataInitializer {
 
-	@Autowired
-	private StudioRepository studioRepository;
+	private final StudioRepository studioRepository;
+
+	public StudioInitializer(StudioRepository studioRepository) {
+		this.studioRepository = studioRepository;
+	}
 
 	@Override
 	public void initialize() {

@@ -3,33 +3,34 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
-    <script th:src="@{/webjars/jquery/jquery.min.js}"
-            src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script th:src="@{/webjars/Semantic-UI/semantic.min.js}"
-            src="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.js"></script>
     <link rel="stylesheet" href="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css" type="text/css"/>
     <link th:href="@{/resources/css/style.css}" rel="stylesheet"
           href="../static/resources/css/style.css" type="text/css"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/toggle.css}"/>
     <title th:text="#{home.title}">Gym</title>
 
 </head>
 <body>
 <div class="ui container">
+
+    <nav th:include="navigation :: navigation"></nav>
+
+    <toggle th:include="toggle :: toggle"></toggle>
     <header>
         <h1>Fitness Second</h1>
     </header>
-    <nav th:include="navigation :: navigation"></nav>
-
+    <h2 sec:authorize="isAuthenticated()" th:text="${'Hallo ' + #authentication?.name}">Hallo Nutzer</h2>
     <h2> Welcome to Fitness Second</h2>
+    <!-- Hello -->
 
     <!-- All Information -->
     <div class="ui container">
         <p style="text-align: left; display:flex; flex-direction: column; align-items: center">
         <h2>Join us and become a member now</h2>
-        Opening Times: <span th:text="${openingTimes}"></span><br>
-        Contract Term: <span th:text="${contractTerm}"></span> Months<br>
-        Monthly Fees: <span th:text="${monthlyFees}"></span> €<br>
-        Advertising Bonus: <span th:text="${advertisingBonus}"></span> €<br>
+        <label>Opening Times:</label> <span th:text="${openingTimes}"></span><br>
+        <label>Contract Term:</label> <span th:text="${contractTerm}"></span> <label>Months</label><br>
+        <label>Monthly Fees:</label> <span th:text="${monthlyFees}"></span> <label>€</label><br>
+        <label>Advertising Bonus:</label> <span th:text="${advertisingBonus}"></span> <label>€</label> <br>
     </div>
 </div>
 
@@ -38,8 +39,6 @@
     <button> Edit studio</button>
 </a>
 
-<!-- Hello -->
-<p sec:authorize="isAuthenticated()" th:text="${'Hallo ' + #authentication?.name}">Hallo Nutzer</p>
 
 </body>
 </html>

@@ -1,9 +1,6 @@
 package fitnessstudio.member;
 
-import fitnessstudio.staff.Staff;
-import fitnessstudio.statistics.AttendanceRepository;
 import fitnessstudio.statistics.StatisticManagement;
-import fitnessstudio.studio.Studio;
 import fitnessstudio.studio.StudioService;
 import org.javamoney.moneta.Money;
 import org.salespointframework.useraccount.Password;
@@ -71,31 +68,29 @@ public class MemberManagement {
 			return null;
 		}
 
-		if (iban.length() != 22){
+		if (iban.length() != 22) {
 			result.rejectValue("iban", "register.iban.wrongSize");
 			return null;
 		}
 
-		if (bic.length() < 8 || bic.length() > 11){
+		if (bic.length() < 8 || bic.length() > 11) {
 			result.rejectValue("bic", "register.bic.wrongSize");
 			return null;
 		}
 
-		if (contract == null){
+		if (contract == null) {
 			result.rejectValue("contract", "register.contract.missing");
 			return null;
 		}
 
 		var bonusCode = form.getBonusCode();
-		if (!bonusCode.isEmpty()){
+		if (!bonusCode.isEmpty()) {
 			Optional<Member> receiverOptional = members.findById(Long.parseLong(bonusCode));
 			if (receiverOptional.isEmpty()) {
 				result.rejectValue("bonusCode", "register.bonusCode.notFound");
 				return null;
 			} else {
 				Member receiver = receiverOptional.get();
-
-				//Money bonus = Money.of(20, "EUR");
 
 				receiver.payIn(Money.of(new BigDecimal(studioService.getStudio().getAdvertisingBonus()), "EUR"));
 				members.save(receiver);
@@ -118,9 +113,7 @@ public class MemberManagement {
 
 	public void authorizeMember(Long memberId) {
 		Optional<Member> member = findById(memberId);
-		member.ifPresent(m -> {
-			m.authorize();
-		});
+		member.ifPresent(Member::authorize);
 	}
 
 	public Streamable<Member> findAll() {
