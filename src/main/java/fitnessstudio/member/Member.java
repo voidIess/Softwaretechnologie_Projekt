@@ -4,7 +4,9 @@ import org.javamoney.moneta.Money;
 import org.salespointframework.useraccount.UserAccount;
 
 import javax.persistence.*;
+import java.time.Duration;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 public class Member {
@@ -27,6 +29,8 @@ public class Member {
 
 	private LocalDate startDate;
 	private LocalDate lastPause;
+
+	private LocalDateTime checkInTime;
 
 	//Exercise time in minutes
 	private long exerciseTime;
@@ -98,12 +102,25 @@ public class Member {
 		startDate = LocalDate.now();
 	}
 
-	public void checkIn() {
-		isAttendant = true;
+	public boolean checkIn() {
+		if(isAttendant) {
+			return false;
+		} else {
+			isAttendant = true;
+			checkInTime = LocalDateTime.now();
+			return true;
+		}
 	}
 
-	public void checkOut() {
-		isAttendant = false;
+	public long checkOut() {
+		if(!isAttendant) {
+			return 0;
+		} else {
+			isAttendant = false;
+			long duration = Duration.between(checkInTime, LocalDateTime.now()).toMinutes();
+			checkInTime = null;
+			return duration;
+		}
 	}
 
 	public LocalDate getStartDate() {
@@ -116,6 +133,10 @@ public class Member {
 
 	public long getExerciseTime() {
 		return exerciseTime;
+	}
+
+	public LocalDateTime getCheckInTime() {
+		return checkInTime;
 	}
 
 	public boolean isFreeTrained() {
