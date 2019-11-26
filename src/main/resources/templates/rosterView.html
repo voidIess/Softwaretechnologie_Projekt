@@ -7,6 +7,7 @@
     <script src="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.js"></script>
     <link rel="stylesheet" href="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css" type="text/css"/>
     <link rel="stylesheet" type="text/css" th:href="@{/resources/css/roster.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/toggle.css}"/>
     <title th:text="#{home.title}">Dienstplan</title>
 </head>
 <body>
@@ -15,6 +16,7 @@
 
 
 <nav th:include="navigation :: navigation"></nav>
+<toggle th:include="toggle :: toggle"></toggle>
 <p class ="ui primary basic button">Trainer</p>
 <p class ="ui positive basic button">Thekenkraft</p>
 
