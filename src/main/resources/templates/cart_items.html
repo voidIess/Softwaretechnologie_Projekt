@@ -2,6 +2,12 @@
 
 <html th:replace="site_template :: template(#{sell_catalog.title}, ~{::cart_items})"></html>
 
+<html th:remove="tag">
+<head th:remove="all">
+    <link href="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css" rel="stylesheet" type="text/css"/>
+    <meta content="text/html; charset=UTF-8" http-equiv="content-type"/>
+</head>
+
 <div th:fragment="cart_items">
     <div class="ui container">
         <div class="ui header">
@@ -19,11 +25,17 @@
                     <div class="ui three wide left floated column">
                         <div class="ui header" th:text="${cartItem.getProduct().name}">Spinatsalat</div>
                     </div>
-                    <div class="ui six wide right floated column">
-                        <div class="content" th:text="${cartItem.getQuantity()}"></div>
+                    <div class="ui two wide right floated colum">
+                        <div class="ui subheader" th:text="${cartItem.getPrice()}">
+                            12,40 EUR
+                        </div>
+                    </div>
+                    <div class="ui two wide right floated column">
+                        <div class="ui content" th:text="'Anzahl: ' + ${cartItem.getQuantity()}"></div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+</html>
