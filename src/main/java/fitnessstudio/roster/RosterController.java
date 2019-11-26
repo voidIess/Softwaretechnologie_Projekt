@@ -1,6 +1,7 @@
 package fitnessstudio.roster;
 
 import com.mysema.commons.lang.Assert;
+import fitnessstudio.staff.StaffManagement;
 import fitnessstudio.staff.StaffRepository;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -19,12 +20,12 @@ import java.util.List;
 public class RosterController {
 
 	private final RosterManagement rosterManagement;
-	private final StaffRepository staffs;
+	private final StaffManagement staffs;
 
-	RosterController(RosterManagement rosterManagement, StaffRepository staffRepository){
+	RosterController(RosterManagement rosterManagement, StaffManagement staffs){
 		Assert.notNull(rosterManagement, "RosterManagement darf nicht 'null' sein.");
-		Assert.notNull(staffRepository, "Das StaffRepository darf nicht 'null' sein.");
-		this.staffs = staffRepository;
+		Assert.notNull(staffs, "Das StaffRepository darf nicht 'null' sein.");
+		this.staffs = staffs;
 		this.rosterManagement = rosterManagement;
 	}
 
@@ -41,7 +42,7 @@ public class RosterController {
 		model.addAttribute("form", form);
 		model.addAttribute("times", RosterManager.getRoster().getRows());
 		model.addAttribute("roles", RosterManager.getRoles());
-		model.addAttribute("staffs", staffs.findAll());
+		model.addAttribute("staffs", staffs.getAllStaffs());
 		model.addAttribute("errors", errors);
 		return "rosterNew";
 	}

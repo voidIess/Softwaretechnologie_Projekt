@@ -21,14 +21,10 @@ import java.util.List;
 @Controller
 public class StaffController {
 
-	private final StaffRepository staffs;
 	private final StaffManagement staffManagement;
 
-	StaffController(StaffRepository staffs, StaffManagement staffManagement) {
-		Assert.notNull(staffs, "StaffRepository must not be null");
+	StaffController(StaffManagement staffManagement) {
 		Assert.notNull(staffManagement, "StaffManagement must not be null");
-		this.staffs = staffs;
-
 		this.staffManagement = staffManagement;
 	}
 

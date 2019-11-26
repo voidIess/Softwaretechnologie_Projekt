@@ -88,7 +88,8 @@ class Slot {
 	}
 
 	public void addEntry(RosterEntry rosterEntry){
-		Assert.isFalse(isTaken(rosterEntry.getStaff()),"Der Staff arbeitet5 zu dieser Zeit bereits.");
+		Assert.notNull(rosterEntry, "Der Roster Eintrag darf nicht null sein.");
+		Assert.isFalse(isTaken(rosterEntry.getStaff()),"Der Staff arbeitet zu dieser Zeit bereits.");
 		rosterEntries.add(rosterEntry);
 		RosterManager.saveRosterEntry(rosterEntry);
 	}

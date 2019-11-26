@@ -7,6 +7,7 @@
     <script src="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.js"></script>
     <link rel="stylesheet" href="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css" type="text/css"/>
     <link rel="stylesheet" type="text/css" th:href="@{/resources/css/style.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/toggle.css}"/>
     <title th:text="#{home.title}">Dienstplaneintrag</title>
 </head>
 
@@ -15,6 +16,7 @@
     <h1 th:text="#{roster.title}">Neuen Dienstplaneintrag erstellen</h1>
 </header>
 <nav th:include="navigation :: navigation"></nav>
+<toggle th:include="toggle :: toggle"></toggle>
 
 
 <div class="card">
