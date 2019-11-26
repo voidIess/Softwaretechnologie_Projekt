@@ -6,6 +6,7 @@ import org.salespointframework.catalog.ProductIdentifier;
 import org.salespointframework.inventory.UniqueInventory;
 import org.salespointframework.inventory.UniqueInventoryItem;
 import org.salespointframework.quantity.Quantity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -191,6 +192,15 @@ public class InventoryController {
 			}
 		});
 		return REDIRECT_CATALOG;
+	}
+
+	@GetMapping("/stock")
+	@PreAuthorize("hasRole('STAFF')")
+	public String stock(Model model) {
+
+		model.addAttribute("stock", inventory.findAll());
+
+		return "stock";
 	}
 
 }
