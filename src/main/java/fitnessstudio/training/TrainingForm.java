@@ -16,11 +16,15 @@ class TrainingForm {
 	@NotEmpty(message = "{TrainingForm.time.NotEmpty}")
 	private final String time;
 
-	public TrainingForm(String type, String staff, String day, String time) {
+	@NotEmpty(message = "{TrainingForm.description.NotEmpty}")
+	private final String description;
+
+	public TrainingForm(String type, String staff, String day, String time, String description) {
 		this.type = type;
 		this.staff = staff;
 		this.day = day;
 		this.time = time;
+		this.description = description;
 	}
 
 	public String getType() {
@@ -37,5 +41,9 @@ class TrainingForm {
 
 	public String getTime() {
 		return time;
+	}
+
+	public String getDescription() {
+		return description;
 	}
 }
