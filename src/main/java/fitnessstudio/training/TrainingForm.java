@@ -1,10 +1,12 @@
 package fitnessstudio.training;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.validation.constraints.NotEmpty;
 
 class TrainingForm {
 
-	@NotEmpty(message = "{TrainingForm.type.NotEmpty}")
+	//@NotEmpty(message = "{TrainingForm.type.NotEmpty}")
 	private final String type;
 
 	@NotEmpty(message = "{TrainingForm.staff.NotEmpty}")
@@ -14,9 +16,10 @@ class TrainingForm {
 	private final String day;
 
 	@NotEmpty(message = "{TrainingForm.time.NotEmpty}")
+	@DateTimeFormat(pattern = "HH:mm")
 	private final String time;
 
-	@NotEmpty(message = "{TrainingForm.description.NotEmpty}")
+	//@NotEmpty(message = "{TrainingForm.description.NotEmpty}")
 	private final String description;
 
 	public TrainingForm(String type, String staff, String day, String time, String description) {

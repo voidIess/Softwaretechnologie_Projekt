@@ -45,4 +45,6 @@ public class StaffManagement {
 		return staffRepo.findAll().toList();
 	}
 
+	public Optional<Staff> findById(Long staffId) {return staffRepo.findById(staffId);}
+
 }

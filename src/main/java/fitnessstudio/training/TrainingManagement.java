@@ -10,8 +10,11 @@ import org.salespointframework.useraccount.UserAccountManager;
 
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
+import org.springframework.validation.Errors;
 
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -38,7 +41,28 @@ public class TrainingManagement {
 		this.staffManagement = staffManagement;
 	}
 
+	public Training createTraining(Member member, TrainingForm form, Errors result) {
+		var type = form.getType();
+		var trainer = form.getStaff();
+		var time = form.getTime();
+		var day = form.getDay();
 
+		if (type.isEmpty()){
+			result.rejectValue("type", "training.type.missing");
+			return null;
+		}
+
+		Optional<Staff> staffOptional = staffManagement.findById(Long.parseLong(trainer));
+		if(staffOptional.isEmpty()) {
+			result.rejectValue("staff", "training.staff.notFound");
+			return null;
+		}
+		Staff staff = staffOptional.get();
+
+		System.out.println("Saved training");
+		return trainings.save(new Training(TrainingType.valueOf(type), staff, member, Integer.parseInt(day),
+			LocalTime.parse(time), 90, form.getDescription()));
+	}
 
 	public Optional<Member> findByUserAccount(UserAccount userAccount){
 		return memberManagement.findByUserAccount(userAccount);
@@ -49,4 +73,10 @@ public class TrainingManagement {
 	public List<TrainingType> getTypes(){
 		return new ArrayList<>(Arrays.asList(TrainingType.values()));
 	}
+
+	public List<Training> getAllTrainingByMember(Member member){
+		return trainings.findAllByMember(member).toList();
+	}
+
+	public List<Training> getAllTrainings(){return trainings.findAll().toList();}
 }

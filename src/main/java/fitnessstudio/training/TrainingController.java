@@ -28,7 +28,7 @@ public class TrainingController {
 		this.trainingManagement = trainingManagement;
 	}
 
-	@GetMapping("/member/contract/create")
+	@GetMapping("/member/training/create")
 	public String create(@LoggedIn Optional<UserAccount> userAccount, Model model, TrainingForm form, Errors result) {
 		return userAccount.map(user -> {
 			Optional<Member> member = trainingManagement.findByUserAccount(user);
@@ -44,11 +44,25 @@ public class TrainingController {
 		}).orElse(REDIRECT_LOGIN);
 	}
 
-	@PostMapping("/member/contract/create")
+	@PostMapping("/member/training/create")
 	public String createNew(@Valid @ModelAttribute("form") TrainingForm form, Model model, Errors result) {
+		trainingManagement.createTraining((Member) model.getAttribute("member"), form, result);
 		if (result.hasErrors()){
 			return createNew(form, model, result);
 		}
 		return "redirect:/member/home";
+	}
+
+	@GetMapping("/member/training/list")
+	public String trainings(@LoggedIn Optional<UserAccount> userAccount, Model model){
+		return userAccount.map(user -> {
+			Optional<Member> member = trainingManagement.findByUserAccount(user);
+			if (member.isPresent()) {
+				System.out.println(trainingManagement.getAllTrainings());
+				model.addAttribute("trainings", trainingManagement.getAllTrainings());
+				return "member_trainings";
+			}
+			return REDIRECT_LOGIN;
+		}).orElse(REDIRECT_LOGIN);
 	}
 }

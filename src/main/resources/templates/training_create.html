@@ -19,28 +19,34 @@
         <h1>Training beantragen</h1>
     </header>
     <br/>
-    <form method="post" role="form" class="ui form" id="form" th:action="@{/member/contract/create}" th:object="${form}">
+    <form method="post" role="form" class="ui form" id="form" th:action="@{/member/training/create}" th:object="${form}">
         <div class="ui negative message" th:if="${#fields.hasErrors('*')}">
-            <p th:each="err : ${#fields.errors('*')}" th:text="${err}"></p>
+            <p>Einige Angaben sind nicht korret.</p>
         </div>
 
         <div class="field">
             <label th:text="#{training.type}" for="type"></label>
-            <select class="form-control" th:fiekd="*{type}" id="type">
-                <option th:each="type: ${types}" th:value="${type}" th:text="${type}"></option>
+            <select th:field="*{type}" id="type" required="required">
+                <option th:each="type: ${types}" th:value="${type}" th:text="${type.getDisplayValue()}"></option>
             </select>
+            <div class="ui negative message" th:if="${#fields.hasErrors('type')}" th:errors="*{type}">
+                <p>Der Typ darf nicht leer sein.</p>
+            </div>
         </div>
 
         <div class="field">
             <label th:text="#{training.staff}" for="staff">Mitarbeiter</label>
-            <select class="form-control" th:field="*{staff}"  id="staff">
+            <select class="form-control" th:field="*{staff}"  id="staff"  required="required">
                 <option th:each="staff : ${staffs}" th:value="${staff.staffId}" th:text="${staff.toString()}"></option>
             </select>
+            <div class="ui negative message" th:if="${#fields.hasErrors('staff')}" th:errors="*{staff}">
+                <p>Der Trainer darf nicht leer sein.</p>
+            </div>
         </div>
 
         <div class="field">
             <label th:text="#{training.day}" for="day">Tag</label>
-            <select class="form-control" th:field="*{day}" id="day" required>
+            <select class="form-control" th:field="*{day}" id="day"  required="required">
                 <option value="0">Montag</option>
                 <option value="1">Dienstag</option>
                 <option value="2">Mittwoch</option>
@@ -49,16 +55,25 @@
                 <option value="5">Samstag</option>
                 <option value="6">Sonntag</option>
             </select>
+            <div class="ui negative message" th:if="${#fields.hasErrors('day')}" th:errors="*{day}">
+                <p>Der Tag darf nicht leer sein.</p>
+            </div>
         </div>
 
         <div class="field">
             <label th:text="#{training.time}" for="time">Zeit</label>
-            <input id="time" class="form-control" type="time" th:field="*{time}"/>
+            <input id="time" class="form-control" type="time" th:field="*{time}"  required="required"/>
+            <div class="ui negative message" th:if="${#fields.hasErrors('time')}" th:errors="*{time}">
+                <p>Die Zeit darf nicht leer sein.</p>
+            </div>
         </div>
 
         <div class="field">
             <label th:text="#{training.description}" for="description">Beschreibung</label>
-            <input id="description" class="form-control" type="text" th:feld="*{description}"/>
+            <input id="description" class="form-control" type="text" th:feld="*{description}" required="required"/>
+            <div class="ui negative message" th:if="${#fields.hasErrors('description')}" th:errors="*{description}">
+                <p>Die Beschreibung nicht leer sein.</p>
+            </div>
         </div>
 
         <button type="submit" class="ui button" th:text="#{training.create}">Erstellen</button>

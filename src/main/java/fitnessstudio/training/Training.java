@@ -4,7 +4,7 @@ import fitnessstudio.member.Member;
 import fitnessstudio.staff.Staff;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Entity
 public class Training {
@@ -22,7 +22,9 @@ public class Training {
 	@ManyToOne
 	private Member member;
 
-	private LocalDateTime startTime;
+	private int day;
+
+	private LocalTime startTime;
 
 	private int duration;
 
@@ -35,7 +37,7 @@ public class Training {
 		state = TrainingState.REQUESTED;
 	}
 
-	public Training(TrainingType type, Staff trainer, Member member, LocalDateTime startTime, int duration, String description) {
+	public Training(TrainingType type, Staff trainer, Member member, int day, LocalTime startTime, int duration, String description) {
 		this();
 
 		this.type = type;
@@ -44,6 +46,7 @@ public class Training {
 		this.startTime = startTime;
 		this.duration = duration;
 		this.description = description;
+		this.day = day;
 	}
 
 
@@ -59,7 +62,7 @@ public class Training {
 		return member;
 	}
 
-	public LocalDateTime getStartTime() {
+	public LocalTime getStartTime() {
 		return startTime;
 	}
 
@@ -77,5 +80,9 @@ public class Training {
 
 	public TrainingState getState() {
 		return state;
+	}
+
+	public int getDay() {
+		return day;
 	}
 }
