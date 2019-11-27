@@ -62,7 +62,7 @@
 
         <div class="field">
             <label th:text="#{training.time}" for="time">Zeit</label>
-            <input id="time" class="form-control" type="time" th:field="*{time}"  required="required"/>
+            <input id="time"  type="time" th:field="*{time}"  required="required"/>
             <div class="ui negative message" th:if="${#fields.hasErrors('time')}" th:errors="*{time}">
                 <p>Die Zeit darf nicht leer sein.</p>
             </div>
@@ -70,7 +70,7 @@
 
         <div class="field">
             <label th:text="#{training.description}" for="description">Beschreibung</label>
-            <input id="description" class="form-control" type="text" th:feld="*{description}" required="required"/>
+            <input id="description" type="text" th:field="*{description}" required="required"/>
             <div class="ui negative message" th:if="${#fields.hasErrors('description')}" th:errors="*{description}">
                 <p>Die Beschreibung nicht leer sein.</p>
             </div>

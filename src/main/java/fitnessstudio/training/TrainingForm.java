@@ -19,7 +19,7 @@ class TrainingForm {
 	@DateTimeFormat(pattern = "HH:mm")
 	private final String time;
 
-	//@NotEmpty(message = "{TrainingForm.description.NotEmpty}")
+	@NotEmpty(message = "{TrainingForm.description.NotEmpty}")
 	private final String description;
 
 	public TrainingForm(String type, String staff, String day, String time, String description) {

@@ -59,7 +59,6 @@ public class TrainingManagement {
 		}
 		Staff staff = staffOptional.get();
 
-		System.out.println("Saved training");
 		return trainings.save(new Training(TrainingType.valueOf(type), staff, member, Integer.parseInt(day),
 			LocalTime.parse(time), 90, form.getDescription()));
 	}
@@ -75,7 +74,9 @@ public class TrainingManagement {
 	}
 
 	public List<Training> getAllTrainingByMember(Member member){
-		return trainings.findAllByMember(member).toList();
+		return trainings.findAll().filter(t ->
+			t.getMember().equals(member)
+		).toList();
 	}
 
 	public List<Training> getAllTrainings(){return trainings.findAll().toList();}
