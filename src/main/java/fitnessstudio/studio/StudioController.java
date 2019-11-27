@@ -1,5 +1,6 @@
 package fitnessstudio.studio;
 
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -35,16 +36,10 @@ public class StudioController {
 		return "index";
 	}
 
-
-	@PreAuthorize("hasRole('ROLE_BOSS')")
-	@GetMapping("/studio")
-	public String editStudio(Model model) {
-
-		Studio studio = studioService.getStudio();
-		model.addAttribute("studio", studio);
-
-		// for keeping previous value in input field
-		model.addAttribute("studioForm", new StudioForm() {
+	// for keeping previous value in input field
+	@NotNull
+	private StudioForm getStudioForm(Studio studio) {
+		return new StudioForm() {
 			@Override
 			public @NotEmpty String getOpeningTimes() {
 				return studio.getOpeningTimes();
@@ -64,12 +59,18 @@ public class StudioController {
 			public @NotEmpty String getAdvertisingBonus() {
 				return studio.getAdvertisingBonus();
 			}
-		});
-
-
-		return "studio";
+		};
 	}
 
+	@PreAuthorize("hasRole('ROLE_BOSS')")
+	@GetMapping("/studio")
+	public String editStudio(Model model) {
+
+		Studio studio = studioService.getStudio();
+		model.addAttribute("studio", studio);
+		model.addAttribute("studioForm", getStudioForm(studio));
+		return "studio";
+	}
 
 	@PreAuthorize("hasRole('ROLE_BOSS')")
 	@PostMapping("/studio")

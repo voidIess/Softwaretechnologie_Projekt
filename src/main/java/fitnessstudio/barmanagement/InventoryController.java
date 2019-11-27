@@ -2,6 +2,7 @@ package fitnessstudio.barmanagement;
 
 
 import org.javamoney.moneta.Money;
+import org.jetbrains.annotations.NotNull;
 import org.salespointframework.catalog.ProductIdentifier;
 import org.salespointframework.inventory.UniqueInventory;
 import org.salespointframework.inventory.UniqueInventoryItem;
@@ -25,11 +26,10 @@ import java.util.Objects;
 @Controller
 public class InventoryController {
 
+	private static final String REDIRECT_CATALOG = "redirect:/catalog";
 	private final UniqueInventory<UniqueInventoryItem> inventory;
 	private final ArticleCatalog catalog;
 	private final DiscountRepository discountRepository;
-
-	private static final String REDIRECT_CATALOG = "redirect:/catalog";
 
 	public InventoryController(UniqueInventory<UniqueInventoryItem> inventory, ArticleCatalog catalog,
 							   DiscountRepository discountRepository) {
@@ -86,6 +86,7 @@ public class InventoryController {
 	}
 
 //----------------------------------------edit article-------------------------------------------------------------------
+
 	@GetMapping("/article/detail/{id}")
 	public String editArticle(@PathVariable ProductIdentifier id, Model model) {
 
@@ -96,62 +97,65 @@ public class InventoryController {
 			Article article = (Article) uniqueInventoryItem.getProduct();
 			if (Objects.equals(article.getId(), id)) {
 				model.addAttribute("id", id);
-
-				// for keeping previous value in input field
-
-				model.addAttribute("form", new ArticleForm() {
-					@Override
-					public @NotEmpty String getName() {
-						return article.getName();
-					}
-
-					@Override
-					public @NotEmpty String getArt() {
-						return article.getArt();
-					}
-
-					@Override
-					public @NotEmpty String getDescription() {
-						return article.getDescription();
-					}
-
-					@Override
-					public @NotEmpty @Digits(fraction = 2, integer = 5) String getPrice() {
-						return String.valueOf(article.getPrice().getNumber());
-					}
-
-					@Override
-					public @NotEmpty String getExpirationDate() {
-
-						return article.getExpirationDate().format(formatter);
-					}
-
-					@Override
-					public @NotEmpty @Size(min = 1, max = 99, message = "percent of discount from 0-99")
-					String getPercentDiscount() {
-						return String.valueOf(article.getDiscount().getPercent());
-					}
-
-					@Override
-					public @NotEmpty String getStartDiscount() {
-						return article.getDiscount().getStartDate().format(formatter);
-					}
-
-					@Override
-					public @NotEmpty String getEndDiscount() {
-						return article.getDiscount().getEndDate().format(formatter);
-					}
-
-					@Override
-					public @NotEmpty @Digits(fraction = 0, integer = 5) String getNumber() {
-						return String.valueOf(uniqueInventoryItem.getQuantity());
-					}
-				});
+				model.addAttribute("form", getArticleForm(formatter, uniqueInventoryItem, article));
 			}
 
 		});
 
 		return "edit_article";
+	}
+
+	// for keeping previous value in input field
+	@NotNull
+	private ArticleForm getArticleForm(DateTimeFormatter formatter, UniqueInventoryItem uniqueInventoryItem, Article article) {
+		return new ArticleForm() {
+			@Override
+			public @NotEmpty String getName() {
+				return article.getName();
+			}
+
+			@Override
+			public @NotEmpty String getArt() {
+				return article.getArt();
+			}
+
+			@Override
+			public @NotEmpty String getDescription() {
+				return article.getDescription();
+			}
+
+			@Override
+			public @NotEmpty @Digits(fraction = 2, integer = 5) String getPrice() {
+				return String.valueOf(article.getPrice().getNumber());
+			}
+
+			@Override
+			public @NotEmpty String getExpirationDate() {
+
+				return article.getExpirationDate().format(formatter);
+			}
+
+			@Override
+			public @NotEmpty @Size(min = 1, max = 99, message = "percent of discount from 0-99")
+			String getPercentDiscount() {
+				return String.valueOf(article.getDiscount().getPercent());
+			}
+
+			@Override
+			public @NotEmpty String getStartDiscount() {
+				return article.getDiscount().getStartDate().format(formatter);
+			}
+
+			@Override
+			public @NotEmpty String getEndDiscount() {
+				return article.getDiscount().getEndDate().format(formatter);
+			}
+
+			@Override
+			public @NotEmpty @Digits(fraction = 0, integer = 5) String getNumber() {
+				return String.valueOf(uniqueInventoryItem.getQuantity());
+			}
+		};
 	}
 
 	@PostMapping("/article/detail/{id}")
