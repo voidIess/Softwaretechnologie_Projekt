@@ -60,13 +60,20 @@ text {
     margin-top: 60px;
 }
 
+.table .ui.basic.primary.button{
+    width: 100%;
+
+}
+.table .ui.basic.positive.button{
+    width: 100%;
+}
 
 .table {
     border-collapse: collapse;
     background: white;
     border-radius: 6px;
     overflow: hidden;
-    max-width: 800px;
+    max-width: 100%;
     width: 100%;
     margin: 0 auto;
     position: relative;
