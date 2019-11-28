@@ -13,18 +13,15 @@
     <div class="ui menu">
 
         <a class="item" href="index.html" th:href="@{/}"
-           th:text="#{homePage.title}">Home</a>
+           th:text="#{homePage.title}">Konto</a>
 
         <a class="item" href="memberDetail.html" th:href="@{/member/home}" sec:authorize="hasRole('MEMBER')"
            th:text="#{nav.member.home}">Home</a>
+
         <div class="ui simple dropdown item" sec:authorize="hasRole('BOSS')">
             Adminbereich
             <i class="dropdown icon"></i>
             <div class="menu">
-                <a class="item" href="members.html" th:href="@{/admin/members}"
-                   sec:authorize="hasRole('BOSS') or hasRole('STAFF')"
-                   th:text="#{nav.admin.members}">Mitglieder</a>
-
                 <a class="item" href="contracts.html" th:href="@{/admin/contracts}"
                    sec:authorize="hasRole('BOSS') or hasRole('STAFF')"
                    th:text="#{nav.admin.contracts}">Verträge bearbeiten</a>
@@ -35,11 +32,15 @@
             </div>
         </div>
 
+        <a class="item" href="staffDetail.html" th:href="@{/staff}" sec:authorize="hasRole('STAFF') and !hasRole('BOSS')"
+           th:text="#{staffDetail.title}">Benutzerkonto</a>
+
         <a class="item" href="roster.html" th:href="@{/roster}" sec:authorize="hasRole('BOSS') or hasRole('STAFF')"
            th:text="#{roster.title}">Dienstplan</a>
 
-        <a class="item" href="staffDetail.html" th:href="@{/staff}" sec:authorize="hasRole('STAFF')"
-           th:text="#{staffDetail.title}">Benutzerkonto</a>
+        <a class="item" href="members.html" th:href="@{/admin/members}"
+           sec:authorize="hasRole('BOSS') or hasRole('STAFF')"
+           th:text="#{nav.admin.members}">Mitglieder</a>
 
         <div class="ui simple dropdown item" sec:authorize="hasRole('STAFF')">
             Theke Verwaltung
