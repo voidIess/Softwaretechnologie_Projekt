@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.js"></script>
+    <link rel="stylesheet" href="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css" type="text/css"/>
+    <link th:href="@{/resources/css/style.css}" rel="stylesheet"
+          href="../static/resources/css/style.css" type="text/css"/>
+
+    <title>Anwesenheitsstatistik</title>
+</head>
+
+<body>
+
+<div class="ui container">
+    <header>
+        <h1>Heutige Anwesenheiten</h1>
+    </header>
+    <nav th:include="navigation :: navigation"></nav>
+    <div class="ui container">
+        <p>Besucheranzahl:
+            <span th:text="${memberAmount}">3</span>
+        </p>
+        <p>Durchschnittlicher Aufenthalt:
+            <span th:text="${averageTime}">2</span>
+             Minuten
+        </p>
+    </div>
+
+    <p style="margin-top: 100pt"> Hier ist Platz für eine tolle Grafik!!</p>
+</div>
+
+</body>
+</html>

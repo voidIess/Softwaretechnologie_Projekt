@@ -107,6 +107,20 @@ public class MemberController {
 		return "redirect:/admin/authorizeMember";
 	}
 
+	@GetMapping("/member/checkin/{id}")
+	@PreAuthorize("hasRole('STAFF')")
+	public String checkIn(@PathVariable long id, Model model){
+		memberManagement.checkMemberIn(id);
+		return "redirect:/admin/members";
+	}
+
+	@GetMapping("/member/checkout/{id}")
+	@PreAuthorize("hasRole('STAFF')")
+	public String checkOut(@PathVariable long id, Model model){
+		memberManagement.checkMemberOut(id);
+		return "redirect:/admin/members";
+	}
+
 	@PostMapping("/printPdfInvoice")
 	public String printPdfInvoice(@LoggedIn Optional<UserAccount> userAccount, Model model) {
 

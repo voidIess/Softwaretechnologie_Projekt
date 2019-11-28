@@ -4,7 +4,9 @@ import org.javamoney.moneta.Money;
 import org.salespointframework.useraccount.UserAccount;
 
 import javax.persistence.*;
+import java.time.Duration;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 public class Member {
@@ -28,6 +30,8 @@ public class Member {
 	private LocalDate startDate;
 	private LocalDate lastPause;
 
+	private LocalDateTime checkInTime;
+
 	//Exercise time in minutes
 	private long exerciseTime;
 
@@ -35,10 +39,13 @@ public class Member {
 
 	private boolean isPaused;
 
+	private boolean isAttendant;
+
 	public Member() {
 		isPaused = false;
 		exerciseTime = 0;
 		isFreeTrained = false;
+		isAttendant = false;
 	}
 
 	public Member(UserAccount userAccount, String firstName, String lastName, String iban, String bic) {
@@ -75,9 +82,11 @@ public class Member {
 		return userAccount;
 	}
 
-	public CreditAccount getCreditAccount() {return creditAccount;}
+	public CreditAccount getCreditAccount() {
+		return creditAccount;
+	}
 
-	public void payIn(Money amount){
+	public void payIn(Money amount) {
 		creditAccount.payIn(amount);
 	}
 
@@ -85,14 +94,35 @@ public class Member {
 		return contract;
 	}
 
-	public void setContract(Contract contract){
+	public void setContract(Contract contract) {
 		this.contract = contract;
 	}
 
-	public void authorize(){
+	public void authorize() {
 		getUserAccount().setEnabled(true);
 		getContract().subscribe(this);
 		startDate = LocalDate.now();
+	}
+
+	public boolean checkIn() {
+		if (isAttendant) {
+			return false;
+		} else {
+			isAttendant = true;
+			checkInTime = LocalDateTime.now();
+			return true;
+		}
+	}
+
+	public long checkOut() {
+		if (!isAttendant) {
+			return 0;
+		} else {
+			isAttendant = false;
+			long duration = Duration.between(checkInTime, LocalDateTime.now()).toMinutes();
+			checkInTime = null;
+			return duration;
+		}
 	}
 
 	public LocalDate getStartDate() {
@@ -105,6 +135,10 @@ public class Member {
 
 	public long getExerciseTime() {
 		return exerciseTime;
+	}
+
+	public LocalDateTime getCheckInTime() {
+		return checkInTime;
 	}
 
 	public boolean isFreeTrained() {
@@ -130,4 +164,9 @@ public class Member {
 	public int hashCode() {
 		return (int) (memberId ^ (memberId >>> 32));
 	}
+
+	public boolean isAttendant() {
+		return isAttendant;
+	}
+
 }

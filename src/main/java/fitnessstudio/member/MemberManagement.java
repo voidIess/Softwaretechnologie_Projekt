@@ -1,5 +1,6 @@
 package fitnessstudio.member;
 
+import fitnessstudio.statistics.StatisticManagement;
 import fitnessstudio.studio.StudioService;
 import org.javamoney.moneta.Money;
 import org.salespointframework.useraccount.Password;
@@ -30,6 +31,7 @@ public class MemberManagement {
 	private final UserAccountManager userAccounts;
 	private final ContractManagement contractManagement;
 	private final StudioService studioService;
+	private final StatisticManagement statisticManagement;
 
 	/**
 	 * Creates a new {@link MemberManagement} with the given {@link MemberRepository} and {@link UserAccountManager}.
@@ -37,16 +39,18 @@ public class MemberManagement {
 	 * @param members      must not be {@literal null}.
 	 * @param userAccounts must not be {@literal null}.
 	 */
-	MemberManagement(MemberRepository members, UserAccountManager userAccounts, ContractManagement contractManagement, StudioService studioService) {
+	MemberManagement(MemberRepository members, UserAccountManager userAccounts, ContractManagement contractManagement, StudioService studioService, StatisticManagement statisticManagement) {
 		Assert.notNull(members, "MemberRepository must not be null!");
 		Assert.notNull(userAccounts, "UserAccountManager must not be null!");
 		Assert.notNull(contractManagement, "ContractManagement must not be null!");
 		Assert.notNull(studioService, "StudioService must not be null!");
+		Assert.notNull(statisticManagement, "StatisticManagement must not be null!");
 
 		this.members = members;
 		this.userAccounts = userAccounts;
 		this.contractManagement = contractManagement;
 		this.studioService = studioService;
+		this.statisticManagement = statisticManagement;
 	}
 
 	public Member createMember(RegistrationForm form, Errors result) {
@@ -157,5 +161,15 @@ public class MemberManagement {
 		map.put("contract", member.getContract());
 
 		return map;
+	}
+
+	public void checkMemberIn(Long memberId) {
+		Optional<Member> member = findById(memberId);
+		member.ifPresent(Member::checkIn);
+	}
+
+	public void checkMemberOut(Long memberId) {
+		Optional<Member> member = findById(memberId);
+		member.ifPresent(m -> statisticManagement.addAttendance(memberId, m.checkOut()));
 	}
 }
