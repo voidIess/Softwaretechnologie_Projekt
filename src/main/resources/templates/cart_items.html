@@ -13,18 +13,20 @@
         <br>
         <div class="container" th:each="cartItem : ${cart}">
             <div class="ui segment">
-                <div class="ui four column grid">
+                <div class="ui six column grid">
 
-                    <div class="ui three wide left floated column">
+                    <div class="ui left aligned left floated column">
                         <div class="ui header" th:text="${cartItem.getProduct().name}">Spinatsalat</div>
                     </div>
-                    <div class="ui two wide right floated colum">
-                        <div class="ui subheader" th:text="${cartItem.getPrice()}">
-                            12,40 EUR
-                        </div>
+                    <div class="ui right aligned column">
+                        <div class="ui content" th:text="'Anzahl: ' + ${cartItem.getQuantity()}">Anzahl: 12</div>
                     </div>
-                    <div class="ui two wide right floated column">
-                        <div class="ui content" th:text="'Anzahl: ' + ${cartItem.getQuantity()}"></div>
+                    <div class="ui right aligned column">
+                        <div class="ui header" th:text="${cartItem.getPrice()}">
+                            12,40 EUR
+                            <div class="ui sub header">-12%</div>
+                        </div>
+
                     </div>
                 </div>
             </div>
