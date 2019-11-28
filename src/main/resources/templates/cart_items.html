@@ -1,22 +1,15 @@
 <!DOCTYPE html>
 
-<html th:replace="site_template :: template(#{sell_catalog.title}, ~{::cart_items})"></html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="site_template :: template(#{cart_items.title}, ~{::cart_items})"></html>
 
-<html th:remove="tag">
+<html xmlns:th="http://www.thymeleaf.org" th:remove="tag">
 <head th:remove="all">
-    <link href="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css" rel="stylesheet" type="text/css"/>
     <meta content="text/html; charset=UTF-8" http-equiv="content-type"/>
 </head>
 
 <div th:fragment="cart_items">
     <div class="ui container">
-        <div class="ui header">
-            <span th:text="#{cart_items.title}">Warenkorb</span>
-            <a class="ui right floated button" th:href="@{/sell_catalog}">
-                <i class="cart icon"></i>
-                Bestellung
-            </a>
-        </div>
+
         <br>
         <div class="container" th:each="cartItem : ${cart}">
             <div class="ui segment">

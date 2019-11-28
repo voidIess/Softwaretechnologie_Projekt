@@ -23,7 +23,7 @@ public class Article extends Product {
 	//private Optional<Discount> discount;
 
 
-	private Article(){}
+	public Article(){}
 
 	public Article(String name, MonetaryAmount price, String art, String description, LocalDate expirationDate, Discount discount) {
 		super(name, price);
