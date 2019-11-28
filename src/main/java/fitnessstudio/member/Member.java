@@ -101,7 +101,6 @@ public class Member {
 
 	public void authorize() {
 		getUserAccount().setEnabled(true);
-		getContract().subscribe(this);
 		startDate = LocalDate.now();
 	}
 
