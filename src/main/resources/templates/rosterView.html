@@ -1,79 +1,77 @@
 <!DOCTYPE html>
 
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script src="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.js"></script>
-    <link rel="stylesheet" href="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css" type="text/css"/>
-    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/roster.css}"/>
-    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/toggle.css}"/>
-    <title th:text="#{home.title}">Dienstplan</title>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="site_template :: template(#{roster.title}, ~{::roster})"></html>
+
+<html xmlns:th="http://www.thymeleaf.org" th:remove="tag">
+<head th:remove="all">
+    <meta content="text/html; charset=UTF-8" http-equiv="content-type"/>
 </head>
-<body>
 
-<h1>Dienstplan</h1>
+<div th:fragment="roster">
 
+    <!---<h1>Dienstplan</h1>--->
 
-<nav th:include="navigation :: navigation"></nav>
-<toggle th:include="toggle :: toggle"></toggle>
+    <select class="ui dropdown" id="staff" onchange="location = this.value;">
+        <option th:value="@{/roster}">Alle Mitarbeiter</option>
+        <option th:each="staff : ${staffs}" th:value="@{/roster/{id}/(id=${staff.staffId})}"
+                th:text="${staff.toString()}" th:selected="${filterStaff==staff.staffId}"></option>
+    </select>
+    <br>
+    <br>
 
-<select class="ui dropdown" id="staff" onchange="location = this.value;">
-    <option th:value="@{/roster}">Alle Mitarbeiter</option>
-    <option th:each="staff : ${staffs}" th:value="@{/roster/{id}/(id=${staff.staffId})}" th:text="${staff.toString()}" th:selected="${filterStaff==staff.staffId}"></option>
-</select>
-<br>
-<br>
+    <p class="ui primary basic button">Trainer</p>
+    <p class="ui positive basic button">Thekenkraft</p>
 
-<p class ="ui primary basic button">Trainer</p>
-<p class ="ui positive basic button">Thekenkraft</p>
-
-
-
-
-
-
-<table class="ui selectable celled table">
-    <thead>
-    <tr>
-        <th>Zeit</th>
-        <th>Montag</th>
-        <th>Dienstag</th>
-        <th>Mittwoch</th>
-        <th>Donnerstag</th>
-        <th>Freitag</th>
-        <th>Samstag</th>
-        <th>Sonntag</th>
-
-    </tr>
-    </thead>
-    <th:block th:each="tableRow : ${roster}">
+    <table class="ui selectable celled table">
+        <thead>
         <tr>
-            <td th:text="${tableRow.getTime()}"></td>
-            <th:block th:each="slot: ${tableRow.getSlots()}">
-                <td>
-                    <th:block  th:each="entry: ${slot.getRosterEntries()}">
+            <th>Zeit</th>
+            <th>Montag</th>
+            <th>Dienstag</th>
+            <th>Mittwoch</th>
+            <th>Donnerstag</th>
+            <th>Freitag</th>
+            <th>Samstag</th>
+            <th>Sonntag</th>
 
-                        <div th:if="${filter && entry.getStaff().getStaffId() == filterStaff}">
-                            <a th:if="${entry.isTrainer() }" class="ui primary basic button" th:text="${entry.toString()}" th:href="@{/roster/detail/{day}/{slot}/{id}/(day=${tableRow.tableRowId},slot=${slot.slotId},id=${entry.rosterEntryId})}"></a>
-                            <a th:unless="${entry.isTrainer()}" class="ui positive basic button" th:text="${entry.toString()}" th:href="@{/roster/detail/{day}/{slot}/{id}/(day=${tableRow.tableRowId},slot=${slot.slotId},id=${entry.rosterEntryId})}"></a><br>
-                        </div>
-
-                        <div th:unless="${filter}">
-                            <a th:if="${entry.isTrainer()}" class="ui primary basic button" th:text="${entry.toString()}" th:href="@{/roster/detail/{day}/{slot}/{id}/(day=${tableRow.tableRowId},slot=${slot.slotId},id=${entry.rosterEntryId})}"></a>
-                            <a th:unless="${entry.isTrainer()}" class="ui positive basic button" th:text="${entry.toString()}" th:href="@{/roster/detail/{day}/{slot}/{id}/(day=${tableRow.tableRowId},slot=${slot.slotId},id=${entry.rosterEntryId})}"></a><br>
-                        </div>
-
-
-                    </th:block>
-                </td>
-            </th:block>
         </tr>
-    </th:block>
+        </thead>
+        <th:block th:each="tableRow : ${roster}">
+            <tr>
+                <td th:text="${tableRow.getTime()}"></td>
+                <th:block th:each="slot: ${tableRow.getSlots()}">
+                    <td>
+                        <th:block th:each="entry: ${slot.getRosterEntries()}">
 
-</table>
+                            <div th:if="${filter && entry.getStaff().getStaffId() == filterStaff}">
+                                <a th:if="${entry.isTrainer() }" class="ui primary basic button"
+                                   th:text="${entry.toString()}"
+                                   th:href="@{/roster/detail/{day}/{slot}/{id}/(day=${tableRow.tableRowId},slot=${slot.slotId},id=${entry.rosterEntryId})}"></a>
+                                <a th:unless="${entry.isTrainer()}" class="ui positive basic button"
+                                   th:text="${entry.toString()}"
+                                   th:href="@{/roster/detail/{day}/{slot}/{id}/(day=${tableRow.tableRowId},slot=${slot.slotId},id=${entry.rosterEntryId})}"></a><br>
+                            </div>
 
-<a class="fluid ui button" href="/roster/newrosterentry">Eintrag hinzuf&uuml;gen</a><br>
+                            <div th:unless="${filter}">
+                                <a th:if="${entry.isTrainer()}" class="ui primary basic button"
+                                   th:text="${entry.toString()}"
+                                   th:href="@{/roster/detail/{day}/{slot}/{id}/(day=${tableRow.tableRowId},slot=${slot.slotId},id=${entry.rosterEntryId})}"></a>
+                                <a th:unless="${entry.isTrainer()}" class="ui positive basic button"
+                                   th:text="${entry.toString()}"
+                                   th:href="@{/roster/detail/{day}/{slot}/{id}/(day=${tableRow.tableRowId},slot=${slot.slotId},id=${entry.rosterEntryId})}"></a><br>
+                            </div>
 
-</body>
+
+                        </th:block>
+                    </td>
+                </th:block>
+            </tr>
+        </th:block>
+
+    </table>
+
+    <a class="fluid ui button" href="/roster/newrosterentry">Eintrag hinzuf&uuml;gen</a><br>
+
+</div>
 </html>
