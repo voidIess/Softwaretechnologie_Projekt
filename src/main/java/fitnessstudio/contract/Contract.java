@@ -1,5 +1,6 @@
-package fitnessstudio.member;
+package fitnessstudio.contract;
 
+import fitnessstudio.member.Member;
 import org.javamoney.moneta.Money;
 
 import javax.persistence.Entity;

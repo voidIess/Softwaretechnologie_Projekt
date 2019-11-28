@@ -1,4 +1,5 @@
-package fitnessstudio.member;
+package fitnessstudio.contract;
+
 
 
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -31,7 +32,7 @@ public class ContractController {
 	@PreAuthorize("hasRole('BOSS')")
 	public String create(Model model, ContractForm form) {
 		model.addAttribute("form", form);
-		return "contractCreate";
+		return "contract/contractCreate";
 	}
 
 	@PostMapping("/admin/contract/create")
@@ -46,7 +47,7 @@ public class ContractController {
 	@PreAuthorize("hasRole('BOSS')")
 	public String contracts(Model model) {
 		model.addAttribute("contractList", contractManagement.getAllContracts());
-		return "contracts";
+		return "contract/contracts";
 	}
 
 	@GetMapping("/admin/contract/delete/{id}")
@@ -64,7 +65,7 @@ public class ContractController {
 			Contract c = contract.get();
 			model.addAttribute("contract", c);
 			model.addAttribute("form", new ContractForm(c.getName(), c.getDescription(), c.getPrice().getNumber().doubleValue(), c.getDuration()));
-			return "contractDetail";
+			return "contract/contractDetail";
 		}
 		return REDIRECT_CONTRACTS;
 	}

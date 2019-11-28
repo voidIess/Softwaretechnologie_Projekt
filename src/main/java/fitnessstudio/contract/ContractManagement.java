@@ -1,5 +1,8 @@
-package fitnessstudio.member;
+package fitnessstudio.contract;
 
+import fitnessstudio.contract.Contract;
+import fitnessstudio.contract.ContractForm;
+import fitnessstudio.contract.ContractRepository;
 import org.javamoney.moneta.Money;
 import org.salespointframework.useraccount.UserAccountManager;
 import org.springframework.stereotype.Service;

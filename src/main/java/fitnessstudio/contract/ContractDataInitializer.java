@@ -1,4 +1,4 @@
-package fitnessstudio.member;
+package fitnessstudio.contract;
 
 import org.javamoney.moneta.Money;
 import org.salespointframework.core.DataInitializer;

@@ -1,5 +1,6 @@
-package fitnessstudio.member;
+package fitnessstudio.contract;
 
+import fitnessstudio.contract.Contract;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.util.Streamable;
 
