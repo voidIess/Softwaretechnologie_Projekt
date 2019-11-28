@@ -29,7 +29,7 @@
                    sec:authorize="hasRole('BOSS') or hasRole('STAFF')"
                    th:text="#{nav.admin.members}">Mitglieder</a>
 
-                <a class="item" href="training/manage_trainings.html" th:href="@{/admin/trainings}"
+                <a class="item" href="training/trainings.html" th:href="@{/admin/trainings}"
                    sec:authorize="hasRole('BOSS') or hasRole('STAFF')"
                    th:text="#{nav.admin.trainings}">Trainings</a>
 
