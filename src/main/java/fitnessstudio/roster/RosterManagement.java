@@ -45,7 +45,7 @@ public class RosterManagement {
 
 		int day = Integer.parseInt(rosterEntryForm.getDay());
 
-		if(rosterEntryForm.getTimes().size() == 0) {
+		if(rosterEntryForm.getTimes().isEmpty()) {
 			result.reject("roster.error.time", "Bitte wähle mindestens eine Zeit aus.");
 			return;
 		}
@@ -64,7 +64,7 @@ public class RosterManagement {
 		}
 	}
 
-	public void editRosterEntry (RosterEntryForm form, Errors result){
+	public void editRosterEntry (RosterEntryForm form){
 		RosterEntry rosterEntry = RosterManager.getEntryById(Long.parseLong(form.getDay()));
 		rosterEntry.setRole(RosterManager.getRoleByString(form.getRole()));
 		RosterManager.saveRosterEntry(rosterEntry);

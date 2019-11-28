@@ -13,7 +13,7 @@
     <div class="ui menu">
 
         <a class="item" href="index.html" th:href="@{/}"
-           th:text="#{homePage.title}">Home</a>
+           th:text="#{homePage.title}">Konto</a>
 
         <a class="item" href="member/memberDetail.html" th:href="@{/member/home}" sec:authorize="hasRole('MEMBER')"
            th:text="#{nav.member.home}">Konto</a>
@@ -43,11 +43,15 @@
             </div>
         </div>
 
+        <a class="item" href="staffDetail.html" th:href="@{/staff}" sec:authorize="hasRole('STAFF') and !hasRole('BOSS')"
+           th:text="#{staffDetail.title}">Benutzerkonto</a>
+
         <a class="item" href="roster.html" th:href="@{/roster}" sec:authorize="hasRole('BOSS') or hasRole('STAFF')"
            th:text="#{roster.title}">Dienstplan</a>
 
-        <a class="item" href="staffDetail.html" th:href="@{/staff}" sec:authorize="hasRole('STAFF')"
-           th:text="#{staffDetail.title}">Benutzerkonto</a>
+        <a class="item" href="members.html" th:href="@{/admin/members}"
+           sec:authorize="hasRole('BOSS') or hasRole('STAFF')"
+           th:text="#{nav.admin.members}">Mitglieder</a>
 
         <div class="ui simple dropdown item" sec:authorize="hasRole('STAFF')">
             Theke Verwaltung

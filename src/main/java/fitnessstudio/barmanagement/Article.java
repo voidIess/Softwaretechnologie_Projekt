@@ -4,6 +4,8 @@ import org.javamoney.moneta.Money;
 import org.jetbrains.annotations.NotNull;
 import org.salespointframework.catalog.Product;
 
+import org.salespointframework.quantity.Quantity;
+
 import javax.money.MonetaryAmount;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
@@ -17,18 +19,18 @@ public class Article extends Product {
 	private LocalDate expirationDate;
 	@OneToOne
 	private Discount discount;
+	private Quantity sufficientQuantity;
+	//private Optional<Discount> discount;
 
-	public Article() {
-	}
 
-	public Article(String name, MonetaryAmount price, String art, String description, LocalDate expirationDate,
-				   Discount discount) {
+	private Article(){}
+
+	public Article(String name, MonetaryAmount price, String art, String description, LocalDate expirationDate, Discount discount) {
 		super(name, price);
 		this.art = art;
 		this.description = description;
 		this.expirationDate = expirationDate;
 		this.discount = discount;
-
 	}
 
 	@NotNull
@@ -69,6 +71,9 @@ public class Article extends Product {
 		this.expirationDate = expirationDate;
 	}
 
+	public Quantity getSufficientQuantity() {
+		return sufficientQuantity;
+	}
 	public Discount getDiscount() {
 		return discount;
 	}

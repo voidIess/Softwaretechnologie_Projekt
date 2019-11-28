@@ -21,6 +21,7 @@ public class RosterController {
 
 	private final RosterManagement rosterManagement;
 	private final StaffManagement staffs;
+	private static final String ROSTER = "redirect:/roster";
 
 	RosterController(RosterManagement rosterManagement, StaffManagement staffs){
 		Assert.notNull(rosterManagement, "RosterManagement darf nicht 'null' sein.");
@@ -54,22 +55,22 @@ public class RosterController {
 		if (result.hasErrors()) {
 			return new_roster_entry(model, form, result);
 		}
-		return "redirect:/roster";
+		return ROSTER;
 	}
 
 	@PreAuthorize("hasRole('STAFF') or hasRole('BOSS')")
 	@GetMapping("/roster/detail/delete/{slot}/{id}")
 	String delete(@PathVariable Long slot, @PathVariable Long id) {
 		rosterManagement.deleteRosterEntry(slot, id);
-		return "redirect:/roster";
+		return ROSTER;
 	}
 
 	@PreAuthorize("hasRole('STAFF') or hasRole('BOSS')")
 	@PostMapping("/roster/edit")
 	String edit(@Valid @ModelAttribute("form") RosterEntryForm form, Errors result) {
-		rosterManagement.editRosterEntry(form, result);
+		rosterManagement.editRosterEntry(form);
 
-		return "redirect:/roster";
+		return ROSTER;
 	}
 
 	@PreAuthorize("hasRole('STAFF') or hasRole('BOSS')")
@@ -88,6 +89,5 @@ public class RosterController {
 	//TODO: Crash sicher machen
 	//TODO: Nichts hinzufügen, wenn er bereits arbeitet, da sonst die sachen da ausgewählt werden.
 	//TODO: Nach Mitarbeitern filtern
-	//TODO:
 
 }
