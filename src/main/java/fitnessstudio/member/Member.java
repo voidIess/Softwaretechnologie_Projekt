@@ -166,6 +166,11 @@ public class Member {
 		return (int) (memberId ^ (memberId >>> 32));
 	}
 
+	@Override
+	public String toString() {
+		return firstName + " " + lastName + "(ID: " + memberId + ")";
+	}
+
 	public boolean isAttendant() {
 		return isAttendant;
 	}
