@@ -17,8 +17,21 @@
 
 <nav th:include="navigation :: navigation"></nav>
 <toggle th:include="toggle :: toggle"></toggle>
+
+<select class="ui dropdown" id="staff" onchange="location = this.value;">
+    <option th:value="@{/roster}">Alle Mitarbeiter</option>
+    <option th:each="staff : ${staffs}" th:value="@{/roster/{id}/(id=${staff.staffId})}" th:text="${staff.toString()}" th:selected="${filterStaff==staff.staffId}"></option>
+</select>
+<br>
+<br>
+
 <p class ="ui primary basic button">Trainer</p>
 <p class ="ui positive basic button">Thekenkraft</p>
+
+
+
+
+
 
 <table class="ui selectable celled table">
     <thead>
@@ -37,17 +50,21 @@
     <th:block th:each="tableRow : ${roster}">
         <tr>
             <td th:text="${tableRow.getTime()}"></td>
-            {this.boolean ?
-                <h1/>
-            :
-            <h1/>
-            }
             <th:block th:each="slot: ${tableRow.getSlots()}">
                 <td>
                     <th:block  th:each="entry: ${slot.getRosterEntries()}">
-                        <a th:if="${entry.isTrainer()}" class="ui primary basic button" th:text="${entry.toString()}" th:href="@{/roster/detail/{day}/{slot}/{id}/(day=${tableRow.tableRowId},slot=${slot.slotId},id=${entry.rosterEntryId})}"></a>
-                        <a th:unless="${entry.isTrainer()}" class="ui positive basic button" th:text="${entry.toString()}" th:href="@{/roster/detail/{day}/{slot}/{id}/(day=${tableRow.tableRowId},slot=${slot.slotId},id=${entry.rosterEntryId})}"></a>
-                        <br>
+
+                        <div th:if="${filter && entry.getStaff().getStaffId() == filterStaff}">
+                            <a th:if="${entry.isTrainer() }" class="ui primary basic button" th:text="${entry.toString()}" th:href="@{/roster/detail/{day}/{slot}/{id}/(day=${tableRow.tableRowId},slot=${slot.slotId},id=${entry.rosterEntryId})}"></a>
+                            <a th:unless="${entry.isTrainer()}" class="ui positive basic button" th:text="${entry.toString()}" th:href="@{/roster/detail/{day}/{slot}/{id}/(day=${tableRow.tableRowId},slot=${slot.slotId},id=${entry.rosterEntryId})}"></a><br>
+                        </div>
+
+                        <div th:unless="${filter}">
+                            <a th:if="${entry.isTrainer()}" class="ui primary basic button" th:text="${entry.toString()}" th:href="@{/roster/detail/{day}/{slot}/{id}/(day=${tableRow.tableRowId},slot=${slot.slotId},id=${entry.rosterEntryId})}"></a>
+                            <a th:unless="${entry.isTrainer()}" class="ui positive basic button" th:text="${entry.toString()}" th:href="@{/roster/detail/{day}/{slot}/{id}/(day=${tableRow.tableRowId},slot=${slot.slotId},id=${entry.rosterEntryId})}"></a><br>
+                        </div>
+
+
                     </th:block>
                 </td>
             </th:block>

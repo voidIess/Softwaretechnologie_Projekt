@@ -2,7 +2,6 @@ package fitnessstudio.roster;
 
 import com.mysema.commons.lang.Assert;
 import fitnessstudio.staff.StaffManagement;
-import fitnessstudio.staff.StaffRepository;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,8 +12,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.List;
 
 @Controller
 public class RosterController {
@@ -34,6 +31,18 @@ public class RosterController {
 	@GetMapping("/roster")
 	String view_roster (Model model){
 		model.addAttribute("roster",RosterManager.getRoster().getRows());
+		model.addAttribute("filter", false);
+		model.addAttribute("staffs", staffs.getAllStaffs());
+		return "rosterView";
+	}
+
+	@PreAuthorize("hasRole('STAFF') or hasRole('BOSS')")
+	@GetMapping("/roster/{id}")
+	String view_roster_filtered (@PathVariable long id, Model model){
+		model.addAttribute("roster",RosterManager.getRoster().getRows());
+		model.addAttribute("filter", true);
+		model.addAttribute("filterStaff", id);
+		model.addAttribute("staffs", staffs.getAllStaffs());
 		return "rosterView";
 	}
 
