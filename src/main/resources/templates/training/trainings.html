@@ -22,25 +22,32 @@
         <h1>Trainings</h1>
     </header>
 
+    <p>Es gibt <b><span th:text="${requestedTrainings}">0</span></b> neue Anfragen</p>
+    <a th:href="@{/admin/training/authorize}">Bearbeiten</a>
+
     <table class="ui celled table">
         <thead>
         <tr>
             <th>ID</th>
+            <th>Typ</th>
             <th>Trainer</th>
             <th>Beschreibung</th>
             <th>Tag</th>
             <th>Zeit</th>
-            <th>Status</th>
+            <th>Beenden</th>
         </tr>
         </thead>
         <tbody th:remove="all-but-first">
         <tr th:each="training : ${trainings}">
             <td th:text="${training.trainingId}">ID</td>
+            <td th:text="${training.getType().getDisplayValue()}"></td>
             <td th:text="${training.trainer.lastName}">Trainer</td>
             <td th:text="${training.description}">Beschreibung</td>
             <td th:text="${training.day}">Tag</td>
             <td th:text="${training.startTime}">Time</td>
-            <td th:text="${training.state}">Status</td>
+            <td>
+                <a class="ui red button" th:href="@{/training/end/{id}/(id=${training.trainingId})}">Beenden</a>
+            </td>
         </tr>
         </tbody>
     </table>
