@@ -11,6 +11,7 @@ import org.springframework.util.Assert;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
@@ -36,7 +37,7 @@ public class TrainingController {
 		model.addAttribute("types", trainingManagement.getTypes());
 		model.addAttribute("form", form);
 		model.addAttribute("error", result);
-		return "training/training_create";
+		return "training/create_training";
 
 	}
 
@@ -67,11 +68,41 @@ public class TrainingController {
 		}).orElse(REDIRECT_LOGIN);
 	}
 
-	@GetMapping("admin/trainings")
+	@GetMapping("/admin/trainings")
 	@PreAuthorize("hasRole('STAFF')")
 	public String manageTrainings(Model model){
-		model.addAttribute("trainings", trainingManagement.getAllTrainings());
+		model.addAttribute("trainings", trainingManagement.getAllAcceptedTrainings());
+		model.addAttribute("requestedTrainings", trainingManagement.getAllRequestedTrainings().size());
 
-		return "training/manage_trainings";
+		return "training/trainings";
+	}
+
+	@GetMapping("/admin/training/authorize")
+	@PreAuthorize("hasRole('STAFF')")
+	public String authorizeTrainings(Model model){
+		model.addAttribute("requestedTrainings", trainingManagement.getAllRequestedTrainings());
+
+		return "training/authorize_trainings";
+	}
+
+	@GetMapping("/training/decline/{id}")
+	@PreAuthorize("hasRole('STAFF')")
+	public String decline(@PathVariable long id, Model model){
+		trainingManagement.decline(id);
+		return "redirect:/admin/training/authorize";
+	}
+
+	@GetMapping("/training/accept/{id}")
+	@PreAuthorize("hasRole('STAFF')")
+	public String accept(@PathVariable long id, Model model){
+		trainingManagement.accept(id);
+		return "redirect:/admin/training/authorize";
+	}
+
+	@GetMapping("/training/end/{id}")
+	@PreAuthorize("hasRole('STAFF')")
+	public String end(@PathVariable long id, Model model){
+		trainingManagement.end(id);
+		return "redirect:/admin/trainings";
 	}
 }

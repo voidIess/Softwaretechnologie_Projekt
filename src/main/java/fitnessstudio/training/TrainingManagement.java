@@ -40,13 +40,19 @@ public class TrainingManagement {
 	}
 
 	public Training createTraining(Member member, TrainingForm form, Errors result) {
-		var type = form.getType();
 		var trainer = form.getStaff();
 		var time = form.getTime();
 		var day = form.getDay();
 
-		if (type.isEmpty()) {
+		if (form.getType().isEmpty()) {
 			result.rejectValue("type", "training.type.missing");
+			return null;
+		}
+
+		var type = TrainingType.valueOf(form.getType());
+
+		if (type.equals(TrainingType.TRIAL) && member.isFreeTrained()){
+			result.rejectValue("type", "training.type.alreadyFreeTrained");
 			return null;
 		}
 
@@ -57,8 +63,27 @@ public class TrainingManagement {
 		}
 		Staff staff = staffOptional.get();
 
-		return trainings.save(new Training(TrainingType.valueOf(type), staff, member, Integer.parseInt(day),
+		if (type.equals(TrainingType.TRIAL)){
+			memberManagement.trainFree(member);
+		}
+
+		return trainings.save(new Training(type, staff, member, Integer.parseInt(day),
 			LocalTime.parse(time), 90, form.getDescription()));
+	}
+
+	public void decline(Long trainingId) {
+		Optional<Training> trainingOptional = findById(trainingId);
+		trainingOptional.ifPresent(Training::decline);
+	}
+
+	public void accept(Long trainingId) {
+		Optional<Training> trainingOptional = findById(trainingId);
+		trainingOptional.ifPresent(Training::accept);
+	}
+
+	public void end(Long trainingId) {
+		Optional<Training> trainingOptional = findById(trainingId);
+		trainingOptional.ifPresent(Training::end);
 	}
 
 	public Optional<Member> findByUserAccount(UserAccount userAccount) {
@@ -90,4 +115,6 @@ public class TrainingManagement {
 	public List<Training> getAllTrainings(){
 		return trainings.findAll().toList();
 	}
+
+	public Optional<Training> findById(Long id){return trainings.findById(id);}
 }

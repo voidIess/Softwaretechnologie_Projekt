@@ -173,4 +173,9 @@ public class MemberManagement {
 		Optional<Member> member = findById(memberId);
 		member.ifPresent(m -> statisticManagement.addAttendance(memberId, m.checkOut()));
 	}
+
+	public void trainFree(Member member){
+		member.trainFree();
+		members.save(member);
+	}
 }
