@@ -5,7 +5,6 @@ import org.salespointframework.core.DataInitializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
-import org.springframework.util.Assert;
 
 import java.time.LocalDate;
 
@@ -15,13 +14,15 @@ import static org.salespointframework.core.Currencies.EURO;
 public class CatalogDataInitializer implements DataInitializer {
 
 	private static final Logger LOG = LoggerFactory.getLogger(CatalogDataInitializer.class);
-	private final BarCatalog catalog;
 
-	public CatalogDataInitializer(BarCatalog catalog) {
-		Assert.notNull(catalog, "BarCatalog must not be null!");
+	private final ArticleCatalog catalog;
+	private final DiscountRepository discountRepository;
 
+	public CatalogDataInitializer(ArticleCatalog catalog, DiscountRepository discountRepository) {
 		this.catalog = catalog;
+		this.discountRepository = discountRepository;
 	}
+
 
 	@Override
 	public void initialize() {
@@ -30,8 +31,15 @@ public class CatalogDataInitializer implements DataInitializer {
 		}
 
 		LOG.info("Creating default catalog entries.");
+		LocalDate startDate = LocalDate.of(2019, 12, 1);
+		LocalDate endDate = LocalDate.of(2020, 6, 15);
+		Discount discount = new Discount(startDate, endDate, 0);
+		discountRepository.save(discount);
 
-		catalog.save(new Article("Hantelsalat", Money.of(13.37, EURO),"lul", "fein  fein, fein....", LocalDate.MIN));
-		catalog.save(new Article("Kraueterschrauben", Money.of(13.37, EURO),"lul", "fein  fein, fein....", LocalDate.MIN));
+		catalog.save(new Article("Hantel", Money.of(50.00, EURO), "Trainingsgerät",
+			"10kg", endDate, discount));
+		catalog.save(new Article("Serious Mass", Money.of(13.37, EURO), "Essen",
+			"gesund",
+			endDate, discount));
 	}
 }

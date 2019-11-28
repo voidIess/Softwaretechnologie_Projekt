@@ -1,0 +1,38 @@
+body{
+  margin: 0;
+  padding: 0;
+  font-family: "montserrat",sans-serif;
+  min-height: 100vh;
+  background:var(--bg-color);
+}
+
+
+.container h1{
+  font-size: 70px;
+  margin: 20px 0 0;
+  font-weight: 900;
+  letter-spacing: 3px;
+  color: var(--heading-color);
+}
+
+.container button{
+  text-decoration: none;
+  background: #6a89cc;
+  color: #343434;
+  padding: 12px 24px;
+  display: inline-block;
+  border-radius: 25px;
+  font-size: 14px;
+  text-transform: uppercase;
+  transition: 0.4s;
+}
+
+.container a:hover{
+  background: #e55039;
+}
+
+.table.celled{
+  margin-top:70px;
+}
+
+

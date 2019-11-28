@@ -4,6 +4,9 @@ import org.javamoney.moneta.Money;
 import org.salespointframework.useraccount.UserAccount;
 
 import javax.persistence.*;
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 public class Member {
@@ -21,12 +24,35 @@ public class Member {
 	@Embedded
 	private CreditAccount creditAccount;
 
+	@ManyToOne
+	private Contract contract;
+
+	private LocalDate startDate;
+	private LocalDate lastPause;
+
+	private LocalDateTime checkInTime;
+
+	//Exercise time in minutes
+	private long exerciseTime;
+
+	private boolean isFreeTrained;
+
+	private boolean isPaused;
+
+	private boolean isAttendant;
+
 	public Member() {
+		isPaused = false;
+		exerciseTime = 0;
+		isFreeTrained = false;
+		isAttendant = false;
 	}
 
-	public Member(UserAccount userAccount, String firstName, String lastName) {
+	public Member(UserAccount userAccount, String firstName, String lastName, String iban, String bic) {
+		this();
+
 		this.userAccount = userAccount;
-		this.creditAccount = new CreditAccount();
+		this.creditAccount = new CreditAccount(iban, bic);
 		this.firstName = firstName;
 		this.lastName = lastName;
 		userAccount.setEnabled(false);
@@ -56,7 +82,91 @@ public class Member {
 		return userAccount;
 	}
 
-	public void payIn(Money amount){
+	public CreditAccount getCreditAccount() {
+		return creditAccount;
+	}
+
+	public void payIn(Money amount) {
 		creditAccount.payIn(amount);
 	}
+
+	public Contract getContract() {
+		return contract;
+	}
+
+	public void setContract(Contract contract) {
+		this.contract = contract;
+	}
+
+	public void authorize() {
+		getUserAccount().setEnabled(true);
+		getContract().subscribe(this);
+		startDate = LocalDate.now();
+	}
+
+	public boolean checkIn() {
+		if (isAttendant) {
+			return false;
+		} else {
+			isAttendant = true;
+			checkInTime = LocalDateTime.now();
+			return true;
+		}
+	}
+
+	public long checkOut() {
+		if (!isAttendant) {
+			return 0;
+		} else {
+			isAttendant = false;
+			long duration = Duration.between(checkInTime, LocalDateTime.now()).toMinutes();
+			checkInTime = null;
+			return duration;
+		}
+	}
+
+	public LocalDate getStartDate() {
+		return startDate;
+	}
+
+	public LocalDate getLastPause() {
+		return lastPause;
+	}
+
+	public long getExerciseTime() {
+		return exerciseTime;
+	}
+
+	public LocalDateTime getCheckInTime() {
+		return checkInTime;
+	}
+
+	public boolean isFreeTrained() {
+		return isFreeTrained;
+	}
+
+	public boolean isPaused() {
+		return isPaused;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+
+		Member member = (Member) o;
+
+		return memberId == member.memberId;
+
+	}
+
+	@Override
+	public int hashCode() {
+		return (int) (memberId ^ (memberId >>> 32));
+	}
+
+	public boolean isAttendant() {
+		return isAttendant;
+	}
+
 }

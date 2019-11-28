@@ -3,10 +3,7 @@ package fitnessstudio.staff;
 import org.javamoney.moneta.Money;
 import org.salespointframework.useraccount.UserAccount;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 @Entity
 public class Staff {
@@ -21,9 +18,12 @@ public class Staff {
 	@OneToOne
 	private UserAccount userAccount;
 
+	//@OneToMany()
+	//private RosterEntry[][] rosterEntries = new RosterEntry[7][];
+
 	Staff() {}
 
-	Staff(UserAccount userAccount, String firstName, String lastName, Money salary){
+	public Staff(UserAccount userAccount, String firstName, String lastName, Money salary){
 		this.userAccount = userAccount;
 		this.firstName = firstName;
 		this.lastName = lastName;

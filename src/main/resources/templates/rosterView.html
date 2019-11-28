@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.js"></script>
+    <link rel="stylesheet" href="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css" type="text/css"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/roster.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/toggle.css}"/>
+    <title th:text="#{home.title}">Dienstplan</title>
+</head>
+<body>
+
+<h1>Dienstplan</h1>
+
+
+<nav th:include="navigation :: navigation"></nav>
+<toggle th:include="toggle :: toggle"></toggle>
+<p class ="ui primary basic button">Trainer</p>
+<p class ="ui positive basic button">Thekenkraft</p>
+
+<table class="ui selectable celled table">
+    <thead>
+    <tr>
+        <th>Zeit</th>
+        <th>Montag</th>
+        <th>Dienstag</th>
+        <th>Mittwoch</th>
+        <th>Donnerstag</th>
+        <th>Freitag</th>
+        <th>Samstag</th>
+        <th>Sonntag</th>
+
+    </tr>
+    </thead>
+    <th:block th:each="tableRow : ${roster}">
+        <tr>
+            <td th:text="${tableRow.getTime()}"></td>
+
+            <th:block th:each="slot: ${tableRow.getSlots()}">
+                <td>
+                    <th:block  th:each="entry: ${slot.getRosterEntries()}">
+                        <a th:if="${entry.isTrainer()}" class="ui primary basic button" th:text="${entry.toString()}" th:href="@{/roster/detail/{day}/{slot}/{id}/(day=${tableRow.tableRowId},slot=${slot.slotId},id=${entry.rosterEntryId})}"></a>
+                        <a th:unless="${entry.isTrainer()}" class="ui positive basic button" th:text="${entry.toString()}" th:href="@{/roster/detail/{day}/{slot}/{id}/(day=${tableRow.tableRowId},slot=${slot.slotId},id=${entry.rosterEntryId})}"></a>
+                        <br>
+                    </th:block>
+                </td>
+            </th:block>
+        </tr>
+    </th:block>
+
+</table>
+
+<a class="fluid ui button" href="/roster/newrosterentry">Eintrag hinzuf&uuml;gen</a><br>
+
+</body>
+</html>

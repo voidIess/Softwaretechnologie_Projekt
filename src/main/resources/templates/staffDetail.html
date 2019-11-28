@@ -35,8 +35,8 @@
 </div>
 
 <div class="column">
-    <form sec:authorize="hasRole('STAFF')" class="ui form" method="post" th:action="@{/printPdf}">
-        <button type="submit" class="ui button" style="float: right" th:text="#{staffDetail.printPdf}">Rechnung ausdrucken</button>
+    <form sec:authorize="hasRole('STAFF')" class="ui form" method="post" th:action="@{/printPdfPayslip}">
+        <button type="submit" class="ui button" style="float: right" th:text="#{staffDetail.printPdfPayslip}">Gehaltsabrechnung</button>
     </form>
 </div>
 

@@ -15,18 +15,25 @@ import java.util.Optional;
 
 @Controller
 public class MemberController {
-	private final MemberManagement memberManagement;
 
-	MemberController(MemberManagement memberManagement) {
+	private static final String REDIRECT_LOGIN = "redirect:/login";
+	private final MemberManagement memberManagement;
+	private final ContractManagement contractManagement;
+
+
+	MemberController(MemberManagement memberManagement, ContractManagement contractManagement) {
 		Assert.notNull(memberManagement, "MemberManagement must not be null");
+		Assert.notNull(contractManagement, "ContractManagement must not be null");
 
 		this.memberManagement = memberManagement;
+		this.contractManagement = contractManagement;
 	}
 
 	@GetMapping("/register")
 	public String register(Model model, RegistrationForm form, Errors results) {
 		model.addAttribute("form", form);
 		model.addAttribute("error", results);
+		model.addAttribute("contractList", contractManagement.getAllContracts());
 		return "register";
 	}
 
@@ -42,7 +49,7 @@ public class MemberController {
 	}
 
 	@GetMapping("/admin/members")
-	@PreAuthorize("hasRole('STAFF') or hasRole('BOSS')")
+	@PreAuthorize("hasRole('STAFF')")
 	public String members(Model model) {
 		model.addAttribute("memberList", memberManagement.findAllAuthorized());
 		model.addAttribute("unauthorizedMember", memberManagement.findAllUnauthorized().size());
@@ -50,7 +57,7 @@ public class MemberController {
 	}
 
 	@GetMapping("/admin/authorizeMember")
-	@PreAuthorize("hasRole('STAFF') or hasRole('BOSS')")
+	@PreAuthorize("hasRole('STAFF')")
 	public String authorizeMember(Model model) {
 		model.addAttribute("unauthorizedMember", memberManagement.findAllUnauthorized());
 		return "authorizeMember";
@@ -67,8 +74,8 @@ public class MemberController {
 				model.addAttribute("member", member.get());
 				return "memberDetail";
 			}
-			return "redirect:/login";
-		}).orElse("redirect:/login");
+			return REDIRECT_LOGIN;
+		}).orElse(REDIRECT_LOGIN);
 	}
 
 	@PostMapping("/member/payin")
@@ -82,22 +89,48 @@ public class MemberController {
 				memberManagement.memberPayIn(member.get(), money);
 				return "redirect:/member/home";
 			}
-			return "redirect:/login";
-		}).orElse("redirect:/login");
+			return REDIRECT_LOGIN;
+		}).orElse(REDIRECT_LOGIN);
 	}
 
 	@GetMapping("/member/delete/{id}")
-	@PreAuthorize("hasRole('STAFF') or hasRole('BOSS')")
+	@PreAuthorize("hasRole('STAFF')")
 	public String delete(@PathVariable long id, Model model){
 		memberManagement.deleteMember(id);
 		return "redirect:/admin/authorizeMember";
 	}
 
 	@GetMapping("/member/authorize/{id}")
-	@PreAuthorize("hasRole('STAFF') or hasRole('BOSS')")
+	@PreAuthorize("hasRole('STAFF')")
 	public String authorize(@PathVariable long id, Model model){
 		memberManagement.authorizeMember(id);
 		return "redirect:/admin/authorizeMember";
 	}
 
+	@GetMapping("/member/checkin/{id}")
+	@PreAuthorize("hasRole('STAFF')")
+	public String checkIn(@PathVariable long id, Model model){
+		memberManagement.checkMemberIn(id);
+		return "redirect:/admin/members";
+	}
+
+	@GetMapping("/member/checkout/{id}")
+	@PreAuthorize("hasRole('STAFF')")
+	public String checkOut(@PathVariable long id, Model model){
+		memberManagement.checkMemberOut(id);
+		return "redirect:/admin/members";
+	}
+
+	@PostMapping("/printPdfInvoice")
+	public String printPdfInvoice(@LoggedIn Optional<UserAccount> userAccount, Model model) {
+
+		if (userAccount.isEmpty()) {
+			return REDIRECT_LOGIN;
+		}
+
+		model.addAttribute("type", "invoice");
+		model.addAllAttributes(memberManagement.createPdfInvoice(userAccount.get()));
+
+		return "pdfView";
+	}
 }

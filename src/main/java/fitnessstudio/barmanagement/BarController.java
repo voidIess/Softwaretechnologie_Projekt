@@ -3,8 +3,7 @@ package fitnessstudio.barmanagement;
 import org.salespointframework.inventory.InventoryItem;
 import org.salespointframework.inventory.UniqueInventory;
 import org.salespointframework.inventory.UniqueInventoryItem;
-import org.salespointframework.order.Cart;
-import org.salespointframework.order.CartItem;
+import org.salespointframework.order.*;
 import org.salespointframework.quantity.Quantity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,30 +11,54 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.support.SessionStatus;
+
+import javax.validation.Valid;
 
 
 @Controller
 @SessionAttributes("cart")
 public class BarController {
 
-	private final BarCatalog catalog;
-	private final UniqueInventory<UniqueInventoryItem> inventory;
-
 	private static final Logger LOG = LoggerFactory.getLogger(CatalogDataInitializer.class);
+	private final ArticleCatalog catalog;
+	private final UniqueInventory<UniqueInventoryItem> inventory;
+	private final OrderManager<Order> orderManager;
 
-	public BarController(BarCatalog catalog, UniqueInventory<UniqueInventoryItem> inventory) {
+	public BarController(ArticleCatalog catalog, UniqueInventory<UniqueInventoryItem> inventory, OrderManager<Order> orderManager) {
 		this.catalog = catalog;
 		this.inventory = inventory;
+		this.orderManager = orderManager;
 	}
-
 
 
 	@PreAuthorize("hasRole('STAFF') or hasRole('BOSS')")
 	@GetMapping("/sell_catalog")
-	String SellingCatalog(Model model){
+	String SellingCatalog(Model model) {
 
 		model.addAttribute("inventory", inventory.findAll());
-		return("sell_catalog");
+		return ("sell_catalog");
+	}
+
+	@PostMapping("/sell")
+	public String sell(@ModelAttribute Cart cart, @Valid BarForm form, SessionStatus status) {
+
+		// TODO: get member
+
+		// TODO: choose cash or credit
+
+		// TODO: check credit enough money
+
+		// TODO: pay
+
+		// TODO: update member( update credit and add invoice)
+
+		// TODO: check if quantity = 0( add to "Nachbestelliste )
+
+		// TODO: update stock
+
+		status.setComplete();
+		return "redirect:/";
 	}
 
 	@ModelAttribute("cart")
@@ -54,16 +77,24 @@ public class BarController {
 		Quantity allreadyOrderedQuantity = cart.stream().filter(x -> x.getProduct()
 			.equals(article)).findFirst().map(CartItem::getQuantity).orElse(Quantity.NONE);
 
-		if(!allreadyOrderedQuantity.add(Quantity.of(number)).isGreaterThan(inventoryQuantity)) {
+		if (!allreadyOrderedQuantity.add(Quantity.of(number)).isGreaterThan(inventoryQuantity)) {
 			cart.addOrUpdateItem(article, Quantity.of(number));
 		}
 
-		LOG.info(cart.stream().map(x -> x.getProductName() + " " + x.getQuantity()).reduce("", ((x, y) -> x + y) ));
+		LOG.info(cart.stream().map(x -> x.getProductName() + " " + x.getQuantity()).reduce("", ((x, y) -> x + y)));
 
 		return ("redirect:sell_catalog");
 	}
 
-	@PreAuthorize("hasRole('STAFF') or hasRole('BOSS')")
+
+	@GetMapping("/orders")
+	@PreAuthorize("hasRole('STAFF')")
+	public String orders(Model model) {
+		model.addAttribute("ordersCompleted", orderManager.findBy(OrderStatus.COMPLETED));
+		return "orders";
+	}
+
+	@PreAuthorize("hasRole('STAFF')")
 	@GetMapping("/cart_items")
 	String cartItems() {
 		return ("cart_items");

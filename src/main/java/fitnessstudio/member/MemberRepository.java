@@ -1,7 +1,6 @@
 package fitnessstudio.member;
 
 import org.salespointframework.useraccount.UserAccount;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.util.Streamable;
 
