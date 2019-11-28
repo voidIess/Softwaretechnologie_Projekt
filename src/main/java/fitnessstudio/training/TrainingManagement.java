@@ -7,13 +7,11 @@ import fitnessstudio.staff.Staff;
 import fitnessstudio.staff.StaffManagement;
 import org.salespointframework.useraccount.UserAccount;
 import org.salespointframework.useraccount.UserAccountManager;
-
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import org.springframework.validation.Errors;
 
 import javax.transaction.Transactional;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -47,13 +45,13 @@ public class TrainingManagement {
 		var time = form.getTime();
 		var day = form.getDay();
 
-		if (type.isEmpty()){
+		if (type.isEmpty()) {
 			result.rejectValue("type", "training.type.missing");
 			return null;
 		}
 
 		Optional<Staff> staffOptional = staffManagement.findById(Long.parseLong(trainer));
-		if(staffOptional.isEmpty()) {
+		if (staffOptional.isEmpty()) {
 			result.rejectValue("staff", "training.staff.notFound");
 			return null;
 		}
@@ -63,21 +61,33 @@ public class TrainingManagement {
 			LocalTime.parse(time), 90, form.getDescription()));
 	}
 
-	public Optional<Member> findByUserAccount(UserAccount userAccount){
+	public Optional<Member> findByUserAccount(UserAccount userAccount) {
 		return memberManagement.findByUserAccount(userAccount);
 	}
 
-	public List<Staff> getAllStaffs(){return staffManagement.getAllStaffs();}
+	public List<Staff> getAllStaffs() {
+		return staffManagement.getAllStaffs();
+	}
 
-	public List<TrainingType> getTypes(){
+	public List<TrainingType> getTypes() {
 		return new ArrayList<>(Arrays.asList(TrainingType.values()));
 	}
 
-	public List<Training> getAllTrainingByMember(Member member){
+	public List<Training> getAllTrainingByMember(Member member) {
 		return trainings.findAll().filter(t ->
 			t.getMember().equals(member)
 		).toList();
 	}
 
-	public List<Training> getAllTrainings(){return trainings.findAll().toList();}
+	public List<Training> getAllAcceptedTrainings() {
+		return trainings.findAll().filter(t -> t.getState().equals(TrainingState.ACCEPTED)).toList();
+	}
+
+	public List<Training> getAllRequestedTrainings() {
+		return trainings.findAll().filter(t -> t.getState().equals(TrainingState.REQUESTED)).toList();
+	}
+
+	public List<Training> getAllTrainings(){
+		return trainings.findAll().toList();
+	}
 }

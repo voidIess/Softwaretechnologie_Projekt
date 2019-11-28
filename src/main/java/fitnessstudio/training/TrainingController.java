@@ -36,7 +36,7 @@ public class TrainingController {
 		model.addAttribute("types", trainingManagement.getTypes());
 		model.addAttribute("form", form);
 		model.addAttribute("error", result);
-		return "training_create";
+		return "training/training_create";
 
 	}
 
@@ -49,21 +49,29 @@ public class TrainingController {
 				if (result.hasErrors()) {
 					return create(model,form, result);
 				}
-				return "redirect:/member/training/list";
+				return "redirect:/member/trainings";
 			}
 			return REDIRECT_LOGIN;
 		}).orElse(REDIRECT_LOGIN);
 	}
 
-	@GetMapping("/member/training/list")
+	@GetMapping("/member/trainings")
 	public String trainings(@LoggedIn Optional<UserAccount> userAccount, Model model) {
 		return userAccount.map(user -> {
 			Optional<Member> member = trainingManagement.findByUserAccount(user);
 			if (member.isPresent()) {
 				model.addAttribute("trainings", trainingManagement.getAllTrainingByMember(member.get()));
-				return "member_trainings";
+				return "training/member_trainings";
 			}
 			return REDIRECT_LOGIN;
 		}).orElse(REDIRECT_LOGIN);
+	}
+
+	@GetMapping("admin/trainings")
+	@PreAuthorize("hasRole('STAFF')")
+	public String manageTrainings(Model model){
+		model.addAttribute("trainings", trainingManagement.getAllTrainings());
+
+		return "training/manage_trainings";
 	}
 }

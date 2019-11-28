@@ -1,5 +1,6 @@
 package fitnessstudio.member;
 
+import fitnessstudio.contract.ContractManagement;
 import org.salespointframework.core.DataInitializer;
 import org.salespointframework.useraccount.Password;
 import org.salespointframework.useraccount.Role;

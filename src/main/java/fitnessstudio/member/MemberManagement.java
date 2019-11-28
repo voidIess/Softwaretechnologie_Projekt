@@ -1,5 +1,6 @@
 package fitnessstudio.member;
 
+import fitnessstudio.contract.ContractManagement;
 import fitnessstudio.statistics.StatisticManagement;
 import fitnessstudio.studio.StudioService;
 import org.javamoney.moneta.Money;

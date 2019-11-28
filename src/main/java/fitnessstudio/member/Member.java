@@ -1,5 +1,6 @@
 package fitnessstudio.member;
 
+import fitnessstudio.contract.Contract;
 import org.javamoney.moneta.Money;
 import org.salespointframework.useraccount.UserAccount;
 

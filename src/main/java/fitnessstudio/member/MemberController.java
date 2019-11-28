@@ -1,5 +1,6 @@
 package fitnessstudio.member;
 
+import fitnessstudio.contract.ContractManagement;
 import org.javamoney.moneta.Money;
 import org.salespointframework.useraccount.UserAccount;
 import org.salespointframework.useraccount.web.LoggedIn;
@@ -53,14 +54,14 @@ public class MemberController {
 	public String members(Model model) {
 		model.addAttribute("memberList", memberManagement.findAllAuthorized());
 		model.addAttribute("unauthorizedMember", memberManagement.findAllUnauthorized().size());
-		return "members";
+		return "member/members";
 	}
 
 	@GetMapping("/admin/authorizeMember")
 	@PreAuthorize("hasRole('STAFF')")
 	public String authorizeMember(Model model) {
 		model.addAttribute("unauthorizedMember", memberManagement.findAllUnauthorized());
-		return "authorizeMember";
+		return "member/authorizeMember";
 	}
 
 
@@ -72,7 +73,7 @@ public class MemberController {
 
 			if (member.isPresent()) {
 				model.addAttribute("member", member.get());
-				return "memberDetail";
+				return "member/memberDetail";
 			}
 			return REDIRECT_LOGIN;
 		}).orElse(REDIRECT_LOGIN);

@@ -15,17 +15,25 @@
         <a class="item" href="index.html" th:href="@{/}"
            th:text="#{homePage.title}">Home</a>
 
-        <a class="item" href="memberDetail.html" th:href="@{/member/home}" sec:authorize="hasRole('MEMBER')"
-           th:text="#{nav.member.home}">Home</a>
-        <div class="ui simple dropdown item" sec:authorize="hasRole('BOSS')">
+        <a class="item" href="member/memberDetail.html" th:href="@{/member/home}" sec:authorize="hasRole('MEMBER')"
+           th:text="#{nav.member.home}">Konto</a>
+
+        <a class="item" href="training/member_trainings.html" th:href="@{/member/trainings}" sec:authorize="hasRole('MEMBER')"
+           th:text="#{nav.member.training}">Trainings</a>
+
+        <div class="ui simple dropdown item" sec:authorize="hasRole('BOSS') or hasRole('STAFF')">
             Adminbereich
             <i class="dropdown icon"></i>
             <div class="menu">
-                <a class="item" href="members.html" th:href="@{/admin/members}"
+                <a class="item" href="member/members.html" th:href="@{/admin/members}"
                    sec:authorize="hasRole('BOSS') or hasRole('STAFF')"
                    th:text="#{nav.admin.members}">Mitglieder</a>
 
-                <a class="item" href="contracts.html" th:href="@{/admin/contracts}"
+                <a class="item" href="training/manage_trainings.html" th:href="@{/admin/trainings}"
+                   sec:authorize="hasRole('BOSS') or hasRole('STAFF')"
+                   th:text="#{nav.admin.trainings}">Trainings</a>
+
+                <a class="item" href="contract/contracts.html" th:href="@{/admin/contracts}"
                    sec:authorize="hasRole('BOSS') or hasRole('STAFF')"
                    th:text="#{nav.admin.contracts}">Verträge bearbeiten</a>
 

@@ -1,17 +1,11 @@
 package fitnessstudio.pdf;
 
-import com.itextpdf.io.font.FontConstants;
-import com.itextpdf.kernel.font.PdfFontFactory;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
-import com.itextpdf.layout.property.TextAlignment;
-import fitnessstudio.member.Contract;
-import fitnessstudio.studio.Studio;
-import fitnessstudio.studio.StudioRepository;
+import fitnessstudio.contract.Contract;
 
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.Map;
 
 public class InvoicePdfGenerator implements PdfGenerator {
