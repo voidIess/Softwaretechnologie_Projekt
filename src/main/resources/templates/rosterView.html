@@ -37,7 +37,11 @@
     <th:block th:each="tableRow : ${roster}">
         <tr>
             <td th:text="${tableRow.getTime()}"></td>
-
+            {this.boolean ?
+                <h1/>
+            :
+            <h1/>
+            }
             <th:block th:each="slot: ${tableRow.getSlots()}">
                 <td>
                     <th:block  th:each="entry: ${slot.getRosterEntries()}">

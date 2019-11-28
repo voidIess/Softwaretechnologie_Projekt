@@ -1,11 +1,16 @@
 package fitnessstudio.roster;
 
+import fitnessstudio.staff.Staff;
 import fitnessstudio.staff.StaffRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+
+import static fitnessstudio.roster.Roster.DURATION;
+import static fitnessstudio.roster.Roster.STARTTIME;
 
 @Component
 public class RosterManager {
