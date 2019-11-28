@@ -87,7 +87,7 @@ public class Member {
 		return creditAccount;
 	}
 
-	public void payIn(Money amount) {
+	void payIn(Money amount) {
 		creditAccount.payIn(amount);
 	}
 
@@ -105,7 +105,7 @@ public class Member {
 		startDate = LocalDate.now();
 	}
 
-	public boolean checkIn() {
+	 boolean checkIn() {
 		if (isAttendant) {
 			return false;
 		} else {
@@ -115,7 +115,7 @@ public class Member {
 		}
 	}
 
-	public long checkOut() {
+	 long checkOut() {
 		if (!isAttendant) {
 			return 0;
 		} else {
@@ -142,9 +142,15 @@ public class Member {
 		return checkInTime;
 	}
 
+	public void setFreeTrained(boolean isFreeTrained){
+		this.isFreeTrained = isFreeTrained;
+	}
+
 	public boolean isFreeTrained() {
 		return isFreeTrained;
 	}
+
+	void trainFree() { isFreeTrained = true;}
 
 	public boolean isPaused() {
 		return isPaused;
