@@ -3,9 +3,10 @@
 <html xmlns:th="http://www.thymeleaf.org"
       th:replace="site_template :: template(#{roster.title}, ~{::roster})"></html>
 
-<html xmlns:th="http://www.thymeleaf.org" th:remove="tag">
-<head th:remove="all">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
     <meta content="text/html; charset=UTF-8" http-equiv="content-type"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/roster.css}"/>
 
 </head>
 

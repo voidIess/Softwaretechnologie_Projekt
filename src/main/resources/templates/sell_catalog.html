@@ -2,28 +2,20 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" th:replace="site_template :: template(#{sell_catalog.title}, ~{::cart_items})"></html>
+
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <link href="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css" rel="stylesheet" type="text/css"/>
-
-    <title th:text="#{sell_catalog.title}">Artikel verkaufen</title>
     <meta content="text/html; charset=UTF-8" http-equiv="content-type"/>
-</head>
-<body>
-<div class="ui masthead vertical segment">
-    <div class="ui container">
-        <nav th:include="navigation :: navigation"></nav>
-        <header>
-            <h1 th:text="#{sell_catalog.title}">Artikel verkaufen</h1>
-        </header>
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/roster.css}"/>
 
-        <br>
-    </div>
-</div>
-<br>
+</head>
+<div th:fragment="cart_items">
+
 <div class="ui container">
     <div class="ui header">
         <span th:text="#{sell_catalog.title}">Artikelübersicht</span>
-        <a class="ui right floated button"  th:href="@{/cart_items}">
+        <a class="ui green right floated button"  th:href="@{/cart_items}">
             <i class="cart icon"></i>
             <span th:text="#{sel_catalog.cart_button_label}">Bestellung</span>
         </a>
@@ -58,5 +50,6 @@
         </div>
     </div>
 </div>
-</body>
+
+</div>
 </html>

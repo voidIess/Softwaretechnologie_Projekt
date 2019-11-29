@@ -3,8 +3,8 @@
 <html xmlns:th="http://www.thymeleaf.org"
       th:replace="site_template :: template(#{roster.detail.title}, ~{::roster})"></html>
 
-<html xmlns:th="http://www.thymeleaf.org" th:remove="tag">
-<head th:remove="all">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
     <meta content="text/html; charset=UTF-8" http-equiv="content-type"/>
 
 </head>
@@ -37,7 +37,7 @@
                            th:value="${rosterEntry.rosterEntryId}"/>
                 </div>
 
-                <div class="field">
+                <div>
                     <label th:text="#{roster.role}" for="role">Rolle</label>
                     <select id="role" name="role" class="ui fluid dropdown">
                         <option th:each="role : ${roles}" th:value="${role}" th:text="${role}"

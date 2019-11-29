@@ -18,7 +18,8 @@
         <a class="item" href="member/memberDetail.html" th:href="@{/member/home}" sec:authorize="hasRole('MEMBER')"
            th:text="#{nav.member.home}">Konto</a>
 
-        <a class="item" href="training/member_trainings.html" th:href="@{/member/trainings}" sec:authorize="hasRole('MEMBER')"
+        <a class="item" href="training/member_trainings.html" th:href="@{/member/trainings}"
+           sec:authorize="hasRole('MEMBER')"
            th:text="#{nav.member.training}">Trainings</a>
 
         <div class="ui simple dropdown item" sec:authorize="hasRole('BOSS') or hasRole('STAFF')">
@@ -38,12 +39,13 @@
                    th:text="#{nav.admin.contracts}">Verträge bearbeiten</a>
 
                 <a class="item" href="attendanceStatistic.html" th:href="@{/admin/attendanceStatistic}"
-                    sec:authorize="hasRole('BOSS')"
-                    th:text="#{nav.admin.statistics}">Statistiken</a>
+                   sec:authorize="hasRole('BOSS')"
+                   th:text="#{nav.admin.statistics}">Statistiken</a>
             </div>
         </div>
 
-        <a class="item" href="staffDetail.html" th:href="@{/staff}" sec:authorize="hasRole('STAFF') and !hasRole('BOSS')"
+        <a class="item" href="staffDetail.html" th:href="@{/staff}"
+           sec:authorize="hasRole('STAFF') and !hasRole('BOSS')"
            th:text="#{staffDetail.title}">Benutzerkonto</a>
 
         <a class="item" href="roster.html" th:href="@{/roster}" sec:authorize="hasRole('BOSS') or hasRole('STAFF')"
@@ -66,12 +68,21 @@
 
             </div>
         </div>
+
         <div class="right menu">
+            <a class="green item" sec:authorize="hasRole('STAFF')" th:href="@{/cart_items}">
+                <div class="ui green button"> <i class="cart icon"></i>
+                </div>
+            </a>
+
             <a class="item" th:href="@{/login}" sec:authorize="!isAuthenticated()" th:text="#{nav.login}">Login</a>
             <form class="item" sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post">
                 <button type="submit" class="ui button" th:text="#{nav.logout}">Logout</button>
             </form>
         </div>
+
+
+
     </div>
     <br/>
 </nav>
