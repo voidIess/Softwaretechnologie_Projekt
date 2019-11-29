@@ -6,7 +6,6 @@ import fitnessstudio.member.MemberManagement;
 import fitnessstudio.staff.Staff;
 import fitnessstudio.staff.StaffManagement;
 import org.salespointframework.useraccount.UserAccount;
-import org.salespointframework.useraccount.UserAccountManager;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import org.springframework.validation.Errors;
@@ -23,18 +22,15 @@ import java.util.Optional;
 public class TrainingManagement {
 
 	private final TrainingRepository trainings;
-	private final UserAccountManager userAccounts;
 	private final MemberManagement memberManagement;
 	private final StaffManagement staffManagement;
 
-	public TrainingManagement(TrainingRepository trainings, UserAccountManager userAccounts, MemberManagement memberManagement, StaffManagement staffManagement) {
+	public TrainingManagement(TrainingRepository trainings, MemberManagement memberManagement, StaffManagement staffManagement) {
 		Assert.notNull(trainings, "TrainingRepository must not be null");
-		Assert.notNull(userAccounts, "UserAccountManager must not be null");
 		Assert.notNull(memberManagement, "MemberManagement must not be null");
 		Assert.notNull(staffManagement, "StaffManagement must not be null");
 
 		this.trainings = trainings;
-		this.userAccounts = userAccounts;
 		this.memberManagement = memberManagement;
 		this.staffManagement = staffManagement;
 	}
@@ -51,7 +47,7 @@ public class TrainingManagement {
 
 		var type = TrainingType.valueOf(form.getType());
 
-		if (type.equals(TrainingType.TRIAL) && member.isFreeTrained()){
+		if (type.equals(TrainingType.TRIAL) && member.isFreeTrained()) {
 			result.rejectValue("type", "training.type.alreadyFreeTrained");
 			return null;
 		}
@@ -63,7 +59,7 @@ public class TrainingManagement {
 		}
 		Staff staff = staffOptional.get();
 
-		if (type.equals(TrainingType.TRIAL)){
+		if (type.equals(TrainingType.TRIAL)) {
 			memberManagement.trainFree(member);
 		}
 
@@ -112,9 +108,11 @@ public class TrainingManagement {
 		return trainings.findAll().filter(t -> t.getState().equals(TrainingState.REQUESTED)).toList();
 	}
 
-	public List<Training> getAllTrainings(){
+	public List<Training> getAllTrainings() {
 		return trainings.findAll().toList();
 	}
 
-	public Optional<Training> findById(Long id){return trainings.findById(id);}
+	public Optional<Training> findById(Long id) {
+		return trainings.findById(id);
+	}
 }

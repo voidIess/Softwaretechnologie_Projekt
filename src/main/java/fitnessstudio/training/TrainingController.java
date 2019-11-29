@@ -48,7 +48,7 @@ public class TrainingController {
 			if (member.isPresent()) {
 				trainingManagement.createTraining(member.get(), form, result);
 				if (result.hasErrors()) {
-					return create(model,form, result);
+					return create(model, form, result);
 				}
 				return "redirect:/member/trainings";
 			}
@@ -70,7 +70,7 @@ public class TrainingController {
 
 	@GetMapping("/admin/trainings")
 	@PreAuthorize("hasRole('STAFF')")
-	public String manageTrainings(Model model){
+	public String manageTrainings(Model model) {
 		model.addAttribute("trainings", trainingManagement.getAllAcceptedTrainings());
 		model.addAttribute("requestedTrainings", trainingManagement.getAllRequestedTrainings().size());
 
@@ -79,7 +79,7 @@ public class TrainingController {
 
 	@GetMapping("/admin/training/authorize")
 	@PreAuthorize("hasRole('STAFF')")
-	public String authorizeTrainings(Model model){
+	public String authorizeTrainings(Model model) {
 		model.addAttribute("requestedTrainings", trainingManagement.getAllRequestedTrainings());
 
 		return "training/authorize_trainings";
@@ -87,21 +87,21 @@ public class TrainingController {
 
 	@GetMapping("/training/decline/{id}")
 	@PreAuthorize("hasRole('STAFF')")
-	public String decline(@PathVariable long id, Model model){
+	public String decline(@PathVariable long id, Model model) {
 		trainingManagement.decline(id);
 		return "redirect:/admin/training/authorize";
 	}
 
 	@GetMapping("/training/accept/{id}")
 	@PreAuthorize("hasRole('STAFF')")
-	public String accept(@PathVariable long id, Model model){
+	public String accept(@PathVariable long id, Model model) {
 		trainingManagement.accept(id);
 		return "redirect:/admin/training/authorize";
 	}
 
 	@GetMapping("/training/end/{id}")
 	@PreAuthorize("hasRole('STAFF')")
-	public String end(@PathVariable long id, Model model){
+	public String end(@PathVariable long id, Model model) {
 		trainingManagement.end(id);
 		return "redirect:/admin/trainings";
 	}

@@ -5,7 +5,7 @@ enum TrainingState {
 
 	private final String displayValue;
 
-	TrainingState(String displayValue){
+	TrainingState(String displayValue) {
 		this.displayValue = displayValue;
 	}
 

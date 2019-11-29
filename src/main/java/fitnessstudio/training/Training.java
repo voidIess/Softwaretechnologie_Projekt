@@ -88,23 +88,23 @@ public class Training {
 		return day;
 	}
 
-	public void decline(){
-		if (getState().equals(TrainingState.REQUESTED)){
+	public void decline() {
+		if (getState().equals(TrainingState.REQUESTED)) {
 			state = TrainingState.DECLINED;
-			if (type.equals(TrainingType.TRIAL)){
+			if (type.equals(TrainingType.TRIAL)) {
 				member.setFreeTrained(false);
 			}
 		}
 	}
 
-	public void accept(){
-		if (getState().equals(TrainingState.REQUESTED)){
+	public void accept() {
+		if (getState().equals(TrainingState.REQUESTED)) {
 			state = TrainingState.ACCEPTED;
 		}
 	}
 
-	public void end(){
-		if (getState().equals(TrainingState.ACCEPTED)){
+	public void end() {
+		if (getState().equals(TrainingState.ACCEPTED)) {
 			state = TrainingState.ENDED;
 		}
 	}
