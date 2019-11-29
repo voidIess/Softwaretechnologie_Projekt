@@ -17,7 +17,6 @@ import java.util.Optional;
 @Controller
 public class ContractController {
 
-	private static final String REDIRECT_LOGIN = "redirect:/login";
 	private static final String REDIRECT_CONTRACTS = "redirect:/admin/contracts";
 	private final ContractManagement contractManagement;
 

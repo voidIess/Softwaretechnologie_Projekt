@@ -1,10 +1,6 @@
 package fitnessstudio.contract;
 
-import fitnessstudio.contract.Contract;
-import fitnessstudio.contract.ContractForm;
-import fitnessstudio.contract.ContractRepository;
 import org.javamoney.moneta.Money;
-import org.salespointframework.useraccount.UserAccountManager;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -17,14 +13,11 @@ import java.util.Optional;
 public class ContractManagement {
 
 	private final ContractRepository contracts;
-	private final UserAccountManager userAccounts;
 
-	public ContractManagement(ContractRepository contracts, UserAccountManager userAccounts) {
+	public ContractManagement(ContractRepository contracts) {
 		Assert.notNull(contracts, "ContractRepository must not be null");
-		Assert.notNull(userAccounts, "UserAccountManager must not be null");
 
 		this.contracts = contracts;
-		this.userAccounts = userAccounts;
 	}
 
 	public Contract createContract(ContractForm form) {
@@ -38,20 +31,17 @@ public class ContractManagement {
 		return contracts.save(new Contract(name, description, price, duration));
 	}
 
-	public void editContract(Long contractId, ContractForm form){
-		Assert.notNull(contractId, "ContractId must not be null");
+	public void editContract(Long contractId, ContractForm form) {
 		Assert.notNull(form, "ContractForm must not be null");
 
 		Optional<Contract> optionalContract = findById(contractId);
-		if (optionalContract.isPresent()){
+		if (optionalContract.isPresent()) {
 			Contract contract = optionalContract.get();
 			contract.update(form.getName(), form.getDescription(), Money.of(form.getPrice(), "EUR"), form.getDuration());
 		}
 	}
 
-	public void deleteContract(Long contractId){
-		Assert.notNull(contractId, "ContractId must not be null");
-
+	public void deleteContract(Long contractId) {
 		Optional<Contract> contract = findById(contractId);
 		contract.ifPresent(contracts::delete);
 	}
@@ -60,9 +50,7 @@ public class ContractManagement {
 		return contracts.findAll().toList();
 	}
 
-	public Optional<Contract> findById(Long contractId){
-		Assert.notNull(contractId, "ContractId must not be null");
-
+	public Optional<Contract> findById(Long contractId) {
 		return contracts.findById(contractId);
 	}
 }

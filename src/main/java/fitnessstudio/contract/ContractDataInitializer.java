@@ -13,15 +13,11 @@ import org.springframework.util.Assert;
 public class ContractDataInitializer implements DataInitializer {
 	private static final Logger LOG = LoggerFactory.getLogger(ContractDataInitializer.class);
 
-	private final ContractManagement contractManagement;
 	private final ContractRepository contractRepository;
 
-	ContractDataInitializer(ContractManagement contractManagement, ContractRepository contractRepository){
-
-		Assert.notNull(contractManagement, "ContractManagement must not be null");
+	ContractDataInitializer(ContractRepository contractRepository){
 		Assert.notNull(contractRepository, "ContractRepository must not be null");
 
-		this.contractManagement = contractManagement;
 		this.contractRepository = contractRepository;
 	}
 
