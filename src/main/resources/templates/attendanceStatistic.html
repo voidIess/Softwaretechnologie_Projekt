@@ -5,34 +5,130 @@
 <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
 
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script src="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.js"></script>
+    <script th:src="@{/webjars/jquery/jquery.min.js}"
+            src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script th:src="@{/webjars/Semantic-UI/semantic.min.js}"
+            src="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.js"></script>
     <link rel="stylesheet" href="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css" type="text/css"/>
     <link th:href="@{/resources/css/style.css}" rel="stylesheet"
           href="../static/resources/css/style.css" type="text/css"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/toggle.css}"/>
 
     <title>Anwesenheitsstatistik</title>
+
+    <script>
+        window.onload = function () {
+
+            var chart1 = new CanvasJS.Chart("chartContainer1", {
+                animationEnabled: true,
+                title: {
+                    text: "Wöchentliche Trainingsanalyse"
+                },
+                axisX: {
+                    valueFormatString: "DDD",
+                    minimum: new Date(2017, 1, 5, 23),
+                    maximum: new Date(2017, 1, 12, 1)
+                },
+                axisY: {
+                    title: "Zeit in Minuten"
+                },
+                legend: {
+                    verticalAlign: "top",
+                    horizontalAlign: "right",
+                    dockInsidePlotArea: true
+                },
+                toolTip: {
+                    shared: true
+                },
+                data: [{
+                    name: "durchschnittlicher Aufenthalt",
+                    showInLegend: true,
+                    legendMarkerType: "square",
+                    type: "area",
+                    color: "rgba(40,175,101,0.6)",
+                    markerSize: 0,
+                    dataPoints: [
+                        { x: new Date(2017, 1, 6), y: 120 },
+                        { x: new Date(2017, 1, 7), y: 120 },
+                        { x: new Date(2017, 1, 8), y: 80 },
+                        { x: new Date(2017, 1, 9), y: 100 },
+                        { x: new Date(2017, 1, 10), y: parseInt($('#averageTime').text()) }
+                    ]
+                }]
+            });
+
+            var chart2 = new CanvasJS.Chart("chartContainer2", {
+                animationEnabled: true,
+                title: {
+                    text: "Wöchentliche Mitgliederanalyse"
+                },
+                axisX: {
+                    valueFormatString: "DDD",
+                    minimum: new Date(2017, 1, 5, 23),
+                    maximum: new Date(2017, 1, 12, 1)
+                },
+                axisY: {
+                    title: "Anzahl der Mitglieder"
+                },
+                legend: {
+                    verticalAlign: "top",
+                    horizontalAlign: "right",
+                    dockInsidePlotArea: true
+                },
+                toolTip: {
+                    shared: true
+                },
+                data: [{
+                        name: "anwesende Mitglieder",
+                        showInLegend: true,
+                        legendMarkerType: "square",
+                        type: "area",
+                        color: "rgba(0,75,141,0.7)",
+                        markerSize: 0,
+                        dataPoints: [
+                            { x: new Date(2017, 1, 6), y: 5 },
+                            { x: new Date(2017, 1, 7), y: 10 },
+                            { x: new Date(2017, 1, 8), y: 7 },
+                            { x: new Date(2017, 1, 9), y: 8 },
+                            { x: new Date(2017, 1, 10), y: parseInt($('#memberAmount').text())}
+                        ]
+                    }]
+            });
+
+            chart1.render();
+            chart2.render();
+
+        }
+    </script>
+
 </head>
 
 <body>
 
 <div class="ui container">
-    <header>
-        <h1>Heutige Anwesenheiten</h1>
-    </header>
     <nav th:include="navigation :: navigation"></nav>
-    <div class="ui container">
-        <p>Besucheranzahl:
-            <span th:text="${memberAmount}">3</span>
+    <header>
+        <h1>Statistik Anwesenheiten</h1>
+    </header>
+    <div class="ui items">
+        <p>Heutige Besucheranzahl:
+            <span th:id="memberAmount" th:text="${memberAmount}">3</span>
         </p>
-        <p>Durchschnittlicher Aufenthalt:
-            <span th:text="${averageTime}">2</span>
+        <p>Heutiger durchschnittlicher Aufenthalt:
+            <span th:id="averageTime" th:text="${averageTime}">2</span>
              Minuten
         </p>
     </div>
 
-    <p style="margin-top: 100pt"> Hier ist Platz für eine tolle Grafik!!</p>
+    <div id="chartContainer1" style="height: 370px; width: 100%; margin-top:75pt"></div>
+    <div id="chartContainer2" style="height: 370px; width: 100%; margin-top:75pt"></div>
+
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+
+
 </div>
+
+
 
 </body>
 </html>
