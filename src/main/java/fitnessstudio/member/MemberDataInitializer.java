@@ -23,7 +23,7 @@ public class MemberDataInitializer implements DataInitializer {
 
 
 	MemberDataInitializer(UserAccountManager userAccountManager, MemberManagement memberManagement,
-						  ContractManagement contractManagement){
+						  ContractManagement contractManagement) {
 
 		Assert.notNull(userAccountManager, "UserAccountManager must not be null");
 		Assert.notNull(memberManagement, "MemberManagement must not be null");
@@ -36,7 +36,7 @@ public class MemberDataInitializer implements DataInitializer {
 
 	@Override
 	public void initialize() {
-		if (userAccountManager.findByUsername("boss").isPresent()){
+		if (userAccountManager.findByUsername("boss").isPresent()) {
 			return;
 		}
 

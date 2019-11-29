@@ -104,7 +104,7 @@ public class Member {
 		startDate = LocalDate.now();
 	}
 
-	 boolean checkIn() {
+	boolean checkIn() {
 		if (isAttendant) {
 			return false;
 		} else {
@@ -114,7 +114,7 @@ public class Member {
 		}
 	}
 
-	 long checkOut() {
+	long checkOut() {
 		if (!isAttendant) {
 			return 0;
 		} else {
@@ -141,15 +141,17 @@ public class Member {
 		return checkInTime;
 	}
 
-	public void setFreeTrained(boolean isFreeTrained){
-		this.isFreeTrained = isFreeTrained;
-	}
-
 	public boolean isFreeTrained() {
 		return isFreeTrained;
 	}
 
-	void trainFree() { isFreeTrained = true;}
+	public void setFreeTrained(boolean isFreeTrained) {
+		this.isFreeTrained = isFreeTrained;
+	}
+
+	void trainFree() {
+		isFreeTrained = true;
+	}
 
 	public boolean isPaused() {
 		return isPaused;

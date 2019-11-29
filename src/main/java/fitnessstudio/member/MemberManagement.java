@@ -1,5 +1,6 @@
 package fitnessstudio.member;
 
+import fitnessstudio.contract.Contract;
 import fitnessstudio.contract.ContractManagement;
 import fitnessstudio.statistics.StatisticManagement;
 import fitnessstudio.studio.StudioService;
@@ -102,7 +103,13 @@ public class MemberManagement {
 		var userAccount = userAccounts.create(form.getUserName(), password, MEMBER_ROLE);
 		var member = new Member(userAccount, firstName, lastName, iban, bic);
 
-		member.setContract(contractManagement.findById(contract).get());
+		Optional<Contract> contractOptional = contractManagement.findById(contract);
+		if (contractOptional.isEmpty()){
+			result.rejectValue("contract", "register.contract.notFound");
+			return null;
+		}
+
+		member.setContract(contractOptional.get());
 		return members.save(member);
 
 	}

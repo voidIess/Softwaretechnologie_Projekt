@@ -81,7 +81,7 @@ public class MemberController {
 
 	@PostMapping("/member/payin")
 	public String payIn(@LoggedIn Optional<UserAccount> userAccount, @RequestParam("amount") double amount) {
-		Money money = Money.of(amount,"EUR");
+		Money money = Money.of(amount, "EUR");
 		return userAccount.map(user -> {
 
 			Optional<Member> member = memberManagement.findByUserAccount(user);
@@ -96,28 +96,28 @@ public class MemberController {
 
 	@GetMapping("/member/delete/{id}")
 	@PreAuthorize("hasRole('STAFF')")
-	public String delete(@PathVariable long id, Model model){
+	public String delete(@PathVariable long id, Model model) {
 		memberManagement.deleteMember(id);
 		return "redirect:/admin/authorizeMember";
 	}
 
 	@GetMapping("/member/authorize/{id}")
 	@PreAuthorize("hasRole('STAFF')")
-	public String authorize(@PathVariable long id, Model model){
+	public String authorize(@PathVariable long id, Model model) {
 		memberManagement.authorizeMember(id);
 		return "redirect:/admin/authorizeMember";
 	}
 
 	@GetMapping("/member/checkin/{id}")
 	@PreAuthorize("hasRole('STAFF')")
-	public String checkIn(@PathVariable long id, Model model){
+	public String checkIn(@PathVariable long id, Model model) {
 		memberManagement.checkMemberIn(id);
 		return "redirect:/admin/members";
 	}
 
 	@GetMapping("/member/checkout/{id}")
 	@PreAuthorize("hasRole('STAFF')")
-	public String checkOut(@PathVariable long id, Model model){
+	public String checkOut(@PathVariable long id, Model model) {
 		memberManagement.checkMemberOut(id);
 		return "redirect:/admin/members";
 	}
