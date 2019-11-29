@@ -48,7 +48,7 @@
            sec:authorize="hasRole('STAFF') and !hasRole('BOSS')"
            th:text="#{staffDetail.title}">Benutzerkonto</a>
 
-        <a class="item" href="roster.html" th:href="@{/roster}" sec:authorize="hasRole('BOSS') or hasRole('STAFF')"
+        <a class="item" href="roster/roster.html" th:href="@{/roster}" sec:authorize="hasRole('BOSS') or hasRole('STAFF')"
            th:text="#{roster.title}">Dienstplan</a>
 
         <a class="item" href="members.html" th:href="@{/admin/members}"

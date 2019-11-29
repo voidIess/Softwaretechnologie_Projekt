@@ -33,7 +33,7 @@ public class RosterController {
 		model.addAttribute("roster",RosterManager.getRoster().getRows());
 		model.addAttribute("filter", false);
 		model.addAttribute("staffs", staffs.getAllStaffs());
-		return "rosterView";
+		return "roster/rosterView";
 	}
 
 	@PreAuthorize("hasRole('STAFF') or hasRole('BOSS')")
@@ -43,7 +43,7 @@ public class RosterController {
 		model.addAttribute("filter", true);
 		model.addAttribute("filterStaff", id);
 		model.addAttribute("staffs", staffs.getAllStaffs());
-		return "rosterView";
+		return "roster/rosterView";
 	}
 
 	@PreAuthorize("hasRole('STAFF') or hasRole('BOSS')")
@@ -54,7 +54,7 @@ public class RosterController {
 		model.addAttribute("roles", RosterManager.getRoles());
 		model.addAttribute("staffs", staffs.getAllStaffs());
 		model.addAttribute("errors", errors);
-		return "rosterNew";
+		return "roster/rosterNew";
 	}
 
 	@PreAuthorize("hasRole('STAFF') or hasRole('BOSS')")
@@ -91,7 +91,7 @@ public class RosterController {
 		model.addAttribute("form", form);
 		model.addAttribute("rosterEntry", RosterManager.getEntryById(id));
 		model.addAttribute("roles", RosterManager.getRoles());
-		return "rosterDetail";
+		return "roster/rosterDetail";
 	}
 
 	//TODO: Tests
