@@ -124,7 +124,6 @@ public class MemberController {
 
 	@PostMapping("/printPdfInvoice")
 	public String printPdfInvoice(@LoggedIn Optional<UserAccount> userAccount, Model model) {
-
 		if (userAccount.isEmpty()) {
 			return REDIRECT_LOGIN;
 		}

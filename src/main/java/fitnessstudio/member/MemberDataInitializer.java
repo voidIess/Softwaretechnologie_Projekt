@@ -19,19 +19,18 @@ public class MemberDataInitializer implements DataInitializer {
 
 	private final UserAccountManager userAccountManager;
 	private final MemberManagement memberManagement;
-	private final MemberRepository members;
 	private final ContractManagement contractManagement;
 
 
 	MemberDataInitializer(UserAccountManager userAccountManager, MemberManagement memberManagement,
-						  MemberRepository members, ContractManagement contractManagement){
+						  ContractManagement contractManagement){
 
 		Assert.notNull(userAccountManager, "UserAccountManager must not be null");
 		Assert.notNull(memberManagement, "MemberManagement must not be null");
+		Assert.notNull(contractManagement, "ContractManagement must not be null");
 
 		this.memberManagement = memberManagement;
 		this.userAccountManager = userAccountManager;
-		this.members = members;
 		this.contractManagement = contractManagement;
 	}
 
