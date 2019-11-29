@@ -26,10 +26,6 @@
             Adminbereich
             <i class="dropdown icon"></i>
             <div class="menu">
-                <a class="item" href="member/members.html" th:href="@{/admin/members}"
-                   sec:authorize="hasRole('BOSS') or hasRole('STAFF')"
-                   th:text="#{nav.admin.members}">Mitglieder</a>
-
                 <a class="item" href="training/trainings.html" th:href="@{/admin/trainings}"
                    sec:authorize="hasRole('BOSS') or hasRole('STAFF')"
                    th:text="#{nav.admin.trainings}">Trainings</a>
