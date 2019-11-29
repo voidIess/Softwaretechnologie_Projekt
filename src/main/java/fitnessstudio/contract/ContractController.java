@@ -43,7 +43,7 @@ public class ContractController {
 
 
 	@GetMapping("/admin/contracts")
-	@PreAuthorize("hasRole('BOSS')")
+	@PreAuthorize("hasRole('BOSS') or hasRole('STAFF')")
 	public String contracts(Model model) {
 		model.addAttribute("contractList", contractManagement.getAllContracts());
 		return "contract/contracts";
