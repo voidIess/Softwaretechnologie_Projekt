@@ -79,6 +79,6 @@ public class ContractController {
 	@GetMapping("/contract_information")
 	public String contractInformation(Model model){
 		model.addAttribute("contractList", contractManagement.getAllContracts());
-		return "contract_information";
+		return "contract/contract_information";
 	}
 }
