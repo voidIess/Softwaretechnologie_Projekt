@@ -40,7 +40,7 @@
         </tr>
         <tr>
             <td>Mhd</td>
-            <td th:text="${article.expirationDate}">mhd</td>
+            <td th:text="${#temporals.format(article.expirationDate, 'dd.MM.yyyy')}">mhd</td>
         </tr>
         </tbody>
 
