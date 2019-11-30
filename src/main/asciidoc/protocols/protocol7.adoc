@@ -1,1 +1,73 @@
+= Protokoll Gruppe 16
+
+Treffen am 29.11.2019
+
+Ort:      APB/E069 +
+Beginn:   16:40 Uhr +
+Ende:     18:10 Uhr
+
+__Schriftführer: Markus Wieland__
+
+*Nächstes Treffen:* +
+29.11.2019, 16:40 Uhr, APB (Zwischenpräsentation)
+
+__Teilnehmer:__
+//Tabellarisch oder Aufzählung, Kennzeichnung von Teilnehmern mit besonderer Rolle (z.B. Kunde)
+
+- Anita Fritzsche (Tutorin/Kundin)
+- Julius Schmitt
+- Bill Kippe
+- Markus Wieland
+- Quang Vu Ha
+- Lea Häusler
+- Mitglieder der Gruppe 12
+
+== Bemerkungen
+
+Bei dem Treffen wurde die Zwischenpräsentation gehalten. Feedback von Anita:
+
+- 9 Minuten zu lang (Bei der Endpräsentation kürzer)
+- Mehr Struktur in der Anwendungsvorstellung
+- Problemvorstellung wie Julius und Markus
+
+== Retrospektive des letzten Sprints
+*Issue referenziert die Issue ID von GitHub*
+// Wie ist der Status der im letzten Sprint erstellten Issues/veteilten Aufgaben?
+
+// See http://asciidoctor.org/docs/user-manual/=tables
+[option="headers"]
+|===
+|Issue |Aufgabe |Status |Bemerkung        
+|      |Basisfunktionalität (Roster)                    |abgeschlossen|Markus     
+|      |Basisfunktionalität (Training, Verträge, Login) |abgeschlossen|Bill         
+|      |Basisfunktionalität (Statistiken, PDFs)         |abgeschlossen|Lea         
+|      |Basisfunktionalität (BarManagement)             |abgeschlossen|Julius          
+|      |Basisfunktionalität (Globale Variablen)         |abgeschlossen|Vu              
+
+
+|===
+
+== Aktueller Stand
+
+Basisfunktionalitäten sind alle erfüllt. Zwischenpräsentation wurde gehalten.
+
+Nächster Meilenstein: Sonntag, 01.12.2019. 
+
+== Planung des nächsten Sprints
+*Issue referenziert die Issue ID von GitHub*
+
+// See http://asciidoctor.org/docs/user-manual/=tables
+[option="headers"]
+|===
+|Issue |Titel |Beschreibung |Verantwortlicher |Status
+
+| #34    |Diensplan Training eintragen  |…            |Bill & Markus          |in Arbeit
+| #18     |Roster für mehrere Wochen  |…            |Markus          |in Arbeit
+| #23     |Artikel verkaufen  |…            |Vu & Julius          |in Arbeit
+| #16    |Monatliche Rechnung  |…            |Lea          |in Arbeit
+| #30     |Statistik Anwesenheit & Umsatz  |…            |Lea          |in Arbeit
+
+
+|===
+
 
