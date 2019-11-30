@@ -10,35 +10,29 @@ import org.salespointframework.quantity.Quantity;
 import org.springframework.data.util.Streamable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
-import javax.money.MonetaryAmount;
 import java.time.LocalDate;
 
 @Service
 public class BarManager {
 
 	private ExpiringInventory inventory;
-	private BarCatalog catalog;
-	private Cart cart;
+	private ArticleCatalog catalog;
 
-	public BarManager(ExpiringInventory inventory, BarCatalog catalog, Cart cart) {
+	public BarManager(ExpiringInventory inventory, ArticleCatalog catalog) {
 
 		Assert.notNull(inventory, "BarManager needs a non-null inventory");
 		Assert.notNull(catalog, "BarManager needs a non-null catalog");
-		Assert.notNull(cart, "BarManager needs a non-null cart");
 
 		this.inventory = inventory;
 		this.catalog = catalog;
-		this.cart = cart;
 	}
-
 
 	public InventoryItems<ExpiringInventoryItem> getExipredItems() {
 		return inventory.findByExpirationDateAfterOrderByExpirationDateAsc(LocalDate.now());
 	}
 
-	public boolean addArticleToCart(Article article, Quantity quantity) {
+	public boolean addArticleToCart(Article article, Quantity quantity, Cart cart) {
 
 		Quantity inventoryQuantity = inventory.findByProduct(article).getTotalQuantity();
 
@@ -64,17 +58,9 @@ public class BarManager {
 			.filter(x -> !x.getQuantity().isZeroOrNegative());
 	}
 
-	public Streamable<CartItem> getCartItems() {
-		return cart;
-	}
-
-	public MonetaryAmount getCartPrice() {
-		return cart.getPrice();
-	}
 
 	public void checkoutCart(Member customer, PaymentMethod paymentMethod) {
 		//TODO implement this
-		throw new NotImplementedException();
 	}
 
 	public void addNewArticleToCatalog(Article article) {
