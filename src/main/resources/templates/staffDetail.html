@@ -1,44 +1,37 @@
 <!DOCTYPE html>
 
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="site_template :: template(#{staffDetail.title}, ~{::staffDetail})"></html>
 
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
-
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script src="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.js"></script>
-    <link rel="stylesheet" href="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css" type="text/css"/>
-    <link th:href="@{/resources/css/style.css}" rel="stylesheet"
-          href="../static/resources/css/style.css" type="text/css"/>
-
-    <title>Mitarbeiter Konto</title>
+    <meta content="text/html; charset=UTF-8" http-equiv="content-type"/>
 </head>
 
-<body>
-
+<div th:fragment="staffDetail">
 <div class="ui container">
-    <nav th:include="navigation :: navigation"></nav>
-    <header>
-        <h1>Benutzer Konto</h1>
-    </header>
-    <div class="ui items">
-        <div class="item">
-            <div class="content">
-                <h class="header">Benutzerdaten</h>
-                <div class="meta">
-                    <span th:text="${staff.firstName}">Vorname</span>
-                    <span th:text="${staff.lastName}">Nachname</span>
-                </div>
-            </div>
-        </div>
+    <div class="item">
+        <h2 class="header">Eigene Daten</h2>
+        <p>Name:
+            <span th:text="${staff.firstName}">Vorname</span>
+            <span th:text="${staff.lastName}">Nachname</span>
+        </p>
+        <p>ID:
+            <span th:text="${staff.getStaffId()}">0000</span>
+        </p>
+        <h2 class="header">Gehalt</h2>
+        <form class="ui form" method="post" th:action="@{/printPdfPayslip}">
+            <p>Monatlich schuftest du bei uns für
+                <span th:text="${staff.getSalary()}"></span>
+                 .
+            </p>
+            <button type="submit" class="ui button" th:text="#{staffDetail.printPdfPayslip}">Rechnung anzeigen</button>
+        </form>
     </div>
 </div>
 
 <div class="column">
-    <form sec:authorize="hasRole('STAFF')" class="ui form" method="post" th:action="@{/printPdfPayslip}">
-        <button type="submit" class="ui button" style="float: right" th:text="#{staffDetail.printPdfPayslip}">Gehaltsabrechnung</button>
-    </form>
+
 </div>
 
-</body>
 </html>
