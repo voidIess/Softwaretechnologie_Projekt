@@ -1,7 +1,5 @@
 package fitnessstudio.contract;
 
-import fitnessstudio.member.Member;
-import fitnessstudio.member.MemberManagement;
 import org.javamoney.moneta.Money;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
