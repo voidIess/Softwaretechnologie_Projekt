@@ -16,7 +16,7 @@
 <div class="ui container">
     <nav th:include="navigation :: navigation"></nav>
     <header>
-        <h1 th:text="#{register.title}">Vertrag erstellen</h1>
+        <h1 th:text="#{contract.new.title}">Vertrag erstellen</h1>
     </header>
 
     <form method="post" role="form" class="ui form" id="form" th:action="@{/admin/contract/create}" th:object="${form}">
