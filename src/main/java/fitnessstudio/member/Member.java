@@ -1,6 +1,8 @@
 package fitnessstudio.member;
 
 import fitnessstudio.contract.Contract;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.javamoney.moneta.Money;
 import org.salespointframework.useraccount.UserAccount;
 
@@ -25,7 +27,8 @@ public class Member {
 	@Embedded
 	private CreditAccount creditAccount;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Contract contract;
 
 	private LocalDate startDate;

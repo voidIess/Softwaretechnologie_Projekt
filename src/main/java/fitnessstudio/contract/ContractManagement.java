@@ -1,5 +1,7 @@
 package fitnessstudio.contract;
 
+import fitnessstudio.member.Member;
+import fitnessstudio.member.MemberManagement;
 import org.javamoney.moneta.Money;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -42,8 +44,8 @@ public class ContractManagement {
 	}
 
 	public void deleteContract(Long contractId) {
-		Optional<Contract> contract = findById(contractId);
-		contract.ifPresent(contracts::delete);
+		Optional<Contract> contractOptional = findById(contractId);
+		contractOptional.ifPresent(contracts::delete);
 	}
 
 	public List<Contract> getAllContracts() {
