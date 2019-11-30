@@ -7,17 +7,16 @@ import javax.persistence.Lob;
 
 @Embeddable
 public class CreditAccount {
-	@Lob
-	private Money credit;
-
 	String iban;
 	String bic;
+	@Lob
+	private Money credit;
 
 	public CreditAccount() {
 		this.credit = Money.of(0, "EUR");
 	}
 
-	public CreditAccount(String iban, String bic){
+	public CreditAccount(String iban, String bic) {
 		this();
 		this.iban = iban;
 		this.bic = bic;

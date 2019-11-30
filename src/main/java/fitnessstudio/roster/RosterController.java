@@ -2,7 +2,6 @@ package fitnessstudio.roster;
 
 import com.mysema.commons.lang.Assert;
 import fitnessstudio.staff.StaffManagement;
-import fitnessstudio.staff.StaffRepository;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,14 +12,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.List;
 
 @Controller
 public class RosterController {
 
 	private final RosterManagement rosterManagement;
 	private final StaffManagement staffs;
+	private static final String ROSTER = "redirect:/roster";
 
 	RosterController(RosterManagement rosterManagement, StaffManagement staffs){
 		Assert.notNull(rosterManagement, "RosterManagement darf nicht 'null' sein.");
@@ -33,7 +31,19 @@ public class RosterController {
 	@GetMapping("/roster")
 	String view_roster (Model model){
 		model.addAttribute("roster",RosterManager.getRoster().getRows());
-		return "rosterView";
+		model.addAttribute("filter", false);
+		model.addAttribute("staffs", staffs.getAllStaffs());
+		return "roster/rosterView";
+	}
+
+	@PreAuthorize("hasRole('STAFF') or hasRole('BOSS')")
+	@GetMapping("/roster/{id}")
+	String view_roster_filtered (@PathVariable long id, Model model){
+		model.addAttribute("roster",RosterManager.getRoster().getRows());
+		model.addAttribute("filter", true);
+		model.addAttribute("filterStaff", id);
+		model.addAttribute("staffs", staffs.getAllStaffs());
+		return "roster/rosterView";
 	}
 
 	@PreAuthorize("hasRole('STAFF') or hasRole('BOSS')")
@@ -44,7 +54,7 @@ public class RosterController {
 		model.addAttribute("roles", RosterManager.getRoles());
 		model.addAttribute("staffs", staffs.getAllStaffs());
 		model.addAttribute("errors", errors);
-		return "rosterNew";
+		return "roster/rosterNew";
 	}
 
 	@PreAuthorize("hasRole('STAFF') or hasRole('BOSS')")
@@ -54,22 +64,22 @@ public class RosterController {
 		if (result.hasErrors()) {
 			return new_roster_entry(model, form, result);
 		}
-		return "redirect:/roster";
+		return ROSTER;
 	}
 
 	@PreAuthorize("hasRole('STAFF') or hasRole('BOSS')")
 	@GetMapping("/roster/detail/delete/{slot}/{id}")
 	String delete(@PathVariable Long slot, @PathVariable Long id) {
 		rosterManagement.deleteRosterEntry(slot, id);
-		return "redirect:/roster";
+		return ROSTER;
 	}
 
 	@PreAuthorize("hasRole('STAFF') or hasRole('BOSS')")
 	@PostMapping("/roster/edit")
 	String edit(@Valid @ModelAttribute("form") RosterEntryForm form, Errors result) {
-		rosterManagement.editRosterEntry(form, result);
+		rosterManagement.editRosterEntry(form);
 
-		return "redirect:/roster";
+		return ROSTER;
 	}
 
 	@PreAuthorize("hasRole('STAFF') or hasRole('BOSS')")
@@ -81,13 +91,12 @@ public class RosterController {
 		model.addAttribute("form", form);
 		model.addAttribute("rosterEntry", RosterManager.getEntryById(id));
 		model.addAttribute("roles", RosterManager.getRoles());
-		return "rosterDetail";
+		return "roster/rosterDetail";
 	}
 
 	//TODO: Tests
 	//TODO: Crash sicher machen
 	//TODO: Nichts hinzufügen, wenn er bereits arbeitet, da sonst die sachen da ausgewählt werden.
 	//TODO: Nach Mitarbeitern filtern
-	//TODO:
 
 }

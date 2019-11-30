@@ -8,7 +8,7 @@
             src="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.js"></script>
     <link rel="stylesheet" href="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css" type="text/css"/>
     <link th:href="@{/resources/css/style.css}" rel="stylesheet"
-          href="../static/resources/css/style.css" type="text/css"/>
+          href="../../static/resources/css/style.css" type="text/css"/>
     <link rel="stylesheet" type="text/css" th:href="@{/resources/css/toggle.css}"/>
 
     <title>Trainings</title>
@@ -31,6 +31,7 @@
         <thead>
         <tr>
             <th>ID</th>
+            <th>Typ</th>
             <th>Trainer</th>
             <th>Beschreibung</th>
             <th>Tag</th>
@@ -41,11 +42,12 @@
         <tbody th:remove="all-but-first">
         <tr th:each="training : ${trainings}">
             <td th:text="${training.trainingId}">ID</td>
+            <td th:text="${training.type.getDisplayValue()}">Typ</td>
             <td th:text="${training.trainer.lastName}">Trainer</td>
             <td th:text="${training.description}">Beschreibung</td>
             <td th:text="${training.day}">Tag</td>
             <td th:text="${training.startTime}">Time</td>
-            <td th:text="${training.state}">Status</td>
+            <td th:text="${training.state.getDisplayValue()}">Status</td>
         </tr>
         </tbody>
     </table>

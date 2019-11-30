@@ -1,5 +1,8 @@
 package fitnessstudio.member;
 
+import fitnessstudio.contract.Contract;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.javamoney.moneta.Money;
 import org.salespointframework.useraccount.UserAccount;
 
@@ -24,7 +27,8 @@ public class Member {
 	@Embedded
 	private CreditAccount creditAccount;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Contract contract;
 
 	private LocalDate startDate;
@@ -86,7 +90,7 @@ public class Member {
 		return creditAccount;
 	}
 
-	public void payIn(Money amount) {
+	void payIn(Money amount) {
 		creditAccount.payIn(amount);
 	}
 
@@ -100,11 +104,10 @@ public class Member {
 
 	public void authorize() {
 		getUserAccount().setEnabled(true);
-		getContract().subscribe(this);
 		startDate = LocalDate.now();
 	}
 
-	public boolean checkIn() {
+	boolean checkIn() {
 		if (isAttendant) {
 			return false;
 		} else {
@@ -114,7 +117,7 @@ public class Member {
 		}
 	}
 
-	public long checkOut() {
+	long checkOut() {
 		if (!isAttendant) {
 			return 0;
 		} else {
@@ -145,6 +148,14 @@ public class Member {
 		return isFreeTrained;
 	}
 
+	public void setFreeTrained(boolean isFreeTrained) {
+		this.isFreeTrained = isFreeTrained;
+	}
+
+	void trainFree() {
+		isFreeTrained = true;
+	}
+
 	public boolean isPaused() {
 		return isPaused;
 	}
@@ -163,6 +174,11 @@ public class Member {
 	@Override
 	public int hashCode() {
 		return (int) (memberId ^ (memberId >>> 32));
+	}
+
+	@Override
+	public String toString() {
+		return firstName + " " + lastName + "(ID: " + memberId + ")";
 	}
 
 	public boolean isAttendant() {

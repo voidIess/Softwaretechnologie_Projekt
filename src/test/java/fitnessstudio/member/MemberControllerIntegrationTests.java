@@ -1,4 +1,4 @@
-package fitnessstudio.member.controller;
+package fitnessstudio.member;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;

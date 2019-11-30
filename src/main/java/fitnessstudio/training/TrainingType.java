@@ -1,11 +1,11 @@
 package fitnessstudio.training;
 
-enum  TrainingType {
+enum TrainingType {
 	NORMAL("Normal"), TRIAL("Probe");
 
 	private final String displayValue;
 
-	TrainingType(String displayValue){
+	TrainingType(String displayValue) {
 		this.displayValue = displayValue;
 	}
 

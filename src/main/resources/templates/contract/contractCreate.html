@@ -9,14 +9,14 @@
             src="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.js"></script>
     <link rel="stylesheet" href="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css" type="text/css"/>
     <link th:href="@{/resources/css/style.css}" rel="stylesheet"
-          href="../static/resources/css/style.css" type="text/css"/>
+          href="../../static/resources/css/style.css" type="text/css"/>
     <title th:text="#{register.title}">Registrierung</title>
 </head>
 <body>
 <div class="ui container">
     <nav th:include="navigation :: navigation"></nav>
     <header>
-        <h1 th:text="#{register.title}">Vertrag erstellen</h1>
+        <h1 th:text="#{contract.new.title}">Vertrag erstellen</h1>
     </header>
 
     <form method="post" role="form" class="ui form" id="form" th:action="@{/admin/contract/create}" th:object="${form}">

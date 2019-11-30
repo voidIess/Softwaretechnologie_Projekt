@@ -21,12 +21,16 @@ import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.Locale;
 import java.util.Objects;
 
 @Controller
 public class InventoryController {
 
 	private static final String REDIRECT_CATALOG = "redirect:/catalog";
+	private static final String ERROR = "error";
+	private static final String STATUS = "status";
 	private final UniqueInventory<UniqueInventoryItem> inventory;
 	private final ArticleCatalog catalog;
 	private final DiscountRepository discountRepository;
@@ -47,22 +51,21 @@ public class InventoryController {
 	}
 
 	@PostMapping("/article")
-	public String addArticle(@Valid ArticleForm form, Model model) {
-
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-
-		LocalDate startDate = LocalDate.parse(form.getStartDiscount(), formatter);
-		LocalDate endDate = LocalDate.parse(form.getEndDiscount(), formatter);
-		LocalDate expirationDate = LocalDate.parse(form.getExpirationDate(), formatter);
+	public String addArticle(@Valid ArticleForm form, Model model) throws DateTimeParseException {
+		if (getError(form, model)) return ERROR;
+		Date date = new Date(form).invoke();
+		LocalDate startDate = date.getStartDate();
+		LocalDate endDate = date.getEndDate();
+		LocalDate expirationDate = date.getExpirationDate();
 
 		Discount discount = new Discount(startDate, endDate, Integer.parseInt(form.getPercentDiscount()));
 
 		Article article = new Article(form.getName(),
-			Money.of(new BigDecimal(form.getPrice()), "EUR"),
-			form.getArt(),
-			form.getDescription(),
-			expirationDate,
-			discount);
+				Money.of(new BigDecimal(form.getPrice()), "EUR"),
+				form.getArt(),
+				form.getDescription(),
+				expirationDate,
+				discount);
 		discountRepository.save(discount);
 		catalog.save(article);
 		inventory.save(new UniqueInventoryItem(article, Quantity.of(Integer.parseInt(form.getNumber()))));
@@ -88,9 +91,9 @@ public class InventoryController {
 //----------------------------------------edit article-------------------------------------------------------------------
 
 	@GetMapping("/article/detail/{id}")
-	public String editArticle(@PathVariable ProductIdentifier id, Model model) {
+	public String editArticle(@PathVariable ProductIdentifier id, Model model) throws DateTimeParseException {
 
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.GERMANY);
 
 		inventory.findAll().forEach(uniqueInventoryItem -> {
 
@@ -108,6 +111,7 @@ public class InventoryController {
 	// for keeping previous value in input field
 	@NotNull
 	private ArticleForm getArticleForm(DateTimeFormatter formatter, UniqueInventoryItem uniqueInventoryItem, Article article) {
+
 		return new ArticleForm() {
 			@Override
 			public @NotEmpty String getName() {
@@ -136,7 +140,7 @@ public class InventoryController {
 			}
 
 			@Override
-			public @NotEmpty @Size(min = 1, max = 99, message = "percent of discount from 0-99")
+			public @NotEmpty @Size(max = 100, message = "percent of discount from 0-100")
 			String getPercentDiscount() {
 				return String.valueOf(article.getDiscount().getPercent());
 			}
@@ -159,12 +163,13 @@ public class InventoryController {
 	}
 
 	@PostMapping("/article/detail/{id}")
-	public String editArticle(@PathVariable ProductIdentifier id, @Valid ArticleForm form) {
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+	public String editArticle(@PathVariable ProductIdentifier id, @Valid ArticleForm form, Model model) throws DateTimeParseException {
+		if (getError(form, model)) return ERROR;
 
-		LocalDate startDate = LocalDate.parse(form.getStartDiscount(), formatter);
-		LocalDate endDate = LocalDate.parse(form.getEndDiscount(), formatter);
-		LocalDate expirationDate = LocalDate.parse(form.getExpirationDate(), formatter);
+		Date date = new Date(form).invoke();
+		LocalDate startDate = date.getStartDate();
+		LocalDate endDate = date.getEndDate();
+		LocalDate expirationDate = date.getExpirationDate();
 
 
 		inventory.findAll().forEach(uniqueInventoryItem -> {
@@ -195,7 +200,24 @@ public class InventoryController {
 
 			}
 		});
-		return REDIRECT_CATALOG;
+		return "redirect:/article/" + id;
+	}
+
+	private boolean getError(@Valid ArticleForm form, Model model) {
+		if (Integer.parseInt(form.getNumber()) < 0) {
+			model.addAttribute(ERROR, "Article should more than 0");
+			model.addAttribute(STATUS, "400");
+			return true;
+		} else if (Double.parseDouble(form.getPrice()) < 0) {
+			model.addAttribute(ERROR, "Price should more than 0 EUR");
+			model.addAttribute(STATUS, "400");
+			return true;
+		} else if (Integer.parseInt(form.getPercentDiscount()) < 0 || Integer.parseInt(form.getPercentDiscount()) > 100) {
+			model.addAttribute(ERROR, "Discount should in 0-100 percent");
+			model.addAttribute(STATUS, "400");
+			return true;
+		}
+		return false;
 	}
 
 	@GetMapping("/stock")
@@ -207,4 +229,47 @@ public class InventoryController {
 		return "stock";
 	}
 
+
+	// convert String input to Date
+	private static class Date {
+		private @Valid ArticleForm form;
+		private LocalDate startDate;
+		private LocalDate endDate;
+		private LocalDate expirationDate;
+
+		public Date(@Valid ArticleForm form) {
+			this.form = form;
+		}
+
+		public LocalDate getStartDate() {
+			return startDate;
+		}
+
+		public LocalDate getEndDate() {
+			return endDate;
+		}
+
+		public LocalDate getExpirationDate() {
+			return expirationDate;
+		}
+
+		public Date invoke() {
+
+			try {
+				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+				startDate = LocalDate.parse(form.getStartDiscount(), formatter);
+				endDate = LocalDate.parse(form.getEndDiscount(), formatter);
+				expirationDate = LocalDate.parse(form.getExpirationDate(), formatter);
+				return this;
+
+			} catch (DateTimeParseException e) {
+				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+				startDate = LocalDate.parse(form.getStartDiscount(), formatter);
+				endDate = LocalDate.parse(form.getEndDiscount(), formatter);
+				expirationDate = LocalDate.parse(form.getExpirationDate(), formatter);
+				return this;
+			}
+
+		}
+	}
 }

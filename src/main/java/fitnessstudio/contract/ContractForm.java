@@ -1,4 +1,4 @@
-package fitnessstudio.member;
+package fitnessstudio.contract;
 
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotEmpty;

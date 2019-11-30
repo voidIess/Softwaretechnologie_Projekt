@@ -2,6 +2,7 @@ package fitnessstudio.training;
 
 import fitnessstudio.member.Member;
 import fitnessstudio.staff.Staff;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.time.LocalTime;
@@ -19,6 +20,7 @@ public class Training {
 	@ManyToOne
 	private Staff trainer;
 
+	@Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
 	@ManyToOne
 	private Member member;
 
@@ -84,5 +86,26 @@ public class Training {
 
 	public int getDay() {
 		return day;
+	}
+
+	public void decline() {
+		if (getState().equals(TrainingState.REQUESTED)) {
+			state = TrainingState.DECLINED;
+			if (type.equals(TrainingType.TRIAL)) {
+				member.setFreeTrained(false);
+			}
+		}
+	}
+
+	public void accept() {
+		if (getState().equals(TrainingState.REQUESTED)) {
+			state = TrainingState.ACCEPTED;
+		}
+	}
+
+	public void end() {
+		if (getState().equals(TrainingState.ACCEPTED)) {
+			state = TrainingState.ENDED;
+		}
 	}
 }

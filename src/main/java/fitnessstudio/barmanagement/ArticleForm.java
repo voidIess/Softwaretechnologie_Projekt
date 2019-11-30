@@ -26,7 +26,7 @@ public interface ArticleForm {
 	String getExpirationDate();
 
 	@NotEmpty
-	@Size(min = 1, max = 99, message = "percent of discount from 0-99")
+	@Size(max = 100, message = "percent of discount from 0-100")
 	String getPercentDiscount();
 
 	@NotEmpty

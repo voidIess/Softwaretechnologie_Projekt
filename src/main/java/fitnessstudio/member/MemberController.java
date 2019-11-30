@@ -1,5 +1,6 @@
 package fitnessstudio.member;
 
+import fitnessstudio.contract.ContractManagement;
 import org.javamoney.moneta.Money;
 import org.salespointframework.useraccount.UserAccount;
 import org.salespointframework.useraccount.web.LoggedIn;
@@ -53,14 +54,14 @@ public class MemberController {
 	public String members(Model model) {
 		model.addAttribute("memberList", memberManagement.findAllAuthorized());
 		model.addAttribute("unauthorizedMember", memberManagement.findAllUnauthorized().size());
-		return "members";
+		return "member/members";
 	}
 
 	@GetMapping("/admin/authorizeMember")
 	@PreAuthorize("hasRole('STAFF')")
 	public String authorizeMember(Model model) {
 		model.addAttribute("unauthorizedMember", memberManagement.findAllUnauthorized());
-		return "authorizeMember";
+		return "member/authorizeMember";
 	}
 
 
@@ -72,7 +73,7 @@ public class MemberController {
 
 			if (member.isPresent()) {
 				model.addAttribute("member", member.get());
-				return "memberDetail";
+				return "member/memberDetail";
 			}
 			return REDIRECT_LOGIN;
 		}).orElse(REDIRECT_LOGIN);
@@ -80,7 +81,7 @@ public class MemberController {
 
 	@PostMapping("/member/payin")
 	public String payIn(@LoggedIn Optional<UserAccount> userAccount, @RequestParam("amount") double amount) {
-		Money money = Money.of(amount,"EUR");
+		Money money = Money.of(amount, "EUR");
 		return userAccount.map(user -> {
 
 			Optional<Member> member = memberManagement.findByUserAccount(user);
@@ -95,35 +96,34 @@ public class MemberController {
 
 	@GetMapping("/member/delete/{id}")
 	@PreAuthorize("hasRole('STAFF')")
-	public String delete(@PathVariable long id, Model model){
+	public String delete(@PathVariable long id, Model model) {
 		memberManagement.deleteMember(id);
 		return "redirect:/admin/authorizeMember";
 	}
 
 	@GetMapping("/member/authorize/{id}")
 	@PreAuthorize("hasRole('STAFF')")
-	public String authorize(@PathVariable long id, Model model){
+	public String authorize(@PathVariable long id, Model model) {
 		memberManagement.authorizeMember(id);
 		return "redirect:/admin/authorizeMember";
 	}
 
 	@GetMapping("/member/checkin/{id}")
 	@PreAuthorize("hasRole('STAFF')")
-	public String checkIn(@PathVariable long id, Model model){
+	public String checkIn(@PathVariable long id, Model model) {
 		memberManagement.checkMemberIn(id);
 		return "redirect:/admin/members";
 	}
 
 	@GetMapping("/member/checkout/{id}")
 	@PreAuthorize("hasRole('STAFF')")
-	public String checkOut(@PathVariable long id, Model model){
+	public String checkOut(@PathVariable long id, Model model) {
 		memberManagement.checkMemberOut(id);
 		return "redirect:/admin/members";
 	}
 
 	@PostMapping("/printPdfInvoice")
 	public String printPdfInvoice(@LoggedIn Optional<UserAccount> userAccount, Model model) {
-
 		if (userAccount.isEmpty()) {
 			return REDIRECT_LOGIN;
 		}
