@@ -58,8 +58,10 @@ namespace StaffManagement {
         + removeEntry(rosterEntry: RosterEntry)
     }
 
+<<<<<<< HEAD
     RosterEntry o-- "1" Staff: - staff
     RosterEntry o-- "1" StaffRole: - role
+
     java.time.LocalDateTime <.. RosterEntry: <<use>>
     class RosterEntry {
         - rosterEntryId: Long
@@ -68,6 +70,7 @@ namespace StaffManagement {
         - duration: int
 
         + RosterEntry(role: StaffRole, staff: Staff, startTime: LocalDateTime, duration: int)
+
     }
 
     enum StaffRole {

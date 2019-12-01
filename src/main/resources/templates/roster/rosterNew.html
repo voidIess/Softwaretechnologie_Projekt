@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="site_template :: template(#{roster.new.title}, ~{::roster})"></html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta content="text/html; charset=UTF-8" http-equiv="content-type"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/static/resources/css/roster.css}"/>
+
+</head>
+
+<div th:fragment="roster">
+    <div class="ui container">
+
+
+        <form method="post" role="form" class="ui form" id="form" th:action="@{/roster/newrosterentry}"
+              th:object="${form}">
+
+            <p class="ui negative message" th:if="${#fields.hasErrors('*')}" th:each="err : ${#fields.errors('*')}"
+               th:text="${err}">
+            </p>
+
+            <fieldset class="field">
+                <p th:text="#{roster.staff}" for="staff">Mitarbeiter</p>
+                <select class="form-control" th:field="*{staff}" id="staff">
+                    <option th:each="staff : ${staffs}" th:value="${staff.staffId}"
+                            th:text="${staff.toString()}"></option>
+                </select>
+            </fieldset>
+
+            <fieldset class="field">
+                <p th:text="#{roster.role}" for="role">Rolle</p>
+                <select class="form-control" th:field="*{role}" id="role">
+                    <option th:each="role : ${roles}" th:value="${role}" th:text="${role}"></option>
+                </select>
+            </fieldset>
+
+            <fieldset class="field">
+                <p th:text="#{roster.day}" for="day">Tag</p>
+                <select class="form-control" th:field="*{day}" id="day" required>
+                    <option value="0">Montag</option>
+                    <option value="1">Dienstag</option>
+                    <option value="2">Mittwoch</option>
+                    <option value="3">Donnerstag</option>
+                    <option value="4">Freitag</option>
+                    <option value="5">Samstag</option>
+                    <option value="6">Sonntag</option>
+                </select>
+            </fieldset>
+
+            <fieldset class="field">
+                <p th:text="#{roster.time}" for="time">Zeit</p>
+                <select multiple size="8" class="form-control" th:field="*{times}" id="time">
+                    <option th:each="time : ${times}" th:value="${time.getTime()}" th:text="${time.getTime()}"></option>
+                </select>
+            </fieldset>
+
+            <button type="submit" class="ui button" th:text="#{roster.create}">Registrieren</button>
+        </form>
+    </div>
+
+</div>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css" type="text/css"/>
+    <link th:href="@{/resources/css/style.css}" rel="stylesheet"
+          href="../static/resources/css/style.css" type="text/css"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/toggle.css}"/>
+    <title>Studio</title>
+
+</head>
+<body>
+<nav th:include="navigation :: navigation"></nav>
+<nav th:include="toggle :: toggle"></nav>
+
+<div class="container">
+    <form method="post" role="form" class="ui form" id="form" th:action="@{/studio}" th:object="${studioForm}">
+
+        <h1>Studio bearbeiten</h1>
+
+        <fieldset>
+            <Label>Opening Times</Label><label for="openingTimes"></label><input type="text" th:field="*{openingTimes}"
+                                                                                 id="openingTimes"
+                                                                                 required/>
+        </fieldset>
+
+        <fieldset>
+            <Label>Contract term</Label><label for="contractTerm"></label><input type="number"
+                                                                                 th:field="*{contractTerm}"
+                                                                                 id="contractTerm"
+                                                                                 required/>
+        </fieldset>
+
+        <fieldset>
+            <Label>Monthly Fees</Label><label for="monthlyFees"></label><input type="number" th:field="*{monthlyFees}"
+                                                                               id="monthlyFees" required/>
+        </fieldset>
+
+        <fieldset>
+            <Label>Advertising Bonus</Label> <label for="advertisingBonus"></label><input type="number"
+                                                                                          th:field="*{advertisingBonus}"
+                                                                                          id="advertisingBonus"
+                                                                                          required/>
+        </fieldset>
+
+        <fieldset>
+            <button name="submit" type="submit" id="contact-submit" data-submit="...Sending">Submit</button>
+        </fieldset>
+    </form>
+</div>
+
+
+</body>
+</html>

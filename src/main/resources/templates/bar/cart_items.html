@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" th:replace="site_template :: template(#{cart_items.title}, ~{::cart_items})"></html>
+
+<html xmlns:th="http://www.thymeleaf.org" th:remove="tag">
+<head th:remove="all">
+    <meta content="text/html; charset=UTF-8" http-equiv="content-type"/>
+</head>
+
+<div th:fragment="cart_items">
+    <div class="ui container">
+
+        <br>
+        <div class="container" th:each="cartItem : ${cart}">
+            <div class="ui segment">
+                <div class="ui six column grid">
+
+                    <div class="ui left aligned left floated column">
+                        <div class="ui header" th:text="${cartItem.getProduct().name}">Spinatsalat</div>
+                    </div>
+                    <div class="ui right aligned column">
+                        <div class="ui content" th:text="'Anzahl: ' + ${cartItem.getQuantity()}">Anzahl: 12</div>
+                    </div>
+                    <div class="ui right aligned column">
+                        <div class="ui header" th:text="${cartItem.getPrice()}">
+                            12,40 EUR
+                            <div class="ui sub header">-12%</div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</html>

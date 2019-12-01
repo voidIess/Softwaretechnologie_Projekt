@@ -1,0 +1,108 @@
+.table .ui.basic.primary.button {
+    display: block;
+
+}
+
+.table .ui.basic.positive.button {
+    display: block;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "montserrat", sans-serif;
+    min-height: 100vh;
+    background: var(--bg-color);
+}
+
+
+.container h1 {
+    font-size: 5em;
+    line-height: 3.2em;
+    text-align: center;
+    color: var(--heading-color);
+    letter-spacing: 3px;
+
+}
+
+.container h2 {
+    color: var(--heading-color);
+}
+
+.container.field {
+    color: var(--heading-color);
+}
+
+.form-control {
+    color: var(--heading-color);
+}
+
+h2 {
+    color: var(--heading-color);
+}
+
+h3 {
+    color: var(--heading-color);
+}
+
+p {
+    color: var(--heading-color);
+}
+
+span {
+    color: var(--heading-color);
+}
+
+label {
+    color: var(--heading-color);
+}
+
+br {
+    color: var(--heading-color);
+}
+
+text {
+    color: var(--heading-color);
+}
+
+.container button {
+    text-decoration: none;
+    background: #4caf50;
+    color: #fff;
+    padding: 12px 24px;
+    display: inline-block;
+    border-radius: 25px;
+    font-size: 14px;
+    text-transform: uppercase;
+    transition: 0.4s;
+}
+
+.container a:hover {
+    background: #e55039;
+}
+
+.table.celled {
+    margin-top: 60px;
+}
+
+.table .ui.basic.primary.button {
+    width: 100%;
+
+}
+
+.table .ui.basic.positive.button {
+    width: 100%;
+}
+
+.table {
+    border-collapse: collapse;
+    background: white;
+    border-radius: 6px;
+    overflow: hidden;
+    max-width: 100%;
+    width: 100%;
+    margin: 0 auto;
+    position: relative;
+
+}
+

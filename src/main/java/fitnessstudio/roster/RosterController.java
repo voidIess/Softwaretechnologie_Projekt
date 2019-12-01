@@ -1,0 +1,102 @@
+package fitnessstudio.roster;
+
+import com.mysema.commons.lang.Assert;
+import fitnessstudio.staff.StaffManagement;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+
+import javax.validation.Valid;
+
+@Controller
+public class RosterController {
+
+	private final RosterManagement rosterManagement;
+	private final StaffManagement staffs;
+	private static final String ROSTER = "redirect:/roster";
+
+	RosterController(RosterManagement rosterManagement, StaffManagement staffs){
+		Assert.notNull(rosterManagement, "RosterManagement darf nicht 'null' sein.");
+		Assert.notNull(staffs, "Das StaffRepository darf nicht 'null' sein.");
+		this.staffs = staffs;
+		this.rosterManagement = rosterManagement;
+	}
+
+	@PreAuthorize("hasRole('STAFF') or hasRole('BOSS')")
+	@GetMapping("/roster")
+	String view_roster (Model model){
+		model.addAttribute("roster",RosterManager.getRoster().getRows());
+		model.addAttribute("filter", false);
+		model.addAttribute("staffs", staffs.getAllStaffs());
+		return "roster/rosterView";
+	}
+
+	@PreAuthorize("hasRole('STAFF') or hasRole('BOSS')")
+	@GetMapping("/roster/{id}")
+	String view_roster_filtered (@PathVariable long id, Model model){
+		model.addAttribute("roster",RosterManager.getRoster().getRows());
+		model.addAttribute("filter", true);
+		model.addAttribute("filterStaff", id);
+		model.addAttribute("staffs", staffs.getAllStaffs());
+		return "roster/rosterView";
+	}
+
+	@PreAuthorize("hasRole('STAFF') or hasRole('BOSS')")
+	@GetMapping("/roster/newrosterentry")
+	String new_roster_entry(Model model, RosterEntryForm form, Errors errors) {
+		model.addAttribute("form", form);
+		model.addAttribute("times", RosterManager.getRoster().getRows());
+		model.addAttribute("roles", RosterManager.getRoles());
+		model.addAttribute("staffs", staffs.getAllStaffs());
+		model.addAttribute("errors", errors);
+		return "roster/rosterNew";
+	}
+
+	@PreAuthorize("hasRole('STAFF') or hasRole('BOSS')")
+	@PostMapping("/roster/newrosterentry")
+	public String newRosterEntry(@Valid @ModelAttribute("form") RosterEntryForm form, Model model, Errors result) {
+		rosterManagement.createRosterEntry(form, result);
+		if (result.hasErrors()) {
+			return new_roster_entry(model, form, result);
+		}
+		return ROSTER;
+	}
+
+	@PreAuthorize("hasRole('STAFF') or hasRole('BOSS')")
+	@GetMapping("/roster/detail/delete/{slot}/{id}")
+	String delete(@PathVariable Long slot, @PathVariable Long id) {
+		rosterManagement.deleteRosterEntry(slot, id);
+		return ROSTER;
+	}
+
+	@PreAuthorize("hasRole('STAFF') or hasRole('BOSS')")
+	@PostMapping("/roster/edit")
+	String edit(@Valid @ModelAttribute("form") RosterEntryForm form, Errors result) {
+		rosterManagement.editRosterEntry(form);
+
+		return ROSTER;
+	}
+
+	@PreAuthorize("hasRole('STAFF') or hasRole('BOSS')")
+	@GetMapping("/roster/detail/{day}/{slot}/{id}")
+	String detail(@PathVariable Long day, @PathVariable Long slot, @PathVariable Long id, RosterEntryForm form,  Model model) {
+		model.addAttribute("shift", day);
+		model.addAttribute("slot", RosterManager.getRowById(day));
+		model.addAttribute("day", slot);
+		model.addAttribute("form", form);
+		model.addAttribute("rosterEntry", RosterManager.getEntryById(id));
+		model.addAttribute("roles", RosterManager.getRoles());
+		return "roster/rosterDetail";
+	}
+
+	//TODO: Tests
+	//TODO: Crash sicher machen
+	//TODO: Nichts hinzufügen, wenn er bereits arbeitet, da sonst die sachen da ausgewählt werden.
+	//TODO: Nach Mitarbeitern filtern
+
+}

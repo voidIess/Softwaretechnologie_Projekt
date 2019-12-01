@@ -1,5 +1,7 @@
 @startuml
 
+
+
     GymWebConfiguration <.. Application: <<use>>
     WebSecurityConfiguration <..Application: <<use>>
     org.springframework.SpringApplication <.. Application: <<use>>
