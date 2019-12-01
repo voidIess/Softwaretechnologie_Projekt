@@ -48,7 +48,7 @@ public class Roster {
 	private void init(){
 		Assert.notNull(rows, "Die Liste der Schichten darf nicht 'null' sein.");
 		for (int i = 0; i < AMOUNT_ROWS;i++){
-			TableRow tableRow = new TableRow(STARTTIME.plusMinutes(i*DURATION),DURATION);
+			TableRow tableRow = new TableRow(STARTTIME.plusMinutes(i*(long)DURATION),DURATION);
 			RosterManager.saveTableRow(tableRow);
 			rows.add(tableRow);
 		}
