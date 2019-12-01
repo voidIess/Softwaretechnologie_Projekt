@@ -1,9 +1,7 @@
 package fitnessstudio.contract;
 
 import org.javamoney.moneta.Money;
-import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -16,6 +14,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @SpringBootTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class ContractManagementUnitTests {
 
 	@Autowired
@@ -44,14 +43,12 @@ class ContractManagementUnitTests {
 	@Test
 	@Order(3)
 	void testFindAll() {
-		assertThat(management.getAllContracts().size()).isEqualTo(1);
+		assertThat(management.getAllContracts().size()).isGreaterThan(0);
 	}
 
 	@Test
 	@Order(4)
 	void testEditContract() {
-		contractId = management.getAllContracts().get(0).getContractId();
-
 		String newName = "newName";
 		String newDescription = "newDescription";
 		Double newPrice = 100.00;
@@ -72,8 +69,6 @@ class ContractManagementUnitTests {
 	@Test
 	@Order(5)
 	void testDeleteContract() {
-		contractId = management.getAllContracts().get(0).getContractId();
-
 		management.deleteContract(contractId);
 		assertThat(contracts.findById(contractId).isEmpty()).isTrue();
 	}
