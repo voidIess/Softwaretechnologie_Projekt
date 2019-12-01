@@ -19,6 +19,7 @@
     <script>
         window.onload = function () {
 
+            const today = new Date(Date.now());
             var chart1 = new CanvasJS.Chart("chartContainer1", {
                 animationEnabled: true,
                 title: {
@@ -26,8 +27,8 @@
                 },
                 axisX: {
                     valueFormatString: "DDD",
-                    minimum: new Date(2017, 1, 5, 23),
-                    maximum: new Date(2017, 1, 12, 1)
+                    minimum: new Date(Date.now()).setDate(today.getDate()-6),
+                    maximum: today
                 },
                 axisY: {
                     title: "Zeit in Minuten"
@@ -48,11 +49,13 @@
                     color: "rgba(40,175,101,0.6)",
                     markerSize: 0,
                     dataPoints: [
-                        { x: new Date(2017, 1, 6), y: 120 },
-                        { x: new Date(2017, 1, 7), y: 120 },
-                        { x: new Date(2017, 1, 8), y: 80 },
-                        { x: new Date(2017, 1, 9), y: 100 },
-                        { x: new Date(2017, 1, 10), y: parseInt($('#averageTime').text()) }
+                        { x: new Date().setDate(today.getDate()-6), y: 120 },
+                        { x: new Date().setDate(today.getDate()-5), y: 120 },
+                        { x: new Date().setDate(today.getDate()-4), y: 80 },
+                        { x: new Date().setDate(today.getDate()-3), y: 100 },
+                        { x: new Date().setDate(today.getDate()-2), y: 50 },
+                        { x: new Date().setDate(today.getDate()-1), y: 100 },
+                        { x: today, y: parseInt($('#averageTime').text()) }
                     ]
                 }]
             });
@@ -64,8 +67,8 @@
                 },
                 axisX: {
                     valueFormatString: "DDD",
-                    minimum: new Date(2017, 1, 5, 23),
-                    maximum: new Date(2017, 1, 12, 1)
+                    minimum: new Date(Date.now()).setDate(today.getDate()-6),
+                    maximum: today
                 },
                 axisY: {
                     title: "Anzahl der Mitglieder"
@@ -86,11 +89,13 @@
                         color: "rgba(0,75,141,0.7)",
                         markerSize: 0,
                         dataPoints: [
-                            { x: new Date(2017, 1, 6), y: 5 },
-                            { x: new Date(2017, 1, 7), y: 10 },
-                            { x: new Date(2017, 1, 8), y: 7 },
-                            { x: new Date(2017, 1, 9), y: 8 },
-                            { x: new Date(2017, 1, 10), y: parseInt($('#memberAmount').text())}
+                            { x: new Date().setDate(today.getDate()-6), y: 5 },
+                            { x: new Date().setDate(today.getDate()-5), y: 10 },
+                            { x: new Date().setDate(today.getDate()-4), y: 7 },
+                            { x: new Date().setDate(today.getDate()-3), y: 8 },
+                            { x: new Date().setDate(today.getDate()-2), y: 10 },
+                            { x: new Date().setDate(today.getDate()-1), y: 12 },
+                            { x: today, y: parseInt($('#memberAmount').text())}
                         ]
                     }]
             });
@@ -107,6 +112,7 @@
 
 <div class="ui container">
     <nav th:include="navigation :: navigation"></nav>
+    <nav th:include="toggle :: toggle"></nav>
     <header>
         <h1>Statistik Anwesenheiten</h1>
     </header>
