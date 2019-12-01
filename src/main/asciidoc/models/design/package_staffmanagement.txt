@@ -1,16 +1,21 @@
+@startuml
+
+
 namespace StaffManagement {
     org.javamoney.moneta.Money <.. Staff: <<use>>
     AdminManagement.User <|-- Staff
     class Staff {
         - salary: Money
-
         + Staff(userAccount: UserAccount, fistName: String, lastName: String)
     }
-    
     
     class StaffController {
     
         + StaffController(staffManagement: StaffManagement)
+        + delete(id: Long, model: Model): String
+        + roster(model Model):String
+        + rosterEntry(model: Model, form RosterEntryForm, result: Errors): String
+        + newRosterEntry(form: RosterEntryForm, model: Model, result: Errors):String
         + printPDF(model:Model):String
     }
     
@@ -23,25 +28,21 @@ namespace StaffManagement {
         + createPDF(staffID: UserAccountIdentifier)
     }
     
-    class RosterController {
-        + RosterController(rosterManagement: RosterManagement)
-        + addEntry(form: RosterEntryForm, result: Errors):String
-        + deleteEntry (form: RosterEntryForm):String
-    }
-    
     RosterManagement --> "1" RosterRepository: "-rosters"
     RosterEntryForm <.. RosterManagement: <<use>>
-    RosterController o-- "1" RosterManagement: "-rosterManagement"
+    StaffController o-- "1" RosterManagement: "-rosterManagement"
     class RosterManagement {
         + RosterManagement(rosters: RosterRepository)
-        + createRosterEntry(form: RosterEntryForm)
-        + deleteRosterEntry(entry: RosterEntry)
+        + createRosterEntry(result: Errors, form: RosterEntryForm)
+        + deleteRosterEntry(id: long)
     }
     
-    interface RosterEntryForm{
-        +getStaff():UserAccountIdentifier
-        +getStartTime():LocalDateTime
-        +getDuration():int
+    class RosterEntryForm{
+        +RosterEntryForm(roles: String, date: String, staffs: String, duration: String)
+        +getStaff():String
+        +getStartTime():String
+        +getDuration():String
+        +getRole(): String
     }
     
 
@@ -57,37 +58,38 @@ namespace StaffManagement {
         + removeEntry(rosterEntry: RosterEntry)
     }
 
-    RosterEntry o-- "1" Staff: - fitnessstudio.staff
-    RosterEntry o-- "1" Role: - role
+<<<<<<< HEAD
+    RosterEntry o-- "1" Staff: - staff
+    RosterEntry o-- "1" StaffRole: - role
+
     java.time.LocalDateTime <.. RosterEntry: <<use>>
     class RosterEntry {
         - rosterEntryId: Long
         - startTime: LocalDateTime
+        - endTime: LocalDateTime
         - duration: int
-        - fitnessstudio.staff: Staff
 
-        + RosterEntry(fitnessstudio.staff: Staff, startTime: LocalDateTime, duration: int)
+        + RosterEntry(role: StaffRole, staff: Staff, startTime: LocalDateTime, duration: int)
+
     }
 
-    enum Role {
+    enum StaffRole {
         COUNTER
         TRAINER
     }
 
     org.springframework.CrudRepository <|.. RosterRepository
     RosterRepository o-- "0..*" Roster: - rosterEntries
-    class RosterRepository {
-        {abstract} findByUserAccount(userAccount: UserAccount): Member
-        {abstract} findByValidation(validation: boolean): Streamable
+    interface RosterRepository {
+        {abstract} findById(id: long): Streamable
         {abstract} findAll(): Streamable
     }
     
     org.springframework.CrudRepository <|.. StaffRepository
-    class StaffRepository {
-        {abstract} findByUserAccount(userAccount: UserAccount): Member
-        {abstract} findByValidation(validation: boolean): Streamable
+    interface StaffRepository {
+        {abstract} findById(id: long): Streamable
         {abstract} findAll(): Streamable
     }
 }
-
-
+  
+@enduml
