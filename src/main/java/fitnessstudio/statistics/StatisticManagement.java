@@ -1,13 +1,16 @@
 package fitnessstudio.statistics;
 
 import fitnessstudio.member.Member;
+import org.springframework.data.util.Streamable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import java.time.LocalDate;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class StatisticManagement {
 
 	private final AttendanceRepository attendances;
@@ -24,6 +27,14 @@ public class StatisticManagement {
 		Attendance attendance = attendances.findById(LocalDate.now()).get();
 		attendance.addMember(memberId);
 		attendance.addTime(duration);
+	}
+
+	public Streamable<Attendance> findAll() {
+		return attendances.findAll();
+	}
+
+	public Optional<Attendance> findById(LocalDate date) {
+		return attendances.findById(date);
 	}
 
 	//just for testing

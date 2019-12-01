@@ -1,8 +1,9 @@
 package fitnessstudio.contract;
 
 import org.javamoney.moneta.Money;
-import org.junit.jupiter.api.*;
-import org.salespointframework.useraccount.UserAccountManager;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -21,9 +22,6 @@ class ContractManagementUnitTests {
 	private ContractRepository contracts;
 
 	@Autowired
-	private UserAccountManager userAccounts;
-
-	@Autowired
 	private ContractManagement management;
 
 	private Long contractId;
@@ -34,24 +32,24 @@ class ContractManagementUnitTests {
 		ContractForm form = new ContractForm("Golden +", "Access to everything", 50.00, 200);
 
 		contractId = management.createContract(form).getContractId();
-		assertThat(contracts.findAll().isEmpty()).isFalse();
+		assertThat(contracts.findById(contractId)).isNotEmpty();
 	}
 
 	@Test
 	@Order(2)
-	void testFindById(){
+	void testFindById() {
 		assertThat(management.findById(contractId).isPresent()).isTrue();
 	}
 
 	@Test
 	@Order(3)
-	void testFindAll(){
+	void testFindAll() {
 		assertThat(management.getAllContracts().size()).isEqualTo(1);
 	}
 
 	@Test
 	@Order(4)
-	void testEditContract(){
+	void testEditContract() {
 		contractId = management.getAllContracts().get(0).getContractId();
 
 		String newName = "newName";
@@ -73,7 +71,7 @@ class ContractManagementUnitTests {
 
 	@Test
 	@Order(5)
-	void testDeleteContract(){
+	void testDeleteContract() {
 		contractId = management.getAllContracts().get(0).getContractId();
 
 		management.deleteContract(contractId);
