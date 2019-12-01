@@ -17,6 +17,7 @@ import javax.validation.Valid;
 
 
 @Controller
+@PreAuthorize("isAuthenticated()")
 @SessionAttributes("cart")
 public class BarController {
 
@@ -32,7 +33,7 @@ public class BarController {
 	}
 
 
-	@PreAuthorize("hasRole('STAFF') or hasRole('BOSS')")
+	@PreAuthorize("hasRole('STAFF')")
 	@GetMapping("/sell_catalog")
 	public String SellingCatalog(Model model) {
 
@@ -40,6 +41,7 @@ public class BarController {
 		return "bar/sell_catalog";
 	}
 
+	@PreAuthorize("hasRole('STAFF')")
 	@PostMapping("/sell")
 	public String sell(@ModelAttribute Cart cart, @Valid BarForm form, SessionStatus status) {
 
@@ -66,7 +68,7 @@ public class BarController {
 		return new Cart();
 	}
 
-	@PreAuthorize("hasRole('STAFF') or hasRole('BOSS')")
+	@PreAuthorize("hasRole('STAFF')")
 	@PostMapping("/addItemToCart")
 	public String addItem(@RequestParam("pid") Article article, @RequestParam("number") int number, @ModelAttribute Cart cart) {
 
