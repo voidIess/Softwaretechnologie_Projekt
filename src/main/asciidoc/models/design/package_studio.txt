@@ -1,0 +1,53 @@
+@startuml
+
+
+namespace Studiomanagement {
+
+     StudioController ..> StudioForm: <<use>>
+     StudioController o--> "1" StudioService: "- studioService"
+     class StudioController {
+        + index(model: Model): String
+        + editStudio(model: Model, studioForm: StudioForm): String
+        + editStudio(StudioForm studioForm, Model model, Errors errors): String
+     }
+     
+     Interface StudioRepository
+    
+
+  StudioInitializer o--> "1" StudioRepository: "- studioRepository"
+  class StudioInitializer {
+        + StudioInitializer()
+        + initializer(): void       
+     }
+     StudioService o--> "1" StudioRepository: "- studioRepository"
+       class StudioService {
+        + getStudio(): Studio
+        + saveStudio(studio: Studio): void   
+     }
+  
+   Interface StudioForm{
+        getopeningTimes(): String
+        getcontractTerm(): String
+        getmonthlyFees(): String
+        getadvertisingBonus(): String
+     }
+    class Studio {
+        
+        - id: Long
+        - openingTimes: String
+        - contractTerm: String
+        - monthlyFees: String
+        - advertisingBonus: String
+
+        + Studio ()
+        + Studio (openingTimes: String, contractTerm: String, monthlyFees: String, advertisingBonus: String)
+        + getID(): long
+        + getopeningTimes(): String
+        + getcontractTerm(): String
+        + getmonthlyFees(): String
+        + getadvertisingBonus(): String
+     }
+}
+
+  
+@enduml
