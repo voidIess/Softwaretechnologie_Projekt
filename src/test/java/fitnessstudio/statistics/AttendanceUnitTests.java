@@ -13,7 +13,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class AttendanceStatisticsTests {
+public class AttendanceUnitTests {
 
 	@Autowired
 	private StatisticManagement management;
