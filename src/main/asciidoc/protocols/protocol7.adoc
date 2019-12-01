@@ -42,7 +42,7 @@ Bei dem Treffen wurde die Zwischenpräsentation gehalten. Feedback von Anita:
 |      |Basisfunktionalität (Training, Verträge, Login) |abgeschlossen|Bill         
 |      |Basisfunktionalität (Statistiken, PDFs)         |abgeschlossen|Lea         
 |      |Basisfunktionalität (BarManagement)             |abgeschlossen|Julius          
-|      |Basisfunktionalität (Globale Variablen)         |abgeschlossen|Vu              
+|      |Basisfunktionalität (Inventarverwaltung)         |abgeschlossen|Vu              
 
 
 |===
