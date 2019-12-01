@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <script th:src="@{/webjars/jquery/jquery.min.js}"
+            src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script th:src="@{/webjars/Semantic-UI/semantic.min.js}"
+            src="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/login.css}" />
+    <title th:text="#{home.title}">Gym</title>
+</head>
+<body>
+<div class="login-box">
+    <header>
+        <h1>Login</h1>
+    </header>
+
+
+    <form class="ui form" role="form" th:action="@{/login}" method="post">
+
+        <div class="textbox">
+            <i class="fas fa-user"></i>
+            <input type="text" placeholder="Username" id="username" name="username" autofocus="autofocus"/> <br/>
+        </div>
+
+        <div class="textbox">
+            <i class="fas fa-lock"></i>
+            <input type="password" placeholder="Password" id="password" name="password"/> <br/>
+        </div>
+
+        <input type="submit" class="btn" value="Sign in">
+        <a th:href="@{~/register}">
+            <input type="button" class="btn" value="Sign up">
+        </a>
+
+    </form>
+</div>
+</body>
+</html>

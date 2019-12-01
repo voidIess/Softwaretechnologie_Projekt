@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <script th:src="@{/webjars/jquery/jquery.min.js}"
+            src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script th:src="@{/webjars/Semantic-UI/semantic.min.js}"
+            src="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.js"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/error.css}" />
+    <title th:text="#{home.title}">Gym</title>
+  </head>
+  <body>
+    <div class="container">
+      <h2>Oops! Something went wrong.</h2>
+      <h1 th:text="${status}"></h1>
+      <p>We can't find the page you're looking for.</p>
+      <p th:text="${error}"></p>
+      <a th:href="@{~/}">Go back home</a>
+    </div>
+  </body>
+</html>

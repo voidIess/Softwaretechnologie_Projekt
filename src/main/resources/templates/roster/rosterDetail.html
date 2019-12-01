@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="site_template :: template(#{roster.detail.title}, ~{::roster})"></html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta content="text/html; charset=UTF-8" http-equiv="content-type"/>
+
+</head>
+
+<div th:fragment="roster">
+    <div class="ui container">
+
+
+        <div class="card">
+
+            <form method="post" role="form" class="ui form" id="form" th:action="@{/roster/edit}" th:object="${form}">
+
+                <div class="ui negative message" th:if="${#fields.hasErrors('*')}">
+                    <p th:each="err : ${#fields.errors('*')}" th:text="${err}"></p>
+                </div>
+
+                <div class="field">
+                    <input class="form-control" name="staff" type="hidden" id="staff"
+                           th:value="${rosterEntry.getStaff().staffId}"/>
+                    <b><span th:text="${rosterEntry.getStaff().toString()}"></span></b>
+                </div>
+
+                <div class="field">
+                    <input class="form-control" name="times" type="hidden" id="times" th:value="${slot.getTime()}"/>
+                    <span th:text="${slot.getTime()}"></span>
+                </div>
+
+                <div class="field">
+                    <input class="form-control" th:name="day" type="hidden" id="day"
+                           th:value="${rosterEntry.rosterEntryId}"/>
+                </div>
+
+                <div>
+                    <label th:text="#{roster.role}" for="role">Rolle</label>
+                    <select id="role" name="role" class="ui fluid dropdown">
+                        <option th:each="role : ${roles}" th:value="${role}" th:text="${role}"
+                                th:selected="${role==rosterEntry.roleToString()}"></option>
+                    </select>
+                </div>
+
+                <button type="submit" class="ui blue button">Speichern</button>
+                <a class="ui red button"
+                   th:href="@{/roster/detail/delete/{slot}/{id}/(slot=${day},id=${rosterEntry.rosterEntryId})}">Löschen</a>
+
+            </form>
+
+
+        </div>
+    </div>
+</div>
+</html>

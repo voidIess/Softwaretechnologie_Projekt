@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/style.css}"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/dropdown.css}"/>
+</head>
+<body>
+<nav th:fragment="navigation">
+    <div class="ui menu">
+
+        <a class="item" href="index.html" th:href="@{/}"
+           th:text="#{homePage.title}">Konto</a>
+
+        <a class="item" href="member/memberDetail.html" th:href="@{/member/home}" sec:authorize="hasRole('MEMBER')"
+           th:text="#{nav.member.home}">Konto</a>
+
+        <a class="item" href="training/member_trainings.html" th:href="@{/member/trainings}"
+           sec:authorize="hasRole('MEMBER')"
+           th:text="#{nav.member.training}">Trainings</a>
+
+        <div class="ui simple dropdown item" sec:authorize="hasRole('BOSS') or hasRole('STAFF')">
+            Adminbereich
+            <i class="dropdown icon"></i>
+            <div class="menu">
+                <a class="item" href="training/trainings.html" th:href="@{/admin/trainings}"
+                   sec:authorize="hasRole('BOSS') or hasRole('STAFF')"
+                   th:text="#{nav.admin.trainings}">Trainings</a>
+
+                <a class="item" href="contract/contracts.html" th:href="@{/admin/contracts}"
+                   sec:authorize="hasRole('BOSS') or hasRole('STAFF')"
+                   th:text="#{nav.admin.contracts}">Verträge bearbeiten</a>
+
+                <a class="item" href="attendanceStatistic.html" th:href="@{/admin/attendanceStatistic}"
+                   sec:authorize="hasRole('BOSS')"
+                   th:text="#{nav.admin.statistics}">Statistiken</a>
+            </div>
+        </div>
+
+        <a class="item" href="staffDetail.html" th:href="@{/staff}"
+           sec:authorize="hasRole('STAFF') and !hasRole('BOSS')"
+           th:text="#{staffDetail.title}">Benutzerkonto</a>
+
+        <a class="item" href="roster/roster.html" th:href="@{/roster}" sec:authorize="hasRole('BOSS') or hasRole('STAFF')"
+           th:text="#{roster.title}">Dienstplan</a>
+
+        <a class="item" href="members.html" th:href="@{/admin/members}"
+           sec:authorize="hasRole('BOSS') or hasRole('STAFF')"
+           th:text="#{nav.admin.members}">Mitglieder</a>
+
+        <div class="ui simple dropdown item" sec:authorize="hasRole('STAFF')">
+            Theke Verwaltung
+            <i class="dropdown icon"></i>
+            <div class="menu">
+                <a class="item" href="bar/catalog.html" th:href="@{/catalog}" sec:authorize="hasRole('STAFF')"
+                   th:text="#{catalog.title}">Artikel</a>
+                <a class="item" href="bar/orders.html" th:href="@{/orders}">Bestellungen</a>
+                <a class="item" href="bar/stock.html" th:href="@{/stock}">Lager</a>
+                <a class="item" href="bar/sell_catalog.html" th:href="@{/sell_catalog}"
+                   th:text="#{sell_catalog.title}">Artikel verkaufen</a>
+
+            </div>
+        </div>
+
+        <div class="right menu">
+            <a class="green item" sec:authorize="hasRole('STAFF')" th:href="@{/cart_items}">
+                <div class="ui green button"> <i class="cart icon"></i>
+                </div>
+            </a>
+
+            <a class="item" th:href="@{/login}" sec:authorize="!isAuthenticated()" th:text="#{nav.login}">Login</a>
+            <form class="item" sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post">
+                <button type="submit" class="ui button" th:text="#{nav.logout}">Logout</button>
+            </form>
+        </div>
+
+
+
+    </div>
+    <br/>
+</nav>
+</body>
+</html>

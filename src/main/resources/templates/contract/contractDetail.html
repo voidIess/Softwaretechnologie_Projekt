@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+
+    <script th:src="@{/webjars/jquery/jquery.min.js}"
+            src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script th:src="@{/webjars/Semantic-UI/semantic.min.js}"
+            src="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.js"></script>
+    <link rel="stylesheet" href="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css" type="text/css"/>
+    <link rel="stylesheet" href="../../static/resources/css/memberDetail.css" type="text/css"/>
+
+    <title>Vertrag</title>
+</head>
+<body>
+<div class="ui container">
+    <nav th:include="navigation :: navigation"></nav>
+    <header>
+        <h1><span th:text="${contract.name}"></span></h1>
+    </header>
+    <div class="ui items">
+        <div class="item">
+            <div class="content">
+                <div class="meta">
+                    <h2 class="header">Vertrag Details</h2>
+                    <form method="post" role="form" class="ui form" id="form" th:action="@{/admin/contract/detail/{id}(id=${contract.contractId})}" th:object="${form}">
+                        <div class="field">
+                            <label for="name">Name</label>
+                            <input id="name" th:field="*{name}" th:errorclass="fieldError" type="text"
+                                   required="required"/><br/>
+                        </div>
+
+                        <div class="field">
+                            <label for="description">Beschreibung</label>
+                            <input id="description" name="description" th:field="*{description}" th:errorclass="fieldError" type="text"
+                                   required="required"/><br/>
+                        </div>
+
+                        <div class="field">
+                            <label for="price">Preis</label>
+                            <input id="price" name="price" th:field="*{price}" th:errorclass="fieldError" type="number" step="0.01" required="required"/><br/>
+                        </div>
+
+                        <div class="field">
+                            <label for="duration">Laufzeit (in Tagen)</label>
+                            <input id="duration" name="duration" th:field="*{duration}" th:errorclass="fieldError" type="number" step="1"
+                                   required="required"/><br/>
+                        </div>
+
+                        <button type="submit" class="ui button">Bearbeiten</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -85,7 +85,7 @@ namespace MemberManagement {
         + Member()
         + Member(userAccount: UserAccount, fistName: String, lastName: String, contract: Contract)
         + confirm(): void
-        + requestTraining(staff: Staff, time: LocalDateTime): void
+        + requestTraining(fitnessstudio.staff: Staff, time: LocalDateTime): void
         + changeContract(contract: Contract): void
         + checkIn(): void
         + checkOut(): void

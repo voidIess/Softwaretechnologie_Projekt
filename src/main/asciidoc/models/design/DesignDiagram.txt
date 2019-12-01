@@ -90,7 +90,7 @@ namespace MemberManagement {
         - exerciseTime: Long
 
         + Member(userAccount: UserAccount, fistName: String, lastName: String)
-        + requestTraining(staff: Staff, time: LocalDateTime): void
+        + requestTraining(fitnessstudio.staff: Staff, time: LocalDateTime): void
         + changeContract(contract: Contract): void
         + checkIn(): void
         + checkOut(): void
@@ -161,7 +161,7 @@ namespace StaffManagement {
         + removeEntry(rosterEntry: RosterEntry)
     }
 
-    RosterEntry o-- "1" Staff: - staff
+    RosterEntry o-- "1" Staff: - fitnessstudio.staff
     RosterEntry o-- "1" Role: - role
     java.time.LocalDateTime <.. RosterEntry: <<use>>
     class RosterEntry {
@@ -169,7 +169,7 @@ namespace StaffManagement {
         - startTime: LocalDateTime
         - duration: int
 
-        + RosterEntry(staff: Staff, startTime: LocalDateTime, duration: int)
+        + RosterEntry(fitnessstudio.staff: Staff, startTime: LocalDateTime, duration: int)
     }
 
     enum Role {
