@@ -75,16 +75,9 @@ public class StudioController {
 	@PreAuthorize("hasRole('ROLE_BOSS')")
 	@PostMapping("/studio")
 	public String editStudio(@Valid StudioForm studioForm, Model model, Errors errors) {
-		if (Integer.parseInt(studioForm.getContractTerm()) < 1) {
-			model.addAttribute(ERROR, "Contract term must at least 1 month");
-			model.addAttribute(STATUS, "400");
-			return ERROR;
-		} else if (Integer.parseInt(studioForm.getMonthlyFees()) < 0) {
-			model.addAttribute(ERROR, "Hey Boss we shouldn't give our member money monthly");
-			model.addAttribute(STATUS, "400");
-			return ERROR;
-		} else if (Integer.parseInt(studioForm.getAdvertisingBonus()) < 0) {
-			model.addAttribute(ERROR, "Advertising bonus should at least 0 EURO");
+		if (Integer.parseInt(studioForm.getContractTerm()) < 1 || Integer.parseInt(studioForm.getMonthlyFees()) < 0 ||
+				Integer.parseInt(studioForm.getAdvertisingBonus()) < 0) {
+			model.addAttribute(ERROR, "Contract term, monthly fees, advertising bonus should be positive");
 			model.addAttribute(STATUS, "400");
 			return ERROR;
 		}
