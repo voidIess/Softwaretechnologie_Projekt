@@ -1,3 +1,6 @@
+@startuml
+
+
 namespace AdminManagement {
 
      User o-- org.salespoint.useraccount.UserAccount : - userAccount
@@ -17,8 +20,8 @@ namespace AdminManagement {
      }
      
      
-     EarningsForm <.. StatisticManagement
-     AttendanceForm <.. StatisticManagement
+     EarningsForm <.. StatisticManagement: <<use>>
+     AttendanceForm <.. StatisticManagement: <<use>>
      MemberManagement.MemberRepository <.. StatisticManagement: <<use>>
      org.salespoint.OrderManager <.. StatisticManagement: <<use>>
      class StatisticManagement {
@@ -28,17 +31,20 @@ namespace AdminManagement {
      }
      
      java.time.LocalDate <.. EarningsForm: <<use>>
-     interface EarningsForm{
+     class EarningsForm{
         getAmount():int
         getEarnings():double
         getTime():LocalDate
      }
      
      java.time.LocalDate <.. AttendanceForm: <<use>>
-     interface AttendanceForm{
+     class AttendanceForm{
         getAmount():int
         getTotalTime():double
         getTime():LocalDate
      }
 
 }
+
+  
+@enduml
