@@ -28,7 +28,7 @@ public class CatalogController {
 	@GetMapping("/catalog")
 	public String catalog(Model model) {
 		model.addAttribute("catalog", catalog.findAll());
-		return "catalog";
+		return "bar/catalog";
 	}
 
 	@GetMapping("/article/{article}")
@@ -41,7 +41,7 @@ public class CatalogController {
 		model.addAttribute("quantity", quantity);
 		model.addAttribute("orderable", quantity.isGreaterThan(Quantity.of(0)));
 
-		return "detail";
+		return "bar/detail";
 
 	}
 }

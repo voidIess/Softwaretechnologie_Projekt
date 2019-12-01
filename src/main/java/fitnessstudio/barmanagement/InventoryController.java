@@ -47,7 +47,7 @@ public class InventoryController {
 	@GetMapping("/article")
 	public String addArticle(Model model, ArticleForm form) {
 		model.addAttribute("form", form);
-		return "add_article";
+		return "bar/add_article";
 	}
 
 	@PostMapping("/article")
@@ -105,7 +105,7 @@ public class InventoryController {
 
 		});
 
-		return "edit_article";
+		return "bar/edit_article";
 	}
 
 	// for keeping previous value in input field
@@ -226,7 +226,7 @@ public class InventoryController {
 
 		model.addAttribute("stock", inventory.findAll());
 
-		return "stock";
+		return "/bar/stock";
 	}
 
 

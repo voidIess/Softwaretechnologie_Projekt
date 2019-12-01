@@ -34,10 +34,10 @@ public class BarController {
 
 	@PreAuthorize("hasRole('STAFF') or hasRole('BOSS')")
 	@GetMapping("/sell_catalog")
-	String SellingCatalog(Model model) {
+	public String SellingCatalog(Model model) {
 
 		model.addAttribute("inventory", inventory.findAll());
-		return ("sell_catalog");
+		return "bar/sell_catalog";
 	}
 
 	@PostMapping("/sell")
@@ -68,7 +68,7 @@ public class BarController {
 
 	@PreAuthorize("hasRole('STAFF') or hasRole('BOSS')")
 	@PostMapping("/addItemToCart")
-	String addItem(@RequestParam("pid") Article article, @RequestParam("number") int number, @ModelAttribute Cart cart) {
+	public String addItem(@RequestParam("pid") Article article, @RequestParam("number") int number, @ModelAttribute Cart cart) {
 
 		Quantity inventoryQuantity = inventory.findByProduct(article)
 			.map(InventoryItem::getQuantity)
@@ -83,7 +83,7 @@ public class BarController {
 
 		LOG.info(cart.stream().map(x -> x.getProductName() + " " + x.getQuantity()).reduce("", ((x, y) -> x + y)));
 
-		return ("redirect:sell_catalog");
+		return "redirect:/sell_catalog";
 	}
 
 
@@ -91,13 +91,13 @@ public class BarController {
 	@PreAuthorize("hasRole('STAFF')")
 	public String orders(Model model) {
 		model.addAttribute("ordersCompleted", orderManager.findBy(OrderStatus.COMPLETED));
-		return "orders";
+		return "bar/orders";
 	}
 
 	@PreAuthorize("hasRole('STAFF')")
 	@GetMapping("/cart_items")
-	String cartItems() {
-		return ("cart_items");
+	public String cartItems() {
+		return "bar/cart_items";
 	}
 
 }
