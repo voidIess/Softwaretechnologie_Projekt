@@ -32,7 +32,7 @@ class ContractManagementUnitTests {
 		ContractForm form = new ContractForm("Golden +", "Access to everything", 50.00, 200);
 
 		contractId = management.createContract(form).getContractId();
-		assertThat(contracts.findAll().isEmpty()).isFalse();
+		assertThat(contracts.findById(contractId)).isNotEmpty();
 	}
 
 	@Test
