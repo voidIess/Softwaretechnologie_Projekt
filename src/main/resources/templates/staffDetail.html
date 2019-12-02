@@ -21,9 +21,9 @@
         </p>
         <h2 class="header">Gehalt</h2>
         <form class="ui form" method="post" th:action="@{/printPdfPayslip}">
-            <p>Monatlich schuftest du bei uns für
+            <p>Bei Fitness Second verdienst du unglaubliche
                 <span th:text="${staff.getSalary()}"></span>
-                 .
+                 pro Monat.
             </p>
             <button type="submit" class="ui button" th:text="#{staffDetail.printPdfPayslip}">Rechnung anzeigen</button>
         </form>
