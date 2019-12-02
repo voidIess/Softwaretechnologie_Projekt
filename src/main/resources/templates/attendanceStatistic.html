@@ -49,13 +49,13 @@
                     color: "rgba(40,175,101,0.6)",
                     markerSize: 0,
                     dataPoints: [
-                        { x: new Date().setDate(today.getDate()-6), y: 120 },
-                        { x: new Date().setDate(today.getDate()-5), y: 120 },
-                        { x: new Date().setDate(today.getDate()-4), y: 80 },
-                        { x: new Date().setDate(today.getDate()-3), y: 100 },
-                        { x: new Date().setDate(today.getDate()-2), y: 50 },
-                        { x: new Date().setDate(today.getDate()-1), y: 100 },
-                        { x: today, y: parseInt($('#averageTime').text()) }
+                        { x: new Date().setDate(today.getDate()-6), y: [[${averageTimesOfLastWeek[6]}]] },
+                        { x: new Date().setDate(today.getDate()-5), y: [[${averageTimesOfLastWeek[5]}]] },
+                        { x: new Date().setDate(today.getDate()-4), y: [[${averageTimesOfLastWeek[4]}]] },
+                        { x: new Date().setDate(today.getDate()-3), y: [[${averageTimesOfLastWeek[3]}]] },
+                        { x: new Date().setDate(today.getDate()-2), y: [[${averageTimesOfLastWeek[2]}]] },
+                        { x: new Date().setDate(today.getDate()-1), y: [[${averageTimesOfLastWeek[1]}]] },
+                        { x: today, y: [[${averageTimesOfLastWeek[0]}]] }
                     ]
                 }]
             });
@@ -89,13 +89,13 @@
                         color: "rgba(0,75,141,0.7)",
                         markerSize: 0,
                         dataPoints: [
-                            { x: new Date().setDate(today.getDate()-6), y: 5 },
-                            { x: new Date().setDate(today.getDate()-5), y: 10 },
-                            { x: new Date().setDate(today.getDate()-4), y: 7 },
-                            { x: new Date().setDate(today.getDate()-3), y: 8 },
-                            { x: new Date().setDate(today.getDate()-2), y: 10 },
-                            { x: new Date().setDate(today.getDate()-1), y: 12 },
-                            { x: today, y: parseInt($('#memberAmount').text())}
+                            { x: new Date().setDate(today.getDate()-6), y: [[${memberAmountsOfLastWeek[6]}]] },
+                            { x: new Date().setDate(today.getDate()-5), y: [[${memberAmountsOfLastWeek[5]}]] },
+                            { x: new Date().setDate(today.getDate()-4), y: [[${memberAmountsOfLastWeek[4]}]] },
+                            { x: new Date().setDate(today.getDate()-3), y: [[${memberAmountsOfLastWeek[3]}]] },
+                            { x: new Date().setDate(today.getDate()-2), y: [[${memberAmountsOfLastWeek[2]}]] },
+                            { x: new Date().setDate(today.getDate()-1), y: [[${memberAmountsOfLastWeek[1]}]] },
+                            { x: today, y: [[${memberAmountsOfLastWeek[0]}]] }
                         ]
                     }]
             });
@@ -118,10 +118,10 @@
     </header>
     <div class="ui items">
         <p>Heutige Besucheranzahl:
-            <span th:id="memberAmount" th:text="${memberAmount}">3</span>
+            <span th:text="${memberAmountsOfLastWeek[0]}">3</span>
         </p>
         <p>Heutiger durchschnittlicher Aufenthalt:
-            <span th:id="averageTime" th:text="${averageTime}">2</span>
+            <span th:text="${averageTimesOfLastWeek[0]}">2</span>
              Minuten
         </p>
     </div>

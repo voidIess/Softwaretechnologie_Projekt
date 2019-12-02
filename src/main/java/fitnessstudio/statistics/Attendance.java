@@ -1,8 +1,5 @@
 package fitnessstudio.statistics;
 
-import fitnessstudio.member.Member;
-import org.hibernate.validator.constraints.UniqueElements;
-
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.HashSet;

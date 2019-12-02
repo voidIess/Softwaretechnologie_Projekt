@@ -1,6 +1,5 @@
 package fitnessstudio.statistics;
 
-import fitnessstudio.member.Member;
 import org.springframework.data.util.Streamable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,13 +19,17 @@ public class StatisticManagement {
 		this.attendances = attendances;
 	}
 
-	public void addAttendance(long memberId, long duration) {
-		if(attendances.findById(LocalDate.now()).isEmpty()) {
-			attendances.save(new Attendance(LocalDate.now()));
+	public void addAttendance(LocalDate date, long memberId, long duration) {
+		if(attendances.findById(date).isEmpty()) {
+			attendances.save(new Attendance(date));
 		}
-		Attendance attendance = attendances.findById(LocalDate.now()).get();
+		Attendance attendance = attendances.findById(date).get();
 		attendance.addMember(memberId);
 		attendance.addTime(duration);
+	}
+
+	public void addAttendance(long memberId, long duration) {
+		addAttendance(LocalDate.now(), memberId, duration);
 	}
 
 	public Streamable<Attendance> findAll() {
@@ -37,7 +40,6 @@ public class StatisticManagement {
 		return attendances.findById(date);
 	}
 
-	//just for testing
 	public long getAverageTimeToday() {
 		Optional<Attendance> attendance = attendances.findById(LocalDate.now());
 		if(attendance.isEmpty()) {
@@ -47,7 +49,20 @@ public class StatisticManagement {
 		}
 	}
 
-	//just for testing
+	public long[] getAverageTimesOfLastWeek() {
+		long[] times = new long[7];
+		LocalDate today = LocalDate.now();
+
+		for(int i=0; i<7; i++) {
+			Optional<Attendance> attendance = findById(today.minusDays(i));
+			if(attendance.isPresent()) {
+				times[i] = attendance.get().getAverageTime();
+			}
+		}
+
+		return times;
+	}
+
 	public long getMemberAmountToday() {
 		Optional<Attendance> attendance = attendances.findById(LocalDate.now());
 		if(attendance.isEmpty()) {
@@ -55,6 +70,20 @@ public class StatisticManagement {
 		} else {
 			return attendance.get().getMemberAmount();
 		}
+	}
+
+	public long[] getMemberAmountsOfLastWeek() {
+		long[] amounts = new long[7];
+		LocalDate today = LocalDate.now();
+
+		for(int i=0; i<7; i++) {
+			Optional<Attendance> attendance = findById(today.minusDays(i));
+			if(attendance.isPresent()) {
+				amounts[i] = attendance.get().getMemberAmount();
+			}
+		}
+
+		return amounts;
 	}
 
 }
