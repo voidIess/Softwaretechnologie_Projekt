@@ -63,10 +63,5 @@ class RosterTest {
 			assertThat(tableRow.getSlots().size() == 7).isTrue();
 		}
 	}
-
-	@AfterAll
-	void clear (){
-		userAccounts.delete(staff.getUserAccount());
-		userAccounts.delete(staff2.getUserAccount());
-	}
+	
 }
