@@ -4,6 +4,7 @@ import fitnessstudio.staff.Staff;
 import fitnessstudio.staff.StaffRepository;
 import fitnessstudio.staff.StaffRole;
 import org.javamoney.moneta.Money;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -55,6 +56,12 @@ public class RosterEntryTest {
 	void testRoleToString () {
 		assertThat(rosterEntryCounter.roleToString().equals("Thekenkraft")).isTrue();
 		assertThat(rosterEntryTrainer.roleToString().equals("Trainer")).isTrue();
+	}
+
+	@AfterAll
+	void clear (){
+		userAccountManager.delete(staff.getUserAccount());
+		userAccountManager.delete(staff2.getUserAccount());
 	}
 
 }

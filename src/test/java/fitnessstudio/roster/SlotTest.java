@@ -3,6 +3,7 @@ package fitnessstudio.roster;
 import fitnessstudio.staff.Staff;
 import fitnessstudio.staff.StaffRole;
 import org.javamoney.moneta.Money;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -33,6 +34,7 @@ public class SlotTest {
 		rosterEntryCounter = new RosterEntry(StaffRole.COUNTER, staff);
 		rosterEntryTrainer = new RosterEntry(StaffRole.TRAINER, staff);
 		slot = new Slot();
+
 	}
 
 	@Test
@@ -41,6 +43,12 @@ public class SlotTest {
 		assertThat(slot.isTaken(staff2)).isFalse();
 		//slot.addEntry(rosterEntryCounter);
 		//assertThat(slot.isTaken(staff)).isTrue();
+	}
+
+	@AfterAll
+	void clear (){
+		userAccountManager.delete(staff.getUserAccount());
+		userAccountManager.delete(staff2.getUserAccount());
 	}
 
 
