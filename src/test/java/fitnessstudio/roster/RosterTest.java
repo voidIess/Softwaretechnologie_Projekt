@@ -37,10 +37,10 @@ class RosterTest {
 
 	@BeforeAll
 	void setUpEntries(){
-		staff = new Staff(userAccounts.create("TestStaff", Password.UnencryptedPassword.of("123"), Role.of("STAFF")),"Markus", "Wieland", Money.of(100, "EUR"));
+		staff = new Staff(userAccounts.create("TestStaff_Roster1", Password.UnencryptedPassword.of("123"), Role.of("STAFF")),"Markus", "Wieland", Money.of(100, "EUR"));
 		staffRepository.save(staff);
 
-		staff2 = new Staff(userAccounts.create("TestStaff2", Password.UnencryptedPassword.of("123"), Role.of("STAFF")),"Markus", "Wieland", Money.of(100, "EUR"));
+		staff2 = new Staff(userAccounts.create("TestStaff_Roster2", Password.UnencryptedPassword.of("123"), Role.of("STAFF")),"Markus", "Wieland", Money.of(100, "EUR"));
 		staffRepository.save(staff2);
 
 		rosterEntry = new RosterEntry(StaffRole.COUNTER, staff);
@@ -63,10 +63,5 @@ class RosterTest {
 			assertThat(tableRow.getSlots().size() == 7).isTrue();
 		}
 	}
-
-	@AfterAll
-	void clear (){
-		userAccounts.delete(staff.getUserAccount());
-		userAccounts.delete(staff2.getUserAccount());
-	}
+	
 }

@@ -30,7 +30,7 @@ public class RosterEntryTest {
 
 	@BeforeAll
 	void setUpEntries() {
-		staff = new Staff(userAccountManager.create("TestStaff", Password.UnencryptedPassword.of("123"), Role.of("STAFF")),"Markus", "Wieland", Money.of(100, "EUR"));
+		staff = new Staff(userAccountManager.create("TestStaff_RosterEntry", Password.UnencryptedPassword.of("123"), Role.of("STAFF")),"Markus", "Wieland", Money.of(100, "EUR"));
 		rosterEntryCounter = new RosterEntry(StaffRole.COUNTER, staff);
 		rosterEntryTrainer = new RosterEntry(StaffRole.TRAINER, staff);
 	}
