@@ -61,7 +61,6 @@ public class RosterEntryTest {
 	@AfterAll
 	void clear (){
 		userAccountManager.delete(staff.getUserAccount());
-		userAccountManager.delete(staff2.getUserAccount());
 	}
 
 }
