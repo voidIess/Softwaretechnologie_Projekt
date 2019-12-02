@@ -113,7 +113,7 @@ class Slot {
 		rosterEntries.remove(rosterEntry);
 	}
 
-	private boolean isTaken(Staff staff) {
+	public boolean isTaken(Staff staff) {
 		for (RosterEntry rosterEntry : rosterEntries){
 			if (rosterEntry.getStaff() == staff) return true;
 		}
