@@ -16,10 +16,15 @@
         <!---<h1>Dienstplan</h1>--->
 
         <select class="ui dropdown" id="staff" onchange="location = this.value;">
-            <option th:value="@{/roster}">Alle Mitarbeiter</option>
-            <option th:each="staff : ${staffs}" th:value="@{/roster/{id}/(id=${staff.staffId})}"
+            <option th:value="@{/roster/{week}/(week=${week})}">Alle Mitarbeiter</option>
+            <option th:each="staff : ${staffs}" th:value="@{/roster/{week}/{id}/(week=${week},id=${staff.staffId})}"
                     th:text="${staff.toString()}" th:selected="${filterStaff==staff.staffId}"></option>
         </select>
+        <select class="ui dropdown" id="weeks" onchange="location = this.value;">
+            <option th:each="week1 : ${weeks}" th:value="@{/roster/{week}/(week=${week1})}"
+                    th:text="${week1}" th:selected="${week1==week}"></option>
+        </select>
+
         <br>
         <br>
 
@@ -30,13 +35,9 @@
             <thead>
             <tr>
                 <th>Zeit</th>
-                <th>Montag</th>
-                <th>Dienstag</th>
-                <th>Mittwoch</th>
-                <th>Donnerstag</th>
-                <th>Freitag</th>
-                <th>Samstag</th>
-                <th>Sonntag</th>
+                <th:block th:each="head : ${header}">
+                    <th th:text="${head}"></th>
+                </th:block>
 
             </tr>
             </thead>
@@ -50,19 +51,19 @@
                                 <div th:if="${filter && entry.getStaff().getStaffId() == filterStaff}">
                                     <a th:if="${entry.isTrainer() }" class="ui primary basic button"
                                        th:text="${entry.toString()}"
-                                       th:href="@{/roster/detail/{day}/{slot}/{id}/(day=${tableRow.tableRowId},slot=${slot.slotId},id=${entry.rosterEntryId})}"></a>
+                                       th:href="@{/roster/detail/{week}/{day}/{slot}/{id}/(week=${week},day=${tableRow.tableRowId},slot=${slot.slotId},id=${entry.rosterEntryId})}"></a>
                                     <a th:unless="${entry.isTrainer()}" class="ui positive basic button"
                                        th:text="${entry.toString()}"
-                                       th:href="@{/roster/detail/{day}/{slot}/{id}/(day=${tableRow.tableRowId},slot=${slot.slotId},id=${entry.rosterEntryId})}"></a>
+                                       th:href="@{/roster/detail/{week}/{day}/{slot}/{id}/(week=${week},day=${tableRow.tableRowId},slot=${slot.slotId},id=${entry.rosterEntryId})}"></a>
                                 </div>
 
                                 <div th:unless="${filter}">
                                     <a th:if="${entry.isTrainer()}" class="ui primary basic button"
                                        th:text="${entry.toString()}"
-                                       th:href="@{/roster/detail/{day}/{slot}/{id}/(day=${tableRow.tableRowId},slot=${slot.slotId},id=${entry.rosterEntryId})}"></a>
+                                       th:href="@{/roster/detail/{week}/{day}/{slot}/{id}/(week=${week},day=${tableRow.tableRowId},slot=${slot.slotId},id=${entry.rosterEntryId})}"></a>
                                     <a th:unless="${entry.isTrainer()}" class="ui positive basic button"
                                        th:text="${entry.toString()}"
-                                       th:href="@{/roster/detail/{day}/{slot}/{id}/(day=${tableRow.tableRowId},slot=${slot.slotId},id=${entry.rosterEntryId})}"></a><br>
+                                       th:href="@{/roster/detail/{week}/{day}/{slot}/{id}/(week=${week},day=${tableRow.tableRowId},slot=${slot.slotId},id=${entry.rosterEntryId})}"></a>
                                 </div>
 
 
@@ -74,7 +75,7 @@
 
         </table>
 
-        <a class="fluid ui button" href="/roster/newrosterentry">Eintrag hinzuf&uuml;gen</a><br>
+        <a class="fluid ui button" th:href="@{/roster/newrosterentry/{week}/(week=${week})}">Eintrag hinzuf&uuml;gen</a><br>
 
     </div>
 </div>
