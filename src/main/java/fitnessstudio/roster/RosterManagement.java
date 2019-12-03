@@ -28,7 +28,7 @@ public class RosterManagement {
 		this.slots = slots;
 	}
 
-	public void createRosterEntry(RosterEntryForm rosterEntryForm, Errors result) {
+	public void createRosterEntry(RosterEntryForm rosterEntryForm, int week, Errors result) {
 
 		Staff staff = staffs.findById(Long.valueOf(rosterEntryForm.getStaff())).orElse(null);
 		if (staff == null) {
@@ -36,7 +36,7 @@ public class RosterManagement {
 			return;
 		}
 
-		Roster roster = RosterManager.getRoster();
+		Roster roster = RosterManager.getRosterByWeek(week);
 		StaffRole role;
 
 		if (rosterEntryForm.getRole().equals("Trainer"))
@@ -70,8 +70,8 @@ public class RosterManagement {
 		RosterManager.saveRosterEntry(rosterEntry);
 	}
 
-	public void createRosterEntry(int day, int shift, RosterEntry rosterEntry) {
-		Roster roster = RosterManager.getRoster();
+	public void createRosterEntry(int day, int shift, int week, RosterEntry rosterEntry) {
+		Roster roster = RosterManager.getRosterByWeek(week);
 		roster.addEntry(day, shift, rosterEntry);
 		//RosterManager.saveSlot(roster.getRows().get(shift).getSlots().get(day));
 		rosterRepository.save(roster);
