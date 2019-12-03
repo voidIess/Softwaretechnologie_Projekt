@@ -19,7 +19,9 @@
     <script>
         window.onload = function () {
 
-            const today = new Date(Date.now());
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+
             var chart1 = new CanvasJS.Chart("chartContainer1", {
                 animationEnabled: true,
                 title: {
@@ -27,7 +29,7 @@
                 },
                 axisX: {
                     valueFormatString: "DDD",
-                    minimum: new Date(Date.now()).setDate(today.getDate()-6),
+                    minimum: new Date().setDate(today.getDate()-6),
                     maximum: today
                 },
                 axisY: {
@@ -44,17 +46,15 @@
                 data: [{
                     name: "durchschnittlicher Aufenthalt",
                     showInLegend: true,
-                    legendMarkerType: "square",
                     type: "area",
                     color: "rgba(40,175,101,0.6)",
-                    markerSize: 0,
                     dataPoints: [
-                        { x: new Date().setDate(today.getDate()-6), y: [[${averageTimesOfLastWeek[6]}]] },
-                        { x: new Date().setDate(today.getDate()-5), y: [[${averageTimesOfLastWeek[5]}]] },
-                        { x: new Date().setDate(today.getDate()-4), y: [[${averageTimesOfLastWeek[4]}]] },
-                        { x: new Date().setDate(today.getDate()-3), y: [[${averageTimesOfLastWeek[3]}]] },
-                        { x: new Date().setDate(today.getDate()-2), y: [[${averageTimesOfLastWeek[2]}]] },
-                        { x: new Date().setDate(today.getDate()-1), y: [[${averageTimesOfLastWeek[1]}]] },
+                        { x: new Date(new Date().setDate(today.getDate()-6)).setHours(0,0,0,0), y: [[${averageTimesOfLastWeek[6]}]] },
+                        { x: new Date(new Date().setDate(today.getDate()-5)).setHours(0,0,0,0), y: [[${averageTimesOfLastWeek[5]}]] },
+                        { x: new Date(new Date().setDate(today.getDate()-4)).setHours(0,0,0,0), y: [[${averageTimesOfLastWeek[4]}]] },
+                        { x: new Date(new Date().setDate(today.getDate()-3)).setHours(0,0,0,0), y: [[${averageTimesOfLastWeek[3]}]] },
+                        { x: new Date(new Date().setDate(today.getDate()-2)).setHours(0,0,0,0), y: [[${averageTimesOfLastWeek[2]}]] },
+                        { x: new Date(new Date().setDate(today.getDate()-1)).setHours(0,0,0,0), y: [[${averageTimesOfLastWeek[1]}]] },
                         { x: today, y: [[${averageTimesOfLastWeek[0]}]] }
                     ]
                 }]
@@ -89,12 +89,12 @@
                         color: "rgba(0,75,141,0.7)",
                         markerSize: 0,
                         dataPoints: [
-                            { x: new Date().setDate(today.getDate()-6), y: [[${memberAmountsOfLastWeek[6]}]] },
-                            { x: new Date().setDate(today.getDate()-5), y: [[${memberAmountsOfLastWeek[5]}]] },
-                            { x: new Date().setDate(today.getDate()-4), y: [[${memberAmountsOfLastWeek[4]}]] },
-                            { x: new Date().setDate(today.getDate()-3), y: [[${memberAmountsOfLastWeek[3]}]] },
-                            { x: new Date().setDate(today.getDate()-2), y: [[${memberAmountsOfLastWeek[2]}]] },
-                            { x: new Date().setDate(today.getDate()-1), y: [[${memberAmountsOfLastWeek[1]}]] },
+                            { x: new Date(new Date().setDate(today.getDate()-6)).setHours(0,0,0,0), y: [[${memberAmountsOfLastWeek[6]}]] },
+                            { x: new Date(new Date().setDate(today.getDate()-5)).setHours(0,0,0,0), y: [[${memberAmountsOfLastWeek[5]}]] },
+                            { x: new Date(new Date().setDate(today.getDate()-4)).setHours(0,0,0,0), y: [[${memberAmountsOfLastWeek[4]}]] },
+                            { x: new Date(new Date().setDate(today.getDate()-3)).setHours(0,0,0,0), y: [[${memberAmountsOfLastWeek[3]}]] },
+                            { x: new Date(new Date().setDate(today.getDate()-2)).setHours(0,0,0,0), y: [[${memberAmountsOfLastWeek[2]}]] },
+                            { x: new Date(new Date().setDate(today.getDate()-1)).setHours(0,0,0,0), y: [[${memberAmountsOfLastWeek[1]}]] },
                             { x: today, y: [[${memberAmountsOfLastWeek[0]}]] }
                         ]
                     }]
