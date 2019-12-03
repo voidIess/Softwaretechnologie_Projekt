@@ -32,7 +32,7 @@ public class AttendanceUnitTests {
 	@Order(1)
 	void testCreateAttendance() {
 		management.addAttendance(member.getMemberId(),2);
-		assertThat(repository.count()).isEqualTo(1);
+		assertThat(repository.count()).isEqualTo(6);
 	}
 
 	@Test
@@ -57,7 +57,7 @@ public class AttendanceUnitTests {
 	@Order(5)
 	void testAddAttendanceWithSameDate() {
 		management.addAttendance(member.getMemberId(), 4);
-		assertThat(repository.count()).isEqualTo(1);
+		assertThat(repository.count()).isEqualTo(6);
 	}
 
 	@Test

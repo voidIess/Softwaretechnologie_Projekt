@@ -29,7 +29,7 @@
                 },
                 axisX: {
                     valueFormatString: "DDD",
-                    minimum: new Date().setDate(today.getDate()-6),
+                    minimum: new Date(new Date().setDate(today.getDate()-6)).setHours(0,0,0,0),
                     maximum: today
                 },
                 axisY: {
@@ -67,7 +67,7 @@
                 },
                 axisX: {
                     valueFormatString: "DDD",
-                    minimum: new Date(Date.now()).setDate(today.getDate()-6),
+                    minimum: new Date(new Date().setDate(today.getDate()-6)).setHours(0,0,0,0),
                     maximum: today
                 },
                 axisY: {
