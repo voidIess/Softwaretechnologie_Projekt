@@ -5,6 +5,7 @@ import org.salespointframework.core.DataInitializer;
 import org.salespointframework.inventory.InventoryItems;
 import org.salespointframework.inventory.UniqueInventory;
 import org.salespointframework.inventory.UniqueInventoryItem;
+import org.salespointframework.quantity.Metric;
 import org.salespointframework.quantity.Quantity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,7 +34,7 @@ public class InventoryDataInitializer implements DataInitializer {
 
 				if(items.isEmpty())
 				{
-					inventory.save(new ExpiringInventoryItem(article, Quantity.of(23), LocalDate.of(2100, 10, 10)));
+					inventory.save(new ExpiringInventoryItem(article, Quantity.of(23, Metric.UNIT), LocalDate.of(2100, 10, 10)));
 				}
 
 			});

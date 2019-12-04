@@ -35,7 +35,7 @@ public class BarController {
 	public String SellingCatalog(Model model) {
 
 		model.addAttribute("inventory", barManager.getAvailableArticles());
-		return ("sell_catalog");
+		return ("bar/sell_catalog");
 	}
 
 	@PreAuthorize("hasRole('STAFF')")
