@@ -1,4 +1,4 @@
-package fitnessstudio.roster;
+package fitnessstudio.rosterNew;
 
 import com.mysema.commons.lang.Assert;
 
@@ -14,7 +14,7 @@ public class Roster {
 	private long rosterId;						// ID des Rosters
 	private int week;							// Gibt die Wochennummer an, für die der Dienstplan sein soll
 
-	@OneToMany
+	@ElementCollection
 	private List<TableRow> rows;				// Es gibt x Reihen pro Tag, beliebig anpassbar wenn man die Schichten verändern möchte.
 
 	public static final int AMOUNT_ROWS = 8;	// Die Anzahl der Reihen
@@ -29,37 +29,65 @@ public class Roster {
 	Roster(){}
 
 	Roster(int week){
+		Assert.isTrue(week > 0 && week < 53, "Falsches Format für die Kalenderwoche!");
 		this.week = week;
 		this.rows = new LinkedList<>();
-		init();
+
 	}
 
-	public void addEntry (int shift, int day, RosterEntry rosterEntry) {
-		TableRow tableRow = rows.get(shift);
-		tableRow.addEntry(day, rosterEntry);
-		RosterManager.saveTableRow(tableRow);
-	}
-
-	public long getId(){
+	public long getRosterId() {
 		return rosterId;
 	}
 
-	// Hier werden die x (AMOUNT_ROWS) Zeilen in der Tabelle angelegt
-	private void init(){
-		Assert.notNull(rows, "Die Liste der Schichten darf nicht 'null' sein.");
-		for (int i = 0; i < AMOUNT_ROWS;i++){
-			TableRow tableRow = new TableRow(STARTTIME.plusMinutes(i*(long)DURATION),DURATION);
-			RosterManager.saveTableRow(tableRow);
-			rows.add(tableRow);
-		}
+	public void setRosterId(long rosterId) {
+		this.rosterId = rosterId;
 	}
 
-	public List<TableRow> getRows(){
-		Assert.notNull(rows, "Die Liste der Schichten existiert nicht.");
+	public int getWeek() {
+		return week;
+	}
+
+	public void setWeek(int week) {
+		this.week = week;
+	}
+
+	public List<TableRow> getRows() {
 		return rows;
 	}
 
-	public int getWeek(){
-		return week;
+	public void setRows(List<TableRow> rows) {
+		this.rows = rows;
 	}
+
+	public static int getAmountRows() {
+		return AMOUNT_ROWS;
+	}
+
+	public static int getDURATION() {
+		return DURATION;
+	}
+
+	public static LocalDateTime getSTARTTIME() {
+		return STARTTIME;
+	}
+}
+
+@Embeddable
+class TableRow {
+
+	@Embedded
+	private List<Long> slots = new LinkedList<>();
+
+	public List<Long> getSlots() {
+		return slots;
+	}
+
+	public void setSlots(List<Long> slots) {
+		this.slots = slots;
+	}
+}
+
+@Embeddable
+class Slot {
+
 }
