@@ -1,9 +1,9 @@
 package fitnessstudio.barmanagement;
 
-import org.salespointframework.inventory.InventoryItem;
-import org.salespointframework.inventory.UniqueInventory;
-import org.salespointframework.inventory.UniqueInventoryItem;
-import org.salespointframework.order.*;
+import org.salespointframework.order.Cart;
+import org.salespointframework.order.Order;
+import org.salespointframework.order.OrderManager;
+import org.salespointframework.order.OrderStatus;
 import org.salespointframework.quantity.Quantity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

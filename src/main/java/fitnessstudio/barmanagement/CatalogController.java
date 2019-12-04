@@ -1,9 +1,6 @@
 package fitnessstudio.barmanagement;
 
 
-import org.salespointframework.inventory.InventoryItem;
-import org.salespointframework.inventory.UniqueInventory;
-import org.salespointframework.inventory.UniqueInventoryItem;
 import org.salespointframework.quantity.Quantity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -11,8 +8,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-
-import java.util.Objects;
 
 
 @PreAuthorize("hasRole('STAFF')")
