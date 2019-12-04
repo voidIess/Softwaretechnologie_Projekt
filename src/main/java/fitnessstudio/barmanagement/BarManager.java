@@ -1,12 +1,15 @@
 package fitnessstudio.barmanagement;
 
 import fitnessstudio.member.Member;
+import org.salespointframework.inventory.InventoryItem;
 import org.salespointframework.inventory.InventoryItems;
 import org.salespointframework.inventory.UniqueInventoryItem;
 import org.salespointframework.order.Cart;
 import org.salespointframework.order.CartItem;
 import org.salespointframework.payment.PaymentMethod;
 import org.salespointframework.quantity.Quantity;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.util.Streamable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -18,6 +21,9 @@ public class BarManager {
 
 	private ExpiringInventory inventory;
 	private ArticleCatalog catalog;
+
+	private static final Logger LOG = LoggerFactory.getLogger(CatalogDataInitializer.class);
+
 
 	public BarManager(ExpiringInventory inventory, ArticleCatalog catalog) {
 
@@ -53,13 +59,16 @@ public class BarManager {
 
 	// return articles, which are in stock and not expired
 	public Streamable<UniqueInventoryItem> getAvailableArticles() {
-		return Streamable.of(catalog.findAll())
-			.map(x -> new UniqueInventoryItem(x, inventory.findByProductAndExpirationDateBefore(x, LocalDate.now()).getTotalQuantity()))
+		Streamable<UniqueInventoryItem> items = Streamable.of(catalog.findAll())
+			.map(x -> new UniqueInventoryItem(x, inventory.findByProductAndExpirationDateAfter(x, LocalDate.now()).getTotalQuantity()))
 			.filter(x -> !x.getQuantity().isZeroOrNegative());
+
+		LOG.info(items.map(InventoryItem::toString).toList().toString());
+		return items;
 	}
 
 
-	public void checkoutCart(Member customer, PaymentMethod paymentMethod) {
+	public void checkoutCart(Member customer, PaymentMethod paymentMethod, Cart cart) {
 		//TODO implement this
 	}
 
@@ -89,11 +98,11 @@ public class BarManager {
 
 	public Streamable<Article> getLowStockArticles() {
 		return Streamable.of(catalog.findAll()).filter(
-			x -> inventory.findByProductAndExpirationDateBefore(x, LocalDate.now()).getTotalQuantity()
+			x -> inventory.findByProductAndExpirationDateAfter(x, LocalDate.now()).getTotalQuantity()
 				.isLessThan(x.getSufficientQuantity()));
 	}
 
 	public Quantity getArticleQuantity(Article article) {
-		return inventory.findByProductAndExpirationDateBefore(article, LocalDate.now()).getTotalQuantity();
+		return inventory.findByProductAndExpirationDateAfter(article, LocalDate.now()).getTotalQuantity();
 	}
 }

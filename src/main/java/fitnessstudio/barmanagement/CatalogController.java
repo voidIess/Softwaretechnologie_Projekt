@@ -17,26 +17,24 @@ import java.util.Objects;
 @Controller
 public class CatalogController {
 
-	private final ArticleCatalog catalog;
-	private final UniqueInventory<UniqueInventoryItem> inventory;
 
-	public CatalogController(ArticleCatalog catalog, UniqueInventory<UniqueInventoryItem> inventory) {
-		this.catalog = catalog;
-		this.inventory = inventory;
+	private final BarManager barManager;
+
+	public CatalogController(BarManager barManager) {
+		this.barManager = barManager;
 	}
+
 
 	@GetMapping("/catalog")
 	public String catalog(Model model) {
-		model.addAttribute("catalog", catalog.findAll());
+		model.addAttribute("catalog", barManager.getAllArticles());
 		return "catalog";
 	}
 
 	@GetMapping("/article/{article}")
 	public String detail(@PathVariable @ModelAttribute Article article, Model model) {
 
-		var quantity = inventory.findByProductIdentifier(Objects.requireNonNull(article.getId()))
-			.map(InventoryItem::getQuantity)
-			.orElse(Quantity.of(0));
+		Quantity quantity = barManager.getArticleQuantity(article);
 		model.addAttribute("article", article);
 		model.addAttribute("quantity", quantity);
 		model.addAttribute("orderable", quantity.isGreaterThan(Quantity.of(0)));
