@@ -51,7 +51,6 @@ class RosterTest {
 		rosterEntrySameStaff = new RosterEntry(StaffRole.COUNTER, staff);
 		rosterEntryOtherStaff = new RosterEntry(StaffRole.COUNTER, staff2);
 
-
 	}
 
 	@BeforeEach
