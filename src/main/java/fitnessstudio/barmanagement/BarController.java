@@ -1,9 +1,9 @@
 package fitnessstudio.barmanagement;
 
-import org.salespointframework.inventory.InventoryItem;
-import org.salespointframework.inventory.UniqueInventory;
-import org.salespointframework.inventory.UniqueInventoryItem;
-import org.salespointframework.order.*;
+import org.salespointframework.order.Cart;
+import org.salespointframework.order.Order;
+import org.salespointframework.order.OrderManager;
+import org.salespointframework.order.OrderStatus;
 import org.salespointframework.quantity.Quantity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,25 +21,24 @@ import javax.validation.Valid;
 public class BarController {
 
 	private static final Logger LOG = LoggerFactory.getLogger(CatalogDataInitializer.class);
-	private final ArticleCatalog catalog;
-	private final UniqueInventory<UniqueInventoryItem> inventory;
 	private final OrderManager<Order> orderManager;
+	private final BarManager barManager;
 
-	public BarController(ArticleCatalog catalog, UniqueInventory<UniqueInventoryItem> inventory, OrderManager<Order> orderManager) {
-		this.catalog = catalog;
-		this.inventory = inventory;
+	public BarController(BarManager barManager, OrderManager<Order> orderManager) {
+		this.barManager = barManager;
 		this.orderManager = orderManager;
 	}
 
 
-	@PreAuthorize("hasRole('STAFF') or hasRole('BOSS')")
+	@PreAuthorize("hasRole('STAFF')")
 	@GetMapping("/sell_catalog")
-	String SellingCatalog(Model model) {
+	public String SellingCatalog(Model model) {
 
-		model.addAttribute("inventory", inventory.findAll());
+		model.addAttribute("inventory", barManager.getAvailableArticles());
 		return ("sell_catalog");
 	}
 
+	@PreAuthorize("hasRole('STAFF')")
 	@PostMapping("/sell")
 	public String sell(@ModelAttribute Cart cart, @Valid BarForm form, SessionStatus status) {
 
@@ -61,28 +60,16 @@ public class BarController {
 		return "redirect:/";
 	}
 
+	// the cart is will stay in the controller, as it has an 1:1 relation to session(?)
 	@ModelAttribute("cart")
 	Cart initializeCart() {
 		return new Cart();
 	}
 
-	@PreAuthorize("hasRole('STAFF') or hasRole('BOSS')")
+	@PreAuthorize("hasRole('STAFF')")
 	@PostMapping("/addItemToCart")
 	String addItem(@RequestParam("pid") Article article, @RequestParam("number") int number, @ModelAttribute Cart cart) {
-
-		Quantity inventoryQuantity = inventory.findByProduct(article)
-			.map(InventoryItem::getQuantity)
-			.orElse(Quantity.NONE);
-
-		Quantity allreadyOrderedQuantity = cart.stream().filter(x -> x.getProduct()
-			.equals(article)).findFirst().map(CartItem::getQuantity).orElse(Quantity.NONE);
-
-		if (!allreadyOrderedQuantity.add(Quantity.of(number)).isGreaterThan(inventoryQuantity)) {
-			cart.addOrUpdateItem(article, Quantity.of(number));
-		}
-
-		LOG.info(cart.stream().map(x -> x.getProductName() + " " + x.getQuantity()).reduce("", ((x, y) -> x + y)));
-
+		barManager.addArticleToCart(article, Quantity.of(number), cart);
 		return ("redirect:sell_catalog");
 	}
 
@@ -91,13 +78,13 @@ public class BarController {
 	@PreAuthorize("hasRole('STAFF')")
 	public String orders(Model model) {
 		model.addAttribute("ordersCompleted", orderManager.findBy(OrderStatus.COMPLETED));
-		return "orders";
+		return "bar/orders";
 	}
 
 	@PreAuthorize("hasRole('STAFF')")
 	@GetMapping("/cart_items")
-	String cartItems() {
-		return ("cart_items");
+	public String cartItems() {
+		return "bar/cart_items";
 	}
 
 }

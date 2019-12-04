@@ -21,7 +21,7 @@ public class Staff {
 	//@OneToMany()
 	//private RosterEntry[][] rosterEntries = new RosterEntry[7][];
 
-	Staff() {}
+	public Staff() {}
 
 	public Staff(UserAccount userAccount, String firstName, String lastName, Money salary){
 		this.userAccount = userAccount;

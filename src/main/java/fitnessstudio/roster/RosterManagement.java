@@ -73,6 +73,7 @@ public class RosterManagement {
 	public void createRosterEntry(int day, int shift, RosterEntry rosterEntry) {
 		Roster roster = RosterManager.getRoster();
 		roster.addEntry(day, shift, rosterEntry);
+		//RosterManager.saveSlot(roster.getRows().get(shift).getSlots().get(day));
 		rosterRepository.save(roster);
 	}
 
@@ -84,4 +85,6 @@ public class RosterManagement {
 		roster.ifPresent(slot::deleteEntry);
 		RosterManager.saveSlot(slot);
 	}
+
+	//TODO: Save außerhalb der Klassen im Manager
 }

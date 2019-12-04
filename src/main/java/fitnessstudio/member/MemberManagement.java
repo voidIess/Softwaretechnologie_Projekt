@@ -41,7 +41,8 @@ public class MemberManagement {
 	 * @param members      must not be {@literal null}.
 	 * @param userAccounts must not be {@literal null}.
 	 */
-	MemberManagement(MemberRepository members, UserAccountManager userAccounts, ContractManagement contractManagement, StudioService studioService, StatisticManagement statisticManagement) {
+	MemberManagement(MemberRepository members, UserAccountManager userAccounts, ContractManagement contractManagement,
+					 StudioService studioService, StatisticManagement statisticManagement) {
 		Assert.notNull(members, "MemberRepository must not be null!");
 		Assert.notNull(userAccounts, "UserAccountManager must not be null!");
 		Assert.notNull(contractManagement, "ContractManagement must not be null!");
@@ -104,7 +105,7 @@ public class MemberManagement {
 		var member = new Member(userAccount, firstName, lastName, iban, bic);
 
 		Optional<Contract> contractOptional = contractManagement.findById(contract);
-		if (contractOptional.isEmpty()){
+		if (contractOptional.isEmpty()) {
 			result.rejectValue("contract", "register.contract.notFound");
 			return null;
 		}
@@ -181,7 +182,7 @@ public class MemberManagement {
 		member.ifPresent(m -> statisticManagement.addAttendance(memberId, m.checkOut()));
 	}
 
-	public void trainFree(Member member){
+	public void trainFree(Member member) {
 		member.trainFree();
 		members.save(member);
 	}
