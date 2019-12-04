@@ -76,18 +76,32 @@ public class Roster {
 class TableRow {
 
 	@Embedded
-	private List<Long> slots = new LinkedList<>();
+	private List<Slot> slots = new LinkedList<>();
 
-	public List<Long> getSlots() {
+	public List<Slot> getSlots() {
 		return slots;
 	}
 
-	public void setSlots(List<Long> slots) {
+	public void setSlots(List<Slot> slots) {
 		this.slots = slots;
 	}
 }
 
 @Embeddable
 class Slot {
+
+	@Embedded
+	private List<Long> test = new LinkedList<>();
+
+	public List<Long> getSlots() {
+		return test;
+	}
+
+	public void setSlots(List<Long> slots) {
+		this.test = slots;
+	}
+
+
+
 
 }
