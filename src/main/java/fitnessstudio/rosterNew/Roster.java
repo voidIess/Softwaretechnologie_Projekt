@@ -1,10 +1,12 @@
 package fitnessstudio.rosterNew;
 
 import com.mysema.commons.lang.Assert;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -14,7 +16,8 @@ public class Roster {
 	private long rosterId;						// ID des Rosters
 	private int week;							// Gibt die Wochennummer an, für die der Dienstplan sein soll
 
-	@ElementCollection
+	@OneToMany (cascade = CascadeType.ALL)
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	private List<TableRow> rows;				// Es gibt x Reihen pro Tag, beliebig anpassbar wenn man die Schichten verändern möchte.
 
 	public static final int AMOUNT_ROWS = 8;	// Die Anzahl der Reihen
@@ -26,13 +29,14 @@ public class Roster {
 		6,
 		0);
 
-	Roster(){}
+	Roster(){
+		rows = new ArrayList<>();
+	}
 
-	Roster(int week){
+	public Roster(int week){
+		this();
 		Assert.isTrue(week > 0 && week < 53, "Falsches Format für die Kalenderwoche!");
 		this.week = week;
-		this.rows = new LinkedList<>();
-
 	}
 
 	public long getRosterId() {
@@ -55,9 +59,11 @@ public class Roster {
 		return rows;
 	}
 
-	public void setRows(List<TableRow> rows) {
-		this.rows = rows;
-	}
+	public void addRow(TableRow row){rows.add(row);}
+
+	//public void setRows(List<TableRow> rows) {
+	//	this.rows = rows;
+	//}
 
 	public static int getAmountRows() {
 		return AMOUNT_ROWS;
@@ -72,36 +78,62 @@ public class Roster {
 	}
 }
 
-@Embeddable
+@Entity
 class TableRow {
 
-	@Embedded
-	private List<Slot> slots = new LinkedList<>();
+	@Id
+	@GeneratedValue
+	private long rowId;
+
+	@OneToMany (cascade = CascadeType.ALL)
+	@OnDelete(action = OnDeleteAction.CASCADE)
+	private List<Slot> slots;
+	private String test;
+
+	TableRow(){
+		slots = new ArrayList<>();
+	}
+
+	public TableRow(String test){
+		this();
+		this.test = test;
+	}
+
+	public String getTest() {
+		return test;
+	}
+
+	public long getRowId() {
+		return rowId;
+	}
 
 	public List<Slot> getSlots() {
 		return slots;
 	}
 
-	public void setSlots(List<Slot> slots) {
-		this.slots = slots;
-	}
+	public void addSlot(Slot slot) {slots.add(slot);}
 }
 
-@Embeddable
+@Entity
 class Slot {
 
-	@Embedded
-	private List<Long> test = new LinkedList<>();
+	@Id
+	@GeneratedValue
+	private long slotId;
 
-	public List<Long> getTest() {
+	private String test;
+
+	Slot() {}
+
+	Slot(String test){
+		this.test = test;
+	}
+
+	public String getTest() {
 		return test;
 	}
 
-	public void setTest(List<Long> slots) {
-		this.test = slots;
+	public long getSlotId() {
+		return slotId;
 	}
-
-
-
-
 }
