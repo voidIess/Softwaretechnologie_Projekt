@@ -93,11 +93,11 @@ class Slot {
 	@Embedded
 	private List<Long> test = new LinkedList<>();
 
-	public List<Long> getSlots() {
+	public List<Long> getTest() {
 		return test;
 	}
 
-	public void setSlots(List<Long> slots) {
+	public void setTest(List<Long> slots) {
 		this.test = slots;
 	}
 
