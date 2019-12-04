@@ -34,12 +34,15 @@ public class InventoryController {
 	private final UniqueInventory<UniqueInventoryItem> inventory;
 	private final ArticleCatalog catalog;
 	private final DiscountRepository discountRepository;
+	private final BarManager barService;
+
 
 	public InventoryController(UniqueInventory<UniqueInventoryItem> inventory, ArticleCatalog catalog,
-							   DiscountRepository discountRepository) {
+							   DiscountRepository discountRepository, BarManager barService) {
 		this.inventory = inventory;
 		this.catalog = catalog;
 		this.discountRepository = discountRepository;
+		this.barService = barService;
 	}
 
 //----------------------------------------Add article-------------------------------------------------------------------
@@ -232,6 +235,23 @@ public class InventoryController {
 		model.addAttribute("stock", inventory.findAll());
 
 		return "/bar/stock";
+	}
+
+	public void checkExpiringItems(Iterable<UniqueInventoryItem> items, LocalDate current) {
+
+		inventory.findAll().forEach(uniqueInventoryItem -> {
+
+			Article article = (Article) uniqueInventoryItem.getProduct();
+
+			if (current.compareTo(article.getExpirationDate()) > 0) {
+				ReorderingArticle reArticle = new ReorderingArticle(article.getName(), article.getPrice(),
+						article.getDescription());
+				barService.saveReorderingArticle(reArticle);
+				inventory.delete(uniqueInventoryItem);
+				catalog.delete(article);
+			}
+		});
+
 	}
 
 
