@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
 
 <html lang="en">
 <html xmlns:th="http://www.thymeleaf.org" th:replace="site_template :: template(#{sell_catalog.title}, ~{::cart_items})"></html>
@@ -7,7 +6,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta content="text/html; charset=UTF-8" http-equiv="content-type"/>
-    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/roster.css}"/>
+    <!--link rel="stylesheet" type="text/css" th:href="@{/resources/css/roster.css}"/-->
 
 </head>
 <div th:fragment="cart_items">
@@ -17,7 +16,7 @@
         <span th:text="#{sell_catalog.title}">Artikelübersicht</span>
         <a class="ui green right floated button"  th:href="@{/cart_items}">
             <i class="cart icon"></i>
-            <span th:text="#{sel_catalog.cart_button_label}">Bestellung</span>
+            <span th:text="#{sell_catalog.cart_button_label}">Bestellung</span>
         </a>
     </div>
     <br>
