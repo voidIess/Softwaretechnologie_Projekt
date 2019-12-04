@@ -1,1 +1,58 @@
+= Protokoll Gruppe 16
+
+Treffen am 03.12.2019
+
+Ort:      APB/E006 +
+Beginn:   16:40 Uhr +
+Ende:     17:15 Uhr
+
+__Schriftführer: Markus Wieland__
+
+*Nächstes Treffen:* +
+Voraussichtlich: 10.12.2019, 16:40 Uhr, APB (Könnte entfallen)
+
+__Teilnehmer:__
+//Tabellarisch oder Aufzählung, Kennzeichnung von Teilnehmern mit besonderer Rolle (z.B. Kunde)
+
+- Anita Fritzsche (Tutorin/Kundin)
+- Julius Schmitt
+- Bill Kippe
+- Markus Wieland
+- Quang Vu Ha
+- Lea Häusler
+- Mitglieder der Gruppe 12
+
+== Bemerkungen
+
+Bei dem Treffen wurde uns Feedback zu unserer Anwendung gegeben. SonarQube und Jenkins sehen (vor allem vergleichsweise) sehr gut aus. Kunde ist zufrieden mit unserem Fortschritt.
+
+== Retrospektive des letzten Sprints
+*Issue referenziert die Issue ID von GitHub*
+// Wie ist der Status der im letzten Sprint erstellten Issues/veteilten Aufgaben?
+
+// See http://asciidoctor.org/docs/user-manual/=tables
+Aufgrund des kurzen Abstands zwischen den beiden Treffen:
+
+siehe Protokoll 7.       
+
+
+|===
+
+== Aktueller Stand
+
+Basisfunktionalitäten und sehr viele Muss-Kriterien sind erledigt. SonarQube rund 40% Test Coverage. Auch sonst nur A-Level Bewertungen
+Nächster Meilenstein: 15.12.2019, Fertigstellung aller Muss-Kriterien. 
+
+== Planung des nächsten Sprints
+*Issue referenziert die Issue ID von GitHub*
+
+// See http://asciidoctor.org/docs/user-manual/=tables
+Aufgrund des kurzen Abstands zwischen den beiden Treffen:
+
+siehe Protokoll 7.       
+
+
+|===
+
+
 
