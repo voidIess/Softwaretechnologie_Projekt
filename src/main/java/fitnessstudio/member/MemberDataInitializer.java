@@ -45,7 +45,7 @@ public class MemberDataInitializer implements DataInitializer {
 			Role.of("BOSS"), Role.of("STAFF"));
 
 		if (!contractManagement.getAllContracts().isEmpty()) {
-			LOG.info("Creating default BOSS (user: 'member', pass: '123'");
+			LOG.info("Creating default MEMBER (user: 'member', pass: '123'");
 			memberManagement.createMember(new RegistrationForm("Ulli", "Bulli", "member",
 				"123", "0123456789012345678912", "0123456789",
 				contractManagement.getAllContracts().get(0).getContractId(), ""), null).authorize();

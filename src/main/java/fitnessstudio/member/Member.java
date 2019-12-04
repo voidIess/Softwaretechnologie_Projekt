@@ -123,6 +123,7 @@ public class Member {
 		} else {
 			isAttendant = false;
 			long duration = Duration.between(checkInTime, LocalDateTime.now()).toMinutes();
+			exerciseTime += duration;
 			checkInTime = null;
 			return duration;
 		}

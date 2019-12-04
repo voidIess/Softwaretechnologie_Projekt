@@ -20,6 +20,10 @@ body {
     color: var(--heading-color);
 }
 
+.container h3 {
+    color: var(--heading-color);
+}
+
 p {
     color: var(--heading-color);
 }
@@ -38,6 +42,10 @@ br {
 
 text {
     color: var(--heading-color);
+}
+
+fieldset {
+    border: 0 none;
 }
 
 .container button {
@@ -73,7 +81,7 @@ text {
     background: white;
     border-radius: 6px;
     overflow: hidden;
-    max-width:100%;
+    max-width:800px;
     width: 100%;
     margin: 0 auto;
     position: relative;

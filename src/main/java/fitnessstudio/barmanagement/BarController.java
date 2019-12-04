@@ -30,14 +30,15 @@ public class BarController {
 	}
 
 
-	@PreAuthorize("hasRole('STAFF') or hasRole('BOSS')")
+	@PreAuthorize("hasRole('STAFF')")
 	@GetMapping("/sell_catalog")
-	String SellingCatalog(Model model) {
+	public String SellingCatalog(Model model) {
 
 		model.addAttribute("inventory", barManager.getAvailableArticles());
 		return ("sell_catalog");
 	}
 
+	@PreAuthorize("hasRole('STAFF')")
 	@PostMapping("/sell")
 	public String sell(@ModelAttribute Cart cart, @Valid BarForm form, SessionStatus status) {
 
@@ -65,7 +66,7 @@ public class BarController {
 		return new Cart();
 	}
 
-	@PreAuthorize("hasRole('STAFF') or hasRole('BOSS')")
+	@PreAuthorize("hasRole('STAFF')")
 	@PostMapping("/addItemToCart")
 	String addItem(@RequestParam("pid") Article article, @RequestParam("number") int number, @ModelAttribute Cart cart) {
 		barManager.addArticleToCart(article, Quantity.of(number), cart);
@@ -77,13 +78,13 @@ public class BarController {
 	@PreAuthorize("hasRole('STAFF')")
 	public String orders(Model model) {
 		model.addAttribute("ordersCompleted", orderManager.findBy(OrderStatus.COMPLETED));
-		return "orders";
+		return "bar/orders";
 	}
 
 	@PreAuthorize("hasRole('STAFF')")
 	@GetMapping("/cart_items")
-	String cartItems() {
-		return ("cart_items");
+	public String cartItems() {
+		return "bar/cart_items";
 	}
 
 }

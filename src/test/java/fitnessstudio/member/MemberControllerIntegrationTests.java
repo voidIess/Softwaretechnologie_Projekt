@@ -61,6 +61,26 @@ class MemberControllerIntegrationTests {
 	}
 
 	@Test
+	void preventPublicAccessForMemberCheckIn() throws Exception {
+		mockMvc.perform(get("/member/checkin/{id}", "1"))
+				.andExpect(status().is3xxRedirection())
+				.andExpect(header().string(HttpHeaders.LOCATION, endsWith("/login")));
+	}
+
+	@Test
+	void preventPublicAccessForMemberCheckOut() throws Exception {
+		mockMvc.perform(get("/member/checkout/{id}", "1"))
+				.andExpect(status().is3xxRedirection())
+				.andExpect(header().string(HttpHeaders.LOCATION, endsWith("/login")));
+	}
+
+	@Test
+	void preventPublicAccessForPrintPdfInvoice() throws Exception {
+		mockMvc.perform(post("/printPdfInvoice"))
+				.andExpect(status().isForbidden());
+	}
+
+	@Test
 	void registerIsAccessibleForPublic() throws Exception {
 		mockMvc.perform(get("/register"))
 			.andExpect(status().isOk())
