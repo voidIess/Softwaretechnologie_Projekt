@@ -36,8 +36,6 @@ Aufgrund des kurzen Abstands zwischen den beiden Treffen:
 siehe Protokoll 7.       
 
 
-|===
-
 == Aktueller Stand
 
 Basisfunktionalitäten und sehr viele Muss-Kriterien sind erledigt. SonarQube rund 40% Test Coverage. Auch sonst nur A-Level Bewertungen
@@ -52,7 +50,7 @@ Aufgrund des kurzen Abstands zwischen den beiden Treffen:
 siehe Protokoll 7.       
 
 
-|===
+
 
 
 
