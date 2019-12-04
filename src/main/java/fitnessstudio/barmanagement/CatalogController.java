@@ -24,7 +24,7 @@ public class CatalogController {
 	@GetMapping("/catalog")
 	public String catalog(Model model) {
 		model.addAttribute("catalog", barManager.getAllArticles());
-		return "catalog";
+		return "bar/catalog";
 	}
 
 	@GetMapping("/article/{article}")
