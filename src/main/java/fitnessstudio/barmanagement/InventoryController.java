@@ -44,12 +44,14 @@ public class InventoryController {
 
 //----------------------------------------Add article-------------------------------------------------------------------
 
+	@PreAuthorize("hasRole('STAFF')")
 	@GetMapping("/article")
 	public String addArticle(Model model, ArticleForm form) {
 		model.addAttribute("form", form);
-		return "add_article";
+		return "bar/add_article";
 	}
 
+	@PreAuthorize("hasRole('STAFF')")
 	@PostMapping("/article")
 	public String addArticle(@Valid ArticleForm form, Model model) throws DateTimeParseException {
 		if (getError(form, model)) return ERROR;
@@ -74,6 +76,7 @@ public class InventoryController {
 
 //----------------------------------------delete article----------------------------------------------------------------
 
+	@PreAuthorize("hasRole('STAFF')")
 	@PostMapping("/article/delete/{id}")
 	public String delete(@PathVariable ProductIdentifier id) {
 
@@ -90,6 +93,7 @@ public class InventoryController {
 
 //----------------------------------------edit article-------------------------------------------------------------------
 
+	@PreAuthorize("hasRole('STAFF')")
 	@GetMapping("/article/detail/{id}")
 	public String editArticle(@PathVariable ProductIdentifier id, Model model) throws DateTimeParseException {
 
@@ -105,7 +109,7 @@ public class InventoryController {
 
 		});
 
-		return "edit_article";
+		return "bar/edit_article";
 	}
 
 	// for keeping previous value in input field
@@ -162,6 +166,7 @@ public class InventoryController {
 		};
 	}
 
+	@PreAuthorize("hasRole('STAFF')")
 	@PostMapping("/article/detail/{id}")
 	public String editArticle(@PathVariable ProductIdentifier id, @Valid ArticleForm form, Model model) throws DateTimeParseException {
 		if (getError(form, model)) return ERROR;
@@ -226,7 +231,7 @@ public class InventoryController {
 
 		model.addAttribute("stock", inventory.findAll());
 
-		return "stock";
+		return "/bar/stock";
 	}
 
 

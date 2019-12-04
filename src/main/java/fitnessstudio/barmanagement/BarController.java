@@ -17,6 +17,7 @@ import javax.validation.Valid;
 
 
 @Controller
+@PreAuthorize("isAuthenticated()")
 @SessionAttributes("cart")
 public class BarController {
 
@@ -32,14 +33,15 @@ public class BarController {
 	}
 
 
-	@PreAuthorize("hasRole('STAFF') or hasRole('BOSS')")
+	@PreAuthorize("hasRole('STAFF')")
 	@GetMapping("/sell_catalog")
-	String SellingCatalog(Model model) {
+	public String SellingCatalog(Model model) {
 
 		model.addAttribute("inventory", inventory.findAll());
-		return ("sell_catalog");
+		return "bar/sell_catalog";
 	}
 
+	@PreAuthorize("hasRole('STAFF')")
 	@PostMapping("/sell")
 	public String sell(@ModelAttribute Cart cart, @Valid BarForm form, SessionStatus status) {
 
@@ -66,9 +68,9 @@ public class BarController {
 		return new Cart();
 	}
 
-	@PreAuthorize("hasRole('STAFF') or hasRole('BOSS')")
+	@PreAuthorize("hasRole('STAFF')")
 	@PostMapping("/addItemToCart")
-	String addItem(@RequestParam("pid") Article article, @RequestParam("number") int number, @ModelAttribute Cart cart) {
+	public String addItem(@RequestParam("pid") Article article, @RequestParam("number") int number, @ModelAttribute Cart cart) {
 
 		Quantity inventoryQuantity = inventory.findByProduct(article)
 			.map(InventoryItem::getQuantity)
@@ -83,7 +85,7 @@ public class BarController {
 
 		LOG.info(cart.stream().map(x -> x.getProductName() + " " + x.getQuantity()).reduce("", ((x, y) -> x + y)));
 
-		return ("redirect:sell_catalog");
+		return "redirect:/sell_catalog";
 	}
 
 
@@ -91,13 +93,13 @@ public class BarController {
 	@PreAuthorize("hasRole('STAFF')")
 	public String orders(Model model) {
 		model.addAttribute("ordersCompleted", orderManager.findBy(OrderStatus.COMPLETED));
-		return "orders";
+		return "bar/orders";
 	}
 
 	@PreAuthorize("hasRole('STAFF')")
 	@GetMapping("/cart_items")
-	String cartItems() {
-		return ("cart_items");
+	public String cartItems() {
+		return "bar/cart_items";
 	}
 
 }

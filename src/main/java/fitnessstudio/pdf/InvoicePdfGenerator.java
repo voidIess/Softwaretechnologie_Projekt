@@ -5,14 +5,13 @@ import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
 import fitnessstudio.contract.Contract;
 
-import java.io.IOException;
 import java.util.Map;
 
 public class InvoicePdfGenerator implements PdfGenerator {
 
 	private InvoicePdfGenerator() {}
 
-	public static Document generatePdf(Map<String, Object> invoice, com.itextpdf.layout.Document d) throws IOException {
+	public static Document generatePdf(Map<String, Object> invoice, com.itextpdf.layout.Document d){
 
 		Paragraph p = new Paragraph("Kundeninformation");
 		p.setBold();

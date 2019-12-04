@@ -2,7 +2,6 @@ package fitnessstudio.contract;
 
 import org.javamoney.moneta.Money;
 import org.junit.jupiter.api.*;
-import org.salespointframework.useraccount.UserAccountManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -15,13 +14,11 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @SpringBootTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class ContractManagementUnitTests {
 
 	@Autowired
 	private ContractRepository contracts;
-
-	@Autowired
-	private UserAccountManager userAccounts;
 
 	@Autowired
 	private ContractManagement management;
@@ -34,26 +31,24 @@ class ContractManagementUnitTests {
 		ContractForm form = new ContractForm("Golden +", "Access to everything", 50.00, 200);
 
 		contractId = management.createContract(form).getContractId();
-		assertThat(contracts.findAll().isEmpty()).isFalse();
+		assertThat(contracts.findById(contractId)).isNotEmpty();
 	}
 
 	@Test
 	@Order(2)
-	void testFindById(){
+	void testFindById() {
 		assertThat(management.findById(contractId).isPresent()).isTrue();
 	}
 
 	@Test
 	@Order(3)
-	void testFindAll(){
-		assertThat(management.getAllContracts().size()).isEqualTo(1);
+	void testFindAll() {
+		assertThat(management.getAllContracts().size()).isGreaterThan(0);
 	}
 
 	@Test
 	@Order(4)
-	void testEditContract(){
-		contractId = management.getAllContracts().get(0).getContractId();
-
+	void testEditContract() {
 		String newName = "newName";
 		String newDescription = "newDescription";
 		Double newPrice = 100.00;
@@ -73,9 +68,7 @@ class ContractManagementUnitTests {
 
 	@Test
 	@Order(5)
-	void testDeleteContract(){
-		contractId = management.getAllContracts().get(0).getContractId();
-
+	void testDeleteContract() {
 		management.deleteContract(contractId);
 		assertThat(contracts.findById(contractId).isEmpty()).isTrue();
 	}
