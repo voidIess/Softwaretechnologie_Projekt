@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 
-<html xmlns:th="http://www.thymeleaf.org"
-      th:replace="site_template :: template(#{selling.title}, ~{::cart_items})"></html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="site_template :: template(#{cart_items.title}, ~{::cart_items})"></html>
 
 <html xmlns:th="http://www.thymeleaf.org" th:remove="tag">
 <head th:remove="all">
@@ -15,17 +14,10 @@
     <div class="ui container">
         <div class="ui header">
             <span th:text="#{cart_items.title}">Warenkorb</span>
-            <div class="ui right floated menu">
-                <div class="ui header" th:text="#{cart_items.sum}+' '+${cart.getPrice()}">Summe: EUR 112.12</div>
-                <a class="ui button">
-                    <i class="check icon"></i>
-                    <span th:text="#{cart_items.checkout}">Bezahlen</span>
-                </a>
-                <a class="ui green button" th:href="@{/sell_catalog}">
-                    <i class="list icon"></i>
-                    <span th:text="#{sell_catalog.title}">Artikeluebersicht</span>
-                </a>
-            </div>
+            <a class="ui green right floated button"  th:href="@{/cart_items}">
+                <i class="list icon"></i>
+                <span th:text="#{sell_catalog.title}">Artikeluebersicht</span>
+            </a>
         </div>
         <br>
         <div class="container" th:each="cartItem : ${cart}">
