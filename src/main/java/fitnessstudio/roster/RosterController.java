@@ -114,6 +114,7 @@ public class RosterController {
 	//TODO: Nichts hinzufügen, wenn er bereits arbeitet, da sonst die sachen da ausgewählt werden.
 	//TODO: Neuen Roster erstellen für die nächsten 4 Wochen
 	//TODO: aktuelles Datum angeben
-
+	//TODO: Beim erstellen eines Rosters schauen ob der bereits existiert, wenn ja, dann bitte einen neuen anlegen und den anderen löschen
+	//TODO: Vorhandene Knöpfe zum filtern nach Rolle nutzen
 
 }

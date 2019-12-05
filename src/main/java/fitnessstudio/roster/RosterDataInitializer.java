@@ -49,7 +49,7 @@ public class RosterDataInitializer implements DataInitializer {
 		int current_week = Calendar.getInstance().get(Calendar.WEEK_OF_YEAR);
 
 
-		for (int i = 0; i<4;i++) {
+		for (int i = 0; i<6;i++) {
 			Calendar c = Calendar.getInstance();
 			c.add(Calendar.WEEK_OF_YEAR,i);
 			int week = c.get(Calendar.WEEK_OF_YEAR);

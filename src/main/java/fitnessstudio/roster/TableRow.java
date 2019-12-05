@@ -15,6 +15,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 @Entity
+//@Embeddable
 public class TableRow {
 
 	/*
@@ -26,6 +27,7 @@ public class TableRow {
 	private LocalDateTime startTime, endTime;
 
 	@OneToMany
+	//TODO: elementcollection mappedby tablerow
 	private List<Slot> slots;						// Es gibt in jeder Reihe für jeden Tag einen Slot (=7)
 
 	TableRow(){}
