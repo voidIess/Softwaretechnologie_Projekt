@@ -29,7 +29,6 @@ public class Roster {
 		0);
 
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-	//@JoinColumn(name = "rowId")
 	private List<TableRow> rows;
 
 	Roster () {
@@ -99,7 +98,6 @@ class TableRow {
 	private LocalDateTime endTime;
 
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-	//@JoinColumn(name = "slotId")
 	private List<Slot> slots;
 
 	TableRow () {
@@ -149,9 +147,7 @@ class Slot {
 	@GeneratedValue
 	private long slotId;
 
-
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-	//@JoinColumn(name = "rosterEntryId")
 	private List<RosterEntry> entries;
 
 	private int[] coordinates;
