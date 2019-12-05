@@ -10,6 +10,7 @@ import org.salespointframework.useraccount.UserAccountManager;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class RosterManagement {
@@ -29,6 +30,8 @@ public class RosterManagement {
 
 		rosterRepository.save(roster);
 
+		List<String> strings = RosterDataConverter.getWeekDatesByWeek(1);
+		int x = 0;
 	}
 
 

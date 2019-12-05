@@ -48,14 +48,6 @@ public class RosterEntry  implements Comparable<RosterEntry> {
 		return staff;
 	}
 
-	public String roleToString () {
-		if (role == StaffRole.COUNTER){
-			return "Thekenkraft";
-		} else {
-			return "Trainer";
-		}
-	} 	// Konvertiert die Aufgabe des Staffs in einen String mit deutscher Übersetzung
-
 	@Override
 	public String toString(){
 		return staff.getLastName() + ", " + staff.getFirstName()+ " " + staff.getStaffId();
@@ -66,4 +58,5 @@ public class RosterEntry  implements Comparable<RosterEntry> {
 		if (rosterEntry.getRole().equals(StaffRole.COUNTER)) return 1;
 		else return -1;
 	}
+
 }

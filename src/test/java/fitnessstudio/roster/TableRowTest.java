@@ -20,21 +20,21 @@ public class TableRowTest {
 
 		try {
 			tableRow = new TableRow(null, 1);
-			fail();
+			fail("Die Startzeit das nicht null sein");
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
 
 		try {
 			tableRow = new TableRow(LocalDateTime.now(), Roster.AMOUNT_ROWS);
-			fail();
+			fail("Die Schichtnummer existiert nicht.");
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
 
 		try {
 			tableRow = new TableRow(LocalDateTime.now(),-1);
-			fail();
+			fail("Die Schichtnummer darf nicht negativ sein!");
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}

@@ -41,25 +41,25 @@ public class SlotTest {
 	void constructorTest () {
 		try {
 			slot = new Slot(-1, 0);
-			fail();
+			fail("Die Schicht darf nicht negativ sein!");
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
 		try {
 			slot = new Slot (Roster.AMOUNT_ROWS,1);
-			fail();
+			fail("Diese Schicht existiert nicht.");
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
 		try {
 			slot = new Slot (1, -1);
-			fail();
+			fail("Der Tag darf nicht negativ sein.");
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
 		try {
 			slot = new Slot (1, 7);
-			fail();
+			fail("Der Tag muss kleiner als 7 sein! Informatiker fangen nämlich bei Null an zu zählen du Depp!");
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
@@ -98,13 +98,22 @@ public class SlotTest {
 		slot.getEntries().add(rosterEntry);
 		slot.getEntries().add(rosterEntry2);
 
-		assertThat(slot.getEntries().get(0).equals(rosterEntry2));
+		assertThat(slot.getEntries().get(0).equals(rosterEntry2)).isTrue();
 
 		slot = new Slot(1,1);
 		slot.getEntries().add(rosterEntry2);
 		slot.getEntries().add(rosterEntry);
 
-		assertThat(slot.getEntries().get(0).equals(rosterEntry2));
+		assertThat(slot.getEntries().get(0).equals(rosterEntry2)).isTrue();
+	}
+
+	@Test
+	void testCoordinates () {
+		int shift = 1;
+		int day = 3;
+		slot = new Slot(shift, day);
+		assertThat(slot.getCoordinates()[0]==shift).isTrue();
+		assertThat(slot.getCoordinates()[1] == day).isTrue();
 	}
 
 

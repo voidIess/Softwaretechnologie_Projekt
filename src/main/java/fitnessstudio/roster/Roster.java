@@ -171,6 +171,10 @@ class Slot {
 		return slotId;
 	}
 
+	public int[] getCoordinates() {
+		return coordinates;
+	}
+
 	public List<RosterEntry> getEntries() {
 		Collections.sort(entries, new Comparator<>() {
 			@Override
