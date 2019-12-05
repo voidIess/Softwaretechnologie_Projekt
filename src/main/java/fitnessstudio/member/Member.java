@@ -31,7 +31,7 @@ public class Member {
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Contract contract;
 
-	private LocalDate startDate;
+	private LocalDate endDate;
 	private LocalDate lastPause;
 
 	private LocalDateTime checkInTime;
@@ -104,7 +104,7 @@ public class Member {
 
 	public void authorize() {
 		getUserAccount().setEnabled(true);
-		startDate = LocalDate.now();
+		endDate = LocalDate.now().plusDays(contract.getDuration());
 	}
 
 	boolean checkIn() {
@@ -129,8 +129,8 @@ public class Member {
 		}
 	}
 
-	public LocalDate getStartDate() {
-		return startDate;
+	public LocalDate getEndDate() {
+		return endDate;
 	}
 
 	public LocalDate getLastPause() {
