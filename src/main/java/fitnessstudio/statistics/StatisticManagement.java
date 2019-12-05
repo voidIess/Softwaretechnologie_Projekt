@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.Optional;
 
@@ -54,9 +55,13 @@ public class StatisticManagement {
 		LocalDate today = LocalDate.now();
 
 		for(int i=0; i<7; i++) {
-			Optional<Attendance> attendance = findById(today.minusDays(i));
+			LocalDate date = getLastMonday(today).plusDays(i);
+			Optional<Attendance> attendance = findById(date);
 			if(attendance.isPresent()) {
 				times[i] = attendance.get().getAverageTime();
+			}
+			if(date.equals(today)) {
+				break;
 			}
 		}
 
@@ -77,13 +82,36 @@ public class StatisticManagement {
 		LocalDate today = LocalDate.now();
 
 		for(int i=0; i<7; i++) {
-			Optional<Attendance> attendance = findById(today.minusDays(i));
+			LocalDate date = getLastMonday(today).plusDays(i);
+			Optional<Attendance> attendance = findById(date);
 			if(attendance.isPresent()) {
 				amounts[i] = attendance.get().getMemberAmount();
+			}
+			if(date.equals(today)) {
+				break;
 			}
 		}
 
 		return amounts;
+	}
+
+	private LocalDate getLastMonday(LocalDate date) {
+		LocalDate lastMonday = date;
+		while (!lastMonday.getDayOfWeek().equals(DayOfWeek.MONDAY)){
+			lastMonday = lastMonday.minusDays(1);
+		}
+		return lastMonday;
+	}
+
+	public String[] getDaysOfWeek() {
+		String[] week = new String[7];
+		LocalDate monday = getLastMonday(LocalDate.now());
+
+		for (int i=0; i<week.length; i++) {
+			week[i] = monday.plusDays(i).toString();
+		}
+
+		return week;
 	}
 
 }
