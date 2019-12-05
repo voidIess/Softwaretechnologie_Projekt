@@ -177,7 +177,7 @@ public class InventoryController {
 
 			@Override
 			public @NotEmpty @Digits(fraction = 0, integer = 5) String getNumber() {
-				return String.valueOf(uniqueInventoryItem.getQuantity());
+				return String.valueOf(uniqueInventoryItem.getQuantity().getAmount().intValue());
 			}
 		};
 	}

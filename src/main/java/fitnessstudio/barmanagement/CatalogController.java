@@ -35,7 +35,7 @@ public class CatalogController {
 
 		Quantity quantity = barManager.getArticleQuantity(article);
 		model.addAttribute("article", article);
-		model.addAttribute("quantity", quantity);
+		model.addAttribute("quantity", quantity.getAmount().intValue());
 		model.addAttribute("orderable", quantity.isGreaterThan(Quantity.of(0)));
 
 		return "bar/detail";
