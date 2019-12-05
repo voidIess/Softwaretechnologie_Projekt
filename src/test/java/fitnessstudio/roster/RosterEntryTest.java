@@ -33,8 +33,8 @@ public class RosterEntryTest {
 
 	@BeforeAll
 	void setup () {
-		staff = new Staff(userAccounts.create("slotTestStaff", Password.UnencryptedPassword.of("123"), Role.of("STAFF")),"Markus", "Wieland", Money.of(100, "EUR"));
-		staff2 = new Staff(userAccounts.create("slotTestStaff2", Password.UnencryptedPassword.of("123"), Role.of("STAFF")),"Markus", "Wieland", Money.of(100, "EUR"));
+		staff = new Staff(userAccounts.create("rosterEntryTestStaff", Password.UnencryptedPassword.of("123"), Role.of("STAFF")),"Markus", "Wieland", Money.of(100, "EUR"));
+		staff2 = new Staff(userAccounts.create("rosterEntryTestStaff2", Password.UnencryptedPassword.of("123"), Role.of("STAFF")),"Markus", "Wieland", Money.of(100, "EUR"));
 		rosterEntryTrainer = new RosterEntry(StaffRole.TRAINER,staff);
 		rosterEntryCounter = new RosterEntry(StaffRole.COUNTER, staff);
 	}
