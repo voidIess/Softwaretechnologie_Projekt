@@ -24,12 +24,10 @@ public class RosterManagement {
 
 		Staff staff = new Staff(userAccounts.create("staff", Password.UnencryptedPassword.of("123"), Role.of("STAFF")),"Markus", "Wieland", Money.of(100, "EUR"));
 		staffs.save(staff);
-		RosterEntry rosterEntry = new RosterEntry(staff, StaffRole.TRAINER);
+		RosterEntry rosterEntry = new RosterEntry(StaffRole.TRAINER, staff);
 		roster.addEntry(1,1,rosterEntry);
 
 		rosterRepository.save(roster);
-
-
 
 	}
 

@@ -10,6 +10,8 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 @Entity
@@ -31,7 +33,7 @@ public class Roster {
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<TableRow> rows;
 
-	Roster () {
+	private Roster () {
 		this.rows = new ArrayList<>();
 	}
 
@@ -170,6 +172,12 @@ class Slot {
 	}
 
 	public List<RosterEntry> getEntries() {
+		Collections.sort(entries, new Comparator<>() {
+			@Override
+			public int compare(RosterEntry p1, RosterEntry p2) {
+				return p1.compareTo(p2); // Ascending
+			}
+		});
 		return entries;
 	}
 
