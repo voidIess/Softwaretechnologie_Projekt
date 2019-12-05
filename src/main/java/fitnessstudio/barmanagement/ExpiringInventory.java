@@ -11,5 +11,5 @@ public interface ExpiringInventory extends MultiInventory<ExpiringInventoryItem>
 	Streamable<ExpiringInventoryItem> findByExpirationDate(LocalDate localDate);
 
 	InventoryItems<ExpiringInventoryItem> findByExpirationDateAfterOrderByExpirationDateAsc(LocalDate localDate);
-	InventoryItems<ExpiringInventoryItem> findByProductAndExpirationDateBefore(Article article , LocalDate localDate);
+	InventoryItems<ExpiringInventoryItem> findByProductAndExpirationDateAfter(Article article , LocalDate localDate);
 }
