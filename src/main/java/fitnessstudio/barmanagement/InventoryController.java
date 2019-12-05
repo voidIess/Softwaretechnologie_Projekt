@@ -7,6 +7,8 @@ import org.salespointframework.catalog.ProductIdentifier;
 import org.salespointframework.inventory.UniqueInventory;
 import org.salespointframework.inventory.UniqueInventoryItem;
 import org.salespointframework.quantity.Quantity;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -34,12 +36,25 @@ public class InventoryController {
 	private final UniqueInventory<UniqueInventoryItem> inventory;
 	private final ArticleCatalog catalog;
 	private final DiscountRepository discountRepository;
+	private final BarManager barService;
+
+	@Autowired
+	ApplicationEventPublisher applicationEventPublisher;
 
 	public InventoryController(UniqueInventory<UniqueInventoryItem> inventory, ArticleCatalog catalog,
-							   DiscountRepository discountRepository) {
+							   DiscountRepository discountRepository, BarManager barService) {
 		this.inventory = inventory;
 		this.catalog = catalog;
 		this.discountRepository = discountRepository;
+		this.barService = barService;
+	}
+
+	@PreAuthorize("hasRole('STAFF')")
+	@GetMapping("/reorders")
+	public String reorders(Model model) {
+		model.addAttribute("reorders", barService.getReorderingArticles());
+		model.addAttribute("available", barService.getReorderingArticles().iterator().hasNext());
+		return "bar/reorders";
 	}
 
 //----------------------------------------Add article-------------------------------------------------------------------
@@ -71,6 +86,7 @@ public class InventoryController {
 		discountRepository.save(discount);
 		catalog.save(article);
 		inventory.save(new UniqueInventoryItem(article, Quantity.of(Integer.parseInt(form.getNumber()))));
+		applicationEventPublisher.publishEvent(this);
 		return REDIRECT_CATALOG;
 	}
 
@@ -161,7 +177,7 @@ public class InventoryController {
 
 			@Override
 			public @NotEmpty @Digits(fraction = 0, integer = 5) String getNumber() {
-				return String.valueOf(uniqueInventoryItem.getQuantity());
+				return String.valueOf(uniqueInventoryItem.getQuantity().getAmount().intValue());
 			}
 		};
 	}
@@ -202,10 +218,11 @@ public class InventoryController {
 				catalog.save(article);
 				inventory.delete(uniqueInventoryItem);
 				inventory.save(new UniqueInventoryItem(article, Quantity.of(Integer.parseInt(form.getNumber()))));
+				applicationEventPublisher.publishEvent(this);
 
 			}
 		});
-		return "redirect:/article/" + id;
+		return REDIRECT_CATALOG;
 	}
 
 	private boolean getError(@Valid ArticleForm form, Model model) {
@@ -233,6 +250,8 @@ public class InventoryController {
 
 		return "/bar/stock";
 	}
+
+
 
 
 	// convert String input to Date

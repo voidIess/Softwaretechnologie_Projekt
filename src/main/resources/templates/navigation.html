@@ -47,7 +47,7 @@
         <a class="item" href="roster/roster.html" th:href="@{/roster}" sec:authorize="hasRole('BOSS') or hasRole('STAFF')"
            th:text="#{roster.title}">Dienstplan</a>
 
-        <a class="item" href="members.html" th:href="@{/admin/members}"
+        <a class="item" href="member/members.html" th:href="@{/admin/members}"
            sec:authorize="hasRole('BOSS') or hasRole('STAFF')"
            th:text="#{nav.admin.members}">Mitglieder</a>
 
@@ -61,6 +61,8 @@
                 <a class="item" href="bar/stock.html" th:href="@{/stock}">Lager</a>
                 <a class="item" href="bar/sell_catalog.html" th:href="@{/sell_catalog}"
                    th:text="#{sell_catalog.title}">Artikel verkaufen</a>
+                <a class="item" href="bar/reorders.html" th:href="@{/reorders}"
+                   th:text="#{reorder.title}">Nachbestelliste</a>
 
             </div>
         </div>

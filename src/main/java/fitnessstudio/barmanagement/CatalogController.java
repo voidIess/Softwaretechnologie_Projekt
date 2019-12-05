@@ -1,6 +1,8 @@
 package fitnessstudio.barmanagement;
 
 
+import org.salespointframework.inventory.UniqueInventory;
+import org.salespointframework.inventory.UniqueInventoryItem;
 import org.salespointframework.quantity.Quantity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -17,7 +19,8 @@ public class CatalogController {
 
 	private final BarManager barManager;
 
-	public CatalogController(BarManager barManager) {
+
+	public CatalogController(BarManager barManager, UniqueInventory<UniqueInventoryItem> inventory) {
 		this.barManager = barManager;
 	}
 
@@ -32,7 +35,7 @@ public class CatalogController {
 
 		Quantity quantity = barManager.getArticleQuantity(article);
 		model.addAttribute("article", article);
-		model.addAttribute("quantity", quantity);
+		model.addAttribute("quantity", quantity.getAmount().intValue());
 		model.addAttribute("orderable", quantity.isGreaterThan(Quantity.of(0)));
 
 		return "bar/detail";
