@@ -186,4 +186,8 @@ public class Member {
 		return isAttendant;
 	}
 
+	public void disable(){
+		userAccount.setEnabled(false);
+	}
+
 }
