@@ -28,8 +28,7 @@ public class Roster {
 		6,
 		0);
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "rowId")
-	@OnDelete(action = OnDeleteAction.CASCADE)
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	//@JoinColumn(name = "rowId")
 	private List<TableRow> rows;
 
@@ -99,8 +98,7 @@ class TableRow {
 	private LocalDateTime startTime;
 	private LocalDateTime endTime;
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "slotId")
-	@OnDelete(action = OnDeleteAction.CASCADE)
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	//@JoinColumn(name = "slotId")
 	private List<Slot> slots;
 
@@ -141,12 +139,7 @@ class TableRow {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
 		return startTime.format(formatter) + "-" + endTime.format(formatter);
 	}
-
-	public void addSlot(Slot slot) {
-		slots.add(slot);
-	}
-
-
+	
 }
 
 @Entity
@@ -156,8 +149,8 @@ class Slot {
 	@GeneratedValue
 	private long slotId;
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "rosterEntryId")
-	@OnDelete(action = OnDeleteAction.CASCADE)
+
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	//@JoinColumn(name = "rosterEntryId")
 	private List<RosterEntry> entries;
 
