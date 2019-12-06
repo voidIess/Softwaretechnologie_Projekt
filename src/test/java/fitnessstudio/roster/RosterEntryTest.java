@@ -50,10 +50,6 @@ public class RosterEntryTest {
 		}
 	}
 
-	//compareTo
-	//tostring
-	//isTrainer
-
 	@Test
 	@Order(2)
 	void compareToTest(){

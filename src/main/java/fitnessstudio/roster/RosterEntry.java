@@ -10,18 +10,20 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
 @Entity
-public class RosterEntry  implements Comparable<RosterEntry> {
+public class RosterEntry implements Comparable<RosterEntry> {
 
-	@Id @GeneratedValue
+	@Id
+	@GeneratedValue
 	private long rosterEntryId;
 	private StaffRole role;
 
 	@OneToOne
 	private Staff staff;
 
-	RosterEntry(){}
+	RosterEntry() {
+	}
 
-	RosterEntry(StaffRole role, Staff staff){
+	RosterEntry(StaffRole role, Staff staff) {
 		Assert.notNull(staff, "Der Mitarbeiter darf nicht null sein!");
 		this.role = role;
 		this.staff = staff;
@@ -31,7 +33,6 @@ public class RosterEntry  implements Comparable<RosterEntry> {
 		return rosterEntryId;
 	}
 
-
 	public StaffRole getRole() {
 		return role;
 	}
@@ -40,8 +41,8 @@ public class RosterEntry  implements Comparable<RosterEntry> {
 		this.role = role;
 	}
 
-	public boolean isTrainer(){
-		return  role == StaffRole.TRAINER;
+	public boolean isTrainer() {
+		return role == StaffRole.TRAINER;
 	}
 
 	public Staff getStaff() {
@@ -49,12 +50,12 @@ public class RosterEntry  implements Comparable<RosterEntry> {
 	}
 
 	@Override
-	public String toString(){
-		return staff.getLastName() + ", " + staff.getFirstName()+ " " + staff.getStaffId();
+	public String toString() {
+		return staff.getLastName() + ", " + staff.getFirstName() + " " + staff.getStaffId();
 	}
 
-	@Override	// Um im Dienstplan die Einträge nach den Aufgaben zu sortieren
-	public int compareTo(RosterEntry rosterEntry){
+	@Override    // Um im Dienstplan die Einträge nach den Aufgaben zu sortieren
+	public int compareTo(RosterEntry rosterEntry) {
 		if (rosterEntry.getRole().equals(StaffRole.COUNTER)) return 1;
 		else return -1;
 	}

@@ -20,7 +20,7 @@ public class TableRowTest {
 
 		try {
 			tableRow = new TableRow(null, 1);
-			fail("Die Startzeit das nicht null sein");
+			fail("Die Startzeit das nicht null sein.");
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}

@@ -43,10 +43,10 @@
             </thead>
             <th:block th:each="tableRow : ${roster}">
                 <tr>
-                    <td th:text="${tableRow.getTime()}"></td>
+                    <td th:text="${tableRow.toString()}"></td>
                     <th:block th:each="slot: ${tableRow.getSlots()}">
                         <td>
-                            <th:block th:each="entry: ${slot.getRosterEntries()}">
+                            <th:block th:each="entry: ${slot.getEntries()}">
 
                                 <div th:if="${filter && entry.getStaff().getStaffId() == filterStaff}">
                                     <a th:if="${entry.isTrainer() }" class="ui primary basic button"
