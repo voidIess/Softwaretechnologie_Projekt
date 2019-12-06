@@ -24,8 +24,8 @@
     <p>Es sind <b><span th:text="${unauthorizedMember}">0</span></b> freizuschalten</p>
     <a th:href="@{/admin/authorizeMember}">Freischalten</a>
 
-    <form th:action="@{/admin/members}" method="get" th:object="${form}">
-        <input type="text" th:field="*{search}"/>
+    <form th:action="@{/admin/members}" method="get" th:object="${form}" style="float: right">
+        <input class="text" type="text" th:field="*{search}"/>
         <button type="submit" class="ui button">Suchen</button>
     </form>
     <table class="ui celled table">
