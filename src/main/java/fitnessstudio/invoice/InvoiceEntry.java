@@ -1,9 +1,11 @@
 package fitnessstudio.invoice;
 
 import fitnessstudio.member.Member;
+import org.hibernate.annotations.CreationTimestamp;
 import org.javamoney.moneta.Money;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 public class InvoiceEntry {
@@ -21,6 +23,12 @@ public class InvoiceEntry {
 	private Money amount;
 
 	private String description;
+
+	@CreationTimestamp
+	private LocalDateTime created;
+
+	public InvoiceEntry() {
+	}
 
 	public InvoiceEntry(Member member, InvoiceType type, Money amount, String description) {
 		this.member = member;
@@ -47,5 +55,9 @@ public class InvoiceEntry {
 
 	public String getDescription() {
 		return description;
+	}
+
+	public LocalDateTime getCreated() {
+		return created;
 	}
 }
