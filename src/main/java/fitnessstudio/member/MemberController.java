@@ -51,8 +51,8 @@ public class MemberController {
 
 	@GetMapping("/admin/members")
 	@PreAuthorize("hasRole('STAFF')")
-	public String members(Model model) {
-		model.addAttribute("memberList", memberManagement.findAllAuthorized());
+	public String members(Model model, @ModelAttribute("form") SearchForm form) {
+		model.addAttribute("memberList", memberManagement.findAllAuthorized(form.getSearch()));
 		model.addAttribute("unauthorizedMember", memberManagement.findAllUnauthorized().size());
 		return "member/members";
 	}

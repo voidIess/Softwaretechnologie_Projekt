@@ -136,11 +136,15 @@ public class MemberManagement {
 				.flatMap(Stream::of)).collect(Collectors.toList());
 	}
 
-	public List<Member> findAllAuthorized() {
+	public List<Member> findAllAuthorized(String search) {
+		if (search == null) search="";
+		String finalSearch = search;
+
 		return userAccounts.findEnabled()
 			.stream().map(this::findByUserAccount)
-			.flatMap(member -> member.stream()
-				.flatMap(Stream::of)).collect(Collectors.toList());
+			.flatMap(Optional::stream)
+			.filter(member -> String.valueOf(member.getMemberId()).startsWith(finalSearch))
+			.collect(Collectors.toList());
 	}
 
 
