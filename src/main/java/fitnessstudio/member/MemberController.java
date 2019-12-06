@@ -1,6 +1,7 @@
 package fitnessstudio.member;
 
 import fitnessstudio.contract.ContractManagement;
+import fitnessstudio.invoice.InvoiceManagement;
 import org.javamoney.moneta.Money;
 import org.salespointframework.useraccount.UserAccount;
 import org.salespointframework.useraccount.web.LoggedIn;
@@ -20,14 +21,17 @@ public class MemberController {
 	private static final String REDIRECT_LOGIN = "redirect:/login";
 	private final MemberManagement memberManagement;
 	private final ContractManagement contractManagement;
+	private final InvoiceManagement invoiceManagement;
 
 
-	MemberController(MemberManagement memberManagement, ContractManagement contractManagement) {
+	MemberController(MemberManagement memberManagement, ContractManagement contractManagement, InvoiceManagement invoiceManagement) {
 		Assert.notNull(memberManagement, "MemberManagement must not be null");
 		Assert.notNull(contractManagement, "ContractManagement must not be null");
+		Assert.notNull(invoiceManagement, "InvoiceManagement must not be null");
 
 		this.memberManagement = memberManagement;
 		this.contractManagement = contractManagement;
+		this.invoiceManagement = invoiceManagement;
 	}
 
 	@GetMapping("/register")
@@ -132,5 +136,20 @@ public class MemberController {
 		model.addAllAttributes(memberManagement.createPdfInvoice(userAccount.get()));
 
 		return "pdfView";
+	}
+
+	/*
+		TEMPORARY!
+	 */
+	@GetMapping("/member/invoices")
+	public String invoices(@LoggedIn Optional<UserAccount> userAccount, Model model) {
+		return userAccount.map(user -> {
+			Optional<Member> member = memberManagement.findByUserAccount(user);
+			if (member.isPresent()) {
+				model.addAttribute("invoices", invoiceManagement.getAllInvoicesForMember(member.get()));
+				return "member/memberInvoices";
+			}
+			return REDIRECT_LOGIN;
+		}).orElse(REDIRECT_LOGIN);
 	}
 }
