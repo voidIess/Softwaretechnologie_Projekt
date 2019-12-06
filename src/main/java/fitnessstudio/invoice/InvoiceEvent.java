@@ -1,17 +1,16 @@
 package fitnessstudio.invoice;
 
-import fitnessstudio.member.Member;
 import org.javamoney.moneta.Money;
 import org.springframework.context.ApplicationEvent;
 
 public class InvoiceEvent extends ApplicationEvent {
-	private Member member;
+	private long member;
 	private InvoiceType type;
 	private Money amount;
 	private String description;
 
 
-	public InvoiceEvent(Object source, Member member, InvoiceType type, Money amount, String description) {
+	public InvoiceEvent(Object source, Long member, InvoiceType type, Money amount, String description) {
 		super(source);
 		this.member = member;
 		this.type = type;
@@ -19,7 +18,7 @@ public class InvoiceEvent extends ApplicationEvent {
 		this.description = description;
 	}
 
-	public Member getMember() {
+	public long getMember() {
 		return member;
 	}
 

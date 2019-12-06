@@ -158,7 +158,7 @@ public class MemberManagement {
 	}
 
 	public void memberPayIn(Member member, Money amount) {
-		applicationEventPublisher.publishEvent(new InvoiceEvent(this, member, InvoiceType.DEPOSIT, amount,
+		applicationEventPublisher.publishEvent(new InvoiceEvent(this, member.getMemberId(), InvoiceType.DEPOSIT, amount,
 			"Online Einzahlung auf Account"));
 		member.payIn(amount);
 		members.save(member);

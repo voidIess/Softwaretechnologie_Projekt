@@ -146,7 +146,7 @@ public class MemberController {
 		return userAccount.map(user -> {
 			Optional<Member> member = memberManagement.findByUserAccount(user);
 			if (member.isPresent()) {
-				model.addAttribute("invoices", invoiceManagement.getAllInvoicesForMember(member.get()));
+				model.addAttribute("invoices", invoiceManagement.getAllInvoicesForMember(member.get().getMemberId()));
 				return "member/memberInvoices";
 			}
 			return REDIRECT_LOGIN;

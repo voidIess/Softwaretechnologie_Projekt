@@ -1,6 +1,5 @@
 package fitnessstudio.invoice;
 
-import fitnessstudio.member.Member;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -24,11 +23,11 @@ public class InvoiceManagement {
 		return invoiceEntries.save(invoiceEntry);
 	}
 
-	public List<InvoiceEntry> getAllInvoicesForMember(Member member) {
+	public List<InvoiceEntry> getAllInvoicesForMember(Long member) {
 		return invoiceEntries.findAllByMember(member).toList();
 	}
 
-	public List<InvoiceEntry> getAllInvoiceForMemberOfLastMonth(Member member) {
+	public List<InvoiceEntry> getAllInvoiceForMemberOfLastMonth(Long member) {
 		LocalDate now = LocalDate.now();
 		int month = now.getMonthValue();
 		int year = now.getYear();

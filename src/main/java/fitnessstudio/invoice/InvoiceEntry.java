@@ -1,6 +1,5 @@
 package fitnessstudio.invoice;
 
-import fitnessstudio.member.Member;
 import org.hibernate.annotations.CreationTimestamp;
 import org.javamoney.moneta.Money;
 
@@ -14,8 +13,7 @@ public class InvoiceEntry {
 	@GeneratedValue
 	private long invoiceEntryId;
 
-	@OneToOne
-	private Member member;
+	private long member;
 
 	private InvoiceType type;
 
@@ -30,7 +28,7 @@ public class InvoiceEntry {
 	public InvoiceEntry() {
 	}
 
-	public InvoiceEntry(Member member, InvoiceType type, Money amount, String description) {
+	public InvoiceEntry(Long member, InvoiceType type, Money amount, String description) {
 		this.member = member;
 		this.type = type;
 		this.amount = amount;
@@ -41,7 +39,7 @@ public class InvoiceEntry {
 		return invoiceEntryId;
 	}
 
-	public Member getMember() {
+	public long getMember() {
 		return member;
 	}
 
