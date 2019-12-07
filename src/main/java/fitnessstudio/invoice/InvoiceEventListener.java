@@ -1,9 +1,10 @@
 package fitnessstudio.invoice;
 
-import com.mysema.commons.lang.Assert;
+
 import org.jetbrains.annotations.NotNull;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
+import org.springframework.util.Assert;
 
 @Component
 public class InvoiceEventListener implements ApplicationListener<InvoiceEvent> {
