@@ -56,7 +56,7 @@ public class Roster {
 		Assert.isTrue(day >= 0 && day < 7, "Dieser Tag exisitiert nicht.");
 		Assert.notNull(rosterEntry, "Der RosterEntry darf nicht null sein!");
 		Slot slot = rows.get(shift).getSlots().get(day);
-		Assert.isFalse(slot.isTaken(rosterEntry.getStaff()), "Der Mitarbeiter arbeitet um " + rows.get(shift).toString() + " schon.");
+		Assert.isFalse(slot.isTaken(rosterEntry.getStaff()), "Der Mitarbeiter arbeitet zu dieser Zeit schon.");
 		slot.getEntries().add(rosterEntry);
 	}
 

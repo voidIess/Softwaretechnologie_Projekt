@@ -18,12 +18,20 @@ public class RosterEntryForm {
 	@NotEmpty(message = "{roster.error.day}") //
 	private final String day;
 
+	@NotNull(message="{roster.error.week}")
+	private final Integer week;
 
-	public RosterEntryForm(Long staff, String role, String day, List<String> times) {
+
+	public RosterEntryForm(Long staff, String role, String day, List<String> times, Integer week) {
 		this.role = role;
 		this.staff = staff;
 		this.day = day;
 		this.times = times;
+		this.week = week;
+	}
+
+	public Integer getWeek() {
+		return week;
 	}
 
 	public Long getStaff() {

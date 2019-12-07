@@ -12,7 +12,7 @@ import java.util.List;
 
 public class RosterDataConverter {
 
-	private static String[] GermanWeekDay = new String[]{"Sa.", "So.","Mo.", "Die.", "Mi.", "Do.", "Fr.", };
+	private static String[] GermanWeekDay = new String[]{"Sa.", "So.","Mo.", "Di.", "Mi.", "Do.", "Fr.", };
 	private  static SimpleDateFormat dateFormatWeekDates = new SimpleDateFormat("dd.MM.yyyy");
 
 	public static List<String> getWeekDatesByWeek (int week) {

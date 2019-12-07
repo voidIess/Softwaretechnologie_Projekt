@@ -41,7 +41,7 @@ public class RosterDataInitializer implements DataInitializer {
 
 		staffs.saveStaff(staff);
 		staffs.saveStaff(staff2);
-		for (int i = 0; i<4;i++) {
+		for (int i = 0; i<6;i++) {
 			Calendar c = Calendar.getInstance();
 			c.add(Calendar.WEEK_OF_YEAR,i);
 			int week = c.get(Calendar.WEEK_OF_YEAR);

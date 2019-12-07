@@ -49,6 +49,10 @@ public class RosterEntry implements Comparable<RosterEntry> {
 		return staff;
 	}
 
+	public String roleToString () {
+		return RosterDataConverter.roleToString(role);
+	}
+
 	@Override
 	public String toString() {
 		return staff.getLastName() + ", " + staff.getFirstName() + " " + staff.getStaffId();
