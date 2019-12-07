@@ -33,13 +33,17 @@ public class CatalogDataInitializer implements DataInitializer {
 		LOG.info("Creating default catalog entries.");
 		LocalDate startDate = LocalDate.of(2019, 12, 1);
 		LocalDate endDate = LocalDate.of(2020, 6, 15);
+		LocalDate expireDate = LocalDate.of(1989, 10, 3);
 		Discount discount = new Discount(startDate, endDate, 0);
 		discountRepository.save(discount);
 
 		catalog.save(new Article("Hantel", Money.of(50.00, EURO), "Trainingsgerät",
 			"10kg", endDate, discount));
-		catalog.save(new Article("Serious Mass", Money.of(13.37, EURO), "Essen",
+		catalog.save(new Article("Serious Mass", Money.of(13.37, EURO), "Nahrungsergänzungsmittel",
 			"gesund",
 			endDate, discount));
+		catalog.save(new Article("Bratwurst", Money.of(2.50, EURO), "Essen",
+				"mit Senf",
+				expireDate, discount));
 	}
 }

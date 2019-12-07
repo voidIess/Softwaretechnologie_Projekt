@@ -23,7 +23,7 @@ public interface PdfGenerator {
 		title.setBold();
 		d.add(title);
 
-		String month = PdfGenerator.getGermanMonth(LocalDate.now().getMonthValue());
+		String month = PdfGenerator.getLastGermanMonth(LocalDate.now().getMonthValue());
 		String year = Integer.toString(LocalDate.now().getYear());
 		Paragraph date = new Paragraph(month + " " + year);
 		date.setTextAlignment(TextAlignment.RIGHT);
@@ -38,14 +38,19 @@ public interface PdfGenerator {
 
 	}
 
-	static String getGermanMonth(int num) {
+	static String getLastGermanMonth(int num) {
 
 		if(num < 1 || num > 12) {
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("Got wrong monthValue");
 		}
 
 		String[] months = {"Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August",
 				"September", "Oktober", "November", "Dezember"};
-		return months[num-1];
+
+		if(num == 1) {
+			return months[11];
+		}
+
+		return months[num-2];
 	}
 }

@@ -2,6 +2,9 @@ package fitnessstudio.member;
 
 import fitnessstudio.contract.Contract;
 import fitnessstudio.contract.ContractManagement;
+import fitnessstudio.invoice.InvoiceEvent;
+import fitnessstudio.invoice.InvoiceManagement;
+import fitnessstudio.invoice.InvoiceType;
 import fitnessstudio.statistics.StatisticManagement;
 import fitnessstudio.studio.StudioService;
 import org.javamoney.moneta.Money;
@@ -9,6 +12,7 @@ import org.salespointframework.useraccount.Password;
 import org.salespointframework.useraccount.Role;
 import org.salespointframework.useraccount.UserAccount;
 import org.salespointframework.useraccount.UserAccountManager;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.util.Streamable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -29,31 +33,32 @@ public class MemberManagement {
 
 	public static final Role MEMBER_ROLE = Role.of("MEMBER");
 
+	private final ApplicationEventPublisher applicationEventPublisher;
 	private final MemberRepository members;
 	private final UserAccountManager userAccounts;
 	private final ContractManagement contractManagement;
 	private final StudioService studioService;
 	private final StatisticManagement statisticManagement;
+	private final InvoiceManagement invoiceManagement;
 
-	/**
-	 * Creates a new {@link MemberManagement} with the given {@link MemberRepository} and {@link UserAccountManager}.
-	 *
-	 * @param members      must not be {@literal null}.
-	 * @param userAccounts must not be {@literal null}.
-	 */
 	MemberManagement(MemberRepository members, UserAccountManager userAccounts, ContractManagement contractManagement,
-					 StudioService studioService, StatisticManagement statisticManagement) {
+					 StudioService studioService, StatisticManagement statisticManagement,
+					 ApplicationEventPublisher applicationEventPublisher, InvoiceManagement invoiceManagement) {
 		Assert.notNull(members, "MemberRepository must not be null!");
 		Assert.notNull(userAccounts, "UserAccountManager must not be null!");
 		Assert.notNull(contractManagement, "ContractManagement must not be null!");
 		Assert.notNull(studioService, "StudioService must not be null!");
 		Assert.notNull(statisticManagement, "StatisticManagement must not be null!");
+		Assert.notNull(applicationEventPublisher, "ApplicationEventPublisher should not be null!");
+		Assert.notNull(invoiceManagement, "InvoiceManagement should not be null!");
 
 		this.members = members;
 		this.userAccounts = userAccounts;
 		this.contractManagement = contractManagement;
 		this.studioService = studioService;
 		this.statisticManagement = statisticManagement;
+		this.applicationEventPublisher = applicationEventPublisher;
+		this.invoiceManagement = invoiceManagement;
 	}
 
 	public Member createMember(RegistrationForm form, Errors result) {
@@ -136,11 +141,15 @@ public class MemberManagement {
 				.flatMap(Stream::of)).collect(Collectors.toList());
 	}
 
-	public List<Member> findAllAuthorized() {
+	public List<Member> findAllAuthorized(String search) {
+		if (search == null) search = "";
+		String finalSearch = search;
+
 		return userAccounts.findEnabled()
 			.stream().map(this::findByUserAccount)
-			.flatMap(member -> member.stream()
-				.flatMap(Stream::of)).collect(Collectors.toList());
+			.flatMap(Optional::stream)
+			.filter(member -> String.valueOf(member.getMemberId()).startsWith(finalSearch))
+			.collect(Collectors.toList());
 	}
 
 
@@ -153,6 +162,8 @@ public class MemberManagement {
 	}
 
 	public void memberPayIn(Member member, Money amount) {
+		applicationEventPublisher.publishEvent(new InvoiceEvent(this, member.getMemberId(), InvoiceType.DEPOSIT, amount,
+			"Online Einzahlung auf Account"));
 		member.payIn(amount);
 		members.save(member);
 	}
@@ -164,10 +175,8 @@ public class MemberManagement {
 		Member member = opt.get();
 
 		Map<String, Object> map = new HashMap<>();
-		map.put("id", member.getMemberId());
-		map.put("firstName", member.getFirstName());
-		map.put("lastName", member.getLastName());
-		map.put("contract", member.getContract());
+		map.put("member", member);
+		map.put("invoiceEntries", invoiceManagement.getAllInvoiceForMemberOfLastMonth(member.getMemberId()));
 
 		return map;
 	}

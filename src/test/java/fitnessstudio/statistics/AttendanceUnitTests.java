@@ -1,7 +1,6 @@
 package fitnessstudio.statistics;
 
 import fitnessstudio.member.Member;
-import fitnessstudio.member.MemberManagement;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -31,8 +30,9 @@ public class AttendanceUnitTests {
 	@Test
 	@Order(1)
 	void testCreateAttendance() {
+		long size = repository.count();
 		management.addAttendance(member.getMemberId(),2);
-		assertThat(repository.count()).isEqualTo(1);
+		assertThat(repository.count()).isEqualTo(size+1);
 	}
 
 	@Test
@@ -44,7 +44,7 @@ public class AttendanceUnitTests {
 	@Test
 	@Order(3)
 	void testFindById() {
-		assertThat(management.findById(LocalDate.now()).isPresent());
+		assertThat(management.findById(LocalDate.now()).isPresent()).isTrue();
 	}
 
 	@Test
@@ -56,8 +56,10 @@ public class AttendanceUnitTests {
 	@Test
 	@Order(5)
 	void testAddAttendanceWithSameDate() {
+		//size shouldn't change (one attendance per day)
+		long size = repository.count();
 		management.addAttendance(member.getMemberId(), 4);
-		assertThat(repository.count()).isEqualTo(1);
+		assertThat(repository.count()).isEqualTo(size);
 	}
 
 	@Test

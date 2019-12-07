@@ -50,4 +50,9 @@ public class Discount {
 	public void setPercent(int percent) {
 		this.percent = percent;
 	}
+
+	@Override
+	public String toString() {
+		return getPercent()==0? "" :"-"+getPercent()+"%";
+	}
 }

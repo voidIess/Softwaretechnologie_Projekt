@@ -74,7 +74,7 @@ class MemberManagementUnitTests {
 	@Test
 	@Order(4)
 	void testFindAllAuthorized() {
-		assertThat(management.findAllAuthorized().contains(members.findById(memberId).get())).isTrue();
+		assertThat(management.findAllAuthorized("").contains(members.findById(memberId).get())).isTrue();
 	}
 
 	@Test

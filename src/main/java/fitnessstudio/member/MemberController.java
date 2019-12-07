@@ -1,6 +1,7 @@
 package fitnessstudio.member;
 
 import fitnessstudio.contract.ContractManagement;
+import fitnessstudio.invoice.InvoiceManagement;
 import org.javamoney.moneta.Money;
 import org.salespointframework.useraccount.UserAccount;
 import org.salespointframework.useraccount.web.LoggedIn;
@@ -20,14 +21,17 @@ public class MemberController {
 	private static final String REDIRECT_LOGIN = "redirect:/login";
 	private final MemberManagement memberManagement;
 	private final ContractManagement contractManagement;
+	private final InvoiceManagement invoiceManagement;
 
 
-	MemberController(MemberManagement memberManagement, ContractManagement contractManagement) {
+	MemberController(MemberManagement memberManagement, ContractManagement contractManagement, InvoiceManagement invoiceManagement) {
 		Assert.notNull(memberManagement, "MemberManagement must not be null");
 		Assert.notNull(contractManagement, "ContractManagement must not be null");
+		Assert.notNull(invoiceManagement, "InvoiceManagement must not be null");
 
 		this.memberManagement = memberManagement;
 		this.contractManagement = contractManagement;
+		this.invoiceManagement = invoiceManagement;
 	}
 
 	@GetMapping("/register")
@@ -51,8 +55,8 @@ public class MemberController {
 
 	@GetMapping("/admin/members")
 	@PreAuthorize("hasRole('STAFF')")
-	public String members(Model model) {
-		model.addAttribute("memberList", memberManagement.findAllAuthorized());
+	public String members(Model model, @ModelAttribute("form") SearchForm form) {
+		model.addAttribute("memberList", memberManagement.findAllAuthorized(form.getSearch()));
 		model.addAttribute("unauthorizedMember", memberManagement.findAllUnauthorized().size());
 		return "member/members";
 	}
@@ -132,5 +136,20 @@ public class MemberController {
 		model.addAllAttributes(memberManagement.createPdfInvoice(userAccount.get()));
 
 		return "pdfView";
+	}
+
+	/*
+		TEMPORARY!
+	 */
+	@GetMapping("/member/invoices")
+	public String invoices(@LoggedIn Optional<UserAccount> userAccount, Model model) {
+		return userAccount.map(user -> {
+			Optional<Member> member = memberManagement.findByUserAccount(user);
+			if (member.isPresent()) {
+				model.addAttribute("invoices", invoiceManagement.getAllInvoicesForMember(member.get().getMemberId()));
+				return "member/memberInvoices";
+			}
+			return REDIRECT_LOGIN;
+		}).orElse(REDIRECT_LOGIN);
 	}
 }

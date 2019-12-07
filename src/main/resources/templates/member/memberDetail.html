@@ -17,7 +17,7 @@
                 <span th:text="${member.lastName}">Nachname</span>
             </p>
             <p>Vertrag:
-                <span th:text="${member.contract.name}">Vertrag</span>
+                <span th:text="${member.contract.name + ' (läuft bis ' + member.getEndDate().toString() + ')'}">Vertrag</span>
             </p>
             <p>Bonuscode:
                 <span th:text="${member.getMemberId()}">0000</span>
@@ -25,7 +25,6 @@
             <p>Guthaben:
                 <span th:text="${{member.credit}}">0.00 €</span>
             </p>
-            </b>
             <h2>Kontodaten</h2>
             <p>IBAN:
                 <span th:text="${member.creditAccount.iban}">999999999999999999</span>

@@ -21,6 +21,6 @@ public class InventoryDataInitializer implements DataInitializer {
 	@Override
 	public void initialize() {
 		catalog.findAll().forEach(article -> inventory.findByProduct(article).orElseGet(() ->
-			inventory.save(new UniqueInventoryItem(article, Quantity.of(23)))));
+				inventory.save(new UniqueInventoryItem(article, Quantity.of(23)))));
 	}
 }

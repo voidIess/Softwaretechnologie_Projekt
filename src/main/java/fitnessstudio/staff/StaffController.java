@@ -11,16 +11,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.Optional;
-import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.List;
 
 @Controller
 public class StaffController {
 
+	private static  final String REDIRECT = "redirect:/login";
 	private final StaffManagement staffManagement;
 
 	StaffController(StaffManagement staffManagement) {
@@ -40,21 +35,26 @@ public class StaffController {
 				model.addAttribute("staff", staff.get());
 				return "staffDetail";
 			}
-			return "redirect:/login";
-		}).orElse("redirect:/login");
+			return REDIRECT;
+		}).orElse(REDIRECT);
 	}
 
-	// prints payslip of given staff
 	@PreAuthorize("hasRole('STAFF')")
 	@PostMapping("/printPdfPayslip")
 	public String printPdfPayslip(@LoggedIn Optional<UserAccount> userAccount, Model model) {
 
 		if (userAccount.isEmpty()) {
-			return "redirect:/login";
+			return REDIRECT;
+		}
+
+		Optional<Staff> staff = staffManagement.findByUserAccount(userAccount.get());
+
+		if (staff.isEmpty()) {
+			return REDIRECT;
 		}
 
 		model.addAttribute("type", "payslip");
-		model.addAllAttributes(staffManagement.createPdfPayslip(userAccount.get()));
+		model.addAttribute("staff", staff.get());
 
 		return "pdfView";
 	}

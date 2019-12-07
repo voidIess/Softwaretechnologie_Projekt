@@ -1,38 +1,45 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" th:replace="site_template :: template(#{selling.title}, ~{::sell_catalog})"></html>
 
-<html lang="en">
-<html xmlns:th="http://www.thymeleaf.org" th:replace="site_template :: template(#{sell_catalog.title}, ~{::cart_items})"></html>
-
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
+<html xmlns:th="http://www.thymeleaf.org" th:remove="tag">
+<head th:remove="all">
     <meta content="text/html; charset=UTF-8" http-equiv="content-type"/>
-    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/roster.css}"/>
+    <link rel="stylesheet" href="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css" type="text/css"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/toggle.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/template.css}"/>
 
 </head>
-<div th:fragment="cart_items">
+<div th:fragment="sell_catalog">
 
 <div class="ui container">
     <div class="ui header">
         <span th:text="#{sell_catalog.title}">Artikelübersicht</span>
         <a class="ui green right floated button"  th:href="@{/cart_items}">
             <i class="cart icon"></i>
-            <span th:text="#{sel_catalog.cart_button_label}">Bestellung</span>
+            <span th:text="#{sell_catalog.cart_button_label}">Bestellung</span>
         </a>
     </div>
     <br>
     <div th:remove="all-but-first">
         <div class="container" th:each="item :${ inventory}">
             <form method="post" th:action="@{/addItemToCart}">
-                <input name="pid" th:value="${item.getProduct().id}" type="hidden" value="0"/>
+                <input name="pid" th:value="${item.product.id}" type="hidden" value="0"/>
                 <div class="ui segment">
                     <div class="ui grid">
-                        <div class="ui three wide left floated column">
-                            <div class="ui header" th:text="${item.getProduct().name}">Spinatsalat</div>
-                            <div th:text="${item.getProduct().getPrice()}">42</div>
+                        <div class="ui three wide left aligned column">
+                            <div class="ui header" th:text="${item.product.name}">Spinatsalat</div>
+                            <div th:text="#{sell_catalog.available}+' '+${{item.quantity}}">Verfügbar: 42</div>
+                        </div>
+                        <div class="ui two wide center aligned column">
+                            <div class="ui header" th:text="${item.product.price}">
+                                12,40 EUR
+
+                            </div>
+                            <div th:text="${item.product.discount}">-12%</div>
+
                         </div>
                         <div class="ui six wide right floated column">
-                            <div class="right floated ui secondary menu">
+                            <div class="ui secondary menu">
                                 <div class="item">
                                     <input class="ui input" id="number" min="1" name="number" step="1" type="number"
                                            value="1"/>

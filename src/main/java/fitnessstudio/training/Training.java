@@ -5,7 +5,10 @@ import fitnessstudio.staff.Staff;
 import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
+import java.time.DayOfWeek;
 import java.time.LocalTime;
+import java.time.format.TextStyle;
+import java.util.Locale;
 
 @Entity
 public class Training {
@@ -107,5 +110,10 @@ public class Training {
 		if (getState().equals(TrainingState.ACCEPTED)) {
 			state = TrainingState.ENDED;
 		}
+	}
+
+	public String getDayAsString(){
+		DayOfWeek dow = DayOfWeek.of(getDay()+1);
+		return dow.getDisplayName(TextStyle.FULL, Locale.GERMAN);
 	}
 }

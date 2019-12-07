@@ -43,7 +43,7 @@
             <td th:text="${training.member.toString()}">Name</td>
             <td th:text="${training.trainer.toString()}">Trainer</td>
             <td th:text="${training.description}">Wuensche</td>
-            <td th:text="${training.day}">Tag</td>
+            <td th:text="${training.getDayAsString()}">Tag</td>
             <td th:text="${training.startTime}">Zeit</td>
             <td>
                 <a class="ui green button" th:href="@{/training/accept/{id}/(id=${training.trainingId})}">Akzeptieren</a>

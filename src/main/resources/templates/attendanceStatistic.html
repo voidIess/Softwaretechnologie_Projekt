@@ -19,7 +19,12 @@
     <script>
         window.onload = function () {
 
-            const today = new Date(Date.now());
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+
+            //var date = Date.parse("2000/06/09");
+            console.log("hguhkj");
+
             var chart1 = new CanvasJS.Chart("chartContainer1", {
                 animationEnabled: true,
                 title: {
@@ -27,8 +32,8 @@
                 },
                 axisX: {
                     valueFormatString: "DDD",
-                    minimum: new Date(Date.now()).setDate(today.getDate()-6),
-                    maximum: today
+                    min: new Date("[[${week[0]}]]"),
+                    max: new Date("[[${week[6]}]]")
                 },
                 axisY: {
                     title: "Zeit in Minuten"
@@ -44,18 +49,18 @@
                 data: [{
                     name: "durchschnittlicher Aufenthalt",
                     showInLegend: true,
-                    legendMarkerType: "square",
                     type: "area",
                     color: "rgba(40,175,101,0.6)",
-                    markerSize: 0,
-                    dataPoints: [
-                        { x: new Date().setDate(today.getDate()-6), y: 120 },
-                        { x: new Date().setDate(today.getDate()-5), y: 120 },
-                        { x: new Date().setDate(today.getDate()-4), y: 80 },
-                        { x: new Date().setDate(today.getDate()-3), y: 100 },
-                        { x: new Date().setDate(today.getDate()-2), y: 50 },
-                        { x: new Date().setDate(today.getDate()-1), y: 100 },
-                        { x: today, y: parseInt($('#averageTime').text()) }
+                    dataPoints:
+
+                        [
+                        { x: new Date("[[${week[0]}]]"), y: [[${averageTimesOfLastWeek[0]}]] },
+                        { x: new Date("[[${week[1]}]]"), y: [[${averageTimesOfLastWeek[1]}]] },
+                        { x: new Date("[[${week[2]}]]"), y: [[${averageTimesOfLastWeek[2]}]] },
+                        { x: new Date("[[${week[3]}]]"), y: [[${averageTimesOfLastWeek[3]}]] },
+                        { x: new Date("[[${week[4]}]]"), y: [[${averageTimesOfLastWeek[4]}]] },
+                        { x: new Date("[[${week[5]}]]"), y: [[${averageTimesOfLastWeek[5]}]] },
+                        { x: new Date("[[${week[6]}]]"), y: [[${averageTimesOfLastWeek[6]}]] }
                     ]
                 }]
             });
@@ -66,9 +71,7 @@
                     text: "Wöchentliche Mitgliederanalyse"
                 },
                 axisX: {
-                    valueFormatString: "DDD",
-                    minimum: new Date(Date.now()).setDate(today.getDate()-6),
-                    maximum: today
+                    valueFormatString: "DDD"
                 },
                 axisY: {
                     title: "Anzahl der Mitglieder"
@@ -89,13 +92,13 @@
                         color: "rgba(0,75,141,0.7)",
                         markerSize: 0,
                         dataPoints: [
-                            { x: new Date().setDate(today.getDate()-6), y: 5 },
-                            { x: new Date().setDate(today.getDate()-5), y: 10 },
-                            { x: new Date().setDate(today.getDate()-4), y: 7 },
-                            { x: new Date().setDate(today.getDate()-3), y: 8 },
-                            { x: new Date().setDate(today.getDate()-2), y: 10 },
-                            { x: new Date().setDate(today.getDate()-1), y: 12 },
-                            { x: today, y: parseInt($('#memberAmount').text())}
+                            { x: new Date("[[${week[0]}]]"), y: [[${memberAmountsOfLastWeek[0]}]] },
+                            { x: new Date("[[${week[1]}]]"), y: [[${memberAmountsOfLastWeek[1]}]] },
+                            { x: new Date("[[${week[2]}]]"), y: [[${memberAmountsOfLastWeek[2]}]] },
+                            { x: new Date("[[${week[3]}]]"), y: [[${memberAmountsOfLastWeek[3]}]] },
+                            { x: new Date("[[${week[4]}]]"), y: [[${memberAmountsOfLastWeek[4]}]] },
+                            { x: new Date("[[${week[5]}]]"), y: [[${memberAmountsOfLastWeek[5]}]] },
+                            { x: new Date("[[${week[6]}]]"), y: [[${memberAmountsOfLastWeek[6]}]] }
                         ]
                     }]
             });
@@ -118,16 +121,17 @@
     </header>
     <div class="ui items">
         <p>Heutige Besucheranzahl:
-            <span th:id="memberAmount" th:text="${memberAmount}">3</span>
+            <span th:text="${memberAmountsOfLastWeek[0]}">3</span>
         </p>
         <p>Heutiger durchschnittlicher Aufenthalt:
-            <span th:id="averageTime" th:text="${averageTime}">2</span>
+            <span th:text="${averageTimesOfLastWeek[0]}">2</span>
              Minuten
         </p>
     </div>
 
     <div id="chartContainer1" style="height: 370px; width: 100%; margin-top:75pt"></div>
     <div id="chartContainer2" style="height: 370px; width: 100%; margin-top:75pt"></div>
+    <p th:text="${week[0]}"></p>
 
     <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 
