@@ -45,7 +45,7 @@
             <td th:text="${training.type.getDisplayValue()}">Typ</td>
             <td th:text="${training.trainer.lastName}">Trainer</td>
             <td th:text="${training.description}">Beschreibung</td>
-            <td th:text="${training.day}">Tag</td>
+            <td th:text="${training.getDayAsString()}">Tag</td>
             <td th:text="${training.startTime}">Time</td>
             <td th:text="${training.state.getDisplayValue()}">Status</td>
         </tr>
