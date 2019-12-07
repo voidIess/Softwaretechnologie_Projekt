@@ -39,7 +39,7 @@ public class CatalogDataInitializer implements DataInitializer {
 
 		catalog.save(new Article("Hantel", Money.of(50.00, EURO), "Trainingsgerät",
 			"10kg", endDate, discount));
-		catalog.save(new Article("Serious Mass", Money.of(13.37, EURO), "Nährungsergänzungsmittel",
+		catalog.save(new Article("Serious Mass", Money.of(13.37, EURO), "Nahrungsergänzungsmittel",
 			"gesund",
 			endDate, discount));
 		catalog.save(new Article("Bratwurst", Money.of(2.50, EURO), "Essen",

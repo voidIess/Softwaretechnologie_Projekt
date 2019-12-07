@@ -79,7 +79,7 @@ public class InventoryController {
 
 		Article article = new Article(form.getName(),
 				Money.of(new BigDecimal(form.getPrice()), "EUR"),
-				form.getArt(),
+				form.getType(),
 				form.getDescription(),
 				expirationDate,
 				discount);
@@ -139,8 +139,8 @@ public class InventoryController {
 			}
 
 			@Override
-			public @NotEmpty String getArt() {
-				return article.getArt();
+			public @NotEmpty String getType() {
+				return article.getType();
 			}
 
 			@Override
@@ -201,7 +201,7 @@ public class InventoryController {
 
 				article.setName(form.getName());
 				article.setPrice(Money.of(new BigDecimal(form.getPrice()), "EUR"));
-				article.setArt(form.getArt());
+				article.setType(form.getType());
 				article.setDescription(form.getDescription());
 				article.setExpirationDate(expirationDate);
 
@@ -248,7 +248,7 @@ public class InventoryController {
 
 		model.addAttribute("stock", inventory.findAll());
 
-		return "/bar/stock";
+		return "bar/stock";
 	}
 
 
