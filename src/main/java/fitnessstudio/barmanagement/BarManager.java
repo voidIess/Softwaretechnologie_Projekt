@@ -94,13 +94,13 @@ public class BarManager {
 
 //----------------------------------------------------------------------------------------------------------------------
 
-	/**
+	/*
 	public InventoryItems<ExpiringArticle> getExipredItems() {
 		return inventory.findByExpirationDateAfterOrderByExpirationDateAsc(LocalDate.now());
 	}
 	 */
 
-	/**
+	/*
 	public boolean addArticleToCart(Article article, Quantity quantity, Cart cart) {
 
 		Quantity inventoryQuantity = inventory.findByProduct(article).getTotalQuantity();
@@ -143,7 +143,7 @@ public class BarManager {
 	public void addNewArticleToCatalog(Article article) {
 		catalog.save(article);
 	}
-	/**
+	/*
 	public void removeArticleFromCatalog(Article article) {
 		// TODO check if this is necessary
 		inventory.deleteAll(inventory.findByProduct(article));

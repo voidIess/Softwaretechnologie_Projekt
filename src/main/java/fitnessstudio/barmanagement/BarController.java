@@ -67,7 +67,7 @@ public class BarController {
 	Cart initializeCart() {
 		return new Cart();
 	}
-/**
+/*
 	@PreAuthorize("hasRole('STAFF')")
 	@PostMapping("/addItemToCart")
 	String addItem(@RequestParam("pid") Article article, @RequestParam("number") int number, @ModelAttribute Cart cart) {
