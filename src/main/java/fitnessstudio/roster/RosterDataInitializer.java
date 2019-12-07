@@ -13,6 +13,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import java.util.Calendar;
+
 @Component
 public class RosterDataInitializer implements DataInitializer {
 	private static final Logger LOG = LoggerFactory.getLogger(RosterDataInitializer.class);
@@ -43,20 +45,30 @@ public class RosterDataInitializer implements DataInitializer {
 		staffs.save(staff);
 		staffs.save(staff2);
 		staffs.save(staff3);
-		Roster roster = new Roster(1);
-		RosterManager.saveRoster(roster);
-		LOG.info("Roster ID: "+roster.getId());
 
-		rosterManagement.createRosterEntry(1,1,new RosterEntry(StaffRole.COUNTER, staff));
-		rosterManagement.createRosterEntry(1,1,new RosterEntry(StaffRole.TRAINER, staff2));
-		rosterManagement.createRosterEntry(1,2,new RosterEntry(StaffRole.COUNTER, staff2));
-		rosterManagement.createRosterEntry(3,1,new RosterEntry(StaffRole.COUNTER, staff2));
-		rosterManagement.createRosterEntry(3,3,new RosterEntry(StaffRole.COUNTER, staff3));
-		rosterManagement.createRosterEntry(3,2,new RosterEntry(StaffRole.TRAINER, staff3));
-		rosterManagement.createRosterEntry(3,4,new RosterEntry(StaffRole.TRAINER, staff2));
-		rosterManagement.createRosterEntry(3,5,new RosterEntry(StaffRole.COUNTER, staff));
-		rosterManagement.createRosterEntry(3,6,new RosterEntry(StaffRole.COUNTER, staff));
-		rosterManagement.createRosterEntry(3,0,new RosterEntry(StaffRole.TRAINER, staff2));
+		int current_week = Calendar.getInstance().get(Calendar.WEEK_OF_YEAR);
+
+
+		for (int i = 0; i<6;i++) {
+			Calendar c = Calendar.getInstance();
+			c.add(Calendar.WEEK_OF_YEAR,i);
+			int week = c.get(Calendar.WEEK_OF_YEAR);
+			Roster roster = new Roster(week);
+			RosterManager.saveRoster(roster);
+			LOG.info("Roster für Woche: "+roster.getWeek());
+			LOG.info("Roster ID: "+roster.getId());
+		}
+
+		rosterManagement.createRosterEntry(1,1,current_week,new RosterEntry(StaffRole.COUNTER, staff));
+		rosterManagement.createRosterEntry(1,1,current_week,new RosterEntry(StaffRole.TRAINER, staff2));
+		rosterManagement.createRosterEntry(1,2,current_week,new RosterEntry(StaffRole.COUNTER, staff2));
+		rosterManagement.createRosterEntry(3,1,current_week,new RosterEntry(StaffRole.COUNTER, staff2));
+		rosterManagement.createRosterEntry(3,3,current_week,new RosterEntry(StaffRole.COUNTER, staff3));
+		rosterManagement.createRosterEntry(3,2,current_week,new RosterEntry(StaffRole.TRAINER, staff3));
+		rosterManagement.createRosterEntry(3,4,current_week,new RosterEntry(StaffRole.TRAINER, staff2));
+		rosterManagement.createRosterEntry(3,5,current_week,new RosterEntry(StaffRole.COUNTER, staff));
+		rosterManagement.createRosterEntry(3,6,current_week,new RosterEntry(StaffRole.COUNTER, staff));
+		rosterManagement.createRosterEntry(3,0,current_week,new RosterEntry(StaffRole.TRAINER, staff2));
 
 	}
 }

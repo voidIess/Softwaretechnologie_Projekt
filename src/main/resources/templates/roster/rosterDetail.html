@@ -28,8 +28,15 @@
                 </div>
 
                 <div class="field">
-                    <input class="form-control" name="times" type="hidden" id="times" th:value="${slot.getTime()}"/>
-                    <span th:text="${slot.getTime()}"></span>
+                    <input class="form-control" name="week" type="hidden" id="week"
+                           th:value="${week}"/>
+                    <span>Woche: </span>
+                    <b><span th:text="${week}"></span></b>
+                </div>
+
+                <div class="field">
+                    <input class="form-control" name="times" type="hidden" id="times" th:value="${row.getTime()}"/>
+                    <span th:text="${row.getTime()}"></span>
                 </div>
 
                 <div class="field">
