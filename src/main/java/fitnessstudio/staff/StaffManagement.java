@@ -1,6 +1,6 @@
 package fitnessstudio.staff;
 
-import com.mysema.commons.lang.Assert;
+import org.springframework.util.Assert;
 import org.salespointframework.useraccount.*;
 import org.springframework.stereotype.Service;
 
@@ -24,22 +24,6 @@ public class StaffManagement {
 	public Optional<Staff> findByUserAccount(UserAccount userAccount){
 		return staffRepo.findByUserAccount(userAccount);
 	}
-
-	Map<String, Object> createPdfPayslip(UserAccount account) {
-
-		Optional<Staff> opt = staffRepo.findByUserAccount(account);
-		Assert.isTrue(opt.isPresent(), "There is no existing staff for this account");
-		Staff staff = opt.get();
-
-		Map<String, Object> map = new HashMap<>();
-		map.put("id", staff.getStaffId());
-		map.put("firstName", staff.getFirstName());
-		map.put("lastName", staff.getLastName());
-		map.put("salary", staff.getSalary());
-
-		return map;
-	}
-
 
 	public List<Staff> getAllStaffs(){
 		return staffRepo.findAll().toList();

@@ -3,6 +3,7 @@ package fitnessstudio.member;
 import fitnessstudio.contract.Contract;
 import fitnessstudio.contract.ContractManagement;
 import fitnessstudio.invoice.InvoiceEvent;
+import fitnessstudio.invoice.InvoiceManagement;
 import fitnessstudio.invoice.InvoiceType;
 import fitnessstudio.statistics.StatisticManagement;
 import fitnessstudio.studio.StudioService;
@@ -38,16 +39,18 @@ public class MemberManagement {
 	private final ContractManagement contractManagement;
 	private final StudioService studioService;
 	private final StatisticManagement statisticManagement;
+	private final InvoiceManagement invoiceManagement;
 
 	MemberManagement(MemberRepository members, UserAccountManager userAccounts, ContractManagement contractManagement,
 					 StudioService studioService, StatisticManagement statisticManagement,
-					 ApplicationEventPublisher applicationEventPublisher) {
+					 ApplicationEventPublisher applicationEventPublisher, InvoiceManagement invoiceManagement) {
 		Assert.notNull(members, "MemberRepository must not be null!");
 		Assert.notNull(userAccounts, "UserAccountManager must not be null!");
 		Assert.notNull(contractManagement, "ContractManagement must not be null!");
 		Assert.notNull(studioService, "StudioService must not be null!");
 		Assert.notNull(statisticManagement, "StatisticManagement must not be null!");
 		Assert.notNull(applicationEventPublisher, "ApplicationEventPublisher should not be null!");
+		Assert.notNull(invoiceManagement, "InvoiceManagement should not be null!");
 
 		this.members = members;
 		this.userAccounts = userAccounts;
@@ -55,6 +58,7 @@ public class MemberManagement {
 		this.studioService = studioService;
 		this.statisticManagement = statisticManagement;
 		this.applicationEventPublisher = applicationEventPublisher;
+		this.invoiceManagement = invoiceManagement;
 	}
 
 	public Member createMember(RegistrationForm form, Errors result) {
@@ -171,10 +175,8 @@ public class MemberManagement {
 		Member member = opt.get();
 
 		Map<String, Object> map = new HashMap<>();
-		map.put("id", member.getMemberId());
-		map.put("firstName", member.getFirstName());
-		map.put("lastName", member.getLastName());
-		map.put("contract", member.getContract());
+		map.put("member", member);
+		map.put("invoiceEntries", invoiceManagement.getAllInvoiceForMemberOfLastMonth(member.getMemberId()));
 
 		return map;
 	}
