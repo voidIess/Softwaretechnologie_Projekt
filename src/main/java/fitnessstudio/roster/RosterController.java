@@ -13,101 +13,92 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
 import java.util.Calendar;
-import java.util.List;
 
 @Controller
 public class RosterController {
 
 	private final RosterManagement rosterManagement;
-	private final StaffManagement staffs;
-	private static final String ROSTER = "redirect:/roster";
+	private final StaffManagement staffManagement;
 
-	RosterController(RosterManagement rosterManagement, StaffManagement staffs){
-		Assert.notNull(rosterManagement, "RosterManagement darf nicht 'null' sein.");
-		Assert.notNull(staffs, "Das StaffRepository darf nicht 'null' sein.");
-		this.staffs = staffs;
+	RosterController(RosterManagement rosterManagement, StaffManagement staffManagement) {
+		Assert.notNull(rosterManagement, "RosterManagement darf nicht 'null' sein!");
+		Assert.notNull(staffManagement, "StaffManagement darf nicht 'null' sein!");
 		this.rosterManagement = rosterManagement;
+		this.staffManagement = staffManagement;
+	}
+
+	@GetMapping("/roster")
+	String defaultRoster(Model model) {
+		return "redirect:/roster/" + Calendar.getInstance().get(Calendar.WEEK_OF_YEAR);
 	}
 
 	@PreAuthorize("hasRole('STAFF') or hasRole('BOSS')")
 	@GetMapping("/roster/{week}")
-	String view_roster_week (@PathVariable int week, Model model){
-		model.addAttribute("roster",RosterManager.getRosterByWeek(week).getRows());
+	String rosterView(@PathVariable int week, Model model) {
+		model.addAttribute("roster", rosterManagement.getRosterByWeek(week).getRows());
 		model.addAttribute("filter", false);
-		model.addAttribute("staffs", staffs.getAllStaffs());
+		model.addAttribute("staffs", staffManagement.getAllStaffs());
 		model.addAttribute("week", week);
-		model.addAttribute("weeks", RosterManager.getNextWeeks());
-		model.addAttribute("header", RosterManager.getWeekDatesByWeek(week));
+		model.addAttribute("header", RosterDataConverter.getWeekDatesByWeek(week));
+		model.addAttribute("weeks", rosterManagement.getNextWeeks());
 		return "roster/rosterView";
 	}
 
 
 	@PreAuthorize("hasRole('STAFF') or hasRole('BOSS')")
 	@GetMapping("/roster")
-	String view_roster (Model model){
+	String view_roster(Model model) {
 		return "redirect:/roster/" + Calendar.getInstance().get(Calendar.WEEK_OF_YEAR);
 	}
 
 	@PreAuthorize("hasRole('STAFF') or hasRole('BOSS')")
 	@GetMapping("/roster/{week}/{id}")
-	String view_roster_filtered (@PathVariable int week, @PathVariable long id, Model model){
-		model.addAttribute("roster",RosterManager.getRosterByWeek(week).getRows());
+	String rosterViewFiltered(@PathVariable long id, @PathVariable int week, Model model) {
+		model.addAttribute("roster", rosterManagement.getRosterByWeek(week).getRows());
 		model.addAttribute("filter", true);
 		model.addAttribute("filterStaff", id);
-		model.addAttribute("weeks",RosterManager.getNextWeeks());
-		model.addAttribute("staffs", staffs.getAllStaffs());
-		model.addAttribute("header", RosterManager.getWeekDatesByWeek(week));
+		model.addAttribute("staffs", staffManagement.getAllStaffs());
+		model.addAttribute("week", week);
+		model.addAttribute("header", RosterDataConverter.getWeekDatesByWeek(week));
+		model.addAttribute("weeks", rosterManagement.getNextWeeks());
 		return "roster/rosterView";
 	}
 
 	@PreAuthorize("hasRole('STAFF') or hasRole('BOSS')")
-	@GetMapping("/roster/newrosterentry/{week}")
-	String new_roster_entry(@PathVariable int week, Model model, RosterEntryForm form, Errors errors) {
+	@GetMapping("/roster/newRosterEntry/{week}")
+	String newRosterEntry(@PathVariable int week, Model model, RosterEntryForm form, Errors errors) {
 		model.addAttribute("form", form);
-		model.addAttribute("times", RosterManager.getRosterByWeek(week).getRows());
-		model.addAttribute("roles", RosterManager.getRoles());
-		model.addAttribute("staffs", staffs.getAllStaffs());
+		model.addAttribute("times", rosterManagement.getRosterByWeek(week).getRows());
+		model.addAttribute("roles", RosterDataConverter.getRoleList());
+		model.addAttribute("staffs", staffManagement.getAllStaffs());
 		model.addAttribute("errors", errors);
 		model.addAttribute("week", week);
 		return "roster/rosterNew";
 	}
 
 	@PreAuthorize("hasRole('STAFF') or hasRole('BOSS')")
-	@PostMapping("/roster/newrosterentry")
-	public String newRosterEntry(@Valid @ModelAttribute("form") RosterEntryForm form, Model model, Errors result) {
-		rosterManagement.createRosterEntry(form, form.getWeek(), result);
-		if (result.hasErrors()) {
-			return new_roster_entry(form.getWeek(), model, form, result);
+	@PostMapping("/roster/newRosterEntry")
+	String createNewRosterEntry(Model model, @Valid @ModelAttribute("form") RosterEntryForm form, Errors errors) {
+		rosterManagement.createRosterEntry(form, errors);
+		if (errors.hasErrors()) {
+			return newRosterEntry(form.getWeek(), model, form, errors);
 		}
-		return ROSTER+"/"+form.getWeek();
+		return "redirect:/roster/" + form.getWeek();
 	}
 
 	@PreAuthorize("hasRole('STAFF') or hasRole('BOSS')")
-	@GetMapping("/roster/detail/delete/{slot}/{id}")
-	String delete(@PathVariable Long slot, @PathVariable Long id) {
-		rosterManagement.deleteRosterEntry(slot, id);
-		return ROSTER;
-	}
-
-	@PreAuthorize("hasRole('STAFF') or hasRole('BOSS')")
-	@PostMapping("/roster/edit")
-	String edit(@Valid @ModelAttribute("form") RosterEntryForm form, Errors result) {
-		rosterManagement.editRosterEntry(form);
-		return ROSTER;
-	}
-
-	@PreAuthorize("hasRole('STAFF') or hasRole('BOSS')")
-	@GetMapping("/roster/detail/{week}/{day}/{slot}/{id}")
-	String detail(@PathVariable int week, @PathVariable Long day, @PathVariable Long slot, @PathVariable Long id, RosterEntryForm form,  Model model) {
-		model.addAttribute("shift", day);
-		model.addAttribute("row", RosterManager.getRowById(day));
-		model.addAttribute("day", slot);
+	@GetMapping("/roster/detail/{week}/{shift}/{day}/{id}")
+	String showDetail(@PathVariable int week, @PathVariable int shift, @PathVariable int day, @PathVariable long id, RosterEntryForm form, Model model) {
+		model.addAttribute("day", day);
+		model.addAttribute("shift", shift);
+		model.addAttribute("row", rosterManagement.getRosterByWeek(week).getRows().get(shift));
 		model.addAttribute("form", form);
-		model.addAttribute("rosterEntry", RosterManager.getEntryById(id));
-		model.addAttribute("roles", RosterManager.getRoles());
+		model.addAttribute("rosterEntry", rosterManagement.getRosterEntryById(week, shift, day, id));
+		model.addAttribute("roles", RosterDataConverter.getRoleList());
 		model.addAttribute("week", week);
 		return "roster/rosterDetail";
 	}
+
 
 	//TODO: Tests
 	//TODO: Crash sicher machen
@@ -117,4 +108,24 @@ public class RosterController {
 	//TODO: Beim erstellen eines Rosters schauen ob der bereits existiert, wenn ja, dann bitte einen neuen anlegen und den anderen löschen
 	//TODO: Vorhandene Knöpfe zum filtern nach Rolle nutzen
 
+	@PostMapping("/roster/editEntry/{id}")
+	String editEntry(@Valid @ModelAttribute("form") RosterEntryForm form, Errors errors, @PathVariable long id) {
+		rosterManagement.editEntry(form, id);
+		return "redirect:/roster/" + form.getWeek();
+	}
+
+	@PreAuthorize("hasRole('STAFF') or hasRole('BOSS')")
+	@GetMapping("/roster/detail/delete/{week}/{shift}/{day}/{id}")
+	String delete(@PathVariable int week, @PathVariable int shift, @PathVariable int day, @PathVariable long id) {
+		rosterManagement.deleteEntry(week, shift, day, id);
+		return "redirect:/roster/" + week;
+	}
 }
+
+
+
+
+
+	//TODO: show Tag des RosterEntry
+
+

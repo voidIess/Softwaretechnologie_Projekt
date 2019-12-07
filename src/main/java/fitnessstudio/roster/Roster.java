@@ -1,65 +1,204 @@
 package fitnessstudio.roster;
 
 import com.mysema.commons.lang.Assert;
+import fitnessstudio.staff.Staff;
+import org.apache.tomcat.jni.Local;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.LinkedList;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 @Entity
 public class Roster {
 
 	@Id @GeneratedValue
-	private long rosterId;						// ID des Rosters
-	private int week;							// Gibt die Wochennummer an, für die der Dienstplan sein soll
+	private long rosterId;
+	private int week;
 
-	@OneToMany
-	private List<TableRow> rows;				// Es gibt x Reihen pro Tag, beliebig anpassbar wenn man die Schichten verändern möchte.
-
-	public static final int AMOUNT_ROWS = 8;	// Die Anzahl der Reihen
-	public static final int DURATION = 120;	// Die Dauer einer Schicht
-	public static final LocalDateTime STARTTIME = LocalDateTime.of(	// Beginn der ersten Schicht
-		2000,								// 01.01.2000, 06:00, das Datum ist dabei egal
+	public static final int AMOUNT_ROWS = 8;
+	public static final int DURATION = 120;
+	public static final LocalDateTime STARTTIME = LocalDateTime.of(
+		2000,
 		1,
 		1,
 		6,
 		0);
 
-	Roster(){}
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<TableRow> rows;
 
-	Roster(int week){
+	private Roster () {
+		this.rows = new ArrayList<>();
+	}
+
+	Roster (int week) {
+		this();
+		Assert.isTrue(week > 0 && week < 53, "Diese Kalenderwoche existiert nicht! (1-52)");
 		this.week = week;
-		this.rows = new LinkedList<>();
-		init();
+		initialize();
 	}
 
-	public void addEntry (int shift, int day, RosterEntry rosterEntry) {
-		TableRow tableRow = rows.get(shift);
-		tableRow.addEntry(day, rosterEntry);
-		RosterManager.saveTableRow(tableRow);
-	}
-
-	public long getId(){
-		return rosterId;
-	}
-
-	// Hier werden die x (AMOUNT_ROWS) Zeilen in der Tabelle angelegt
-	private void init(){
-		Assert.notNull(rows, "Die Liste der Schichten darf nicht 'null' sein.");
-		for (int i = 0; i < AMOUNT_ROWS;i++){
-			TableRow tableRow = new TableRow(STARTTIME.plusMinutes(i*(long)DURATION),DURATION);
-			RosterManager.saveTableRow(tableRow);
-			rows.add(tableRow);
+	private void initialize () {
+		rows.clear();
+		for (int i = 0; i<AMOUNT_ROWS; i++) {
+			rows.add(new TableRow(STARTTIME.plusMinutes(i*(long)DURATION), i));
 		}
 	}
 
-	public List<TableRow> getRows(){
-		Assert.notNull(rows, "Die Liste der Schichten existiert nicht.");
-		return rows;
+	public void addEntry (int shift, int day, RosterEntry rosterEntry) {
+		Assert.isTrue(shift >= 0 && shift < rows.size(), "Diese Schicht existiert nicht!");
+		Assert.isTrue(day >= 0 && day < 7, "Dieser Tag exisitiert nicht.");
+		Assert.notNull(rosterEntry, "Der RosterEntry darf nicht null sein!");
+		Slot slot = rows.get(shift).getSlots().get(day);
+		Assert.isFalse(slot.isTaken(rosterEntry.getStaff()), "Der Mitarbeiter arbeitet zu dieser Zeit schon.");
+		slot.getEntries().add(rosterEntry);
 	}
 
-	public int getWeek(){
+	public void deleteEntry (int shift, int day, long rosterEntryId) {
+		Assert.isTrue(shift >= 0 && shift < rows.size(), "Diese Schicht existiert nicht!");
+		Assert.isTrue(day >= 0 && day < 7, "Dieser Tag exisitiert nicht.");
+		Slot slot = rows.get(shift).getSlots().get(day);
+		Assert.isTrue(slot.deleteEntry(rosterEntryId), "Der Slot enthält diesen Eintrag nicht!");
+
+	}
+
+	public void editEntry () {
+
+	}
+
+	/* ========================================================================
+	* Getter
+	 ========================================================================*/
+
+	public long getRosterId() {
+		return rosterId;
+	}
+
+	public int getWeek() {
 		return week;
+	}
+
+	public List<TableRow> getRows() {
+		return rows;
+	}
+}
+
+@Entity
+class TableRow {
+
+	@Id
+	@GeneratedValue
+	private long rowId;
+
+	private LocalDateTime startTime;
+	private LocalDateTime endTime;
+
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Slot> slots;
+
+	TableRow () {
+		this.slots = new ArrayList<>();
+	}
+
+	TableRow (LocalDateTime start, int shiftNo) {
+		this();
+		Assert.notNull(start, "Keine Startzeit angegeben!");
+		Assert.isTrue(shiftNo >= 0 && shiftNo < Roster.AMOUNT_ROWS, "Diese Schicht existiert nicht!");
+		this.startTime = start;
+		this.endTime = start.plusMinutes(Roster.DURATION);
+		initialize(shiftNo);
+	}
+
+	private void initialize (int shiftNo) {
+		slots.clear();
+		for (int i = 0; i<7; i++) {
+			slots.add(new Slot(shiftNo, i));
+		}
+	}
+
+	/* ========================================================================
+	* Getter
+	 ========================================================================*/
+
+	public long getRowId() {
+		return rowId;
+	}
+
+	public List<Slot> getSlots() {
+		return slots;
+	}
+
+	@Override
+	public String toString(){
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+		return startTime.format(formatter) + "-" + endTime.format(formatter);
+	}
+	
+}
+
+@Entity
+class Slot {
+
+	@Id
+	@GeneratedValue
+	private long slotId;
+
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<RosterEntry> entries;
+
+	private int[] coordinates;
+
+	Slot () {
+		this.entries = new ArrayList<>();
+		this.coordinates  = new int [2];
+	}
+
+	Slot (int shift, int day) {
+		this();
+		Assert.isTrue(shift >= 0 && shift < Roster.AMOUNT_ROWS, "Diese Schicht existiert nicht!");
+		Assert.isTrue(day >= 0 && day < 7, "Dieser tag existiert nicht!");
+		this.coordinates[0] = shift;
+		this.coordinates[1] = day;
+	}
+
+	public long getSlotId() {
+		return slotId;
+	}
+
+	public int[] getCoordinates() {
+		return coordinates;
+	}
+
+	public List<RosterEntry> getEntries() {
+		Collections.sort(entries, new Comparator<>() {
+			@Override
+			public int compare(RosterEntry p1, RosterEntry p2) {
+				return p1.compareTo(p2); // Ascending
+			}
+		});
+		return entries;
+	}
+
+	public boolean isTaken (Staff staff) {
+		for (RosterEntry rosterEntry : entries){
+			if (rosterEntry.getStaff() == staff) return true;
+		}
+		return false;
+	}
+
+	public boolean deleteEntry (long id) {
+		for (RosterEntry rosterEntry : entries){
+			if (rosterEntry.getRosterEntryId() == id){
+				entries.remove(rosterEntry);
+				return true;
+			}
+		}
+		return false;
 	}
 }

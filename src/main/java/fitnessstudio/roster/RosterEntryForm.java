@@ -6,22 +6,23 @@ import java.util.List;
 
 public class RosterEntryForm {
 
-	@NotEmpty(message = "{roster.error.staff}")
-	private final String staff;
-
 	@NotNull(message = "{roster.error.staff}")
+	private final Long staff;
+
+	@NotNull(message = "{roster.error.week}")
 	private final Integer week;
 
 	@NotEmpty(message = "{roster.error.role}")
 	private final String role;
 
-	//@NotEmpty(message = "{roster.error.time}") //
+	@NotNull(message = "{roster.error.time}") //
 	private final List<String> times;
 
 	@NotEmpty(message = "{roster.error.day}") //
 	private final String day;
 
-	public RosterEntryForm(String staff, String role, String day, List<String> times, Integer week) {
+
+	public RosterEntryForm(Long staff, String role, String day, List<String> times, Integer week) {
 		this.role = role;
 		this.staff = staff;
 		this.day = day;
@@ -29,11 +30,11 @@ public class RosterEntryForm {
 		this.week = week;
 	}
 
-	public Integer getWeek () {
+	public Integer getWeek() {
 		return week;
 	}
 
-	public String getStaff() {
+	public Long getStaff() {
 		return staff;
 	}
 
@@ -49,3 +50,4 @@ public class RosterEntryForm {
 		return day;
 	}
 }
+

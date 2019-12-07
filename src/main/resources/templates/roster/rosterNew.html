@@ -14,7 +14,7 @@
     <div class="ui container">
 
 
-        <form method="post" role="form" class="ui form" id="form" th:action="@{/roster/newrosterentry}"
+        <form method="post" role="form" class="ui form" id="form" th:action="@{/roster/newRosterEntry}"
               th:object="${form}">
 
             <p class="ui negative message" th:if="${#fields.hasErrors('*')}" th:each="err : ${#fields.errors('*')}"
@@ -59,7 +59,7 @@
             <fieldset class="field">
                 <p th:text="#{roster.time}" for="time">Zeit</p>
                 <select multiple size="8" class="form-control" th:field="*{times}" id="time">
-                    <option th:each="time : ${times}" th:value="${time.getTime()}" th:text="${time.getTime()}"></option>
+                    <option th:each="time : ${times}" th:value="${time.toString()}" th:text="${time.toString()}"></option>
                 </select>
             </fieldset>
 
