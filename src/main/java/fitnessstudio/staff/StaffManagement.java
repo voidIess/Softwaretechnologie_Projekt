@@ -1,18 +1,13 @@
 package fitnessstudio.staff;
 
-<<<<<<< HEAD
-import org.springframework.util.Assert;
-=======
-import com.mysema.commons.lang.Assert;
 import org.javamoney.moneta.Money;
->>>>>>> feature/rosterNewBill
-import org.salespointframework.useraccount.*;
-import org.springframework.stereotype.Component;
+import org.salespointframework.useraccount.Password;
+import org.salespointframework.useraccount.Role;
+import org.salespointframework.useraccount.UserAccount;
+import org.salespointframework.useraccount.UserAccountManager;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 @Service

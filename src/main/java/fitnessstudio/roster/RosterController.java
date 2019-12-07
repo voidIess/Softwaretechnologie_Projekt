@@ -44,13 +44,6 @@ public class RosterController {
 		return "roster/rosterView";
 	}
 
-
-	@PreAuthorize("hasRole('STAFF') or hasRole('BOSS')")
-	@GetMapping("/roster")
-	String view_roster(Model model) {
-		return "redirect:/roster/" + Calendar.getInstance().get(Calendar.WEEK_OF_YEAR);
-	}
-
 	@PreAuthorize("hasRole('STAFF') or hasRole('BOSS')")
 	@GetMapping("/roster/{week}/{id}")
 	String rosterViewFiltered(@PathVariable long id, @PathVariable int week, Model model) {
@@ -99,7 +92,7 @@ public class RosterController {
 		return "roster/rosterDetail";
 	}
 
-
+	//TODO: show Tag des RosterEntryForm
 	//TODO: Tests
 	//TODO: Crash sicher machen
 	//TODO: Nichts hinzufügen, wenn er bereits arbeitet, da sonst die sachen da ausgewählt werden.
@@ -126,6 +119,6 @@ public class RosterController {
 
 
 
-	//TODO: show Tag des RosterEntry
+
 
 

@@ -66,6 +66,7 @@ public class RosterTest {
 	}
 
 	@Test
+	@Order(2)
 	void addEntry () {
 		roster = new Roster(1);
 		try {
@@ -115,8 +116,6 @@ public class RosterTest {
 
 		//TODO: delete and edit
 		//TODO: Error Messages printen
-
 	}
-
-
+	
 }

@@ -51,37 +51,20 @@
                                 <div th:if="${filter && entry.getStaff().getStaffId() == filterStaff}">
                                     <a th:if="${entry.isTrainer() }" class="ui primary basic button"
                                        th:text="${entry.toString()}"
-<<<<<<< HEAD
-                                       th:href="@{/roster/detail/{week}/{day}/{slot}/{id}/(week=${week},day=${tableRow.tableRowId},slot=${slot.slotId},id=${entry.rosterEntryId})}"></a>
-                                    <a th:unless="${entry.isTrainer()}" class="ui positive basic button"
-                                       th:text="${entry.toString()}"
-                                       th:href="@{/roster/detail/{week}/{day}/{slot}/{id}/(week=${week},day=${tableRow.tableRowId},slot=${slot.slotId},id=${entry.rosterEntryId})}"></a>
-=======
                                        th:href="@{/roster/detail/{week}/{shift}/{day}/{id}/(week=${week}, shift=${slot.getCoordinates()[0]}, day=${slot.getCoordinates()[1]}, id=${entry.rosterEntryId})}"></a>
                                     <a th:unless="${entry.isTrainer()}" class="ui positive basic button"
                                        th:text="${entry.toString()}"
                                        th:href="@{/roster/detail/{week}/{shift}/{day}/{id}/(week=${week}, shift=${slot.getCoordinates()[0]}, day=${slot.getCoordinates()[1]}, id=${entry.rosterEntryId})}"></a>
->>>>>>> feature/rosterNewBill
                                 </div>
 
                                 <div th:unless="${filter}">
                                     <a th:if="${entry.isTrainer()}" class="ui primary basic button"
                                        th:text="${entry.toString()}"
-<<<<<<< HEAD
-                                       th:href="@{/roster/detail/{week}/{day}/{slot}/{id}/(week=${week},day=${tableRow.tableRowId},slot=${slot.slotId},id=${entry.rosterEntryId})}"></a>
-                                    <a th:unless="${entry.isTrainer()}" class="ui positive basic button"
-                                       th:text="${entry.toString()}"
-                                       th:href="@{/roster/detail/{week}/{day}/{slot}/{id}/(week=${week},day=${tableRow.tableRowId},slot=${slot.slotId},id=${entry.rosterEntryId})}"></a>
-=======
                                        th:href="@{/roster/detail/{week}/{shift}/{day}/{id}/(week=${week}, shift=${slot.getCoordinates()[0]}, day=${slot.getCoordinates()[1]}, id=${entry.rosterEntryId})}"></a>
                                     <a th:unless="${entry.isTrainer()}" class="ui positive basic button"
                                        th:text="${entry.toString()}"
                                        th:href="@{/roster/detail/{week}/{shift}/{day}/{id}/(week=${week}, shift=${slot.getCoordinates()[0]}, day=${slot.getCoordinates()[1]}, id=${entry.rosterEntryId})}"></a>
->>>>>>> feature/rosterNewBill
                                 </div>
-
-
-
 
                             </th:block>
                         </td>
@@ -91,11 +74,7 @@
 
         </table>
 
-<<<<<<< HEAD
-        <a class="fluid ui button" th:href="@{/roster/newrosterentry/{week}/(week=${week})}">Eintrag hinzuf&uuml;gen</a><br>
-=======
         <a class="fluid ui button" th:href="@{/roster/newRosterEntry/{week}/(week=${week})}">Eintrag hinzuf&uuml;gen</a><br>
->>>>>>> feature/rosterNewBill
 
     </div>
 </div>
