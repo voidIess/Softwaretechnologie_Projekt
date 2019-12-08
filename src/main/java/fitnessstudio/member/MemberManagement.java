@@ -12,14 +12,18 @@ import org.salespointframework.useraccount.Password;
 import org.salespointframework.useraccount.Role;
 import org.salespointframework.useraccount.UserAccount;
 import org.salespointframework.useraccount.UserAccountManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.util.Streamable;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import org.springframework.validation.Errors;
 
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,6 +35,7 @@ import java.util.stream.Stream;
 @Transactional
 public class MemberManagement {
 
+	private static final Logger LOG = LoggerFactory.getLogger(MemberManagement.class);
 	public static final Role MEMBER_ROLE = Role.of("MEMBER");
 
 	private final ApplicationEventPublisher applicationEventPublisher;
@@ -195,4 +200,15 @@ public class MemberManagement {
 		member.trainFree();
 		members.save(member);
 	}
+
+	@Scheduled(cron = "0 0 12 * * *")
+	public void checkContracts(){
+		LOG.info("Checking contracts..");
+		for (Member member : findAllAuthorized(null)){
+			if (member.getEndDate().equals(LocalDate.now())){
+				member.disable();
+			}
+		}
+	}
+
 }

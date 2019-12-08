@@ -8,16 +8,16 @@ import org.salespointframework.useraccount.UserAccount;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.Optional;
+import java.time.LocalDate;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.fail;
 
 /**
  * Integration tests for {@link fitnessstudio.member.MemberManagement}.
  *
  * @author Bill Kippe
  */
+
 @SpringBootTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -68,7 +68,9 @@ class MemberManagementUnitTests {
 	@Order(3)
 	void testAuthorizeMember() {
 		management.authorizeMember(members.findById(memberId).get().getMemberId());
-		assertThat(members.findById(memberId).get().getUserAccount().isEnabled()).isTrue();
+		Member member = members.findById(memberId).get();
+
+		assertThat(member.getUserAccount().isEnabled()).isTrue();
 	}
 
 	@Test
@@ -112,14 +114,23 @@ class MemberManagementUnitTests {
 	}
 
 	@Test
+	@Order(9)
+	void testCheckContracts() {
+		Member member = members.findById(memberId).get();
+		member.setEndDate(LocalDate.now());
+		members.save(member);
+
+		management.checkContracts();
+		assertThat(members.findById(memberId).get().getUserAccount().isEnabled()).isFalse();
+	}
+
+	@Test
 	@Order(40)
 	void testDeleteMember() {
 		assertThat(members.findById(memberId)).isNotEmpty();
 		management.deleteMember(memberId);
 		assertThat(members.findById(memberId)).isEmpty();
 	}
-
-
 
 
 }

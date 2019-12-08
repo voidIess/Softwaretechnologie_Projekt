@@ -102,6 +102,10 @@ public class Member {
 		this.contract = contract;
 	}
 
+	public void setEndDate(LocalDate endDate) {
+		this.endDate = endDate;
+	}
+
 	public void authorize() {
 		getUserAccount().setEnabled(true);
 		endDate = LocalDate.now().plusDays(contract.getDuration());
