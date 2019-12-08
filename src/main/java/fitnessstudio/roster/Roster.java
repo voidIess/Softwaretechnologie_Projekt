@@ -37,7 +37,7 @@ public class Roster {
 		this.rows = new ArrayList<>();
 	}
 
-	Roster (int week) {
+	public Roster (int week) {
 		this();
 		Assert.isTrue(week > 0 && week < 53, "Diese Kalenderwoche existiert nicht! (1-52)");
 		this.week = week;
@@ -64,7 +64,7 @@ public class Roster {
 		Assert.isTrue(shift >= 0 && shift < rows.size(), "Diese Schicht existiert nicht!");
 		Assert.isTrue(day >= 0 && day < 7, "Dieser Tag exisitiert nicht.");
 		Slot slot = rows.get(shift).getSlots().get(day);
-		Assert.isTrue(slot.deleteEntry(rosterEntryId), "Der Slot enthält diesen Eintrag nicht!");
+		Assert.isTrue(slot.deleteEntry(rosterEntryId), "Der Eintrag konnte nicht gelöscht werden. Gehört zu diesem Eintrag ein Training?");
 
 	}
 
@@ -191,8 +191,10 @@ class Slot {
 	public boolean deleteEntry (long id) {
 		for (RosterEntry rosterEntry : entries){
 			if (rosterEntry.getRosterEntryId() == id){
-				entries.remove(rosterEntry);
-				return true;
+				if(rosterEntry.getTraining() == null) {
+					entries.remove(rosterEntry);
+					return true;
+				} else return false;
 			}
 		}
 		return false;

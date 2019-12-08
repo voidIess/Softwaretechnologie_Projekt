@@ -2,6 +2,8 @@ package fitnessstudio.training;
 
 
 import fitnessstudio.member.Member;
+import fitnessstudio.roster.RosterDataConverter;
+import fitnessstudio.roster.RosterManagement;
 import org.salespointframework.useraccount.UserAccount;
 import org.salespointframework.useraccount.web.LoggedIn;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -23,10 +25,12 @@ public class TrainingController {
 
 
 	private final TrainingManagement trainingManagement;
+	private final RosterManagement rosterManagement;
 
-	TrainingController(TrainingManagement trainingManagement) {
+	TrainingController(TrainingManagement trainingManagement, RosterManagement rosterManagement) {
 		Assert.notNull(trainingManagement, "TrainingManagement must not be null");
-
+		Assert.notNull(rosterManagement, "RosterManagement must not be null");
+		this.rosterManagement = rosterManagement;
 		this.trainingManagement = trainingManagement;
 	}
 
@@ -35,6 +39,8 @@ public class TrainingController {
 	public String create(Model model, TrainingForm form, Errors result) {
 		model.addAttribute("staffs", trainingManagement.getAllStaffs());
 		model.addAttribute("types", trainingManagement.getTypes());
+		model.addAttribute("times", rosterManagement.getTimes());
+		model.addAttribute("weeks", rosterManagement.getNextWeeks());
 		model.addAttribute("form", form);
 		model.addAttribute("error", result);
 		return "training/create_training";
@@ -81,7 +87,6 @@ public class TrainingController {
 	@PreAuthorize("hasRole('STAFF')")
 	public String authorizeTrainings(Model model) {
 		model.addAttribute("requestedTrainings", trainingManagement.getAllRequestedTrainings());
-
 		return "training/authorize_trainings";
 	}
 
@@ -95,8 +100,19 @@ public class TrainingController {
 	@GetMapping("/training/accept/{id}")
 	@PreAuthorize("hasRole('STAFF')")
 	public String accept(@PathVariable long id, Model model) {
-		trainingManagement.accept(id);
+		if(!trainingManagement.accept(id)) {
+
+			//TODO: Error message
+			//TODO: tabelle um week erweitern
+		}
 		return "redirect:/admin/training/authorize";
+	}
+
+	@GetMapping("/training/details/{id}")
+	@PreAuthorize("hasRole('STAFF')")
+	public String details (@PathVariable long id, Model model ) {
+		model.addAttribute("training", trainingManagement.findById(id).orElse(null));
+		return "training/detail_training";
 	}
 
 	@GetMapping("/training/end/{id}")

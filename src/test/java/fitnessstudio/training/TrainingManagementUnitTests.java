@@ -2,6 +2,9 @@ package fitnessstudio.training;
 
 import fitnessstudio.member.Member;
 import fitnessstudio.member.MemberRepository;
+import fitnessstudio.roster.Roster;
+import fitnessstudio.roster.RosterManagement;
+import fitnessstudio.roster.RosterRepository;
 import fitnessstudio.staff.Staff;
 import fitnessstudio.staff.StaffRepository;
 import org.junit.jupiter.api.*;
@@ -33,12 +36,21 @@ class TrainingManagementUnitTests {
 	@Autowired
 	private StaffRepository staffs;
 
+	@Autowired
+	private RosterManagement rosters;
+
+
+
 	private Long trainingId;
 	private Member member;
 	private Staff staff;
+	private String time;
 
 	@BeforeAll
 	void setUp() {
+
+		Roster roster = new Roster(3);
+		rosters.saveRoster(roster);
 		if (members.findAll().isEmpty()) {
 			members.save(new Member());
 		}
@@ -49,13 +61,17 @@ class TrainingManagementUnitTests {
 
 		member = members.findAll().toList().get(0);
 		staff = staffs.findAll().toList().get(0);
+
+		time = "10:00-12:00";
+
+
 	}
 
 	@Test
 	@Order(1)
 	void testCreateNormalTraining() {
 		Training training = management.createTraining(member, new TrainingForm("NORMAL", staff.getStaffId() + "", "0",
-			"10:00", "Description"), null);
+			time, "Description", 3), null);
 
 		trainingId = training.getTrainingId();
 
@@ -86,8 +102,8 @@ class TrainingManagementUnitTests {
 	@Test
 	@Order(5)
 	void testCreatTrialTraining() {
-		Training training = management.createTraining(member, new TrainingForm("TRIAL", staff.getStaffId() + "", "0",
-			"10:00", "Description"), null);
+		Training training = management.createTraining(member, new TrainingForm("TRIAL", staff.getStaffId() + "", "1",
+			time, "Description", 3), null);
 
 		trainingId = training.getTrainingId();
 
@@ -106,7 +122,7 @@ class TrainingManagementUnitTests {
 	@Order(7)
 	void testDontCreateTrialTrainingWhenAlreadyFreeTrained() {
 		TrainingForm form = new TrainingForm("TRIAL", staff.getStaffId() + "", "0",
-			"10:00", "Description");
+			time, "Description", 3);
 		Training training = management.createTraining(member, form, new BeanPropertyBindingResult(form, "form"));
 
 		assertThat(training).isNull();

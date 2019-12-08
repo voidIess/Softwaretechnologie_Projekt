@@ -3,8 +3,10 @@ package fitnessstudio.training;
 
 import fitnessstudio.member.Member;
 import fitnessstudio.member.MemberManagement;
+import fitnessstudio.roster.*;
 import fitnessstudio.staff.Staff;
 import fitnessstudio.staff.StaffManagement;
+import fitnessstudio.staff.StaffRole;
 import org.salespointframework.useraccount.UserAccount;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -24,21 +26,24 @@ public class TrainingManagement {
 	private final TrainingRepository trainings;
 	private final MemberManagement memberManagement;
 	private final StaffManagement staffManagement;
+	private final RosterManagement rosterManagement;
 
-	public TrainingManagement(TrainingRepository trainings, MemberManagement memberManagement, StaffManagement staffManagement) {
+	public TrainingManagement(TrainingRepository trainings, MemberManagement memberManagement, StaffManagement staffManagement, RosterManagement rosterManagement) {
 		Assert.notNull(trainings, "TrainingRepository must not be null");
 		Assert.notNull(memberManagement, "MemberManagement must not be null");
 		Assert.notNull(staffManagement, "StaffManagement must not be null");
-
+		Assert.notNull(rosterManagement, "RosterManagement must not be null");
 		this.trainings = trainings;
 		this.memberManagement = memberManagement;
 		this.staffManagement = staffManagement;
+		this.rosterManagement = rosterManagement;
 	}
 
 	public Training createTraining(Member member, TrainingForm form, Errors result) {
 		var trainer = form.getStaff();
 		var time = form.getTime();
 		var day = form.getDay();
+
 
 		if (form.getType().isEmpty()) {
 			result.rejectValue("type", "training.type.missing");
@@ -63,8 +68,24 @@ public class TrainingManagement {
 			memberManagement.trainFree(member);
 		}
 
+		List<String> times = new ArrayList<>();
+		times.add(time);
+
+		RosterEntryForm rosterform = new RosterEntryForm(
+			staff.getStaffId(),
+			RosterDataConverter.roleToString(StaffRole.TRAINER),
+			Integer.parseInt(day),
+			times,
+			form.getWeek()
+			);
+
+		if (!rosterManagement.isFree(rosterform)) {
+			result.rejectValue("staff","training.staff.notFree");
+			return null;
+		}
+
 		return trainings.save(new Training(type, staff, member, Integer.parseInt(day),
-			LocalTime.parse(time), 90, form.getDescription()));
+			time, Roster.DURATION, form.getDescription(), form.getWeek()));
 	}
 
 	public void decline(Long trainingId) {
@@ -72,9 +93,28 @@ public class TrainingManagement {
 		trainingOptional.ifPresent(Training::decline);
 	}
 
-	public void accept(Long trainingId) {
-		Optional<Training> trainingOptional = findById(trainingId);
-		trainingOptional.ifPresent(Training::accept);
+	public boolean accept(Long trainingId) {
+		//Optional<Training> trainingOptional = findById(trainingId);
+		//trainingOptional.ifPresent(Training::accept);
+		Training training = findById(trainingId).orElse(null);
+		if(training != null) {
+			List<String> list = new ArrayList<>();
+			list.add(training.getStartTime());
+			RosterEntryForm rosterEntryForm = new RosterEntryForm(
+				training.getTrainer().getStaffId(),
+				RosterDataConverter.roleToString(StaffRole.TRAINER),
+				training.getDay(),
+				list,
+				training.getWeek()
+			);
+			if (rosterManagement.isFree(rosterEntryForm)) {
+				rosterManagement.createRosterEntry(rosterEntryForm, training, null);
+				training.accept();
+				trainings.save(training);
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public void end(Long trainingId) {
@@ -116,7 +156,7 @@ public class TrainingManagement {
 		return trainings.findById(id);
 	}
 
-	public void createRosterEntryForTrainer () {
+	public void createRosterEntryForTrainer() {
 
 	}
 }

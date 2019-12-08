@@ -3,6 +3,7 @@ package fitnessstudio.roster;
 import com.mysema.commons.lang.Assert;
 import fitnessstudio.staff.Staff;
 import fitnessstudio.staff.StaffRole;
+import fitnessstudio.training.Training;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,6 +17,9 @@ public class RosterEntry implements Comparable<RosterEntry> {
 	@GeneratedValue
 	private long rosterEntryId;
 	private StaffRole role;
+
+	@OneToOne
+	private Training training;
 
 	@OneToOne
 	private Staff staff;
@@ -38,6 +42,8 @@ public class RosterEntry implements Comparable<RosterEntry> {
 	}
 
 	public void setRole(StaffRole role) {
+		if (role.equals(StaffRole.COUNTER))
+			Assert.isTrue(training == null, "Der Mitarbeiter hat zu dieser Zeit einen Termin.");
 		this.role = role;
 	}
 
@@ -62,6 +68,15 @@ public class RosterEntry implements Comparable<RosterEntry> {
 	public int compareTo(RosterEntry rosterEntry) {
 		if (rosterEntry.getRole().equals(StaffRole.COUNTER)) return 1;
 		else return -1;
+	}
+
+	public void setTraining (Training training) {
+		Assert.isTrue(role.equals(StaffRole.TRAINER), "Der Mitarbeiter muss als Trainer arbeiten!");
+		this.training = training;
+	}
+
+	public Training getTraining () {
+		return training;
 	}
 
 }

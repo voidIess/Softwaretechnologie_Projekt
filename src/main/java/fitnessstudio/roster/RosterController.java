@@ -72,7 +72,7 @@ public class RosterController {
 	@PreAuthorize("hasRole('STAFF') or hasRole('BOSS')")
 	@PostMapping("/roster/newRosterEntry")
 	String createNewRosterEntry(Model model, @Valid @ModelAttribute("form") RosterEntryForm form, Errors errors) {
-		rosterManagement.createRosterEntry(form, errors);
+		rosterManagement.createRosterEntry(form,null, errors);
 		if (errors.hasErrors()) {
 			return newRosterEntry(form.getWeek(), model, form, errors);
 		}
@@ -102,8 +102,11 @@ public class RosterController {
 	//TODO: Vorhandene Knöpfe zum filtern nach Rolle nutzen
 
 	@PostMapping("/roster/editEntry/{id}")
-	String editEntry(@Valid @ModelAttribute("form") RosterEntryForm form, Errors errors, @PathVariable long id) {
-		rosterManagement.editEntry(form, id);
+	String editEntry(@Valid @ModelAttribute("form") RosterEntryForm form, Errors errors, @PathVariable long id, Model model) {
+		rosterManagement.editEntry(form, id, errors);
+		if (errors.hasErrors()){
+			return showDetail(form.getWeek(),rosterManagement.getTimeIndex(form.getTimes().get(0)),form.getDay(),id, form, model);
+		}
 		return "redirect:/roster/" + form.getWeek();
 	}
 
@@ -113,6 +116,11 @@ public class RosterController {
 		rosterManagement.deleteEntry(week, shift, day, id);
 		return "redirect:/roster/" + week;
 	}
+
+	//TODO: Trainingübersichts seite
+	//TODO: entry erst erstellen wenn accepted
+	//TODO: training löschen
+	//TODO: es soll nicht möglich sein zu ändern wenn Training vorhanden
 }
 
 

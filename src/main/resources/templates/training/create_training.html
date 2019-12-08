@@ -60,11 +60,31 @@
             </div>
         </div>
 
-        <div class="field">
+        <!----<div class="field">
             <label th:text="#{training.time}" for="time">Zeit</label>
             <input id="time"  type="time" th:field="*{time}"  required="required"/>
             <div class="ui negative message" th:if="${#fields.hasErrors('time')}" th:errors="*{time}">
                 <p>Die Zeit darf nicht leer sein.</p>
+            </div>
+        </div>-->
+
+        <div class="field">
+            <p th:text="#{training.time}" for="time">Zeit</p>
+            <select class="form-control" th:field="*{time}" id="time">
+                <option th:each="row : ${times}" th:value="${row}" th:text="${row}"></option>
+            </select>
+            <div class="ui negative message" th:if="${#fields.hasErrors('time')}" th:errors="*{time}">
+                <p>Die Zeit darf nicht leer sein.</p>
+            </div>
+        </div>
+
+        <div class="field">
+            <p th:text="#{training.week}" for="week">Woche</p>
+            <select class="form-control" th:field="*{week}" id="week">
+                <option th:each="week : ${weeks}" th:value="${week}" th:text="${week}"></option>
+            </select>
+            <div class="ui negative message" th:if="${#fields.hasErrors('week')}" th:errors="*{week}">
+                <p>Die Woche darf nicht leer sein.</p>
             </div>
         </div>
 

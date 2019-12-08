@@ -5,6 +5,7 @@ import fitnessstudio.staff.Staff;
 import fitnessstudio.staff.StaffManagement;
 import fitnessstudio.staff.StaffRepository;
 import fitnessstudio.staff.StaffRole;
+import fitnessstudio.training.Training;
 import org.javamoney.moneta.Money;
 import org.salespointframework.useraccount.Password;
 import org.salespointframework.useraccount.Role;
@@ -12,7 +13,10 @@ import org.salespointframework.useraccount.UserAccountManager;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.Errors;
 
+import javax.sound.midi.Track;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -29,7 +33,7 @@ public class RosterManagement {
 		this.rosterRepository = rosterRepository;
 	}
 
-	public void createRosterEntry (RosterEntryForm form, Errors errors) {
+	public void createRosterEntry (RosterEntryForm form, Training training, Errors errors) {
 		Assert.notNull(form, "RosterForm darf nicht 'null' sein.");
 		Assert.notNull(form.getTimes(), "Keine Liste gefunden.");
 		Assert.notNull(form.getWeek(), "Keine Woche angegeben!");
@@ -39,13 +43,13 @@ public class RosterManagement {
 
 		if (staff == null) {
 			errors.rejectValue("roster.error.staff", "Dieser Staff existiert nicht!");
-			return;
+			return ;
 		}
 
 		Roster roster = getRosterByWeek(form.getWeek());
 		if (roster == null) {
 			errors.rejectValue("week", "Für diese Woche gibt es keinen Roster.");
-			return;
+			return ;
 		}
 
 		StaffRole role = RosterDataConverter.stringToRole(form.getRole());
@@ -54,20 +58,21 @@ public class RosterManagement {
 			day = form.getDay();
 		} catch (Exception e) {
 			errors.rejectValue("roster.error.staff", "Fehler bei Eingabe des Tages!");
-			return;
+			return ;
 		}
 
 		if (form.getTimes().isEmpty()) {
 			errors.rejectValue("roster.error.time", "Bitte wähle mindestens eine Zeit aus!");
-			return;
+			return ;
 		}
-
 		for (String time : form.getTimes()) {
 			for (int i = 0;i<Roster.AMOUNT_ROWS;i++){
 				if (roster.getRows().get(i).toString().equals(time)) {
 					try {
 						RosterEntry rosterEntry = new RosterEntry(role,staff);
 						roster.addEntry(i,day, rosterEntry);
+						if (training != null && role.equals(StaffRole.TRAINER)) rosterEntry.setTraining(training);
+
 					} catch (Exception e) {
 						errors.reject("times", "Der Mitarbeiter arbeiten von " + time + " schon.");
 					}
@@ -76,6 +81,7 @@ public class RosterManagement {
 		}
 
 		saveRoster(roster);
+
 	}
 
 	public RosterEntry getRosterEntryById (int week, int shift, int day, long id) {
@@ -105,7 +111,7 @@ public class RosterManagement {
 		return rosterRepository.findByWeek(week).orElse(null);
 	}
 
-	public void editEntry (RosterEntryForm form, long id) {
+	public void editEntry (RosterEntryForm form, long id, Errors errors) {
 		Roster roster = getRosterByWeek(form.getWeek());
 		RosterEntry entry;
 		Assert.notNull(roster, "Es gibt keinen Dienstplan für diese Woche!");
@@ -117,6 +123,7 @@ public class RosterManagement {
 					entry.setRole(RosterDataConverter.stringToRole(form.getRole()));
 				} catch (Exception e) {
 					System.out.println("Error.");
+					errors.reject("Edit", "Der Mitarbeiter hat zu dieser Zeit einen Termin.");
 				}
 			}
 		}
@@ -129,8 +136,38 @@ public class RosterManagement {
 		Assert.notNull(roster, "Es gibt keinen Roster für diese Woche!");
 		RosterEntry rosterEntry = getRosterEntryById(week, shift, day, id);
 		Assert.notNull(rosterEntry, "Keinen RosterEntry gefunden.");
-		roster.getRows().get(shift).getSlots().get(day).getEntries().remove(rosterEntry);
+		//roster.getRows().get(shift).getSlots().get(day).getEntries().remove(rosterEntry);
+		try {
+			roster.deleteEntry(shift, day,id);
+		} catch(Exception e) {
+			//TODO: error Message
+		}
 		saveRoster(roster);
+	}
+
+	public List<String> getTimes () {
+		Roster roster = rosterRepository.findAll().iterator().next();
+		if (roster == null) {
+			return null;
+		}
+		List<String> times = new ArrayList<>();
+		for (TableRow row : roster.getRows()) {
+			times.add(row.toString());
+		}
+		return  times;
+	}
+
+	public int getTimeIndex(String time) {
+		List<String> times = getTimes();
+		for( int i = 0; i<getTimes().size();i++) {
+			if (times.get(i).equals(time)) return i;
+		}
+		return -1;
+	}
+
+	public boolean isFree (RosterEntryForm form) {
+		int shift = getTimeIndex(form.getTimes().get(0));
+		return !getRosterByWeek(form.getWeek()).getRows().get(shift).getSlots().get(form.getDay()).isTaken(staffManagement.findById(form.getStaff()).orElse(null));
 	}
 
 }
