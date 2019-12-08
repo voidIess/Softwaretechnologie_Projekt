@@ -17,7 +17,6 @@ import javax.validation.Valid;
 
 
 @Controller
-@PreAuthorize("isAuthenticated()")
 @SessionAttributes("cart")
 public class BarController {
 
@@ -35,10 +34,9 @@ public class BarController {
 	@GetMapping("/sell_catalog")
 	public String SellingCatalog(Model model) {
 
-		model.addAttribute("inventory", barManager.getAllItems());
+		model.addAttribute("inventory", barManager.getAvailableArticles());
 		return "bar/sell_catalog";
 	}
-
 
 	@PreAuthorize("hasRole('STAFF')")
 	@PostMapping("/sell")
@@ -67,14 +65,14 @@ public class BarController {
 	Cart initializeCart() {
 		return new Cart();
 	}
-/**
+
 	@PreAuthorize("hasRole('STAFF')")
 	@PostMapping("/addItemToCart")
 	String addItem(@RequestParam("pid") Article article, @RequestParam("number") int number, @ModelAttribute Cart cart) {
 		barManager.addArticleToCart(article, Quantity.of(number), cart);
 		return ("redirect:sell_catalog");
 	}
- */
+
 
 	@GetMapping("/orders")
 	@PreAuthorize("hasRole('STAFF')")
