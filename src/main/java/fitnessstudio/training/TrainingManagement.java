@@ -33,6 +33,7 @@ public class TrainingManagement {
 		Assert.notNull(memberManagement, "MemberManagement must not be null");
 		Assert.notNull(staffManagement, "StaffManagement must not be null");
 		Assert.notNull(rosterManagement, "RosterManagement must not be null");
+
 		this.trainings = trainings;
 		this.memberManagement = memberManagement;
 		this.staffManagement = staffManagement;
@@ -158,5 +159,9 @@ public class TrainingManagement {
 
 	public void createRosterEntryForTrainer() {
 
+	}
+
+	public RosterManagement getRosterManagement() {
+		return rosterManagement;
 	}
 }
