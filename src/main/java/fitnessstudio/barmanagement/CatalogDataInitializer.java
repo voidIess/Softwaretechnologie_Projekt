@@ -2,6 +2,8 @@ package fitnessstudio.barmanagement;
 
 import org.javamoney.moneta.Money;
 import org.salespointframework.core.DataInitializer;
+import org.salespointframework.quantity.Metric;
+import org.salespointframework.quantity.Quantity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -37,9 +39,8 @@ public class CatalogDataInitializer implements DataInitializer {
 		discountRepository.save(discount);
 
 		catalog.save(new Article("Hantel", Money.of(50.00, EURO), "Trainingsgerät",
-			"10kg", endDate, discount));
+			"10kg", endDate, discount, Quantity.of(10, Metric.UNIT)));
 		catalog.save(new Article("Serious Mass", Money.of(13.37, EURO), "Essen",
-			"gesund",
-			endDate, discount));
+			"gesund", endDate, discount, Quantity.of(10, Metric.UNIT)));
 	}
 }

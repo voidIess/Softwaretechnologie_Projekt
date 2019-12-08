@@ -25,12 +25,13 @@ public class Article extends Product {
 
 	public Article(){}
 
-	public Article(String name, MonetaryAmount price, String art, String description, LocalDate expirationDate, Discount discount) {
+	public Article(String name, MonetaryAmount price, String art, String description, LocalDate expirationDate, Discount discount, Quantity sufficientQuantity) {
 		super(name, price);
 		this.art = art;
 		this.description = description;
 		this.expirationDate = expirationDate;
 		this.discount = discount;
+		this.sufficientQuantity = sufficientQuantity;
 	}
 
 	@NotNull

@@ -1,6 +1,7 @@
 package fitnessstudio.barmanagement;
 
 import fitnessstudio.member.Member;
+import org.salespointframework.catalog.ProductIdentifier;
 import org.salespointframework.inventory.InventoryItem;
 import org.salespointframework.inventory.InventoryItems;
 import org.salespointframework.inventory.UniqueInventoryItem;
@@ -76,10 +77,10 @@ public class BarManager {
 		catalog.save(article);
 	}
 
-	public void removeArticleFromCatalog(Article article) {
+	public void removeArticleFromCatalog(ProductIdentifier id) {
 		// TODO check if this is necessary
-		inventory.deleteAll(inventory.findByProduct(article));
-		catalog.delete(article);
+		inventory.deleteAll(inventory.findByProductIdentifier(id));
+		catalog.deleteById(id);
 	}
 
 	public void removeExpiredArticlesFromInventory() {

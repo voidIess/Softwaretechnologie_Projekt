@@ -33,27 +33,25 @@ public class InventoryController {
 	private static final String REDIRECT_CATALOG = "redirect:/catalog";
 	private static final String ERROR = "error";
 	private static final String STATUS = "status";
-	private final UniqueInventory<UniqueInventoryItem> inventory;
-	private final ArticleCatalog catalog;
+
 	private final DiscountRepository discountRepository;
-	private final BarManager barService;
+	private final BarManager barManager;
 
 	@Autowired
 	ApplicationEventPublisher applicationEventPublisher;
 
 	public InventoryController(UniqueInventory<UniqueInventoryItem> inventory, ArticleCatalog catalog,
-							   DiscountRepository discountRepository, BarManager barService) {
-		this.inventory = inventory;
-		this.catalog = catalog;
+							   DiscountRepository discountRepository, BarManager barManager) {
+
 		this.discountRepository = discountRepository;
-		this.barService = barService;
+		this.barManager = barManager;
 	}
 
 	@PreAuthorize("hasRole('STAFF')")
 	@GetMapping("/reorders")
 	public String reorders(Model model) {
-		model.addAttribute("reorders", barService.getReorderingArticles());
-		model.addAttribute("available", barService.getReorderingArticles().iterator().hasNext());
+		model.addAttribute("reorders", barManager.getLowStockArticles());
+		model.addAttribute("available", barManager.getLowStockArticles().iterator().hasNext());
 		return "bar/reorders";
 	}
 
@@ -69,7 +67,7 @@ public class InventoryController {
 	@PreAuthorize("hasRole('STAFF')")
 	@PostMapping("/article")
 	public String addArticle(@Valid ArticleForm form, Model model) throws DateTimeParseException {
-		if (getError(form, model)) return ERROR;
+		/* if (getError(form, model)) return ERROR;
 		Date date = new Date(form).invoke();
 		LocalDate startDate = date.getStartDate();
 		LocalDate endDate = date.getEndDate();
@@ -86,7 +84,7 @@ public class InventoryController {
 		discountRepository.save(discount);
 		catalog.save(article);
 		inventory.save(new UniqueInventoryItem(article, Quantity.of(Integer.parseInt(form.getNumber()))));
-		applicationEventPublisher.publishEvent(this);
+		applicationEventPublisher.publishEvent(this); */
 		return REDIRECT_CATALOG;
 	}
 
@@ -94,16 +92,9 @@ public class InventoryController {
 
 	@PreAuthorize("hasRole('STAFF')")
 	@PostMapping("/article/delete/{id}")
-	public String delete(@PathVariable ProductIdentifier id) {
+	public String removeArticle(@PathVariable ProductIdentifier id) {
 
-		inventory.findAll().forEach(uniqueInventoryItem -> {
-			Article article = (Article) uniqueInventoryItem.getProduct();
-			if (Objects.equals(article.getId(), id)) {
-				inventory.delete(uniqueInventoryItem);
-				catalog.delete(article);
-			}
-		});
-
+		barManager.removeArticleFromCatalog(id);
 		return REDIRECT_CATALOG;
 	}
 
@@ -112,7 +103,7 @@ public class InventoryController {
 	@PreAuthorize("hasRole('STAFF')")
 	@GetMapping("/article/detail/{id}")
 	public String editArticle(@PathVariable ProductIdentifier id, Model model) throws DateTimeParseException {
-
+	/*
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.GERMANY);
 
 		inventory.findAll().forEach(uniqueInventoryItem -> {
@@ -124,7 +115,7 @@ public class InventoryController {
 			}
 
 		});
-
+*/
 		return "bar/edit_article";
 	}
 
@@ -185,7 +176,7 @@ public class InventoryController {
 	@PreAuthorize("hasRole('STAFF')")
 	@PostMapping("/article/detail/{id}")
 	public String editArticle(@PathVariable ProductIdentifier id, @Valid ArticleForm form, Model model) throws DateTimeParseException {
-		if (getError(form, model)) return ERROR;
+	/*	if (getError(form, model)) return ERROR;
 
 		Date date = new Date(form).invoke();
 		LocalDate startDate = date.getStartDate();
@@ -221,7 +212,7 @@ public class InventoryController {
 				applicationEventPublisher.publishEvent(this);
 
 			}
-		});
+		});*/
 		return REDIRECT_CATALOG;
 	}
 
@@ -246,7 +237,7 @@ public class InventoryController {
 	@PreAuthorize("hasRole('STAFF')")
 	public String stock(Model model) {
 
-		model.addAttribute("stock", inventory.findAll());
+		model.addAttribute("stock", barManager.getAvailableArticles());
 
 		return "/bar/stock";
 	}
