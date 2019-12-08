@@ -48,4 +48,6 @@ class RosterDataConverterTest {
 		}
 	}
 
+	//TODO: getWeekList testen
+
 }

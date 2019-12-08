@@ -117,5 +117,45 @@ public class RosterTest {
 		//TODO: delete and edit
 		//TODO: Error Messages printen
 	}
-	
+
+	@Test
+	@Order(3)
+	void testDelete() {
+		assertThat(roster.getRows().get(2).getSlots().get(2).getEntries().contains(rosterEntryCounter)).isTrue();
+		roster.deleteEntry(2,2,rosterEntryCounter.getRosterEntryId());
+		assertThat(roster.getRows().get(2).getSlots().get(2).getEntries().contains(rosterEntryCounter)).isFalse();
+		try {
+			roster.deleteEntry(2,2,-1);
+			fail("Dieser RosterEntry existiert nicht.");
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+
+		try {
+			roster.deleteEntry(2,7,rosterEntryCounter.getRosterEntryId());
+			fail("Der Tag darf nicht größer sein als 7.");
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+
+		try {
+			roster.deleteEntry(Roster.AMOUNT_ROWS,2,rosterEntryCounter.getRosterEntryId());
+			fail("Die Schicht existiert nicht!");
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+
+		try {
+			roster.deleteEntry(2,2,rosterEntryTrainer.getRosterEntryId());
+			fail("Der RosterEntry befindet sich nicht in der Liste.");
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+	}
+
+	@Test
+	@Order(4)
+	void testEdit() {
+		roster.addEntry(3,3,rosterEntryCounter);
+	}
 }

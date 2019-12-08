@@ -44,7 +44,6 @@ public class Training {
 
 	public Training(TrainingType type, Staff trainer, Member member, int day, LocalTime startTime, int duration, String description) {
 		this();
-
 		this.type = type;
 		this.trainer = trainer;
 		this.member = member;
@@ -53,7 +52,6 @@ public class Training {
 		this.description = description;
 		this.day = day;
 	}
-
 
 	public long getTrainingId() {
 		return trainingId;

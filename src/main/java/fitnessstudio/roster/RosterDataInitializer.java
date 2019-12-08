@@ -3,6 +3,7 @@ package fitnessstudio.roster;
 import fitnessstudio.staff.Staff;
 import fitnessstudio.staff.StaffDataInitializer;
 import fitnessstudio.staff.StaffManagement;
+import fitnessstudio.staff.StaffRole;
 import org.javamoney.moneta.Money;
 import org.salespointframework.core.DataInitializer;
 import org.salespointframework.useraccount.Password;
@@ -12,7 +13,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 
 @Component
@@ -48,6 +51,20 @@ public class RosterDataInitializer implements DataInitializer {
 			rosters.saveRoster(roster);
 			LOG.info("Roster für Woche: "+roster.getWeek());
 			LOG.info("Roster ID: "+roster.getRosterId());
+
+			List<String> times = new ArrayList<>();
+			times.add(roster.getRows().get(1).toString());
+			RosterEntryForm form = new RosterEntryForm(
+				staff.getStaffId(),
+				RosterDataConverter.roleToString(StaffRole.TRAINER),
+				1,
+				times,
+				c.get(Calendar.WEEK_OF_YEAR)
+				);
+			rosters.createRosterEntry(form, null);
+
 		}
+
+
 	}
 }

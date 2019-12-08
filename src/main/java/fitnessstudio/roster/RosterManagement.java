@@ -51,7 +51,7 @@ public class RosterManagement {
 		StaffRole role = RosterDataConverter.stringToRole(form.getRole());
 		int day = 0;
 		try {
-			day = Integer.parseInt(form.getDay());
+			day = form.getDay();
 		} catch (Exception e) {
 			errors.rejectValue("roster.error.staff", "Fehler bei Eingabe des Tages!");
 			return;
@@ -113,7 +113,7 @@ public class RosterManagement {
 		for (int i = 0; i < roster.getRows().size(); i++) {
 			if (roster.getRows().get(i).toString().equals(time)) {
 				try {
-					entry = getRosterEntryById(form.getWeek(),i,Integer.parseInt(form.getDay()), id);
+					entry = getRosterEntryById(form.getWeek(),i,form.getDay(), id);
 					entry.setRole(RosterDataConverter.stringToRole(form.getRole()));
 				} catch (Exception e) {
 					System.out.println("Error.");
