@@ -120,7 +120,7 @@ class MemberManagementUnitTests {
 		member.setEndDate(LocalDate.now());
 		members.save(member);
 
-		management.checkContracts();
+		management.checkMemberships();
 		assertThat(members.findById(memberId).get().getUserAccount().isEnabled()).isFalse();
 	}
 
