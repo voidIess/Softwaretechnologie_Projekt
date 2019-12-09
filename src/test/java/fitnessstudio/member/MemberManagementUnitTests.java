@@ -7,6 +7,7 @@ import org.junit.jupiter.api.*;
 import org.salespointframework.useraccount.UserAccount;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.ApplicationEventPublisher;
 
 import java.time.LocalDate;
 
@@ -56,6 +57,7 @@ class MemberManagementUnitTests {
 
 
 		assertThat(members.findById(memberId)).isNotEmpty();
+		assertThat(member.getContract()).isNotNull();
 	}
 
 	@Test
@@ -115,7 +117,43 @@ class MemberManagementUnitTests {
 
 	@Test
 	@Order(9)
-	void testCheckContracts() {
+	void testPause(){
+		Member member = members.findById(memberId).get();
+		LocalDate endDate = member.getEndDate();
+		Money oldCredit = member.getCredit();
+		management.pauseMembership(member);
+
+		assertThat(member.isPaused()).isTrue();
+		assertThat(member.getLastPause()).isEqualTo(LocalDate.now());
+		member.setLastPause(LocalDate.now().minusDays(33));
+		members.save(member);
+
+		assertThat(member.getEndDate()).isEqualTo(endDate.plusDays(31));
+		assertThat(member.getCredit()).isEqualTo(oldCredit.add(member.getContract().getPrice()));
+
+	}
+
+	@Test
+	@Order(10)
+	void testCheckMembershipsUnPause(){
+		management.checkMemberships();
+
+		Member member = members.findById(memberId).get();
+		assertThat(member.isPaused()).isFalse();
+	}
+
+	@Test
+	@Order(11)
+	void testCannotPauseAgain() {
+		Member member = members.findById(memberId).get();
+
+		management.pauseMembership(member);
+		assertThat(member.isPaused()).isFalse();
+	}
+
+	@Test
+	@Order(15)
+	void testCheckMembershipsDisableExpired() {
 		Member member = members.findById(memberId).get();
 		member.setEndDate(LocalDate.now());
 		members.save(member);
