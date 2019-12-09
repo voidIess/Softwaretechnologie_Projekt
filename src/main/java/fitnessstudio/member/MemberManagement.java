@@ -21,6 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import org.springframework.validation.Errors;
 
+import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -201,6 +202,7 @@ public class MemberManagement {
 		members.save(member);
 	}
 
+	@PostConstruct
 	@Scheduled(cron = "0 0 12 * * *")
 	public void checkContracts(){
 		LOG.info("Checking contracts..");
