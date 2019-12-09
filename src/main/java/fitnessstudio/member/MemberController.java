@@ -83,6 +83,39 @@ public class MemberController {
 		}).orElse(REDIRECT_LOGIN);
 	}
 
+	@GetMapping("/member/edit")
+	public String edit(@LoggedIn Optional<UserAccount> userAccount, EditingForm form, Model model, Errors results) {
+		return userAccount.map(user -> {
+
+			Optional<Member> member = memberManagement.findByUserAccount(user);
+
+			if (member.isPresent()) {
+
+				model.addAttribute("form", form);
+				model.addAttribute("error", results);
+				return "/member/editMember";
+			}
+			return REDIRECT_LOGIN;
+		}).orElse(REDIRECT_LOGIN);
+	}
+
+	@PostMapping("/member/edit")
+	public String editNew(@LoggedIn Optional<UserAccount> userAccount, @Valid @ModelAttribute("form") EditingForm form, Model model, Errors result) {
+		return userAccount.map(user -> {
+
+			Optional<Member> member = memberManagement.findByUserAccount(user);
+
+			if (member.isPresent()) {
+				memberManagement.editMember(member.get().getMemberId(), form, result);
+				if (result.hasErrors()) {
+					return edit(userAccount, form, model, result);
+				}
+				return "redirect:/member/home";
+			}
+			return REDIRECT_LOGIN;
+		}).orElse(REDIRECT_LOGIN);
+	}
+
 	@PostMapping("/member/payin")
 	public String payIn(@LoggedIn Optional<UserAccount> userAccount, @RequestParam("amount") double amount) {
 		Money money = Money.of(amount, "EUR");
