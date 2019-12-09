@@ -27,7 +27,7 @@ public class Member {
 	@Embedded
 	private CreditAccount creditAccount;
 
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Contract contract;
 
@@ -206,6 +206,8 @@ public class Member {
 		if (getLastPause() == null || getLastPause().getYear() < now.getYear()) {
 			setPaused(true);
 			setLastPause(now);
+			setEndDate(getEndDate().plusDays(31));
+			payIn(contract.getPrice());
 		}
 		return isPaused;
 	}
