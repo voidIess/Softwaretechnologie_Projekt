@@ -20,8 +20,7 @@
     <header>
         <h1>Training</h1>
     </header>
-
-    <a th:href="@{/member/training/create}">
+    <a th:if="${!member.isPaused()}" th:href="@{/member/training/create}">
         <button class="ui blue button">
             Training anfragen
         </button>
