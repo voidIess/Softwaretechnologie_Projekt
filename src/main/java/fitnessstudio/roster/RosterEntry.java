@@ -3,7 +3,6 @@ package fitnessstudio.roster;
 import com.mysema.commons.lang.Assert;
 import fitnessstudio.staff.Staff;
 import fitnessstudio.staff.StaffRole;
-import fitnessstudio.training.Training;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,8 +16,6 @@ public class RosterEntry implements Comparable<RosterEntry> {
 	@GeneratedValue
 	private long rosterEntryId;
 	private StaffRole role;
-
-	//@OneToOne
 	private long training;
 
 	@OneToOne

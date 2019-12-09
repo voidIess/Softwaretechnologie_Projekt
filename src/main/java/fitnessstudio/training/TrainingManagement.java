@@ -67,10 +67,6 @@ public class TrainingManagement {
 		}
 		Staff staff = staffOptional.get();
 
-		if (type.equals(TrainingType.TRIAL)) {
-			memberManagement.trainFree(member);
-		}
-
 		List<String> times = new ArrayList<>();
 		times.add(time);
 
@@ -80,11 +76,15 @@ public class TrainingManagement {
 			Integer.parseInt(day),
 			times,
 			form.getWeek()
-			);
+		);
 
 		if (!rosterManagement.isFree(rosterform)) {
 			result.rejectValue("staff","training.staff.notFree");
 			return null;
+		}
+
+		if (type.equals(TrainingType.TRIAL)) {
+			memberManagement.trainFree(member);
 		}
 
 		return trainings.save(new Training(type, staff, member, Integer.parseInt(day),
@@ -109,7 +109,7 @@ public class TrainingManagement {
 				training.getWeek()
 			);
 			if (rosterManagement.isFree(rosterEntryForm)) {
-				rosterManagement.createRosterEntry(rosterEntryForm, trainingId, null);
+				rosterManagement.createEntry(rosterEntryForm, trainingId, null);
 				training.accept();
 				trainings.save(training);
 				return true;

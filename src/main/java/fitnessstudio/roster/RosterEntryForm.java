@@ -15,10 +15,10 @@ public class RosterEntryForm {
 	@NotEmpty(message = "{roster.error.role}")
 	private final String role;
 
-	@NotNull(message = "{roster.error.time}") //
+	@NotNull(message = "{roster.error.time}")
 	private final List<String> times;
 
-	@NotNull(message = "{roster.error.day}") //
+	@NotNull(message = "{roster.error.day}")
 	private final Integer day;
 
 

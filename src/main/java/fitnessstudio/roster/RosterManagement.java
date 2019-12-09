@@ -3,20 +3,11 @@ package fitnessstudio.roster;
 import com.mysema.commons.lang.Assert;
 import fitnessstudio.staff.Staff;
 import fitnessstudio.staff.StaffManagement;
-import fitnessstudio.staff.StaffRepository;
 import fitnessstudio.staff.StaffRole;
-import fitnessstudio.training.Training;
-import org.javamoney.moneta.Money;
-import org.salespointframework.useraccount.Password;
-import org.salespointframework.useraccount.Role;
-import org.salespointframework.useraccount.UserAccountManager;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.Errors;
 
-import javax.sound.midi.Track;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -33,25 +24,22 @@ public class RosterManagement {
 		this.rosterRepository = rosterRepository;
 	}
 
-	public void createRosterEntry (RosterEntryForm form, long training, Errors errors) {
+	public void createEntry (RosterEntryForm form, long training, Errors errors) {
 		Assert.notNull(form, "RosterForm darf nicht 'null' sein.");
 		Assert.notNull(form.getTimes(), "Keine Liste gefunden.");
 		Assert.notNull(form.getWeek(), "Keine Woche angegeben!");
 
 		Staff staff = staffManagement.findById(form.getStaff()).orElse(null);
 
-
 		if (staff == null) {
 			errors.rejectValue("roster.error.staff", "Dieser Staff existiert nicht!");
 			return ;
 		}
-
 		Roster roster = getRosterByWeek(form.getWeek());
 		if (roster == null) {
 			errors.rejectValue("week", "Für diese Woche gibt es keinen Roster.");
 			return ;
 		}
-
 		StaffRole role = RosterDataConverter.stringToRole(form.getRole());
 		int day = 0;
 		try {
@@ -122,7 +110,6 @@ public class RosterManagement {
 					entry = getRosterEntryById(form.getWeek(),i,form.getDay(), id);
 					entry.setRole(RosterDataConverter.stringToRole(form.getRole()));
 				} catch (Exception e) {
-					System.out.println("Error.");
 					errors.reject("Edit", "Der Mitarbeiter hat zu dieser Zeit einen Termin.");
 				}
 			}
@@ -136,7 +123,6 @@ public class RosterManagement {
 		Assert.notNull(roster, "Es gibt keinen Roster für diese Woche!");
 		RosterEntry rosterEntry = getRosterEntryById(week, shift, day, id);
 		Assert.notNull(rosterEntry, "Keinen RosterEntry gefunden.");
-		//roster.getRows().get(shift).getSlots().get(day).getEntries().remove(rosterEntry);
 		try {
 			roster.deleteEntry(shift, day,id);
 		} catch(Exception e) {
@@ -148,7 +134,7 @@ public class RosterManagement {
 	public List<String> getTimes () {
 		Roster roster = rosterRepository.findAll().iterator().next();
 		if (roster == null) {
-			return null;
+			return new ArrayList<>();
 		}
 		List<String> times = new ArrayList<>();
 		for (TableRow row : roster.getRows()) {

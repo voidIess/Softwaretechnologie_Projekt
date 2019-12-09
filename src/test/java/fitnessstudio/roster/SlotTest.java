@@ -93,6 +93,7 @@ public class SlotTest {
 	}
 
 	@Test
+	@Order(4)
 	void testSortedList () {
 		slot = new Slot(1,1);
 		slot.getEntries().add(rosterEntry);
@@ -108,6 +109,7 @@ public class SlotTest {
 	}
 
 	@Test
+	@Order(5)
 	void testCoordinates () {
 		int shift = 1;
 		int day = 3;

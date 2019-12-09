@@ -2,8 +2,6 @@ package fitnessstudio.training;
 
 
 import fitnessstudio.member.Member;
-import fitnessstudio.roster.RosterDataConverter;
-import fitnessstudio.roster.RosterManagement;
 import org.salespointframework.useraccount.UserAccount;
 import org.salespointframework.useraccount.web.LoggedIn;
 import org.springframework.security.access.prepost.PreAuthorize;

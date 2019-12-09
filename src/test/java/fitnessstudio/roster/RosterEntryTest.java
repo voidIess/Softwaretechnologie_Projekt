@@ -67,7 +67,7 @@ public class RosterEntryTest {
 
 	@Test
 	@Order(4)
-	void istTrainerTest () {
+	void isTrainerTest () {
 		assertThat(rosterEntryTrainer.isTrainer()).isTrue();
 		assertThat(rosterEntryCounter.isTrainer()).isFalse();
 	}

@@ -24,7 +24,7 @@ public class RosterDataInitializer implements DataInitializer {
 	private final StaffManagement staffs;
 	private final RosterManagement rosters;
 	private final UserAccountManager userAccounts;
-	private String STAFF_ROLE = "STAFF";
+	private String STAFFROLE = "STAFF";
 
 	RosterDataInitializer (StaffManagement staffs, RosterManagement rosterManagement, UserAccountManager userAccounts) {
 		this.staffs = staffs;
@@ -34,10 +34,10 @@ public class RosterDataInitializer implements DataInitializer {
 
 	@Override
 	public void initialize() {
-		Staff staff = new Staff(userAccounts.create("staff", Password.UnencryptedPassword.of("123"), Role.of(STAFF_ROLE)),"Markus", "Wieland", Money.of(100, "EUR"));
+		Staff staff = new Staff(userAccounts.create("staff", Password.UnencryptedPassword.of("123"), Role.of(STAFFROLE)),"Markus", "Wieland", Money.of(100, "EUR"));
 		LOG.info("Create Staff (username: staff, passwort: 123)");
 
-		Staff staff2 = new Staff(userAccounts.create("Obi", Password.UnencryptedPassword.of("123"), Role.of(STAFF_ROLE)),"Obi", "Babobi", Money.of(10000, "EUR"));
+		Staff staff2 = new Staff(userAccounts.create("Obi", Password.UnencryptedPassword.of("123"), Role.of(STAFFROLE)),"Obi", "Babobi", Money.of(10000, "EUR"));
 		LOG.info("Create Staff (username: obi, passwort: 123)");
 
 		staffs.saveStaff(staff);
@@ -60,7 +60,7 @@ public class RosterDataInitializer implements DataInitializer {
 				times,
 				c.get(Calendar.WEEK_OF_YEAR)
 				);
-			rosters.createRosterEntry(form, -1, null);
+			rosters.createEntry(form, -1, null);
 
 		}
 

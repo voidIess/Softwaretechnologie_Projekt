@@ -2,16 +2,11 @@ package fitnessstudio.roster;
 
 import com.mysema.commons.lang.Assert;
 import fitnessstudio.staff.Staff;
-import org.apache.tomcat.jni.Local;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 @Entity
@@ -52,7 +47,7 @@ public class Roster {
 	}
 
 	public void addEntry (int shift, int day, RosterEntry rosterEntry) {
-		Assert.isTrue(shift >= 0 && shift < rows.size(), "Diese Schicht existiert nicht!");
+		Assert.isTrue(shift >= 0 && shift < rows.size(), "Diese Schichtnummer existiert nicht!");
 		Assert.isTrue(day >= 0 && day < 7, "Dieser Tag exisitiert nicht.");
 		Assert.notNull(rosterEntry, "Der RosterEntry darf nicht null sein!");
 		Slot slot = rows.get(shift).getSlots().get(day);
@@ -105,7 +100,7 @@ class TableRow {
 	TableRow (LocalDateTime start, int shiftNo) {
 		this();
 		Assert.notNull(start, "Keine Startzeit angegeben!");
-		Assert.isTrue(shiftNo >= 0 && shiftNo < Roster.AMOUNT_ROWS, "Diese Schicht existiert nicht!");
+		Assert.isTrue(shiftNo >= 0 && shiftNo < Roster.AMOUNT_ROWS, "Diese Schichtnummer existiert nicht!");
 		this.startTime = start;
 		this.endTime = start.plusMinutes(Roster.DURATION);
 		initialize(shiftNo);
@@ -172,12 +167,7 @@ class Slot {
 	}
 
 	public List<RosterEntry> getEntries() {
-		Collections.sort(entries, new Comparator<>() {
-			@Override
-			public int compare(RosterEntry p1, RosterEntry p2) {
-				return p1.compareTo(p2); // Ascending
-			}
-		});
+		entries.sort(RosterEntry::compareTo);
 		return entries;
 	}
 

@@ -26,6 +26,16 @@
             <span th:text="${training.member.toString()}"></span>
         </div>
 
+        <div class="state">
+            <b><span>Status: </span></b>
+            <span th:text="${training.getState()}"></span>
+        </div>
+
+        <div class="type">
+            <b><span>Typ: </span></b>
+            <span th:text="${training.type}"></span>
+        </div>
+
     </div>
 </div>
 </html>
