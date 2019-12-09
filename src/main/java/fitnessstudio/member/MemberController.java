@@ -77,6 +77,7 @@ public class MemberController {
 
 			if (member.isPresent()) {
 				model.addAttribute("member", member.get());
+				model.addAttribute("contractText", memberManagement.getContractTextOfMember(member.get()));
 				return "member/memberDetail";
 			}
 			return REDIRECT_LOGIN;
@@ -151,5 +152,23 @@ public class MemberController {
 			}
 			return REDIRECT_LOGIN;
 		}).orElse(REDIRECT_LOGIN);
+	}
+
+	@GetMapping("/member/pause")
+	public String pause(@LoggedIn Optional<UserAccount> userAccount){
+		return userAccount.map(user -> {
+			Optional<Member> member = memberManagement.findByUserAccount(user);
+			if (member.isPresent()) {
+				memberManagement.pauseMembership(member.get());
+				return "redirect:/member/home";
+			}
+			return REDIRECT_LOGIN;
+		}).orElse(REDIRECT_LOGIN);
+	}
+
+	@PreAuthorize("hasRole('MEMBER')")
+	@GetMapping("/member/memberPause")
+	public String showPause(){
+		return "member/memberPause";
 	}
 }

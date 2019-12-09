@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 
-<html xmlns:th="http://www.thymeleaf.org" th:replace="site_template :: template(#{memberDetail.title}, ~{::memberDetail})"></html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="site_template :: template(#{memberDetail.title}, ~{::memberDetail})"></html>
 
 <html xmlns:th="http://www.thymeleaf.org" th:remove="tag">
 <head th:remove="all">
@@ -10,6 +11,19 @@
 
 <div th:fragment="memberDetail">
     <div class="ui container">
+        <div style="text-align: center">
+            <div style="display: inline-block; width: available">
+                <div class="info" th:style="${member.isPaused() ? 'background:#ffcccd' : 'background:#ebffcf'}">
+                    <p class="box" style="border: solid #ffffff; border-radius: 10px; padding: 10px;"
+                       th:text="${contractText}">
+                        details
+                    </p>
+                </div>
+            </div>
+            <a th:if="${!member.isPaused()}" th:href="@{/member/memberPause}" class="ui button blue" style="display: inline-block" >
+                Pausieren
+            </a>
+        </div>
         <div class="ui item">
             <h2 class="header">Benutzerdaten</h2>
             <p>Name:
@@ -17,7 +31,7 @@
                 <span th:text="${member.lastName}">Nachname</span>
             </p>
             <p>Vertrag:
-                <span th:text="${member.contract.name + ' (läuft bis ' + member.getEndDate().toString() + ')'}">Vertrag</span>
+                <span th:text="${member.contract.name}">Vertrag</span>
             </p>
             <p>Bonuscode:
                 <span th:text="${member.getMemberId()}">0000</span>
@@ -51,7 +65,8 @@
                     <span th:text="${member.getContract().getPrice()}"></span>
                     an.
                 </p>
-                <button type="submit" class="ui button" th:text="#{memberDetail.printPdfInvoice}">Rechnung anzeigen</button>
+                <button type="submit" class="ui button" th:text="#{memberDetail.printPdfInvoice}">Rechnung anzeigen
+                </button>
             </form>
             <br>
         </div>
