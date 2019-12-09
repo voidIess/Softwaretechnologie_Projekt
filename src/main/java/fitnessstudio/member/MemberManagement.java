@@ -36,8 +36,8 @@ import java.util.stream.Stream;
 @Transactional
 public class MemberManagement {
 
-	private static final Logger LOG = LoggerFactory.getLogger(MemberManagement.class);
 	public static final Role MEMBER_ROLE = Role.of("MEMBER");
+	private static final Logger LOG = LoggerFactory.getLogger(MemberManagement.class);
 
 	private final ApplicationEventPublisher applicationEventPublisher;
 	private final MemberRepository members;
@@ -204,13 +204,32 @@ public class MemberManagement {
 
 	@PostConstruct
 	@Scheduled(cron = "0 0 12 * * *")
-	public void checkMemberships(){
+	public void checkMemberships() {
 		LOG.info("Checking contracts..");
-		for (Member member : findAllAuthorized(null)){
-			if (member.getEndDate().equals(LocalDate.now())){
+		for (Member member : findAllAuthorized(null)) {
+			if (member.getEndDate().equals(LocalDate.now())) {
 				member.disable();
 			}
+			if (member.isPaused() && member.getLastPause().plusDays(31).isBefore(LocalDate.now())){
+				member.unPause();
+			}
 		}
+	}
+
+	public String getContractTextOfMember(Member member) {
+		if (member.isPaused()) {
+			return "Mitgliedschaft pausiert bis " + member.getLastPause().plusDays(31).toString();
+		} else {
+			return "Mitglied bis " + member.getEndDate().toString();
+		}
+	}
+
+	public void pauseMembership(Member member) {
+		member.pause(LocalDate.now());
+		applicationEventPublisher.publishEvent(new InvoiceEvent(this, member.getMemberId(), InvoiceType.DEPOSIT, member.getContract().getPrice(),
+			"Rückerstattung Pausierung Vertrag"));
+
+		members.save(member);
 	}
 
 }
