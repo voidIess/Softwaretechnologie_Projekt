@@ -204,7 +204,7 @@ public class MemberManagement {
 
 	@PostConstruct
 	@Scheduled(cron = "0 0 12 * * *")
-	public void checkContracts(){
+	public void checkMemberships(){
 		LOG.info("Checking contracts..");
 		for (Member member : findAllAuthorized(null)){
 			if (member.getEndDate().equals(LocalDate.now())){
