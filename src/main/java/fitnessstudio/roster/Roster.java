@@ -26,7 +26,7 @@ public class Roster {
 		6,
 		0);
 
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.EAGER)
 	private List<TableRow> rows;
 
 	private Roster() {

@@ -25,7 +25,7 @@ public class RosterTest {
 	private Roster roster;
 
 	@Autowired
-	UserAccountManager userAccounts;
+	private UserAccountManager userAccounts;
 
 	@BeforeAll
 	void setup(){

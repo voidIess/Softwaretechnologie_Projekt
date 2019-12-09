@@ -38,10 +38,6 @@ class TrainingManagementUnitTests {
 	@Autowired
 	private StaffRepository staffs;
 
-	@Autowired
-	private RosterManagement rosters;
-
-
 	private int week;
 	private Long trainingId;
 	private Member member;

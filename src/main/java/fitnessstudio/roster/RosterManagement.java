@@ -27,6 +27,7 @@ public class RosterManagement {
 	public void createEntry(RosterEntryForm form, long training, Errors errors) {
 		Assert.notNull(form, "RosterForm darf nicht 'null' sein.");
 		Assert.notNull(form.getTimes(), "Keine Liste gefunden.");
+		Assert.notEmpty(form.getTimes(), "Die Liste ist leer");
 		Assert.notNull(form.getWeek(), "Keine Woche angegeben!");
 
 		Staff staff = staffManagement.findById(form.getStaff()).orElse(null);
@@ -62,7 +63,7 @@ public class RosterManagement {
 						if (training != -1 && role.equals(StaffRole.TRAINER)) rosterEntry.setTraining(training);
 
 					} catch (Exception e) {
-						errors.reject("times", "Der Mitarbeiter arbeiten von " + time + " schon.");
+						errors.reject("times", "Der Mitarbeiter arbeitet von " + time + " schon.");
 					}
 				}
 			}
