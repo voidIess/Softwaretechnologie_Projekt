@@ -54,7 +54,7 @@ public class RosterEntry implements Comparable<RosterEntry> {
 		return staff;
 	}
 
-	public String roleToString () {
+	public String roleToString() {
 		return RosterDataConverter.roleToString(role);
 	}
 
@@ -69,12 +69,12 @@ public class RosterEntry implements Comparable<RosterEntry> {
 		else return -1;
 	}
 
-	public void setTraining (long training) {
+	public void setTraining(long training) {
 		Assert.isTrue(role.equals(StaffRole.TRAINER), "Der Mitarbeiter muss als Trainer arbeiten!");
 		this.training = training;
 	}
 
-	public long getTraining () {
+	public long getTraining() {
 		return training;
 	}
 

@@ -74,7 +74,7 @@ public class RosterController {
 	@PreAuthorize("hasRole('STAFF') or hasRole('BOSS')")
 	@PostMapping("/roster/newRosterEntry")
 	public String createNewRosterEntry(Model model, @Valid @ModelAttribute("form") RosterEntryForm form, Errors errors) {
-		rosterManagement.createEntry(form,-1, errors);
+		rosterManagement.createEntry(form, -1, errors);
 		if (errors.hasErrors()) {
 			return newRosterEntry(form.getWeek(), model, form, errors);
 		}
@@ -95,8 +95,6 @@ public class RosterController {
 	}
 
 	//TODO: show Tag des RosterEntryForm
-	//TODO: Tests
-	//TODO: Crash sicher machen
 	//TODO: Nichts hinzufügen, wenn er bereits arbeitet, da sonst die sachen da ausgewählt werden.
 	//TODO: Beim erstellen eines Rosters schauen ob der bereits existiert, wenn ja, dann bitte einen neuen anlegen und den anderen löschen
 	//TODO: Vorhandene Knöpfe zum filtern nach Rolle nutzen
@@ -104,8 +102,8 @@ public class RosterController {
 	@PostMapping("/roster/editEntry/{id}")
 	public String editEntry(@Valid @ModelAttribute("form") RosterEntryForm form, Errors errors, @PathVariable long id, Model model) {
 		rosterManagement.editEntry(form, id, errors);
-		if (errors.hasErrors()){
-			return showDetail(form.getWeek(),rosterManagement.getTimeIndex(form.getTimes().get(0)),form.getDay(),id, form, model);
+		if (errors.hasErrors()) {
+			return showDetail(form.getWeek(), rosterManagement.getTimeIndex(form.getTimes().get(0)), form.getDay(), id, form, model);
 		}
 		return defaultLink + form.getWeek();
 	}

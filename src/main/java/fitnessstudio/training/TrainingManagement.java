@@ -79,7 +79,7 @@ public class TrainingManagement {
 		);
 
 		if (!rosterManagement.isFree(rosterform)) {
-			result.rejectValue("staff","training.staff.notFree");
+			result.rejectValue("staff", "training.staff.notFree");
 			return null;
 		}
 
@@ -98,7 +98,7 @@ public class TrainingManagement {
 
 	public boolean accept(Long trainingId) {
 		Training training = findById(trainingId).orElse(null);
-		if(training != null) {
+		if (training != null) {
 			List<String> list = new ArrayList<>();
 			list.add(training.getStartTime());
 			RosterEntryForm rosterEntryForm = new RosterEntryForm(

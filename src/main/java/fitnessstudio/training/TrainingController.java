@@ -96,7 +96,7 @@ public class TrainingController {
 	@GetMapping("/training/accept/{id}")
 	@PreAuthorize("hasRole('STAFF')")
 	public String accept(@PathVariable long id, Model model) {
-		if(!trainingManagement.accept(id)) {
+		if (!trainingManagement.accept(id)) {
 
 			//TODO: Error message
 			//TODO: tabelle um week erweitern
@@ -106,7 +106,7 @@ public class TrainingController {
 
 	@GetMapping("/training/details/{id}")
 	@PreAuthorize("hasRole('STAFF')")
-	public String details (@PathVariable long id, Model model ) {
+	public String details(@PathVariable long id, Model model) {
 		model.addAttribute("training", trainingManagement.findById(id).orElse(null));
 		return "training/detail_training";
 	}
