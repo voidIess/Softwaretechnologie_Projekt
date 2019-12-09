@@ -11,34 +11,97 @@
 
 </head>
 <body>
-<div class="ui container">
+
 
     <nav th:include="navigation :: navigation"></nav>
+    <nav th:include="toggle :: toggle"></nav>
 
-    <toggle th:include="toggle :: toggle"></toggle>
     <header>
-        <h1>Fitness Second</h1>
+
+        <h1 class="text middle">
+            <span>F</span>
+            <span class="hidden">i</span>
+            <span class="hidden">t</span>
+            <span class="hidden">n</span>
+            <span class="hidden">e</span>
+            <span class="hidden">s</span>
+            <span class="hidden">s&nbsp;</span>
+            <span>S</span>
+            <span class="hidden">e</span>
+            <span class="hidden">c</span>
+            <span class="hidden">o</span>
+            <span class="hidden">n</span>
+            <span class="hidden">d</span>
+        </h1>
+        <div class="container">
+            <span class="text1">Willkommen bei</span>
+            <span class="text2">Fitness Second</span>
+        </div>
     </header>
-    <h2 sec:authorize="isAuthenticated()" th:text="${'Hallo ' + #authentication?.name}">Hallo Nutzer</h2>
-    <h2> Welcome to Fitness Second</h2>
-    <!-- Hello -->
 
-    <!-- All Information -->
-    <div class="ui container">
-        <p style="text-align: left; display:flex; flex-direction: column; align-items: center">
-        <h2>Join us and become a member now</h2>
-        <label>Opening Times:</label> <span th:text="${openingTimes}"></span><br>
-        <label>Contract Term:</label> <span th:text="${contractTerm}"></span> <label>Months</label><br>
-        <label>Monthly Fees:</label> <span th:text="${monthlyFees}"></span> <label>€</label><br>
-        <label>Advertising Bonus:</label> <span th:text="${advertisingBonus}"></span> <label>€</label> <br>
+
+        <h2 sec:authorize="isAuthenticated()" th:text="${'Schön dich wiederzusehen ' + #authentication?.name} + '!'">
+        </h2>
+        <br/>
+
+    <div class="ui two column centered grid">
+        <div class="column">
+
+                <div class="ui two column very relaxed stackable grid">
+                    <div class="column">
+                        <a href="studio" sec:authorize="hasRole('BOSS')">
+                            <!-- Button to edit -->
+                            <button class="btn">Studio Bearbeiten</button>
+                        </a>
+                    </div>
+
+                    <div sec:authorize="hasRole('BOSS')" class="middle aligned column">
+                        <a href="" sec:authorize="hasAnyRole('ROLE_BOSS')">
+                            <!-- Button to add staff -->
+                            <button class="btn"> Mitarbeiter hinzufügen</button>
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+
     </div>
-</div>
 
-<!-- Button to edit -->
-<a href="/studio" sec:authorize="hasAnyRole('ROLE_BOSS')">
-    <button> Edit studio</button>
-</a>
+    <h1></h1>
+    <div class="ui container">
 
+        <div class="ui container">
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque feugiat lacinia facilisis.
+                Nulla pellentesque dui diam, eu volutpat arcu lacinia in.
+                Praesent semper libero ac elit porta, ut tristique lorem convallis.
+                Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
+                Curabitur hendrerit ullamcorper ante eu tincidunt.
+            </p>
+            <p>
+                Ut congue lectus nec tortor luctus, rhoncus fringilla nisi gravida.
+                Sed a libero at augue laoreet tempus eget eu lorem. Donec nec elementum odio, sed eros urna varius orci,
+                nec fringilla est nibh vel lorem. Suspendisse potenti.
+                Donec est tellus, venenatis nec dignissim et, viverra eget nisi.
+            </p>
+        </div>
+    </div>
+<h1></h1>
+    <div class="ui container" style="position:relative; bottom: 50px; text-align: center; background: #d2e1f7; padding: 10px">
+        <h3>Alle Informationen : </h3>
+
+                <label>Öffnungszeiten:</label> <label th:text="${openingTimes}"></label><br>
+                <label>Contract Term:</label> <label th:text="${contractTerm}"></label> <label>Months</label><br>
+                <label>Monthly Fees:</label> <label th:text="${monthlyFees}"></label> <label>€</label><br>
+                <label>Advertising Bonus:</label> <label th:text="${advertisingBonus}"></label> <label>€</label> <br>
+        <ul>
+        <li th:each="contract : ${contractList}">
+            <label th:text="${contract.name}">Name</label>: <label th:text="${contract.price}">Preis</label>
+           <label>(Vertragslaufzeit:</label>  <label th:text="${contract.duration}">Dauer</label><label> Tagen)</label><br>
+        </li>
+        </ul>
+    </div>
 
 </body>
 </html>
+

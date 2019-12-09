@@ -41,7 +41,7 @@ public class StudioIntegrationTest extends AbstractIntegrationTests {
 				.andExpect(model().attributeExists("openingTimes"))
 				.andExpect(model().attributeExists("contractTerm"))
 				.andExpect(model().attributeExists("monthlyFees"))
-				.andExpect(model().attributeExists("advertisingBonus")).andExpect(model().size(4));
+				.andExpect(model().attributeExists("advertisingBonus")).andExpect(model().size(5));
 	}
 
 	@Test

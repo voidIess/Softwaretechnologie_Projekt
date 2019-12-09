@@ -11,7 +11,7 @@
     --primary-color: #9A97F3;
     --secondary-color: #818cab;
     --font-color: #e1e1ff;
-    --bg-color: #343434;
+    --bg-color: #161625;
     --heading-color: white;
 
 }
@@ -27,7 +27,11 @@ em {
     color:var(--heading-color);
 }
 
-
+text {
+    margin-left: 10px;
+    font-size: 1rem;
+    color:var(--heading-color);
+}
 
 .theme-switch {
     display: inline-block;
@@ -63,7 +67,7 @@ em {
 }
 
 input:checked + .slider {
-    background-color: #66bb6a;
+    background-color: #0063bb;
 }
 
 input:checked + .slider:before {
@@ -80,7 +84,6 @@ input:checked + .slider:before {
 
 #toggle
 {
-    position: absolute;
-    top: 70px;
-    right: 300px;
+    position: relative;
+    left: 800px;
 }

@@ -3,7 +3,9 @@ body{
   padding: 0;
   font-family: "montserrat",sans-serif;
   min-height: 100vh;
-  background-image: linear-gradient(125deg,#6a89cc,#b8e994);
+  background-image: linear-gradient(125deg,#2c3e50,#27ae60,#2980b9,#e74c3c,#8e44ad);
+  background-size: 400% 400%;
+  animation: bganimation 15s infinite;
 }
 
 .container{
@@ -16,13 +18,26 @@ body{
 }
 
 .container h1{
-  font-size: 160px;
+  font-size: 250px;
   margin: 0;
   font-weight: 900;
   letter-spacing: 20px;
   background: url("../images/login.jpg") center no-repeat;
   -webkit-text-fill-color: transparent;
   -webkit-background-clip: text;
+}
+
+.container h2{
+  font-size: 70px;
+  margin: 0;
+  font-weight: 900;
+
+}
+
+.container p{
+  font-size: 23px;
+  font-weight: 500;
+
 }
 
 .container a{
@@ -40,3 +55,16 @@ body{
 .container a:hover{
   background: #e55039;
 }
+
+@keyframes bganimation {
+  0%{
+    background-position: 0% 50%;
+  }
+  50%{
+    background-position: 100% 50%;
+  }
+  100%{
+    background-position: 0% 50%;
+  }
+}
+

@@ -1,5 +1,6 @@
 package fitnessstudio.studio;
 
+import fitnessstudio.contract.ContractManagement;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -20,10 +21,12 @@ public class StudioController {
 	private static final String STATUS = "status";
 
 	private final StudioService studioService;
+	private final ContractManagement contractManagement;
 
 	@Autowired
-	public StudioController(StudioService studioService) {
+	public StudioController(StudioService studioService, ContractManagement contractManagement) {
 		this.studioService = studioService;
+		this.contractManagement = contractManagement;
 	}
 
 	@GetMapping("/")
@@ -33,6 +36,7 @@ public class StudioController {
 		model.addAttribute("contractTerm", studio.getContractTerm());
 		model.addAttribute("monthlyFees", studio.getMonthlyFees());
 		model.addAttribute("advertisingBonus", studio.getAdvertisingBonus());
+		model.addAttribute("contractList", contractManagement.getAllContracts());
 		return "index";
 	}
 
