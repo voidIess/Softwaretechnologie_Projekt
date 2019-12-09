@@ -157,6 +157,14 @@ public class Member {
 		this.isFreeTrained = isFreeTrained;
 	}
 
+	public void setLastPause(LocalDate lastPause) {
+		this.lastPause = lastPause;
+	}
+
+	public void setPaused(boolean paused) {
+		isPaused = paused;
+	}
+
 	void trainFree() {
 		isFreeTrained = true;
 	}
@@ -192,6 +200,19 @@ public class Member {
 
 	public void disable(){
 		userAccount.setEnabled(false);
+	}
+
+	public boolean pause(LocalDate now) {
+		if (getLastPause() == null || getLastPause().getYear() < now.getYear()) {
+			setPaused(true);
+			setLastPause(now);
+		}
+		return isPaused;
+	}
+	public void unPause(){
+		if (isPaused){
+			setPaused(false);
+		}
 	}
 
 }
