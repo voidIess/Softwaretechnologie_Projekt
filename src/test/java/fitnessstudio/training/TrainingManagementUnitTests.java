@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.validation.BeanPropertyBindingResult;
 
+import java.util.Calendar;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
@@ -40,7 +42,7 @@ class TrainingManagementUnitTests {
 	private RosterManagement rosters;
 
 
-
+	private int week;
 	private Long trainingId;
 	private Member member;
 	private Staff staff;
@@ -48,9 +50,8 @@ class TrainingManagementUnitTests {
 
 	@BeforeAll
 	void setUp() {
+		week = Calendar.getInstance().get(Calendar.WEEK_OF_YEAR);
 
-		Roster roster = new Roster(3);
-		rosters.saveRoster(roster);
 		if (members.findAll().isEmpty()) {
 			members.save(new Member());
 		}
@@ -71,7 +72,7 @@ class TrainingManagementUnitTests {
 	@Order(1)
 	void testCreateNormalTraining() {
 		Training training = management.createTraining(member, new TrainingForm("NORMAL", staff.getStaffId() + "", "0",
-			time, "Description", 3), null);
+			time, "Description", week), null);
 
 		trainingId = training.getTrainingId();
 
@@ -103,7 +104,7 @@ class TrainingManagementUnitTests {
 	@Order(5)
 	void testCreatTrialTraining() {
 		Training training = management.createTraining(member, new TrainingForm("TRIAL", staff.getStaffId() + "", "1",
-			time, "Description", 3), null);
+			time, "Description", week), null);
 
 		trainingId = training.getTrainingId();
 
@@ -122,7 +123,7 @@ class TrainingManagementUnitTests {
 	@Order(7)
 	void testDontCreateTrialTrainingWhenAlreadyFreeTrained() {
 		TrainingForm form = new TrainingForm("TRIAL", staff.getStaffId() + "", "0",
-			time, "Description", 3);
+			time, "Description", week);
 		Training training = management.createTraining(member, form, new BeanPropertyBindingResult(form, "form"));
 
 		assertThat(training).isNull();

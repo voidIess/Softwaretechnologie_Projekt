@@ -156,7 +156,7 @@ public class TrainingManagement {
 	public Optional<Training> findById(Long id) {
 		return trainings.findById(id);
 	}
-	
+
 	public RosterManagement getRosterManagement() {
 		return rosterManagement;
 	}
