@@ -126,7 +126,7 @@ public class TrainingManagement {
 	}
 
 	@Scheduled(cron = "0 * * * * *")
-	public void checkMemberships() {
+	public void checkTrainings() {
 		LOG.info("Updating trainings ..");
 		for (Training training : getAllTrainings()) {
 			if (training.getMember().isPaused()) {
