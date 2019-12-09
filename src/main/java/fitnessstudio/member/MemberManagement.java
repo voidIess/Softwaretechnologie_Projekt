@@ -164,6 +164,17 @@ public class MemberManagement {
 		}
 	}
 
+	EditingForm prefillEditMember(Member member, EditingForm form) {
+		if(form.isEmpty()) {
+			return new EditingForm(
+					member.getFirstName(),
+					member.getLastName(),
+					member.getCreditAccount().iban,
+					member.getCreditAccount().bic);
+		}
+		return form;
+	}
+
 	public Streamable<Member> findAll() {
 		return members.findAll();
 	}

@@ -85,18 +85,20 @@ public class MemberController {
 
 	@GetMapping("/member/edit")
 	public String edit(@LoggedIn Optional<UserAccount> userAccount, EditingForm form, Model model, Errors results) {
-		return userAccount.map(user -> {
-
-			Optional<Member> member = memberManagement.findByUserAccount(user);
-
-			if (member.isPresent()) {
-
-				model.addAttribute("form", form);
-				model.addAttribute("error", results);
-				return "/member/editMember";
-			}
+		if (userAccount.isEmpty()) {
 			return REDIRECT_LOGIN;
-		}).orElse(REDIRECT_LOGIN);
+		}
+
+		Optional<Member> member = memberManagement.findByUserAccount(userAccount.get());
+		if(member.isEmpty()) {
+			return REDIRECT_LOGIN;
+		}
+
+		form = memberManagement.prefillEditMember(member.get(), form);
+
+		model.addAttribute("form", form);
+		model.addAttribute("error", results);
+		return "/member/editMember";
 	}
 
 	@PostMapping("/member/edit")
