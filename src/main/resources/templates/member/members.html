@@ -49,11 +49,14 @@
             <td th:text="${customer.memberId}">MemberId</td>
             <td th:if="${customer.isAttendant()}" th:text="#{members.isAttendant}">anwesend</td>
             <td th:if="${!customer.isAttendant()}" th:text="#{members.isNotAttendant}">nicht anwesend</td>
-            <td th:if="${customer.isAttendant()}">
+            <td th:if="${customer.isAttendant() and !customer.isPaused()}">
                 <a class="ui red button" th:href="@{/member/checkout/{id}/(id=${customer.getMemberId()})}">check out</a>
             </td>
-            <td th:if="${!customer.isAttendant()}">
+            <td th:if="${!customer.isAttendant() and !customer.isPaused()}">
                 <a class="ui green button" th:href="@{/member/checkin/{id}/(id=${customer.getMemberId()})}">check in</a>
+            </td>
+            <td th:if="${customer.isPaused()}">
+                <span>&#10060;</span>
             </td>
         </tr>
         </tbody>
