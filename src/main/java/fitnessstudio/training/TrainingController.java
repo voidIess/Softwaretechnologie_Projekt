@@ -25,12 +25,10 @@ public class TrainingController {
 
 
 	private final TrainingManagement trainingManagement;
-	private final RosterManagement rosterManagement;
 
-	TrainingController(TrainingManagement trainingManagement, RosterManagement rosterManagement) {
+	TrainingController(TrainingManagement trainingManagement) {
 		Assert.notNull(trainingManagement, "TrainingManagement must not be null");
-		Assert.notNull(rosterManagement, "RosterManagement must not be null");
-		this.rosterManagement = rosterManagement;
+
 		this.trainingManagement = trainingManagement;
 	}
 
@@ -39,8 +37,8 @@ public class TrainingController {
 	public String create(Model model, TrainingForm form, Errors result) {
 		model.addAttribute("staffs", trainingManagement.getAllStaffs());
 		model.addAttribute("types", trainingManagement.getTypes());
-		model.addAttribute("times", rosterManagement.getTimes());
-		model.addAttribute("weeks", rosterManagement.getNextWeeks());
+		model.addAttribute("times", trainingManagement.getRosterManagement().getTimes());
+		model.addAttribute("weeks", trainingManagement.getRosterManagement().getNextWeeks());
 		model.addAttribute("form", form);
 		model.addAttribute("error", result);
 		return "training/create_training";

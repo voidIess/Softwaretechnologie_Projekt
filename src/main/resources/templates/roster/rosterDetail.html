@@ -29,9 +29,9 @@
                     <b><span th:text="${rosterEntry.getStaff().toString()}"></span></b>
                 </div>
 
-                <div th:if="${rosterEntry.getTraining() != null}">
+                <div th:if="${rosterEntry.getTraining() != -1}">
                     <b><span>Training: </span></b>
-                    <a th:if="${rosterEntry.getTraining() != null}" th:href="@{/training/details/{id}/(id=${rosterEntry.training})}">Siehe Details</a>
+                    <a th:if="${rosterEntry.getTraining() != -1}" th:href="@{/training/details/{id}/(id=${rosterEntry.training})}">Siehe Details</a>
                 </div>
 
                 <div class="field">
