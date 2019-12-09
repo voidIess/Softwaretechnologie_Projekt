@@ -18,16 +18,18 @@ public class RosterEntry implements Comparable<RosterEntry> {
 	private long rosterEntryId;
 	private StaffRole role;
 
-	@OneToOne
-	private Training training;
+	//@OneToOne
+	private long training;
 
 	@OneToOne
 	private Staff staff;
 
 	RosterEntry() {
+		this.training = -1;
 	}
 
 	RosterEntry(StaffRole role, Staff staff) {
+		this();
 		Assert.notNull(staff, "Der Mitarbeiter darf nicht null sein!");
 		this.role = role;
 		this.staff = staff;
@@ -43,7 +45,7 @@ public class RosterEntry implements Comparable<RosterEntry> {
 
 	public void setRole(StaffRole role) {
 		if (role.equals(StaffRole.COUNTER))
-			Assert.isTrue(training == null, "Der Mitarbeiter hat zu dieser Zeit einen Termin.");
+			Assert.isTrue(training == -1, "Der Mitarbeiter hat zu dieser Zeit einen Termin.");
 		this.role = role;
 	}
 
@@ -70,12 +72,12 @@ public class RosterEntry implements Comparable<RosterEntry> {
 		else return -1;
 	}
 
-	public void setTraining (Training training) {
+	public void setTraining (long training) {
 		Assert.isTrue(role.equals(StaffRole.TRAINER), "Der Mitarbeiter muss als Trainer arbeiten!");
 		this.training = training;
 	}
 
-	public Training getTraining () {
+	public long getTraining () {
 		return training;
 	}
 

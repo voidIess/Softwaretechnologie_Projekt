@@ -31,7 +31,7 @@
 
                 <div th:if="${rosterEntry.getTraining() != null}">
                     <b><span>Training: </span></b>
-                    <a th:if="${rosterEntry.getTraining() != null}" th:href="@{/training/details/{id}/(id=${rosterEntry.training.trainingId})}">Siehe Details</a>
+                    <a th:if="${rosterEntry.getTraining() != null}" th:href="@{/training/details/{id}/(id=${rosterEntry.training})}">Siehe Details</a>
                 </div>
 
                 <div class="field">

@@ -191,7 +191,7 @@ class Slot {
 	public boolean deleteEntry (long id) {
 		for (RosterEntry rosterEntry : entries){
 			if (rosterEntry.getRosterEntryId() == id){
-				if(rosterEntry.getTraining() == null) {
+				if(rosterEntry.getTraining() == -1) {
 					entries.remove(rosterEntry);
 					return true;
 				} else return false;

@@ -72,7 +72,7 @@ public class RosterController {
 	@PreAuthorize("hasRole('STAFF') or hasRole('BOSS')")
 	@PostMapping("/roster/newRosterEntry")
 	String createNewRosterEntry(Model model, @Valid @ModelAttribute("form") RosterEntryForm form, Errors errors) {
-		rosterManagement.createRosterEntry(form,null, errors);
+		rosterManagement.createRosterEntry(form,-1, errors);
 		if (errors.hasErrors()) {
 			return newRosterEntry(form.getWeek(), model, form, errors);
 		}

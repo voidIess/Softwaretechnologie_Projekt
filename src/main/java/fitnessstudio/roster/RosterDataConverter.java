@@ -1,13 +1,11 @@
 package fitnessstudio.roster;
 
 import com.mysema.commons.lang.Assert;
-import fitnessstudio.staff.StaffRepository;
 import fitnessstudio.staff.StaffRole;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.LinkedList;
 import java.util.List;
 
 public class RosterDataConverter {

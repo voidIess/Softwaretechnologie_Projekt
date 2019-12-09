@@ -1,7 +1,6 @@
 package fitnessstudio.roster;
 
 import fitnessstudio.staff.Staff;
-import fitnessstudio.staff.StaffDataInitializer;
 import fitnessstudio.staff.StaffManagement;
 import fitnessstudio.staff.StaffRole;
 import org.javamoney.moneta.Money;
@@ -61,7 +60,7 @@ public class RosterDataInitializer implements DataInitializer {
 				times,
 				c.get(Calendar.WEEK_OF_YEAR)
 				);
-			rosters.createRosterEntry(form, null, null);
+			rosters.createRosterEntry(form, -1, null);
 
 		}
 

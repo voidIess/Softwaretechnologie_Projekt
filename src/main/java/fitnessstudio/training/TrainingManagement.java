@@ -3,7 +3,10 @@ package fitnessstudio.training;
 
 import fitnessstudio.member.Member;
 import fitnessstudio.member.MemberManagement;
-import fitnessstudio.roster.*;
+import fitnessstudio.roster.Roster;
+import fitnessstudio.roster.RosterDataConverter;
+import fitnessstudio.roster.RosterEntryForm;
+import fitnessstudio.roster.RosterManagement;
 import fitnessstudio.staff.Staff;
 import fitnessstudio.staff.StaffManagement;
 import fitnessstudio.staff.StaffRole;
@@ -13,7 +16,6 @@ import org.springframework.util.Assert;
 import org.springframework.validation.Errors;
 
 import javax.transaction.Transactional;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -94,8 +96,6 @@ public class TrainingManagement {
 	}
 
 	public boolean accept(Long trainingId) {
-		//Optional<Training> trainingOptional = findById(trainingId);
-		//trainingOptional.ifPresent(Training::accept);
 		Training training = findById(trainingId).orElse(null);
 		if(training != null) {
 			List<String> list = new ArrayList<>();
@@ -108,7 +108,7 @@ public class TrainingManagement {
 				training.getWeek()
 			);
 			if (rosterManagement.isFree(rosterEntryForm)) {
-				rosterManagement.createRosterEntry(rosterEntryForm, training, null);
+				rosterManagement.createRosterEntry(rosterEntryForm, trainingId, null);
 				training.accept();
 				trainings.save(training);
 				return true;
@@ -154,9 +154,5 @@ public class TrainingManagement {
 
 	public Optional<Training> findById(Long id) {
 		return trainings.findById(id);
-	}
-
-	public void createRosterEntryForTrainer() {
-
 	}
 }
