@@ -86,7 +86,7 @@ public class SlotTest {
 	@Test
 	@Order(3)
 	void isTaken () {
-		slot = new Slot(1,1);
+		slot = new Slot(2,2);
 		slot.getEntries().add(rosterEntry);
 		assertThat(slot.isTaken(staff)).isTrue();
 		assertThat(slot.isTaken(staff2)).isFalse();
