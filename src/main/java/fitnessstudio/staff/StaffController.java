@@ -23,7 +23,6 @@ public class StaffController {
 		this.staffManagement = staffManagement;
 	}
 
-	// shows information about one staff
 	@GetMapping("/staff")
 	public String detail(@LoggedIn Optional<UserAccount> userAccount, Model model) {
 
@@ -43,19 +42,19 @@ public class StaffController {
 	@PostMapping("/printPdfPayslip")
 	public String printPdfPayslip(@LoggedIn Optional<UserAccount> userAccount, Model model) {
 
-		if (userAccount.isEmpty()) {
+		return userAccount.map(user -> {
+
+			Optional<Staff> staff = staffManagement.findByUserAccount(user);
+
+			if (staff.isPresent()) {
+				if(staff.get().workedLastMonth()) {
+					model.addAttribute("type", "payslip");
+					model.addAttribute("staff", staff.get());
+					return "pdfView";
+				}
+				return "redirect:/staff";
+			}
 			return REDIRECT;
-		}
-
-		Optional<Staff> staff = staffManagement.findByUserAccount(userAccount.get());
-
-		if (staff.isEmpty()) {
-			return REDIRECT;
-		}
-
-		model.addAttribute("type", "payslip");
-		model.addAttribute("staff", staff.get());
-
-		return "pdfView";
+		}).orElse(REDIRECT);
 	}
 }

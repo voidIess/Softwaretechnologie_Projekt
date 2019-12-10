@@ -64,6 +64,7 @@ public class TrainingController {
 			Optional<Member> member = trainingManagement.findByUserAccount(user);
 			if (member.isPresent()) {
 				model.addAttribute("trainings", trainingManagement.getAllTrainingByMember(member.get()));
+				model.addAttribute("member", member.get());
 				return "training/member_trainings";
 			}
 			return REDIRECT_LOGIN;

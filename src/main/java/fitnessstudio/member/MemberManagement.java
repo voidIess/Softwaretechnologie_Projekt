@@ -12,14 +12,19 @@ import org.salespointframework.useraccount.Password;
 import org.salespointframework.useraccount.Role;
 import org.salespointframework.useraccount.UserAccount;
 import org.salespointframework.useraccount.UserAccountManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.util.Streamable;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import org.springframework.validation.Errors;
 
+import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,6 +37,7 @@ import java.util.stream.Stream;
 public class MemberManagement {
 
 	public static final Role MEMBER_ROLE = Role.of("MEMBER");
+	private static final Logger LOG = LoggerFactory.getLogger(MemberManagement.class);
 
 	private final ApplicationEventPublisher applicationEventPublisher;
 	private final MemberRepository members;
@@ -99,9 +105,14 @@ public class MemberManagement {
 				return null;
 			} else {
 				Member receiver = receiverOptional.get();
+				Money bonus = Money.of(new BigDecimal(studioService.getStudio().getAdvertisingBonus()),
+					"EUR");
 
-				receiver.payIn(Money.of(new BigDecimal(studioService.getStudio().getAdvertisingBonus()), "EUR"));
+				receiver.payIn(bonus);
 				members.save(receiver);
+
+				applicationEventPublisher.publishEvent(new InvoiceEvent(this, receiver.getMemberId(),
+					InvoiceType.DEPOSIT, bonus, "Anwerbebonus"));
 			}
 
 		}
@@ -128,6 +139,45 @@ public class MemberManagement {
 	public void authorizeMember(Long memberId) {
 		Optional<Member> member = findById(memberId);
 		member.ifPresent(Member::authorize);
+	}
+
+	public void editMember(Long memberId, EditingForm form, Errors result) {
+		Assert.notNull(form, "EditingForm form must not be null");
+
+		var firstName = form.getFirstName();
+		var lastName = form.getLastName();
+		var iban = form.getIban();
+		var bic = form.getBic();
+
+		Optional<Member> member = findById(memberId);
+		if (member.isPresent()) {
+
+			if (iban.length() != 22) {
+				result.rejectValue("iban", "register.iban.wrongSize");
+			}
+
+			if (bic.length() < 8 || bic.length() > 11) {
+				result.rejectValue("bic", "register.bic.wrongSize");
+			}
+
+			member.get().setFirstName(firstName);
+			member.get().setLastName(lastName);
+			member.get().getCreditAccount().iban = iban;
+			member.get().getCreditAccount().bic = bic;
+
+			members.save(member.get());
+		}
+	}
+
+	EditingForm prefillEditMember(Member member, EditingForm form) {
+		if(form.isEmpty()) {
+			return new EditingForm(
+					member.getFirstName(),
+					member.getLastName(),
+					member.getCreditAccount().iban,
+					member.getCreditAccount().bic);
+		}
+		return form;
 	}
 
 	public Streamable<Member> findAll() {
@@ -195,4 +245,35 @@ public class MemberManagement {
 		member.trainFree();
 		members.save(member);
 	}
+
+	@PostConstruct
+	@Scheduled(cron = "0 0 12 * * *")
+	public void checkMemberships() {
+		LOG.info("Checking contracts..");
+		for (Member member : findAllAuthorized(null)) {
+			if (member.getEndDate().equals(LocalDate.now())) {
+				member.disable();
+			}
+			if (member.isPaused() && member.getLastPause().plusDays(31).isBefore(LocalDate.now())){
+				member.unPause();
+			}
+		}
+	}
+
+	public String getContractTextOfMember(Member member) {
+		if (member.isPaused()) {
+			return "Mitgliedschaft pausiert bis " + member.getLastPause().plusDays(31).toString();
+		} else {
+			return "Mitglied bis " + member.getEndDate().toString();
+		}
+	}
+
+	public void pauseMembership(Member member) {
+		member.pause(LocalDate.now());
+		applicationEventPublisher.publishEvent(new InvoiceEvent(this, member.getMemberId(), InvoiceType.DEPOSIT, member.getContract().getPrice(),
+			"Rückerstattung Pausierung Vertrag"));
+
+		members.save(member);
+	}
+
 }

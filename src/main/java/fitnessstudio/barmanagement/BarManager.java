@@ -100,7 +100,7 @@ public class BarManager {
 	}
 	 */
 
-	/*
+/*
 	public boolean addArticleToCart(Article article, Quantity quantity, Cart cart) {
 
 		Quantity inventoryQuantity = inventory.findByProduct(article).getTotalQuantity();
@@ -114,8 +114,8 @@ public class BarManager {
 		cart.addOrUpdateItem(article, addingQuantity);
 
 		return !addingQuantity.equals(Quantity.NONE);
-	} */
-
+	}
+*/
 	public Iterable<Article> getAllArticles() {
 		return catalog.findAll();
 	}

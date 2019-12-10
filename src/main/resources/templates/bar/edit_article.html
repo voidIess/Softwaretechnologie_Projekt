@@ -16,62 +16,62 @@
 <div class="container">
     <form method="post" role="form" class="ui form" id="form" th:action="@{/article/detail/{id}(id=${id})}" th:object="${form}">
 
-        <h3>Artikel berarbeiten</h3>
+        <h2>Artikel berarbeiten</h2>
 
         <fieldset>
-            <Label>Name</Label><label for="name"></label><input type="text" th:field="*{name}"
+            <p>Name</p><label for="name"></label><input type="text" th:field="*{name}"
                                                                 id="name"
                                                                 required/>
         </fieldset>
 
         <fieldset>
-            <Label>Preis in Euro</Label><label for="price"></label><input type="number" th:field="*{price}"
+            <p>Preis in Euro</p><label for="price"></label><input type="number" th:field="*{price}"
                                                                           id="price" step="0.01"
                                                                           required/>
         </fieldset>
 
         <fieldset>
-            <Label>Art</Label><label for="type"></label><input type="text" th:field="*{type}"
+            <p>Art</p><label for="type"></label><input type="text" th:field="*{type}"
                                                               id="type"
                                                               required/>
         </fieldset>
 
         <fieldset>
-            <Label>Beschreibung</Label><label for="description"></label><input type="text" th:field="*{description}"
+            <p>Beschreibung</p><label for="description"></label><input type="text" th:field="*{description}"
                                                                                id="description"
                                                                                required/>
         </fieldset>
 
         <fieldset>
-            <Label>Mindesthaltbarkeitsdatum</Label><label for="expirationDate"></label><input type="date"
+            <p>Mindesthaltbarkeitsdatum</p><label for="expirationDate"></label><input type="date"
                                                                                               th:field="*{expirationDate}"
                                                                                               id="expirationDate"
                                                                                               required/>
         </fieldset>
 
         <fieldset>
-            <Label>Rabatt vom</Label><label for="startDiscount"></label><input type="date"
+            <p>Rabatt vom</p><label for="startDiscount"></label><input type="date"
                                                                                th:field="*{startDiscount}"
                                                                                id="startDiscount"
                                                                                required/>
         </fieldset>
 
         <fieldset>
-            <Label>Rabatt in Prozent</Label><label for="percentDiscount"></label><input type="number"
+            <p>Rabatt in Prozent</p><label for="percentDiscount"></label><input type="number"
                                                                                         th:field="*{percentDiscount}"
                                                                                         id="percentDiscount" required/>
         </fieldset>
 
 
         <fieldset>
-            <Label>Rabatt bis</Label><label for="endDiscount"></label><input type="date"
+            <p>Rabatt bis</p><label for="endDiscount"></label><input type="date"
                                                                              th:field="*{endDiscount}"
                                                                              id="endDiscount"
                                                                              required/>
         </fieldset>
 
         <fieldset>
-            <Label>Anzahl</Label><label for="number"></label><input type="number"
+            <p>Anzahl</p><label for="number"></label><input type="number"
                                                                     th:field="*{number}"
                                                                     id="number"
                                                                     required/>

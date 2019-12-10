@@ -1,6 +1,7 @@
 package fitnessstudio.member;
 
 import fitnessstudio.contract.Contract;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.javamoney.moneta.Money;
@@ -27,12 +28,13 @@ public class Member {
 	@Embedded
 	private CreditAccount creditAccount;
 
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Contract contract;
 
 	private LocalDate endDate;
 	private LocalDate lastPause;
+	@CreationTimestamp private LocalDate membershipStartDate;
 
 	private LocalDateTime checkInTime;
 
@@ -70,8 +72,16 @@ public class Member {
 		return firstName;
 	}
 
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
 	public String getLastName() {
 		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
 	public String getUserName() {
@@ -100,6 +110,10 @@ public class Member {
 
 	public void setContract(Contract contract) {
 		this.contract = contract;
+	}
+
+	public void setEndDate(LocalDate endDate) {
+		this.endDate = endDate;
 	}
 
 	public void authorize() {
@@ -153,6 +167,14 @@ public class Member {
 		this.isFreeTrained = isFreeTrained;
 	}
 
+	public void setLastPause(LocalDate lastPause) {
+		this.lastPause = lastPause;
+	}
+
+	public void setPaused(boolean paused) {
+		isPaused = paused;
+	}
+
 	void trainFree() {
 		isFreeTrained = true;
 	}
@@ -190,4 +212,26 @@ public class Member {
 		userAccount.setEnabled(false);
 	}
 
+	public boolean pause(LocalDate now) {
+		if (getLastPause() == null || getLastPause().getYear() < now.getYear()) {
+			setPaused(true);
+			setLastPause(now);
+			setEndDate(getEndDate().plusDays(31));
+			payIn(contract.getPrice());
+		}
+		return isPaused;
+	}
+	public void unPause(){
+		if (isPaused){
+			setPaused(false);
+		}
+	}
+
+	public boolean wasMemberLastMonth() {
+		if(membershipStartDate == null){	//member wasn't saved yet
+			return false;
+		}
+		LocalDate lastMonth = LocalDate.now().minusDays(LocalDate.now().getDayOfMonth());
+		return membershipStartDate.isBefore(lastMonth) || membershipStartDate.isEqual(lastMonth);
+	}
 }

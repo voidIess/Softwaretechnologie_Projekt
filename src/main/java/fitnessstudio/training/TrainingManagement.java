@@ -11,6 +11,9 @@ import fitnessstudio.staff.Staff;
 import fitnessstudio.staff.StaffManagement;
 import fitnessstudio.staff.StaffRole;
 import org.salespointframework.useraccount.UserAccount;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import org.springframework.validation.Errors;
@@ -24,6 +27,8 @@ import java.util.Optional;
 @Service
 @Transactional
 public class TrainingManagement {
+
+	private static final Logger LOG = LoggerFactory.getLogger(MemberManagement.class);
 
 	private final TrainingRepository trainings;
 	private final MemberManagement memberManagement;
@@ -157,7 +162,18 @@ public class TrainingManagement {
 		return trainings.findById(id);
 	}
 
+
 	public RosterManagement getRosterManagement() {
 		return rosterManagement;
+	}
+
+	@Scheduled(cron = "0 * * * * *")
+	public void checkTrainings() {
+		LOG.info("Updating trainings ..");
+		for (Training training : getAllTrainings()) {
+			if (training.getMember().isPaused()) {
+				end(training.getTrainingId());
+			}
+		}
 	}
 }
