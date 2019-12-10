@@ -122,25 +122,17 @@ public class Member {
 	}
 
 	boolean checkIn() {
-		if (isAttendant) {
-			return false;
-		} else {
-			isAttendant = true;
-			checkInTime = LocalDateTime.now();
-			return true;
-		}
+		isAttendant = true;
+		checkInTime = LocalDateTime.now();
+		return true;
 	}
 
 	long checkOut() {
-		if (!isAttendant) {
-			return 0;
-		} else {
-			isAttendant = false;
-			long duration = Duration.between(checkInTime, LocalDateTime.now()).toMinutes();
-			exerciseTime += duration;
-			checkInTime = null;
-			return duration;
-		}
+		isAttendant = false;
+		long duration = Duration.between(checkInTime, LocalDateTime.now()).toMinutes();
+		exerciseTime += duration;
+		checkInTime = null;
+		return duration;
 	}
 
 	public LocalDate getEndDate() {

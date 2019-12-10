@@ -233,12 +233,16 @@ public class MemberManagement {
 
 	public void checkMemberIn(Long memberId) {
 		Optional<Member> member = findById(memberId);
-		member.ifPresent(Member::checkIn);
+		if(member.isPresent() && !member.get().isPaused() && !member.get().isAttendant()) {
+			member.ifPresent(Member::checkIn);
+		}
 	}
 
 	public void checkMemberOut(Long memberId) {
 		Optional<Member> member = findById(memberId);
-		member.ifPresent(m -> statisticManagement.addAttendance(memberId, m.checkOut()));
+		if(member.isPresent() && !member.get().isPaused() && member.get().isAttendant()) {
+			statisticManagement.addAttendance(memberId, member.get().checkOut());
+		}
 	}
 
 	public void trainFree(Member member) {
