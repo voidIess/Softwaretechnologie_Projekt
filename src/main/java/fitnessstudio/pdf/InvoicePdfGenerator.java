@@ -28,6 +28,7 @@ public class InvoicePdfGenerator implements PdfGenerator {
 		List<InvoiceEntry> invoiceEntries = (List<InvoiceEntry>) invoice.get("invoiceEntries");
 		DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 		MonetaryAmountFormat moneyFormat = MonetaryFormats.getAmountFormat(Locale.GERMANY);
+
 		MonetaryAmount totalPrice = Money.of(0, "EUR");
 
 		Paragraph p = new Paragraph("Kundeninformation");
@@ -44,8 +45,8 @@ public class InvoicePdfGenerator implements PdfGenerator {
 
 		Contract contract = member.getContract();
 		table1.addCell(contract.getName());
-		table1.addCell(moneyFormat.format(contract.getPrice()));
-		totalPrice = totalPrice.add(contract.getPrice());
+		table1.addCell(moneyFormat.format(contract.getPrice().negate()));
+		totalPrice = totalPrice.add(contract.getPrice().negate());
 
 		d.add(table1);
 
@@ -57,10 +58,16 @@ public class InvoicePdfGenerator implements PdfGenerator {
 			d.add(new Paragraph("Weitere Ausgaben").setBold());
 
 			for (InvoiceEntry entry: invoiceEntries) {
+
+				Money amount = entry.getAmount();
+				if(!entry.getDescription().equals("Anwerbebonus")) {
+					amount = amount.negate();
+				}
+				totalPrice = totalPrice.add(amount);
+
 				table2.addCell(entry.getCreated().format(dateFormatter));
 				table2.addCell(entry.getDescription());
-				table2.addCell(moneyFormat.format(entry.getAmount()));
-				totalPrice = totalPrice.add(entry.getAmount());
+				table2.addCell(moneyFormat.format(amount));
 			}
 
 			d.add(table2);
