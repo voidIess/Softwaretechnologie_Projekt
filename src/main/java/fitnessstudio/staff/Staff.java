@@ -1,25 +1,31 @@
 package fitnessstudio.staff;
 
+import org.hibernate.annotations.CreationTimestamp;
 import org.javamoney.moneta.Money;
 import org.salespointframework.useraccount.UserAccount;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 public class Staff {
 
-	private Money salary;
 	@Id @GeneratedValue
 	private long staffId;
 
 	private String firstName;
 	private String lastName;
 
+	private Money salary;
+
 	@OneToOne
 	private UserAccount userAccount;
 
 	//@OneToMany()
 	//private RosterEntry[][] rosterEntries = new RosterEntry[7][];
+
+	@CreationTimestamp
+	private LocalDate startDate;
 
 	public Staff() {}
 
@@ -61,6 +67,14 @@ public class Staff {
 	@Override
 	public String toString(){
 		return lastName + ", " + firstName + " (ID: " + staffId + ")";
+	}
+
+	public boolean workedLastMonth(){
+		if(startDate == null){	//staff wasn't saved
+			return false;
+		}
+		LocalDate lastMonth = LocalDate.now().minusDays(LocalDate.now().getDayOfMonth());
+		return startDate.isBefore(lastMonth) || startDate.isEqual(lastMonth);
 	}
 }
 
