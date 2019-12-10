@@ -63,14 +63,15 @@
                 </button>
             </form>
             <h2>Rechnung</h2>
-            <form class="ui form" method="post" th:action="@{/printPdfInvoice}">
-                <p>Durch Ihren Vertrag fallen monatlich
-                    <span th:text="${member.getContract().getPrice()}"></span>
-                    an.
-                </p>
-                <button type="submit" class="ui button" th:text="#{memberDetail.printPdfInvoice}">Rechnung anzeigen
+            <p>Durch Deine kluge Vertragswahl zahlst Du monatlich nur
+                <span th:text="${member.getContract().getPrice().toString()}"></span>.
+            </p>
+            <form class="ui form" method="post" th:if="${member.wasMemberLastMonth()}" th:action="@{/printPdfInvoice}">
+                <button type="submit" class="ui button" th:text="#{memberDetail.printPdfInvoice}">
+                    Rechnung anzeigen
                 </button>
             </form>
+            <p th:if="${!member.wasMemberLastMonth()}">Ab nächstem Monat kannst Du hier Deine Rechnung sehen.</p>
             <br>
         </div>
     </div>

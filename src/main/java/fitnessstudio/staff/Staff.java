@@ -70,7 +70,7 @@ public class Staff {
 	}
 
 	public boolean workedLastMonth(){
-		if(startDate == null){	//staff wasn't saved
+		if(startDate == null){	//staff wasn't saved yet
 			return false;
 		}
 		LocalDate lastMonth = LocalDate.now().minusDays(LocalDate.now().getDayOfMonth());

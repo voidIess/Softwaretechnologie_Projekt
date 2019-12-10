@@ -2,6 +2,7 @@ package fitnessstudio.member;
 
 import fitnessstudio.contract.ContractManagement;
 import fitnessstudio.invoice.InvoiceManagement;
+import fitnessstudio.staff.Staff;
 import org.javamoney.moneta.Money;
 import org.salespointframework.useraccount.UserAccount;
 import org.salespointframework.useraccount.web.LoggedIn;
@@ -164,14 +165,20 @@ public class MemberController {
 
 	@PostMapping("/printPdfInvoice")
 	public String printPdfInvoice(@LoggedIn Optional<UserAccount> userAccount, Model model) {
-		if (userAccount.isEmpty() || memberManagement.findByUserAccount(userAccount.get()).isEmpty()) {
+		return userAccount.map(user -> {
+
+			Optional<Member> member = memberManagement.findByUserAccount(user);
+
+			if (member.isPresent()) {
+				if(member.get().wasMemberLastMonth()) {
+					model.addAttribute("type", "invoice");
+					model.addAllAttributes(memberManagement.createPdfInvoice(userAccount.get()));
+					return "pdfView";
+				}
+				return "redirect:/member/home";
+			}
 			return REDIRECT_LOGIN;
-		}
-
-		model.addAttribute("type", "invoice");
-		model.addAllAttributes(memberManagement.createPdfInvoice(userAccount.get()));
-
-		return "pdfView";
+		}).orElse(REDIRECT_LOGIN);
 	}
 
 	/*

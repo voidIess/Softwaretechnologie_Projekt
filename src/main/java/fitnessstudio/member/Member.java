@@ -1,6 +1,7 @@
 package fitnessstudio.member;
 
 import fitnessstudio.contract.Contract;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.javamoney.moneta.Money;
@@ -33,6 +34,7 @@ public class Member {
 
 	private LocalDate endDate;
 	private LocalDate lastPause;
+	@CreationTimestamp private LocalDate membershipStartDate;
 
 	private LocalDateTime checkInTime;
 
@@ -225,4 +227,11 @@ public class Member {
 		}
 	}
 
+	public boolean wasMemberLastMonth() {
+		if(membershipStartDate == null){	//member wasn't saved yet
+			return false;
+		}
+		LocalDate lastMonth = LocalDate.now().minusDays(LocalDate.now().getDayOfMonth());
+		return membershipStartDate.isBefore(lastMonth) || membershipStartDate.isEqual(lastMonth);
+	}
 }
