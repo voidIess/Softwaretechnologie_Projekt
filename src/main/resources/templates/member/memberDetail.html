@@ -33,6 +33,9 @@
                 <span th:text="${member.firstName}">Vorname</span>
                 <span th:text="${member.lastName}">Nachname</span>
             </p>
+            <p>Email:
+                <span th:text="${member.getUserAccount().email}">Email</span>
+            </p>
             <p>Vertrag:
                 <span th:text="${member.contract.name}">Vertrag</span>
             </p>

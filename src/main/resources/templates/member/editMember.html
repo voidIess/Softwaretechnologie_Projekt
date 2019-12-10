@@ -32,6 +32,14 @@
                 <p th:if="${#fields.hasErrors('firstName')}" th:errors="*{lastName}">Der Nachname darf nicht leer sein.</p>
             </div>
 
+            <div class="field">
+                <label th:text="#{register.email}" for="email">Email</label>
+                <input id="email" name="email" th:field="*{email}" th:errorclass="fieldError" type="text" required="required">
+                <div class="ui negative message" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">
+                    <p>Email bereits vergeben.</p>
+                </div>
+            </div>
+
             <h2>Kontodaten</h2>
 
             <div class="field">
