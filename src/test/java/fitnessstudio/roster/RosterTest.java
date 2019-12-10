@@ -25,7 +25,7 @@ public class RosterTest {
 	private Roster roster;
 
 	@Autowired
-	UserAccountManager userAccounts;
+	private UserAccountManager userAccounts;
 
 	@BeforeAll
 	void setup(){
@@ -114,8 +114,6 @@ public class RosterTest {
 			System.out.println(e.getMessage());
 		}
 
-		//TODO: delete and edit
-		//TODO: Error Messages printen
 	}
 
 	@Test
@@ -153,9 +151,4 @@ public class RosterTest {
 		}
 	}
 
-	@Test
-	@Order(4)
-	void testEdit() {
-		roster.addEntry(3,3,rosterEntryCounter);
-	}
 }

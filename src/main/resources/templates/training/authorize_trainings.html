@@ -23,6 +23,10 @@
 
     <a th:href="@{/admin/trainings}">Zurück</a>
 
+    <p class="ui negative message" th:if="${#fields.hasErrors('*')}" th:each="err : ${#fields.errors('*')}"
+       th:text="${err}">
+    </p>
+
     <table class="ui celled table">
         <thead>
         <tr>
@@ -31,6 +35,7 @@
             <th>Mitglied</th>
             <th>Trainer</th>
             <th>Wünsche</th>
+            <th>Woche</th>
             <th>Tag</th>
             <th>Zeit</th>
             <th>Aktion</th>
@@ -43,6 +48,7 @@
             <td th:text="${training.member.toString()}">Name</td>
             <td th:text="${training.trainer.toString()}">Trainer</td>
             <td th:text="${training.description}">Wuensche</td>
+            <td th:text="${training.getWeek()}">Woche</td>
             <td th:text="${training.getDayAsString()}">Tag</td>
             <td th:text="${training.startTime}">Zeit</td>
             <td>

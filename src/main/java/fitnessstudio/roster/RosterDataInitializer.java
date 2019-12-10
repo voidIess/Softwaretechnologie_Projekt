@@ -1,7 +1,6 @@
 package fitnessstudio.roster;
 
 import fitnessstudio.staff.Staff;
-import fitnessstudio.staff.StaffDataInitializer;
 import fitnessstudio.staff.StaffManagement;
 import fitnessstudio.staff.StaffRole;
 import org.javamoney.moneta.Money;
@@ -25,9 +24,9 @@ public class RosterDataInitializer implements DataInitializer {
 	private final StaffManagement staffs;
 	private final RosterManagement rosters;
 	private final UserAccountManager userAccounts;
-	private String STAFF_ROLE = "STAFF";
+	private String STAFFROLE = "STAFF";
 
-	RosterDataInitializer (StaffManagement staffs, RosterManagement rosterManagement, UserAccountManager userAccounts) {
+	RosterDataInitializer(StaffManagement staffs, RosterManagement rosterManagement, UserAccountManager userAccounts) {
 		this.staffs = staffs;
 		this.rosters = rosterManagement;
 		this.userAccounts = userAccounts;
@@ -35,22 +34,22 @@ public class RosterDataInitializer implements DataInitializer {
 
 	@Override
 	public void initialize() {
-		Staff staff = new Staff(userAccounts.create("staff", Password.UnencryptedPassword.of("123"), Role.of(STAFF_ROLE)),"Markus", "Wieland", Money.of(100, "EUR"));
+		Staff staff = new Staff(userAccounts.create("staff", Password.UnencryptedPassword.of("123"), Role.of(STAFFROLE)), "Markus", "Wieland", Money.of(100, "EUR"));
 		LOG.info("Create Staff (username: staff, passwort: 123)");
 
-		Staff staff2 = new Staff(userAccounts.create("Obi", Password.UnencryptedPassword.of("123"), Role.of(STAFF_ROLE)),"Obi", "Babobi", Money.of(10000, "EUR"));
+		Staff staff2 = new Staff(userAccounts.create("Obi", Password.UnencryptedPassword.of("123"), Role.of(STAFFROLE)), "Obi", "Babobi", Money.of(10000, "EUR"));
 		LOG.info("Create Staff (username: obi, passwort: 123)");
 
 		staffs.saveStaff(staff);
 		staffs.saveStaff(staff2);
-		for (int i = 0; i<6;i++) {
+		for (int i = 0; i < 6; i++) {
 			Calendar c = Calendar.getInstance();
-			c.add(Calendar.WEEK_OF_YEAR,i);
+			c.add(Calendar.WEEK_OF_YEAR, i);
 			int week = c.get(Calendar.WEEK_OF_YEAR);
 			Roster roster = new Roster(week);
 			rosters.saveRoster(roster);
-			LOG.info("Roster für Woche: "+roster.getWeek());
-			LOG.info("Roster ID: "+roster.getRosterId());
+			LOG.info("Roster für Woche: " + roster.getWeek());
+			LOG.info("Roster ID: " + roster.getRosterId());
 
 			List<String> times = new ArrayList<>();
 			times.add(roster.getRows().get(1).toString());
@@ -60,8 +59,8 @@ public class RosterDataInitializer implements DataInitializer {
 				1,
 				times,
 				c.get(Calendar.WEEK_OF_YEAR)
-				);
-			rosters.createRosterEntry(form, null);
+			);
+			rosters.createEntry(form, RosterEntry.NONE, null);
 
 		}
 

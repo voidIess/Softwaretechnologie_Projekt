@@ -29,7 +29,9 @@ public class Training {
 
 	private int day;
 
-	private LocalTime startTime;
+	private int week;
+
+	private String startTime;
 
 	private int duration;
 
@@ -42,7 +44,7 @@ public class Training {
 		state = TrainingState.REQUESTED;
 	}
 
-	public Training(TrainingType type, Staff trainer, Member member, int day, LocalTime startTime, int duration, String description) {
+	public Training(TrainingType type, Staff trainer, Member member, int day, String startTime, int duration, String description, int week) {
 		this();
 		this.type = type;
 		this.trainer = trainer;
@@ -51,7 +53,10 @@ public class Training {
 		this.duration = duration;
 		this.description = description;
 		this.day = day;
+		this.week = week;
 	}
+
+	public int getWeek() {return week;}
 
 	public long getTrainingId() {
 		return trainingId;
@@ -65,7 +70,7 @@ public class Training {
 		return member;
 	}
 
-	public LocalTime getStartTime() {
+	public String getStartTime() {
 		return startTime;
 	}
 

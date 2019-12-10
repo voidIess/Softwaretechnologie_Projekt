@@ -5,6 +5,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -13,6 +16,8 @@ import static org.junit.jupiter.api.Assertions.fail;
 @SpringBootTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class RosterDataConverterTest {
+
+	private SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
 
 	@Test
 	void testRoleToString() {
@@ -39,8 +44,7 @@ class RosterDataConverterTest {
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
-
-		try{
+		try {
 			role = RosterDataConverter.stringToRole("hidabjsksndjghrs");
 			fail("Diese Rolle sollte es nicht geben!");
 		} catch (Exception e) {
@@ -48,6 +52,28 @@ class RosterDataConverterTest {
 		}
 	}
 
-	//TODO: getWeekList testen
+	@Test
+	void testGetWeekDatesByWeek() {
+		Calendar c = Calendar.getInstance();
+		List<String> times = RosterDataConverter.getWeekDatesByWeek(c.get(Calendar.WEEK_OF_YEAR));
+		assertThat(times.size() == 7).isTrue();
+		for (int i = 0; i<7; i++) {
+			c.set(Calendar.DAY_OF_WEEK, RosterDataConverter.dayOfWeek[i]);
+			System.out.println(sdf.format(c.getTime()));
+			try {
+				assertThat(rightDate(times.get(i), c)).isTrue();
+			} catch (Exception e) {
+				fail(i + " ist falsch!");
+			}
+		}
+	}
+
+	boolean rightDate(String date, Calendar compare) throws ParseException {
+		Calendar c = Calendar.getInstance();
+		date = date.substring(4);
+		c.setTime(sdf.parse(date));
+		return (c.get(Calendar.DAY_OF_YEAR) == compare.get(Calendar.DAY_OF_YEAR)
+			&& c.get(Calendar.YEAR) == compare.get(Calendar.YEAR));
+	}
 
 }

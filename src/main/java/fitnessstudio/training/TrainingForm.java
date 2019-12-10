@@ -3,6 +3,7 @@ package fitnessstudio.training;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 class TrainingForm {
 
@@ -16,20 +17,25 @@ class TrainingForm {
 	private final String day;
 
 	@NotEmpty(message = "{TrainingForm.time.NotEmpty}")
-	@DateTimeFormat(pattern = "HH:mm")
+	//@DateTimeFormat(pattern = "HH:mm")
 	private final String time;
 
 	@NotEmpty(message = "{TrainingForm.description.NotEmpty}")
 	private final String description;
 
-	public TrainingForm(String type, String staff, String day, String time, String description) {
+	@NotNull(message = "{TrainingsForm.week.NotEmpty}")
+	private final Integer week;
+
+	public TrainingForm(String type, String staff, String day, String time, String description, Integer week) {
 		this.type = type;
 		this.staff = staff;
 		this.day = day;
 		this.time = time;
+		this.week = week;
 		this.description = description;
 	}
 
+	public Integer getWeek() {return week;}
 	public String getType() {
 		return type;
 	}
