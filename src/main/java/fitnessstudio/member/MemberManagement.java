@@ -136,6 +136,45 @@ public class MemberManagement {
 		member.ifPresent(Member::authorize);
 	}
 
+	public void editMember(Long memberId, EditingForm form, Errors result) {
+		Assert.notNull(form, "EditingForm form must not be null");
+
+		var firstName = form.getFirstName();
+		var lastName = form.getLastName();
+		var iban = form.getIban();
+		var bic = form.getBic();
+
+		Optional<Member> member = findById(memberId);
+		if (member.isPresent()) {
+
+			if (iban.length() != 22) {
+				result.rejectValue("iban", "register.iban.wrongSize");
+			}
+
+			if (bic.length() < 8 || bic.length() > 11) {
+				result.rejectValue("bic", "register.bic.wrongSize");
+			}
+
+			member.get().setFirstName(firstName);
+			member.get().setLastName(lastName);
+			member.get().getCreditAccount().iban = iban;
+			member.get().getCreditAccount().bic = bic;
+
+			members.save(member.get());
+		}
+	}
+
+	EditingForm prefillEditMember(Member member, EditingForm form) {
+		if(form.isEmpty()) {
+			return new EditingForm(
+					member.getFirstName(),
+					member.getLastName(),
+					member.getCreditAccount().iban,
+					member.getCreditAccount().bic);
+		}
+		return form;
+	}
+
 	public Streamable<Member> findAll() {
 		return members.findAll();
 	}

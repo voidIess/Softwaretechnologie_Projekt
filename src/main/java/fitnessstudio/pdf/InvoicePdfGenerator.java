@@ -7,7 +7,6 @@ import com.itextpdf.layout.property.TextAlignment;
 import com.itextpdf.layout.property.UnitValue;
 import fitnessstudio.contract.Contract;
 import fitnessstudio.invoice.InvoiceEntry;
-import fitnessstudio.invoice.InvoiceType;
 import fitnessstudio.member.Member;
 import org.javamoney.moneta.Money;
 

@@ -25,6 +25,9 @@
             </a>
         </div>
         <div class="ui item">
+            <form class="ui form" method="get" th:action="@{/member/edit}">
+                <button type="submit" class="ui labeled icon button"><i class="edit icon"></i>Bearbeiten</button>
+            </form>
             <h2 class="header">Benutzerdaten</h2>
             <p>Name:
                 <span th:text="${member.firstName}">Vorname</span>
