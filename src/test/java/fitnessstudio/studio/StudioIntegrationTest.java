@@ -39,9 +39,8 @@ public class StudioIntegrationTest extends AbstractIntegrationTests {
 	void getStudioController() throws Exception {
 		mvc.perform(get("/")).andExpect(status().isOk()).andExpect(view().name("index"))
 				.andExpect(model().attributeExists("openingTimes"))
-				.andExpect(model().attributeExists("contractTerm"))
-				.andExpect(model().attributeExists("monthlyFees"))
-				.andExpect(model().attributeExists("advertisingBonus")).andExpect(model().size(5));
+				.andExpect(model().attributeExists("contractList"))
+				.andExpect(model().attributeExists("advertisingBonus")).andExpect(model().size(3));
 	}
 
 	@Test
@@ -55,7 +54,7 @@ public class StudioIntegrationTest extends AbstractIntegrationTests {
 	@Test
 	void postEditStudioController() throws Exception {
 		mvc.perform(post(
-				"/studio?contractTerm=24&monthlyFees=100&advertisingBonus=10&openingTimes=Mo-Fr")
+				"/studio?advertisingBonus=10&openingTimes=Mo-Fr")
 				.with(user("boss").roles("BOSS")).with(csrf()))
 				.andExpect(status().is(302)).andExpect(view().name("redirect:/"));
 	}
@@ -63,7 +62,7 @@ public class StudioIntegrationTest extends AbstractIntegrationTests {
 	@Test
 	void postErrorEditStudioController() throws Exception {
 		mvc.perform(post(
-				"/studio?contractTerm=1&monthlyFees=0&advertisingBonus=-1&openingTimes=Mo-Fr")
+				"/studio?advertisingBonus=-1&openingTimes=Mo-Fr")
 				.with(user("boss").roles("BOSS")).with(csrf()))
 				.andExpect(status().is(200)).andExpect(view().name("error"));
 	}
