@@ -191,7 +191,7 @@ a| [[F0832]]
 Das System muss jedem authentifizierten Mitarbeiter unter "Anfragen bearbeiten" eine Liste der aktuellen, unbeantworteten Anfragen anzeigen. Wird eine der beiden Optionen "annehmen" oder "ablehnen" gewählt, wird diese dem Kunden angezeigt und der bearbeitete Eintag muss aus der Liste entfernt werden. In dem Fall einer angenommenen Anfrage erstellt das System einen Trainingtermin (**<<F0800>>**) für den angegebenen Kunden.
 
 |**<<F0900>>**
-|Offen
+|Erledigt
 |Dienstplan
 a| [[F0900]]
 Das System soll in der Lage sein den aktuellen Dienstplan zu speichern. Ein Dienst besteht dabei aus:
@@ -202,13 +202,13 @@ Das System soll in der Lage sein den aktuellen Dienstplan zu speichern. Ein Dien
 * Anfangs- und Endzeiten
 
 |**<<F0910>>**
-|Offen
+|Erledigt
 |Dienstplan anzeigen
 a| [[F0910]]
 Das System muss es jedem authentifizierten Mitarbeiter ermöglichen den aktuellen Dienstplan einzusehen. Dieser wird tabellarisch als Kalender angezeigt.
 
 |**<<F0920>>**
-|Offen
+| Erledigt
 |Dienstplan bearbeiten
 a| [[F0920]]
 Das System muss einzelne Dienste, der in **<<F0900>>** beschriebenen Form, von jedem authentifizierten Mitarbieter bearbeiten, löschen oder hinzugügen lassen können.
