@@ -2,6 +2,7 @@ package fitnessstudio.roster;
 
 
 import fitnessstudio.staff.Staff;
+import fitnessstudio.staff.StaffRepository;
 import fitnessstudio.staff.StaffRole;
 import org.javamoney.moneta.Money;
 import org.junit.jupiter.api.BeforeAll;
@@ -28,10 +29,17 @@ public class SlotTest {
 	@Autowired
 	private UserAccountManager userAccounts;
 
+	@Autowired
+	private StaffRepository staffRepository;
+
 	@BeforeAll
 	void setup () {
 		staff = new Staff(userAccounts.create("slotTestStaff", Password.UnencryptedPassword.of("123"), Role.of("STAFF")),"Markus", "Wieland", Money.of(100, "EUR"));
 		staff2 = new Staff(userAccounts.create("slotTestStaff2", Password.UnencryptedPassword.of("123"), Role.of("STAFF")),"Markus", "Wieland", Money.of(100, "EUR"));
+
+		staffRepository.save(staff);
+		staffRepository.save(staff2);
+
 		rosterEntry = new RosterEntry(StaffRole.TRAINER,staff);
 		rosterEntry2 = new RosterEntry(StaffRole.COUNTER, staff);
 	}
@@ -88,6 +96,7 @@ public class SlotTest {
 	void isTaken () {
 		slot = new Slot(2,2);
 		slot.getEntries().add(rosterEntry);
+		System.out.println(slot.getEntries().size());
 		assertThat(slot.isTaken(staff)).isTrue();
 		assertThat(slot.isTaken(staff2)).isFalse();
 	}

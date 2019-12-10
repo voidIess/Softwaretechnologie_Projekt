@@ -3,6 +3,7 @@ package fitnessstudio.roster;
 
 import fitnessstudio.staff.Staff;
 import fitnessstudio.staff.StaffManagement;
+import fitnessstudio.staff.StaffRepository;
 import fitnessstudio.staff.StaffRole;
 import org.hibernate.Hibernate;
 import org.javamoney.moneta.Money;
@@ -31,7 +32,7 @@ public class RosterManagementTest {
 	private RosterManagement rosterManagement;
 
 	@Autowired
-	private StaffManagement staffManagement;
+	private StaffRepository staffManagement;
 
 	@Autowired
 	private UserAccountManager userAccounts;
@@ -55,8 +56,8 @@ public class RosterManagementTest {
 
 		staffTrainer = new Staff(userAccounts.create("rmTestStaff", Password.UnencryptedPassword.of("123"), Role.of("STAFF")), "Markus", "Wieland", Money.of(100, "EUR"));
 		staffCounter = new Staff(userAccounts.create("rmTestStaff2", Password.UnencryptedPassword.of("123"), Role.of("STAFF")), "Markus", "Wieland", Money.of(100, "EUR"));
-		staffManagement.saveStaff(staffTrainer);
-		staffManagement.saveStaff(staffCounter);
+		staffManagement.save(staffTrainer);
+		staffManagement.save(staffCounter);
 
 		week = Calendar.getInstance().get(Calendar.WEEK_OF_YEAR);
 
