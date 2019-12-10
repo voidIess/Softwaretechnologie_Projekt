@@ -105,9 +105,14 @@ public class MemberManagement {
 				return null;
 			} else {
 				Member receiver = receiverOptional.get();
+				Money bonus = Money.of(new BigDecimal(studioService.getStudio().getAdvertisingBonus()),
+					"EUR");
 
-				receiver.payIn(Money.of(new BigDecimal(studioService.getStudio().getAdvertisingBonus()), "EUR"));
+				receiver.payIn(bonus);
 				members.save(receiver);
+
+				applicationEventPublisher.publishEvent(new InvoiceEvent(this, receiver.getMemberId(),
+					InvoiceType.DEPOSIT, bonus, "Anwerbebonus"));
 			}
 
 		}
