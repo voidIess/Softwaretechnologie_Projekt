@@ -60,7 +60,7 @@ public class RosterDataInitializer implements DataInitializer {
 				times,
 				c.get(Calendar.WEEK_OF_YEAR)
 			);
-			rosters.createEntry(form, -1, null);
+			rosters.createEntry(form, RosterEntry.NONE, null);
 
 		}
 

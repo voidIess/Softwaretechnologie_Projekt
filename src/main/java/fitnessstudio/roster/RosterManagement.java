@@ -60,7 +60,8 @@ public class RosterManagement {
 					try {
 						RosterEntry rosterEntry = new RosterEntry(role, staff);
 						roster.addEntry(i, day, rosterEntry);
-						if (training != -1 && role.equals(StaffRole.TRAINER)) rosterEntry.setTraining(training);
+						if (training != RosterEntry.NONE && role.equals(StaffRole.TRAINER))
+							rosterEntry.setTraining(training);
 
 					} catch (Exception e) {
 						errors.reject("times", "Der Mitarbeiter arbeitet von " + time + " schon.");
@@ -110,6 +111,7 @@ public class RosterManagement {
 				try {
 					entry = getRosterEntryById(form.getWeek(), i, form.getDay(), id);
 					entry.setRole(RosterDataConverter.stringToRole(form.getRole()));
+
 				} catch (Exception e) {
 					errors.reject("Edit", "Der Mitarbeiter hat zu dieser Zeit einen Termin.");
 				}
@@ -156,5 +158,6 @@ public class RosterManagement {
 		int shift = getTimeIndex(form.getTimes().get(0));
 		return !getRosterByWeek(form.getWeek()).getRows().get(shift).getSlots().get(form.getDay()).isTaken(staffManagement.findById(form.getStaff()).orElse(null));
 	}
+
 
 }

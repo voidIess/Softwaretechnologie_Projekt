@@ -91,7 +91,7 @@ class TableRow {
 	private LocalDateTime startTime;
 	private LocalDateTime endTime;
 
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.EAGER)
 	private List<Slot> slots;
 
 	TableRow() {
@@ -141,7 +141,7 @@ class Slot {
 	@GeneratedValue
 	private long slotId;
 
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.EAGER)
 	private List<RosterEntry> entries;
 
 	private int[] coordinates;
@@ -174,7 +174,7 @@ class Slot {
 
 	public boolean isTaken(Staff staff) {
 		for (RosterEntry rosterEntry : entries) {
-			if (rosterEntry.getStaff() == staff) return true;
+			if (rosterEntry.getStaff().getStaffId() == staff.getStaffId()) return true;
 		}
 		return false;
 	}
@@ -182,7 +182,7 @@ class Slot {
 	public boolean deleteEntry(long id) {
 		for (RosterEntry rosterEntry : entries) {
 			if (rosterEntry.getRosterEntryId() == id) {
-				if (rosterEntry.getTraining() == -1) {
+				if (rosterEntry.getTraining() == RosterEntry.NONE) {
 					entries.remove(rosterEntry);
 					return true;
 				} else return false;

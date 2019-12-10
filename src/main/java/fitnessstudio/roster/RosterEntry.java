@@ -12,6 +12,8 @@ import javax.persistence.OneToOne;
 @Entity
 public class RosterEntry implements Comparable<RosterEntry> {
 
+	public static long NONE = -1;
+
 	@Id
 	@GeneratedValue
 	private long rosterEntryId;
@@ -42,7 +44,7 @@ public class RosterEntry implements Comparable<RosterEntry> {
 
 	public void setRole(StaffRole role) {
 		if (role.equals(StaffRole.COUNTER))
-			Assert.isTrue(training == -1, "Der Mitarbeiter hat zu dieser Zeit einen Termin.");
+			Assert.isTrue(training == NONE, "Der Mitarbeiter hat zu dieser Zeit einen Termin.");
 		this.role = role;
 	}
 

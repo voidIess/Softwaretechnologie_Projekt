@@ -72,4 +72,6 @@ public class RosterEntryTest {
 		assertThat(rosterEntryCounter.isTrainer()).isFalse();
 	}
 
+
+
 }
