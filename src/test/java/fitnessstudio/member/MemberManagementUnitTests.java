@@ -110,7 +110,7 @@ class MemberManagementUnitTests {
 		Money oldAmount = member.getCredit();
 		Money amount = Money.of(10, "EUR");
 
-		management.memberPayIn(member, amount);
+		management.memberPayIn(member.getMemberId(), amount);
 		assertThat(members.findById(memberId).get().getCredit()).isEqualTo(oldAmount.add(amount));
 
 	}

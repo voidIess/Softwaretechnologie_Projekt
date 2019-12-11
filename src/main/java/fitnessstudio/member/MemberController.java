@@ -128,7 +128,7 @@ public class MemberController {
 			Optional<Member> member = memberManagement.findByUserAccount(user);
 
 			if (member.isPresent()) {
-				memberManagement.memberPayIn(member.get(), money);
+				memberManagement.memberPayIn(member.get().getMemberId(), money);
 				return "redirect:/member/home";
 			}
 			return REDIRECT_LOGIN;
@@ -160,6 +160,14 @@ public class MemberController {
 	@PreAuthorize("hasRole('STAFF')")
 	public String checkOut(@PathVariable long id, Model model) {
 		memberManagement.checkMemberOut(id);
+		return "redirect:/admin/members";
+	}
+
+	@PostMapping("/admin/member/payin")
+	@PreAuthorize("hasRole('STAFF')")
+	public String barPayIn(@RequestParam long id, @RequestParam double amount){
+		Money money = Money.of(amount, "EUR");
+		memberManagement.memberPayIn(id, money);
 		return "redirect:/admin/members";
 	}
 
