@@ -20,9 +20,26 @@
     <header>
         <h1>Mitgliederliste</h1>
     </header>
-
-    <p>Es sind <b><span th:text="${unauthorizedMember}">0</span></b> freizuschalten</p>
-    <a th:href="@{/admin/authorizeMember}">Freischalten</a>
+    <div id="authorize">
+        <p>Es sind <b><span th:text="${unauthorizedMember}">0</span></b> freizuschalten</p>
+        <a th:href="@{/admin/authorizeMember}">Freischalten</a>
+    </div>
+    <div>
+        <form class="ui form horizontally padded" method="post" th:action="@{/admin/member/payin}">
+            <div>
+                <label for="id">Mitglieder ID</label>
+                <input type="text" name="id" value="0" id="id"/>
+            </div>
+            <div>
+                <label for="amount">Betrag</label>
+                <input id="amount" type="number" name="amount" min="0.01" max="9999" value="0.01"
+                       step="0.01"/>
+            </div>
+            <button type="submit" class="ui labeled icon button" style="margin-top: 5px">
+                <i class="money icon"></i> Aufladen
+            </button>
+        </form>
+    </div>
 
     <form th:action="@{/admin/members}" method="get" th:object="${form}" style="float: right; margin-bottom: 5px">
         <input class="search" id="search" name="search" type="text" th:field="*{search}"/>
@@ -36,6 +53,7 @@
             <th>Email</th>
             <th>Vertrag</th>
             <th>Mitglieder Nummer</th>
+            <th>Guthaben</th>
             <th>Status</th>
             <th>Check in/out</th>
         </tr>
@@ -47,8 +65,12 @@
             <td th:text="${customer.getUserAccount().email}">Email</td>
             <td th:text="${customer.contract.name}">Vertrag</td>
             <td th:text="${customer.memberId}">MemberId</td>
-            <td th:if="${customer.isAttendant() and !customer.isPaused()}" th:text="#{members.isAttendant}">anwesend</td>
-            <td th:if="${!customer.isAttendant() and !customer.isPaused()}" th:text="#{members.isNotAttendant}">nicht anwesend</td>
+            <td th:text="${customer.getCredit().toString()}">0,00</td>
+            <td th:if="${customer.isAttendant() and !customer.isPaused()}" th:text="#{members.isAttendant}">anwesend
+            </td>
+            <td th:if="${!customer.isAttendant() and !customer.isPaused()}" th:text="#{members.isNotAttendant}">nicht
+                anwesend
+            </td>
             <td th:if="${customer.isPaused()}" th:text="#{members.isPaused}">pausiert</td>
             <td th:if="${customer.isAttendant() and !customer.isPaused()}">
                 <a class="ui red button" th:href="@{/member/checkout/{id}/(id=${customer.getMemberId()})}">check out</a>
