@@ -96,7 +96,7 @@ public class BarManager {
 		if(!quantity.equals(Quantity.NONE)) {
 			ExpiringInventoryItem item = inventory.findByProduct(article).stream()
 				.filter(x -> expirationDate.equals(x.getExpirationDate())).findFirst()
-				.orElse(new ExpiringInventoryItem(article, quantity, expirationDate));
+				.orElse(new ExpiringInventoryItem(article, Quantity.NONE, expirationDate));
 
 			item.increaseQuantity(quantity);
 			inventory.save(item);

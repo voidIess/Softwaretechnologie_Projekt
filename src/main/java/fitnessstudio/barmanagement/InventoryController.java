@@ -7,6 +7,8 @@ import org.salespointframework.catalog.ProductIdentifier;
 import org.salespointframework.inventory.UniqueInventory;
 import org.salespointframework.inventory.UniqueInventoryItem;
 import org.salespointframework.quantity.Quantity;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -29,6 +31,8 @@ import java.util.Objects;
 
 @Controller
 public class InventoryController {
+
+	private static final Logger LOG = LoggerFactory.getLogger(CatalogDataInitializer.class);
 
 	private static final String REDIRECT_CATALOG = "redirect:/catalog";
 	private static final String ERROR = "error";
@@ -59,14 +63,14 @@ public class InventoryController {
 
 	@PreAuthorize("hasRole('STAFF')")
 	@GetMapping("/article")
-	public String addArticle(Model model, ArticleForm form) {
+	public String addArticle(Model model, CreateArticleForm form) {
 		model.addAttribute("form", form);
 		return "bar/add_article";
 	}
 
 	@PreAuthorize("hasRole('STAFF')")
 	@PostMapping("/article")
-	public String addArticle(@Valid ArticleForm form, Model model) throws DateTimeParseException {
+	public String addArticle(@Valid CreateArticleForm form, Model model) throws DateTimeParseException {
 		if (getError(form, model)) return ERROR;
 
 		Discount discount = new Discount();
@@ -75,9 +79,13 @@ public class InventoryController {
 			Money.of(new BigDecimal(form.getPrice()), "EUR"),
 			form.getArt(),
 			form.getDescription(), discount
-			,Quantity.of(10));
+			, Quantity.of(10));
+
 		barManager.addNewArticleToCatalog(article);
-		//barManager.restockInventory(Quantity.of(Integer.parseInt(form.getNumber())), article, expirationDate);
+		LocalDate expirationDate = passDate(form.getExpirationDate());
+		Quantity initialQuantity = Quantity.of(Integer.parseInt(form.getAmount()));
+		LOG.info(form.getAmount() + " was passed to " +String.valueOf(initialQuantity));
+		barManager.restockInventory(initialQuantity, article, expirationDate);
 		// inventory.save(new UniqueInventoryItem(article, Quantity.of(Integer.parseInt(form.getNumber()))));
 		applicationEventPublisher.publishEvent(this);
 		return REDIRECT_CATALOG;
@@ -176,6 +184,17 @@ public class InventoryController {
 		model.addAttribute("stock", barManager.getAvailableArticles());
 
 		return "/bar/stock";
+	}
+
+	private LocalDate passDate(String input) {
+		try {
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+			return LocalDate.parse(input, formatter);
+
+		} catch (DateTimeParseException e) {
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+			return LocalDate.parse(input, formatter);
+		}
 	}
 
 

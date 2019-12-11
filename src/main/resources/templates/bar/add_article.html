@@ -49,6 +49,22 @@
                                                                        required/>
         </fieldset>
 
+        <br>
+        <fieldset>
+        <Label>Initialer Bestand</Label><label for="amount"></label><input type="number"
+                                                                       th:field="*{amount}"
+                                                                       id="amount"
+                                                                       required/>
+        </fieldset>
+
+
+        <fieldset>
+            <Label>Mindesthaltbarkeitsdatum des initialen Bestands</Label><label for="expirationDate"></label><input type="date"
+                                                                                              th:field="*{expirationDate}"
+                                                                                              id="expirationDate"
+                                                                                              required/>
+        </fieldset>
+
         <fieldset>
             <button name="submit" type="submit" id="contact-submit" data-submit="...Sending">Submit</button>
         </fieldset>
