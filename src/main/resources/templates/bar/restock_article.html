@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css" type="text/css"/>
+    <link th:href="@{/resources/css/style.css}" rel="stylesheet"
+          href="../static/resources/css/style.css" type="text/css"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/toggle.css}"/>
+    <title>Katalog</title>
+</head>
+<body>
+<nav th:include="navigation :: navigation"></nav>
+<nav th:include="toggle :: toggle"></nav>
+
+
+<div class="container">
+    <form method="post" role="form" class="ui form" id="form" th:action="@{/article/restock/{id}(id=${id})}" th:object="${form}">
+
+        <h3>Artikel hinzufügen</h3>
+
+
+        <fieldset>
+        <Label>Anzahl</Label><label for="amount"></label><input type="number"
+                                                                       th:field="*{amount}"
+                                                                       id="amount"
+                                                                       required/>
+        </fieldset>
+
+
+        <fieldset>
+            <Label>Mindesthaltbarkeitsdatum</Label><label for="expirationDate"></label><input type="date"
+                                                                                              th:field="*{expirationDate}"
+                                                                                              id="expirationDate"
+                                                                                              required/>
+        </fieldset>
+
+        <fieldset>
+            <button name="submit" type="submit" id="contact-submit" data-submit="...Sending">Submit</button>
+        </fieldset>
+    </form>
+</div>
+
+
+</body>
+</html>

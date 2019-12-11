@@ -50,6 +50,11 @@
                     <i class="edit icon"></i>Artikel bearbeiten
                 </button>
             </a>
+            <a th:href="@{/article/restock/{id}(id=${article.id})}">
+                <button class="ui blue button">
+                    <i class="edit icon"></i>Artikel aufstocken
+                </button>
+            </a>
         </div>
     </div>
 

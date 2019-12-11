@@ -71,7 +71,8 @@ public class InventoryController {
 	@PreAuthorize("hasRole('STAFF')")
 	@PostMapping("/article")
 	public String addArticle(@Valid CreateArticleForm form, Model model) throws DateTimeParseException {
-		if (getError(form, model)) return ERROR;
+		if (getError((ArticleForm) form, model)) return ERROR;
+		if (getError((QuantityForm) form, model)) return ERROR;
 
 		Discount discount = new Discount();
 		discountRepository.save(discount);
@@ -84,9 +85,7 @@ public class InventoryController {
 		barManager.addNewArticleToCatalog(article);
 		LocalDate expirationDate = passDate(form.getExpirationDate());
 		Quantity initialQuantity = Quantity.of(Integer.parseInt(form.getAmount()));
-		LOG.info(form.getAmount() + " was passed to " +String.valueOf(initialQuantity));
 		barManager.restockInventory(initialQuantity, article, expirationDate);
-		// inventory.save(new UniqueInventoryItem(article, Quantity.of(Integer.parseInt(form.getNumber()))));
 		applicationEventPublisher.publishEvent(this);
 		return REDIRECT_CATALOG;
 	}
@@ -98,6 +97,30 @@ public class InventoryController {
 	public String removeArticle(@PathVariable ProductIdentifier id) {
 
 		barManager.removeArticleFromCatalog(id);
+		return REDIRECT_CATALOG;
+	}
+	//-------------------------------------restockArticle---------------------------------------------------------------
+
+	@PreAuthorize("hasRole('STAFF')")
+	@GetMapping("/article/restock/{id}")
+	public String restockArticle(@PathVariable ProductIdentifier id, QuantityForm form, Model model) {
+
+		model.addAttribute("id", id);
+		model.addAttribute("form", form);
+
+		return "bar/restock_article";
+	}
+	@PreAuthorize("hasRole('STAFF')")
+	@PostMapping("/article/restock/{id}")
+	public String restockArticlePost(@PathVariable ProductIdentifier id, @Valid QuantityForm form, Model model) {
+		if (getError(form, model)) return ERROR;
+
+		Article article = barManager.getById(id);
+
+		LocalDate expirationDate = passDate(form.getExpirationDate());
+		Quantity initialQuantity = Quantity.of(Integer.parseInt(form.getAmount()));
+		barManager.restockInventory(initialQuantity, article, expirationDate);
+		applicationEventPublisher.publishEvent(this);
 		return REDIRECT_CATALOG;
 	}
 
@@ -176,6 +199,14 @@ public class InventoryController {
 		}
 		return false;
 	}
+	private boolean getError(@Valid QuantityForm form, Model model) {
+		if (Integer.parseInt(form.getAmount()) <= 0) {
+			model.addAttribute(ERROR, "more than 0 should be added");
+			model.addAttribute(STATUS, "400");
+			return true;
+		}
+		return false;
+	}
 
 	@GetMapping("/stock")
 	@PreAuthorize("hasRole('STAFF')")
@@ -197,47 +228,4 @@ public class InventoryController {
 		}
 	}
 
-
-	// convert String input to Date
-	/*private static class Date {
-		private @Valid ArticleForm form;
-		private LocalDate startDate;
-		private LocalDate endDate;
-		private LocalDate expirationDate;
-
-		public Date(@Valid ArticleForm form) {
-			this.form = form;
-		}
-
-		public LocalDate getStartDate() {
-			return startDate;
-		}
-
-		public LocalDate getEndDate() {
-			return endDate;
-		}
-
-		public LocalDate getExpirationDate() {
-			return expirationDate;
-		}
-
-		public Date invoke() {
-
-			try {
-				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-				startDate = LocalDate.parse(form.getStartDiscount(), formatter);
-				endDate = LocalDate.parse(form.getEndDiscount(), formatter);
-				expirationDate = LocalDate.parse(form.getExpirationDate(), formatter);
-				return this;
-
-			} catch (DateTimeParseException e) {
-				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-				startDate = LocalDate.parse(form.getStartDiscount(), formatter);
-				endDate = LocalDate.parse(form.getEndDiscount(), formatter);
-				expirationDate = LocalDate.parse(form.getExpirationDate(), formatter);
-				return this;
-			}
-
-		}
-	}*/
 }
