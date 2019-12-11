@@ -69,12 +69,12 @@ public class InventoryController {
 	public String addArticle(@Valid ArticleForm form, Model model) throws DateTimeParseException {
 		if (getError(form, model)) return ERROR;
 
-
-		//TODO add sufficient quantity to the form
+		Discount discount = new Discount();
+		discountRepository.save(discount);
 		Article article = new Article(form.getName(),
 			Money.of(new BigDecimal(form.getPrice()), "EUR"),
 			form.getArt(),
-			form.getDescription(), new Discount()
+			form.getDescription(), discount
 			,Quantity.of(10));
 		barManager.addNewArticleToCatalog(article);
 		//barManager.restockInventory(Quantity.of(Integer.parseInt(form.getNumber())), article, expirationDate);

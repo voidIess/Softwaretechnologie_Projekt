@@ -27,7 +27,7 @@
 
         <fieldset>
             <Label>Preis in Euro</Label><label for="price"></label><input type="number" th:field="*{price}"
-                                                                          id="price"
+                                                                          id="price" step="0.01"
                                                                           required/>
         </fieldset>
 
@@ -43,41 +43,11 @@
                                                                                required/>
         </fieldset>
 
-        <fieldset>
-            <Label>Mindesthaltbarkeitsdatum</Label><label for="expirationDate"></label><input type="date"
-                                                                                              th:field="*{expirationDate}"
-                                                                                              id="expirationDate"
-                                                                                              required/>
+        <Label>Mindestvorrat</Label><label for="number"></label><input type="number"
+                                                                       th:field="*{sufficientQuantity}"
+                                                                       id="number"
+                                                                       required/>
         </fieldset>
-
-        <fieldset>
-            <Label>Rabatt vom</Label><label for="startDiscount"></label><input type="date"
-                                                                               th:field="*{startDiscount}"
-                                                                               id="startDiscount"
-                                                                               required/>
-        </fieldset>
-
-        <fieldset>
-            <Label>Rabatt in Prozent</Label><label for="percentDiscount"></label><input type="number"
-                                                                                        th:field="*{percentDiscount}"
-                                                                                        id="percentDiscount" required/>
-        </fieldset>
-
-
-        <fieldset>
-            <Label>Rabatt bis</Label><label for="endDiscount"></label><input type="date"
-                                                                             th:field="*{endDiscount}"
-                                                                             id="endDiscount"
-                                                                             required/>
-        </fieldset>
-
-        <fieldset>
-            <Label>Anzahl</Label><label for="number"></label><input type="number"
-                                                                    th:field="*{number}"
-                                                                    id="number"
-                                                                    required/>
-        </fieldset>
-
 
         <fieldset>
             <button name="submit" type="submit" id="contact-submit" data-submit="...Sending">Submit</button>
