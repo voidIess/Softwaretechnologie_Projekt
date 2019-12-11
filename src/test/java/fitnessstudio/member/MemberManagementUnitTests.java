@@ -47,7 +47,7 @@ class MemberManagementUnitTests {
 	@Test
 	@Order(1)
 	void testCreateMember() {
-		RegistrationForm form = new RegistrationForm("FirstName", "LastName","email@email.de", "UserName",
+		RegistrationForm form = new RegistrationForm("FirstName", "LastName","email@email67e3838.de", "UserName",
 			"Password", "0123456789012345678912", "0123456789", contractId, "");
 
 		Member member = management.createMember(form, null);
