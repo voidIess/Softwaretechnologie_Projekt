@@ -210,8 +210,9 @@ public class Member {
 			setLastPause(now);
 			setEndDate(getEndDate().plusDays(31));
 			payIn(contract.getPrice());
+			return true;
 		}
-		return isPaused;
+		return false;
 	}
 	public void unPause(){
 		if (isPaused){

@@ -48,6 +48,7 @@ public class MemberManagement {
 	MemberManagement(MemberRepository members, UserAccountManager userAccounts, ContractManagement contractManagement,
 					 StudioService studioService, StatisticManagement statisticManagement,
 					 ApplicationEventPublisher applicationEventPublisher, InvoiceManagement invoiceManagement) {
+
 		Assert.notNull(members, "MemberRepository must not be null!");
 		Assert.notNull(userAccounts, "UserAccountManager must not be null!");
 		Assert.notNull(contractManagement, "ContractManagement must not be null!");
@@ -70,6 +71,7 @@ public class MemberManagement {
 
 		var firstName = form.getFirstName();
 		var lastName = form.getLastName();
+		var email = form.getEmail();
 		var password = Password.UnencryptedPassword.of(form.getPassword());
 		var iban = form.getIban();
 		var bic = form.getBic();
@@ -77,6 +79,11 @@ public class MemberManagement {
 
 		if (userAccounts.findByUsername(form.getUserName()).isPresent()) {
 			result.rejectValue("userName", "register.duplicate.userAccountName");
+			return null;
+		}
+
+		if (emailExists(email)) {
+			result.rejectValue("email", "register.duplicate.userAccountEmail");
 			return null;
 		}
 
@@ -115,7 +122,7 @@ public class MemberManagement {
 
 		}
 
-		var userAccount = userAccounts.create(form.getUserName(), password, MEMBER_ROLE);
+		var userAccount = userAccounts.create(form.getUserName(), password, email, MEMBER_ROLE);
 		var member = new Member(userAccount, firstName, lastName, iban, bic);
 
 		Optional<Contract> contractOptional = contractManagement.findById(contract);
@@ -146,9 +153,11 @@ public class MemberManagement {
 		var lastName = form.getLastName();
 		var iban = form.getIban();
 		var bic = form.getBic();
+		var email = form.getEmail();
 
-		Optional<Member> member = findById(memberId);
-		if (member.isPresent()) {
+		Optional<Member> optionalMember = findById(memberId);
+		if (optionalMember.isPresent()) {
+			Member member = optionalMember.get();
 
 			if (iban.length() != 22) {
 				result.rejectValue("iban", "register.iban.wrongSize");
@@ -158,22 +167,23 @@ public class MemberManagement {
 				result.rejectValue("bic", "register.bic.wrongSize");
 			}
 
-			member.get().setFirstName(firstName);
-			member.get().setLastName(lastName);
-			member.get().getCreditAccount().iban = iban;
-			member.get().getCreditAccount().bic = bic;
+			member.setFirstName(firstName);
+			member.setLastName(lastName);
+			member.getCreditAccount().update(iban, bic);
+			member.getUserAccount().setEmail(email);
 
-			members.save(member.get());
+			members.save(member);
 		}
 	}
 
-	EditingForm prefillEditMember(Member member, EditingForm form) {
-		if(form.isEmpty()) {
+	EditingForm preFillMember(Member member, EditingForm form) {
+		if (form.isEmpty()) {
 			return new EditingForm(
-					member.getFirstName(),
-					member.getLastName(),
-					member.getCreditAccount().iban,
-					member.getCreditAccount().bic);
+				member.getFirstName(),
+				member.getLastName(),
+				member.getUserAccount().getEmail(),
+				member.getCreditAccount().getIban(),
+				member.getCreditAccount().getBic());
 		}
 		return form;
 	}
@@ -209,11 +219,17 @@ public class MemberManagement {
 		return members.findByUserAccount(userAccount);
 	}
 
-	public void memberPayIn(Member member, Money amount) {
-		applicationEventPublisher.publishEvent(new InvoiceEvent(this, member.getMemberId(), InvoiceType.DEPOSIT, amount,
-			"Online Einzahlung auf Account"));
-		member.payIn(amount);
-		members.save(member);
+	public void memberPayIn(long memberId, Money amount) {
+		Optional<Member> optionalMember = members.findById(memberId);
+
+		if (optionalMember.isPresent()) {
+			Member member = optionalMember.get();
+			member.payIn(amount);
+			members.save(member);
+
+			applicationEventPublisher.publishEvent(new InvoiceEvent(this, memberId, InvoiceType.DEPOSIT, amount,
+				"Online Einzahlung auf Account"));
+		}
 	}
 
 	Map<String, Object> createPdfInvoice(UserAccount account) {
@@ -242,14 +258,14 @@ public class MemberManagement {
 
 	public void checkMemberIn(Long memberId) {
 		Optional<Member> member = findById(memberId);
-		if(member.isPresent() && !member.get().isPaused() && !member.get().isAttendant()) {
+		if (member.isPresent() && !member.get().isPaused() && !member.get().isAttendant()) {
 			member.ifPresent(Member::checkIn);
 		}
 	}
 
 	public void checkMemberOut(Long memberId) {
 		Optional<Member> member = findById(memberId);
-		if(member.isPresent() && !member.get().isPaused() && member.get().isAttendant()) {
+		if (member.isPresent() && !member.get().isPaused() && member.get().isAttendant()) {
 			statisticManagement.addAttendance(memberId, member.get().checkOut());
 		}
 	}
@@ -267,7 +283,7 @@ public class MemberManagement {
 			if (member.getEndDate().equals(LocalDate.now())) {
 				member.disable();
 			}
-			if (member.isPaused() && member.getLastPause().plusDays(31).isBefore(LocalDate.now())){
+			if (member.isPaused() && member.getLastPause().plusDays(31).isBefore(LocalDate.now())) {
 				member.unPause();
 			}
 		}
@@ -282,11 +298,20 @@ public class MemberManagement {
 	}
 
 	public void pauseMembership(Member member) {
-		member.pause(LocalDate.now());
-		applicationEventPublisher.publishEvent(new InvoiceEvent(this, member.getMemberId(), InvoiceType.DEPOSIT, member.getContract().getPrice(),
-			"Rückerstattung Pausierung Vertrag"));
+		if (member.pause(LocalDate.now())) {
+			applicationEventPublisher.publishEvent(new InvoiceEvent(this, member.getMemberId(), InvoiceType.DEPOSIT, member.getContract().getPrice(),
+				"Rückerstattung Pausierung Vertrag"));
 
-		members.save(member);
+			members.save(member);
+		}
+	}
+
+	boolean emailExists(String email) {
+		for (UserAccount userAccount : userAccounts.findAll()) {
+			String userAccountEmail = userAccount.getEmail();
+			if (userAccountEmail != null && userAccountEmail.equalsIgnoreCase(email)) return true;
+		}
+		return false;
 	}
 
 	public Money getMemberCreditOfDate(Member member, LocalDate date) {
