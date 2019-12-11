@@ -4,6 +4,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.javamoney.moneta.Money;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -23,7 +24,7 @@ public class InvoiceEntry {
 	private String description;
 
 	@CreationTimestamp
-	private LocalDateTime created;
+	private LocalDate created;
 
 	public InvoiceEntry() {
 	}
@@ -55,7 +56,7 @@ public class InvoiceEntry {
 		return description;
 	}
 
-	public LocalDateTime getCreated() {
+	public LocalDate getCreated() {
 		return created;
 	}
 }

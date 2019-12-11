@@ -7,7 +7,6 @@ import org.junit.jupiter.api.*;
 import org.salespointframework.useraccount.UserAccount;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.ApplicationEventPublisher;
 
 import java.time.LocalDate;
 
@@ -160,6 +159,14 @@ class MemberManagementUnitTests {
 
 		management.checkMemberships();
 		assertThat(members.findById(memberId).get().getUserAccount().isEnabled()).isFalse();
+	}
+
+	@Test
+	@Order(16)
+	void testGetCreditOfDate() {
+		Member member = members.findById(memberId).get();
+		Money oldAmount = member.getCredit();
+		assertThat(management.getMemberCreditOfDate(member, LocalDate.now()).equals(oldAmount)).isTrue();
 	}
 
 	@Test

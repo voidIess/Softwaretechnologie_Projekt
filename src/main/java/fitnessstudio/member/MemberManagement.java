@@ -2,6 +2,7 @@ package fitnessstudio.member;
 
 import fitnessstudio.contract.Contract;
 import fitnessstudio.contract.ContractManagement;
+import fitnessstudio.invoice.InvoiceEntry;
 import fitnessstudio.invoice.InvoiceEvent;
 import fitnessstudio.invoice.InvoiceManagement;
 import fitnessstudio.invoice.InvoiceType;
@@ -25,10 +26,7 @@ import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -225,7 +223,18 @@ public class MemberManagement {
 		Member member = opt.get();
 
 		Map<String, Object> map = new HashMap<>();
+
 		map.put("member", member);
+
+		LocalDate startDate = LocalDate.now().minusMonths(1);
+		startDate = startDate.minusDays(startDate.getDayOfMonth());
+		map.put("startDate", startDate);
+		map.put("startCredit", getMemberCreditOfDate(member, startDate));
+
+		LocalDate endDate = LocalDate.now().minusDays(LocalDate.now().getDayOfMonth());
+		map.put("endDate", endDate);
+		map.put("endCredit", getMemberCreditOfDate(member, endDate));
+
 		map.put("invoiceEntries", invoiceManagement.getAllInvoiceForMemberOfLastMonth(member.getMemberId()));
 
 		return map;
@@ -278,6 +287,19 @@ public class MemberManagement {
 			"Rückerstattung Pausierung Vertrag"));
 
 		members.save(member);
+	}
+
+	public Money getMemberCreditOfDate(Member member, LocalDate date) {
+		Money credit = Money.of(0, "EUR");
+		List<InvoiceEntry> entries = invoiceManagement.getAllEntriesForMemberBefore(member.getMemberId(), date);
+		for(InvoiceEntry entry : entries) {
+			if(entry.getType().equals(InvoiceType.WITHDRAW)) {
+				credit = credit.subtract(entry.getAmount());
+			} else {
+				credit = credit.add(entry.getAmount());
+			}
+		}
+		return credit;
 	}
 
 }

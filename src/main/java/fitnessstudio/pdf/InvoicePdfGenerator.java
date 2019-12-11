@@ -7,12 +7,14 @@ import com.itextpdf.layout.property.TextAlignment;
 import com.itextpdf.layout.property.UnitValue;
 import fitnessstudio.contract.Contract;
 import fitnessstudio.invoice.InvoiceEntry;
+import fitnessstudio.invoice.InvoiceType;
 import fitnessstudio.member.Member;
 import org.javamoney.moneta.Money;
 
 import javax.money.MonetaryAmount;
 import javax.money.format.MonetaryAmountFormat;
 import javax.money.format.MonetaryFormats;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Locale;
@@ -29,8 +31,6 @@ public class InvoicePdfGenerator implements PdfGenerator {
 		DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 		MonetaryAmountFormat moneyFormat = MonetaryFormats.getAmountFormat(Locale.GERMANY);
 
-		MonetaryAmount totalPrice = Money.of(0, "EUR");
-
 		Paragraph p = new Paragraph("Kundeninformation");
 		p.setBold();
 		d.add(p);
@@ -45,25 +45,28 @@ public class InvoicePdfGenerator implements PdfGenerator {
 
 		Contract contract = member.getContract();
 		table1.addCell(contract.getName());
-		table1.addCell(moneyFormat.format(contract.getPrice().negate()));
-		totalPrice = totalPrice.add(contract.getPrice().negate());
+		table1.addCell(moneyFormat.format(contract.getPrice()));
 
 		d.add(table1);
 
 		Table table2 = new Table(3);
 		table2.setWidth(new UnitValue(UnitValue.PERCENT, 100));
 		table2.setMarginBottom(15f);
+		table2.setMarginTop(15f);
 
 		if(!invoiceEntries.isEmpty()) {
-			d.add(new Paragraph("Weitere Ausgaben").setBold());
+			d.add(new Paragraph("Umsatz Ihres Guthabenkontos").setBold());
+
+			String startDate = ((LocalDate) invoice.get("startDate")).format(dateFormatter);
+			String startCredit = moneyFormat.format((Money) invoice.get("startCredit"));
+			d.add(new Paragraph("Kontostand vom " + startDate + ": " + startCredit));
 
 			for (InvoiceEntry entry: invoiceEntries) {
 
 				Money amount = entry.getAmount();
-				if(!entry.getDescription().equals("Anwerbebonus")) {
+				if(entry.getType().equals(InvoiceType.WITHDRAW)) {
 					amount = amount.negate();
 				}
-				totalPrice = totalPrice.add(amount);
 
 				table2.addCell(entry.getCreated().format(dateFormatter));
 				table2.addCell(entry.getDescription());
@@ -71,12 +74,12 @@ public class InvoicePdfGenerator implements PdfGenerator {
 			}
 
 			d.add(table2);
-		}
 
-		Paragraph total = new Paragraph("Gesamt: " + moneyFormat.format(totalPrice));
-		total.setUnderline();
-		total.setTextAlignment(TextAlignment.RIGHT);
-		d.add(total);
+			String endDate = ((LocalDate) invoice.get("endDate")).format(dateFormatter);
+			String endCredit = moneyFormat.format((Money) invoice.get("endCredit"));
+			d.add(new Paragraph("Kontostand vom " + endDate + ": " + endCredit));
+
+		}
 
 		return d;
 	}
