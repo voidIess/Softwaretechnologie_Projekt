@@ -33,7 +33,7 @@
         <tr>
             <th>Vorname</th>
             <th>Nachname</th>
-            <th>Login Name</th>
+            <th>Email</th>
             <th>Vertrag</th>
             <th>Mitglieder Nummer</th>
             <th>Status</th>
@@ -44,7 +44,7 @@
         <tr th:each=" customer : ${memberList}">
             <td th:text="${customer.firstName}">Vorname</td>
             <td th:text="${customer.lastName}">Nachname</td>
-            <td th:text="${customer.userName}">UserName</td>
+            <td th:text="${customer.getUserAccount().email}">Email</td>
             <td th:text="${customer.contract.name}">Vertrag</td>
             <td th:text="${customer.memberId}">MemberId</td>
             <td th:if="${customer.isAttendant() and !customer.isPaused()}" th:text="#{members.isAttendant}">anwesend</td>

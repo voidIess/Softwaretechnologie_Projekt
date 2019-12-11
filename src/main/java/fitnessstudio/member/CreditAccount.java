@@ -22,6 +22,11 @@ public class CreditAccount {
 		this.bic = bic;
 	}
 
+	public void update(String iban, String bic){
+		this.iban = iban;
+		this.bic = bic;
+	}
+
 	public void payIn(Money amount) {
 		credit = credit.add(amount);
 	}

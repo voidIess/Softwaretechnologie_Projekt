@@ -96,7 +96,7 @@ public class MemberController {
 			return REDIRECT_LOGIN;
 		}
 
-		form = memberManagement.prefillEditMember(member.get(), form);
+		form = memberManagement.preFillMember(member.get(), form);
 
 		model.addAttribute("form", form);
 		model.addAttribute("error", results);
