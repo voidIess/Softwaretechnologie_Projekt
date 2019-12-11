@@ -17,11 +17,11 @@
 <div class="container">
     <form method="post" role="form" class="ui form" id="form" th:action="@{/article/restock/{id}(id=${id})}" th:object="${form}">
 
-        <h3>Artikel hinzufügen</h3>
+        <h2>Artikel hinzufügen</h2>
 
 
         <fieldset>
-        <Label>Anzahl</Label><label for="amount"></label><input type="number"
+        <text>Anzahl</text><label for="amount"></label><input type="number"
                                                                        th:field="*{amount}"
                                                                        id="amount"
                                                                        required/>
@@ -29,7 +29,7 @@
 
 
         <fieldset>
-            <Label>Mindesthaltbarkeitsdatum</Label><label for="expirationDate"></label><input type="date"
+            <text>Mindesthaltbarkeitsdatum</text><label for="expirationDate"></label><input type="date"
                                                                                               th:field="*{expirationDate}"
                                                                                               id="expirationDate"
                                                                                               required/>
