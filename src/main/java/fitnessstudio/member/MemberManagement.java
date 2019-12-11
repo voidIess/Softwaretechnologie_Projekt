@@ -230,7 +230,7 @@ public class MemberManagement {
 			members.save(member);
 
 			applicationEventPublisher.publishEvent(new InvoiceEvent(this, memberId, InvoiceType.DEPOSIT, amount,
-				"Online Einzahlung auf Account"));
+				"Einzahlung auf Account"));
 		}
 	}
 
