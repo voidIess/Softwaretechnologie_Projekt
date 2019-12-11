@@ -9,29 +9,27 @@
 </head>
 
 <div th:fragment="staffDetail">
-<div class="ui container">
-    <div class="item">
-        <h2 class="header">Eigene Daten</h2>
-        <p>Name:
-            <span th:text="${staff.firstName}">Vorname</span>
-            <span th:text="${staff.lastName}">Nachname</span>
-        </p>
-        <p>ID:
-            <span th:text="${staff.getStaffId()}">0000</span>
-        </p>
-        <h2 class="header">Gehalt</h2>
-        <form class="ui form" method="post" th:action="@{/printPdfPayslip}">
+    <div class="ui container">
+        <div class="item">
+            <h2 class="header">Eigene Daten</h2>
+            <p>Name:
+                <span th:text="${staff.firstName}">Vorname</span>
+                <span th:text="${staff.lastName}">Nachname</span>
+            </p>
+            <p>ID:
+                <span th:text="${staff.getStaffId()}">0000</span>
+            </p>
+            <h2 class="header">Gehalt</h2>
             <p>Bei Fitness Second verdienst du unglaubliche
                 <span th:text="${staff.getSalary()}"></span>
-                 pro Monat.
+                pro Monat.
             </p>
-            <button type="submit" class="ui button" th:text="#{staffDetail.printPdfPayslip}">Rechnung anzeigen</button>
-        </form>
+            <form th:if="${staff.workedLastMonth()}" class="ui form" method="post" th:action="@{/printPdfPayslip}">
+                <button type="submit" class="ui button" th:text="#{staffDetail.printPdfPayslip}">Rechnung anzeigen</button>
+            </form>
+            <p th:if="${!staff.workedLastMonth()}">Ab nächstem Monat kannst Du hier Deine Gehaltsabrechnung sehen.</p>
+        </div>
     </div>
-</div>
-
-<div class="column">
-
 </div>
 
 </html>

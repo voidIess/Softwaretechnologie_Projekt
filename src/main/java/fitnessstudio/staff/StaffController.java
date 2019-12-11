@@ -11,16 +11,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.Optional;
-import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.List;
 
 @Controller
 public class StaffController {
 
+	private static  final String REDIRECT = "redirect:/login";
 	private final StaffManagement staffManagement;
 
 	StaffController(StaffManagement staffManagement) {
@@ -28,7 +23,6 @@ public class StaffController {
 		this.staffManagement = staffManagement;
 	}
 
-	// shows information about one staff
 	@GetMapping("/staff")
 	public String detail(@LoggedIn Optional<UserAccount> userAccount, Model model) {
 
@@ -40,22 +34,27 @@ public class StaffController {
 				model.addAttribute("staff", staff.get());
 				return "staffDetail";
 			}
-			return "redirect:/login";
-		}).orElse("redirect:/login");
+			return REDIRECT;
+		}).orElse(REDIRECT);
 	}
 
-	// prints payslip of given staff
 	@PreAuthorize("hasRole('STAFF')")
 	@PostMapping("/printPdfPayslip")
 	public String printPdfPayslip(@LoggedIn Optional<UserAccount> userAccount, Model model) {
 
-		if (userAccount.isEmpty()) {
-			return "redirect:/login";
-		}
+		return userAccount.map(user -> {
 
-		model.addAttribute("type", "payslip");
-		model.addAllAttributes(staffManagement.createPdfPayslip(userAccount.get()));
+			Optional<Staff> staff = staffManagement.findByUserAccount(user);
 
-		return "pdfView";
+			if (staff.isPresent()) {
+				if(staff.get().workedLastMonth()) {
+					model.addAttribute("type", "payslip");
+					model.addAttribute("staff", staff.get());
+					return "pdfView";
+				}
+				return "redirect:/staff";
+			}
+			return REDIRECT;
+		}).orElse(REDIRECT);
 	}
 }

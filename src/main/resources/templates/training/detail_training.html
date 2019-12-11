@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="site_template :: template(#{training.detail.title}, ~{::details})"></html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta content="text/html; charset=UTF-8" http-equiv="content-type"/>
+
+</head>
+
+<div th:fragment="details">
+    <div class="ui container">
+
+        <div class="trainer">
+            <b><span>Trainer: </span></b>
+            <span th:text="${training.trainer.toString()}"></span>
+        </div>
+        <div class="description">
+            <b><span>Beschreibung: </span></b>
+            <span th:text="${training.description}"></span>
+        </div>
+
+        <div class="member">
+            <b><span>Mitglied: </span></b>
+            <span th:text="${training.member.toString()}"></span>
+        </div>
+
+        <div class="state">
+            <b><span>Status: </span></b>
+            <span th:text="${training.getState()}"></span>
+        </div>
+
+        <div class="type">
+            <b><span>Typ: </span></b>
+            <span th:text="${training.type}"></span>
+        </div>
+
+    </div>
+</div>
+</html>

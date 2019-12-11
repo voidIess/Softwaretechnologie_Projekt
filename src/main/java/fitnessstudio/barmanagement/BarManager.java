@@ -116,13 +116,13 @@ public class BarManager {
 		Article article = catalog.findById(id).orElse(new Article());
 		return article;
 	}
-	boolean editArticle(ProductIdentifier id, String name, String art, String description, MonetaryAmount price, Quantity sufficientQuantity){
+	boolean editArticle(ProductIdentifier id, String name, String type, String description, MonetaryAmount price, Quantity sufficientQuantity){
 		Optional<Article> opt = catalog.findById(id);
 		if (opt.isEmpty()) return false;
 
 		Article article = opt.get();
 		article.setName(name);
-		article.setArt(art);
+		article.setType(type);
 		article.setDescription(description);
 		article.setPrice(price);
 		article.setSufficientQuantity(sufficientQuantity);

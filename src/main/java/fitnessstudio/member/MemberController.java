@@ -1,6 +1,8 @@
 package fitnessstudio.member;
 
 import fitnessstudio.contract.ContractManagement;
+import fitnessstudio.invoice.InvoiceManagement;
+import fitnessstudio.staff.Staff;
 import org.javamoney.moneta.Money;
 import org.salespointframework.useraccount.UserAccount;
 import org.salespointframework.useraccount.web.LoggedIn;
@@ -20,14 +22,17 @@ public class MemberController {
 	private static final String REDIRECT_LOGIN = "redirect:/login";
 	private final MemberManagement memberManagement;
 	private final ContractManagement contractManagement;
+	private final InvoiceManagement invoiceManagement;
 
 
-	MemberController(MemberManagement memberManagement, ContractManagement contractManagement) {
+	MemberController(MemberManagement memberManagement, ContractManagement contractManagement, InvoiceManagement invoiceManagement) {
 		Assert.notNull(memberManagement, "MemberManagement must not be null");
 		Assert.notNull(contractManagement, "ContractManagement must not be null");
+		Assert.notNull(invoiceManagement, "InvoiceManagement must not be null");
 
 		this.memberManagement = memberManagement;
 		this.contractManagement = contractManagement;
+		this.invoiceManagement = invoiceManagement;
 	}
 
 	@GetMapping("/register")
@@ -51,8 +56,8 @@ public class MemberController {
 
 	@GetMapping("/admin/members")
 	@PreAuthorize("hasRole('STAFF')")
-	public String members(Model model) {
-		model.addAttribute("memberList", memberManagement.findAllAuthorized());
+	public String members(Model model, @ModelAttribute("form") SearchForm form) {
+		model.addAttribute("memberList", memberManagement.findAllAuthorized(form.getSearch()));
 		model.addAttribute("unauthorizedMember", memberManagement.findAllUnauthorized().size());
 		return "member/members";
 	}
@@ -73,7 +78,43 @@ public class MemberController {
 
 			if (member.isPresent()) {
 				model.addAttribute("member", member.get());
+				model.addAttribute("contractText", memberManagement.getContractTextOfMember(member.get()));
 				return "member/memberDetail";
+			}
+			return REDIRECT_LOGIN;
+		}).orElse(REDIRECT_LOGIN);
+	}
+
+	@GetMapping("/member/edit")
+	public String edit(@LoggedIn Optional<UserAccount> userAccount, EditingForm form, Model model, Errors results) {
+		if (userAccount.isEmpty()) {
+			return REDIRECT_LOGIN;
+		}
+
+		Optional<Member> member = memberManagement.findByUserAccount(userAccount.get());
+		if(member.isEmpty()) {
+			return REDIRECT_LOGIN;
+		}
+
+		form = memberManagement.preFillMember(member.get(), form);
+
+		model.addAttribute("form", form);
+		model.addAttribute("error", results);
+		return "/member/editMember";
+	}
+
+	@PostMapping("/member/edit")
+	public String editNew(@LoggedIn Optional<UserAccount> userAccount, @Valid @ModelAttribute("form") EditingForm form, Model model, Errors result) {
+		return userAccount.map(user -> {
+
+			Optional<Member> member = memberManagement.findByUserAccount(user);
+
+			if (member.isPresent()) {
+				memberManagement.editMember(member.get().getMemberId(), form, result);
+				if (result.hasErrors()) {
+					return edit(userAccount, form, model, result);
+				}
+				return "redirect:/member/home";
 			}
 			return REDIRECT_LOGIN;
 		}).orElse(REDIRECT_LOGIN);
@@ -87,7 +128,7 @@ public class MemberController {
 			Optional<Member> member = memberManagement.findByUserAccount(user);
 
 			if (member.isPresent()) {
-				memberManagement.memberPayIn(member.get(), money);
+				memberManagement.memberPayIn(member.get().getMemberId(), money);
 				return "redirect:/member/home";
 			}
 			return REDIRECT_LOGIN;
@@ -122,15 +163,62 @@ public class MemberController {
 		return "redirect:/admin/members";
 	}
 
+	@PostMapping("/admin/member/payin")
+	@PreAuthorize("hasRole('STAFF')")
+	public String barPayIn(@RequestParam long id, @RequestParam double amount){
+		Money money = Money.of(amount, "EUR");
+		memberManagement.memberPayIn(id, money);
+		return "redirect:/admin/members";
+	}
+
 	@PostMapping("/printPdfInvoice")
 	public String printPdfInvoice(@LoggedIn Optional<UserAccount> userAccount, Model model) {
-		if (userAccount.isEmpty() || memberManagement.findByUserAccount(userAccount.get()).isEmpty()) {
+		return userAccount.map(user -> {
+
+			Optional<Member> member = memberManagement.findByUserAccount(user);
+
+			if (member.isPresent()) {
+				if(member.get().wasMemberLastMonth()) {
+					model.addAttribute("type", "invoice");
+					model.addAllAttributes(memberManagement.createPdfInvoice(userAccount.get()));
+					return "pdfView";
+				}
+				return "redirect:/member/home";
+			}
 			return REDIRECT_LOGIN;
-		}
+		}).orElse(REDIRECT_LOGIN);
+	}
 
-		model.addAttribute("type", "invoice");
-		model.addAllAttributes(memberManagement.createPdfInvoice(userAccount.get()));
+	/*
+		TEMPORARY!
+	 */
+	@GetMapping("/member/invoices")
+	public String invoices(@LoggedIn Optional<UserAccount> userAccount, Model model) {
+		return userAccount.map(user -> {
+			Optional<Member> member = memberManagement.findByUserAccount(user);
+			if (member.isPresent()) {
+				model.addAttribute("invoices", invoiceManagement.getAllInvoicesForMember(member.get().getMemberId()));
+				return "member/memberInvoices";
+			}
+			return REDIRECT_LOGIN;
+		}).orElse(REDIRECT_LOGIN);
+	}
 
-		return "pdfView";
+	@GetMapping("/member/pause")
+	public String pause(@LoggedIn Optional<UserAccount> userAccount){
+		return userAccount.map(user -> {
+			Optional<Member> member = memberManagement.findByUserAccount(user);
+			if (member.isPresent()) {
+				memberManagement.pauseMembership(member.get());
+				return "redirect:/member/home";
+			}
+			return REDIRECT_LOGIN;
+		}).orElse(REDIRECT_LOGIN);
+	}
+
+	@PreAuthorize("hasRole('MEMBER')")
+	@GetMapping("/member/memberPause")
+	public String showPause(){
+		return "member/memberPause";
 	}
 }

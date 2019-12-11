@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 
-<html xmlns:th="http://www.thymeleaf.org" th:replace="site_template :: template(#{memberDetail.title}, ~{::memberDetail})"></html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="site_template :: template(#{memberDetail.title}, ~{::memberDetail})"></html>
 
 <html xmlns:th="http://www.thymeleaf.org" th:remove="tag">
 <head th:remove="all">
@@ -10,11 +11,30 @@
 
 <div th:fragment="memberDetail">
     <div class="ui container">
+        <div style="text-align: center">
+            <div style="display: inline-block; width: available">
+                <div class="info" th:style="${member.isPaused() ? 'background:#ffcccd' : 'background:#ebffcf'}">
+                    <p class="box" style="border: solid #ffffff; border-radius: 10px; padding: 10px;"
+                       th:text="${contractText}">
+                        details
+                    </p>
+                </div>
+            </div>
+            <a th:if="${!member.isPaused()}" th:href="@{/member/memberPause}" class="ui button blue" style="display: inline-block" >
+                Pausieren
+            </a>
+        </div>
         <div class="ui item">
+            <form class="ui form" method="get" th:action="@{/member/edit}">
+                <button type="submit" class="ui labeled icon button"><i class="edit icon"></i>Bearbeiten</button>
+            </form>
             <h2 class="header">Benutzerdaten</h2>
             <p>Name:
                 <span th:text="${member.firstName}">Vorname</span>
                 <span th:text="${member.lastName}">Nachname</span>
+            </p>
+            <p>Email:
+                <span th:text="${member.getUserAccount().email}">Email</span>
             </p>
             <p>Vertrag:
                 <span th:text="${member.contract.name}">Vertrag</span>
@@ -25,7 +45,6 @@
             <p>Guthaben:
                 <span th:text="${{member.credit}}">0.00 €</span>
             </p>
-            </b>
             <h2>Kontodaten</h2>
             <p>IBAN:
                 <span th:text="${member.creditAccount.iban}">999999999999999999</span>
@@ -43,17 +62,19 @@
                     <br/>
                 </fieldset>
                 <button type="submit" class="ui labeled icon button">
-                    <i class="payIn"></i> Aufladen
+                    <i class="money icon"></i> Aufladen
                 </button>
             </form>
             <h2>Rechnung</h2>
-            <form class="ui form" method="post" th:action="@{/printPdfInvoice}">
-                <p>Durch Ihren Vertrag fallen monatlich
-                    <span th:text="${member.getContract().getPrice()}"></span>
-                    an.
-                </p>
-                <button type="submit" class="ui button" th:text="#{memberDetail.printPdfInvoice}">Rechnung anzeigen</button>
+            <p>Durch Deine kluge Vertragswahl zahlst Du monatlich nur
+                <span th:text="${member.getContract().getPrice().toString()}"></span>.
+            </p>
+            <form class="ui form" method="post" th:if="${member.wasMemberLastMonth()}" th:action="@{/printPdfInvoice}">
+                <button type="submit" class="ui button" th:text="#{memberDetail.printPdfInvoice}">
+                    Rechnung anzeigen
+                </button>
             </form>
+            <p th:if="${!member.wasMemberLastMonth()}">Ab nächstem Monat kannst Du hier Deine Rechnung sehen.</p>
             <br>
         </div>
     </div>

@@ -14,7 +14,7 @@ import java.time.LocalDate;
 @Entity
 public class Article extends Product {
 
-	private String art;
+	private String type;
 	private String description;
 	// private LocalDate expirationDate;
 	@OneToOne
@@ -26,9 +26,9 @@ public class Article extends Product {
 	public Article() {
 	}
 
-	public Article(String name, MonetaryAmount price, String art, String description, Discount discount, Quantity sufficientQuantity) {
+	public Article(String name, MonetaryAmount price, String type, String description, Discount discount, Quantity sufficientQuantity) {
 		super(name, price);
-		this.art = art;
+		this.type = type;
 		this.description = description;
 		this.discount = discount;
 		this.sufficientQuantity = sufficientQuantity;
@@ -47,13 +47,13 @@ public class Article extends Product {
 		}
 	}
 
-	public String getArt() {
-		return art;
+	public String getType() {
+		return type;
 	}
 
 
-	public void setArt(String art) {
-		this.art = art;
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	public String getDescription() {

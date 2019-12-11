@@ -8,16 +8,16 @@ import org.salespointframework.useraccount.UserAccount;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.Optional;
+import java.time.LocalDate;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.fail;
 
 /**
  * Integration tests for {@link fitnessstudio.member.MemberManagement}.
  *
  * @author Bill Kippe
  */
+
 @SpringBootTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -47,7 +47,7 @@ class MemberManagementUnitTests {
 	@Test
 	@Order(1)
 	void testCreateMember() {
-		RegistrationForm form = new RegistrationForm("FirstName", "LastName", "UserName",
+		RegistrationForm form = new RegistrationForm("FirstName", "LastName","email@email67e3838.de", "UserName",
 			"Password", "0123456789012345678912", "0123456789", contractId, "");
 
 		Member member = management.createMember(form, null);
@@ -56,6 +56,7 @@ class MemberManagementUnitTests {
 
 
 		assertThat(members.findById(memberId)).isNotEmpty();
+		assertThat(member.getContract()).isNotNull();
 	}
 
 	@Test
@@ -68,13 +69,15 @@ class MemberManagementUnitTests {
 	@Order(3)
 	void testAuthorizeMember() {
 		management.authorizeMember(members.findById(memberId).get().getMemberId());
-		assertThat(members.findById(memberId).get().getUserAccount().isEnabled()).isTrue();
+		Member member = members.findById(memberId).get();
+
+		assertThat(member.getUserAccount().isEnabled()).isTrue();
 	}
 
 	@Test
 	@Order(4)
 	void testFindAllAuthorized() {
-		assertThat(management.findAllAuthorized().contains(members.findById(memberId).get())).isTrue();
+		assertThat(management.findAllAuthorized("").contains(members.findById(memberId).get())).isTrue();
 	}
 
 	@Test
@@ -106,9 +109,64 @@ class MemberManagementUnitTests {
 		Money oldAmount = member.getCredit();
 		Money amount = Money.of(10, "EUR");
 
-		management.memberPayIn(member, amount);
+		management.memberPayIn(member.getMemberId(), amount);
 		assertThat(members.findById(memberId).get().getCredit()).isEqualTo(oldAmount.add(amount));
 
+	}
+
+	@Test
+	@Order(9)
+	void testPause(){
+		Member member = members.findById(memberId).get();
+		LocalDate endDate = member.getEndDate();
+		Money oldCredit = member.getCredit();
+		management.pauseMembership(member);
+
+		assertThat(member.isPaused()).isTrue();
+		assertThat(member.getLastPause()).isEqualTo(LocalDate.now());
+		member.setLastPause(LocalDate.now().minusDays(33));
+		members.save(member);
+
+		assertThat(member.getEndDate()).isEqualTo(endDate.plusDays(31));
+		assertThat(member.getCredit()).isEqualTo(oldCredit.add(member.getContract().getPrice()));
+
+	}
+
+	@Test
+	@Order(10)
+	void testCheckMembershipsUnPause(){
+		management.checkMemberships();
+
+		Member member = members.findById(memberId).get();
+		assertThat(member.isPaused()).isFalse();
+	}
+
+	@Test
+	@Order(11)
+	void testCannotPauseAgain() {
+		Member member = members.findById(memberId).get();
+
+		management.pauseMembership(member);
+		assertThat(member.isPaused()).isFalse();
+	}
+
+	@Test
+	@Order(15)
+	void testCheckMembershipsDisableExpired() {
+		Member member = members.findById(memberId).get();
+		member.setEndDate(LocalDate.now());
+		members.save(member);
+
+		management.checkMemberships();
+		assertThat(members.findById(memberId).get().getUserAccount().isEnabled()).isFalse();
+	}
+
+	@Test
+	@Order(16)
+	void testGetCreditOfDate() {
+		Member member = members.findById(memberId).get();
+		Money oldAmount = member.getCredit();
+		assertThat(management.getMemberCreditOfDate(member, LocalDate.now()).equals(oldAmount)).isTrue();
 	}
 
 	@Test
@@ -118,8 +176,6 @@ class MemberManagementUnitTests {
 		management.deleteMember(memberId);
 		assertThat(members.findById(memberId)).isEmpty();
 	}
-
-
 
 
 }

@@ -2,12 +2,17 @@ package fitnessstudio.training;
 
 import fitnessstudio.member.Member;
 import fitnessstudio.member.MemberRepository;
+import fitnessstudio.roster.Roster;
+import fitnessstudio.roster.RosterManagement;
+import fitnessstudio.roster.RosterRepository;
 import fitnessstudio.staff.Staff;
 import fitnessstudio.staff.StaffRepository;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.validation.BeanPropertyBindingResult;
+
+import java.util.Calendar;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -33,12 +38,16 @@ class TrainingManagementUnitTests {
 	@Autowired
 	private StaffRepository staffs;
 
+	private int week;
 	private Long trainingId;
 	private Member member;
 	private Staff staff;
+	private String time;
 
 	@BeforeAll
 	void setUp() {
+		week = Calendar.getInstance().get(Calendar.WEEK_OF_YEAR);
+
 		if (members.findAll().isEmpty()) {
 			members.save(new Member());
 		}
@@ -49,13 +58,17 @@ class TrainingManagementUnitTests {
 
 		member = members.findAll().toList().get(0);
 		staff = staffs.findAll().toList().get(0);
+
+		time = "10:00-12:00";
+
+
 	}
 
 	@Test
 	@Order(1)
 	void testCreateNormalTraining() {
 		Training training = management.createTraining(member, new TrainingForm("NORMAL", staff.getStaffId() + "", "0",
-			"10:00", "Description"), null);
+			time, "Description", week), null);
 
 		trainingId = training.getTrainingId();
 
@@ -86,8 +99,8 @@ class TrainingManagementUnitTests {
 	@Test
 	@Order(5)
 	void testCreatTrialTraining() {
-		Training training = management.createTraining(member, new TrainingForm("TRIAL", staff.getStaffId() + "", "0",
-			"10:00", "Description"), null);
+		Training training = management.createTraining(member, new TrainingForm("TRIAL", staff.getStaffId() + "", "1",
+			time, "Description", week), null);
 
 		trainingId = training.getTrainingId();
 
@@ -106,7 +119,7 @@ class TrainingManagementUnitTests {
 	@Order(7)
 	void testDontCreateTrialTrainingWhenAlreadyFreeTrained() {
 		TrainingForm form = new TrainingForm("TRIAL", staff.getStaffId() + "", "0",
-			"10:00", "Description");
+			time, "Description", week);
 		Training training = management.createTraining(member, form, new BeanPropertyBindingResult(form, "form"));
 
 		assertThat(training).isNull();

@@ -5,7 +5,10 @@ import fitnessstudio.staff.Staff;
 import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
+import java.time.DayOfWeek;
 import java.time.LocalTime;
+import java.time.format.TextStyle;
+import java.util.Locale;
 
 @Entity
 public class Training {
@@ -26,7 +29,9 @@ public class Training {
 
 	private int day;
 
-	private LocalTime startTime;
+	private int week;
+
+	private String startTime;
 
 	private int duration;
 
@@ -39,9 +44,8 @@ public class Training {
 		state = TrainingState.REQUESTED;
 	}
 
-	public Training(TrainingType type, Staff trainer, Member member, int day, LocalTime startTime, int duration, String description) {
+	public Training(TrainingType type, Staff trainer, Member member, int day, String startTime, int duration, String description, int week) {
 		this();
-
 		this.type = type;
 		this.trainer = trainer;
 		this.member = member;
@@ -49,8 +53,10 @@ public class Training {
 		this.duration = duration;
 		this.description = description;
 		this.day = day;
+		this.week = week;
 	}
 
+	public int getWeek() {return week;}
 
 	public long getTrainingId() {
 		return trainingId;
@@ -64,7 +70,7 @@ public class Training {
 		return member;
 	}
 
-	public LocalTime getStartTime() {
+	public String getStartTime() {
 		return startTime;
 	}
 
@@ -107,5 +113,10 @@ public class Training {
 		if (getState().equals(TrainingState.ACCEPTED)) {
 			state = TrainingState.ENDED;
 		}
+	}
+
+	public String getDayAsString(){
+		DayOfWeek dow = DayOfWeek.of(getDay()+1);
+		return dow.getDisplayName(TextStyle.FULL, Locale.GERMAN);
 	}
 }

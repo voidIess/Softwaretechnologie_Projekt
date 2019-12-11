@@ -1,10 +1,12 @@
 package fitnessstudio.roster;
 
+
 import fitnessstudio.staff.Staff;
+import fitnessstudio.staff.StaffRepository;
 import fitnessstudio.staff.StaffRole;
 import org.javamoney.moneta.Money;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.salespointframework.useraccount.Password;
@@ -14,46 +16,116 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.fail;
 
 @SpringBootTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class SlotTest {
 
+	private Staff staff, staff2;
+	private RosterEntry rosterEntry, rosterEntry2;
+	private Slot slot;
 
 	@Autowired
-	private UserAccountManager userAccountManager;
+	private UserAccountManager userAccounts;
 
-	private Staff staff, staff2;
-	private Slot slot;
-	private RosterEntry rosterEntryCounter, rosterEntryTrainer;
+	@Autowired
+	private StaffRepository staffRepository;
 
 	@BeforeAll
-	void setUp(){
-		staff = new Staff(userAccountManager.create("TestStaff", Password.UnencryptedPassword.of("123"), Role.of("STAFF")),"Markus", "Wieland", Money.of(100, "EUR"));
-		staff2 = new Staff(userAccountManager.create("TestStaff2", Password.UnencryptedPassword.of("123"), Role.of("STAFF")),"Markus", "Wieland", Money.of(100, "EUR"));
-		rosterEntryCounter = new RosterEntry(StaffRole.COUNTER, staff);
-		rosterEntryTrainer = new RosterEntry(StaffRole.TRAINER, staff);
-		slot = new Slot();
+	void setup () {
+		staff = new Staff(userAccounts.create("slotTestStaff", Password.UnencryptedPassword.of("123"), Role.of("STAFF")),"Markus", "Wieland", Money.of(100, "EUR"));
+		staff2 = new Staff(userAccounts.create("slotTestStaff2", Password.UnencryptedPassword.of("123"), Role.of("STAFF")),"Markus", "Wieland", Money.of(100, "EUR"));
+
+		staffRepository.save(staff);
+		staffRepository.save(staff2);
+
+		rosterEntry = new RosterEntry(StaffRole.TRAINER,staff);
+		rosterEntry2 = new RosterEntry(StaffRole.COUNTER, staff);
+	}
+
+	@Test
+	@Order(1)
+	void constructorTest () {
+		try {
+			slot = new Slot(-1, 0);
+			fail("Die Schicht darf nicht negativ sein!");
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		try {
+			slot = new Slot (Roster.AMOUNT_ROWS,1);
+			fail("Diese Schicht existiert nicht.");
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		try {
+			slot = new Slot (1, -1);
+			fail("Der Tag darf nicht negativ sein.");
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		try {
+			slot = new Slot (1, 7);
+			fail("Der Tag muss kleiner als 7 sein! Informatiker fangen nämlich bei Null an zu zählen du Depp!");
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		Slot slot = new Slot (1,1);
 
 	}
 
 	@Test
-	void testIsTaken(){
-		assertThat(slot.isTaken(staff)).isFalse();
+	@Order(2)
+	void testDeleted () {
+		slot = new Slot (1,1);
+		assertThat(slot.getEntries().size() == 0).isTrue();
+		slot.getEntries().add(rosterEntry);
+		assertThat(slot.getEntries().size() == 1).isTrue();
+		assertThat(slot.deleteEntry(rosterEntry.getRosterEntryId())).isTrue();
+		assertThat(slot.getEntries().size() == 0).isTrue();
+		assertThat(slot.deleteEntry(rosterEntry.getRosterEntryId())).isFalse();
+
+		slot.getEntries().add(rosterEntry);
+		assertThat(slot.deleteEntry(-1)).isFalse();
+		assertThat(slot.getEntries().size()==1).isTrue();
+	}
+
+	@Test
+	@Order(3)
+	void isTaken () {
+		slot = new Slot(2,2);
+		slot.getEntries().add(rosterEntry);
+		System.out.println(slot.getEntries().size());
+		assertThat(slot.isTaken(staff)).isTrue();
 		assertThat(slot.isTaken(staff2)).isFalse();
-		//slot.addEntry(rosterEntryCounter);
-		//assertThat(slot.isTaken(staff)).isTrue();
 	}
 
-	@AfterAll
-	void clear (){
-		userAccountManager.delete(staff.getUserAccount());
-		userAccountManager.delete(staff2.getUserAccount());
+	@Test
+	@Order(4)
+	void testSortedList () {
+		slot = new Slot(1,1);
+		slot.getEntries().add(rosterEntry);
+		slot.getEntries().add(rosterEntry2);
+
+		assertThat(slot.getEntries().get(0).equals(rosterEntry2)).isTrue();
+
+		slot = new Slot(1,1);
+		slot.getEntries().add(rosterEntry2);
+		slot.getEntries().add(rosterEntry);
+
+		assertThat(slot.getEntries().get(0).equals(rosterEntry2)).isTrue();
+	}
+
+	@Test
+	@Order(5)
+	void testCoordinates () {
+		int shift = 1;
+		int day = 3;
+		slot = new Slot(shift, day);
+		assertThat(slot.getCoordinates()[0]==shift).isTrue();
+		assertThat(slot.getCoordinates()[1] == day).isTrue();
 	}
 
 
-	//istaken
-	//add and delete entry
-	//ToString
-	//getSortedList
 }

@@ -25,6 +25,7 @@
     <p>Es gibt <b><span th:text="${requestedTrainings}">0</span></b> neue Anfragen</p>
     <a th:href="@{/admin/training/authorize}">Bearbeiten</a>
 
+
     <table class="ui celled table">
         <thead>
         <tr>
@@ -43,7 +44,7 @@
             <td th:text="${training.getType().getDisplayValue()}"></td>
             <td th:text="${training.trainer.lastName}">Trainer</td>
             <td th:text="${training.description}">Beschreibung</td>
-            <td th:text="${training.day}">Tag</td>
+            <td th:text="${training.getDayAsString()}">Tag</td>
             <td th:text="${training.startTime}">Time</td>
             <td>
                 <a class="ui red button" th:href="@{/training/end/{id}/(id=${training.trainingId})}">Beenden</a>

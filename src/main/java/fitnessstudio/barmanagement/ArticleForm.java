@@ -9,7 +9,7 @@ public interface ArticleForm {
 	String getName();
 
 	@NotEmpty
-	String getArt();
+	String getType();
 
 	@NotEmpty
 	String getDescription();

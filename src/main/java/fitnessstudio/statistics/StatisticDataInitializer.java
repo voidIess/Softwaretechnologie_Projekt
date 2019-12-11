@@ -1,6 +1,5 @@
 package fitnessstudio.statistics;
 
-import fitnessstudio.member.Member;
 import org.salespointframework.core.DataInitializer;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="site_template :: template(#{editMember.title}, ~{::editMember})"></html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta content="text/html; charset=UTF-8" http-equiv="content-type"/>
+</head>
+
+<div th:fragment="editMember">
+    <div class="ui container">
+
+        <form method="post" role="form" class="ui form" id="form" th:action="@{/member/edit}" th:object="${form}">
+            <h2>Benutzerdaten</h2>
+
+            <div class="ui negative message" th:if="${#fields.hasErrors('*')}">
+                <p>Einige Angaben sind nicht korrekt.</p>
+            </div>
+
+            <div class="field">
+                <label th:text="#{register.firstName}" for="firstName">Vorname</label>
+                <input id="firstName" name="firstName" th:field="*{firstName}" th:errorclass="fieldError" type="text"
+                       required="required"/><br/>
+                <p th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">Der Vorname darf nicht leer sein.</p>
+            </div>
+
+            <div class="field">
+                <label th:text="#{register.lastName}" for="lastName">Nachname</label>
+                <input id="lastName" name="lastName" th:field="*{lastName}" th:errorclass="fieldError" type="text"
+                       required="required"/><br/>
+                <p th:if="${#fields.hasErrors('firstName')}" th:errors="*{lastName}">Der Nachname darf nicht leer sein.</p>
+            </div>
+
+            <div class="field">
+                <label th:text="#{register.email}" for="email">Email</label>
+                <input id="email" name="email" th:field="*{email}" th:errorclass="fieldError" type="text" required="required">
+                <div class="ui negative message" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">
+                    <p>Email bereits vergeben.</p>
+                </div>
+            </div>
+
+            <h2>Kontodaten</h2>
+
+            <div class="field">
+                <label for="iban">IBAN</label>
+                <input id="iban" name="iban" th:field="*{iban}" th:errorclass="fieldError" type="text"
+                       required="required"/><br/>
+                <div class="ui negative message" th:if="${#fields.hasErrors('iban')}" th:errors="*{iban}">
+                    <p>IBAN darf nicht leer sein.</p>
+                </div>
+            </div>
+
+            <div class="field">
+                <label for="bic">BIC</label>
+                <input id="bic" name="bic" th:field="*{bic}" th:errorclass="fieldError" type="text"
+                       required="required"/><br/>
+                <div class="ui negative message" th:if="${#fields.hasErrors('bic')}" th:errors="*{bic}">
+                    <p>BIC darf nicht leer sein.</p>
+                </div>
+            </div>
+
+            <button type="submit" class="ui button" th:text="#{editMember.submit}">Speichern</button>
+        </form>
+    </div>
+</div>
+</html>

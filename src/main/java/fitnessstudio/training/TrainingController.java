@@ -35,6 +35,8 @@ public class TrainingController {
 	public String create(Model model, TrainingForm form, Errors result) {
 		model.addAttribute("staffs", trainingManagement.getAllStaffs());
 		model.addAttribute("types", trainingManagement.getTypes());
+		model.addAttribute("times", trainingManagement.getRosterManagement().getTimes());
+		model.addAttribute("weeks", trainingManagement.getRosterManagement().getNextWeeks());
 		model.addAttribute("form", form);
 		model.addAttribute("error", result);
 		return "training/create_training";
@@ -62,6 +64,7 @@ public class TrainingController {
 			Optional<Member> member = trainingManagement.findByUserAccount(user);
 			if (member.isPresent()) {
 				model.addAttribute("trainings", trainingManagement.getAllTrainingByMember(member.get()));
+				model.addAttribute("member", member.get());
 				return "training/member_trainings";
 			}
 			return REDIRECT_LOGIN;
@@ -81,7 +84,6 @@ public class TrainingController {
 	@PreAuthorize("hasRole('STAFF')")
 	public String authorizeTrainings(Model model) {
 		model.addAttribute("requestedTrainings", trainingManagement.getAllRequestedTrainings());
-
 		return "training/authorize_trainings";
 	}
 
@@ -95,8 +97,19 @@ public class TrainingController {
 	@GetMapping("/training/accept/{id}")
 	@PreAuthorize("hasRole('STAFF')")
 	public String accept(@PathVariable long id, Model model) {
-		trainingManagement.accept(id);
+		if (!trainingManagement.accept(id)) {
+
+			//TODO: Error message
+			//TODO: tabelle um week erweitern
+		}
 		return "redirect:/admin/training/authorize";
+	}
+
+	@GetMapping("/training/details/{id}")
+	@PreAuthorize("hasRole('STAFF')")
+	public String details(@PathVariable long id, Model model) {
+		model.addAttribute("training", trainingManagement.findById(id).orElse(null));
+		return "training/detail_training";
 	}
 
 	@GetMapping("/training/end/{id}")

@@ -78,7 +78,7 @@ public class InventoryController {
 		discountRepository.save(discount);
 		Article article = new Article(form.getName(),
 			Money.of(new BigDecimal(form.getPrice()), "EUR"),
-			form.getArt(),
+			form.getType(),
 			form.getDescription(), discount
 			, Quantity.of(10));
 
@@ -143,7 +143,7 @@ public class InventoryController {
 	public String editArticle(@PathVariable ProductIdentifier id, @Valid ArticleForm form, Model model) {
 		if (getError(form, model)) return ERROR;
 
-		barManager.editArticle(id, form.getName(), form.getArt(), form.getDescription(),
+		barManager.editArticle(id, form.getName(), form.getType(), form.getDescription(),
 			Money.of(new BigDecimal(form.getPrice()), "EUR"),
 			Quantity.of(Double.parseDouble(form.getSufficientQuantity())));
 
@@ -162,8 +162,8 @@ public class InventoryController {
 			}
 
 			@Override
-			public @NotEmpty String getArt() {
-				return article.getArt();
+			public @NotEmpty String getType() {
+				return article.getType();
 			}
 
 			@Override

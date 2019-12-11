@@ -29,7 +29,7 @@
         <tr th:each=" article : ${catalog}">
             <td><a th:href="@{/article/{id}(id=${article.id})}" th:text="${{article.name}}">Artikelname</a></td>
             <td th:text="${article.description}">Beschreibung</td>
-            <td th:text="${article.art}">Art</td>
+            <td th:text="${article.type}">Art</td>
         </tr>
 
 

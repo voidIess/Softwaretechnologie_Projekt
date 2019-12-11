@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+
 @Entity
 public class Studio {
 
@@ -12,18 +13,15 @@ public class Studio {
 	long id;
 
 	private String openingTimes;
-	private String contractTerm;
-	private String monthlyFees;
 	private String advertisingBonus;
 
 	public Studio() {
 
 	}
 
-	public Studio(String openingTimes, String contractTerm, String monthlyFees, String advertisingBonus) {
+	public Studio(String openingTimes, String advertisingBonus) {
 		this.openingTimes = openingTimes;
-		this.contractTerm = contractTerm;
-		this.monthlyFees = monthlyFees;
+
 		this.advertisingBonus = advertisingBonus;
 	}
 
@@ -39,22 +37,6 @@ public class Studio {
 		this.openingTimes = openningTimes;
 	}
 
-	public String getContractTerm() {
-		return contractTerm;
-	}
-
-	public void setContractTerm(String contractTerm) {
-		this.contractTerm = contractTerm;
-	}
-
-	public String getMonthlyFees() {
-		return monthlyFees;
-	}
-
-	public void setMonthlyFees(String monthlyFees) {
-		this.monthlyFees = monthlyFees;
-	}
-
 	public String getAdvertisingBonus() {
 		return advertisingBonus;
 	}
@@ -62,4 +44,6 @@ public class Studio {
 	public void setAdvertisingBonus(String advertisingBonus) {
 		this.advertisingBonus = advertisingBonus;
 	}
+
+
 }

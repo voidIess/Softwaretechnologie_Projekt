@@ -1,5 +1,6 @@
 package fitnessstudio.studio;
 
+import fitnessstudio.contract.ContractManagement;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -20,19 +21,20 @@ public class StudioController {
 	private static final String STATUS = "status";
 
 	private final StudioService studioService;
+	private final ContractManagement contractManagement;
 
 	@Autowired
-	public StudioController(StudioService studioService) {
+	public StudioController(StudioService studioService, ContractManagement contractManagement) {
 		this.studioService = studioService;
+		this.contractManagement = contractManagement;
 	}
 
 	@GetMapping("/")
 	public String index(Model model) {
 		Studio studio = studioService.getStudio();
 		model.addAttribute("openingTimes", studio.getOpeningTimes());
-		model.addAttribute("contractTerm", studio.getContractTerm());
-		model.addAttribute("monthlyFees", studio.getMonthlyFees());
 		model.addAttribute("advertisingBonus", studio.getAdvertisingBonus());
+		model.addAttribute("contractList", contractManagement.getAllContracts());
 		return "index";
 	}
 
@@ -43,16 +45,6 @@ public class StudioController {
 			@Override
 			public @NotEmpty String getOpeningTimes() {
 				return studio.getOpeningTimes();
-			}
-
-			@Override
-			public @NotEmpty String getContractTerm() {
-				return studio.getContractTerm();
-			}
-
-			@Override
-			public @NotEmpty String getMonthlyFees() {
-				return studio.getMonthlyFees();
 			}
 
 			@Override
@@ -75,8 +67,7 @@ public class StudioController {
 	@PreAuthorize("hasRole('ROLE_BOSS')")
 	@PostMapping("/studio")
 	public String editStudio(@Valid StudioForm studioForm, Model model, Errors errors) {
-		if (Integer.parseInt(studioForm.getContractTerm()) < 1 || Integer.parseInt(studioForm.getMonthlyFees()) < 0 ||
-				Integer.parseInt(studioForm.getAdvertisingBonus()) < 0) {
+		if (Integer.parseInt(studioForm.getAdvertisingBonus()) < 0) {
 			model.addAttribute(ERROR, "Contract term, monthly fees, advertising bonus should be positive");
 			model.addAttribute(STATUS, "400");
 			return ERROR;
@@ -84,8 +75,6 @@ public class StudioController {
 
 		Studio studio = studioService.getStudio();
 		studio.setOpeningTimes(studioForm.getOpeningTimes());
-		studio.setMonthlyFees(studioForm.getMonthlyFees());
-		studio.setContractTerm(studioForm.getContractTerm());
 		studio.setAdvertisingBonus(studioForm.getAdvertisingBonus());
 		studioService.saveStudio(studio);
 		return "redirect:/";
