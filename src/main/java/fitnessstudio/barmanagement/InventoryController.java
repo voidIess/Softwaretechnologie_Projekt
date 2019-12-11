@@ -67,24 +67,19 @@ public class InventoryController {
 	@PreAuthorize("hasRole('STAFF')")
 	@PostMapping("/article")
 	public String addArticle(@Valid ArticleForm form, Model model) throws DateTimeParseException {
-		/* if (getError(form, model)) return ERROR;
-		Date date = new Date(form).invoke();
-		LocalDate startDate = date.getStartDate();
-		LocalDate endDate = date.getEndDate();
-		LocalDate expirationDate = date.getExpirationDate();
+		if (getError(form, model)) return ERROR;
 
-		Discount discount = new Discount(startDate, endDate, Integer.parseInt(form.getPercentDiscount()));
 
+		//TODO add sufficient quantity to the form
 		Article article = new Article(form.getName(),
-				Money.of(new BigDecimal(form.getPrice()), "EUR"),
-				form.getArt(),
-				form.getDescription(),
-				expirationDate,
-				discount);
-		discountRepository.save(discount);
-		catalog.save(article);
-		inventory.save(new UniqueInventoryItem(article, Quantity.of(Integer.parseInt(form.getNumber()))));
-		applicationEventPublisher.publishEvent(this); */
+			Money.of(new BigDecimal(form.getPrice()), "EUR"),
+			form.getArt(),
+			form.getDescription(), new Discount()
+			,Quantity.of(10));
+		barManager.addNewArticleToCatalog(article);
+		//barManager.restockInventory(Quantity.of(Integer.parseInt(form.getNumber())), article, expirationDate);
+		// inventory.save(new UniqueInventoryItem(article, Quantity.of(Integer.parseInt(form.getNumber()))));
+		applicationEventPublisher.publishEvent(this);
 		return REDIRECT_CATALOG;
 	}
 
@@ -102,26 +97,32 @@ public class InventoryController {
 
 	@PreAuthorize("hasRole('STAFF')")
 	@GetMapping("/article/detail/{id}")
-	public String editArticle(@PathVariable ProductIdentifier id, Model model) throws DateTimeParseException {
-	/*
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.GERMANY);
+	public String editArticle(@PathVariable ProductIdentifier id, Model model) {
 
-		inventory.findAll().forEach(uniqueInventoryItem -> {
 
-			Article article = (Article) uniqueInventoryItem.getProduct();
-			if (Objects.equals(article.getId(), id)) {
-				model.addAttribute("id", id);
-				model.addAttribute("form", getArticleForm(formatter, uniqueInventoryItem, article));
-			}
+		model.addAttribute("id", id);
+		model.addAttribute("form", getArticleForm(barManager.getById(id)));
 
-		});
-*/
 		return "bar/edit_article";
+	}
+
+	// post mapping for editing
+	@PreAuthorize("hasRole('STAFF')")
+	@PostMapping("/article/detail/{id}")
+	public String editArticle(@PathVariable ProductIdentifier id, @Valid ArticleForm form, Model model) {
+		if (getError(form, model)) return ERROR;
+
+		barManager.editArticle(id, form.getName(), form.getArt(), form.getDescription(),
+			Money.of(new BigDecimal(form.getPrice()), "EUR"),
+			Quantity.of(Double.parseDouble(form.getSufficientQuantity())));
+
+		applicationEventPublisher.publishEvent(this);
+		return REDIRECT_CATALOG;
 	}
 
 	// for keeping previous value in input field
 	@NotNull
-	private ArticleForm getArticleForm(DateTimeFormatter formatter, UniqueInventoryItem uniqueInventoryItem, Article article) {
+	private ArticleForm getArticleForm(Article article) {
 
 		return new ArticleForm() {
 			@Override
@@ -144,89 +145,24 @@ public class InventoryController {
 				return String.valueOf(article.getPrice().getNumber());
 			}
 
-			@Override
-			public @NotEmpty String getExpirationDate() {
-
-				return article.getExpirationDate().format(formatter);
-			}
 
 			@Override
-			public @NotEmpty @Size(max = 100, message = "percent of discount from 0-100")
-			String getPercentDiscount() {
-				return String.valueOf(article.getDiscount().getPercent());
-			}
-
-			@Override
-			public @NotEmpty String getStartDiscount() {
-				return article.getDiscount().getStartDate().format(formatter);
-			}
-
-			@Override
-			public @NotEmpty String getEndDiscount() {
-				return article.getDiscount().getEndDate().format(formatter);
-			}
-
-			@Override
-			public @NotEmpty @Digits(fraction = 0, integer = 5) String getNumber() {
-				return String.valueOf(uniqueInventoryItem.getQuantity().getAmount().intValue());
+			public @NotEmpty @Digits(fraction = 0, integer = 5) String getSufficientQuantity() {
+				return String.valueOf(article.getSufficientQuantity().getAmount().intValue());
 			}
 		};
 	}
 
-	@PreAuthorize("hasRole('STAFF')")
-	@PostMapping("/article/detail/{id}")
-	public String editArticle(@PathVariable ProductIdentifier id, @Valid ArticleForm form, Model model) throws DateTimeParseException {
-	/*	if (getError(form, model)) return ERROR;
+	//-----------------------------------------------------------------------------------------------------------
 
-		Date date = new Date(form).invoke();
-		LocalDate startDate = date.getStartDate();
-		LocalDate endDate = date.getEndDate();
-		LocalDate expirationDate = date.getExpirationDate();
-
-
-		inventory.findAll().forEach(uniqueInventoryItem -> {
-
-			Article article = (Article) uniqueInventoryItem.getProduct();
-
-			if (Objects.equals(article.getId(), id)) {
-
-				article.setName(form.getName());
-				article.setPrice(Money.of(new BigDecimal(form.getPrice()), "EUR"));
-				article.setArt(form.getArt());
-				article.setDescription(form.getDescription());
-				article.setExpirationDate(expirationDate);
-
-				discountRepository.findAll().forEach(discount -> {
-					if (discount.getId().equals(article.getDiscount().getId())) {
-
-						discount.setStartDate(startDate);
-						discount.setEndDate(endDate);
-						discount.setPercent(Integer.parseInt(form.getPercentDiscount()));
-						discountRepository.save(discount);
-					}
-
-				});
-				catalog.save(article);
-				inventory.delete(uniqueInventoryItem);
-				inventory.save(new UniqueInventoryItem(article, Quantity.of(Integer.parseInt(form.getNumber()))));
-				applicationEventPublisher.publishEvent(this);
-
-			}
-		});*/
-		return REDIRECT_CATALOG;
-	}
 
 	private boolean getError(@Valid ArticleForm form, Model model) {
-		if (Integer.parseInt(form.getNumber()) < 0) {
+		if (Integer.parseInt(form.getSufficientQuantity()) < 0) {
 			model.addAttribute(ERROR, "Article should more than 0");
 			model.addAttribute(STATUS, "400");
 			return true;
 		} else if (Double.parseDouble(form.getPrice()) < 0) {
 			model.addAttribute(ERROR, "Price should more than 0 EUR");
-			model.addAttribute(STATUS, "400");
-			return true;
-		} else if (Integer.parseInt(form.getPercentDiscount()) < 0 || Integer.parseInt(form.getPercentDiscount()) > 100) {
-			model.addAttribute(ERROR, "Discount should in 0-100 percent");
 			model.addAttribute(STATUS, "400");
 			return true;
 		}
@@ -243,10 +179,8 @@ public class InventoryController {
 	}
 
 
-
-
 	// convert String input to Date
-	private static class Date {
+	/*private static class Date {
 		private @Valid ArticleForm form;
 		private LocalDate startDate;
 		private LocalDate endDate;
@@ -286,5 +220,5 @@ public class InventoryController {
 			}
 
 		}
-	}
+	}*/
 }

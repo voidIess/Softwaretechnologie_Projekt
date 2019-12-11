@@ -39,8 +39,8 @@ public class CatalogDataInitializer implements DataInitializer {
 		discountRepository.save(discount);
 
 		catalog.save(new Article("Hantel", Money.of(50.00, EURO), "Trainingsgerät",
-			"10kg", endDate, discount, Quantity.of(10, Metric.UNIT)));
+			"10kg", discount, Quantity.of(50, Metric.UNIT)));
 		catalog.save(new Article("Serious Mass", Money.of(13.37, EURO), "Essen",
-			"gesund", endDate, discount, Quantity.of(10, Metric.UNIT)));
+			"gesund", discount, Quantity.of(10, Metric.UNIT)));
 	}
 }

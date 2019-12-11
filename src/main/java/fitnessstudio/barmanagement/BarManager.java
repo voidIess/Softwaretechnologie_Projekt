@@ -15,7 +15,9 @@ import org.springframework.data.util.Streamable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import javax.money.MonetaryAmount;
 import java.time.LocalDate;
+import java.util.Optional;
 
 @Service
 public class BarManager {
@@ -88,13 +90,17 @@ public class BarManager {
 
 	}
 
-	public void restockInventory(Quantity quantity, Article article, LocalDate expirationDate) {
-		ExpiringInventoryItem item = inventory.findByProduct(article)
-			.filter(x -> expirationDate.equals(x.getExpirationDate()))
-			.iterator().next();
 
-		item.increaseQuantity(quantity);
-		inventory.save(item);
+
+	public void restockInventory(Quantity quantity, Article article, LocalDate expirationDate) {
+		if(!quantity.equals(Quantity.NONE)) {
+			ExpiringInventoryItem item = inventory.findByProduct(article).stream()
+				.filter(x -> expirationDate.equals(x.getExpirationDate())).findFirst()
+				.orElse(new ExpiringInventoryItem(article, quantity, expirationDate));
+
+			item.increaseQuantity(quantity);
+			inventory.save(item);
+		}
 	}
 
 	public Streamable<Article> getLowStockArticles() {
@@ -106,4 +112,22 @@ public class BarManager {
 	public Quantity getArticleQuantity(Article article) {
 		return inventory.findByProductAndExpirationDateAfter(article, LocalDate.now()).getTotalQuantity();
 	}
+	Article getById(ProductIdentifier id){
+		Article article = catalog.findById(id).orElse(new Article());
+		return article;
+	}
+	boolean editArticle(ProductIdentifier id, String name, String art, String description, MonetaryAmount price, Quantity sufficientQuantity){
+		Optional<Article> opt = catalog.findById(id);
+		if (opt.isEmpty()) return false;
+
+		Article article = opt.get();
+		article.setName(name);
+		article.setArt(art);
+		article.setDescription(description);
+		article.setPrice(price);
+		article.setSufficientQuantity(sufficientQuantity);
+		catalog.save(article);
+		return true;
+	}
+
 }

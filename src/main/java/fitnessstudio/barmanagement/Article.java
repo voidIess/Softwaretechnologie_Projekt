@@ -16,20 +16,20 @@ public class Article extends Product {
 
 	private String art;
 	private String description;
-	private LocalDate expirationDate;
+	// private LocalDate expirationDate;
 	@OneToOne
 	private Discount discount;
 	private Quantity sufficientQuantity;
 	//private Optional<Discount> discount;
 
 
-	public Article(){}
+	public Article() {
+	}
 
-	public Article(String name, MonetaryAmount price, String art, String description, LocalDate expirationDate, Discount discount, Quantity sufficientQuantity) {
+	public Article(String name, MonetaryAmount price, String art, String description, Discount discount, Quantity sufficientQuantity) {
 		super(name, price);
 		this.art = art;
 		this.description = description;
-		this.expirationDate = expirationDate;
 		this.discount = discount;
 		this.sufficientQuantity = sufficientQuantity;
 	}
@@ -64,17 +64,14 @@ public class Article extends Product {
 		this.description = description;
 	}
 
-	public LocalDate getExpirationDate() {
-		return expirationDate;
-	}
-
-	public void setExpirationDate(LocalDate expirationDate) {
-		this.expirationDate = expirationDate;
-	}
-
 	public Quantity getSufficientQuantity() {
 		return sufficientQuantity;
 	}
+
+	public void setSufficientQuantity(Quantity sufficientQuantity) {
+		this.sufficientQuantity = sufficientQuantity;
+	}
+
 	public Discount getDiscount() {
 		return discount;
 	}

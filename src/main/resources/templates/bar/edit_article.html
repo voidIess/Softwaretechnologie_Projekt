@@ -42,37 +42,8 @@
                                                                                required/>
         </fieldset>
 
-        <fieldset>
-            <Label>Mindesthaltbarkeitsdatum</Label><label for="expirationDate"></label><input type="date"
-                                                                                              th:field="*{expirationDate}"
-                                                                                              id="expirationDate"
-                                                                                              required/>
-        </fieldset>
-
-        <fieldset>
-            <Label>Rabatt vom</Label><label for="startDiscount"></label><input type="date"
-                                                                               th:field="*{startDiscount}"
-                                                                               id="startDiscount"
-                                                                               required/>
-        </fieldset>
-
-        <fieldset>
-            <Label>Rabatt in Prozent</Label><label for="percentDiscount"></label><input type="number"
-                                                                                        th:field="*{percentDiscount}"
-                                                                                        id="percentDiscount" required/>
-        </fieldset>
-
-
-        <fieldset>
-            <Label>Rabatt bis</Label><label for="endDiscount"></label><input type="date"
-                                                                             th:field="*{endDiscount}"
-                                                                             id="endDiscount"
-                                                                             required/>
-        </fieldset>
-
-        <fieldset>
-            <Label>Anzahl</Label><label for="number"></label><input type="number"
-                                                                    th:field="*{number}"
+            <Label>Mindestvorrat</Label><label for="number"></label><input type="number"
+                                                                    th:field="*{sufficientQuantity}"
                                                                     id="number"
                                                                     required/>
         </fieldset>
