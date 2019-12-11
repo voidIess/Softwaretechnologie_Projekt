@@ -148,11 +148,11 @@ public class RosterManagementTest {
 	@Order(3)
 	void testCreateEntry() {
 
-		assertThat(roster.getRows().get(rosterManagement.getTimeIndex(rosterEntryCounter.getTimes().get(0))).getSlots().get(rosterEntryCounter.getDay()).getEntries().size() == 0).isTrue();
+		int before = roster.getRows().get(rosterManagement.getTimeIndex(rosterEntryCounter.getTimes().get(0))).getSlots().get(rosterEntryCounter.getDay()).getEntries().size();
 		rosterManagement.createEntry(rosterEntryCounter, RosterEntry.NONE, null);
 		rosterManagement.saveRoster(roster);
 		roster = rosterManagement.getRosterByWeek(rosterEntryCounter.getWeek());
-		assertThat(roster.getRows().get(rosterManagement.getTimeIndex(rosterEntryCounter.getTimes().get(0))).getSlots().get(rosterEntryCounter.getDay()).getEntries().size() == 1).isTrue();
+		assertThat(roster.getRows().get(rosterManagement.getTimeIndex(rosterEntryCounter.getTimes().get(0))).getSlots().get(rosterEntryCounter.getDay()).getEntries().size() == before+1).isTrue();
 
 		try {
 			rosterManagement.createEntry(rosterEntryCounter, RosterEntry.NONE, null);
