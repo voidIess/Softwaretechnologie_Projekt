@@ -16,7 +16,7 @@ class  RegistrationForm extends MemberForm {
 
 	private final String bonusCode;
 
-	public RegistrationForm(String firstName, String lastName, String email, String userName, String password, String iban, String bic, Long contract, String bonusCode) {
+	RegistrationForm(String firstName, String lastName, String email, String userName, String password, String iban, String bic, Long contract, String bonusCode) {
 		super(firstName, lastName, email, iban, bic);
 		this.userName = userName;
 		this.password = password;

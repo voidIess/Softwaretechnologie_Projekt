@@ -3,9 +3,11 @@ package fitnessstudio.invoice;
 import org.hibernate.annotations.CreationTimestamp;
 import org.javamoney.moneta.Money;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Lob;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Entity
 public class InvoiceEntry {

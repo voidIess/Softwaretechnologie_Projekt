@@ -20,6 +20,9 @@ import java.util.Optional;
 public class MemberController {
 
 	private static final String REDIRECT_LOGIN = "redirect:/login";
+	private static final String REDIRECT_MEMBERS = "redirect:/admin/members";
+	private static final String REDIRECT_HOME = "redirect:/member/home";
+
 	private final MemberManagement memberManagement;
 	private final ContractManagement contractManagement;
 	private final InvoiceManagement invoiceManagement;
@@ -87,20 +90,17 @@ public class MemberController {
 
 	@GetMapping("/member/edit")
 	public String edit(@LoggedIn Optional<UserAccount> userAccount, EditingForm form, Model model, Errors results) {
-		if (userAccount.isEmpty()) {
-			return REDIRECT_LOGIN;
+		if (userAccount.isPresent()) {
+			Optional<Member> member = memberManagement.findByUserAccount(userAccount.get());
+			if (member.isPresent()){
+				form = memberManagement.preFillMember(member.get(), form);
+
+				model.addAttribute("form", form);
+				model.addAttribute("error", results);
+				return "/member/editMember";
+			}
 		}
-
-		Optional<Member> member = memberManagement.findByUserAccount(userAccount.get());
-		if(member.isEmpty()) {
-			return REDIRECT_LOGIN;
-		}
-
-		form = memberManagement.preFillMember(member.get(), form);
-
-		model.addAttribute("form", form);
-		model.addAttribute("error", results);
-		return "/member/editMember";
+		return REDIRECT_LOGIN;
 	}
 
 	@PostMapping("/member/edit")
@@ -114,7 +114,7 @@ public class MemberController {
 				if (result.hasErrors()) {
 					return edit(userAccount, form, model, result);
 				}
-				return "redirect:/member/home";
+				return REDIRECT_HOME;
 			}
 			return REDIRECT_LOGIN;
 		}).orElse(REDIRECT_LOGIN);
@@ -129,7 +129,7 @@ public class MemberController {
 
 			if (member.isPresent()) {
 				memberManagement.memberPayIn(member.get().getMemberId(), money);
-				return "redirect:/member/home";
+				return REDIRECT_HOME;
 			}
 			return REDIRECT_LOGIN;
 		}).orElse(REDIRECT_LOGIN);
@@ -153,14 +153,14 @@ public class MemberController {
 	@PreAuthorize("hasRole('STAFF')")
 	public String checkIn(@PathVariable long id, Model model) {
 		memberManagement.checkMemberIn(id);
-		return "redirect:/admin/members";
+		return REDIRECT_MEMBERS;
 	}
 
 	@GetMapping("/member/checkout/{id}")
 	@PreAuthorize("hasRole('STAFF')")
 	public String checkOut(@PathVariable long id, Model model) {
 		memberManagement.checkMemberOut(id);
-		return "redirect:/admin/members";
+		return REDIRECT_MEMBERS;
 	}
 
 	@PostMapping("/admin/member/payin")
@@ -168,7 +168,7 @@ public class MemberController {
 	public String barPayIn(@RequestParam long id, @RequestParam double amount){
 		Money money = Money.of(amount, "EUR");
 		memberManagement.memberPayIn(id, money);
-		return "redirect:/admin/members";
+		return REDIRECT_MEMBERS;
 	}
 
 	@PostMapping("/printPdfInvoice")
@@ -183,7 +183,7 @@ public class MemberController {
 					model.addAllAttributes(memberManagement.createPdfInvoice(userAccount.get()));
 					return "pdfView";
 				}
-				return "redirect:/member/home";
+				return REDIRECT_HOME;
 			}
 			return REDIRECT_LOGIN;
 		}).orElse(REDIRECT_LOGIN);
@@ -210,7 +210,7 @@ public class MemberController {
 			Optional<Member> member = memberManagement.findByUserAccount(user);
 			if (member.isPresent()) {
 				memberManagement.pauseMembership(member.get());
-				return "redirect:/member/home";
+				return REDIRECT_HOME;
 			}
 			return REDIRECT_LOGIN;
 		}).orElse(REDIRECT_LOGIN);
