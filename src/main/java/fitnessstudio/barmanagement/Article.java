@@ -10,6 +10,7 @@ import javax.money.MonetaryAmount;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import java.time.LocalDate;
+import java.util.Optional;
 
 @Entity
 public class Article extends Product {
@@ -26,11 +27,10 @@ public class Article extends Product {
 	public Article() {
 	}
 
-	public Article(String name, MonetaryAmount price, String type, String description, Discount discount, Quantity sufficientQuantity) {
+	public Article(String name, MonetaryAmount price, String type, String description, Quantity sufficientQuantity) {
 		super(name, price);
 		this.type = type;
 		this.description = description;
-		this.discount = discount;
 		this.sufficientQuantity = sufficientQuantity;
 	}
 
@@ -72,8 +72,12 @@ public class Article extends Product {
 		this.sufficientQuantity = sufficientQuantity;
 	}
 
-	public Discount getDiscount() {
-		return discount;
+	public Optional<Discount> getDiscount() {
+		return Optional.ofNullable(discount);
+	}
+
+	String getDiscountString(){
+		return getDiscount().map(Discount::toString).orElse("");
 	}
 
 	public void setDiscount(Discount discount) {

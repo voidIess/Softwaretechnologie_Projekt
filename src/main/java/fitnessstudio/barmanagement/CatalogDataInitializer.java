@@ -18,11 +18,9 @@ public class CatalogDataInitializer implements DataInitializer {
 	private static final Logger LOG = LoggerFactory.getLogger(CatalogDataInitializer.class);
 
 	private final ArticleCatalog catalog;
-	private final DiscountRepository discountRepository;
 
 	public CatalogDataInitializer(ArticleCatalog catalog, DiscountRepository discountRepository) {
 		this.catalog = catalog;
-		this.discountRepository = discountRepository;
 	}
 
 

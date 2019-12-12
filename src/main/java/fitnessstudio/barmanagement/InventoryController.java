@@ -38,7 +38,6 @@ public class InventoryController {
 	private static final String ERROR = "error";
 	private static final String STATUS = "status";
 
-	private final DiscountRepository discountRepository;
 	private final BarManager barManager;
 
 	@Autowired
