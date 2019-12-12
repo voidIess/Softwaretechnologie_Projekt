@@ -39,22 +39,17 @@ public class BarController {
 	}
 
 	@PreAuthorize("hasRole('STAFF')")
-	@PostMapping("/sell")
-	public String sell(@ModelAttribute Cart cart, @Valid BarForm form, SessionStatus status) {
+	@GetMapping("/checkout")
+	public String checkout(@ModelAttribute Cart cart, CheckoutForm form, Model model){
+		model.addAttribute("cart_price", cart.getPrice());
+		model.addAttribute("form", form);
+		return "bar/checkout";
+	}
 
-		// TODO: get member
-
-		// TODO: choose cash or credit
-
-		// TODO: check credit enough money
-
-		// TODO: pay
-
-		// TODO: update member( update credit and add invoice)
-
-		// TODO: check if quantity = 0( add to "Nachbestelliste )
-
-		// TODO: update stock
+	@PreAuthorize("hasRole('STAFF')")
+	@PostMapping("/checkout")
+	public String postCheckout(@ModelAttribute Cart cart, @Valid CheckoutForm form, SessionStatus status) {
+		// TODO imlement this
 
 		status.setComplete();
 		return "redirect:/";
