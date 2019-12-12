@@ -1,95 +1,85 @@
 <!DOCTYPE html>
 
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
-    <script th:src="@{/webjars/jquery/jquery.min.js}"
-            src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script th:src="@{/webjars/Semantic-UI/semantic.min.js}"
-            src="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.js"></script>
-    <link rel="stylesheet" href="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css" type="text/css"/>
-    <link th:href="@{/resources/css/style.css}" rel="stylesheet"
-          href="../../static/resources/css/style.css" type="text/css"/>
-    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/toggle.css}"/>
-    <title>Mitgliederliste</title>
-</head>
-<body>
-<div class="ui container">
-    <nav th:include="navigation :: navigation"></nav>
-    <nav th:include="toggle :: toggle"></nav>
-    <header>
-        <h1>Mitgliederliste</h1>
-    </header>
-    <div style="margin-bottom: 40px">
-        <h3>Aufladen</h3>
-        <form class="ui form horizontally padded" method="post" th:action="@{/admin/member/payin}">
-            <div>
-                <label for="id">Mitglieder ID</label>
-                <input type="text" name="id" value="0" id="id"/>
-            </div>
-            <div>
-                <label for="amount">Betrag</label>
-                <input id="amount" type="number" name="amount" min="0.01" max="9999" value="0.01"
-                       step="0.01"/>
-            </div>
-            <button type="submit" class="ui labeled icon button" style="margin-top: 5px">
-                <i class="money icon"></i> Aufladen
-            </button>
-        </form>
-    </div>
+<html lang="de" xmlns:th="http://www.thymeleaf.org"
+      th:replace="site_template :: template(#{members.title}, ~{::members})">
+</html>
 
-    <div id="authorize" style="float: left">
-        <form th:action="@{/admin/authorizeMember}">
-            <label th:text="${'Es sind ' + unauthorizedMember + ' freizuschalten'}"></label>
-            <button type="submit" class="ui button blue">Freischalten</button>
-        </form>
-    </div>
-    <div class="search" style="float: right; margin-bottom: 5px">
-        <form th:action="@{/admin/members}" method="get" th:object="${form}">
-            <input class="search" id="search" name="search" type="text" th:field="*{search}"/>
-            <button type="submit" class="ui button">Suchen</button>
-        </form>
-    </div>
-    <table class="ui celled table">
-        <thead>
-        <tr>
-            <th>Mitglieder Nummer</th>
-            <th>Vorname</th>
-            <th>Nachname</th>
-            <th>Email</th>
-            <th>Vertrag</th>
-            <th>Guthaben</th>
-            <th>Status</th>
-            <th>Check in/out</th>
-        </tr>
-        </thead>
-        <tbody th:remove="all-but-first">
-        <tr th:each=" customer : ${memberList}">
+<html lang="de" xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="members">
+    <div class="ui container">
+        <div style="margin-bottom: 40px">
+            <h3>Aufladen</h3>
+            <form class="ui form horizontally padded" method="post" th:action="@{/admin/member/payin}">
+                <div>
+                    <label for="id">Mitglieder ID</label>
+                    <input type="text" name="id" value="0" id="id"/>
+                </div>
+                <div>
+                    <label for="amount">Betrag</label>
+                    <input id="amount" type="number" name="amount" min="0.01" max="9999" value="0.01"
+                           step="0.01"/>
+                </div>
+                <button type="submit" class="ui labeled icon button" style="margin-top: 5px">
+                    <i class="money icon"></i> Aufladen
+                </button>
+            </form>
+        </div>
 
-            <td th:text="${customer.memberId}">MemberId</td>
-            <td th:text="${customer.firstName}">Vorname</td>
-            <td th:text="${customer.lastName}">Nachname</td>
-            <td th:text="${customer.getUserAccount().email}">Email</td>
-            <td th:text="${customer.contract.name}">Vertrag</td>
-            <td th:text="${customer.getCredit().toString()}">0,00</td>
-            <td th:if="${customer.isAttendant() and !customer.isPaused()}" th:text="#{members.isAttendant}">anwesend
-            </td>
-            <td th:if="${!customer.isAttendant() and !customer.isPaused()}" th:text="#{members.isNotAttendant}">nicht
-                anwesend
-            </td>
-            <td th:if="${customer.isPaused()}" th:text="#{members.isPaused}">pausiert</td>
-            <td th:if="${customer.isAttendant() and !customer.isPaused()}">
-                <a class="ui red button" th:href="@{/member/checkout/{id}/(id=${customer.getMemberId()})}">check out</a>
-            </td>
-            <td th:if="${!customer.isAttendant() and !customer.isPaused()}">
-                <a class="ui green button" th:href="@{/member/checkin/{id}/(id=${customer.getMemberId()})}">check in</a>
-            </td>
-            <td th:if="${customer.isPaused()}">
-                <span>&#10060;</span>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+        <div id="authorize" style="float: left">
+            <form th:action="@{/admin/authorizeMember}">
+                <label>Es sind <b><span th:text="${unauthorizedMember}"></span></b> freizuschalten</label>
+                <button type="submit" class="ui button blue">Freischalten</button>
+            </form>
+        </div>
+        <div class="search" style="float: right; margin-bottom: 5px">
+            <form th:action="@{/admin/members}" method="get" th:object="${form}">
+                <input class="search" id="search" name="search" type="text" th:field="*{search}"/>
+                <button type="submit" class="ui button">Suchen</button>
+            </form>
+        </div>
+        <table class="ui celled table">
+            <thead>
+            <tr>
+                <th>Mitglieder Nummer</th>
+                <th>Vorname</th>
+                <th>Nachname</th>
+                <th>Email</th>
+                <th>Vertrag</th>
+                <th>Guthaben</th>
+                <th>Status</th>
+                <th>Check in/out</th>
+            </tr>
+            </thead>
+            <tbody th:remove="all-but-first">
+            <tr th:each=" customer : ${memberList}">
+
+                <td th:text="${customer.memberId}">MemberId</td>
+                <td th:text="${customer.firstName}">Vorname</td>
+                <td th:text="${customer.lastName}">Nachname</td>
+                <td th:text="${customer.getUserAccount().email}">Email</td>
+                <td th:text="${customer.contract.name}">Vertrag</td>
+                <td th:text="${customer.getCredit().toString()}">0,00</td>
+                <td th:if="${customer.isAttendant() and !customer.isPaused()}" th:text="#{members.isAttendant}">anwesend
+                </td>
+                <td th:if="${!customer.isAttendant() and !customer.isPaused()}" th:text="#{members.isNotAttendant}">
+                    nicht
+                    anwesend
+                </td>
+                <td th:if="${customer.isPaused()}" th:text="#{members.isPaused}">pausiert</td>
+                <td th:if="${customer.isAttendant() and !customer.isPaused()}">
+                    <a class="ui red button" th:href="@{/member/checkout/{id}/(id=${customer.getMemberId()})}">check
+                        out</a>
+                </td>
+                <td th:if="${!customer.isAttendant() and !customer.isPaused()}">
+                    <a class="ui green button" th:href="@{/member/checkin/{id}/(id=${customer.getMemberId()})}">check
+                        in</a>
+                </td>
+                <td th:if="${customer.isPaused()}">
+                    <span>&#10060;</span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
-</body>
 </html>
