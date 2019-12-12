@@ -41,12 +41,12 @@ public class InventoryController {
 	private final BarManager barManager;
 
 	@Autowired
+	private
 	ApplicationEventPublisher applicationEventPublisher;
 
 	public InventoryController(UniqueInventory<UniqueInventoryItem> inventory, ArticleCatalog catalog,
 							   DiscountRepository discountRepository, BarManager barManager) {
 
-		this.discountRepository = discountRepository;
 		this.barManager = barManager;
 	}
 
@@ -74,12 +74,11 @@ public class InventoryController {
 		if (getError((QuantityForm) form, model)) return ERROR;
 
 		Discount discount = new Discount();
-		discountRepository.save(discount);
 		Article article = new Article(form.getName(),
 			Money.of(new BigDecimal(form.getPrice()), "EUR"),
 			form.getType(),
-			form.getDescription(), discount
-			, Quantity.of(10));
+			form.getDescription(),
+			Quantity.of(10));
 
 		barManager.addNewArticleToCatalog(article);
 		LocalDate expirationDate = passDate(form.getExpirationDate());
