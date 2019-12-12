@@ -55,4 +55,9 @@ public class Discount {
 	public String toString() {
 		return getPercent()==0? "" :"-"+getPercent()+"%";
 	}
+
+	public boolean isActive(){
+		LocalDate today = LocalDate.now();
+		return !(today.compareTo(getEndDate()) > 0 || getStartDate().compareTo(today) > 0 || getPercent() == 0);
+	}
 }

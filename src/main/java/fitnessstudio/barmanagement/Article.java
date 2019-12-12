@@ -37,15 +37,13 @@ public class Article extends Product {
 	@NotNull
 	@Override
 	public MonetaryAmount getPrice() {
-		LocalDate today = LocalDate.now();
-		if (discount.getPercent() == 0 || today.compareTo(discount.getEndDate()) > 0 ||
-			discount.getStartDate().compareTo(today) > 0) {
-			return super.getPrice();
-		} else {
+		if (hasDiscount()) {
 			double deduction = super.getPrice().getNumber().longValue() * ((double) discount.getPercent() / 100);
 			return Money.of(super.getPrice().getNumber().longValue() - deduction, "EUR");
 		}
+		else return super.getPrice();
 	}
+
 
 	public String getType() {
 		return type;
@@ -76,13 +74,23 @@ public class Article extends Product {
 		return Optional.ofNullable(discount);
 	}
 
-	String getDiscountString(){
-		return getDiscount().map(Discount::toString).orElse("");
+	public String getDiscountString() {
+		return hasDiscount() ? discount.toString() : "";
 	}
 
 	public void setDiscount(Discount discount) {
 		this.discount = discount;
 	}
 
+	private boolean hasDiscount() {
+		Optional<Discount> optionalDiscount = getDiscount();
+		if (optionalDiscount.isPresent()) {
+			Discount discount = optionalDiscount.get();
+			if (discount.isActive()) {
+				return true;
+			}
+		}
+		return false;
+	}
 
 }
