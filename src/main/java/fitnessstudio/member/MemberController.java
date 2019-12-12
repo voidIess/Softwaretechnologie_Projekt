@@ -40,7 +40,7 @@ public class MemberController {
 		model.addAttribute("form", form);
 		model.addAttribute("error", results);
 		model.addAttribute("contractList", contractManagement.getAllContracts());
-		return "register";
+		return "member/register";
 	}
 
 	@PostMapping("/register")
