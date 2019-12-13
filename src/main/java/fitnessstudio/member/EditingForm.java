@@ -1,7 +1,7 @@
 package fitnessstudio.member;
 public class EditingForm extends MemberForm {
 
-	EditingForm(String firstName, String lastName, String email, String iban, String bic) {
+	public EditingForm(String firstName, String lastName, String email, String iban, String bic) {
 		super(firstName, lastName, email, iban, bic);
 	}
 
