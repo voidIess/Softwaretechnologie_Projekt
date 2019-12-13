@@ -1,20 +1,11 @@
 <!DOCTYPE html>
 
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="de" xmlns:th="http://www.thymeleaf.org"
+      th:replace="site_template :: template(#{statistics.title}, ~{::statistics})">
+</html>
 
-<head>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
-
-    <script th:src="@{/webjars/jquery/jquery.min.js}"
-            src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script th:src="@{/webjars/Semantic-UI/semantic.min.js}"
-            src="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.js"></script>
-    <link rel="stylesheet" href="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css" type="text/css"/>
-    <link th:href="@{/resources/css/style.css}" rel="stylesheet"
-          href="../static/resources/css/style.css" type="text/css"/>
-    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/toggle.css}"/>
-
-    <title>Anwesenheitsstatistik</title>
+<html lang="de" xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="statistics">
 
     <script>
         window.onload = function () {
@@ -109,36 +100,30 @@
         }
     </script>
 
-</head>
 
-<body>
+<div>
 
 <div class="ui container">
-    <nav th:include="navigation :: navigation"></nav>
-    <nav th:include="toggle :: toggle"></nav>
-    <header>
-        <h1>Statistik Anwesenheiten</h1>
-    </header>
     <div class="ui items">
         <p>Heutige Besucheranzahl:
             <span th:text="${memberAmountsOfLastWeek[0]}">3</span>
+            <span th:if="${memberAmountsOfLastWeek[0]==1}" th:text="Mitglied">3</span>
+            <span th:if="${memberAmountsOfLastWeek[0]!=1}" th:text="Mitglieder">3</span>
         </p>
         <p>Heutiger durchschnittlicher Aufenthalt:
             <span th:text="${averageTimesOfLastWeek[0]}">2</span>
-             Minuten
+            <span th:if="${averageTimesOfLastWeek[0]==1}" th:text="Minute">2</span>
+            <span th:if="${averageTimesOfLastWeek[0]!=1}" th:text="Minuten">2</span>
         </p>
     </div>
 
     <div id="chartContainer1" style="height: 370px; width: 100%; margin-top:75pt"></div>
     <div id="chartContainer2" style="height: 370px; width: 100%; margin-top:75pt"></div>
-    <p th:text="${week[0]}"></p>
 
     <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 
 
 </div>
-
-
-
-</body>
+</div>
+</div>
 </html>
