@@ -8,10 +8,10 @@ body {
 
 
 .container h1 {
-    font-size: 100px;
+    font-size: 50px;
     margin: 20px 0 0;
     font-weight: 900;
-    letter-spacing: 9px;
+    letter-spacing: 0px;
     color: var(--heading-color);
 
 }

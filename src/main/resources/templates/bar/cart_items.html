@@ -17,13 +17,13 @@
             <span th:text="#{cart_items.title}">Warenkorb</span>
             <div class="ui right floated menu">
                 <div class="ui header" th:text="#{cart_items.sum}+' '+${cart.getPrice()}">Summe: EUR 112.12</div>
-                <a class="ui button">
-                    <i class="check icon"></i>
-                    <span th:text="#{cart_items.checkout}">Bezahlen</span>
-                </a>
-                <a class="ui green button" th:href="@{/sell_catalog}">
+                <a class="ui button" th:href="@{/sell_catalog}">
                     <i class="list icon"></i>
                     <span th:text="#{sell_catalog.title}">Artikeluebersicht</span>
+                </a>
+                <a class="ui green button" th:href="@{/checkout}">
+                    <i class="check icon"></i>
+                    <span th:text="#{cart_items.checkout}">Bezahlen</span>
                 </a>
             </div>
         </div>
