@@ -1,23 +1,19 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
 
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="site_template :: template('Artikel hinzufügen', ~{::site_content})"></html>
+
+<html xmlns:th="http://www.thymeleaf.org" th:remove="tag">
+<head th:remove="all">
+    <meta content="text/html; charset=UTF-8" http-equiv="content-type"/>
     <link rel="stylesheet" href="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css" type="text/css"/>
-    <link th:href="@{/resources/css/style.css}" rel="stylesheet"
-          href="../static/resources/css/style.css" type="text/css"/>
     <link rel="stylesheet" type="text/css" th:href="@{/resources/css/toggle.css}"/>
-    <title>Katalog</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/template.css}"/>
 </head>
-<body>
-<nav th:include="navigation :: navigation"></nav>
-<nav th:include="toggle :: toggle"></nav>
 
-
-<div class="container">
+<div th:fragment="site_content">
+<div class="ui container">
     <form method="post" role="form" class="ui form" id="form" th:action="@{/article}" th:object="${form}">
-
-        <h2>Artikel hinzufügen</h2>
 
         <fieldset>
             <text>Name</text><label for="name"></label><input type="text" th:field="*{name}"
@@ -74,5 +70,5 @@
 </div>
 
 
-</body>
+</div>
 </html>

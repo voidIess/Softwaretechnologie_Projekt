@@ -1,73 +1,68 @@
 <!DOCTYPE html>
 
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="site_template :: template(${article.name}, ~{::site_content})"></html>
+
+<html xmlns:th="http://www.thymeleaf.org" th:remove="tag">
+<head th:remove="all">
+    <meta content="text/html; charset=UTF-8" http-equiv="content-type"/>
     <link rel="stylesheet" href="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css" type="text/css"/>
-    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/detail.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/resources/css/toggle.css}"/>
-    <title th:text="${article.name}">Artikelname</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/template.css}"/>
 </head>
-<body>
-<div class="ui container">
-    <nav th:include="navigation :: navigation"></nav>
-    <nav th:include="toggle :: toggle"></nav>
 
-    <header>
-        <h1 th:text="${article.name}" style="text-align: center">Artikelname</h1>
-    </header>
+<div th:fragment="site_content">
+    <div class="ui container">
+        <table class="ui celled table">
+            <thead>
+            <tr>
+                <th></th>
+                <th>Artikel</th>
 
-    <table class="ui celled table">
-        <thead>
-        <tr>
-            <th></th>
-            <th>Artikel</th>
-
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td>Art</td>
-            <td th:text="${article.type}">Art</td>
-        </tr>
-        <tr>
-            <td>Preis</td>
-            <td th:text="${{article.price}}">Preis</td>
-        </tr>
-        <tr>
-            <td>Menge</td>
-            <td th:text="${quantity}">Menge</td>
-        </tr>
-        </tbody>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>Art</td>
+                <td th:text="${article.type}">Art</td>
+            </tr>
+            <tr>
+                <td>Preis</td>
+                <td th:text="${{article.price}}">Preis</td>
+            </tr>
+            <tr>
+                <td>Menge</td>
+                <td th:text="${quantity}">Menge</td>
+            </tr>
+            </tbody>
 
 
-    </table>
-    <!-- Edit button -->
-    <div class="ui one column centered grid">
-        <div class="column">
-            <a th:href="@{/article/detail/{id}(id=${article.id})}">
-                <button class="ui blue button">
-                    <i class="edit icon"></i>Artikel bearbeiten
-                </button>
-            </a>
-            <a th:href="@{/article/restock/{id}(id=${article.id})}">
-                <button class="ui blue button">
-                    <i class="edit icon"></i>Artikel aufstocken
-                </button>
-            </a>
+        </table>
+        <!-- Edit button -->
+        <div class="ui one column centered grid">
+            <div class="column">
+                <a th:href="@{/article/detail/{id}(id=${article.id})}">
+                    <button class="ui blue button">
+                        <i class="edit icon"></i>Artikel bearbeiten
+                    </button>
+                </a>
+                <a th:href="@{/article/restock/{id}(id=${article.id})}">
+                    <button class="ui blue button">
+                        <i class="edit icon"></i>Artikel aufstocken
+                    </button>
+                </a>
+            </div>
         </div>
+
+        <!-- Delete button -->
+        <form method="post" th:action="@{/article/delete/{id}(id=${article.id})}">
+            <div class="column">
+                <button class="ui red button right floated">
+                    <i class="trash icon"></i>Artikel löschen
+                </button>
+            </div>
+        </form>
+
     </div>
-
-    <!-- Delete button -->
-    <form method="post" th:action="@{/article/delete/{id}(id=${article.id})}">
-        <div class="column">
-            <button class="ui red button right floated">
-                <i class="trash icon"></i>Artikel löschen
-            </button>
-        </div>
-    </form>
-
-</div>z
-
-</body>
+</div>
 </html>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <html xmlns:th="http://www.thymeleaf.org"
-      th:replace="site_template :: template('Warenkorb abschließen', ~{::checkout})"></html>
+      th:replace="site_template :: template('Warenkorb abschließen', ~{::site_content})"></html>
 
 <html xmlns:th="http://www.thymeleaf.org" th:remove="tag">
 <head th:remove="all">
@@ -11,7 +11,7 @@
     <link rel="stylesheet" type="text/css" th:href="@{/resources/css/template.css}"/>
 </head>
 
-<div th:fragment="checkout">
+<div th:fragment="site_content">
 
     <div class="ui container">
         <form method="post" role="form" class="ui form" id="form" th:action="@{/checkout}"
