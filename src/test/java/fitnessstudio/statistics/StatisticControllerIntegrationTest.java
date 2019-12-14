@@ -28,8 +28,9 @@ public class StatisticControllerIntegrationTest extends AbstractIntegrationTests
 	void allowsAuthenticatedAccessToController() {
 		ExtendedModelMap model = new ExtendedModelMap();
 		controller.showAttendanceStatistic(model);
-		assertThat(model.get("averageTimesOfLastWeek")).isNotNull();
-		assertThat(model.get("memberAmountsOfLastWeek")).isNotNull();
+		assertThat(model.get("averageTimes")).isNotNull();
+		assertThat(model.get("memberAmounts")).isNotNull();
+		assertThat(model.get("sellingEarnings")).isNotNull();
 	}
 
 }

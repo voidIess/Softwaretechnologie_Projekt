@@ -1,12 +1,20 @@
 package fitnessstudio.statistics;
 
+import fitnessstudio.invoice.InvoiceEntry;
+import fitnessstudio.invoice.InvoiceManagement;
+import fitnessstudio.invoice.InvoiceType;
+import fitnessstudio.staff.Staff;
+import fitnessstudio.staff.StaffManagement;
+import org.javamoney.moneta.Money;
 import org.springframework.data.util.Streamable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import javax.money.NumberValue;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -14,10 +22,16 @@ import java.util.Optional;
 public class StatisticManagement {
 
 	private final AttendanceRepository attendances;
+	private final InvoiceManagement invoiceManagement;
+	private final StaffManagement staffManagement;
 
-	public StatisticManagement(AttendanceRepository attendances) {
+	public StatisticManagement(AttendanceRepository attendances, InvoiceManagement invoiceManagement, StaffManagement staffManagement) {
 		Assert.notNull(attendances, "AttendanceRepository must not be null!");
+		Assert.notNull(invoiceManagement, "InvoiceManagement must not be null!");
+
 		this.attendances = attendances;
+		this.invoiceManagement = invoiceManagement;
+		this.staffManagement = staffManagement;
 	}
 
 	public void addAttendance(LocalDate date, long memberId, long duration) {
@@ -41,7 +55,7 @@ public class StatisticManagement {
 		return attendances.findById(date);
 	}
 
-	public long getAverageTimeToday() {
+	public long getAverageTimeOfToday() {
 		Optional<Attendance> attendance = attendances.findById(LocalDate.now());
 		if(attendance.isEmpty()) {
 			return 0;
@@ -50,7 +64,7 @@ public class StatisticManagement {
 		}
 	}
 
-	public long[] getAverageTimesOfLastWeek() {
+	public long[] getAverageTimesOfThisWeek() {
 		long[] times = new long[7];
 		LocalDate today = LocalDate.now();
 
@@ -68,7 +82,7 @@ public class StatisticManagement {
 		return times;
 	}
 
-	public long getMemberAmountToday() {
+	public long getMemberAmountOfToday() {
 		Optional<Attendance> attendance = attendances.findById(LocalDate.now());
 		if(attendance.isEmpty()) {
 			return 0;
@@ -77,7 +91,7 @@ public class StatisticManagement {
 		}
 	}
 
-	public long[] getMemberAmountsOfLastWeek() {
+	public long[] getMemberAmountsOfThisWeek() {
 		long[] amounts = new long[7];
 		LocalDate today = LocalDate.now();
 
@@ -93,6 +107,33 @@ public class StatisticManagement {
 		}
 
 		return amounts;
+	}
+
+	public NumberValue getSellingEarningsOfDate(LocalDate date) {
+		List<InvoiceEntry> invoice = invoiceManagement.getAllInvoicesOfDate(date);
+		Money earnings = Money.of(0, "EUR");
+		invoice.stream()
+				.filter(entry -> entry.getType().equals(InvoiceType.WITHDRAW))
+				.map(InvoiceEntry::getAmount).forEach(earnings::add);
+		return earnings.getNumber();
+	}
+
+	public NumberValue[] getSellingEarningsOfThisWeek() {
+		NumberValue[] earnings = new NumberValue[7];
+		LocalDate date = getLastMonday(LocalDate.now());
+		for (int i=0; i<7; i++) {
+			earnings[i] = getSellingEarningsOfDate(date);
+			date = date.plusDays(1);
+		}
+		return earnings;
+	}
+
+	public Money getStaffExpenditureOfThisWeek() {
+		Money earnings = Money.of(0, "EUR");
+		for(Staff staff : staffManagement.getAllStaffs()) {
+			earnings.add(staff.getSalary());
+		}
+		return earnings.divide(4);
 	}
 
 	private LocalDate getLastMonday(LocalDate date) {

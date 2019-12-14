@@ -50,7 +50,7 @@ public class AttendanceUnitTests {
 	@Test
 	@Order(4)
 	void testGetAverageTimeToday() {
-		assertThat(management.getAverageTimeToday()).isEqualTo(2);
+		assertThat(management.getAverageTimeOfToday()).isEqualTo(2);
 	}
 
 	@Test
@@ -65,13 +65,13 @@ public class AttendanceUnitTests {
 	@Test
 	@Order(6)
 	void testGetMemberAmountToday() {
-		assertThat(management.getMemberAmountToday()).isEqualTo(1);
+		assertThat(management.getMemberAmountOfToday()).isEqualTo(1);
 	}
 
 	@Test
 	@Order(7)
 	void testCalculateAverage() {
-		assertThat(management.getAverageTimeToday()).isEqualTo(3);
+		assertThat(management.getAverageTimeOfToday()).isEqualTo(3);
 	}
 
 }
