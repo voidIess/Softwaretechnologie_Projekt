@@ -24,13 +24,6 @@ public class StaffDataInitializer implements DataInitializer {
 	@Override
 	public void initialize() {
 
-		/*Staff staff = staffs.createStaff("staff", "123", "Markus", "Wieland", 100);
-		if (staff != null)
-			LOG.info("Creating default STAFF (user: 'staff', pass: '123', id: "+ staff.getStaffId() +")");
-
-		Staff staff2 = staffs.createStaff("obi", "123", "Obi", "Babobi", 100);
-		if (staff2 != null)
-			LOG.info("Creating default STAFF (user: 'obi', pass: '123', id: "+ staff2.getStaffId() +")");*/
 		if (userAccounts.findByUsername("staff").isPresent()) {
 			return;
 		}

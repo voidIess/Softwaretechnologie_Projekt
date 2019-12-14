@@ -3,6 +3,8 @@ package fitnessstudio.roster;
 import com.mysema.commons.lang.Assert;
 import fitnessstudio.staff.Staff;
 import fitnessstudio.staff.StaffRole;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 
@@ -18,6 +20,7 @@ public class RosterEntry implements Comparable<RosterEntry> {
 	private long training;
 
 	@OneToOne
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Staff staff;
 
 	RosterEntry() {

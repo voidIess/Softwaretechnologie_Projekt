@@ -25,8 +25,6 @@ public class Staff {
 	@OneToOne
 	private UserAccount userAccount;
 
-	//@OneToMany()
-	//private RosterEntry[][] rosterEntries = new RosterEntry[7][];
 
 	@CreationTimestamp
 	private LocalDate startDate;

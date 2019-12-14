@@ -59,8 +59,9 @@
                     </select>
                 </div>
 
-                <button type="submit" class="ui blue button">Speichern</button>
-                <a class="ui red button"
+                <button th:if="${rosterEntry.getTraining() == -1}" type="submit" class="ui blue button">Speichern</button>
+                <button th:unless="${rosterEntry.getTraining() == -1}" type="submit" class="ui blue button">Zurück</button>
+                <a th:if="${rosterEntry.getTraining() == -1}" class="ui red button"
                    th:href="@{/roster/detail/delete/{week}/{shift}/{day}/{id}/(week=${week},shift=${shift},day=${day},id=${rosterEntry.rosterEntryId})}">Löschen</a>
 
             </form>
