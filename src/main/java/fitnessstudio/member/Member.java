@@ -105,6 +105,8 @@ public class Member {
 		creditAccount.payIn(amount);
 	}
 
+	void payOut(Money amount) {creditAccount.payOut(amount);}
+
 	public Contract getContract() {
 		return contract;
 	}

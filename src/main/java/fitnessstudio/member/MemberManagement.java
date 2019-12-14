@@ -9,6 +9,7 @@ import fitnessstudio.invoice.InvoiceType;
 import fitnessstudio.statistics.StatisticManagement;
 import fitnessstudio.studio.StudioService;
 import org.javamoney.moneta.Money;
+import org.salespointframework.payment.PaymentMethod;
 import org.salespointframework.useraccount.Password;
 import org.salespointframework.useraccount.Role;
 import org.salespointframework.useraccount.UserAccount;
@@ -232,6 +233,19 @@ public class MemberManagement {
 
 			applicationEventPublisher.publishEvent(new InvoiceEvent(this, memberId, InvoiceType.DEPOSIT, amount,
 				"Einzahlung auf Account"));
+		}
+	}
+
+	public void memberPayOut(long memberId, Money amount, String description) {
+		Optional<Member> optionalMember = members.findById(memberId);
+
+		if (optionalMember.isPresent()) {
+			Member member = optionalMember.get();
+			member.payOut(amount);
+			members.save(member);
+
+			applicationEventPublisher.publishEvent(new InvoiceEvent(this, memberId, InvoiceType.WITHDRAW, amount,
+				description));
 		}
 	}
 
