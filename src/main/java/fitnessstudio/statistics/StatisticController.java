@@ -24,7 +24,7 @@ public class StatisticController {
 		model.addAttribute("averageTimes", statisticManagement.getAverageTimesOfThisWeek());
 		model.addAttribute("memberAmounts", statisticManagement.getMemberAmountsOfThisWeek());
 		model.addAttribute("sellingEarnings", statisticManagement.getSellingEarningsOfThisWeek());
-		return "attendanceStatistic";
+		return "statistic/statistic";
 	}
 
 }
