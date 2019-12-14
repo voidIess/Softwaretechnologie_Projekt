@@ -3,9 +3,12 @@ package fitnessstudio.invoice;
 import org.hibernate.annotations.CreationTimestamp;
 import org.javamoney.moneta.Money;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Lob;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Entity
 public class InvoiceEntry {
@@ -58,5 +61,22 @@ public class InvoiceEntry {
 
 	public LocalDate getCreated() {
 		return created;
+	}
+
+	public void setCreated(LocalDate created) {
+		this.created = created;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof InvoiceEntry)) return false;
+		InvoiceEntry that = (InvoiceEntry) o;
+		return getInvoiceEntryId() == that.getInvoiceEntryId();
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(getInvoiceEntryId());
 	}
 }

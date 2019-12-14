@@ -19,7 +19,7 @@ public class MemberForm {
 	@NotEmpty(message = "{MemberForm.bic.NotEmpty}")
 	private final String bic;
 
-	public MemberForm(String firstName, String lastName, String email, String iban, String bic) {
+	MemberForm(String firstName, String lastName, String email, String iban, String bic) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
