@@ -42,7 +42,7 @@ public class MemberController {
 		model.addAttribute("form", form);
 		model.addAttribute("error", results);
 		model.addAttribute("contractList", contractManagement.getAllContracts());
-		return "/main/resources/templates/register.html";
+		return "register";
 	}
 
 	@PostMapping("/register")
