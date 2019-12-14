@@ -34,7 +34,7 @@
         </thead>
         <tbody th:remove="all-but-first">
         <tr th:each=" staff : ${staffs}">
-            <td th:text="${staff.staffId}">MemberId</td>
+            <td><a th:href="@{/staff/{id}(id=${staff.staffId})}" th:text="${staff.staffId}">StaffID</a></td>
             <td th:text="${staff.firstName}">Vorname</td>
             <td th:text="${staff.lastName}">Nachname</td>
             <td th:text="${staff.salary}">Gehalt</td>
@@ -42,6 +42,17 @@
         </tr>
         </tbody>
     </table>
+
+    <!-- Button -->
+    <div class="ui one column centered grid">
+        <div class="column">
+            <a th:href="@{/newStaff}">
+                <button class="ui green button">
+                    <i class="plus icon"></i>Mitarbeiter hinzufügen
+                </button>
+            </a>
+        </div>
+    </div>
 </div>
 </body>
 </html>

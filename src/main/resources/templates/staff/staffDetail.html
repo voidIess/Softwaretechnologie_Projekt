@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <html xmlns:th="http://www.thymeleaf.org"
-      th:replace="site_template :: template(#{staffDetail.title}, ~{::staffDetail})"></html>
+      th:replace="site_template :: template(${staff.lastName} , ~{::staffDetail})"></html>
 
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -12,8 +12,10 @@
     <div class="ui container">
         <div class="item">
             <h2 class="header">Eigene Daten</h2>
-            <p>Name:
+            <p>Vorname:
                 <span th:text="${staff.firstName}">Vorname</span>
+            </p>
+            <p>Nachname:
                 <span th:text="${staff.lastName}">Nachname</span>
             </p>
             <p>ID:

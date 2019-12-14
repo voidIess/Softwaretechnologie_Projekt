@@ -10,6 +10,7 @@ import org.springframework.util.Assert;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
@@ -20,6 +21,8 @@ public class StaffController {
 
 	private static final String REDIRECT = "redirect:/login";
 	private static final String REDIRECT_HOME = "redirect:/";
+	private static final String STATUS = "status";
+	private static final String ERROR = "error";
 	private static final String STAFFS = "staff/staffList";
 	private final StaffManagement staffManagement;
 
@@ -33,6 +36,19 @@ public class StaffController {
 	public String getAllStaffs(Model model) {
 		model.addAttribute("staffs", staffManagement.getAllStaffs());
 		return STAFFS;
+	}
+
+	@PreAuthorize("hasRole('BOSS') ")
+	@GetMapping(path = "/staff/{id}")
+	public String detail(@PathVariable long id, Model model) {
+		Optional<Staff> staff = staffManagement.findById(id);
+		if (staff.isPresent()) {
+			model.addAttribute("staff", staff.get());
+			return "staff/staffDetail";
+		}
+		model.addAttribute(STATUS, "400");
+		model.addAttribute(ERROR, "ID_NOT FOUND");
+		return ERROR;
 	}
 
 	@PreAuthorize("hasRole('BOSS') ")
@@ -59,7 +75,7 @@ public class StaffController {
 	}
 
 	@GetMapping("/staffDetail")
-	public String detail(@LoggedIn Optional<UserAccount> userAccount, Model model) {
+	public String getAccount(@LoggedIn Optional<UserAccount> userAccount, Model model) {
 
 		return userAccount.map(user -> {
 
@@ -87,7 +103,7 @@ public class StaffController {
 					model.addAttribute("staff", staff.get());
 					return "pdfView";
 				}
-				return "redirect:/staffDetail";
+				return "redirect:/staff/staffDetail";
 			}
 			return REDIRECT;
 		}).orElse(REDIRECT);
