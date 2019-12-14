@@ -33,6 +33,7 @@ public class StudioController {
 	public String index(Model model) {
 		Studio studio = studioService.getStudio();
 		model.addAttribute("openingTimes", studio.getOpeningTimes());
+		model.addAttribute("address", studio.getAddress());
 		model.addAttribute("advertisingBonus", studio.getAdvertisingBonus());
 		model.addAttribute("contractList", contractManagement.getAllContracts());
 		return "index";
@@ -50,6 +51,11 @@ public class StudioController {
 			@Override
 			public @NotEmpty String getAdvertisingBonus() {
 				return studio.getAdvertisingBonus();
+			}
+
+			@Override
+			public @NotEmpty String getAddress() {
+				return studio.getAddress();
 			}
 		};
 	}
@@ -76,6 +82,7 @@ public class StudioController {
 		Studio studio = studioService.getStudio();
 		studio.setOpeningTimes(studioForm.getOpeningTimes());
 		studio.setAdvertisingBonus(studioForm.getAdvertisingBonus());
+		studio.setAddress(studioForm.getAddress());
 		studioService.saveStudio(studio);
 		return "redirect:/";
 	}

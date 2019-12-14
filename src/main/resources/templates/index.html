@@ -95,7 +95,8 @@
         <textarea rows="7" cols="30" readonly th:text="${openingTimes}"></textarea>
     </div>
     <h3>Alle Informationen : </h3>
-    <label>Advertising Bonus:</label> <label th:text="${advertisingBonus}"></label> <label>€</label> <br>
+    <label>Adresse:</label> <label th:text="${address}"></label> <br>
+    <label>Werbebonus:</label> <label th:text="${advertisingBonus}"></label> <label>€</label> <br>
     <ul>
         <li th:each="contract : ${contractList}">
             <label th:text="${contract.name}">Name</label>: <label th:text="${contract.price}">Preis</label>
