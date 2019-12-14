@@ -58,6 +58,11 @@ public class TrainingManagement {
 			return null;
 		}
 
+		if (form.getTime().isEmpty()){
+			result.reject("time", "training.times.missing");
+			return null;
+		}
+
 		var type = TrainingType.valueOf(form.getType());
 
 		if (type.equals(TrainingType.TRIAL) && member.isFreeTrained()) {

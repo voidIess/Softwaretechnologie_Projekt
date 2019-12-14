@@ -27,7 +27,6 @@ public class RosterManagement {
 	public void createEntry(RosterEntryForm form, long training, Errors errors) {
 		Assert.notNull(form, "RosterForm darf nicht 'null' sein.");
 		Assert.notNull(form.getTimes(), "Keine Liste gefunden.");
-		Assert.notEmpty(form.getTimes(), "Die Liste ist leer");
 		Assert.notNull(form.getWeek(), "Keine Woche angegeben!");
 
 		Staff staff = staffManagement.findById(form.getStaff()).orElse(null);
@@ -46,12 +45,12 @@ public class RosterManagement {
 		try {
 			day = form.getDay();
 		} catch (Exception e) {
-			errors.rejectValue("roster.error.staff", "Fehler bei Eingabe des Tages!");
+			errors.reject("staff", "Fehler bei Eingabe des Tages!");
 			return;
 		}
 
 		if (form.getTimes().isEmpty()) {
-			errors.rejectValue("roster.error.time", "Bitte wähle mindestens eine Zeit aus!");
+			errors.reject("time", "Bitte wähle mindestens eine Zeit aus!");
 			return;
 		}
 		for (String time : form.getTimes()) {

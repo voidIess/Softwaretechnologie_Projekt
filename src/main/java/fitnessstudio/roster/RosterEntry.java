@@ -4,10 +4,7 @@ import com.mysema.commons.lang.Assert;
 import fitnessstudio.staff.Staff;
 import fitnessstudio.staff.StaffRole;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 @Entity
 public class RosterEntry implements Comparable<RosterEntry> {
