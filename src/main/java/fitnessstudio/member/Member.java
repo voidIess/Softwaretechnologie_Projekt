@@ -200,11 +200,11 @@ public class Member {
 		return isAttendant;
 	}
 
-	public void disable(){
+	void disable(){
 		userAccount.setEnabled(false);
 	}
 
-	public boolean pause(LocalDate now) {
+	boolean pause(LocalDate now) {
 		if (getLastPause() == null || getLastPause().getYear() < now.getYear()) {
 			setPaused(true);
 			setLastPause(now);
@@ -214,7 +214,7 @@ public class Member {
 		}
 		return false;
 	}
-	public void unPause(){
+	void unPause(){
 		if (isPaused){
 			setPaused(false);
 		}
