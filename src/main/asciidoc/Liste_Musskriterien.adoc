@@ -68,13 +68,13 @@ a| [[F0310]]
 Das System muss es authentifizierten Kunden möglich machen einzelne Details ihres Kontos zu bearbeiten.  Der Account muss deaktiviert werden können.
 
 |**<<F0410>>**
-|Offen
+|Erledigt(Bug)
 |Mitarbeiter bearbeiten und löschen
 a| [[F0410]]
 Das Systen muss es authentifizierten Mitarbeitern möglich machen einzelne Details ihres Kontos zu bearbeiten. Der Account muss deaktiviert werden können.
 
 |**<<F0420>>**
-|Offen
+|Erledigt
 |Mitarbeiter hinzufügen
 a| [[F0420]]
 Das System muss den Boss Mitarbeiter hinzufügen lassen. Dafür müssen:
@@ -98,7 +98,7 @@ a| [[F0510]]
 Das System muss authentifizierte Mitarbeiter den Betrag des Guthabenkontos eines beliebeigen Kunden um einen manuell eingegebenen Betrag erhöhen lassen.
 
 |**<<F0600>>**
-|Offen
+|Erledigt
 |Inventar
 a| [[F0600]]
 Das System muss Daten über das Verkaufsinventar dauerhaft speichern. Dazu gehören:
@@ -110,13 +110,13 @@ Das System muss Daten über das Verkaufsinventar dauerhaft speichern. Dazu gehö
 * aktueller Rabatt (optional)
 
 |**<<F0610>>**
-|Offen
+|Erledigt
 |Inventar anzeigen
 a| [[F0610]]
 Das System muss es den authentifizierten Mitarbeitern möglich machen Name und Anzahl der Artikel im Inventar einzusehen. Das unterschreiten der Mindestmenge muss hierbei farblich angezeigt werden.
 
 |**<<F0620>>**
-|Offen
+|Erledigt
 |Inventar bearbeiten
 a| [[F0620]]
 Das System muss es authentifizierten Mitarbietern ermöglichen Artikel aus dem Inventar zu entfernen oder neue hinzuzufügen.
@@ -128,7 +128,7 @@ a| [[F0630]]
 Das System muss den authentifizierten Mitarbieter Artikel aus dem Inventar verkaufen lassen. Nachdem die Artikel ausgewählt wurden muss eine registrierte Kundennummer verlangt werden und die Optionen "bar" oder mit "Guthaben" zahlen müssen angebbar sein. Das Inventar wird vom System aktualisiert. Der Kauf wird in die Statistiken (**<<F1000>>**) und die monatliche Rechnung des Kunden (**<<F0710>>**) übernommen.
 
 |**<<F0640>>**
-|Offen
+|Erledigt
 |Rabatte verwalten
 a| [[F0640]]
 Das System muss es authentifizierten Mitarbeitern erlauben zu einzelnen Artikeln des Inventars Rabatte hinzuzufügen, zu ändern oder zu entfernen. Dazu wird manuell ein Prozentsatz eingegeben, welcher vom System als aktueller Rabatt gespeichert wird.
