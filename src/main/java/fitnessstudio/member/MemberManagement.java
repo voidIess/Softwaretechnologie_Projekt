@@ -9,7 +9,6 @@ import fitnessstudio.invoice.InvoiceType;
 import fitnessstudio.statistics.StatisticManagement;
 import fitnessstudio.studio.StudioService;
 import org.javamoney.moneta.Money;
-import org.salespointframework.payment.PaymentMethod;
 import org.salespointframework.useraccount.Password;
 import org.salespointframework.useraccount.Role;
 import org.salespointframework.useraccount.UserAccount;
@@ -220,6 +219,12 @@ public class MemberManagement {
 		return members.findByUserAccount(userAccount);
 	}
 
+	/**
+	 * Method to deposit money from member's {@link CreditAccount}.
+	 *
+	 * @param memberId	ID of member
+	 * @param amount	amount of money to deposit
+	 */
 	public void memberPayIn(long memberId, Money amount) {
 		Optional<Member> optionalMember = members.findById(memberId);
 
@@ -233,6 +238,13 @@ public class MemberManagement {
 		}
 	}
 
+	/**
+	 * Method to withdraw money to member's {@link CreditAccount}.
+	 *
+	 * @param memberId		ID of member
+	 * @param amount		amount of money to withdraw
+	 * @param description	description of the order
+	 */
 	public void memberPayOut(long memberId, Money amount, String description) {
 		Optional<Member> optionalMember = members.findById(memberId);
 
@@ -270,6 +282,7 @@ public class MemberManagement {
 		return map;
 	}
 
+
 	public void checkMemberIn(Long memberId) {
 		Optional<Member> member = findById(memberId);
 		if (member.isPresent() && !member.get().isPaused() && !member.get().isAttendant()) {
@@ -289,6 +302,9 @@ public class MemberManagement {
 		members.save(member);
 	}
 
+	/**
+	 * Checks every day if (pauses of) memberships expired.
+	 */
 	@PostConstruct
 	@Scheduled(cron = "0 0 12 * * *")
 	public void checkMemberships() {
