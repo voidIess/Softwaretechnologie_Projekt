@@ -2,7 +2,6 @@ package fitnessstudio.member;
 
 import fitnessstudio.contract.ContractManagement;
 import fitnessstudio.invoice.InvoiceManagement;
-import fitnessstudio.staff.Staff;
 import org.javamoney.moneta.Money;
 import org.salespointframework.useraccount.UserAccount;
 import org.salespointframework.useraccount.web.LoggedIn;
@@ -43,7 +42,7 @@ public class MemberController {
 		model.addAttribute("form", form);
 		model.addAttribute("error", results);
 		model.addAttribute("contractList", contractManagement.getAllContracts());
-		return "member/register";
+		return "register";
 	}
 
 	@PostMapping("/register")

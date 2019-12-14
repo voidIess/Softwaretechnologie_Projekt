@@ -33,6 +33,7 @@ public class StudioController {
 	public String index(Model model) {
 		Studio studio = studioService.getStudio();
 		model.addAttribute("openingTimes", studio.getOpeningTimes());
+		model.addAttribute("address", studio.getAddress());
 		model.addAttribute("advertisingBonus", studio.getAdvertisingBonus());
 		model.addAttribute("contractList", contractManagement.getAllContracts());
 		return "index";
@@ -51,6 +52,11 @@ public class StudioController {
 			public @NotEmpty String getAdvertisingBonus() {
 				return studio.getAdvertisingBonus();
 			}
+
+			@Override
+			public @NotEmpty String getAddress() {
+				return studio.getAddress();
+			}
 		};
 	}
 
@@ -67,7 +73,7 @@ public class StudioController {
 	@PreAuthorize("hasRole('ROLE_BOSS')")
 	@PostMapping("/studio")
 	public String editStudio(@Valid StudioForm studioForm, Model model, Errors errors) {
-		if (Integer.parseInt(studioForm.getAdvertisingBonus()) < 0) {
+		if (Double.parseDouble(studioForm.getAdvertisingBonus()) < 0) {
 			model.addAttribute(ERROR, "Contract term, monthly fees, advertising bonus should be positive");
 			model.addAttribute(STATUS, "400");
 			return ERROR;
@@ -76,6 +82,7 @@ public class StudioController {
 		Studio studio = studioService.getStudio();
 		studio.setOpeningTimes(studioForm.getOpeningTimes());
 		studio.setAdvertisingBonus(studioForm.getAdvertisingBonus());
+		studio.setAddress(studioForm.getAddress());
 		studioService.saveStudio(studio);
 		return "redirect:/";
 	}
