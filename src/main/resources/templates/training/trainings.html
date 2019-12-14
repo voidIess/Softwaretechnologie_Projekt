@@ -35,7 +35,7 @@
                 <td th:text="${training.getDayAsString()}">Tag</td>
                 <td th:text="${training.startTime}">Time</td>
                 <td>
-                    <a class="ui red button" th:href="@{/training/end/{id}/(id=${training.trainingId})}">Beenden</a>
+                    <a class="ui red button" th:href="@{/training/end/{id}/(id=${training.trainingId})}">Absagen</a>
                 </td>
             </tr>
             </tbody>

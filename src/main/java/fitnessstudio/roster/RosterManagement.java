@@ -121,6 +121,19 @@ public class RosterManagement {
 		saveRoster(roster);
 	}
 
+	public void deleteEntryByTraining (int week, int shift, int day, long id) {
+		Roster roster = getRosterByWeek(week);
+		Assert.notNull(roster, "Keinen Roster gefunden.");
+		List<RosterEntry> entries = roster.getRows().get(shift).getSlots().get(day).getEntries();
+		for (RosterEntry entry : entries) {
+			if (entry.getTraining() == id) {
+				entries.remove(entry);
+				break;
+			}
+		}
+		saveRoster(roster);
+	}
+
 	public void deleteEntry(int week, int shift, int day, long id) {
 		Roster roster = getRosterByWeek(week);
 		Assert.notNull(roster, "Es gibt keinen Roster für diese Woche!");
