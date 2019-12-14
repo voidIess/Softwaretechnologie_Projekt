@@ -62,7 +62,7 @@ Das System muss:
 der Kunden und Mitarbeiter dauerhaft speichern.
 
 |**<<F0310>>**
-|Offen
+|Erledigt
 |Kunden bearbeiten und löschen
 a| [[F0310]]
 Das System muss es authentifizierten Mitarbeitern möglich machen einzelne Details eines Kunden zu bearbeiten oder seinen Account zu löschen.
@@ -86,13 +86,13 @@ Das System muss den Boss Mitarbeiter hinzufügen lassen. Dafür müssen:
 angegeben werden. Eine Identifikationsnummer muss vom System generiert werden.
 
 |**<<F0500>>**
-|Offen
+|Erledigt
 |Guthabenkonto
 a| [[F0500]]
 Das System muss für jeden Kunden einen Betrag als Guthaben seines Kontos persistent speichern.
 
 |**<<F0510>>**
-|Offen
+|Erledigt
 |Guthaben erhöhen
 a| [[F0510]]
 Das System muss authentifizierte Mitarbeiter den Betrag des Guthabenkontos eines beliebeigen Kunden um einen manuell eingegebenen Betrag erhöhen lassen.
@@ -134,7 +134,7 @@ a| [[F0640]]
 Das System muss es authentifizierten Mitarbeitern erlauben zu einzelnen Artikeln des Inventars Rabatte hinzuzufügen, zu ändern oder zu entfernen. Dazu wird manuell ein Prozentsatz eingegeben, welcher vom System als aktueller Rabatt gespeichert wird.
 
 |**<<F0710>>**
-|Offen
+|Erledigt
 |Vertragsdetails anzeigen
 a| [[F0710]]
 Das System muss einem authentifizierten Kunden Informationen über seinen Vertrag mit dem Fitnessstudio anzeigen. Damit sind gemeint:
@@ -144,13 +144,13 @@ Das System muss einem authentifizierten Kunden Informationen über seinen Vertra
 * Rechnung des letzten Monats (als PDF)
 
 |**<<F0720>>**
-|Offen
+|Erledigt
 |Vertrag pausieren
 a| [[F0720]]
 Das System muss es jedem Kunden einmal pro Jahr ermöglichen die Auswahl "Vertrag pausieren" zu treffen. Für den nächsten Monat werden keine Beitragskosten berechnet und die Vertragslaufzeit wird um einen Monat verlängert.
 
 |**<<F0730>>**
-|Offen
+|Erledigt
 |Anwerbe Code anzeigen
 a| [[F0730]]
 Das System muss jedem aktivierten (**<<F0222>>**) Guthabenkontoeinen eindeutigen Code zur Verfügung stellen. Wird ein Neukonto mit diesem Code freigegeben, erhöht das System das Guthaben des Altkunden um einen festgelegten Wert. Der Code kann dabei beliebig oft angezeigt und von neuen Kunden während der Registrierung (**<<F0221>>**) angegeben werden.
