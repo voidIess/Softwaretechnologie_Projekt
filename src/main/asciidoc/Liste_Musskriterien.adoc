@@ -156,7 +156,7 @@ a| [[F0730]]
 Das System muss jedem aktivierten (**<<F0222>>**) Guthabenkontoeinen eindeutigen Code zur Verfügung stellen. Wird ein Neukonto mit diesem Code freigegeben, erhöht das System das Guthaben des Altkunden um einen festgelegten Wert. Der Code kann dabei beliebig oft angezeigt und von neuen Kunden während der Registrierung (**<<F0221>>**) angegeben werden.
 
 |**<<F0800>>**
-|Offen
+|Erledigt
 |Trainingstermin
 a| [[F0800]]
 Das System muss für jeden Kunden einen Trainigstermin dauerhaft speichern können. Dazu gehören:
@@ -167,25 +167,25 @@ Das System muss für jeden Kunden einen Trainigstermin dauerhaft speichern könn
 * Anfangs- und Endzeiten
 
 |**<<F0810>>**
-|Offen
+|Erledigt
 |Trainingstermin anzeigen
 a| [[F0810]]
 Das System muss den nächsten vereinbarten Trainingstermin für einen authentifizierten Kunden sichtbar machen.
 
 |**<<F0820>>**
-|Offen
+|Erledigt
 |Trainingstermin erstellen
 a| [[F0820]]
 Das System muss es authentifizierten Mitarbeitern ermöglichen einen neuen Trainingstermin für einen beliebigen Kunden zu speichern. Das System aktualisiert ggf. die Anzeige (**<<F0810>>**) des Kunden.
 
 |**<<F0831>>**
-|Offen
+|Erledigt
 |Probetraining anfragen
 a| [[F0831]]
 Das System muss jedem authentifizierten Kunden die Möglichkeit bieten über "Probetraining anfordern" eine Anfrage mit den Merkmalen aus **<<F0800>>** zu senden. Wurde diese Anfrage einmal angenommen (**<<F0832>>**) wird der Kunde vom System vermerkt und kann keine Anfragen mehr senden.
 
 |**<<F0832>>**
-|Offen
+|Erledigt
 |Probetraining annehmen/ablehnen
 a| [[F0832]]
 Das System muss jedem authentifizierten Mitarbeiter unter "Anfragen bearbeiten" eine Liste der aktuellen, unbeantworteten Anfragen anzeigen. Wird eine der beiden Optionen "annehmen" oder "ablehnen" gewählt, wird diese dem Kunden angezeigt und der bearbeitete Eintag muss aus der Liste entfernt werden. In dem Fall einer angenommenen Anfrage erstellt das System einen Trainingtermin (**<<F0800>>**) für den angegebenen Kunden.
@@ -220,7 +220,7 @@ a| [[F1000]]
 Das System muss dem Boss eine graphische Übersicht über Kundenverhalten (Anwesenheitszeiten, Käufe) und Umsatz (Löhne, Beiträge, Verkäufe) geben.
 
 |**<<F1010>>**
-|Offen
+|Erledigt
 |Check-In/-Out
 a| [[F1010]]
 Das System muss die Aufenthaltszeiten der Kunden im Fittnessstudio dauerhaft speichern. Dazu muss es dem authentifizierten Mitarbeiter möglich sein über "CheckIn" oder "CheckOut" und die Identifikationsnummer die Ein- und Austrittszeiten eines beliebigen Kunden zu erfassen zu lassen.
