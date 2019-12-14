@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 
 <html xmlns:th="http://www.thymeleaf.org"
-      th:replace="site_template :: template(${staff.lastName} , ~{::staffDetail})"></html>
+      th:replace="site_template :: template(${staff} , ~{::staffDetail})"></html>
 
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta content="text/html; charset=UTF-8" http-equiv="content-type"/>
 </head>
@@ -27,11 +27,36 @@
                 pro Monat.
             </p>
             <form th:if="${staff.workedLastMonth()}" class="ui form" method="post" th:action="@{/printPdfPayslip}">
-                <button type="submit" class="ui button" th:text="#{staffDetail.printPdfPayslip}">Rechnung anzeigen</button>
+                <button type="submit" class="ui button" th:text="#{staffDetail.printPdfPayslip}">Rechnung anzeigen
+                </button>
             </form>
             <p th:if="${!staff.workedLastMonth()}">Ab nächstem Monat kannst Du hier Deine Gehaltsabrechnung sehen.</p>
         </div>
+
+        <!-- Edit button -->
+        <div class="ui one column centered grid">
+            <div class="column">
+                <a th:href="@{/staff/edit/{id}(id=${staff.staffId})}" sec:authorize="hasAnyRole('ROLE_BOSS')">
+                    <button class="ui blue button">
+                        <i class="edit icon"></i>Mitarbeiter bearbeiten
+                    </button>
+                </a>
+            </div>
+        </div>
+
+        <!-- Delete button -->
+
+        <form method="post" th:action="@{/staff/delete/{id}(id=${staff.staffId})}"
+              sec:authorize="hasAnyRole('ROLE_BOSS')">
+            <div class="column">
+                <button class="ui red button right floated">
+                    <i class="trash icon"></i>Mitarbeiter löschen
+                </button>
+            </div>
+        </form>
+
     </div>
+
 </div>
 
 </html>

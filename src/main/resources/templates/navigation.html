@@ -48,12 +48,12 @@
            sec:authorize="hasRole('BOSS')"
            th:text="#{staff.title}">Mitarbeiterliste</a>
 
-        <a class="item" href="roster/rosterView.html" th:href="@{/roster}" sec:authorize="hasRole('BOSS') or hasRole('STAFF')"
-           th:text="#{roster.title}">Dienstplan</a>
-
         <a class="item" href="member/members.html" th:href="@{/admin/members}"
            sec:authorize="hasRole('BOSS') or hasRole('STAFF')"
            th:text="#{nav.admin.members}">Mitglieder</a>
+
+        <a class="item" href="roster/rosterView.html" th:href="@{/roster}" sec:authorize="hasRole('BOSS') or hasRole('STAFF')"
+           th:text="#{roster.title}">Dienstplan</a>
 
         <div class="ui simple dropdown item" sec:authorize="hasRole('STAFF')">
             Theke Verwaltung

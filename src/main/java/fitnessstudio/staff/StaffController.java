@@ -1,6 +1,8 @@
 package fitnessstudio.staff;
 
 
+import org.javamoney.moneta.Money;
+import org.jetbrains.annotations.NotNull;
 import org.salespointframework.useraccount.UserAccount;
 import org.salespointframework.useraccount.web.LoggedIn;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -14,6 +16,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
+import java.math.BigDecimal;
 import java.util.Optional;
 
 @Controller
@@ -21,6 +25,7 @@ public class StaffController {
 
 	private static final String REDIRECT = "redirect:/login";
 	private static final String REDIRECT_HOME = "redirect:/";
+	private static final String REDIRECT_STAFFS = "redirect:/staffs";
 	private static final String STATUS = "status";
 	private static final String ERROR = "error";
 	private static final String STAFFS = "staff/staffList";
@@ -32,6 +37,7 @@ public class StaffController {
 		this.staffManagement = staffManagement;
 	}
 
+	@PreAuthorize("hasRole('BOSS') ")
 	@GetMapping("/staffs")
 	public String getAllStaffs(Model model) {
 		model.addAttribute("staffs", staffManagement.getAllStaffs());
@@ -39,7 +45,7 @@ public class StaffController {
 	}
 
 	@PreAuthorize("hasRole('BOSS') ")
-	@GetMapping(path = "/staff/{id}")
+	@GetMapping("/staff/{id}")
 	public String detail(@PathVariable long id, Model model) {
 		Optional<Staff> staff = staffManagement.findById(id);
 		if (staff.isPresent()) {
@@ -47,7 +53,7 @@ public class StaffController {
 			return "staff/staffDetail";
 		}
 		model.addAttribute(STATUS, "400");
-		model.addAttribute(ERROR, "ID_NOT FOUND");
+		model.addAttribute(ERROR, "ID NOT FOUND");
 		return ERROR;
 	}
 
@@ -72,6 +78,65 @@ public class StaffController {
 		} else {
 			return addStaff(model, form, result);
 		}
+	}
+
+	@PreAuthorize("hasRole('BOSS') ")
+	@GetMapping("/staff/edit/{id}")
+	public String editStaff(@PathVariable long id, Model model, EditStaffForm form) {
+		Optional<Staff> staffs = staffManagement.findById(id);
+		if (staffs.isPresent()) {
+			Staff staff = staffs.get();
+			model.addAttribute("staff", staff);
+			model.addAttribute("id", id);
+			model.addAttribute("form", getEditStaffForm(staff));
+			return "staff/edit_staff";
+		}
+		return ERROR;
+	}
+
+	// for keeping previous value in input field
+	@NotNull
+	private EditStaffForm getEditStaffForm(Staff staff) {
+		return new EditStaffForm() {
+
+			@Override
+			public @NotEmpty(message = "Vorname ist leer.") String getFirstName() {
+				return staff.getFirstName();
+			}
+
+			@Override
+			public @NotEmpty(message = "Nachname ist leer.") String getLastName() {
+				return staff.getLastName();
+			}
+
+			@Override
+			public @NotEmpty(message = "Gehalt ist leer.") String getSalary() {
+				return staff.getSalary().getNumber().toString();
+			}
+		};
+	}
+
+	@PreAuthorize("hasRole('BOSS') ")
+	@PostMapping("/staff/edit/{id}")
+	public String editStaff(@PathVariable long id, @Valid EditStaffForm form, Model model) {
+		Optional<Staff> staffs = staffManagement.findById(id);
+		if (staffs.isPresent()) {
+			Staff staff = staffs.get();
+			staff.setFirstName(form.getFirstName());
+			staff.setLastName(form.getLastName());
+			staff.setSalary(Money.of(new BigDecimal(form.getSalary()), "EUR"));
+			staffManagement.saveStaff(staff);
+			return REDIRECT_STAFFS;
+		}
+
+		return ERROR;
+	}
+
+	@PreAuthorize("hasRole('BOSS') ")
+	@PostMapping("/staff/delete/{id}")
+	public String deleteStaff(@PathVariable long id, Model model) {
+		staffManagement.removeStaff(id);
+		return REDIRECT_STAFFS;
 	}
 
 	@GetMapping("/staffDetail")

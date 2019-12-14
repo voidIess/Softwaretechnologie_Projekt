@@ -1,10 +1,7 @@
 package fitnessstudio.staff;
 
 import org.javamoney.moneta.Money;
-import org.salespointframework.useraccount.Password;
-import org.salespointframework.useraccount.Role;
-import org.salespointframework.useraccount.UserAccount;
-import org.salespointframework.useraccount.UserAccountManager;
+import org.salespointframework.useraccount.*;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.Errors;
 
@@ -51,6 +48,17 @@ public class StaffManagement {
 
 	public void saveStaff(Staff staff) {
 		staffRepo.save(staff);
+	}
+
+	public void removeStaff(long id) {
+		Optional<Staff> staffs = this.findById(id);
+		if (staffs.isPresent()) {
+			Staff staff = staffs.get();
+			UserAccountIdentifier identifier = staff.getUserAccount().getId();
+			staffRepo.deleteById(id);
+			assert identifier != null;
+			userAccountManager.disable(identifier);
+		}
 	}
 
 	public Optional<Staff> findByUserAccount(UserAccount userAccount) {
