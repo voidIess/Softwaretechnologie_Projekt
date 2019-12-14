@@ -65,13 +65,13 @@ der Kunden und Mitarbeiter dauerhaft speichern.
 |Erledigt
 |Kunden bearbeiten und löschen
 a| [[F0310]]
-Das System muss es authentifizierten Mitarbeitern möglich machen einzelne Details eines Kunden zu bearbeiten oder seinen Account zu löschen.
+Das System muss es authentifizierten Kunden möglich machen einzelne Details ihres Kontos zu bearbeiten.  Der Account muss deaktiviert werden können.
 
 |**<<F0410>>**
 |Offen
 |Mitarbeiter bearbeiten und löschen
 a| [[F0410]]
-Das Systen muss es dem Boss möglich machen einzelne Details eines Mitarbeiters zu bearbeiten oder seinen Account zu löschen.
+Das Systen muss es authentifizierten Mitarbeitern möglich machen einzelne Details ihres Kontos zu bearbeiten. Der Account muss deaktiviert werden können.
 
 |**<<F0420>>**
 |Offen
@@ -214,7 +214,7 @@ a| [[F0920]]
 Das System muss einzelne Dienste, der in **<<F0900>>** beschriebenen Form, von jedem authentifizierten Mitarbieter bearbeiten, löschen oder hinzugügen lassen können.
 
 |**<<F1000>>**
-|Offen
+|Erledigt
 |Statistiken anzeigen
 a| [[F1000]]
 Das System muss dem Boss eine graphische Übersicht über Kundenverhalten (Anwesenheitszeiten, Käufe) und Umsatz (Löhne, Beiträge, Verkäufe) geben.
