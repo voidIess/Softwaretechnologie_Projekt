@@ -21,8 +21,9 @@ public class StatisticController {
 	@PreAuthorize("hasRole('BOSS')")
 	public String showAttendanceStatistic(Model model) {
 		model.addAttribute("week", statisticManagement.getDaysOfWeek());
-		model.addAttribute("averageTimesOfLastWeek", statisticManagement.getAverageTimesOfLastWeek());
-		model.addAttribute("memberAmountsOfLastWeek", statisticManagement.getMemberAmountsOfLastWeek());
+		model.addAttribute("averageTimes", statisticManagement.getAverageTimesOfThisWeek());
+		model.addAttribute("memberAmounts", statisticManagement.getMemberAmountsOfThisWeek());
+		model.addAttribute("sellingEarnings", statisticManagement.getSellingEarningsOfThisWeek());
 		return "attendanceStatistic";
 	}
 
