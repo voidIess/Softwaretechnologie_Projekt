@@ -15,15 +15,24 @@ import java.util.Optional;
 @Controller
 public class StaffController {
 
-	private static  final String REDIRECT = "redirect:/login";
+	private static final String REDIRECT = "redirect:/login";
+	private static final String REDIRECT_HOME = "redirect:/";
+	private static final String STAFFS = "staff/staffList";
 	private final StaffManagement staffManagement;
+
 
 	StaffController(StaffManagement staffManagement) {
 		Assert.notNull(staffManagement, "StaffManagement must not be null");
 		this.staffManagement = staffManagement;
 	}
 
-	@GetMapping("/staff")
+	@GetMapping("/staffs")
+	public String getAllStaffs(Model model) {
+		model.addAttribute("staffs", staffManagement.getAllStaffs());
+		return STAFFS;
+	}
+
+	@GetMapping("/staffDetail")
 	public String detail(@LoggedIn Optional<UserAccount> userAccount, Model model) {
 
 		return userAccount.map(user -> {
@@ -32,7 +41,7 @@ public class StaffController {
 
 			if (staff.isPresent()) {
 				model.addAttribute("staff", staff.get());
-				return "staffDetail";
+				return "staff/staffDetail";
 			}
 			return REDIRECT;
 		}).orElse(REDIRECT);
@@ -47,12 +56,12 @@ public class StaffController {
 			Optional<Staff> staff = staffManagement.findByUserAccount(user);
 
 			if (staff.isPresent()) {
-				if(staff.get().workedLastMonth()) {
+				if (staff.get().workedLastMonth()) {
 					model.addAttribute("type", "payslip");
 					model.addAttribute("staff", staff.get());
 					return "pdfView";
 				}
-				return "redirect:/staff";
+				return "redirect:/staffDetail";
 			}
 			return REDIRECT;
 		}).orElse(REDIRECT);
