@@ -11,6 +11,7 @@ import javax.persistence.*;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Entity
 public class Member {
@@ -173,6 +174,10 @@ public class Member {
 
 	public boolean isPaused() {
 		return isPaused;
+	}
+
+	public boolean isEnded() {
+		return endDate.isBefore(LocalDate.now());
 	}
 
 	@Override

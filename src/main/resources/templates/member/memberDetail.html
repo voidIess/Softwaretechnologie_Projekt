@@ -20,6 +20,10 @@
                style="display: inline-block">
                 Pausieren
             </a>
+            <div th:switch="${member.isEnded()}" style="display: inline-block">
+                <a th:case="true" th:href="@{/member/endMembership}" class="ui button red">Beenden</a>
+                <button disabled th:case="*" class="ui button red">Beenden</button>
+            </div>
         </div>
         <div class="ui item">
             <form class="ui form" method="get" th:action="@{/member/edit}">

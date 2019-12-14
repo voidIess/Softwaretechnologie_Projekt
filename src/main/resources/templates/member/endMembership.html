@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+
+<html lang="de" xmlns:th="http://www.thymeleaf.org"
+      th:replace="site_template :: template(#{endMembership.title}, ~{::member_end})">
+</html>
+
+<html lang="de" xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="member_end">
+    <div class="ui container">
+        <div style="text-align: center; width: 800px; margin: auto">
+            <div class="box">
+                <p>
+                    Durch das Beenden Deiner Mitgliedschaft verlierst Du alle Deine Vorteile als Fitness Second Kunde.<br>
+                    Es fallen keine monatlichen Beiträge mehr an. Dein Guthaben verfällt.
+                </p>
+                <div class="buttons">
+                    <a class="ui button blue" th:href="@{/member/home}" style="float: left">Abbrechen</a>
+                    <a class="ui button red" th:href="@{/member/end}" style="float: right">Beenden</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</html>

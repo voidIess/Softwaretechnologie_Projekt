@@ -17,6 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.util.Streamable;
+import org.springframework.format.datetime.DateFormatter;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -25,7 +26,9 @@ import org.springframework.validation.Errors;
 import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
+import java.text.DateFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -290,10 +293,11 @@ public class MemberManagement {
 	}
 
 	public String getContractTextOfMember(Member member) {
+		DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 		if (member.isPaused()) {
-			return "Mitgliedschaft pausiert bis " + member.getLastPause().plusDays(31).toString();
+			return "Mitgliedschaft pausiert bis " + dateFormatter.format(member.getLastPause().plusDays(31));
 		} else {
-			return "Mitglied bis " + member.getEndDate().toString();
+			return "Mitglied bis " + dateFormatter.format(member.getEndDate());
 		}
 	}
 

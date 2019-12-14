@@ -220,4 +220,19 @@ public class MemberController {
 	public String showPause(){
 		return "member/memberPause";
 	}
+
+	@GetMapping("/member/end")
+	public String end(@LoggedIn Optional<UserAccount> userAccount){
+		return userAccount.map(user -> {
+			Optional<Member> member = memberManagement.findByUserAccount(user);
+			member.ifPresent(value -> memberManagement.deleteMember(value.getMemberId()));
+			return REDIRECT_LOGIN;
+		}).orElse(REDIRECT_LOGIN);
+	}
+
+	@PreAuthorize("hasRole('MEMBER')")
+	@GetMapping("/member/endMembership")
+	public String showEnd() {
+		return "member/endMembership";
+	}
 }
