@@ -16,7 +16,7 @@ public interface StaffForm {
 	@NotEmpty(message = "Nachname ist leer.")
 	String getLastName();
 
-	@NotEmpty(message = "Salary ist leer.")
+	@NotEmpty(message = "Gehalt ist leer.")
 	String getSalary();
 
 }

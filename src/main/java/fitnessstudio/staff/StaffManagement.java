@@ -6,6 +6,7 @@ import org.salespointframework.useraccount.Role;
 import org.salespointframework.useraccount.UserAccount;
 import org.salespointframework.useraccount.UserAccountManager;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.Errors;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -15,29 +16,36 @@ import java.util.Optional;
 public class StaffManagement {
 
 	private final StaffRepository staffRepo;
-	private final UserAccountManager userAccounts;
+	private final UserAccountManager userAccountManager;
 
-	public StaffManagement(StaffRepository repository, UserAccountManager userAccounts) {
+	public StaffManagement(StaffRepository repository, UserAccountManager userAccountManager) {
 
 		this.staffRepo = repository;
-		this.userAccounts = userAccounts;
+		this.userAccountManager = userAccountManager;
 	}
 
 	public List<Staff> getAllStaffs() {
 		return staffRepo.findAll().toList();
 	}
 
-	public Staff createStaff(StaffForm form) {
+	public Staff createStaff(StaffForm form, Errors result) {
+		Staff staff = null;
 		try {
-			Staff staff = new Staff(userAccounts.create(form.getUsername(),
-					Password.UnencryptedPassword.of(form.getPassword()),
-					Role.of("STAFF")), form.getFirstName(), form.getLastName(),
+			if (userAccountManager.findByUsername(form.getUsername()).isPresent()) {
+				result.rejectValue("username", "register.duplicate.userAccountName");
+				return null;
+			}
+			UserAccount userAccount = userAccountManager.create(form.getUsername(),
+					Password.UnencryptedPassword.of(form.getPassword()));
+			staff = new Staff(userAccount, form.getFirstName(), form.getLastName(),
 					Money.of(new BigDecimal(form.getSalary()), "EUR"));
 			staffRepo.save(staff);
-			return staff;
-		} catch (Exception e) {
-			return null;
+			staff.getUserAccount().add(Role.of("STAFF"));
+
+		} catch (Exception ignored) {
+
 		}
+		return staff;
 	}
 
 

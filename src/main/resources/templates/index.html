@@ -56,7 +56,7 @@
             </div>
 
             <div sec:authorize="hasRole('BOSS')" class="middle aligned column">
-                <a href="" sec:authorize="hasAnyRole('ROLE_BOSS')">
+                <a th:href="@{/newStaff}" sec:authorize="hasAnyRole('ROLE_BOSS')">
                     <!-- Button to add staff -->
                     <button class="btn"> Mitarbeiter hinzufügen</button>
                 </a>

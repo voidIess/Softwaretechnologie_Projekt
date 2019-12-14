@@ -7,9 +7,12 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.Assert;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.validation.Valid;
 import java.util.Optional;
 
 @Controller
@@ -30,6 +33,29 @@ public class StaffController {
 	public String getAllStaffs(Model model) {
 		model.addAttribute("staffs", staffManagement.getAllStaffs());
 		return STAFFS;
+	}
+
+	@PreAuthorize("hasRole('BOSS') ")
+	@GetMapping("/newStaff")
+	public String addStaff(Model model, StaffForm form, Errors results) {
+		model.addAttribute("form", form);
+		model.addAttribute("error", results);
+		return "staff/add_staff";
+	}
+
+
+	@PreAuthorize("hasRole('BOSS') ")
+	@PostMapping("/newStaff")
+	public String addStaff(@Valid @ModelAttribute("form") StaffForm form, Model model, Errors result) {
+		if (result == null) {
+			return REDIRECT_HOME;
+		} else if (result.hasErrors()) {
+			return addStaff(model, form, result);
+		} else if (staffManagement.createStaff(form, result) != null) {
+			return REDIRECT_HOME;
+		} else {
+			return addStaff(model, form, result);
+		}
 	}
 
 	@GetMapping("/staffDetail")
