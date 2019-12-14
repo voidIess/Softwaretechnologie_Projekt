@@ -7,7 +7,7 @@
 
 
 |**<<F0100>>**
-|Offen
+|Erledigt
 |Allgemeine Informationen ändern
 a| [[F0100]]
 Das System soll diese Informationen über das Fitnessstudio global speichern und für den Boss anpassbar machen:
@@ -18,7 +18,7 @@ Das System soll diese Informationen über das Fitnessstudio global speichern und
 * Einladungsprämie
 
 |**<<F0210>>**
-|Offen
+|Erledigt
 |Authentifizierung
 a| [[F0210]]
 Das System muss zwischen öffentlich zugänglichen und geschützten Informationen und Funktionen unterscheiden. Registrierten Nutzern ist es möglich sich über die Angabe folgender Informationen zu authentifizieren:
@@ -30,7 +30,7 @@ Der Nutzer muss durch den Login in eine der Gruppen Kunde, Mitarbeiter oder Boss
 
 
 |**<<F0221>>**
-|Offen
+|Erledigt
 |Registrierung
 a| [[F0221]]
 Es muss möglich sein unregistrierte Nutzer über die Auswahl "registrieren" in das System aufzunehmen. Diese Informationen müssen dafür angegeben werden:
@@ -43,13 +43,13 @@ Es muss möglich sein unregistrierte Nutzer über die Auswahl "registrieren" in 
 Das System muss alle so registrierten Nutzer persistent speichern. Erst nach der Freigabe des Accounts **<<F0222>>**) durch einen Mitarbeiter muss der Kunde in die Mitgliederliste aufgenommen werden. Er erhält eine eindeutige Identifikationsnummer und kann sich nun mit dieser und seinem Passwort anmelden (**<<F0210>>**).
 
 |**<<F0222>>**
-|Offen
+|Erledigt
 |Aktivierung eines Accounts
 a| [[F0222]]
 Wählt ein Mitarbieter die Funktion "aktivieren" für einen registrierten (**<<F0221>>**) Neukunden aus, wird diesem eine eindeutige Nummer zugeordnet mit der er in das System eingetragen wird. Erst damit ist es dem Nutzer möglich sich als Kunde anzumelden (**<<F0210>>**).
 
 |**<<F0300>>** & **<<F0400>>**
-|Offen
+|Erledigt
 |Kunden und Mitarbeiter
 a| [[F0300]] [[F0400]]
 Das System muss:
