@@ -2,7 +2,6 @@ package fitnessstudio.member;
 
 import fitnessstudio.contract.ContractManagement;
 import fitnessstudio.invoice.InvoiceManagement;
-import fitnessstudio.staff.Staff;
 import org.javamoney.moneta.Money;
 import org.salespointframework.useraccount.UserAccount;
 import org.salespointframework.useraccount.web.LoggedIn;
