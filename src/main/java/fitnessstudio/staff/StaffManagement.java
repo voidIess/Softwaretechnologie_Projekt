@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.Errors;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,7 +23,14 @@ public class StaffManagement {
 	}
 
 	public List<Staff> getAllStaffs() {
-		return staffRepo.findAll().toList();
+		List<Staff> staffs = new ArrayList<>();
+		for (Staff staff : staffRepo.findAll()) {
+			if(staff.getUserAccount().isEnabled()) {
+				staffs.add(staff);
+			}
+		}
+
+		return staffs;
 	}
 
 	public Staff createStaff(StaffForm form, Errors result) {
@@ -56,9 +64,10 @@ public class StaffManagement {
 		if (staffs.isPresent()) {
 			Staff staff = staffs.get();
 			UserAccountIdentifier identifier = staff.getUserAccount().getId();
-			staffRepo.deleteById(id);
+			//staffRepo.deleteById(id);
 			assert identifier != null;
 			userAccountManager.disable(identifier);
+
 		}
 	}
 
