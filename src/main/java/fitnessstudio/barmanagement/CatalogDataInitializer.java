@@ -36,12 +36,13 @@ public class CatalogDataInitializer implements DataInitializer {
 		LocalDate startDate = LocalDate.of(2019, 12, 1);
 		LocalDate endDate = LocalDate.of(2020, 6, 15);
 		Discount discount = new Discount(startDate, endDate, 0);
+		Discount discount2 = new Discount(startDate, endDate, 0);
 		discountRepository.save(discount);
 
 		catalog.save(new Article("Hantel", Money.of(50.00, EURO), "Trainingsgerät",
 			"10kg", Quantity.of(10, Metric.UNIT))).setDiscount(discount);
 
 		catalog.save(new Article("Serious Mass", Money.of(13.37, EURO), "Essen",
-			"gesund", Quantity.of(10, Metric.UNIT))).setDiscount(discount);
+			"gesund", Quantity.of(10, Metric.UNIT))).setDiscount(discount2);
 	}
 }

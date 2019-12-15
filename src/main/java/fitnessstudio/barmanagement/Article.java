@@ -7,7 +7,9 @@ import org.salespointframework.catalog.Product;
 import org.salespointframework.quantity.Quantity;
 
 import javax.money.MonetaryAmount;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToOne;
 import java.time.LocalDate;
 import java.util.Optional;
@@ -18,7 +20,7 @@ public class Article extends Product {
 	private String type;
 	private String description;
 	// private LocalDate expirationDate;
-	@OneToOne
+	@OneToOne(targetEntity=Discount.class,fetch= FetchType.EAGER , cascade= CascadeType.ALL, orphanRemoval=true)
 	private Discount discount;
 	private Quantity sufficientQuantity;
 	//private Optional<Discount> discount;

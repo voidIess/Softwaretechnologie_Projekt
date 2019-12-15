@@ -2,7 +2,9 @@ package fitnessstudio.barmanagement;
 
 import fitnessstudio.member.Member;
 import org.salespointframework.catalog.ProductIdentifier;
-import org.salespointframework.inventory.*;
+import org.salespointframework.inventory.InventoryItem;
+import org.salespointframework.inventory.InventoryItems;
+import org.salespointframework.inventory.UniqueInventoryItem;
 import org.salespointframework.order.Cart;
 import org.salespointframework.order.CartItem;
 import org.salespointframework.payment.PaymentMethod;
@@ -127,19 +129,13 @@ public class BarManager {
 				article.setDescription(description);
 				article.setPrice(price);
 				article.setSufficientQuantity(sufficientQuantity);
-
-				discountRepository.findAll().forEach(discount -> {
-					if (discount.getId().equals(
-							Objects.requireNonNull(article.getDiscount().getId()))) {
-						discount.setStartDate(startDate);
-						discount.setEndDate(endDate);
-						discount.setPercent(percent);
-						discountRepository.save(discount);
-					}
-				});
-
+				discountRepository.delete(discountRepository.findAll().iterator().next());
+				Discount discount = new Discount(startDate, endDate, percent);
+				discountRepository.save(discount);
+				article.setDiscount(discount);
+				catalog.save(article);
 			}
-			catalog.save(article);
+
 		});
 
 	}
