@@ -1,5 +1,13 @@
 package fitnessstudio.invoice;
 
 public enum InvoiceType {
-	DEPOSIT, WITHDRAW, CASHPAYMENT
+	DEPOSIT("AUFLADUNG"), WITHDRAW("KONTO ABBUCHUNG"), CASHPAYMENT("BAR BEZAHLT");
+
+	private final String displayValue;
+
+	InvoiceType(String displayValue){this.displayValue = displayValue;}
+
+	public String getDisplayValue() {
+		return displayValue;
+	}
 }
