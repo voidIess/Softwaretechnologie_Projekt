@@ -26,7 +26,7 @@ public class RosterDataInitializer implements DataInitializer {
 	private final RosterManagement rosters;
 	private final RosterRepository rosterRepository;
 	private final UserAccountManager userAccounts;
-	private String STAFFROLE = "STAFF";
+
 
 	RosterDataInitializer(RosterRepository rosterRepository, StaffManagement staffs, RosterManagement rosterManagement, UserAccountManager userAccounts) {
 		Assert.notNull(rosterManagement, "RosterManagement must not be 'null'");
@@ -41,14 +41,28 @@ public class RosterDataInitializer implements DataInitializer {
 
 	@Override
 	public void initialize() {
-		Staff staff = new Staff(userAccounts.create("staff", Password.UnencryptedPassword.of("123"),"markus@email.de", Role.of(STAFFROLE)), "Markus", "Wieland", Money.of(100, "EUR"));
-		LOG.info("Create Staff (username: staff, passwort: 123)");
+		String staffrole = "STAFF";
+		String usernameStaff = "staff";
+		String usernameObi = "Obi";
 
-		Staff staff2 = new Staff(userAccounts.create("Obi", Password.UnencryptedPassword.of("123"), "obi@mehralsbaumarkt.de", Role.of(STAFFROLE)), "Obi", "Babobi", Money.of(10000, "EUR"));
-		LOG.info("Create Staff (username: obi, passwort: 123)");
+		if (userAccounts.findByUsername("staff").isPresent()) {
+			usernameStaff = "mar14511";
+		}
+		if (userAccounts.findByUsername("obi").isPresent()) {
+			usernameObi = "mar14512";
+		}
+
+		Staff staff = new Staff(userAccounts.create(usernameStaff, Password.UnencryptedPassword.of("123"),"markus@email.de", Role.of(staffrole)), "Markus", "Wieland", Money.of(100, "EUR"));
+		String logStaff = "Create Staff (username: "+usernameStaff + ", passwort: 123)";
+		LOG.info(logStaff);
+
+		Staff staff2 = new Staff(userAccounts.create(usernameObi, Password.UnencryptedPassword.of("123"), "obi@mehralsbaumarkt.de", Role.of(staffrole)), "Obi", "Babobi", Money.of(10000, "EUR"));
+		String logObi = "Create Staff (username: "+usernameObi + ", passwort: 123)";
+		LOG.info(logObi);
 
 		staffs.saveStaff(staff);
 		staffs.saveStaff(staff2);
+
 		for (int i = 0; i < 6; i++) {
 			Calendar c = Calendar.getInstance();
 			c.add(Calendar.WEEK_OF_YEAR, i);
@@ -56,8 +70,10 @@ public class RosterDataInitializer implements DataInitializer {
 			if(!rosterRepository.findByWeek(week).isPresent()) {
 				Roster roster = new Roster(week);
 				rosters.saveRoster(roster);
-				LOG.info("Roster für Woche: " + roster.getWeek());
-				LOG.info("Roster ID: " + roster.getRosterId());
+				String logRoster = "Roster für Woche: " + roster.getWeek();
+				LOG.info(logRoster);
+				String logEntry = "Roster ID: " + roster.getRosterId();
+				LOG.info(logEntry);
 
 				List<String> times = new ArrayList<>();
 				times.add(roster.getRows().get(1).toString());
