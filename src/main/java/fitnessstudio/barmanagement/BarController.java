@@ -5,11 +5,10 @@ import fitnessstudio.invoice.InvoiceType;
 import fitnessstudio.member.Member;
 import fitnessstudio.member.MemberManagement;
 import org.javamoney.moneta.Money;
-import org.salespointframework.order.Cart;
-import org.salespointframework.order.Order;
-import org.salespointframework.order.OrderManager;
-import org.salespointframework.order.OrderStatus;
+import org.salespointframework.order.*;
+import org.salespointframework.payment.Cash;
 import org.salespointframework.quantity.Quantity;
+import org.salespointframework.useraccount.UserAccount;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,11 +20,14 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 
 import javax.validation.Valid;
-import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Optional;
 
 
 @Controller
+@PreAuthorize("isAuthenticated()")
 @SessionAttributes("cart")
 public class BarController {
 
@@ -85,25 +87,50 @@ public class BarController {
 			return ERROR;
 		}
 
+		UserAccount account = optionalCustomer.get().getUserAccount();
 		Money price = Money.from(cart.getPrice());
 
-		if (payCash) {
-			applicationEventPublisher.publishEvent(new InvoiceEvent(this, customerId, InvoiceType.CASHPAYMENT, price, "Thekenverkauf mit Bargeld"));
+		// for Invoice or for statistic
+		Iterator<CartItem> iterator = cart.iterator();
+		List<CartItem> cartItemList = new ArrayList<>();
+		while (iterator.hasNext()) {
+			CartItem cartItem = iterator.next();
+			cartItemList.add(cartItem);
 		}
-		else {
+
+		Order order = new Order(account, Cash.CASH);
+		cart.addItemsTo(order);
+		orderManager.payOrder(order);
+		orderManager.completeOrder(order);
+		cart.clear();
+
+		StringBuilder articles = new StringBuilder();
+		try {
+			for (CartItem cartItem : cartItemList) {
+				articles.append(" ").append(cartItem.getQuantity().getAmount().intValue()).append("x ")
+						.append(cartItem.getProductName());
+			}
+		} catch (Exception e) {
+			// No CartItem given
+		}
+		if (payCash) {
+			applicationEventPublisher.publishEvent(new InvoiceEvent(this, customerId, InvoiceType.CASHPAYMENT,
+					price, articles.toString()));
+		} else {
 			Member customer = optionalCustomer.get();
 			if (customer.getCredit().isLessThan(price)) {
 				model.addAttribute(ERROR, "Kunde hat nicht genug Guthaben");
 				model.addAttribute(STATUS, 400);
 				return ERROR;
 			}
-			memberManagement.memberPayOut(customerId, price, "Thekenverkauf mit Guthabenkonto");
+
+			memberManagement.memberPayOut(customerId, price, articles.toString());
 		}
 
 		cart.forEach(cartItem -> barManager.removeStock(cartItem.getProduct().getId(), cartItem.getQuantity()));
+
 		status.setComplete();
 
-		cart.clear();
 
 		return "redirect:/";
 	}
@@ -116,7 +143,7 @@ public class BarController {
 
 	@PreAuthorize("hasRole('STAFF')")
 	@PostMapping("/addItemToCart")
-	String addItem(@RequestParam("pid") Article article, @RequestParam("number") int number, @ModelAttribute Cart cart) {
+	public String addItem(@RequestParam("pid") Article article, @RequestParam("number") int number, @ModelAttribute Cart cart) {
 		barManager.addArticleToCart(article, Quantity.of(number), cart);
 		return ("redirect:sell_catalog");
 	}

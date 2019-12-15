@@ -1,7 +1,6 @@
 package fitnessstudio.barmanagement;
 
 import fitnessstudio.member.Member;
-import fitnessstudio.member.MemberManagement;
 import org.salespointframework.catalog.ProductIdentifier;
 import org.salespointframework.inventory.InventoryItem;
 import org.salespointframework.inventory.InventoryItems;
@@ -141,31 +140,30 @@ public class BarManager {
 		});
 
 	}
-	boolean stockAvailable(ProductIdentifier id, Quantity quantity){
-		Article  article = getById(id);
+
+	boolean stockAvailable(ProductIdentifier id, Quantity quantity) {
+		Article article = getById(id);
 		Quantity stockQuantity = getArticleQuantity(article);
 
 		return !stockQuantity.isLessThan(quantity);
 	}
 
 	// this will remove non-expired articles from the inventory
-	boolean removeStock(ProductIdentifier id, Quantity quantity){
+	boolean removeStock(ProductIdentifier id, Quantity quantity) {
 		// abort if there isnt enough Quantity anyway
-		if(!stockAvailable(id, quantity)) return false;
+		if (!stockAvailable(id, quantity)) return false;
 
-		Article  article = getById(id);
+		Article article = getById(id);
 		InventoryItems<ExpiringInventoryItem> orderedItems = inventory.findByProductAndExpirationDateAfterOrderByExpirationDateAsc(article, LocalDate.now());
-		for (ExpiringInventoryItem item : orderedItems){
+		for (ExpiringInventoryItem item : orderedItems) {
 			Quantity itemQuantity = item.getQuantity();
-			if (itemQuantity.isLessThan(quantity)){
+			if (itemQuantity.isLessThan(quantity)) {
 				quantity.subtract(itemQuantity);
- 				inventory.delete(item);
-			}
-			else {
-				if(item.getQuantity().isEqualTo(quantity)){
+				inventory.delete(item);
+			} else {
+				if (item.getQuantity().isEqualTo(quantity)) {
 					inventory.delete(item);
-				}
-				else{
+				} else {
 					item.decreaseQuantity(quantity);
 					inventory.save(item);
 				}
@@ -173,6 +171,6 @@ public class BarManager {
 			}
 		}
 		return true;
- 	}
+	}
 
 }

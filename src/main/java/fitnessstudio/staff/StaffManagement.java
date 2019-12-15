@@ -5,12 +5,14 @@ import org.salespointframework.useraccount.*;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.Errors;
 
+import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class StaffManagement {
 
 	private final StaffRepository staffRepo;
@@ -87,7 +89,7 @@ public class StaffManagement {
 	boolean emailExists(String email) {
 		for (UserAccount userAccount : userAccountManager.findAll()) {
 			String userAccountEmail = userAccount.getEmail();
-			if (userAccountEmail != null && userAccountEmail.equalsIgnoreCase(email)) return true;
+			if (userAccountEmail.equalsIgnoreCase(email)) return true;
 		}
 		return false;
 	}
