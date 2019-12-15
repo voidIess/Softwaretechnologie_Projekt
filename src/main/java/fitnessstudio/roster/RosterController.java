@@ -115,6 +115,15 @@ public class RosterController {
 		return defaultLink + week;
 	}
 
+
+	@PreAuthorize("hasRole('BOSS') ")
+	@PostMapping("/staff/delete/{id}")
+	public String deleteStaff(@PathVariable long id, Model model) {
+		rosterManagement.deleteAllEntriesFromStaff(id);
+		staffManagement.removeStaff(id);
+		return "redirect:/staffs";
+	}
+
 	//TODO: entry erst erstellen wenn accepted
 	//TODO: training löschen
 

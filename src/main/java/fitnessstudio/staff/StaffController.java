@@ -137,13 +137,6 @@ public class StaffController {
 		return ERROR;
 	}
 
-	@PreAuthorize("hasRole('BOSS') ")
-	@PostMapping("/staff/delete/{id}")
-	public String deleteStaff(@PathVariable long id, Model model) {
-		staffManagement.removeStaff(id);
-		return REDIRECT_STAFFS;
-	}
-
 	@GetMapping("/staffDetail")
 	public String getAccount(@LoggedIn Optional<UserAccount> userAccount, Model model) {
 

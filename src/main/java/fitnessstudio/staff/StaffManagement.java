@@ -41,8 +41,9 @@ public class StaffManagement {
 					Password.UnencryptedPassword.of(form.getPassword()), email);
 			staff = new Staff(userAccount, form.getFirstName(), form.getLastName(),
 					Money.of(new BigDecimal(form.getSalary()), "EUR"));
-			staffRepo.save(staff);
+			
 			staff.getUserAccount().add(Role.of("STAFF"));
+			staffRepo.save(staff);
 
 		} catch (Exception ignored) {
 
