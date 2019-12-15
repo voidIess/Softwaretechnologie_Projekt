@@ -12,62 +12,95 @@
 </head>
 
 <div th:fragment="site_content">
-<div class="ui container">
-    <form method="post" role="form" class="ui form" id="form" th:action="@{/article}" th:object="${form}">
+    <div class="ui container">
+        <form method="post" role="form" class="ui form" id="form" th:action="@{/article}" th:object="${form}">
 
-        <fieldset>
-            <text>Name</text><label for="name"></label><input type="text" th:field="*{name}"
-                                                                id="name"
-                                                                required/>
-        </fieldset>
+            <fieldset>
+                <text>Name</text>
+                <label for="name"></label><input type="text" th:field="*{name}"
+                                                 id="name"
+                                                 required/>
+            </fieldset>
 
-        <fieldset>
-            <text>Preis in Euro</text><label for="price"></label><input type="number" th:field="*{price}"
-                                                                          id="price" step="0.01"
-                                                                          required/>
-        </fieldset>
+            <fieldset>
+                <text>Preis in Euro</text>
+                <label for="price"></label><input type="number" th:field="*{price}"
+                                                  id="price" step="0.01"
+                                                  required/>
+            </fieldset>
 
-        <fieldset>
-            <text>Art</text><label for="type"></label><input type="text" th:field="*{type}"
-                                                               id="type"
-                                                               required/>
-        </fieldset>
+            <fieldset>
+                <text>Art</text>
+                <label for="type"></label><input type="text" th:field="*{type}"
+                                                 id="type"
+                                                 required/>
+            </fieldset>
 
-        <fieldset>
-            <text>Beschreibung</text><label for="description"></label><input type="text" th:field="*{description}"
-                                                                               id="description"
-                                                                               required/>
-        </fieldset>
-
-        <fieldset>
-            <text>Mindestvorrat</text><label for="number"></label><input type="number"
-                                                                           th:field="*{sufficientQuantity}"
-                                                                           id="number"
-                                                                           required/>
-        </fieldset>
-
-        <br>
-        <fieldset>
-            <text>Initialer Bestand</text><label for="amount"></label><input type="number"
-                                                                               th:field="*{amount}"
-                                                                               id="amount"
-                                                                               required/>
-        </fieldset>
+            <fieldset>
+                <text>Beschreibung</text>
+                <label for="description"></label><input type="text" th:field="*{description}"
+                                                        id="description"
+                                                        required/>
+            </fieldset>
 
 
-        <fieldset>
-            <text>Mindesthaltbarkeitsdatum des initialen Bestands</text><label for="expirationDate"></label><input
-                type="date"
-                th:field="*{expirationDate}"
-                id="expirationDate"
-                required/>
-        </fieldset>
+            <br>
+            <br>
 
-        <fieldset>
-            <button name="submit" type="submit" id="contact-submit" data-submit="...Sending">Submit</button>
-        </fieldset>
-    </form>
-</div>
+            <fieldset>
+                <p>Rabatt vom (optional)</p><label for="startDiscount"></label>
+                <input type="date"
+                       th:field="*{startDiscount}"
+                       id="startDiscount"/>
+            </fieldset>
+
+            <fieldset>
+                <p>Rabatt in Prozent (optional)</p><label for="percentDiscount"></label>
+                <input type="number" min="0" max="100" step="1" value="1" th:field="*{percentDiscount}"
+                       id="percentDiscount"/>
+
+            </fieldset>
+
+
+            <fieldset>
+                <p>Rabatt bis (optional)</p><label for="endDiscount"></label>
+                <input type="date" th:field="*{endDiscount}" id="endDiscount"/>
+            </fieldset>
+
+            <br>
+            <br>
+
+            <fieldset>
+                <text>Mindestvorrat</text>
+                <label for="number"></label>
+                <input type="number" th:field="*{sufficientQuantity}" id="number" required/>
+            </fieldset>
+
+            <br>
+            <fieldset>
+                <text>Initialer Bestand</text>
+                <label for="amount"></label><input type="number"
+                                                   th:field="*{amount}"
+                                                   id="amount"
+                                                   required/>
+            </fieldset>
+
+
+            <fieldset>
+                <text>Mindesthaltbarkeitsdatum des initialen Bestands</text>
+                <label for="expirationDate"></label><input
+                    type="date"
+                    th:field="*{expirationDate}"
+                    id="expirationDate"
+                    required/>
+            </fieldset>
+
+
+            <fieldset>
+                <button name="submit" type="submit" id="contact-submit" data-submit="...Sending">Submit</button>
+            </fieldset>
+        </form>
+    </div>
 
 
 </div>

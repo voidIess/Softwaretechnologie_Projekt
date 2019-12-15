@@ -18,18 +18,20 @@ import org.springframework.util.Assert;
 
 import javax.money.MonetaryAmount;
 import java.time.LocalDate;
-import java.util.Optional;
+import java.util.Objects;
 
 @Service
 public class BarManager {
 
+	private static final Logger LOG = LoggerFactory.getLogger(CatalogDataInitializer.class);
 	private ExpiringInventory inventory;
 	private ArticleCatalog catalog;
+	private DiscountRepository discountRepository;
 
-	private static final Logger LOG = LoggerFactory.getLogger(CatalogDataInitializer.class);
 
+	public BarManager(ExpiringInventory inventory, ArticleCatalog catalog, DiscountRepository discountRepository) {
 
-	public BarManager(ExpiringInventory inventory, ArticleCatalog catalog) {
+		this.discountRepository = discountRepository;
 
 		Assert.notNull(inventory, "BarManager needs a non-null inventory");
 		Assert.notNull(catalog, "BarManager needs a non-null catalog");
@@ -47,7 +49,7 @@ public class BarManager {
 		Quantity inventoryQuantity = inventory.findByProduct(article).getTotalQuantity();
 
 		Quantity allreadyOrderedQuantity = cart.stream().filter(x -> x.getProduct()
-			.equals(article)).findFirst().map(CartItem::getQuantity).orElse(Quantity.NONE);
+				.equals(article)).findFirst().map(CartItem::getQuantity).orElse(Quantity.NONE);
 
 		// add the desired or amount to the cart, or nothing if not enough items in stock
 		Quantity addingQuantity = allreadyOrderedQuantity.add(quantity).isGreaterThan(inventoryQuantity) ? Quantity.NONE : quantity;
@@ -64,8 +66,8 @@ public class BarManager {
 	// return articles, which are in stock and not expired
 	public Streamable<UniqueInventoryItem> getAvailableArticles() {
 		Streamable<UniqueInventoryItem> items = Streamable.of(catalog.findAll())
-			.map(x -> new UniqueInventoryItem(x, inventory.findByProductAndExpirationDateAfter(x, LocalDate.now()).getTotalQuantity()))
-			.filter(x -> !x.getQuantity().isZeroOrNegative());
+				.map(x -> new UniqueInventoryItem(x, inventory.findByProductAndExpirationDateAfter(x, LocalDate.now()).getTotalQuantity()))
+				.filter(x -> !x.getQuantity().isZeroOrNegative());
 
 		LOG.info(items.map(InventoryItem::toString).toList().toString());
 		return items;
@@ -93,12 +95,11 @@ public class BarManager {
 	}
 
 
-
 	public void restockInventory(Quantity quantity, Article article, LocalDate expirationDate) {
-		if(!quantity.equals(Quantity.NONE)) {
+		if (!quantity.equals(Quantity.NONE)) {
 			ExpiringInventoryItem item = inventory.findByProduct(article).stream()
-				.filter(x -> expirationDate.equals(x.getExpirationDate())).findFirst()
-				.orElse(new ExpiringInventoryItem(article, Quantity.NONE, expirationDate));
+					.filter(x -> expirationDate.equals(x.getExpirationDate())).findFirst()
+					.orElse(new ExpiringInventoryItem(article, Quantity.NONE, expirationDate));
 
 			item.increaseQuantity(quantity);
 			inventory.save(item);
@@ -107,29 +108,38 @@ public class BarManager {
 
 	public Streamable<Article> getLowStockArticles() {
 		return Streamable.of(catalog.findAll()).filter(
-			x -> inventory.findByProductAndExpirationDateAfter(x, LocalDate.now()).getTotalQuantity()
-				.isLessThan(x.getSufficientQuantity()));
+				x -> inventory.findByProductAndExpirationDateAfter(x, LocalDate.now()).getTotalQuantity()
+						.isLessThan(x.getSufficientQuantity()));
 	}
 
 	public Quantity getArticleQuantity(Article article) {
 		return inventory.findByProductAndExpirationDateAfter(article, LocalDate.now()).getTotalQuantity();
 	}
-	Article getById(ProductIdentifier id){
-		Article article = catalog.findById(id).orElse(new Article());
-		return article;
-	}
-	boolean editArticle(ProductIdentifier id, String name, String type, String description, MonetaryAmount price, Quantity sufficientQuantity){
-		Optional<Article> opt = catalog.findById(id);
-		if (opt.isEmpty()) return false;
 
-		Article article = opt.get();
-		article.setName(name);
-		article.setType(type);
-		article.setDescription(description);
-		article.setPrice(price);
-		article.setSufficientQuantity(sufficientQuantity);
-		catalog.save(article);
-		return true;
+	Article getById(ProductIdentifier id) {
+		return catalog.findById(id).orElse(new Article());
+	}
+
+	void editArticle(ProductIdentifier id, String name, String type, String description,
+					 MonetaryAmount price, Quantity sufficientQuantity, LocalDate startDate, int percent,
+					 LocalDate endDate) {
+		catalog.findAll().forEach(article -> {
+			if (Objects.equals(article.getId(), id)) {
+
+				article.setName(name);
+				article.setType(type);
+				article.setDescription(description);
+				article.setPrice(price);
+				article.setSufficientQuantity(sufficientQuantity);
+				discountRepository.delete(discountRepository.findAll().iterator().next());
+				Discount discount = new Discount(startDate, endDate, percent);
+				discountRepository.save(discount);
+				article.setDiscount(discount);
+				catalog.save(article);
+			}
+
+		});
+
 	}
 
 	// this will remove non-expired articles from the inventory

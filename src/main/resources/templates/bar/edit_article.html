@@ -43,6 +43,35 @@
                                                         id="description"
                                                         required/>
             </fieldset>
+
+
+            <br>
+            <br>
+
+            <fieldset>
+                <p>Rabatt vom (optional)</p><label for="startDiscount"></label>
+                <input type="date"
+                       th:field="*{startDiscount}"
+                       id="startDiscount"/>
+            </fieldset>
+
+            <fieldset>
+                <p>Rabatt in Prozent (optional)</p><label for="percentDiscount"></label>
+                <input type="number" min="0" max="100" step="1" value="1" th:field="*{percentDiscount}"
+                       id="percentDiscount"/>
+
+            </fieldset>
+
+
+            <fieldset>
+                <p>Rabatt bis (optional)</p><label for="endDiscount"></label>
+                <input type="date" th:field="*{endDiscount}" id="endDiscount"/>
+            </fieldset>
+
+            <br>
+            <br>
+
+
             <fieldset>
                 <text>Mindestvorrat</text>
                 <label for="number"></label><input type="number"

@@ -5,7 +5,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotEmpty;
 
-public interface QuantityForm {
+public interface QuantityForm{
 
 	@NotEmpty
 	@DateTimeFormat(pattern = "dd.MM.yyyy")
