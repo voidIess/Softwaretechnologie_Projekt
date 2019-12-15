@@ -68,14 +68,23 @@ public class BarController {
 			model.addAttribute(STATUS, 400);
 			return ERROR;
 		}
+
 		if (!cart.stream().map(cartItem -> barManager.stockAvailable(cartItem.getProduct().getId(), cartItem.getQuantity())).reduce(true, (x,y)->x&&y) ){
 			model.addAttribute(ERROR, "Not enough stock, to do this");
 			model.addAttribute(STATUS, 400);
 			return ERROR;
 		}
 
+		Member customer = optionalCustomer.get();
+		Money price = Money.from(cart.getPrice());
+		if (customer.getCredit().isLessThan(price)){
+			model.addAttribute(ERROR, "Customer does not have enough credit");
+			model.addAttribute(STATUS, 400);
+			return ERROR;
+		}
+
+
 		//do the final selling action
- 		Money price = Money.from(cart.getPrice());
 		cart.forEach(cartItem ->  barManager.removeStock(cartItem.getProduct().getId(), cartItem.getQuantity()));
 		status.setComplete();
 		memberManagement.memberPayOut(customerId, price, "Thekenverkauf vom " + LocalDate.now());
