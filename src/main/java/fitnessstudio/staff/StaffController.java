@@ -29,6 +29,7 @@ public class StaffController {
 	private static final String STATUS = "status";
 	private static final String ERROR = "error";
 	private static final String STAFFS = "staff/staffList";
+	private static final String STAFF = "staff";
 	private final StaffManagement staffManagement;
 
 
@@ -49,7 +50,7 @@ public class StaffController {
 	public String detail(@PathVariable long id, Model model) {
 		Optional<Staff> staff = staffManagement.findById(id);
 		if (staff.isPresent()) {
-			model.addAttribute("staff", staff.get());
+			model.addAttribute(STAFF, staff.get());
 			return "staff/staffDetail";
 		}
 		model.addAttribute(STATUS, "400");
@@ -61,7 +62,7 @@ public class StaffController {
 	@GetMapping("/newStaff")
 	public String addStaff(Model model, StaffForm form, Errors results) {
 		model.addAttribute("form", form);
-		model.addAttribute("error", results);
+		model.addAttribute(ERROR, results);
 		return "staff/add_staff";
 	}
 
@@ -86,7 +87,7 @@ public class StaffController {
 		Optional<Staff> staffs = staffManagement.findById(id);
 		if (staffs.isPresent()) {
 			Staff staff = staffs.get();
-			model.addAttribute("staff", staff);
+			model.addAttribute(STAFF, staff);
 			model.addAttribute("id", id);
 			model.addAttribute("form", getEditStaffForm(staff));
 			return "staff/edit_staff";
@@ -145,7 +146,7 @@ public class StaffController {
 			Optional<Staff> staff = staffManagement.findByUserAccount(user);
 
 			if (staff.isPresent()) {
-				model.addAttribute("staff", staff.get());
+				model.addAttribute(STAFF, staff.get());
 				return "staff/staffDetail";
 			}
 			return REDIRECT;
@@ -163,7 +164,7 @@ public class StaffController {
 			if (staff.isPresent()) {
 				if (staff.get().workedLastMonth()) {
 					model.addAttribute("type", "payslip");
-					model.addAttribute("staff", staff.get());
+					model.addAttribute(STAFF, staff.get());
 					return "pdfView";
 				}
 				return "redirect:/staff/staffDetail";
