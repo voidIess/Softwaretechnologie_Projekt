@@ -17,9 +17,6 @@ public class Staff {
 	@GeneratedValue
 	private long staffId;
 
-	private String firstName;
-	private String lastName;
-
 	private Money salary;
 
 	@OneToOne
@@ -34,8 +31,8 @@ public class Staff {
 
 	public Staff(UserAccount userAccount, String firstName, String lastName, Money salary) {
 		this.userAccount = userAccount;
-		this.firstName = firstName;
-		this.lastName = lastName;
+		this.userAccount.setFirstname(firstName);
+		this.userAccount.setLastname(lastName);
 		this.salary = salary;
 	}
 
@@ -52,19 +49,19 @@ public class Staff {
 	}
 
 	public String getFirstName() {
-		return firstName;
+		return this.userAccount.getFirstname();
 	}
 
 	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+		this.userAccount.setFirstname(firstName);
 	}
 
 	public String getLastName() {
-		return lastName;
+		return this.userAccount.getLastname();
 	}
 
 	public void setLastName(String lastName) {
-		this.lastName = lastName;
+		this.userAccount.setLastname(lastName);
 	}
 
 	public String getUserName() {
@@ -77,7 +74,7 @@ public class Staff {
 
 	@Override
 	public String toString() {
-		return lastName + ", " + firstName;
+		return this.userAccount.getFirstname() + ", " + this.userAccount.getLastname();
 	}
 
 	public boolean workedLastMonth() {
