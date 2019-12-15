@@ -4,6 +4,8 @@ import com.mysema.commons.lang.Assert;
 import fitnessstudio.staff.Staff;
 import fitnessstudio.staff.StaffManagement;
 import fitnessstudio.staff.StaffRole;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.Errors;
 
@@ -16,6 +18,7 @@ public class RosterManagement {
 
 	private final RosterRepository rosterRepository;
 	private final StaffManagement staffManagement;
+	private static final Logger LOG = LoggerFactory.getLogger(RosterManagement.class);
 
 	RosterManagement(RosterRepository rosterRepository, StaffManagement staffs) {
 		Assert.notNull(rosterRepository, "Das RosterRepository darf nicht null sein!");
@@ -31,7 +34,7 @@ public class RosterManagement {
 		}
 		for (Roster roster : rosterRepository.findAll()) {
 			for (TableRow row : roster.getRows()) {
-				for(Slot slot: row.getSlots()) {
+				for (Slot slot : row.getSlots()) {
 					List<Integer> positions = new ArrayList<>();
 					int i = 0;
 					for (RosterEntry rosterEntry : slot.getEntries()) {
@@ -146,7 +149,7 @@ public class RosterManagement {
 		saveRoster(roster);
 	}
 
-	public void deleteEntryByTraining (int week, int shift, int day, long id) {
+	public void deleteEntryByTraining(int week, int shift, int day, long id) {
 		Roster roster = getRosterByWeek(week);
 		Assert.notNull(roster, "Keinen Roster gefunden.");
 		List<RosterEntry> entries = roster.getRows().get(shift).getSlots().get(day).getEntries();
@@ -166,8 +169,8 @@ public class RosterManagement {
 		Assert.notNull(rosterEntry, "Keinen RosterEntry gefunden.");
 		try {
 			roster.deleteEntry(shift, day, id);
-		} catch (Exception e) {
-			//TODO: error Message
+		} catch (Exception ignore) {
+			LOG.info("Eintrag konnte nicht gelöscht werden.");
 		}
 		saveRoster(roster);
 	}

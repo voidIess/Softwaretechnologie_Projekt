@@ -221,24 +221,5 @@ public class RosterManagementTest {
 			System.out.println(list.get(i));
 			assertThat(compare.get(i).equals(list.get(i))).isTrue();
 		}
-
 	}
-
-	@Test
-	@Order(6)
-	void testEditEntry () {
-		/*rosterManagement.createEntry(rosterEntryCounter, RosterEntry.NONE, null);
-		long id = rosterManagement.getRosterByWeek(week).getRows().get(0).getSlots().get(0).getEntries().get(0).getRosterEntryId();
-		assertThat(rosterManagement.getRosterByWeek(week).getRows().get(0).getSlots().get(0).getEntries().get(0).getRole().equals(StaffRole.COUNTER)).isTrue();
-
-		rosterManagement.editEntry(rosterEntryTrainer, id, null);
-		roster = rosterManagement.getRosterByWeek(week);
-		RosterEntry entry = roster.getRows().get(0).getSlots().get(0).getEntries().get(0);
-		//assertThat(entry.getRole().equals(StaffRole.TRAINER)).isTrue();*/
-
-	}
-
-	//, edit,delete, getentrybyid
-
-
 }

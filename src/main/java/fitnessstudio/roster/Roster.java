@@ -2,8 +2,6 @@ package fitnessstudio.roster;
 
 import com.mysema.commons.lang.Assert;
 import fitnessstudio.staff.Staff;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;

@@ -94,11 +94,6 @@ public class RosterController {
 		return "roster/rosterDetail";
 	}
 
-	//TODO: show Tag des RosterEntryForm
-	//TODO: Nichts hinzufügen, wenn er bereits arbeitet, da sonst die sachen da ausgewählt werden.
-	//TODO: Beim erstellen eines Rosters schauen ob der bereits existiert, wenn ja, dann bitte einen neuen anlegen und den anderen löschen
-	//TODO: Vorhandene Knöpfe zum filtern nach Rolle nutzen
-
 	@PostMapping("/roster/editEntry/{id}")
 	public String editEntry(@Valid @ModelAttribute("form") RosterEntryForm form, Errors errors, @PathVariable long id, Model model) {
 		rosterManagement.editEntry(form, id, errors);
@@ -124,8 +119,6 @@ public class RosterController {
 		return "redirect:/staffs";
 	}
 
-	//TODO: entry erst erstellen wenn accepted
-	//TODO: training löschen
 
 }
 

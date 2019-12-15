@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Entity
 public class RosterEntry implements Comparable<RosterEntry> {
 
-	public static long NONE = -1;
+	public static final long NONE = -1;
 
 	@Id
 	@GeneratedValue
