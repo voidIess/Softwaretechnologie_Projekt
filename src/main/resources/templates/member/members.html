@@ -41,6 +41,7 @@
             <thead>
             <tr>
                 <th>Mitglieder Nummer</th>
+                <th>Mitglied seit</th>
                 <th>Vorname</th>
                 <th>Nachname</th>
                 <th>Email</th>
@@ -52,7 +53,7 @@
             </thead>
             <tbody th:remove="all-but-first">
             <tr th:each=" customer : ${memberList}">
-
+                <td th:text="${customer.getMembershipStartDate()}"></td>
                 <td th:text="${customer.memberId}">MemberId</td>
                 <td th:text="${customer.firstName}">Vorname</td>
                 <td th:text="${customer.lastName}">Nachname</td>

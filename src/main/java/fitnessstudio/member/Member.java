@@ -1,7 +1,6 @@
 package fitnessstudio.member;
 
 import fitnessstudio.contract.Contract;
-import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.javamoney.moneta.Money;
@@ -11,7 +10,6 @@ import javax.persistence.*;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 @Entity
 public class Member {
@@ -35,7 +33,8 @@ public class Member {
 
 	private LocalDate endDate;
 	private LocalDate lastPause;
-	@CreationTimestamp private LocalDate membershipStartDate;
+
+	private LocalDate membershipStartDate;
 
 	private LocalDateTime checkInTime;
 
@@ -49,6 +48,7 @@ public class Member {
 	private boolean isAttendant;
 
 	public Member() {
+		membershipStartDate = LocalDate.now();
 		isPaused = false;
 		exerciseTime = 0;
 		isFreeTrained = false;
@@ -105,7 +105,9 @@ public class Member {
 		creditAccount.payIn(amount);
 	}
 
-	void payOut(Money amount) {creditAccount.payOut(amount);}
+	void payOut(Money amount) {
+		creditAccount.payOut(amount);
+	}
 
 	public Contract getContract() {
 		return contract;
@@ -113,10 +115,6 @@ public class Member {
 
 	public void setContract(Contract contract) {
 		this.contract = contract;
-	}
-
-	public void setEndDate(LocalDate endDate) {
-		this.endDate = endDate;
 	}
 
 	public void authorize() {
@@ -142,8 +140,16 @@ public class Member {
 		return endDate;
 	}
 
+	public void setEndDate(LocalDate endDate) {
+		this.endDate = endDate;
+	}
+
 	public LocalDate getLastPause() {
 		return lastPause;
+	}
+
+	public void setLastPause(LocalDate lastPause) {
+		this.lastPause = lastPause;
 	}
 
 	public long getExerciseTime() {
@@ -154,6 +160,10 @@ public class Member {
 		return checkInTime;
 	}
 
+	public LocalDate getMembershipStartDate() {
+		return membershipStartDate;
+	}
+
 	public boolean isFreeTrained() {
 		return isFreeTrained;
 	}
@@ -162,20 +172,16 @@ public class Member {
 		this.isFreeTrained = isFreeTrained;
 	}
 
-	public void setLastPause(LocalDate lastPause) {
-		this.lastPause = lastPause;
-	}
-
-	public void setPaused(boolean paused) {
-		isPaused = paused;
-	}
-
 	void trainFree() {
 		isFreeTrained = true;
 	}
 
 	public boolean isPaused() {
 		return isPaused;
+	}
+
+	public void setPaused(boolean paused) {
+		isPaused = paused;
 	}
 
 	public boolean isEnded() {
@@ -207,7 +213,7 @@ public class Member {
 		return isAttendant;
 	}
 
-	void disable(){
+	void disable() {
 		userAccount.setEnabled(false);
 	}
 
@@ -221,14 +227,15 @@ public class Member {
 		}
 		return false;
 	}
-	void unPause(){
-		if (isPaused){
+
+	void unPause() {
+		if (isPaused) {
 			setPaused(false);
 		}
 	}
 
 	public boolean wasMemberLastMonth() {
-		if(membershipStartDate == null){	//member wasn't saved yet
+		if (membershipStartDate == null) {    //member wasn't saved yet
 			return false;
 		}
 		LocalDate lastMonth = LocalDate.now().minusDays(LocalDate.now().getDayOfMonth());
