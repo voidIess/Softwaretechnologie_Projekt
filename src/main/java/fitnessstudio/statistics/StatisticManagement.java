@@ -112,10 +112,11 @@ public class StatisticManagement {
 	public NumberValue getSellingEarningsOfDate(LocalDate date) {
 		List<InvoiceEntry> invoice = invoiceManagement.getAllInvoicesOfDate(date);
 		Money earnings = Money.of(0, "EUR");
-		invoice.stream()
-				.filter(entry -> entry.getType().equals(InvoiceType.WITHDRAW)
-						|| entry.getType().equals(InvoiceType.CASHPAYMENT))
-				.map(InvoiceEntry::getAmount).forEach(earnings::add);
+		for(InvoiceEntry entry : invoice) {
+			if(entry.getType().equals(InvoiceType.WITHDRAW) || entry.getType().equals(InvoiceType.CASHPAYMENT)) {
+				earnings = earnings.add(entry.getAmount());
+			}
+		}
 		return earnings.getNumber();
 	}
 
