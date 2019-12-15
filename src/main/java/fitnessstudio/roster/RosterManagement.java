@@ -24,6 +24,32 @@ public class RosterManagement {
 		this.rosterRepository = rosterRepository;
 	}
 
+	public void deleteAllEntriesFromStaff(long staffId) {
+		Staff staff = staffManagement.findById(staffId).orElse(null);
+		if (staff == null) {
+			return;
+		}
+		for (Roster roster : rosterRepository.findAll()) {
+			for (TableRow row : roster.getRows()) {
+				for(Slot slot: row.getSlots()) {
+					List<Integer> positions = new ArrayList<>();
+					int i = 0;
+					for (RosterEntry rosterEntry : slot.getEntries()) {
+						if (rosterEntry.getStaff().getStaffId() == staffId) {
+							positions.add(i);
+						}
+						i++;
+					}
+					for (int index : positions) {
+						slot.getEntries().remove(index);
+					}
+				}
+			}
+			saveRoster(roster);
+		}
+
+	}
+
 	public void createEntry(RosterEntryForm form, long training, Errors errors) {
 		Assert.notNull(form, "RosterForm darf nicht 'null' sein.");
 		Assert.notNull(form.getTimes(), "Keine Liste gefunden.");
