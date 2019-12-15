@@ -27,6 +27,7 @@
             <th>ID</th>
             <th>Vorname</th>
             <th>Nachname</th>
+            <th>Email</th>
             <th>Gehalt</th>
 
 
@@ -37,6 +38,7 @@
             <td><a th:href="@{/staff/{id}(id=${staff.staffId})}" th:text="${staff.staffId}">StaffID</a></td>
             <td th:text="${staff.firstName}">Vorname</td>
             <td th:text="${staff.lastName}">Nachname</td>
+            <td th:text="${staff.getUserAccount().getEmail()}">Mail@email.de</td>
             <td th:text="${staff.salary}">Gehalt</td>
 
         </tr>

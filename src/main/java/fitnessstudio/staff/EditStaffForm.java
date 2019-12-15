@@ -10,6 +10,9 @@ public interface EditStaffForm {
 	@NotEmpty(message = "Nachname ist leer.")
 	String getLastName();
 
+	@NotEmpty(message = "Email ist leer.")
+	String getEmail();
+
 	@NotEmpty(message = "Gehalt ist leer.")
 	String getSalary();
 }

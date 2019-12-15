@@ -1,5 +1,5 @@
 package fitnessstudio.invoice;
 
 public enum InvoiceType {
-	DEPOSIT, WITHDRAW
+	DEPOSIT, WITHDRAW, CASHPAYMENT
 }

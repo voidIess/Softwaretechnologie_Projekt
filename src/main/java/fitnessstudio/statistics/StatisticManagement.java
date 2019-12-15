@@ -113,7 +113,8 @@ public class StatisticManagement {
 		List<InvoiceEntry> invoice = invoiceManagement.getAllInvoicesOfDate(date);
 		Money earnings = Money.of(0, "EUR");
 		invoice.stream()
-				.filter(entry -> entry.getType().equals(InvoiceType.WITHDRAW))
+				.filter(entry -> entry.getType().equals(InvoiceType.WITHDRAW)
+						|| entry.getType().equals(InvoiceType.CASHPAYMENT))
 				.map(InvoiceEntry::getAmount).forEach(earnings::add);
 		return earnings.getNumber();
 	}

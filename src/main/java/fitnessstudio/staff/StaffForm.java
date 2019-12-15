@@ -7,6 +7,9 @@ public interface StaffForm {
 	@NotEmpty(message = "Username ist leer.")
 	String getUsername();
 
+	@NotEmpty(message = "Email ist leer.")
+	String getEmail();
+
 	@NotEmpty(message = "Passwort ist leer.")
 	String getPassword();
 
