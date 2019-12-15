@@ -70,9 +70,14 @@ public class Article extends Product {
 		this.sufficientQuantity = sufficientQuantity;
 	}
 
-	public Optional<Discount> getDiscount() {
+	public Optional<Discount> getOptDiscount() {
 		return Optional.ofNullable(discount);
 	}
+
+	public Discount getDiscount() {
+		return discount;
+	}
+
 
 	public String getDiscountString() {
 		return hasDiscount() ? discount.toString() : "";
@@ -83,12 +88,10 @@ public class Article extends Product {
 	}
 
 	private boolean hasDiscount() {
-		Optional<Discount> optionalDiscount = getDiscount();
+		Optional<Discount> optionalDiscount = getOptDiscount();
 		if (optionalDiscount.isPresent()) {
 			Discount discount = optionalDiscount.get();
-			if (discount.isActive()) {
-				return true;
-			}
+			return discount.isActive();
 		}
 		return false;
 	}

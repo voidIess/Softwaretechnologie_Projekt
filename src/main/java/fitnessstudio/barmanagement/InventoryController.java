@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import javax.validation.Valid;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -39,6 +38,7 @@ public class InventoryController {
 	private static final String STATUS = "status";
 
 	private final BarManager barManager;
+	private final DiscountRepository discountRepository;
 
 	@Autowired
 	private
@@ -48,6 +48,7 @@ public class InventoryController {
 							   DiscountRepository discountRepository, BarManager barManager) {
 
 		this.barManager = barManager;
+		this.discountRepository = discountRepository;
 	}
 
 	@PreAuthorize("hasRole('STAFF')")
@@ -73,12 +74,25 @@ public class InventoryController {
 		if (getError((ArticleForm) form, model)) return ERROR;
 		if (getError((QuantityForm) form, model)) return ERROR;
 
-		Discount discount = new Discount();
+		Date date = new Date(form).invoke();
+		LocalDate startDate = date.getStartDate();
+		LocalDate endDate = date.getEndDate();
+
+
 		Article article = new Article(form.getName(),
-			Money.of(new BigDecimal(form.getPrice()), "EUR"),
-			form.getType(),
-			form.getDescription(),
-			Quantity.of(10));
+				Money.of(new BigDecimal(form.getPrice()), "EUR"),
+				form.getType(),
+				form.getDescription(),
+				Quantity.of(10));
+
+		String percent = form.getPercentDiscount();
+		if (percent.isBlank()) {
+			percent = "0";
+		}
+
+		Discount discount = new Discount(startDate, endDate, Integer.parseInt(percent));
+		article.setDiscount(discount);
+		discountRepository.save(discount);
 
 		barManager.addNewArticleToCatalog(article);
 		LocalDate expirationDate = passDate(form.getExpirationDate());
@@ -108,11 +122,11 @@ public class InventoryController {
 
 		return "bar/restock_article";
 	}
+
 	@PreAuthorize("hasRole('STAFF')")
 	@PostMapping("/article/restock/{id}")
 	public String restockArticlePost(@PathVariable ProductIdentifier id, @Valid QuantityForm form, Model model) {
 		if (getError(form, model)) return ERROR;
-
 		Article article = barManager.getById(id);
 
 		LocalDate expirationDate = passDate(form.getExpirationDate());
@@ -127,10 +141,10 @@ public class InventoryController {
 	@PreAuthorize("hasRole('STAFF')")
 	@GetMapping("/article/detail/{id}")
 	public String editArticle(@PathVariable ProductIdentifier id, Model model) {
-
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.GERMANY);
 
 		model.addAttribute("id", id);
-		model.addAttribute("form", getArticleForm(barManager.getById(id)));
+		model.addAttribute("form", getArticleForm(barManager.getById(id), formatter));
 
 		return "bar/edit_article";
 	}
@@ -141,9 +155,20 @@ public class InventoryController {
 	public String editArticle(@PathVariable ProductIdentifier id, @Valid ArticleForm form, Model model) {
 		if (getError(form, model)) return ERROR;
 
+		String percent = form.getPercentDiscount();
+		if (percent.equals("")) {
+			percent = "0";
+		}
+		Date date = new Date(form).invoke();
+		LocalDate startDate = date.getStartDate();
+		LocalDate endDate = date.getEndDate();
+
+
 		barManager.editArticle(id, form.getName(), form.getType(), form.getDescription(),
-			Money.of(new BigDecimal(form.getPrice()), "EUR"),
-			Quantity.of(Double.parseDouble(form.getSufficientQuantity())));
+				Money.of(new BigDecimal(form.getPrice()), "EUR"),
+				Quantity.of(Double.parseDouble(form.getSufficientQuantity())),
+				startDate, Integer.parseInt(percent), endDate);
+
 
 		applicationEventPublisher.publishEvent(this);
 		return REDIRECT_CATALOG;
@@ -151,7 +176,7 @@ public class InventoryController {
 
 	// for keeping previous value in input field
 	@NotNull
-	private ArticleForm getArticleForm(Article article) {
+	private ArticleForm getArticleForm(Article article, DateTimeFormatter formatter) {
 
 		return new ArticleForm() {
 			@Override
@@ -174,6 +199,26 @@ public class InventoryController {
 				return String.valueOf(article.getPrice().getNumber());
 			}
 
+			@Override
+			public String getPercentDiscount() {
+				return String.valueOf(article.getDiscount().getPercent());
+			}
+
+			@Override
+			public String getStartDiscount() {
+				if (article.getDiscount().getStartDate().format(formatter).equals("2000-01-01")) {
+					return null;
+				}
+				return Objects.requireNonNull(article.getDiscount().getStartDate().format(formatter));
+			}
+
+			@Override
+			public String getEndDiscount() {
+				if (article.getDiscount().getEndDate().format(formatter).equals("2099-01-01")) {
+					return null;
+				}
+				return Objects.requireNonNull(article.getDiscount().getEndDate().format(formatter));
+			}
 
 			@Override
 			public @NotEmpty @Digits(fraction = 0, integer = 5) String getSufficientQuantity() {
@@ -186,6 +231,10 @@ public class InventoryController {
 
 
 	private boolean getError(@Valid ArticleForm form, Model model) {
+		String percent = form.getPercentDiscount();
+		if (percent.isBlank()) {
+			percent = "0";
+		}
 		if (Integer.parseInt(form.getSufficientQuantity()) < 0) {
 			model.addAttribute(ERROR, "Article should more than 0");
 			model.addAttribute(STATUS, "400");
@@ -194,9 +243,14 @@ public class InventoryController {
 			model.addAttribute(ERROR, "Price should more than 0 EUR");
 			model.addAttribute(STATUS, "400");
 			return true;
+		} else if (Integer.parseInt(percent) < 0 || Integer.parseInt(percent) > 100) {
+			model.addAttribute(ERROR, "Discount should in 0-100 percent");
+			model.addAttribute(STATUS, "400");
+			return true;
 		}
 		return false;
 	}
+
 	private boolean getError(@Valid QuantityForm form, Model model) {
 		if (Integer.parseInt(form.getAmount()) <= 0) {
 			model.addAttribute(ERROR, "more than 0 should be added");
@@ -223,6 +277,61 @@ public class InventoryController {
 		} catch (DateTimeParseException e) {
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 			return LocalDate.parse(input, formatter);
+		}
+	}
+
+	// convert String input to Date
+	private static class Date {
+		private @Valid ArticleForm articleForm;
+
+		private LocalDate startDate;
+		private LocalDate endDate;
+
+		public Date(@Valid ArticleForm allform) {
+			this.articleForm = allform;
+		}
+
+		public LocalDate getStartDate() {
+			return startDate;
+		}
+
+		public LocalDate getEndDate() {
+			return endDate;
+		}
+
+
+		public Date invoke() {
+
+			try {
+				String formStartDiscount = articleForm.getStartDiscount();
+				String formEndDiscount = articleForm.getEndDiscount();
+				if (formStartDiscount.equals("")) {
+					formStartDiscount = "01.01.2000";
+				}
+				if (formEndDiscount.equals("")) {
+					formEndDiscount = "01.01.2099";
+				}
+
+				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+				startDate = LocalDate.parse(formStartDiscount, formatter);
+				endDate = LocalDate.parse(formEndDiscount, formatter);
+				return this;
+
+			} catch (DateTimeParseException e) {
+				String formStartDiscount = articleForm.getStartDiscount();
+				String formEndDiscount = articleForm.getEndDiscount();
+				if (formStartDiscount.equals("")) {
+					formStartDiscount = "2000-01-01";
+				}
+				if (formEndDiscount.equals("")) {
+					formEndDiscount = "2099-01-01";
+				}
+				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+				startDate = LocalDate.parse(formStartDiscount, formatter);
+				endDate = LocalDate.parse(formEndDiscount, formatter);
+				return this;
+			}
+
 		}
 	}
 

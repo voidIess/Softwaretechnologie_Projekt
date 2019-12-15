@@ -3,7 +3,7 @@ package fitnessstudio.barmanagement;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotEmpty;
 
-public interface ArticleForm {
+public interface ArticleForm{
 
 	@NotEmpty
 	String getName();
@@ -21,5 +21,11 @@ public interface ArticleForm {
 	@NotEmpty
 	@Digits(fraction = 0, integer = 5)
 	String getSufficientQuantity();
+
+	String getPercentDiscount();
+
+	String getStartDiscount();
+
+	String getEndDiscount();
 
 }
