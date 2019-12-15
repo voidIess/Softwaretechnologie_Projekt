@@ -54,8 +54,8 @@ public class RosterManagementTest {
 	@BeforeAll
 	void setup() {
 
-		staffTrainer = new Staff(userAccounts.create("rmTestStaff", Password.UnencryptedPassword.of("123"), Role.of("STAFF")), "Markus", "Wieland", Money.of(100, "EUR"));
-		staffCounter = new Staff(userAccounts.create("rmTestStaff2", Password.UnencryptedPassword.of("123"), Role.of("STAFF")), "Markus", "Wieland", Money.of(100, "EUR"));
+		staffTrainer = new Staff(userAccounts.create("rmTestStaff", Password.UnencryptedPassword.of("123"), "rmTestStaff@email.de", Role.of("STAFF")), "Markus", "Wieland", Money.of(100, "EUR"));
+		staffCounter = new Staff(userAccounts.create("rmTestStaff2", Password.UnencryptedPassword.of("123"), "rmTestStaff22@email.de", Role.of("STAFF")), "Markus", "Wieland", Money.of(100, "EUR"));
 		staffManagement.save(staffTrainer);
 		staffManagement.save(staffCounter);
 

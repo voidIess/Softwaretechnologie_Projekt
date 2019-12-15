@@ -34,8 +34,8 @@ public class SlotTest {
 
 	@BeforeAll
 	void setup () {
-		staff = new Staff(userAccounts.create("slotTestStaff", Password.UnencryptedPassword.of("123"), Role.of("STAFF")),"Markus", "Wieland", Money.of(100, "EUR"));
-		staff2 = new Staff(userAccounts.create("slotTestStaff2", Password.UnencryptedPassword.of("123"), Role.of("STAFF")),"Markus", "Wieland", Money.of(100, "EUR"));
+		staff = new Staff(userAccounts.create("slotTestStaff", Password.UnencryptedPassword.of("123"), "slotTestStaff@email.de", Role.of("STAFF")),"Markus", "Wieland", Money.of(100, "EUR"));
+		staff2 = new Staff(userAccounts.create("slotTestStaff2", Password.UnencryptedPassword.of("123"), "slotTestStaff2@email.de", Role.of("STAFF")),"Markus", "Wieland", Money.of(100, "EUR"));
 
 		staffRepository.save(staff);
 		staffRepository.save(staff2);

@@ -29,8 +29,8 @@ public class RosterTest {
 
 	@BeforeAll
 	void setup(){
-		staff = new Staff(userAccounts.create("rosterTestStaff", Password.UnencryptedPassword.of("123"), Role.of("STAFF")),"Markus", "Wieland", Money.of(100, "EUR"));
-		staff2 = new Staff(userAccounts.create("rosterTestStaff2", Password.UnencryptedPassword.of("123"), Role.of("STAFF")),"Markus", "Wieland", Money.of(100, "EUR"));
+		staff = new Staff(userAccounts.create("rosterTestStaff", Password.UnencryptedPassword.of("123"), "rosterTestStaff@email.de", Role.of("STAFF")),"Markus", "Wieland", Money.of(100, "EUR"));
+		staff2 = new Staff(userAccounts.create("rosterTestStaff2", Password.UnencryptedPassword.of("123"), "rosterTestStaff2@email.de", Role.of("STAFF")),"Markus", "Wieland", Money.of(100, "EUR"));
 		rosterEntryTrainer = new RosterEntry(StaffRole.TRAINER,staff);
 		rosterEntryCounter = new RosterEntry(StaffRole.COUNTER, staff);
 		rosterEntryTrainerOtherStaff = new RosterEntry(StaffRole.TRAINER, staff2);
