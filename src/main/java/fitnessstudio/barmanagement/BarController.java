@@ -2,17 +2,14 @@ package fitnessstudio.barmanagement;
 
 import fitnessstudio.member.Member;
 import fitnessstudio.member.MemberManagement;
+import org.javamoney.moneta.Money;
 import org.salespointframework.order.Cart;
 import org.salespointframework.order.Order;
 import org.salespointframework.order.OrderManager;
 import org.salespointframework.order.OrderStatus;
-import org.salespointframework.payment.Cash;
-import org.salespointframework.payment.PaymentCard;
-import org.salespointframework.payment.PaymentMethod;
 import org.salespointframework.quantity.Quantity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.cache.interceptor.CacheAspectSupport;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 
 import javax.validation.Valid;
+import java.time.LocalDate;
 import java.util.Optional;
 
 
@@ -63,16 +61,26 @@ public class BarController {
 	public String postCheckout(@ModelAttribute Cart cart, @Valid CheckoutForm form, SessionStatus status, Model model) {
 		long customerId = Long.parseLong(form.getCustomerId());
 
+		//check that selling is possible with the given parameters
 		Optional<Member> optionalCustomer = memberManagement.findById(customerId);
 		if (optionalCustomer.isEmpty()){
 			model.addAttribute(ERROR, "A Customer with this id couldn't be found");
 			model.addAttribute(STATUS, 400);
 			return ERROR;
 		}
-		Member customer = optionalCustomer.get();
+		if (!cart.stream().map(cartItem -> barManager.stockAvailable(cartItem.getProduct().getId(), cartItem.getQuantity())).reduce(true, (x,y)->x&&y) ){
+			model.addAttribute(ERROR, "Not enough stock, to do this");
+			model.addAttribute(STATUS, 400);
+			return ERROR;
+		}
+
+		//do the final selling action
+ 		Money price = Money.from(cart.getPrice());
+		cart.forEach(cartItem ->  barManager.removeStock(cartItem.getProduct().getId(), cartItem.getQuantity()));
+		status.setComplete();
+		memberManagement.memberPayOut(customerId, price, "Thekenverkauf vom " + LocalDate.now());
 		cart.clear();
 
-		status.setComplete();
 		return "redirect:/";
 	}
 
