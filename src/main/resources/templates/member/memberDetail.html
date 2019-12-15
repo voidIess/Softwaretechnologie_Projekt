@@ -1,14 +1,10 @@
 <!DOCTYPE html>
 
-<html xmlns:th="http://www.thymeleaf.org"
-      th:replace="site_template :: template(#{memberDetail.title}, ~{::memberDetail})"></html>
+<html lang="de" xmlns:th="http://www.thymeleaf.org"
+      th:replace="site_template :: template(#{memberDetail.title}, ~{::memberDetail})">
+</html>
 
-<html xmlns:th="http://www.thymeleaf.org" th:remove="tag">
-<head th:remove="all">
-    <meta content="text/html; charset=UTF-8" http-equiv="content-type"/>
-    <link rel="stylesheet" type="text/css" th:href="@{/static/resources/css/memberDetail.css}"/>
-</head>
-
+<html lang="de" xmlns:th="http://www.thymeleaf.org">
 <div th:fragment="memberDetail">
     <div class="ui container">
         <div style="text-align: center">
@@ -20,9 +16,14 @@
                     </p>
                 </div>
             </div>
-            <a th:if="${!member.isPaused()}" th:href="@{/member/memberPause}" class="ui button blue" style="display: inline-block" >
+            <a th:if="${!member.isPaused()}" th:href="@{/member/memberPause}" class="ui button blue"
+               style="display: inline-block">
                 Pausieren
             </a>
+            <div th:switch="${member.isEnded()}" style="display: inline-block">
+                <a th:case="true" th:href="@{/member/endMembership}" class="ui button red">Beenden</a>
+                <button disabled th:case="*" class="ui button red">Beenden</button>
+            </div>
         </div>
         <div class="ui item">
             <form class="ui form" method="get" th:action="@{/member/edit}">
@@ -56,7 +57,7 @@
             <form class="ui form" method="post" th:action="@{/member/payin}">
                 <input type="hidden" name="memberId" value="0" th:value="${member.memberId}"/>
                 <fieldset class="field">
-                    <p for="amount">Betrag</p>
+                    <label for="amount">Betrag</label>
                     <input id="amount" type="number" name="amount" min="0.01" max="9999" value="0.01"
                            step="0.01"/>
                     <br/>
@@ -79,5 +80,4 @@
         </div>
     </div>
 </div>
-</body>
 </html>

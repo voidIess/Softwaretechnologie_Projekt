@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+
+<html lang="de" xmlns:th="http://www.thymeleaf.org"
+      th:replace="site_template :: template(#{statistics.title}, ~{::statistics})">
+</html>
+
+<html lang="de" xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="statistics">
+
+    <script>
+        window.onload = function () {
+
+            var chart1 = new CanvasJS.Chart("chartContainer1", {
+                animationEnabled: true,
+                axisX: {
+                    valueFormatString: "DDD",
+                    min: new Date("[[${week[0]}]]"),
+                    max: new Date("[[${week[6]}]]")
+                },
+                axisY: {
+                        title: "Zeit in Minuten",
+                    titleFontColor: "rgba(40,175,101,0.6)",
+                    lineColor: "rgba(40,175,101,0.6)",
+                    labelFontColor: "rgba(40,175,101,0.6)",
+                    tickColor: "rgba(40,175,101,0.6)"
+                },
+                axisY2: {
+                    title: "Anzahl der Mitglieder",
+                    titleFontColor: "rgba(0,75,141,0.7)",
+                    lineColor: "rgba(0,75,141,0.7)",
+                    labelFontColor: "rgba(0,75,141,0.7)",
+                    tickColor: "rgba(0,75,141,0.7)",
+                    min: 1,
+
+                },
+                toolTip: {
+                    shared: true
+                },
+                legend: {
+                    cursor: "pointer",
+                    itemclick: toggleDataSeries
+                },
+                data: [{
+                    name: "durchschnittlicher Aufenthalt",
+                    showInLegend: true,
+                    legendMarkerType: "square",
+                    type: "area",
+                    color: "rgba(40,175,101,0.6)",
+                    dataPoints: [
+                        {x: new Date("[[${week[0]}]]"), y: [[${averageTimes[0]}]]},
+                        {x: new Date("[[${week[1]}]]"), y: [[${averageTimes[1]}]]},
+                        {x: new Date("[[${week[2]}]]"), y: [[${averageTimes[2]}]]},
+                        {x: new Date("[[${week[3]}]]"), y: [[${averageTimes[3]}]]},
+                        {x: new Date("[[${week[4]}]]"), y: [[${averageTimes[4]}]]},
+                        {x: new Date("[[${week[5]}]]"), y: [[${averageTimes[5]}]]},
+                        {x: new Date("[[${week[6]}]]"), y: [[${averageTimes[6]}]]}]
+                },
+                {
+                    name: "anwesende Mitglieder",
+                    axisYType: "secondary",
+                    showInLegend: true,
+                    type: "line",
+                    color: "rgba(0,75,141,0.7)",
+                    dataPoints: [
+                        {x: new Date("[[${week[0]}]]"), y: [[${memberAmounts[0]}]]},
+                        {x: new Date("[[${week[1]}]]"), y: [[${memberAmounts[1]}]]},
+                        {x: new Date("[[${week[2]}]]"), y: [[${memberAmounts[2]}]]},
+                        {x: new Date("[[${week[3]}]]"), y: [[${memberAmounts[3]}]]},
+                        {x: new Date("[[${week[4]}]]"), y: [[${memberAmounts[4]}]]},
+                        {x: new Date("[[${week[5]}]]"), y: [[${memberAmounts[5]}]]},
+                        {x: new Date("[[${week[6]}]]"), y: [[${memberAmounts[6]}]]}]
+                }]
+            });
+
+            var chart2 = new CanvasJS.Chart("chartContainer2", {
+                animationEnabled: true,
+                axisX: {
+                    valueFormatString: "DDD",
+                    min: new Date("[[${week[0]}]]"),
+                    max: new Date("[[${week[6]}]]")
+                },
+                axisY: {
+                    title: "Preis in €"
+                },
+                toolTip: {
+                    shared: true
+                },
+                legend: {
+                    cursor: "pointer",
+                    itemclick: toggleDataSeries
+                },
+                data: [{
+                    name: "Artikeleinnahmen",
+                    showInLegend: true,
+                    legendMarkerType: "square",
+                    type: "area",
+                    color: "rgba(40,175,101,0.6)",
+                    dataPoints: [
+                        {x: new Date("[[${week[0]}]]"), y: [[${sellingEarnings[0]}]]},
+                        {x: new Date("[[${week[1]}]]"), y: [[${sellingEarnings[1]}]]},
+                        {x: new Date("[[${week[2]}]]"), y: [[${sellingEarnings[2]}]]},
+                        {x: new Date("[[${week[3]}]]"), y: [[${sellingEarnings[3]}]]},
+                        {x: new Date("[[${week[4]}]]"), y: [[${sellingEarnings[4]}]]},
+                        {x: new Date("[[${week[5]}]]"), y: [[${sellingEarnings[5]}]]},
+                        {x: new Date("[[${week[6]}]]"), y: [[${sellingEarnings[6]}]]}]
+                }]
+            });
+
+            chart1.render();
+            chart2.render();
+
+            function toggleDataSeries(e) {
+                e.dataSeries.visible = !(typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible);
+                e.chart.render();
+            }
+
+        }
+    </script>
+
+
+<div>
+
+<div class="ui container">
+    <div class="ui items">
+        <h2>Mitglieder Statistiken</h2>
+        <p>Heutige Besucheranzahl:
+            <span th:text="${memberAmounts[0]}">3</span>
+            <span th:if="${memberAmounts[0]==1}" th:text="Mitglied">3</span>
+            <span th:if="${memberAmounts[0]!=1}" th:text="Mitglieder">3</span>
+        </p>
+        <p>Heutiger durchschnittlicher Aufenthalt:
+            <span th:text="${averageTimes[0]}">2</span>
+            <span th:if="${averageTimes[0]==1}" th:text="Minute">2</span>
+            <span th:if="${averageTimes[0]!=1}" th:text="Minuten">2</span>
+        </p>
+        <div id="chartContainer1" style="height: 370px; width: 100%; margin-top: 15pt; margin-bottom:50pt"></div>
+        <h2>Umsatz Statistiken</h2>
+        <p>Heutige Verkaufseinnahmen:
+            <span th:text="${sellingEarnings[0]}">3</span>€
+        </p>
+        <div id="chartContainer2" style="height: 370px; width: 100%; margin-top: 15pt; margin-bottom:50pt"></div>
+    </div>
+
+
+
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+
+
+</div>
+</div>
+</div>
+</html>

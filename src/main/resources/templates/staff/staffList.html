@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <script th:src="@{/webjars/jquery/jquery.min.js}"
+            src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script th:src="@{/webjars/Semantic-UI/semantic.min.js}"
+            src="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.js"></script>
+    <link rel="stylesheet" href="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css" type="text/css"/>
+    <link th:href="@{/resources/css/style.css}" rel="stylesheet"
+          href="../../static/resources/css/style.css" type="text/css"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/toggle.css}"/>
+    <title>Mitgliederliste</title>
+</head>
+<body>
+<div class="ui container">
+    <nav th:include="navigation :: navigation"></nav>
+    <nav th:include="toggle :: toggle"></nav>
+    <header>
+        <h1>Mitarbeiterliste</h1>
+    </header>
+
+    <table class="ui celled table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Vorname</th>
+            <th>Nachname</th>
+            <th>Email</th>
+            <th>Gehalt</th>
+
+
+        </tr>
+        </thead>
+        <tbody th:remove="all-but-first">
+        <tr th:each=" staff : ${staffs}">
+            <td><a th:href="@{/staff/{id}(id=${staff.staffId})}" th:text="${staff.staffId}">StaffID</a></td>
+            <td th:text="${staff.firstName}">Vorname</td>
+            <td th:text="${staff.lastName}">Nachname</td>
+            <td th:text="${staff.getUserAccount().getEmail()}">Mail@email.de</td>
+            <td th:text="${staff.salary}">Gehalt</td>
+
+        </tr>
+        </tbody>
+    </table>
+
+    <!-- Button -->
+    <div class="ui one column centered grid">
+        <div class="column">
+            <a th:href="@{/newStaff}">
+                <button class="ui green button">
+                    <i class="plus icon"></i>Mitarbeiter hinzufügen
+                </button>
+            </a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

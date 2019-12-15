@@ -58,6 +58,11 @@ public class TrainingManagement {
 			return null;
 		}
 
+		if (form.getTime().isEmpty()){
+			result.reject("time", "training.times.missing");
+			return null;
+		}
+
 		var type = TrainingType.valueOf(form.getType());
 
 		if (type.equals(TrainingType.TRIAL) && member.isFreeTrained()) {
@@ -123,9 +128,18 @@ public class TrainingManagement {
 		return false;
 	}
 
-	public void end(Long trainingId) {
+	public void end(Long trainingId){
+
 		Optional<Training> trainingOptional = findById(trainingId);
 		trainingOptional.ifPresent(Training::end);
+
+		Training training = trainingOptional.get();
+		int week = training.getWeek();
+		int day = training.getDay();
+		int time = rosterManagement.getTimeIndex(training.getStartTime());
+
+		rosterManagement.deleteEntryByTraining(week, time, day, trainingId);
+
 	}
 
 	public Optional<Member> findByUserAccount(UserAccount userAccount) {

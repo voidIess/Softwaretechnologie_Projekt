@@ -17,6 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.util.Streamable;
+import org.springframework.format.datetime.DateFormatter;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -25,7 +26,9 @@ import org.springframework.validation.Errors;
 import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
+import java.text.DateFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -161,10 +164,17 @@ public class MemberManagement {
 
 			if (iban.length() != 22) {
 				result.rejectValue("iban", "register.iban.wrongSize");
+				return;
 			}
 
 			if (bic.length() < 8 || bic.length() > 11) {
 				result.rejectValue("bic", "register.bic.wrongSize");
+				return;
+			}
+
+			if (emailExists(email) && !email.equals(member.getUserAccount().getEmail())) {
+				result.rejectValue("email", "register.duplicate.userAccountEmail");
+				return;
 			}
 
 			member.setFirstName(firstName);
@@ -219,6 +229,12 @@ public class MemberManagement {
 		return members.findByUserAccount(userAccount);
 	}
 
+	/**
+	 * Method to deposit money from member's {@link CreditAccount}.
+	 *
+	 * @param memberId	ID of member
+	 * @param amount	amount of money to deposit
+	 */
 	public void memberPayIn(long memberId, Money amount) {
 		Optional<Member> optionalMember = members.findById(memberId);
 
@@ -229,6 +245,26 @@ public class MemberManagement {
 
 			applicationEventPublisher.publishEvent(new InvoiceEvent(this, memberId, InvoiceType.DEPOSIT, amount,
 				"Einzahlung auf Account"));
+		}
+	}
+
+	/**
+	 * Method to withdraw money to member's {@link CreditAccount}.
+	 *
+	 * @param memberId		ID of member
+	 * @param amount		amount of money to withdraw
+	 * @param description	description of the order
+	 */
+	public void memberPayOut(long memberId, Money amount, String description) {
+		Optional<Member> optionalMember = members.findById(memberId);
+
+		if (optionalMember.isPresent()) {
+			Member member = optionalMember.get();
+			member.payOut(amount);
+			members.save(member);
+
+			applicationEventPublisher.publishEvent(new InvoiceEvent(this, memberId, InvoiceType.WITHDRAW, amount,
+				description));
 		}
 	}
 
@@ -256,6 +292,7 @@ public class MemberManagement {
 		return map;
 	}
 
+
 	public void checkMemberIn(Long memberId) {
 		Optional<Member> member = findById(memberId);
 		if (member.isPresent() && !member.get().isPaused() && !member.get().isAttendant()) {
@@ -275,6 +312,9 @@ public class MemberManagement {
 		members.save(member);
 	}
 
+	/**
+	 * Checks every day if (pauses of) memberships expired.
+	 */
 	@PostConstruct
 	@Scheduled(cron = "0 0 12 * * *")
 	public void checkMemberships() {
@@ -290,10 +330,11 @@ public class MemberManagement {
 	}
 
 	public String getContractTextOfMember(Member member) {
+		DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 		if (member.isPaused()) {
-			return "Mitgliedschaft pausiert bis " + member.getLastPause().plusDays(31).toString();
+			return "Mitgliedschaft pausiert bis " + dateFormatter.format(member.getLastPause().plusDays(31));
 		} else {
-			return "Mitglied bis " + member.getEndDate().toString();
+			return "Mitglied bis " + dateFormatter.format(member.getEndDate());
 		}
 	}
 

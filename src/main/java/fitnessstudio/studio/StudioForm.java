@@ -8,4 +8,8 @@ public interface StudioForm {
 	@NotEmpty String getOpeningTimes();
 
 	@NotEmpty String getAdvertisingBonus();
+
+	@NotEmpty String getAddress();
+
+
 }

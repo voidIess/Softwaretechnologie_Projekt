@@ -25,9 +25,18 @@
             <textarea id="times" rows="8" cols="50" th:field="*{openingTimes}" required="required"></textarea>
         </fieldset>
 
+
         <fieldset>
-            <text>Advertising Bonus</text>
-            <label for="advertisingBonus"></label><input type="number"
+            <text>Adresse</text>
+            <label for="address"></label><input type="text"
+                                                th:field="*{address}"
+                                                id="address"
+                                                required/>
+        </fieldset>
+
+        <fieldset>
+            <text>Werbebonus</text>
+            <label for="advertisingBonus"></label><input type="number" step="0.01"
                                                          th:field="*{advertisingBonus}"
                                                          id="advertisingBonus"
                                                          required/>

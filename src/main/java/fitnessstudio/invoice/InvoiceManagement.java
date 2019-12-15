@@ -4,7 +4,6 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -38,7 +37,7 @@ public class InvoiceManagement {
 			month = 12;
 		}
 
-		int finalMonth = month-1;
+		int finalMonth = month - 1;
 		int finalYear = year;
 
 		return invoiceEntries.findAllByMember(member)
@@ -47,7 +46,11 @@ public class InvoiceManagement {
 			.toList();
 	}
 
+	public List<InvoiceEntry> getAllInvoicesOfDate(LocalDate date) {
+		return invoiceEntries.findAll().filter(invoiceEntry -> invoiceEntry.getCreated().equals(date)).toList();
+	}
+
 	public List<InvoiceEntry> getAllEntriesForMemberBefore(Long member, LocalDate date) {
-		return  invoiceEntries.findAllByMember(member).filter(invoiceEntry -> !invoiceEntry.getCreated().isAfter(date)).toList();
+		return invoiceEntries.findAllByMember(member).filter(invoiceEntry -> !invoiceEntry.getCreated().isAfter(date)).toList();
 	}
 }

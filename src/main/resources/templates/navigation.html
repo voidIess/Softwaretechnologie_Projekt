@@ -18,6 +18,10 @@
         <a class="item" href="member/memberDetail.html" th:href="@{/member/home}" sec:authorize="hasRole('MEMBER')"
            th:text="#{nav.member.home}">Konto</a>
 
+        <a class="item" href="staff/staffDetail.html" th:href="@{/staffDetail}"
+           sec:authorize="hasRole('STAFF') and !hasRole('BOSS')"
+           th:text="#{staffDetail.title}">Benutzerkonto</a>
+
         <a class="item" href="training/member_trainings.html" th:href="@{/member/trainings}"
            sec:authorize="hasRole('MEMBER')"
            th:text="#{nav.member.training}">Trainings</a>
@@ -34,22 +38,22 @@
                    sec:authorize="hasRole('BOSS') or hasRole('STAFF')"
                    th:text="#{nav.admin.contracts}">Verträge bearbeiten</a>
 
-                <a class="item" href="attendanceStatistic.html" th:href="@{/admin/attendanceStatistic}"
+                <a class="item" href="statistic/statistic.html" th:href="@{/admin/attendanceStatistic}"
                    sec:authorize="hasRole('BOSS')"
                    th:text="#{nav.admin.statistics}">Statistiken</a>
             </div>
         </div>
 
-        <a class="item" href="staffDetail.html" th:href="@{/staff}"
-           sec:authorize="hasRole('STAFF') and !hasRole('BOSS')"
-           th:text="#{staffDetail.title}">Benutzerkonto</a>
-
-        <a class="item" href="roster/rosterView.html" th:href="@{/roster}" sec:authorize="hasRole('BOSS') or hasRole('STAFF')"
-           th:text="#{roster.title}">Dienstplan</a>
+        <a class="item" th:href="@{/staffs}"
+           sec:authorize="hasRole('BOSS')"
+           th:text="#{staff.title}">Mitarbeiterliste</a>
 
         <a class="item" href="member/members.html" th:href="@{/admin/members}"
            sec:authorize="hasRole('BOSS') or hasRole('STAFF')"
            th:text="#{nav.admin.members}">Mitglieder</a>
+
+        <a class="item" href="roster/rosterView.html" th:href="@{/roster}" sec:authorize="hasRole('BOSS') or hasRole('STAFF')"
+           th:text="#{roster.title}">Dienstplan</a>
 
         <div class="ui simple dropdown item" sec:authorize="hasRole('STAFF')">
             Theke Verwaltung

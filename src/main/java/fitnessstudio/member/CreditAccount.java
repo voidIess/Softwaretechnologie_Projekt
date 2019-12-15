@@ -7,8 +7,8 @@ import javax.persistence.Lob;
 
 @Embeddable
 public class CreditAccount {
-	String iban;
-	String bic;
+	private String iban;
+	private String bic;
 	@Lob
 	private Money credit;
 
@@ -27,11 +27,11 @@ public class CreditAccount {
 		this.bic = bic;
 	}
 
-	public void payIn(Money amount) {
+	void payIn(Money amount) {
 		credit = credit.add(amount);
 	}
 
-	public Money payOut(Money amount) {
+	Money payOut(Money amount) {
 		if (credit.isLessThan(amount)) {
 			Money oldCredit = credit;
 			credit = Money.of(0, "EUR");

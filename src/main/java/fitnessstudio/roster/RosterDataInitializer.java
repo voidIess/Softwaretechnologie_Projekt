@@ -34,10 +34,10 @@ public class RosterDataInitializer implements DataInitializer {
 
 	@Override
 	public void initialize() {
-		Staff staff = new Staff(userAccounts.create("staff", Password.UnencryptedPassword.of("123"), Role.of(STAFFROLE)), "Markus", "Wieland", Money.of(100, "EUR"));
+		Staff staff = new Staff(userAccounts.create("staff", Password.UnencryptedPassword.of("123"),"markus@email.de", Role.of(STAFFROLE)), "Markus", "Wieland", Money.of(100, "EUR"));
 		LOG.info("Create Staff (username: staff, passwort: 123)");
 
-		Staff staff2 = new Staff(userAccounts.create("Obi", Password.UnencryptedPassword.of("123"), Role.of(STAFFROLE)), "Obi", "Babobi", Money.of(10000, "EUR"));
+		Staff staff2 = new Staff(userAccounts.create("Obi", Password.UnencryptedPassword.of("123"), "obi@mehralsbaumarkt.de", Role.of(STAFFROLE)), "Obi", "Babobi", Money.of(10000, "EUR"));
 		LOG.info("Create Staff (username: obi, passwort: 123)");
 
 		staffs.saveStaff(staff);

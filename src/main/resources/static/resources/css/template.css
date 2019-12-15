@@ -58,6 +58,7 @@ fieldset {
     font-size: 14px;
     text-transform: uppercase;
     transition: 0.4s;
+    content: attr(title);
 }
 
 .container a:hover {

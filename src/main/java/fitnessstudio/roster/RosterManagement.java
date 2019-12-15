@@ -24,10 +24,35 @@ public class RosterManagement {
 		this.rosterRepository = rosterRepository;
 	}
 
+	public void deleteAllEntriesFromStaff(long staffId) {
+		Staff staff = staffManagement.findById(staffId).orElse(null);
+		if (staff == null) {
+			return;
+		}
+		for (Roster roster : rosterRepository.findAll()) {
+			for (TableRow row : roster.getRows()) {
+				for(Slot slot: row.getSlots()) {
+					List<Integer> positions = new ArrayList<>();
+					int i = 0;
+					for (RosterEntry rosterEntry : slot.getEntries()) {
+						if (rosterEntry.getStaff().getStaffId() == staffId) {
+							positions.add(i);
+						}
+						i++;
+					}
+					for (int index : positions) {
+						slot.getEntries().remove(index);
+					}
+				}
+			}
+			saveRoster(roster);
+		}
+
+	}
+
 	public void createEntry(RosterEntryForm form, long training, Errors errors) {
 		Assert.notNull(form, "RosterForm darf nicht 'null' sein.");
 		Assert.notNull(form.getTimes(), "Keine Liste gefunden.");
-		Assert.notEmpty(form.getTimes(), "Die Liste ist leer");
 		Assert.notNull(form.getWeek(), "Keine Woche angegeben!");
 
 		Staff staff = staffManagement.findById(form.getStaff()).orElse(null);
@@ -46,12 +71,12 @@ public class RosterManagement {
 		try {
 			day = form.getDay();
 		} catch (Exception e) {
-			errors.rejectValue("roster.error.staff", "Fehler bei Eingabe des Tages!");
+			errors.reject("staff", "Fehler bei Eingabe des Tages!");
 			return;
 		}
 
 		if (form.getTimes().isEmpty()) {
-			errors.rejectValue("roster.error.time", "Bitte wähle mindestens eine Zeit aus!");
+			errors.reject("time", "Bitte wähle mindestens eine Zeit aus!");
 			return;
 		}
 		for (String time : form.getTimes()) {
@@ -118,6 +143,19 @@ public class RosterManagement {
 			}
 		}
 
+		saveRoster(roster);
+	}
+
+	public void deleteEntryByTraining (int week, int shift, int day, long id) {
+		Roster roster = getRosterByWeek(week);
+		Assert.notNull(roster, "Keinen Roster gefunden.");
+		List<RosterEntry> entries = roster.getRows().get(shift).getSlots().get(day).getEntries();
+		for (RosterEntry entry : entries) {
+			if (entry.getTraining() == id) {
+				entries.remove(entry);
+				break;
+			}
+		}
 		saveRoster(roster);
 	}
 

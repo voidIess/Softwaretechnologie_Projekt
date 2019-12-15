@@ -116,6 +116,17 @@ class MemberManagementUnitTests {
 
 	@Test
 	@Order(9)
+	void testPayOut() {
+		Member member = members.findById(memberId).get();
+		Money oldAmount = member.getCredit();
+		Money amount = Money.of(10, "EUR");
+
+		management.memberPayOut(member.getMemberId(), amount, "");
+		assertThat(members.findById(memberId).get().getCredit()).isEqualTo(oldAmount.subtract(amount));
+	}
+
+	@Test
+	@Order(10)
 	void testPause(){
 		Member member = members.findById(memberId).get();
 		LocalDate endDate = member.getEndDate();
@@ -133,7 +144,7 @@ class MemberManagementUnitTests {
 	}
 
 	@Test
-	@Order(10)
+	@Order(11)
 	void testCheckMembershipsUnPause(){
 		management.checkMemberships();
 
@@ -142,7 +153,7 @@ class MemberManagementUnitTests {
 	}
 
 	@Test
-	@Order(11)
+	@Order(12)
 	void testCannotPauseAgain() {
 		Member member = members.findById(memberId).get();
 

@@ -16,7 +16,7 @@ public class StaffDataInitializer implements DataInitializer {
 	private final UserAccountManager userAccounts;
 
 
-	StaffDataInitializer(StaffManagement staffs, UserAccountManager userAccounts){
+	StaffDataInitializer(StaffManagement staffs, UserAccountManager userAccounts) {
 		this.userAccounts = userAccounts;
 		this.staffs = staffs;
 	}
@@ -24,13 +24,24 @@ public class StaffDataInitializer implements DataInitializer {
 	@Override
 	public void initialize() {
 
-		/*Staff staff = staffs.createStaff("staff", "123", "Markus", "Wieland", 100);
-		if (staff != null)
-			LOG.info("Creating default STAFF (user: 'staff', pass: '123', id: "+ staff.getStaffId() +")");
+		if (userAccounts.findByUsername("staff").isPresent()) {
+			return;
+		}
+		Staff staff = new Staff(userAccounts.create("staff",
+				Password.UnencryptedPassword.of("123"), "markus@email.de",
+				Role.of("STAFF")), "Markus", "Wieland",
+				Money.of(100, "EUR"));
+		LOG.info("Create Staff (username: staff, password: 123)");
 
-		Staff staff2 = staffs.createStaff("obi", "123", "Obi", "Babobi", 100);
-		if (staff2 != null)
-			LOG.info("Creating default STAFF (user: 'obi', pass: '123', id: "+ staff2.getStaffId() +")");*/
+		Staff staff2 = new Staff(userAccounts.create("Obi",
+				Password.UnencryptedPassword.of("123"), "obi@mehralsbaumarkt.de",
+				Role.of("STAFF")),
+				"Obi", "Babobi",
+				Money.of(10000, "EUR"));
+		LOG.info("Create Staff (username: obi, password: 123)");
+
+		staffs.saveStaff(staff);
+		staffs.saveStaff(staff2);
 
 	}
 }
