@@ -124,9 +124,4 @@ class TrainingManagementUnitTests {
 
 		assertThat(training).isNull();
 	}
-
-	@Test
-	void testGetAllStaffs() {
-		assertThat(management.getAllStaffs().size()).isEqualTo(staffs.findAll().toList().size());
-	}
 }
