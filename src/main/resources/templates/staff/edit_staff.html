@@ -48,6 +48,16 @@
         </div>
 
         <div class="field">
+            <text th:text="#{register.email}"></text>
+            <label for="email"></label>
+            <input id="email" name="email" th:field="*{email}" th:errorclass="fieldError" type="text"
+                   required="required"/><br/>
+            <div class="ui negative message" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">
+                <p>Die Email Adresse darf nicht leer sein.</p>
+            </div>
+        </div>
+
+        <div class="field">
             <text>Gehalt</text>
             <label for="salary"></label>
             <input id="salary" name="salary" th:field="*{salary}" th:errorclass="fieldError" type="number" step="0.01"

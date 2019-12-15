@@ -28,13 +28,13 @@ public class StaffDataInitializer implements DataInitializer {
 			return;
 		}
 		Staff staff = new Staff(userAccounts.create("staff",
-				Password.UnencryptedPassword.of("123"),
+				Password.UnencryptedPassword.of("123"), "markus@email.de",
 				Role.of("STAFF")), "Markus", "Wieland",
 				Money.of(100, "EUR"));
 		LOG.info("Create Staff (username: staff, password: 123)");
 
 		Staff staff2 = new Staff(userAccounts.create("Obi",
-				Password.UnencryptedPassword.of("123"),
+				Password.UnencryptedPassword.of("123"), "obi@mehralsbaumarkt.de",
 				Role.of("STAFF")),
 				"Obi", "Babobi",
 				Money.of(10000, "EUR"));

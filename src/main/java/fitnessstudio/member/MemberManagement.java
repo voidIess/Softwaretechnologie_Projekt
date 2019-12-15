@@ -164,10 +164,17 @@ public class MemberManagement {
 
 			if (iban.length() != 22) {
 				result.rejectValue("iban", "register.iban.wrongSize");
+				return;
 			}
 
 			if (bic.length() < 8 || bic.length() > 11) {
 				result.rejectValue("bic", "register.bic.wrongSize");
+				return;
+			}
+
+			if (emailExists(email) && !email.equals(member.getUserAccount().getEmail())) {
+				result.rejectValue("email", "register.duplicate.userAccountEmail");
+				return;
 			}
 
 			member.setFirstName(firstName);

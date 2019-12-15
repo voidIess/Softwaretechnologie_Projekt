@@ -32,8 +32,13 @@ public class StaffManagement {
 				result.rejectValue("username", "register.duplicate.userAccountName");
 				return null;
 			}
+			String email = form.getEmail();
+			if (emailExists(email)) {
+				result.rejectValue("email", "register.duplicate.userAccountEmail");
+				return null;
+			}
 			UserAccount userAccount = userAccountManager.create(form.getUsername(),
-					Password.UnencryptedPassword.of(form.getPassword()));
+					Password.UnencryptedPassword.of(form.getPassword()), email);
 			staff = new Staff(userAccount, form.getFirstName(), form.getLastName(),
 					Money.of(new BigDecimal(form.getSalary()), "EUR"));
 			staffRepo.save(staff);
@@ -67,6 +72,14 @@ public class StaffManagement {
 
 	public Optional<Staff> findById(Long staffId) {
 		return staffRepo.findById(staffId);
+	}
+
+	boolean emailExists(String email) {
+		for (UserAccount userAccount : userAccountManager.findAll()) {
+			String userAccountEmail = userAccount.getEmail();
+			if (userAccountEmail != null && userAccountEmail.equalsIgnoreCase(email)) return true;
+		}
+		return false;
 	}
 
 }

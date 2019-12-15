@@ -41,7 +41,7 @@ public class MemberDataInitializer implements DataInitializer {
 		}
 
 		LOG.info("Creating default BOSS (user: 'boss', pass: '123'");
-		userAccountManager.create("boss", Password.UnencryptedPassword.of("123"),
+		userAccountManager.create("boss", Password.UnencryptedPassword.of("123"), "boss@boss_mail.net",
 			Role.of("BOSS"), Role.of("STAFF"));
 
 		if (!contractManagement.getAllContracts().isEmpty()) {

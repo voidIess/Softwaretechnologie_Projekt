@@ -110,6 +110,11 @@ public class StaffController {
 			}
 
 			@Override
+			public @NotEmpty(message = "Email ist leer.") String getEmail() {
+				return staff.getUserAccount().getEmail();
+			}
+
+			@Override
 			public @NotEmpty(message = "Gehalt ist leer.") String getSalary() {
 				return staff.getSalary().getNumber().toString();
 			}
