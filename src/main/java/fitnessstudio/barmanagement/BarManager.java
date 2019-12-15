@@ -1,6 +1,7 @@
 package fitnessstudio.barmanagement;
 
 import fitnessstudio.member.Member;
+import fitnessstudio.member.MemberManagement;
 import org.salespointframework.catalog.ProductIdentifier;
 import org.salespointframework.inventory.InventoryItem;
 import org.salespointframework.inventory.InventoryItems;
@@ -73,6 +74,7 @@ public class BarManager {
 
 	public void checkoutCart(Member customer, PaymentMethod paymentMethod, Cart cart) {
 		//TODO implement this
+
 	}
 
 	public void addNewArticleToCatalog(Article article) {
@@ -129,5 +131,34 @@ public class BarManager {
 		catalog.save(article);
 		return true;
 	}
+
+	// this will remove non-expired articles from the inventory
+	boolean removeStock(ProductIdentifier id, Quantity quantity){
+		Article  article = getById(id);
+		Quantity stockQuantity = getArticleQuantity(article);
+
+		// abort if there isnt enough Quantity anyway
+		if(stockQuantity.isLessThan(quantity)) return false;
+
+		InventoryItems<ExpiringInventoryItem> orderedItems = inventory.findByProductAndExpirationDateAfterOrderByExpirationDateAsc(article, LocalDate.now());
+		for (ExpiringInventoryItem item : orderedItems){
+			Quantity itemQuantity = item.getQuantity();
+			if (itemQuantity.isLessThan(quantity)){
+				quantity.subtract(itemQuantity);
+ 				inventory.delete(item);
+			}
+			else {
+				if(item.getQuantity().isEqualTo(quantity)){
+					inventory.delete(item);
+				}
+				else{
+					item.decreaseQuantity(quantity);
+					inventory.save(item);
+				}
+				break;
+			}
+		}
+		return true;
+ 	}
 
 }

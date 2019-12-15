@@ -11,4 +11,5 @@ public interface ExpiringInventory extends MultiInventory<ExpiringInventoryItem>
 
 	InventoryItems<ExpiringInventoryItem> findByExpirationDateAfterOrderByExpirationDateAsc(LocalDate localDate);
 	InventoryItems<ExpiringInventoryItem> findByProductAndExpirationDateAfter(Article article , LocalDate localDate);
+	InventoryItems<ExpiringInventoryItem> findByProductAndExpirationDateAfterOrderByExpirationDateAsc(Article article, LocalDate localDate);
 }
