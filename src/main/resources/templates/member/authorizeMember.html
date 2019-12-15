@@ -1,45 +1,46 @@
 <!DOCTYPE html>
 
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script src="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.js"></script>
-    <link rel="stylesheet" href="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css" type="text/css"/>
-    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/style.css}"/>
-    <title th:text="#{home.title}">Gym</title>
-</head>
-<body>
+<html lang="de" xmlns:th="http://www.thymeleaf.org"
+      th:replace="site_template :: template(#{memberAuthorize.title}, ~{::member_authorize})">
+</html>
 
-<h1>Freizuschaltene Mitglieder</h1>
-<nav th:include="navigation :: navigation"></nav>
-<table class="ui celled table">
-    <thead>
-    <tr>
-        <th>Mitglied Nr</th>
-        <th>Nutzername</th>
-        <th>Vorname</th>
-        <th>Nachname</th>
-        <th>Vertrag</th>
-        <th>Freischalten</th>
-        <th>Ablehnen</th>
-    </tr>
-    </thead>
-    <th:block th:each="member : ${unauthorizedMember}">
-        <tr>
-            <td th:text="${member.memberId}">0000</td>
-            <td th:text="${member.userName} ">Nutzername</td>
-            <td th:text="${member.firstName}">Vorname</td>
-            <td th:text="${member.lastName}">Nachname</td>
-            <td th:text="${member.contract.name}">Vertrag</td>
-            <td>
-                <a class="ui green button" th:href="@{/member/authorize/{id}/(id=${member.memberId})}">Freischalten</a>
-            </td>
-            <td>
-                <a class="ui red button" th:href="@{/member/delete/{id}/(id=${member.memberId})}">Ablehnen</a>
-            </td>
-        </tr>
-    </th:block>
-</table>
-</body>
+<html lang="de" xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="member_authorize">
+    <div class="ui container">
+        <a class="ui button" th:href="@{/admin/members}" style="margin-bottom: 10px">
+            Zurück
+        </a>
+        <table class="ui celled table">
+            <thead>
+            <tr>
+                <th>Mitglied Nr</th>
+                <th>Nutzername</th>
+                <th>Vorname</th>
+                <th>Nachname</th>
+                <th>Vertrag</th>
+                <th>Aktion</th>
+            </tr>
+            </thead>
+            <th:block th:each="member : ${unauthorizedMember}">
+                <tr>
+                    <td th:text="${member.memberId}">0000</td>
+                    <td th:text="${member.userName} ">Nutzername</td>
+                    <td th:text="${member.firstName}">Vorname</td>
+                    <td th:text="${member.lastName}">Nachname</td>
+                    <td th:text="${member.contract.name}">Vertrag</td>
+                    <td>
+                        <div class="buttons">
+                            <a class="ui green button" th:href="@{/member/authorize/{id}/(id=${member.memberId})}">
+                                Freischalten
+                            </a>
+                            <a class="ui red button" th:href="@{/member/delete/{id}/(id=${member.memberId})}">
+                                Ablehnen
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            </th:block>
+        </table>
+    </div>
+</div>
 </html>

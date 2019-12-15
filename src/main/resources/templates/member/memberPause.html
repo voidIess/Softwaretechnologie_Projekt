@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+
+<html lang="de" xmlns:th="http://www.thymeleaf.org"
+      th:replace="site_template :: template(#{memberPause.title}, ~{::member_pause})">
+</html>
+
+<html lang="de" xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="member_pause">
+    <div class="ui container">
+        <div style="text-align: center; width: 600px; margin: auto">
+            <div class="box">
+                <p>
+                    Durch das Pausieren wird Ihnen der monatliche Beitrag wieder gutgeschrieben.
+                    Jedoch gehen dadurch <b>alle</b> reservierte Trainingsessions verloren!
+                </p>
+                <div class="buttons">
+                    <a class="ui button blue" th:href="@{/member/home}" style="float: left">Abbrechen</a>
+                    <a class="ui button red" th:href="@{/member/pause}" style="float: right">Pausieren</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</html>

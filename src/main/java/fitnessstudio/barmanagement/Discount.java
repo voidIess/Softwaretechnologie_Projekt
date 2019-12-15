@@ -50,4 +50,14 @@ public class Discount {
 	public void setPercent(int percent) {
 		this.percent = percent;
 	}
+
+	@Override
+	public String toString() {
+		return getPercent()==0? "" :"-"+getPercent()+"%";
+	}
+
+	public boolean isActive(){
+		LocalDate today = LocalDate.now();
+		return !(today.compareTo(getEndDate()) > 0 || getStartDate().compareTo(today) > 0 || getPercent() == 0);
+	}
 }

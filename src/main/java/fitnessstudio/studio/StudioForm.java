@@ -7,9 +7,9 @@ public interface StudioForm {
 
 	@NotEmpty String getOpeningTimes();
 
-	@NotEmpty String getContractTerm();
-
-	@NotEmpty String getMonthlyFees();
-
 	@NotEmpty String getAdvertisingBonus();
+
+	@NotEmpty String getAddress();
+
+
 }

@@ -1,41 +1,47 @@
 package fitnessstudio.staff;
 
+import org.hibernate.annotations.CreationTimestamp;
 import org.javamoney.moneta.Money;
 import org.salespointframework.useraccount.UserAccount;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import java.time.LocalDate;
 
 @Entity
 public class Staff {
 
-	private Money salary;
-	@Id @GeneratedValue
+	@Id
+	@GeneratedValue
 	private long staffId;
 
-	private String firstName;
-	private String lastName;
+	private Money salary;
 
 	@OneToOne
 	private UserAccount userAccount;
 
-	//@OneToMany()
-	//private RosterEntry[][] rosterEntries = new RosterEntry[7][];
 
-	Staff() {}
+	@CreationTimestamp
+	private LocalDate startDate;
 
-	public Staff(UserAccount userAccount, String firstName, String lastName, Money salary){
+	public Staff() {
+	}
+
+	public Staff(UserAccount userAccount, String firstName, String lastName, Money salary) {
 		this.userAccount = userAccount;
-		this.firstName = firstName;
-		this.lastName = lastName;
+		this.userAccount.setFirstname(firstName);
+		this.userAccount.setLastname(lastName);
 		this.salary = salary;
 	}
 
-	public void setSalary (Money money) {
-		this.salary = money;
+	public Money getSalary() {
+		return this.salary;
 	}
 
-	public Money getSalary () {
-		return this.salary;
+	public void setSalary(Money money) {
+		this.salary = money;
 	}
 
 	public long getStaffId() {
@@ -43,11 +49,19 @@ public class Staff {
 	}
 
 	public String getFirstName() {
-		return firstName;
+		return this.userAccount.getFirstname();
+	}
+
+	public void setFirstName(String firstName) {
+		this.userAccount.setFirstname(firstName);
 	}
 
 	public String getLastName() {
-		return lastName;
+		return this.userAccount.getLastname();
+	}
+
+	public void setLastName(String lastName) {
+		this.userAccount.setLastname(lastName);
 	}
 
 	public String getUserName() {
@@ -59,8 +73,16 @@ public class Staff {
 	}
 
 	@Override
-	public String toString(){
-		return lastName + ", " + firstName + " (ID: " + staffId + ")";
+	public String toString() {
+		return this.userAccount.getFirstname() + ", " + this.userAccount.getLastname();
+	}
+
+	public boolean workedLastMonth() {
+		if (startDate == null) {    //staff wasn't saved yet
+			return false;
+		}
+		LocalDate lastMonth = LocalDate.now().minusDays(LocalDate.now().getDayOfMonth());
+		return startDate.isBefore(lastMonth) || startDate.isEqual(lastMonth);
 	}
 }
 

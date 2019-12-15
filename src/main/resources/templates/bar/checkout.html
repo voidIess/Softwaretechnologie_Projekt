@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="site_template :: template('Warenkorb abschließen', ~{::site_content})"></html>
+
+<html xmlns:th="http://www.thymeleaf.org" th:remove="tag">
+<head th:remove="all">
+    <meta content="text/html; charset=UTF-8" http-equiv="content-type"/>
+    <link rel="stylesheet" href="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css" type="text/css"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/toggle.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/template.css}"/>
+</head>
+
+<div th:fragment="site_content">
+
+    <div class="ui container">
+        <form method="post" role="form" class="ui form" id="form" th:action="@{/checkout}"
+              th:object="${form}">
+            <h2 th:text="'Summe: '+${cart.getPrice()}">
+                Summe: EUR 13,37
+            </h2>
+
+
+            <fieldset>
+                <text>Kundennummer</text>
+                <label for="customerId"></label><input type="text"
+                                                       th:field="*{customerId}"
+                                                       id="customerId"
+                                                       required/>
+            </fieldset>
+
+            <fieldset>
+                <text>Zahlungsart</text>
+                <select id="paymentMethod" th:field="*{paymentMethod}">
+                    <option value="0">
+                        Mit Guthaben bezahlen
+                    </option>
+                    <option value="1">
+                        Bar bezahlen
+                    </option>
+                </select>
+            </fieldset>
+
+            <fieldset>
+                <button name="submit" type="submit" id="contact-submit" data-submit="...Sending">Submit</button>
+            </fieldset>
+        </form>
+    </div>
+</div>
+</html>

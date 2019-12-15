@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="site_template :: template(#{reorder.title} , ~{::site_content})"></html>
+
+<html xmlns:th="http://www.thymeleaf.org" th:remove="tag">
+<head th:remove="all">
+    <meta content="text/html; charset=UTF-8" http-equiv="content-type"/>
+    <link rel="stylesheet" href="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css" type="text/css"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/toggle.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/template.css}"/>
+</head>
+
+<div th:fragment="site_content">
+    <div class="ui container">
+        <div th:if="available" class="ui celled table">
+            <table class="ui celled table">
+                <thead>
+                <tr>
+                    <th>Artikel</th>
+                    <th>Preis</th>
+                    <th>Beschreibung</th>
+                </tr>
+                </thead>
+                <tbody th:remove="all-but-first">
+                <tr th:each=" item : ${reorders}">
+                    <td th:text="${item.name}">Artikel</td>
+                    <td th:text="${{item.price}}">Preis</td>
+                    <td th:text="${{item.description}}">Beschreibung</td>
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</html>

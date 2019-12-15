@@ -1,18 +1,15 @@
 package fitnessstudio.barmanagement;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
 
-public interface ArticleForm {
+public interface ArticleForm{
 
 	@NotEmpty
 	String getName();
 
 	@NotEmpty
-	String getArt();
+	String getType();
 
 	@NotEmpty
 	String getDescription();
@@ -22,23 +19,13 @@ public interface ArticleForm {
 	String getPrice();
 
 	@NotEmpty
-	@DateTimeFormat(pattern = "dd.MM.yyyy")
-	String getExpirationDate();
+	@Digits(fraction = 0, integer = 5)
+	String getSufficientQuantity();
 
-	@NotEmpty
-	@Size(max = 100, message = "percent of discount from 0-100")
 	String getPercentDiscount();
 
-	@NotEmpty
-	@DateTimeFormat(pattern = "dd.MM.yyyy")
 	String getStartDiscount();
 
-	@NotEmpty
-	@DateTimeFormat(pattern = "dd.MM.yyyy")
 	String getEndDiscount();
-
-	@NotEmpty
-	@Digits(fraction = 0, integer = 5)
-	String getNumber();
 
 }

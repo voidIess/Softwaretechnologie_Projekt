@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="site_template :: template('Artikel aufstocken', ~{::site_content})"></html>
+
+<html xmlns:th="http://www.thymeleaf.org" th:remove="tag">
+<head th:remove="all">
+    <meta content="text/html; charset=UTF-8" http-equiv="content-type"/>
+    <link rel="stylesheet" href="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css" type="text/css"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/toggle.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/template.css}"/>
+</head>
+
+<div th:fragment="site_content">
+    <div class="ui container">
+        <form method="post" role="form" class="ui form" id="form" th:action="@{/article/restock/{id}(id=${id})}"
+              th:object="${form}">
+
+            <h2>Artikel hinzufügen</h2>
+
+
+            <fieldset>
+                <text>Anzahl</text>
+                <label for="amount"></label><input type="number"
+                                                   th:field="*{amount}"
+                                                   id="amount"
+                                                   required/>
+            </fieldset>
+
+
+            <fieldset>
+                <text>Mindesthaltbarkeitsdatum</text>
+                <label for="expirationDate"></label><input type="date"
+                                                           th:field="*{expirationDate}"
+                                                           id="expirationDate"
+                                                           required/>
+            </fieldset>
+
+            <fieldset>
+                <button name="submit" type="submit" id="contact-submit" data-submit="...Sending">Submit</button>
+            </fieldset>
+        </form>
+    </div>
+
+
+</div>
+</html>

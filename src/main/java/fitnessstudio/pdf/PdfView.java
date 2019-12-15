@@ -3,6 +3,7 @@ package fitnessstudio.pdf;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.view.AbstractView;
 
@@ -14,7 +15,8 @@ import java.util.Map;
 public class PdfView extends AbstractView {
 
 	@Override
-	protected void renderMergedOutputModel(Map<String, Object> map, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception {
+	protected void renderMergedOutputModel(Map<String, Object> map, @NotNull HttpServletRequest httpServletRequest,
+										   @NotNull HttpServletResponse httpServletResponse) throws Exception {
 
 		if(map.get("type") == "payslip"){
 			httpServletResponse.setHeader("Content-Disposition", "attachment; filename=Gehaltsabrechnung.pdf");

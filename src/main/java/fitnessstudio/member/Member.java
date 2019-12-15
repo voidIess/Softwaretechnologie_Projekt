@@ -27,12 +27,14 @@ public class Member {
 	@Embedded
 	private CreditAccount creditAccount;
 
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Contract contract;
 
-	private LocalDate startDate;
+	private LocalDate endDate;
 	private LocalDate lastPause;
+
+	private LocalDate membershipStartDate;
 
 	private LocalDateTime checkInTime;
 
@@ -46,6 +48,7 @@ public class Member {
 	private boolean isAttendant;
 
 	public Member() {
+		membershipStartDate = LocalDate.now();
 		isPaused = false;
 		exerciseTime = 0;
 		isFreeTrained = false;
@@ -70,8 +73,16 @@ public class Member {
 		return firstName;
 	}
 
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
 	public String getLastName() {
 		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
 	public String getUserName() {
@@ -94,6 +105,10 @@ public class Member {
 		creditAccount.payIn(amount);
 	}
 
+	void payOut(Money amount) {
+		creditAccount.payOut(amount);
+	}
+
 	public Contract getContract() {
 		return contract;
 	}
@@ -104,36 +119,37 @@ public class Member {
 
 	public void authorize() {
 		getUserAccount().setEnabled(true);
-		startDate = LocalDate.now();
+		endDate = LocalDate.now().plusDays(contract.getDuration());
 	}
 
 	boolean checkIn() {
-		if (isAttendant) {
-			return false;
-		} else {
-			isAttendant = true;
-			checkInTime = LocalDateTime.now();
-			return true;
-		}
+		isAttendant = true;
+		checkInTime = LocalDateTime.now();
+		return true;
 	}
 
 	long checkOut() {
-		if (!isAttendant) {
-			return 0;
-		} else {
-			isAttendant = false;
-			long duration = Duration.between(checkInTime, LocalDateTime.now()).toMinutes();
-			checkInTime = null;
-			return duration;
-		}
+		isAttendant = false;
+		long duration = Duration.between(checkInTime, LocalDateTime.now()).toMinutes();
+		exerciseTime += duration;
+		checkInTime = null;
+		return duration;
 	}
 
-	public LocalDate getStartDate() {
-		return startDate;
+	public LocalDate getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(LocalDate endDate) {
+		this.endDate = endDate;
 	}
 
 	public LocalDate getLastPause() {
 		return lastPause;
+	}
+
+	public void setLastPause(LocalDate lastPause) {
+		this.lastPause = lastPause;
 	}
 
 	public long getExerciseTime() {
@@ -142,6 +158,10 @@ public class Member {
 
 	public LocalDateTime getCheckInTime() {
 		return checkInTime;
+	}
+
+	public LocalDate getMembershipStartDate() {
+		return membershipStartDate;
 	}
 
 	public boolean isFreeTrained() {
@@ -158,6 +178,14 @@ public class Member {
 
 	public boolean isPaused() {
 		return isPaused;
+	}
+
+	public void setPaused(boolean paused) {
+		isPaused = paused;
+	}
+
+	public boolean isEnded() {
+		return endDate.isBefore(LocalDate.now());
 	}
 
 	@Override
@@ -185,4 +213,32 @@ public class Member {
 		return isAttendant;
 	}
 
+	void disable() {
+		userAccount.setEnabled(false);
+	}
+
+	boolean pause(LocalDate now) {
+		if (getLastPause() == null || getLastPause().getYear() < now.getYear()) {
+			setPaused(true);
+			setLastPause(now);
+			setEndDate(getEndDate().plusDays(31));
+			payIn(contract.getPrice());
+			return true;
+		}
+		return false;
+	}
+
+	void unPause() {
+		if (isPaused) {
+			setPaused(false);
+		}
+	}
+
+	public boolean wasMemberLastMonth() {
+		if (membershipStartDate == null) {    //member wasn't saved yet
+			return false;
+		}
+		LocalDate lastMonth = LocalDate.now().minusDays(LocalDate.now().getDayOfMonth());
+		return membershipStartDate.isBefore(lastMonth) || membershipStartDate.isEqual(lastMonth);
+	}
 }

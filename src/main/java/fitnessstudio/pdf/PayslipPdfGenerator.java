@@ -1,50 +1,59 @@
 package fitnessstudio.pdf;
 
-import com.itextpdf.io.font.FontConstants;
-import com.itextpdf.kernel.font.PdfFontFactory;
-import com.itextpdf.kernel.geom.Line;
 import com.itextpdf.layout.Document;
-import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
-import com.itextpdf.layout.property.TextAlignment;
+import com.itextpdf.layout.property.UnitValue;
+import fitnessstudio.staff.Staff;
 import org.javamoney.moneta.Money;
 
-import javax.money.Monetary;
-import java.io.IOException;
-import java.time.LocalDate;
+import javax.money.format.MonetaryAmountFormat;
+import javax.money.format.MonetaryFormats;
+import java.util.Arrays;
+import java.util.Locale;
 import java.util.Map;
 
 public class PayslipPdfGenerator implements PdfGenerator {
 
 	private PayslipPdfGenerator() {}
 
-	public static Document generatePdf(Map<String, Object> payslip, Document d) throws IOException {
+	public static Document generatePdf(Map<String, Object> payslip, Document d) {
 
-		float[] columnWidth = {200f, 200f};
-		Table table = new Table(columnWidth);
-		table.setMarginTop(30f);
+		MonetaryAmountFormat moneyFormat = MonetaryFormats.getAmountFormat(Locale.GERMANY);
+		UnitValue[] columnWidths = new UnitValue[2];
+		Arrays.fill(columnWidths, new UnitValue(UnitValue.PERCENT, 50));
+		Staff staff = (Staff) payslip.get("staff");
 
-		table.addCell("Arbeitgeber");
-		table.addCell("Fitnessstudio e.V.");
+		Table table1 = new Table(columnWidths);
+		Table table2 = new Table(columnWidths);
+		Table table3 = new Table(columnWidths);
 
-		table.addCell("Arbeitnehmer");
-		table.addCell(payslip.get("firstName").toString() + " " + payslip.get("lastName").toString());
+		table1.addCell("Arbeitgeber");
+		table1.addCell("Fitnessstudio e.V.");
 
-		table.addCell("ID");
-		table.addCell(payslip.get("id").toString());
+		table2.addCell("Arbeitnehmer");
+		table2.addCell(staff.getFirstName() + " " + staff.getLastName());
 
-		Money salary = (Money) payslip.get("salary");
-		table.addCell("Bruttogehalt");
-		table.addCell(salary.toString());
+		table2.addCell("ID");
+		table2.addCell(Long.toString(staff.getStaffId()));
 
-		table.addCell("Steuer");
-		table.addCell("25%");
+		Money salary = staff.getSalary();
+		table3.addCell("Bruttogehalt");
+		table3.addCell(moneyFormat.format(salary));
 
-		table.addCell("Nettogehalt");
-		table.addCell(salary.multiply(0.75).with(Monetary.getDefaultRounding()).toString()).setBold();
+		double incomeTax = 12.4;
+		table3.addCell("Steuer");
+		table3.addCell(incomeTax + "%");
 
-		d.add(table);
+		Paragraph netSalary = new Paragraph(moneyFormat.format(salary.subtract(salary.multiply(incomeTax/100f))));
+		table3.addCell("Nettogehalt");
+		table3.addCell(netSalary.setBold());
+
+		for (Table table : new Table[]{table1, table2, table3}) {
+			table.setMarginTop(30f);
+			table.setWidth(new UnitValue(UnitValue.PERCENT, 100));
+			d.add(table);
+		}
 
 		return d;
 

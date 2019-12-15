@@ -1,8 +1,15 @@
 package fitnessstudio.studio;
 
 import org.salespointframework.core.DataInitializer;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.time.DayOfWeek;
+import java.time.format.TextStyle;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.LinkedList;
+import java.util.Locale;
+import java.util.stream.IntStream;
 
 @Component
 public class StudioInitializer implements DataInitializer {
@@ -15,7 +22,18 @@ public class StudioInitializer implements DataInitializer {
 
 	@Override
 	public void initialize() {
-		Studio studio = new Studio("Mon-Sun 8am-10pm", "24", "50", "20");
-		studioRepository.save(studio);
+		if (!studioRepository.findAll().iterator().hasNext()) {
+
+			Collection<String> list = new LinkedList<>();
+			IntStream.range(1, 8).forEach(i ->
+					list.add(DayOfWeek.of(i).getDisplayName(TextStyle.FULL, Locale.GERMAN) + ":  0:00 bis " +
+							"23:59 Uhr")
+			);
+			String openingTimes = Arrays.toString(list.toArray()).replace("[", "").
+					replace("]", "").
+					replace(",", "\n");
+			Studio studio = new Studio(openingTimes, "20","Traumstraße 1, Dresden");
+			studioRepository.save(studio);
+		}
 	}
 }

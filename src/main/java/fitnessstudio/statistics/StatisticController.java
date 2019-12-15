@@ -20,9 +20,11 @@ public class StatisticController {
 	@GetMapping("/admin/attendanceStatistic")
 	@PreAuthorize("hasRole('BOSS')")
 	public String showAttendanceStatistic(Model model) {
-		model.addAttribute("averageTime", statisticManagement.getAverageTimeToday());
-		model.addAttribute("memberAmount", statisticManagement.getMemberAmountToday());
-		return "attendanceStatistic";
+		model.addAttribute("week", statisticManagement.getDaysOfWeek());
+		model.addAttribute("averageTimes", statisticManagement.getAverageTimesOfThisWeek());
+		model.addAttribute("memberAmounts", statisticManagement.getMemberAmountsOfThisWeek());
+		model.addAttribute("sellingEarnings", statisticManagement.getSellingEarningsOfThisWeek());
+		return "statistic/statistic";
 	}
 
 }

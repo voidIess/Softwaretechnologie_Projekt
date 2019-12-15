@@ -15,11 +15,13 @@
 
         <div class="card">
 
-            <form method="post" role="form" class="ui form" id="form" th:action="@{/roster/edit}" th:object="${form}">
+            <form method="post" role="form" class="ui form" id="form" th:action="@{/roster/editEntry/{id}/(id = ${rosterEntry.rosterEntryId})}" th:object="${form}">
 
-                <div class="ui negative message" th:if="${#fields.hasErrors('*')}">
-                    <p th:each="err : ${#fields.errors('*')}" th:text="${err}"></p>
-                </div>
+
+
+                <p class="ui negative message" th:if="${#fields.hasErrors('*')}" th:each="err : ${#fields.errors('*')}"
+                   th:text="${err}">
+                </p>
 
                 <div class="field">
                     <input class="form-control" name="staff" type="hidden" id="staff"
@@ -27,14 +29,26 @@
                     <b><span th:text="${rosterEntry.getStaff().toString()}"></span></b>
                 </div>
 
+                <div th:if="${rosterEntry.getTraining() != -1}">
+                    <b><span>Training: </span></b>
+                    <a th:if="${rosterEntry.getTraining() != -1}" th:href="@{/training/details/{id}/(id=${rosterEntry.training})}">Siehe Details</a>
+                </div>
+
                 <div class="field">
-                    <input class="form-control" name="times" type="hidden" id="times" th:value="${slot.getTime()}"/>
-                    <span th:text="${slot.getTime()}"></span>
+                    <input class="form-control" name="week" type="hidden" id="week"
+                           th:value="${week}"/>
+                    <b><span>Woche: </span></b>
+                    <span th:text="${week}"></span>
+                </div>
+
+                <div class="field">
+                    <input class="form-control" name="times" type="hidden" id="times" th:value="${row.toString()}"/>
+                    <span th:text="${row.toString()}"></span>
                 </div>
 
                 <div class="field">
                     <input class="form-control" th:name="day" type="hidden" id="day"
-                           th:value="${rosterEntry.rosterEntryId}"/>
+                           th:value="${day}"/>
                 </div>
 
                 <div>
@@ -45,9 +59,10 @@
                     </select>
                 </div>
 
-                <button type="submit" class="ui blue button">Speichern</button>
-                <a class="ui red button"
-                   th:href="@{/roster/detail/delete/{slot}/{id}/(slot=${day},id=${rosterEntry.rosterEntryId})}">Löschen</a>
+                <button th:if="${rosterEntry.getTraining() == -1}" type="submit" class="ui blue button">Speichern</button>
+                <button th:unless="${rosterEntry.getTraining() == -1}" type="submit" class="ui blue button">Zurück</button>
+                <a th:if="${rosterEntry.getTraining() == -1}" class="ui red button"
+                   th:href="@{/roster/detail/delete/{week}/{shift}/{day}/{id}/(week=${week},shift=${shift},day=${day},id=${rosterEntry.rosterEntryId})}">Löschen</a>
 
             </form>
 

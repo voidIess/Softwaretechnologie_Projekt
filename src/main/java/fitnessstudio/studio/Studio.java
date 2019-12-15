@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+
 @Entity
 public class Studio {
 
@@ -12,19 +13,25 @@ public class Studio {
 	long id;
 
 	private String openingTimes;
-	private String contractTerm;
-	private String monthlyFees;
 	private String advertisingBonus;
+	private String address;
 
 	public Studio() {
 
 	}
 
-	public Studio(String openingTimes, String contractTerm, String monthlyFees, String advertisingBonus) {
+	public Studio(String openingTimes, String advertisingBonus, String address) {
 		this.openingTimes = openingTimes;
-		this.contractTerm = contractTerm;
-		this.monthlyFees = monthlyFees;
 		this.advertisingBonus = advertisingBonus;
+		this.address = address;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
 	public long getId() {
@@ -35,24 +42,8 @@ public class Studio {
 		return openingTimes;
 	}
 
-	public void setOpeningTimes(String openningTimes) {
-		this.openingTimes = openningTimes;
-	}
-
-	public String getContractTerm() {
-		return contractTerm;
-	}
-
-	public void setContractTerm(String contractTerm) {
-		this.contractTerm = contractTerm;
-	}
-
-	public String getMonthlyFees() {
-		return monthlyFees;
-	}
-
-	public void setMonthlyFees(String monthlyFees) {
-		this.monthlyFees = monthlyFees;
+	public void setOpeningTimes(String openingTimes) {
+		this.openingTimes = openingTimes;
 	}
 
 	public String getAdvertisingBonus() {
@@ -62,4 +53,6 @@ public class Studio {
 	public void setAdvertisingBonus(String advertisingBonus) {
 		this.advertisingBonus = advertisingBonus;
 	}
+
+
 }

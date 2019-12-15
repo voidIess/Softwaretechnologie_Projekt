@@ -20,28 +20,26 @@
         <h1>Studio bearbeiten</h1>
 
         <fieldset>
-            <Label>Opening Times</Label><label for="openingTimes"></label><input type="text" th:field="*{openingTimes}"
-                                                                                 id="openingTimes"
-                                                                                 required/>
+            <text>Öffnungszeiten</text>
+            <label for="times"></label>
+            <textarea id="times" rows="8" cols="50" th:field="*{openingTimes}" required="required"></textarea>
+        </fieldset>
+
+
+        <fieldset>
+            <text>Adresse</text>
+            <label for="address"></label><input type="text"
+                                                th:field="*{address}"
+                                                id="address"
+                                                required/>
         </fieldset>
 
         <fieldset>
-            <Label>Contract term</Label><label for="contractTerm"></label><input type="number"
-                                                                                 th:field="*{contractTerm}"
-                                                                                 id="contractTerm"
-                                                                                 required/>
-        </fieldset>
-
-        <fieldset>
-            <Label>Monthly Fees</Label><label for="monthlyFees"></label><input type="number" th:field="*{monthlyFees}"
-                                                                               id="monthlyFees" required/>
-        </fieldset>
-
-        <fieldset>
-            <Label>Advertising Bonus</Label> <label for="advertisingBonus"></label><input type="number"
-                                                                                          th:field="*{advertisingBonus}"
-                                                                                          id="advertisingBonus"
-                                                                                          required/>
+            <text>Werbebonus</text>
+            <label for="advertisingBonus"></label><input type="number" step="0.01"
+                                                         th:field="*{advertisingBonus}"
+                                                         id="advertisingBonus"
+                                                         required/>
         </fieldset>
 
         <fieldset>

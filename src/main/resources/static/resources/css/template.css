@@ -8,10 +8,10 @@ body {
 
 
 .container h1 {
-    font-size: 100px;
+    font-size: 50px;
     margin: 20px 0 0;
     font-weight: 900;
-    letter-spacing: 9px;
+    letter-spacing: 0px;
     color: var(--heading-color);
 
 }
@@ -58,6 +58,7 @@ fieldset {
     font-size: 14px;
     text-transform: uppercase;
     transition: 0.4s;
+    content: attr(title);
 }
 
 .container a:hover {
