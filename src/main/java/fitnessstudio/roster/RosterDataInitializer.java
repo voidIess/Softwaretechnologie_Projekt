@@ -1,5 +1,6 @@
 package fitnessstudio.roster;
 
+import com.mysema.commons.lang.Assert;
 import fitnessstudio.staff.Staff;
 import fitnessstudio.staff.StaffManagement;
 import fitnessstudio.staff.StaffRole;
@@ -28,6 +29,10 @@ public class RosterDataInitializer implements DataInitializer {
 	private String STAFFROLE = "STAFF";
 
 	RosterDataInitializer(RosterRepository rosterRepository, StaffManagement staffs, RosterManagement rosterManagement, UserAccountManager userAccounts) {
+		Assert.notNull(rosterManagement, "RosterManagement must not be 'null'");
+		Assert.notNull(rosterRepository, "RosterRepository must not be 'null'");
+		Assert.notNull(staffs, "StaffManagement must not be 'null'");
+		Assert.notNull(userAccounts, "UserAccountManager must not be 'null'");
 		this.staffs = staffs;
 		this.rosters = rosterManagement;
 		this.userAccounts = userAccounts;
@@ -65,9 +70,6 @@ public class RosterDataInitializer implements DataInitializer {
 				);
 				rosters.createEntry(form, RosterEntry.NONE, null);
 			}
-
 		}
-
-
 	}
 }
