@@ -1,8 +1,6 @@
 package fitnessstudio.barmanagement;
 
 
-import org.salespointframework.inventory.UniqueInventory;
-import org.salespointframework.inventory.UniqueInventoryItem;
 import org.salespointframework.quantity.Quantity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -19,8 +17,7 @@ public class CatalogController {
 
 	private final BarManager barManager;
 
-
-	public CatalogController(BarManager barManager, UniqueInventory<UniqueInventoryItem> inventory) {
+	public CatalogController(BarManager barManager) {
 		this.barManager = barManager;
 	}
 

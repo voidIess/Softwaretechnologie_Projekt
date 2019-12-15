@@ -1,90 +1,107 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
 
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="site_template :: template('Artikel hinzufügen', ~{::site_content})"></html>
+
+<html xmlns:th="http://www.thymeleaf.org" th:remove="tag">
+<head th:remove="all">
+    <meta content="text/html; charset=UTF-8" http-equiv="content-type"/>
     <link rel="stylesheet" href="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css" type="text/css"/>
-    <link th:href="@{/resources/css/style.css}" rel="stylesheet"
-          href="../static/resources/css/style.css" type="text/css"/>
     <link rel="stylesheet" type="text/css" th:href="@{/resources/css/toggle.css}"/>
-    <title>Katalog</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/template.css}"/>
 </head>
-<body>
-<nav th:include="navigation :: navigation"></nav>
-<nav th:include="toggle :: toggle"></nav>
+
+<div th:fragment="site_content">
+    <div class="ui container">
+        <form method="post" role="form" class="ui form" id="form" th:action="@{/article}" th:object="${form}">
+
+            <fieldset>
+                <text>Name</text>
+                <label for="name"></label><input type="text" th:field="*{name}"
+                                                 id="name"
+                                                 required/>
+            </fieldset>
+
+            <fieldset>
+                <text>Preis in Euro</text>
+                <label for="price"></label><input type="number" th:field="*{price}"
+                                                  id="price" step="0.01"
+                                                  required/>
+            </fieldset>
+
+            <fieldset>
+                <text>Art</text>
+                <label for="type"></label><input type="text" th:field="*{type}"
+                                                 id="type"
+                                                 required/>
+            </fieldset>
+
+            <fieldset>
+                <text>Beschreibung</text>
+                <label for="description"></label><input type="text" th:field="*{description}"
+                                                        id="description"
+                                                        required/>
+            </fieldset>
 
 
-<div class="container">
-    <form method="post" role="form" class="ui form" id="form" th:action="@{/article}" th:object="${form}">
+            <br>
+            <br>
 
-        <h2>Artikel hinzufügen</h2>
+            <fieldset>
+                <p>Rabatt vom (optional)</p><label for="startDiscount"></label>
+                <input type="date"
+                       th:field="*{startDiscount}"
+                       id="startDiscount"/>
+            </fieldset>
 
-        <fieldset>
-            <p>Name</p><label for="name"></label><input type="text" th:field="*{name}"
-                                                                id="name"
-                                                                required/>
-        </fieldset>
+            <fieldset>
+                <p>Rabatt in Prozent (optional)</p><label for="percentDiscount"></label>
+                <input type="number" min="0" max="100" step="1" value="1" th:field="*{percentDiscount}"
+                       id="percentDiscount"/>
 
-        <fieldset>
-            <p>Preis in Euro</p><label for="price"></label><input type="number" th:field="*{price}"
-                                                                          id="price"
-                                                                          required/>
-        </fieldset>
-
-        <fieldset>
-            <p>Art</p><label for="type"></label><input type="text" th:field="*{type}"
-                                                              id="type"
-                                                              required/>
-        </fieldset>
-
-        <fieldset>
-            <p>Beschreibung</p><label for="description"></label><input type="text" th:field="*{description}"
-                                                                               id="description"
-                                                                               required/>
-        </fieldset>
-
-        <fieldset>
-            <p>Mindesthaltbarkeitsdatum</p><label for="expirationDate"></label><input type="date"
-                                                                                              th:field="*{expirationDate}"
-                                                                                              id="expirationDate"
-                                                                                              required/>
-        </fieldset>
-
-        <fieldset>
-            <p>Rabatt vom</p><label for="startDiscount"></label><input type="date"
-                                                                               th:field="*{startDiscount}"
-                                                                               id="startDiscount"
-                                                                               required/>
-        </fieldset>
-
-        <fieldset>
-            <p>Rabatt in Prozent</p><label for="percentDiscount"></label><input type="number"
-                                                                                        th:field="*{percentDiscount}"
-                                                                                        id="percentDiscount" required/>
-        </fieldset>
+            </fieldset>
 
 
-        <fieldset>
-            <p>Rabatt bis</p><label for="endDiscount"></label><input type="date"
-                                                                             th:field="*{endDiscount}"
-                                                                             id="endDiscount"
-                                                                             required/>
-        </fieldset>
+            <fieldset>
+                <p>Rabatt bis (optional)</p><label for="endDiscount"></label>
+                <input type="date" th:field="*{endDiscount}" id="endDiscount"/>
+            </fieldset>
 
-        <fieldset>
-            <p>Anzahl</p><label for="number"></label><input type="number"
-                                                                    th:field="*{number}"
-                                                                    id="number"
-                                                                    required/>
-        </fieldset>
+            <br>
+            <br>
+
+            <fieldset>
+                <text>Mindestvorrat</text>
+                <label for="number"></label>
+                <input type="number" th:field="*{sufficientQuantity}" id="number" required/>
+            </fieldset>
+
+            <br>
+            <fieldset>
+                <text>Initialer Bestand</text>
+                <label for="amount"></label><input type="number"
+                                                   th:field="*{amount}"
+                                                   id="amount"
+                                                   required/>
+            </fieldset>
 
 
-        <fieldset>
-            <button name="submit" type="submit" id="contact-submit" data-submit="...Sending">Submit</button>
-        </fieldset>
-    </form>
+            <fieldset>
+                <text>Mindesthaltbarkeitsdatum des initialen Bestands</text>
+                <label for="expirationDate"></label><input
+                    type="date"
+                    th:field="*{expirationDate}"
+                    id="expirationDate"
+                    required/>
+            </fieldset>
+
+
+            <fieldset>
+                <button name="submit" type="submit" id="contact-submit" data-submit="...Sending">Submit</button>
+            </fieldset>
+        </form>
+    </div>
+
+
 </div>
-
-
-</body>
 </html>

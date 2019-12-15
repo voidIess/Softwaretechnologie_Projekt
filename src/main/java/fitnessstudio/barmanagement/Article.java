@@ -7,44 +7,45 @@ import org.salespointframework.catalog.Product;
 import org.salespointframework.quantity.Quantity;
 
 import javax.money.MonetaryAmount;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToOne;
 import java.time.LocalDate;
+import java.util.Optional;
 
 @Entity
 public class Article extends Product {
 
 	private String type;
 	private String description;
-	private LocalDate expirationDate;
-	@OneToOne
+	// private LocalDate expirationDate;
+	@OneToOne(targetEntity=Discount.class,fetch= FetchType.EAGER , cascade= CascadeType.ALL, orphanRemoval=true)
 	private Discount discount;
 	private Quantity sufficientQuantity;
 	//private Optional<Discount> discount;
 
 
-	public Article(){}
+	public Article() {
+	}
 
-	public Article(String name, MonetaryAmount price, String type, String description, LocalDate expirationDate, Discount discount) {
+	public Article(String name, MonetaryAmount price, String type, String description, Quantity sufficientQuantity) {
 		super(name, price);
 		this.type = type;
 		this.description = description;
-		this.expirationDate = expirationDate;
-		this.discount = discount;
+		this.sufficientQuantity = sufficientQuantity;
 	}
 
 	@NotNull
 	@Override
 	public MonetaryAmount getPrice() {
-		LocalDate today = LocalDate.now();
-		if (discount.getPercent() == 0 || today.compareTo(discount.getEndDate()) > 0 ||
-			discount.getStartDate().compareTo(today) > 0) {
-			return super.getPrice();
-		} else {
+		if (hasDiscount()) {
 			double deduction = super.getPrice().getNumber().longValue() * ((double) discount.getPercent() / 100);
 			return Money.of(super.getPrice().getNumber().longValue() - deduction, "EUR");
 		}
+		else return super.getPrice();
 	}
+
 
 	public String getType() {
 		return type;
@@ -63,24 +64,38 @@ public class Article extends Product {
 		this.description = description;
 	}
 
-	public LocalDate getExpirationDate() {
-		return expirationDate;
-	}
-
-	public void setExpirationDate(LocalDate expirationDate) {
-		this.expirationDate = expirationDate;
-	}
-
 	public Quantity getSufficientQuantity() {
 		return sufficientQuantity;
 	}
+
+	public void setSufficientQuantity(Quantity sufficientQuantity) {
+		this.sufficientQuantity = sufficientQuantity;
+	}
+
+	public Optional<Discount> getOptDiscount() {
+		return Optional.ofNullable(discount);
+	}
+
 	public Discount getDiscount() {
 		return discount;
+	}
+
+
+	public String getDiscountString() {
+		return hasDiscount() ? discount.toString() : "";
 	}
 
 	public void setDiscount(Discount discount) {
 		this.discount = discount;
 	}
 
+	private boolean hasDiscount() {
+		Optional<Discount> optionalDiscount = getOptDiscount();
+		if (optionalDiscount.isPresent()) {
+			Discount discount = optionalDiscount.get();
+			return discount.isActive();
+		}
+		return false;
+	}
 
 }

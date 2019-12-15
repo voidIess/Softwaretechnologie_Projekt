@@ -23,19 +23,19 @@
     <div th:remove="all-but-first">
         <div class="container" th:each="item :${ inventory}">
             <form method="post" th:action="@{/addItemToCart}">
-                <input name="pid" th:value="${item.product.id}" type="hidden" value="0"/>
+                <input name="pid" th:value="${item.getProduct().id}" type="hidden" value="0"/>
                 <div class="ui segment">
                     <div class="ui grid">
                         <div class="ui three wide left aligned column">
-                            <div class="ui header" th:text="${item.product.name}">Spinatsalat</div>
-                            <div th:text="#{sell_catalog.available}+' '+${{item.quantity}}">Verfügbar: 42</div>
+                            <div class="ui header" th:text="${item.getProduct().name}">Spinatsalat</div>
+                            <div th:text="#{sell_catalog.available}+' '+${{item.getQuantity()}}">Verfügbar: 42</div>
                         </div>
                         <div class="ui two wide center aligned column">
-                            <div class="ui header" th:text="${item.product.price}">
+                            <div class="ui header" th:text="${item.getProduct().getPrice()}">
                                 12,40 EUR
 
                             </div>
-                            <div th:text="${item.product.discount}">-12%</div>
+                            <div th:text="${item.getProduct().getDiscountString()}">-12%</div>
 
                         </div>
                         <div class="ui six wide right floated column">

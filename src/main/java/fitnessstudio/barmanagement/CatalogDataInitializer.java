@@ -2,6 +2,8 @@ package fitnessstudio.barmanagement;
 
 import org.javamoney.moneta.Money;
 import org.salespointframework.core.DataInitializer;
+import org.salespointframework.quantity.Metric;
+import org.salespointframework.quantity.Quantity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -20,7 +22,7 @@ public class CatalogDataInitializer implements DataInitializer {
 
 	public CatalogDataInitializer(ArticleCatalog catalog, DiscountRepository discountRepository) {
 		this.catalog = catalog;
-		this.discountRepository = discountRepository;
+		this.discountRepository=discountRepository;
 	}
 
 
@@ -33,17 +35,14 @@ public class CatalogDataInitializer implements DataInitializer {
 		LOG.info("Creating default catalog entries.");
 		LocalDate startDate = LocalDate.of(2019, 12, 1);
 		LocalDate endDate = LocalDate.of(2020, 6, 15);
-		LocalDate expireDate = LocalDate.of(1989, 10, 3);
 		Discount discount = new Discount(startDate, endDate, 0);
+		Discount discount2 = new Discount(startDate, endDate, 0);
 		discountRepository.save(discount);
 
 		catalog.save(new Article("Hantel", Money.of(50.00, EURO), "Trainingsgerät",
-			"10kg", endDate, discount));
-		catalog.save(new Article("Serious Mass", Money.of(13.37, EURO), "Nahrungsergänzungsmittel",
-			"gesund",
-			endDate, discount));
-		catalog.save(new Article("Bratwurst", Money.of(2.50, EURO), "Essen",
-				"mit Senf",
-				expireDate, discount));
+			"10kg", Quantity.of(10, Metric.UNIT))).setDiscount(discount);
+
+		catalog.save(new Article("Serious Mass", Money.of(13.37, EURO), "Essen",
+			"gesund", Quantity.of(10, Metric.UNIT))).setDiscount(discount2);
 	}
 }
