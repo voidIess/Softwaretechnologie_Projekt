@@ -141,15 +141,19 @@ public class BarManager {
 		});
 
 	}
-
-	// this will remove non-expired articles from the inventory
-	boolean removeStock(ProductIdentifier id, Quantity quantity){
+	boolean stockAvailable(ProductIdentifier id, Quantity quantity){
 		Article  article = getById(id);
 		Quantity stockQuantity = getArticleQuantity(article);
 
-		// abort if there isnt enough Quantity anyway
-		if(stockQuantity.isLessThan(quantity)) return false;
+		return !stockQuantity.isLessThan(quantity);
+	}
 
+	// this will remove non-expired articles from the inventory
+	boolean removeStock(ProductIdentifier id, Quantity quantity){
+		// abort if there isnt enough Quantity anyway
+		if(!stockAvailable(id, quantity)) return false;
+
+		Article  article = getById(id);
 		InventoryItems<ExpiringInventoryItem> orderedItems = inventory.findByProductAndExpirationDateAfterOrderByExpirationDateAsc(article, LocalDate.now());
 		for (ExpiringInventoryItem item : orderedItems){
 			Quantity itemQuantity = item.getQuantity();
