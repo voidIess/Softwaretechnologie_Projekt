@@ -23,13 +23,15 @@ public class RosterDataInitializer implements DataInitializer {
 	private static final Logger LOG = LoggerFactory.getLogger(RosterDataInitializer.class);
 	private final StaffManagement staffs;
 	private final RosterManagement rosters;
+	private final RosterRepository rosterRepository;
 	private final UserAccountManager userAccounts;
 	private String STAFFROLE = "STAFF";
 
-	RosterDataInitializer(StaffManagement staffs, RosterManagement rosterManagement, UserAccountManager userAccounts) {
+	RosterDataInitializer(RosterRepository rosterRepository, StaffManagement staffs, RosterManagement rosterManagement, UserAccountManager userAccounts) {
 		this.staffs = staffs;
 		this.rosters = rosterManagement;
 		this.userAccounts = userAccounts;
+		this.rosterRepository = rosterRepository;
 	}
 
 	@Override
@@ -46,21 +48,23 @@ public class RosterDataInitializer implements DataInitializer {
 			Calendar c = Calendar.getInstance();
 			c.add(Calendar.WEEK_OF_YEAR, i);
 			int week = c.get(Calendar.WEEK_OF_YEAR);
-			Roster roster = new Roster(week);
-			rosters.saveRoster(roster);
-			LOG.info("Roster für Woche: " + roster.getWeek());
-			LOG.info("Roster ID: " + roster.getRosterId());
+			if(!rosterRepository.findByWeek(week).isPresent()) {
+				Roster roster = new Roster(week);
+				rosters.saveRoster(roster);
+				LOG.info("Roster für Woche: " + roster.getWeek());
+				LOG.info("Roster ID: " + roster.getRosterId());
 
-			List<String> times = new ArrayList<>();
-			times.add(roster.getRows().get(1).toString());
-			RosterEntryForm form = new RosterEntryForm(
-				staff.getStaffId(),
-				RosterDataConverter.roleToString(StaffRole.TRAINER),
-				1,
-				times,
-				c.get(Calendar.WEEK_OF_YEAR)
-			);
-			rosters.createEntry(form, RosterEntry.NONE, null);
+				List<String> times = new ArrayList<>();
+				times.add(roster.getRows().get(1).toString());
+				RosterEntryForm form = new RosterEntryForm(
+					staff.getStaffId(),
+					RosterDataConverter.roleToString(StaffRole.TRAINER),
+					1,
+					times,
+					c.get(Calendar.WEEK_OF_YEAR)
+				);
+				rosters.createEntry(form, RosterEntry.NONE, null);
+			}
 
 		}
 
