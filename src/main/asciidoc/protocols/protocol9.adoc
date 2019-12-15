@@ -1,0 +1,65 @@
+= Protokoll Gruppe 16
+
+Treffen am 10.12.2019
+
+Ort:      APB/E069 +
+Beginn:   16:40 Uhr +
+Ende:     18:40 Uhr
+
+__Schriftführer: Markus Wieland__
+
+*Nächstes Treffen:* +
+17.11.2019, 16:40 Uhr
+
+__Teilnehmer:__
+//Tabellarisch oder Aufzählung, Kennzeichnung von Teilnehmern mit besonderer Rolle (z.B. Kunde)
+
+- Anita Fritzsche (Tutorin/Kundin)
+- Julius Schmitt
+- Markus Wieland
+- Quang Vu Ha
+- Lea Häusler
+
+
+== Bemerkungen
+
+Bill hatte sich vorher abgemeldet.
+
+Bis (spätestens) nächste Woche Montag soll für das Crosstesting eine .jar-Datei, eine kurze Anleitung und Anmeldedaten an die Tutorin geschickt werden. Diese werden dann Gruppe 12 zum Testen verwendet. Wir testen währenddessen die Anwendung der Gruppe 12. Wenn uns ein Fehler auffällt, soll in der dafür vorgesehenen .adoc-Datei ein Vermerkt erstellt werden. 
+
+- Was habe ich gemacht um den Fehler auszulösen?
+- Was ist der Fehler/was ist falsch?
+- Eventuell Screenshot
+
+Außerdem wurden ein paar kleine Änderungen an den Muss-Kriterien mit der Kundin abgesprochen.
+
+Zusätzlich gab es eine kleine Feedback Runde zur zufälligen Gruppenaufteilung.
+
+Hauptgrund des Treffens war jedoch, dass Julius und Vu zusammen am Thekenpackage arbeiten. Es wurde nach einer gemeinsamen Lösung für ein Problem gesucht. Der Kompromiss: Julius hat bus 11.12. Abends Zeit seine Lösung zum Laufen zu bringen. Gelingt ihm das zufrieden stellend wird seine Lösung verwendet. Ansonsten arbeitet Vu an dem Problem weiter.
+
+== Retrospektive des letzten Sprints
+*Issue referenziert die Issue ID von GitHub*
+// Wie ist der Status der im letzten Sprint erstellten Issues/veteilten Aufgaben?
+
+// See http://asciidoctor.org/docs/user-manual/=tables
+[option="headers"]
+
+Siehe Protokoll 8.
+
+== Aktueller Stand
+
+Ein Großteil der Muss-Kriterien sind erfüllt. Eine ToDo-Liste: https://github.com/st-tu-dresden-praktikum/swt19w16/blob/master/src/main/asciidoc/Liste_Musskriterien.adoc
+
+Nächster Meilenstein: Sonntag, 01.12.2019. 
+
+== Planung des nächsten Sprints
+*Issue referenziert die Issue ID von GitHub*
+
+// See http://asciidoctor.org/docs/user-manual/=tables
+
+Siehe Protokoll 8.
+
+|===
+
+
+

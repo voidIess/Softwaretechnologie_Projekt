@@ -1,0 +1,228 @@
+[options="header", cols="2h, 1, 3, 12"]
+|===
+|ID
+|Erledigt
+|Name
+|Beschreibung
+
+
+|**<<F0100>>**
+|Erledigt
+|Allgemeine Informationen ändern
+a| [[F0100]]
+Das System soll diese Informationen über das Fitnessstudio global speichern und für den Boss anpassbar machen:
+
+* Name
+* Adresse
+* Öffnungszeiten
+* Einladungsprämie
+
+|**<<F0210>>**
+|Erledigt
+|Authentifizierung
+a| [[F0210]]
+Das System muss zwischen öffentlich zugänglichen und geschützten Informationen und Funktionen unterscheiden. Registrierten Nutzern ist es möglich sich über die Angabe folgender Informationen zu authentifizieren:
+
+* Identifikationsnummer
+* Passwort
+
+Der Nutzer muss durch den Login in eine der Gruppen Kunde, Mitarbeiter oder Boss eingeordnet werden, welche verschiedene Rechte haben. Durch ein Logout erlischen diese wieder.
+
+
+|**<<F0221>>**
+|Erledigt
+|Registrierung
+a| [[F0221]]
+Es muss möglich sein unregistrierte Nutzer über die Auswahl "registrieren" in das System aufzunehmen. Diese Informationen müssen dafür angegeben werden:
+
+* E-Mai Adresse (noch keinem Nutzerkonto zugeordnet)
+* voller Name
+* Passwort
+* Einladungscode (optional)
+
+Das System muss alle so registrierten Nutzer persistent speichern. Erst nach der Freigabe des Accounts **<<F0222>>**) durch einen Mitarbeiter muss der Kunde in die Mitgliederliste aufgenommen werden. Er erhält eine eindeutige Identifikationsnummer und kann sich nun mit dieser und seinem Passwort anmelden (**<<F0210>>**).
+
+|**<<F0222>>**
+|Erledigt
+|Aktivierung eines Accounts
+a| [[F0222]]
+Wählt ein Mitarbieter die Funktion "aktivieren" für einen registrierten (**<<F0221>>**) Neukunden aus, wird diesem eine eindeutige Nummer zugeordnet mit der er in das System eingetragen wird. Erst damit ist es dem Nutzer möglich sich als Kunde anzumelden (**<<F0210>>**).
+
+|**<<F0300>>** & **<<F0400>>**
+|Erledigt
+|Kunden und Mitarbeiter
+a| [[F0300]] [[F0400]]
+Das System muss:
+
+* Identifikationsnummer
+* E-Mail Adresse 
+* vollen Namen
+* Passwort 
+
+der Kunden und Mitarbeiter dauerhaft speichern.
+
+|**<<F0310>>**
+|Erledigt
+|Kunden bearbeiten und löschen
+a| [[F0310]]
+Das System muss es authentifizierten Kunden möglich machen einzelne Details ihres Kontos zu bearbeiten.  Der Account muss deaktiviert werden können.
+
+|**<<F0410>>**
+|Erledigt(Bug)
+|Mitarbeiter bearbeiten und löschen
+a| [[F0410]]
+Das Systen muss es authentifizierten Mitarbeitern möglich machen einzelne Details ihres Kontos zu bearbeiten. Der Account muss deaktiviert werden können.
+
+|**<<F0420>>**
+|Erledigt
+|Mitarbeiter hinzufügen
+a| [[F0420]]
+Das System muss den Boss Mitarbeiter hinzufügen lassen. Dafür müssen:
+
+* voller Name
+* E-Mail Adresse
+* Passwort 
+
+angegeben werden. Eine Identifikationsnummer muss vom System generiert werden.
+
+|**<<F0500>>**
+|Erledigt
+|Guthabenkonto
+a| [[F0500]]
+Das System muss für jeden Kunden einen Betrag als Guthaben seines Kontos persistent speichern.
+
+|**<<F0510>>**
+|Erledigt
+|Guthaben erhöhen
+a| [[F0510]]
+Das System muss authentifizierte Mitarbeiter den Betrag des Guthabenkontos eines beliebeigen Kunden um einen manuell eingegebenen Betrag erhöhen lassen.
+
+|**<<F0600>>**
+|Erledigt
+|Inventar
+a| [[F0600]]
+Das System muss Daten über das Verkaufsinventar dauerhaft speichern. Dazu gehören:
+
+* Name
+* Preis
+* Anzahl
+* Mindestanzahl
+* aktueller Rabatt (optional)
+
+|**<<F0610>>**
+|Erledigt
+|Inventar anzeigen
+a| [[F0610]]
+Das System muss es den authentifizierten Mitarbeitern möglich machen Name und Anzahl der Artikel im Inventar einzusehen. Das unterschreiten der Mindestmenge muss hierbei farblich angezeigt werden.
+
+|**<<F0620>>**
+|Erledigt
+|Inventar bearbeiten
+a| [[F0620]]
+Das System muss es authentifizierten Mitarbietern ermöglichen Artikel aus dem Inventar zu entfernen oder neue hinzuzufügen.
+
+|**<<F0630>>**
+|Offen
+|Artikel verkaufen
+a| [[F0630]]
+Das System muss den authentifizierten Mitarbieter Artikel aus dem Inventar verkaufen lassen. Nachdem die Artikel ausgewählt wurden muss eine registrierte Kundennummer verlangt werden und die Optionen "bar" oder mit "Guthaben" zahlen müssen angebbar sein. Das Inventar wird vom System aktualisiert. Der Kauf wird in die Statistiken (**<<F1000>>**) und die monatliche Rechnung des Kunden (**<<F0710>>**) übernommen.
+
+|**<<F0640>>**
+|Erledigt
+|Rabatte verwalten
+a| [[F0640]]
+Das System muss es authentifizierten Mitarbeitern erlauben zu einzelnen Artikeln des Inventars Rabatte hinzuzufügen, zu ändern oder zu entfernen. Dazu wird manuell ein Prozentsatz eingegeben, welcher vom System als aktueller Rabatt gespeichert wird.
+
+|**<<F0710>>**
+|Erledigt
+|Vertragsdetails anzeigen
+a| [[F0710]]
+Das System muss einem authentifizierten Kunden Informationen über seinen Vertrag mit dem Fitnessstudio anzeigen. Damit sind gemeint:
+
+* monatlicher Beitrag
+* Vertragslaufzeit
+* Rechnung des letzten Monats (als PDF)
+
+|**<<F0720>>**
+|Erledigt
+|Vertrag pausieren
+a| [[F0720]]
+Das System muss es jedem Kunden einmal pro Jahr ermöglichen die Auswahl "Vertrag pausieren" zu treffen. Für den nächsten Monat werden keine Beitragskosten berechnet und die Vertragslaufzeit wird um einen Monat verlängert.
+
+|**<<F0730>>**
+|Erledigt
+|Anwerbe Code anzeigen
+a| [[F0730]]
+Das System muss jedem aktivierten (**<<F0222>>**) Guthabenkontoeinen eindeutigen Code zur Verfügung stellen. Wird ein Neukonto mit diesem Code freigegeben, erhöht das System das Guthaben des Altkunden um einen festgelegten Wert. Der Code kann dabei beliebig oft angezeigt und von neuen Kunden während der Registrierung (**<<F0221>>**) angegeben werden.
+
+|**<<F0800>>**
+|Erledigt
+|Trainingstermin
+a| [[F0800]]
+Das System muss für jeden Kunden einen Trainigstermin dauerhaft speichern können. Dazu gehören:
+
+* Kunde (eindeutig durch Nummer)
+* Mitarbeiter (eindeutig durch Nummer)
+* Datum
+* Anfangs- und Endzeiten
+
+|**<<F0810>>**
+|Erledigt
+|Trainingstermin anzeigen
+a| [[F0810]]
+Das System muss den nächsten vereinbarten Trainingstermin für einen authentifizierten Kunden sichtbar machen.
+
+|**<<F0820>>**
+|Erledigt
+|Trainingstermin erstellen
+a| [[F0820]]
+Das System muss es authentifizierten Mitarbeitern ermöglichen einen neuen Trainingstermin für einen beliebigen Kunden zu speichern. Das System aktualisiert ggf. die Anzeige (**<<F0810>>**) des Kunden.
+
+|**<<F0831>>**
+|Erledigt
+|Probetraining anfragen
+a| [[F0831]]
+Das System muss jedem authentifizierten Kunden die Möglichkeit bieten über "Probetraining anfordern" eine Anfrage mit den Merkmalen aus **<<F0800>>** zu senden. Wurde diese Anfrage einmal angenommen (**<<F0832>>**) wird der Kunde vom System vermerkt und kann keine Anfragen mehr senden.
+
+|**<<F0832>>**
+|Erledigt
+|Probetraining annehmen/ablehnen
+a| [[F0832]]
+Das System muss jedem authentifizierten Mitarbeiter unter "Anfragen bearbeiten" eine Liste der aktuellen, unbeantworteten Anfragen anzeigen. Wird eine der beiden Optionen "annehmen" oder "ablehnen" gewählt, wird diese dem Kunden angezeigt und der bearbeitete Eintag muss aus der Liste entfernt werden. In dem Fall einer angenommenen Anfrage erstellt das System einen Trainingtermin (**<<F0800>>**) für den angegebenen Kunden.
+
+|**<<F0900>>**
+|Erledigt
+|Dienstplan
+a| [[F0900]]
+Das System soll in der Lage sein den aktuellen Dienstplan zu speichern. Ein Dienst besteht dabei aus:
+
+* Mitarbeiter (eindeutig durch Nummer)
+* Art der Tätigkeit
+* Datum
+* Anfangs- und Endzeiten
+
+|**<<F0910>>**
+|Erledigt
+|Dienstplan anzeigen
+a| [[F0910]]
+Das System muss es jedem authentifizierten Mitarbeiter ermöglichen den aktuellen Dienstplan einzusehen. Dieser wird tabellarisch als Kalender angezeigt.
+
+|**<<F0920>>**
+| Erledigt
+|Dienstplan bearbeiten
+a| [[F0920]]
+Das System muss einzelne Dienste, der in **<<F0900>>** beschriebenen Form, von jedem authentifizierten Mitarbieter bearbeiten, löschen oder hinzugügen lassen können.
+
+|**<<F1000>>**
+|Erledigt
+|Statistiken anzeigen
+a| [[F1000]]
+Das System muss dem Boss eine graphische Übersicht über Kundenverhalten (Anwesenheitszeiten, Käufe) und Umsatz (Löhne, Beiträge, Verkäufe) geben.
+
+|**<<F1010>>**
+|Erledigt
+|Check-In/-Out
+a| [[F1010]]
+Das System muss die Aufenthaltszeiten der Kunden im Fittnessstudio dauerhaft speichern. Dazu muss es dem authentifizierten Mitarbeiter möglich sein über "CheckIn" oder "CheckOut" und die Identifikationsnummer die Ein- und Austrittszeiten eines beliebigen Kunden zu erfassen zu lassen.
+
+|===
