@@ -30,6 +30,18 @@
             </fieldset>
 
             <fieldset>
+                <text>Zahlungsart</text>
+                <select id="paymentMethod" th:field="*{paymentMethod}">
+                    <option value="0">
+                        Mit Guthaben bezahlen
+                    </option>
+                    <option value="1">
+                        Bar bezahlen
+                    </option>
+                </select>
+            </fieldset>
+
+            <fieldset>
                 <button name="submit" type="submit" id="contact-submit" data-submit="...Sending">Submit</button>
             </fieldset>
         </form>
