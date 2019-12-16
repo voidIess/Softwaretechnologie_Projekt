@@ -13,7 +13,7 @@ public class InvoiceEventListener implements ApplicationListener<InvoiceEvent> {
 	private static final Logger LOG = LoggerFactory.getLogger(InvoiceEventListener.class);
 	private InvoiceManagement invoiceManagement;
 
-	public InvoiceEventListener(InvoiceManagement invoiceManagement){
+	public InvoiceEventListener(InvoiceManagement invoiceManagement) {
 		Assert.notNull(invoiceManagement, "InvoiceManagement must not be null!");
 
 		this.invoiceManagement = invoiceManagement;
@@ -22,8 +22,8 @@ public class InvoiceEventListener implements ApplicationListener<InvoiceEvent> {
 	@Override
 	public void onApplicationEvent(@NotNull InvoiceEvent event) {
 		LOG.info("Received InvoiceEvent: "
-			+ event.getType() + " | " + event.getMember()+ " | "
-			+ event.getAmount() + " | " +  event.getDescription());
+			+ event.getType() + " | " + event.getMember() + " | "
+			+ event.getAmount() + " | " + event.getDescription());
 
 		invoiceManagement.createInvoiceEntry(event);
 	}

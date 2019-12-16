@@ -69,9 +69,14 @@ public class InvoiceEntry {
 
 	@Override
 	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (!(o instanceof InvoiceEntry)) return false;
+		if (this == o) {
+			return true;
+		}
+		if (!(o instanceof InvoiceEntry)) {
+			return false;
+		}
 		InvoiceEntry that = (InvoiceEntry) o;
+
 		return getInvoiceEntryId() == that.getInvoiceEntryId();
 	}
 
