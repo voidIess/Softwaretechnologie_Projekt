@@ -302,9 +302,10 @@ public class InventoryController {
 
 		public Date invoke() {
 
+			String formStartDiscount = articleForm.getStartDiscount();
+			String formEndDiscount = articleForm.getEndDiscount();
+
 			try {
-				String formStartDiscount = articleForm.getStartDiscount();
-				String formEndDiscount = articleForm.getEndDiscount();
 				if (formStartDiscount.equals("")) {
 					formStartDiscount = "01.01.2000";
 				}
@@ -318,8 +319,7 @@ public class InventoryController {
 				return this;
 
 			} catch (DateTimeParseException e) {
-				String formStartDiscount = articleForm.getStartDiscount();
-				String formEndDiscount = articleForm.getEndDiscount();
+
 				if (formStartDiscount.equals("")) {
 					formStartDiscount = "2000-01-01";
 				}
