@@ -88,8 +88,9 @@ public class RosterManagement {
 					try {
 						RosterEntry rosterEntry = new RosterEntry(role, staff);
 						roster.addEntry(i, day, rosterEntry);
-						if (training != RosterEntry.NONE && role.equals(StaffRole.TRAINER))
+						if (training != RosterEntry.NONE && role.equals(StaffRole.TRAINER)) {
 							rosterEntry.setTraining(training);
+						}
 
 					} catch (Exception e) {
 						errors.reject("times", "Der Mitarbeiter arbeitet von " + time + " schon.");
@@ -107,7 +108,9 @@ public class RosterManagement {
 		Assert.notNull(roster, "Es gibt keinen Dienstplan für diese Woche!");
 		Assert.isTrue(shift >= 0 && shift < Roster.AMOUNT_ROWS && day >= 0 && day < 7, "Dieser Slot existiert nicht!");
 		for (RosterEntry rosterEntry : roster.getRows().get(shift).getSlots().get(day).getEntries()) {
-			if (rosterEntry.getRosterEntryId() == id) return rosterEntry;
+			if (rosterEntry.getRosterEntryId() == id){
+				return rosterEntry;
+			}
 		}
 		return null;
 	}
@@ -190,14 +193,18 @@ public class RosterManagement {
 	public int getTimeIndex(String time) {
 		List<String> times = getTimes();
 		for (int i = 0; i < getTimes().size(); i++) {
-			if (times.get(i).equals(time)) return i;
+			if (times.get(i).equals(time)){
+				return i;
+			}
 		}
 		return -1;
 	}
 
 	public boolean isFree(RosterEntryForm form) {
 		int shift = getTimeIndex(form.getTimes().get(0));
-		return !getRosterByWeek(form.getWeek()).getRows().get(shift).getSlots().get(form.getDay()).isTaken(staffManagement.findById(form.getStaff()).orElse(null));
+		return !getRosterByWeek(form.getWeek()).getRows().get(shift).getSlots()
+				.get(form.getDay()).isTaken(staffManagement.findById(form.getStaff())
+				.orElse(null));
 	}
 
 
