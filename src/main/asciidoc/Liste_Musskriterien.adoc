@@ -68,7 +68,7 @@ a| [[F0310]]
 Das System muss es authentifizierten Kunden möglich machen einzelne Details ihres Kontos zu bearbeiten.  Der Account muss deaktiviert werden können.
 
 |**<<F0410>>**
-|Erledigt(Bug)
+|Erledigt
 |Mitarbeiter bearbeiten und löschen
 a| [[F0410]]
 Das Systen muss es authentifizierten Mitarbeitern möglich machen einzelne Details ihres Kontos zu bearbeiten. Der Account muss deaktiviert werden können.
@@ -122,7 +122,7 @@ a| [[F0620]]
 Das System muss es authentifizierten Mitarbietern ermöglichen Artikel aus dem Inventar zu entfernen oder neue hinzuzufügen.
 
 |**<<F0630>>**
-|Offen
+|Erledigt
 |Artikel verkaufen
 a| [[F0630]]
 Das System muss den authentifizierten Mitarbieter Artikel aus dem Inventar verkaufen lassen. Nachdem die Artikel ausgewählt wurden muss eine registrierte Kundennummer verlangt werden und die Optionen "bar" oder mit "Guthaben" zahlen müssen angebbar sein. Das Inventar wird vom System aktualisiert. Der Kauf wird in die Statistiken (**<<F1000>>**) und die monatliche Rechnung des Kunden (**<<F0710>>**) übernommen.
