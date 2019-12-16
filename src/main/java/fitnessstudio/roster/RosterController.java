@@ -83,7 +83,9 @@ public class RosterController {
 
 	@PreAuthorize("hasRole('STAFF') or hasRole('BOSS')")
 	@GetMapping("/roster/detail/{week}/{shift}/{day}/{id}")
-	public String showDetail(@PathVariable int week, @PathVariable int shift, @PathVariable int day, @PathVariable long id, RosterEntryForm form, Model model) {
+	public String showDetail(@PathVariable int week, @PathVariable int shift,
+							 @PathVariable int day,
+							 @PathVariable long id, RosterEntryForm form, Model model) {
 		model.addAttribute("day", day);
 		model.addAttribute("shift", shift);
 		model.addAttribute("row", rosterManagement.getRosterByWeek(week).getRows().get(shift));
@@ -95,10 +97,13 @@ public class RosterController {
 	}
 
 	@PostMapping("/roster/editEntry/{id}")
-	public String editEntry(@Valid @ModelAttribute("form") RosterEntryForm form, Errors errors, @PathVariable long id, Model model) {
+	public String editEntry(@Valid @ModelAttribute("form") RosterEntryForm form, Errors errors,
+							@PathVariable long id, Model model) {
 		rosterManagement.editEntry(form, id, errors);
 		if (errors.hasErrors()) {
-			return showDetail(form.getWeek(), rosterManagement.getTimeIndex(form.getTimes().get(0)), form.getDay(), id, form, model);
+			return showDetail(form.getWeek(),
+				rosterManagement.getTimeIndex(form.getTimes().get(0)),
+				form.getDay(), id, form, model);
 		}
 		return defaultLink + form.getWeek();
 	}

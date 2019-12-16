@@ -28,7 +28,8 @@ public class RosterDataInitializer implements DataInitializer {
 	private final UserAccountManager userAccounts;
 
 
-	RosterDataInitializer(RosterRepository rosterRepository, StaffManagement staffs, RosterManagement rosterManagement, UserAccountManager userAccounts) {
+	RosterDataInitializer(RosterRepository rosterRepository, StaffManagement staffs,
+						  RosterManagement rosterManagement, UserAccountManager userAccounts) {
 		Assert.notNull(rosterManagement, "RosterManagement must not be 'null'");
 		Assert.notNull(rosterRepository, "RosterRepository must not be 'null'");
 		Assert.notNull(staffs, "StaffManagement must not be 'null'");
@@ -52,11 +53,15 @@ public class RosterDataInitializer implements DataInitializer {
 			usernameObi = "mar14512";
 		}
 
-		Staff staff = new Staff(userAccounts.create(usernameStaff, Password.UnencryptedPassword.of("123"),"markus@email.de", Role.of(staffrole)), "Markus", "Wieland", Money.of(100, "EUR"));
+		Staff staff = new Staff(userAccounts.create(usernameStaff, Password.UnencryptedPassword.of("123"),
+			"markus@email.de", Role.of(staffrole)), "Markus", "Wieland",
+			Money.of(100, "EUR"));
 		String logStaff = "Create Staff (username: "+usernameStaff + ", passwort: 123)";
 		LOG.info(logStaff);
 
-		Staff staff2 = new Staff(userAccounts.create(usernameObi, Password.UnencryptedPassword.of("123"), "obi@mehralsbaumarkt.de", Role.of(staffrole)), "Obi", "Babobi", Money.of(10000, "EUR"));
+		Staff staff2 = new Staff(userAccounts.create(usernameObi, Password.UnencryptedPassword.of("123"),
+			"obi@mehralsbaumarkt.de", Role.of(staffrole)), "Obi", "Babobi",
+			Money.of(10000, "EUR"));
 		String logObi = "Create Staff (username: "+usernameObi + ", passwort: 123)";
 		LOG.info(logObi);
 

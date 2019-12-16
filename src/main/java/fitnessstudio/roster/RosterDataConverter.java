@@ -21,8 +21,8 @@ public class RosterDataConverter {
 		List<String> weekDates = new ArrayList<>();
 		Calendar c = Calendar.getInstance();
 		SimpleDateFormat dateFormatWeekDates = new SimpleDateFormat("dd.MM.yyyy");
-
-		if (c.get(Calendar.WEEK_OF_YEAR) <= week) { // Wenn derzeitige Woche größer als die gefordert ist (z.b. 52 und 1) -> Neues Jahr!
+		// Wenn derzeitige Woche größer als die gefordert ist (z.b. 52 und 1) -> Neues Jahr!
+		if (c.get(Calendar.WEEK_OF_YEAR) <= week) {
 			c.set(Calendar.WEEK_OF_YEAR, week);
 		} else {
 			c.add(Calendar.YEAR,1);
@@ -46,9 +46,13 @@ public class RosterDataConverter {
 
 	public static StaffRole stringToRole (String role) {
 		Assert.notNull(role, "Die Rolle darf nicht 'null' sein!");
-		if (role.equals(TRAINER)) return StaffRole.TRAINER;
-		else if (role.equals(COUNTER)) return StaffRole.COUNTER;
-		else throw new IllegalArgumentException("Es gibt diese Rolle nicht!");
+		if (role.equals(TRAINER)){
+			return StaffRole.TRAINER;
+		} else if (role.equals(COUNTER)){
+			return StaffRole.COUNTER;
+		} else {
+			throw new IllegalArgumentException("Es gibt diese Rolle nicht!");
+		}
 	}
 
 	public static String roleToString (StaffRole role) {

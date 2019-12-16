@@ -72,6 +72,7 @@ public class SlotTest {
 			System.out.println(e.getMessage());
 		}
 		Slot slot = new Slot (1,1);
+		long slotId = slot.getSlotId();
 
 	}
 
@@ -89,6 +90,8 @@ public class SlotTest {
 		slot.getEntries().add(rosterEntry);
 		assertThat(slot.deleteEntry(-1)).isFalse();
 		assertThat(slot.getEntries().size()==1).isTrue();
+		rosterEntry.setTraining(123);
+		assertThat(slot.deleteEntry(rosterEntry.getRosterEntryId())).isFalse();
 	}
 
 	@Test

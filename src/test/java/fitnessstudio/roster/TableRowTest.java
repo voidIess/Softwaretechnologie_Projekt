@@ -17,7 +17,7 @@ public class TableRowTest {
 	void constructorTest () {
 		TableRow tableRow = new TableRow(LocalDateTime.now(),1);
 		assertThat(tableRow.getSlots().size() == 7).isTrue();
-
+		long tableRowId = tableRow.getRowId();
 		try {
 			tableRow = new TableRow(null, 1);
 			fail("Die Startzeit das nicht null sein.");

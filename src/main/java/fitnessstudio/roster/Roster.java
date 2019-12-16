@@ -60,7 +60,8 @@ public class Roster {
 		Assert.isTrue(shift >= 0 && shift < rows.size(), "Diese Schicht existiert nicht!");
 		Assert.isTrue(day >= 0 && day < 7, "Dieser Tag exisitiert nicht.");
 		Slot slot = rows.get(shift).getSlots().get(day);
-		Assert.isTrue(slot.deleteEntry(rosterEntryId), "Der Eintrag konnte nicht gelöscht werden. Gehört zu diesem Eintrag ein Training?");
+		Assert.isTrue(slot.deleteEntry(rosterEntryId),
+			"Der Eintrag konnte nicht gelöscht werden. Gehört zu diesem Eintrag ein Training?");
 
 	}
 
@@ -174,7 +175,9 @@ class Slot {
 
 	public boolean isTaken(Staff staff) {
 		for (RosterEntry rosterEntry : entries) {
-			if (rosterEntry.getStaff().getStaffId() == staff.getStaffId()) return true;
+			if (rosterEntry.getStaff().getStaffId() == staff.getStaffId()){
+				return true;
+			}
 		}
 		return false;
 	}
@@ -185,7 +188,9 @@ class Slot {
 				if (rosterEntry.getTraining() == RosterEntry.NONE) {
 					entries.remove(rosterEntry);
 					return true;
-				} else return false;
+				} else{
+					return false;
+				}
 			}
 		}
 		return false;
