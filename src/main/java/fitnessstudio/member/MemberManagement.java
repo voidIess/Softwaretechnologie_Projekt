@@ -97,18 +97,12 @@ public class MemberManagement {
 			result.rejectValue("bic", "register.bic.wrongSize");
 		}
 
-		if (result != null && result.hasErrors()) {
-			return null;
-		}
-
 		var bonusCode = form.getBonusCode();
 		if (!bonusCode.isEmpty()) {
 			Optional<Member> receiverOptional = members.findById(Long.parseLong(bonusCode));
 			if (receiverOptional.isEmpty()) {
 				result.rejectValue("bonusCode", "register.bonusCode.notFound");
-				return null;
-			}
-			else {
+			} else {
 				Member receiver = receiverOptional.get();
 				Money bonus = Money.of(new BigDecimal(studioService.getStudio().getAdvertisingBonus()),
 					"EUR");
@@ -122,15 +116,18 @@ public class MemberManagement {
 
 		}
 
-		var userAccount = userAccounts.create(form.getUserName(), password, email, MEMBER_ROLE);
-		var member = new Member(userAccount, firstName, lastName, iban, bic);
 
 		Optional<Contract> contractOptional = contractManagement.findById(contract);
 		if (contractOptional.isEmpty()) {
 			result.rejectValue("contract", "register.contract.notFound");
+		}
+
+		if (result != null && result.hasErrors()) {
 			return null;
 		}
 
+		var userAccount = userAccounts.create(form.getUserName(), password, email, MEMBER_ROLE);
+		var member = new Member(userAccount, firstName, lastName, iban, bic);
 		member.setContract(contractOptional.get());
 		return members.save(member);
 
