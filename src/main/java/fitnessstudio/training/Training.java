@@ -6,7 +6,6 @@ import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.time.DayOfWeek;
-import java.time.LocalTime;
 import java.time.format.TextStyle;
 import java.util.Locale;
 
@@ -44,7 +43,8 @@ public class Training {
 		state = TrainingState.REQUESTED;
 	}
 
-	public Training(TrainingType type, Staff trainer, Member member, int day, String startTime, int duration, String description, int week) {
+	public Training(TrainingType type, Staff trainer, Member member, int day, String startTime, int duration,
+					String description, int week) {
 		this();
 		this.type = type;
 		this.trainer = trainer;
@@ -115,8 +115,8 @@ public class Training {
 		}
 	}
 
-	public String getDayAsString(){
-		DayOfWeek dow = DayOfWeek.of(getDay()+1);
+	public String getDayAsString() {
+		DayOfWeek dow = DayOfWeek.of(getDay() + 1);
 		return dow.getDisplayName(TextStyle.FULL, Locale.GERMAN);
 	}
 }
