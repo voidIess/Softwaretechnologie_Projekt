@@ -81,7 +81,8 @@ public class BarController {
 			return ERROR;
 		}
 
-		if (!cart.stream().map(cartItem -> barManager.stockAvailable(cartItem.getProduct().getId(), cartItem.getQuantity())).reduce(true, (x, y) -> x && y)) {
+		if (!cart.stream().map(cartItem -> barManager.stockAvailable(cartItem.getProduct().getId(),
+				cartItem.getQuantity())).reduce(true, (x, y) -> x && y)) {
 			model.addAttribute(ERROR, "Not enough stock, to do this");
 			model.addAttribute(STATUS, 400);
 			return ERROR;
@@ -102,7 +103,7 @@ public class BarController {
 		cart.addItemsTo(order);
 		orderManager.payOrder(order);
 		orderManager.completeOrder(order);
-		cart.clear();
+
 
 		StringBuilder articles = new StringBuilder();
 		try {
@@ -129,6 +130,7 @@ public class BarController {
 
 		cart.forEach(cartItem -> barManager.removeStock(cartItem.getProduct().getId(), cartItem.getQuantity()));
 
+		cart.clear();
 		status.setComplete();
 
 
