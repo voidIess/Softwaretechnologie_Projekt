@@ -70,14 +70,7 @@ public class RosterManagement {
 			return;
 		}
 		StaffRole role = RosterDataConverter.stringToRole(form.getRole());
-		int day = 0;
-		try {
-			day = form.getDay();
-		} catch (Exception e) {
-			errors.reject("staff", "Fehler bei Eingabe des Tages!");
-			return;
-		}
-
+		int day = form.getDay();
 		if (form.getTimes().isEmpty()) {
 			errors.reject("time", "Bitte wähle mindestens eine Zeit aus!");
 			return;
