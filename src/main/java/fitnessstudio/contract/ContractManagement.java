@@ -37,7 +37,8 @@ public class ContractManagement {
 		Optional<Contract> optionalContract = findById(contractId);
 		if (optionalContract.isPresent()) {
 			Contract contract = optionalContract.get();
-			contract.update(form.getName(), form.getDescription(), Money.of(form.getPrice(), "EUR"), form.getDuration());
+			contract.update(form.getName(), form.getDescription(), Money.of(form.getPrice(),
+				"EUR"), form.getDuration());
 		}
 	}
 

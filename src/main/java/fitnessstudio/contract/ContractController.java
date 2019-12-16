@@ -1,7 +1,6 @@
 package fitnessstudio.contract;
 
 
-
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -51,19 +50,20 @@ public class ContractController {
 
 	@GetMapping("/admin/contract/delete/{id}")
 	@PreAuthorize("hasRole('BOSS')")
-	public String delete(@PathVariable long id, Model model){
+	public String delete(@PathVariable long id, Model model) {
 		contractManagement.deleteContract(id);
 		return REDIRECT_CONTRACTS;
 	}
 
 	@GetMapping("/admin/contract/detail/{id}")
 	@PreAuthorize("hasRole('BOSS')")
-	public String detail(@PathVariable long id, Model model){
+	public String detail(@PathVariable long id, Model model) {
 		Optional<Contract> contract = contractManagement.findById(id);
-		if (contract.isPresent()){
+		if (contract.isPresent()) {
 			Contract c = contract.get();
 			model.addAttribute("contract", c);
-			model.addAttribute("form", new ContractForm(c.getName(), c.getDescription(), c.getPrice().getNumber().doubleValue(), c.getDuration()));
+			model.addAttribute("form", new ContractForm(c.getName(), c.getDescription(),
+				c.getPrice().getNumber().doubleValue(), c.getDuration()));
 			return "contract/contractDetail";
 		}
 		return REDIRECT_CONTRACTS;
@@ -71,13 +71,13 @@ public class ContractController {
 
 	@PostMapping("/admin/contract/detail/{id}")
 	@PreAuthorize("hasRole('BOSS')")
-	public String editContract(@PathVariable Long id, @Valid ContractForm form){
+	public String editContract(@PathVariable Long id, @Valid ContractForm form) {
 		contractManagement.editContract(id, form);
 		return REDIRECT_CONTRACTS;
 	}
 
 	@GetMapping("/contract_information")
-	public String contractInformation(Model model){
+	public String contractInformation(Model model) {
 		model.addAttribute("contractList", contractManagement.getAllContracts());
 		return "contract/contract_information";
 	}

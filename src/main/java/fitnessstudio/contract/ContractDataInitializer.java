@@ -15,7 +15,7 @@ public class ContractDataInitializer implements DataInitializer {
 
 	private final ContractRepository contractRepository;
 
-	ContractDataInitializer(ContractRepository contractRepository){
+	ContractDataInitializer(ContractRepository contractRepository) {
 		Assert.notNull(contractRepository, "ContractRepository must not be null");
 
 		this.contractRepository = contractRepository;
@@ -23,9 +23,10 @@ public class ContractDataInitializer implements DataInitializer {
 
 	@Override
 	public void initialize() {
-		if (contractRepository.findAll().isEmpty()){
+		if (contractRepository.findAll().isEmpty()) {
 			LOG.info("Saving simple testing contract.");
-			contractRepository.save(new Contract("Test Contract", "Simple Gym Access", Money.of(20, "EUR"),600));
+			contractRepository.save(new Contract("Test Contract", "Simple Gym Access",
+				Money.of(20, "EUR"), 600));
 		}
 
 	}
