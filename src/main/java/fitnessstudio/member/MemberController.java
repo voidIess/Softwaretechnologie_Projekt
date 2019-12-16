@@ -27,7 +27,8 @@ public class MemberController {
 	private final InvoiceManagement invoiceManagement;
 
 
-	MemberController(MemberManagement memberManagement, ContractManagement contractManagement, InvoiceManagement invoiceManagement) {
+	MemberController(MemberManagement memberManagement, ContractManagement contractManagement,
+					 InvoiceManagement invoiceManagement) {
 		Assert.notNull(memberManagement, "MemberManagement must not be null");
 		Assert.notNull(contractManagement, "ContractManagement must not be null");
 		Assert.notNull(invoiceManagement, "InvoiceManagement must not be null");
@@ -91,7 +92,7 @@ public class MemberController {
 	public String edit(@LoggedIn Optional<UserAccount> userAccount, EditingForm form, Model model, Errors results) {
 		if (userAccount.isPresent()) {
 			Optional<Member> member = memberManagement.findByUserAccount(userAccount.get());
-			if (member.isPresent()){
+			if (member.isPresent()) {
 				form = memberManagement.preFillMember(member.get(), form);
 
 				model.addAttribute("form", form);
@@ -103,7 +104,8 @@ public class MemberController {
 	}
 
 	@PostMapping("/member/edit")
-	public String editNew(@LoggedIn Optional<UserAccount> userAccount, @Valid @ModelAttribute("form") EditingForm form, Model model, Errors result) {
+	public String editNew(@LoggedIn Optional<UserAccount> userAccount, @Valid @ModelAttribute("form")
+		EditingForm form, Model model, Errors result) {
 		return userAccount.map(user -> {
 
 			Optional<Member> member = memberManagement.findByUserAccount(user);
@@ -164,7 +166,7 @@ public class MemberController {
 
 	@PostMapping("/admin/member/payin")
 	@PreAuthorize("hasRole('STAFF')")
-	public String barPayIn(@RequestParam long id, @RequestParam double amount){
+	public String barPayIn(@RequestParam long id, @RequestParam double amount) {
 		Money money = Money.of(amount, "EUR");
 		memberManagement.memberPayIn(id, money);
 		return REDIRECT_MEMBERS;
@@ -177,7 +179,7 @@ public class MemberController {
 			Optional<Member> member = memberManagement.findByUserAccount(user);
 
 			if (member.isPresent()) {
-				if(member.get().wasMemberLastMonth()) {
+				if (member.get().wasMemberLastMonth()) {
 					model.addAttribute("type", "invoice");
 					model.addAllAttributes(memberManagement.createPdfInvoice(userAccount.get()));
 					return "pdfView";
@@ -196,7 +198,8 @@ public class MemberController {
 		return userAccount.map(user -> {
 			Optional<Member> member = memberManagement.findByUserAccount(user);
 			if (member.isPresent()) {
-				model.addAttribute("invoices", invoiceManagement.getAllInvoicesForMember(member.get().getMemberId()));
+				model.addAttribute("invoices",
+					invoiceManagement.getAllInvoicesForMember(member.get().getMemberId()));
 				return "member/memberInvoices";
 			}
 			return REDIRECT_LOGIN;
@@ -204,7 +207,7 @@ public class MemberController {
 	}
 
 	@GetMapping("/member/pause")
-	public String pause(@LoggedIn Optional<UserAccount> userAccount){
+	public String pause(@LoggedIn Optional<UserAccount> userAccount) {
 		return userAccount.map(user -> {
 			Optional<Member> member = memberManagement.findByUserAccount(user);
 			if (member.isPresent()) {
@@ -217,12 +220,12 @@ public class MemberController {
 
 	@PreAuthorize("hasRole('MEMBER')")
 	@GetMapping("/member/memberPause")
-	public String showPause(){
+	public String showPause() {
 		return "member/memberPause";
 	}
 
 	@GetMapping("/member/end")
-	public String end(@LoggedIn Optional<UserAccount> userAccount){
+	public String end(@LoggedIn Optional<UserAccount> userAccount) {
 		return userAccount.map(user -> {
 			Optional<Member> member = memberManagement.findByUserAccount(user);
 			member.ifPresent(value -> memberManagement.deleteMember(value.getMemberId()));

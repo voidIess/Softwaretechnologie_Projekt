@@ -17,7 +17,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.util.Streamable;
-import org.springframework.format.datetime.DateFormatter;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -26,10 +25,12 @@ import org.springframework.validation.Errors;
 import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
-import java.text.DateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -82,26 +83,21 @@ public class MemberManagement {
 
 		if (userAccounts.findByUsername(form.getUserName()).isPresent()) {
 			result.rejectValue("userName", "register.duplicate.userAccountName");
-			return null;
 		}
 
 		if (emailExists(email)) {
 			result.rejectValue("email", "register.duplicate.userAccountEmail");
-			return null;
 		}
 
 		if (iban.length() != 22) {
 			result.rejectValue("iban", "register.iban.wrongSize");
-			return null;
 		}
 
 		if (bic.length() < 8 || bic.length() > 11) {
 			result.rejectValue("bic", "register.bic.wrongSize");
-			return null;
 		}
 
-		if (contract == null) {
-			result.rejectValue("contract", "register.contract.missing");
+		if (result != null && result.hasErrors()) {
 			return null;
 		}
 
@@ -111,7 +107,8 @@ public class MemberManagement {
 			if (receiverOptional.isEmpty()) {
 				result.rejectValue("bonusCode", "register.bonusCode.notFound");
 				return null;
-			} else {
+			}
+			else {
 				Member receiver = receiverOptional.get();
 				Money bonus = Money.of(new BigDecimal(studioService.getStudio().getAdvertisingBonus()),
 					"EUR");
@@ -210,7 +207,7 @@ public class MemberManagement {
 	}
 
 	public List<Member> findAllAuthorized(String search) {
-		if (search == null) search = "";
+		if (search == null) { search = ""; }
 		String finalSearch = search;
 
 		return userAccounts.findEnabled()
@@ -232,8 +229,8 @@ public class MemberManagement {
 	/**
 	 * Method to deposit money from member's {@link CreditAccount}.
 	 *
-	 * @param memberId	ID of member
-	 * @param amount	amount of money to deposit
+	 * @param memberId ID of member
+	 * @param amount   amount of money to deposit
 	 */
 	public void memberPayIn(long memberId, Money amount) {
 		Optional<Member> optionalMember = members.findById(memberId);
@@ -251,9 +248,9 @@ public class MemberManagement {
 	/**
 	 * Method to withdraw money to member's {@link CreditAccount}.
 	 *
-	 * @param memberId		ID of member
-	 * @param amount		amount of money to withdraw
-	 * @param description	description of the order
+	 * @param memberId    ID of member
+	 * @param amount      amount of money to withdraw
+	 * @param description description of the order
 	 */
 	public void memberPayOut(long memberId, Money amount, String description) {
 		Optional<Member> optionalMember = members.findById(memberId);
@@ -279,14 +276,14 @@ public class MemberManagement {
 		map.put("member", member);
 
 		LocalDate endDate = LocalDate.now().minusDays(LocalDate.now().getDayOfMonth());
-		System.out.println("e; "+endDate);
+		System.out.println("e; " + endDate);
 		map.put("endDate", endDate);
 		map.put("endCredit", getMemberCreditOfDate(member, endDate));
 
 		LocalDate startDate = endDate.minusDays(endDate.getDayOfMonth()).plusDays(1);
 		map.put("startDate", startDate);
 		map.put("startCredit", getMemberCreditOfDate(member, startDate));
-		System.out.println("s; "+startDate);
+		System.out.println("s; " + startDate);
 
 		map.put("invoiceEntries", invoiceManagement.getAllInvoiceForMemberOfLastMonth(member.getMemberId()));
 
@@ -334,15 +331,16 @@ public class MemberManagement {
 		DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 		if (member.isPaused()) {
 			return "Mitgliedschaft pausiert bis " + dateFormatter.format(member.getLastPause().plusDays(31));
-		} else {
+		}
+		else {
 			return "Mitglied bis " + dateFormatter.format(member.getEndDate());
 		}
 	}
 
 	public void pauseMembership(Member member) {
 		if (member.pause(LocalDate.now())) {
-			applicationEventPublisher.publishEvent(new InvoiceEvent(this, member.getMemberId(), InvoiceType.DEPOSIT, member.getContract().getPrice(),
-				"Rückerstattung Pausierung Vertrag"));
+			applicationEventPublisher.publishEvent(new InvoiceEvent(this, member.getMemberId(),
+				InvoiceType.DEPOSIT, member.getContract().getPrice(), "Rückerstattung Pausierung Vertrag"));
 
 			members.save(member);
 		}
@@ -351,23 +349,23 @@ public class MemberManagement {
 	boolean emailExists(String email) {
 		for (UserAccount userAccount : userAccounts.findAll()) {
 			String userAccountEmail = userAccount.getEmail();
-			if (userAccountEmail != null && userAccountEmail.equalsIgnoreCase(email)) return true;
+			if (userAccountEmail != null && userAccountEmail.equalsIgnoreCase(email)) { return true; }
 		}
 		return false;
 	}
 
 	public Money getMemberCreditOfDate(Member member, LocalDate date) {
 		Money credit = Money.of(0, "EUR");
-		if(date.isBefore(member.getMembershipStartDate())) {
+		if (date.isBefore(member.getMembershipStartDate())) {
 			return credit;
 		}
 
 		List<InvoiceEntry> entries = invoiceManagement.getAllEntriesForMemberBefore(member.getMemberId(), date);
-		for(InvoiceEntry entry : entries) {
-			if(entry.getType().equals(InvoiceType.WITHDRAW)) {
+		for (InvoiceEntry entry : entries) {
+			if (entry.getType().equals(InvoiceType.WITHDRAW)) {
 				credit = credit.subtract(entry.getAmount());
 			}
-			if(entry.getType().equals(InvoiceType.DEPOSIT)) {
+			if (entry.getType().equals(InvoiceType.DEPOSIT)) {
 				credit = credit.add(entry.getAmount());
 			}
 		}
