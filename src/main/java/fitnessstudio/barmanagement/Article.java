@@ -3,7 +3,6 @@ package fitnessstudio.barmanagement;
 import org.javamoney.moneta.Money;
 import org.jetbrains.annotations.NotNull;
 import org.salespointframework.catalog.Product;
-
 import org.salespointframework.quantity.Quantity;
 
 import javax.money.MonetaryAmount;
@@ -11,7 +10,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToOne;
-import java.time.LocalDate;
 import java.util.Optional;
 
 @Entity
@@ -20,7 +18,7 @@ public class Article extends Product {
 	private String type;
 	private String description;
 	// private LocalDate expirationDate;
-	@OneToOne(targetEntity=Discount.class,fetch= FetchType.EAGER , cascade= CascadeType.ALL, orphanRemoval=true)
+	@OneToOne(targetEntity = Discount.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
 	private Discount discount;
 	private Quantity sufficientQuantity;
 	//private Optional<Discount> discount;
@@ -42,8 +40,10 @@ public class Article extends Product {
 		if (hasDiscount()) {
 			double deduction = super.getPrice().getNumber().longValue() * ((double) discount.getPercent() / 100);
 			return Money.of(super.getPrice().getNumber().longValue() - deduction, "EUR");
+		} else {
+			return super.getPrice();
 		}
-		else return super.getPrice();
+
 	}
 
 
@@ -80,13 +80,12 @@ public class Article extends Product {
 		return discount;
 	}
 
+	public void setDiscount(Discount discount) {
+		this.discount = discount;
+	}
 
 	public String getDiscountString() {
 		return hasDiscount() ? discount.toString() : "";
-	}
-
-	public void setDiscount(Discount discount) {
-		this.discount = discount;
 	}
 
 	private boolean hasDiscount() {

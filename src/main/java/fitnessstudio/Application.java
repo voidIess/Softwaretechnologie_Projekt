@@ -51,6 +51,9 @@ public class Application {
 			http.authorizeRequests().antMatchers("/**").permitAll().and()
 					.formLogin().loginPage(LOGIN_ROUTE).loginProcessingUrl(LOGIN_ROUTE).and()
 					.logout().logoutUrl("/logout").logoutSuccessUrl("/");
+			http.exceptionHandling().accessDeniedPage("/403");
+			http.csrf().disable();
+			http.headers().frameOptions().disable();
 		}
 	}
 }
