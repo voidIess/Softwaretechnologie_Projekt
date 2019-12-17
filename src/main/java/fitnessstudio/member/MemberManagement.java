@@ -328,8 +328,7 @@ public class MemberManagement {
 		DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 		if (member.isPaused()) {
 			return "Mitgliedschaft pausiert bis " + dateFormatter.format(member.getLastPause().plusDays(31));
-		}
-		else {
+		} else {
 			return "Mitglied bis " + dateFormatter.format(member.getEndDate());
 		}
 	}
