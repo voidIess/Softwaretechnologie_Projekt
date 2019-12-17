@@ -99,12 +99,6 @@ public class BarController {
 			cartItemList.add(cartItem);
 		}
 
-		Order order = new Order(account, Cash.CASH);
-		cart.addItemsTo(order);
-		orderManager.payOrder(order);
-		orderManager.completeOrder(order);
-
-
 		StringBuilder articles = new StringBuilder();
 		try {
 			for (CartItem cartItem : cartItemList) {
@@ -127,13 +121,13 @@ public class BarController {
 
 			memberManagement.memberPayOut(customerId, price, articles.toString());
 		}
-
+		Order order = new Order(account, Cash.CASH);
+		cart.addItemsTo(order);
+		orderManager.payOrder(order);
+		orderManager.completeOrder(order);
 		cart.forEach(cartItem -> barManager.removeStock(cartItem.getProduct().getId(), cartItem.getQuantity()));
-
 		cart.clear();
 		status.setComplete();
-
-
 		return "redirect:/";
 	}
 
@@ -145,7 +139,8 @@ public class BarController {
 
 	@PreAuthorize("hasRole('STAFF')")
 	@PostMapping("/addItemToCart")
-	public String addItem(@RequestParam("pid") Article article, @RequestParam("number") int number, @ModelAttribute Cart cart) {
+	public String addItem(@RequestParam("pid") Article article, @RequestParam("number")
+			int number, @ModelAttribute Cart cart) {
 		barManager.addArticleToCart(article, Quantity.of(number), cart);
 		return ("redirect:sell_catalog");
 	}
