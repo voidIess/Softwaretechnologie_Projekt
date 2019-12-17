@@ -51,36 +51,22 @@ public class TrainingManagement {
 		var trainer = form.getStaff();
 		var time = form.getTime();
 		var day = form.getDay();
-
-
-		if (form.getType().isEmpty()) {
-			result.rejectValue("type", "training.type.missing");
-			return null;
-		}
-
-		if (form.getTime().isEmpty()){
-			result.reject("time", "training.times.missing");
-			return null;
-		}
-
 		var type = TrainingType.valueOf(form.getType());
 
 		if (type.equals(TrainingType.TRIAL) && member.isFreeTrained()) {
 			result.rejectValue("type", "training.type.alreadyFreeTrained");
-			return null;
 		}
 
 		Optional<Staff> staffOptional = staffManagement.findById(Long.parseLong(trainer));
 		if (staffOptional.isEmpty()) {
 			result.rejectValue("staff", "training.staff.notFound");
-			return null;
 		}
 		Staff staff = staffOptional.get();
 
 		List<String> times = new ArrayList<>();
 		times.add(time);
 
-		RosterEntryForm rosterform = new RosterEntryForm(
+		RosterEntryForm rosterForm = new RosterEntryForm(
 			staff.getStaffId(),
 			RosterDataConverter.roleToString(StaffRole.TRAINER),
 			Integer.parseInt(day),
@@ -88,8 +74,11 @@ public class TrainingManagement {
 			form.getWeek()
 		);
 
-		if (!rosterManagement.isFree(rosterform)) {
+		if (!rosterManagement.isFree(rosterForm)) {
 			result.rejectValue("staff", "training.staff.notFree");
+		}
+
+		if (result != null && result.hasFieldErrors()) {
 			return null;
 		}
 
@@ -128,7 +117,7 @@ public class TrainingManagement {
 		return false;
 	}
 
-	public void end(Long trainingId){
+	public void end(Long trainingId) {
 
 		Optional<Training> trainingOptional = findById(trainingId);
 		trainingOptional.ifPresent(Training::end);
@@ -156,8 +145,8 @@ public class TrainingManagement {
 
 	public List<Training> getAllTrainingByMember(Member member) {
 		return trainings.findAll().filter(t ->
-			t.getMember().equals(member)
-		).toList();
+				t.getMember().equals(member)
+										 ).toList();
 	}
 
 	public List<Training> getAllAcceptedTrainings() {

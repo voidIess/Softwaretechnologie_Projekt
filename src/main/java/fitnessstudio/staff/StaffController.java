@@ -70,12 +70,10 @@ public class StaffController {
 	@PreAuthorize("hasRole('BOSS') ")
 	@PostMapping("/newStaff")
 	public String addStaff(@Valid @ModelAttribute("form") StaffForm form, Model model, Errors result) {
-		if (result == null) {
+		if (result == null || staffManagement.createStaff(form, result) != null) {
 			return REDIRECT_HOME;
 		} else if (result.hasErrors()) {
 			return addStaff(model, form, result);
-		} else if (staffManagement.createStaff(form, result) != null) {
-			return REDIRECT_HOME;
 		} else {
 			return addStaff(model, form, result);
 		}

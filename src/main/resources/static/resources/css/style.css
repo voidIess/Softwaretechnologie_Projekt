@@ -145,16 +145,16 @@ textarea {
 @keyframes text {
     0% {
         color: var(--bg-color);;
-        margin-bottom: -20px;
+        margin-bottom: -22px;
     }
     30% {
         letter-spacing: 25px;
-        margin-bottom: -20px;
+        margin-bottom: -22px;
 
     }
     85% {
         letter-spacing: 8px;
-        margin-bottom: -20px;
+        margin-bottom: -22px;
 
     }
 }

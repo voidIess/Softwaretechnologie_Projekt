@@ -51,6 +51,7 @@ public class InvoiceManagement {
 	}
 
 	public List<InvoiceEntry> getAllEntriesForMemberBefore(Long member, LocalDate date) {
-		return invoiceEntries.findAllByMember(member).filter(invoiceEntry -> !invoiceEntry.getCreated().isAfter(date)).toList();
+		return invoiceEntries.findAllByMember(member).filter(invoiceEntry ->
+			!invoiceEntry.getCreated().isAfter(date)).toList();
 	}
 }

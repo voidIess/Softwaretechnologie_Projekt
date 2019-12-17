@@ -190,13 +190,15 @@ public class Member {
 
 	@Override
 	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
-
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
 		Member member = (Member) o;
 
 		return memberId == member.memberId;
-
 	}
 
 	@Override

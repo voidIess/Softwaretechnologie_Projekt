@@ -5,7 +5,7 @@ public enum InvoiceType {
 
 	private final String displayValue;
 
-	InvoiceType(String displayValue){this.displayValue = displayValue;}
+	InvoiceType(String displayValue) {this.displayValue = displayValue;}
 
 	public String getDisplayValue() {
 		return displayValue;

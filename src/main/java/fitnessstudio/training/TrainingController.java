@@ -44,7 +44,8 @@ public class TrainingController {
 	}
 
 	@PostMapping("/member/training/create")
-	public String createNew(@LoggedIn Optional<UserAccount> userAccount, @Valid @ModelAttribute("form") TrainingForm form, Model model, Errors result) {
+	public String createNew(@LoggedIn Optional<UserAccount> userAccount, @Valid @ModelAttribute("form")
+		TrainingForm form, Model model, Errors result) {
 		return userAccount.map(user -> {
 			Optional<Member> member = trainingManagement.findByUserAccount(user);
 			if (member.isPresent()) {

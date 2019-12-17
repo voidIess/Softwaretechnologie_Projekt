@@ -27,7 +27,7 @@ public class StaffManagement {
 	public List<Staff> getAllStaffs() {
 		List<Staff> staffs = new ArrayList<>();
 		for (Staff staff : staffRepo.findAll()) {
-			if(staff.getUserAccount().isEnabled()) {
+			if (staff.getUserAccount().isEnabled()) {
 				staffs.add(staff);
 			}
 		}
@@ -51,12 +51,12 @@ public class StaffManagement {
 					Password.UnencryptedPassword.of(form.getPassword()), email);
 			staff = new Staff(userAccount, form.getFirstName(), form.getLastName(),
 					Money.of(new BigDecimal(form.getSalary()), "EUR"));
-			
+
 			staff.getUserAccount().add(Role.of("STAFF"));
 			staffRepo.save(staff);
 
 		} catch (Exception ignored) {
-
+			//no staff created
 		}
 		return staff;
 	}
@@ -89,7 +89,9 @@ public class StaffManagement {
 	boolean emailExists(String email) {
 		for (UserAccount userAccount : userAccountManager.findAll()) {
 			String userAccountEmail = userAccount.getEmail();
-			if (userAccountEmail.equalsIgnoreCase(email)) return true;
+			if (userAccountEmail.equalsIgnoreCase(email)) {
+				return true;
+			}
 		}
 		return false;
 	}

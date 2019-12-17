@@ -3,7 +3,7 @@ package fitnessstudio.member;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-class  RegistrationForm extends MemberForm {
+class RegistrationForm extends MemberForm {
 
 	@NotEmpty(message = "{MemberForm.loginName.NotEmpty}")
 	private final String userName;
@@ -16,7 +16,8 @@ class  RegistrationForm extends MemberForm {
 
 	private final String bonusCode;
 
-	public RegistrationForm(String firstName, String lastName, String email, String userName, String password, String iban, String bic, Long contract, String bonusCode) {
+	public RegistrationForm(String firstName, String lastName, String email, String userName, String password,
+							String iban, String bic, Long contract, String bonusCode) {
 		super(firstName, lastName, email, iban, bic);
 		this.userName = userName;
 		this.password = password;

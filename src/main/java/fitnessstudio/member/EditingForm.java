@@ -6,7 +6,14 @@ public class EditingForm extends MemberForm {
 	}
 
 	public boolean isEmpty() {
-		return getFirstName() == null || getLastName() == null ||
-			getEmail() == null || getIban() == null || getBic() == null;
+		return  isNameNull() || getEmail() == null || isBankingNull();
+	}
+
+	private boolean isNameNull(){
+		return getFirstName() == null || getLastName() == null;
+	}
+
+	private boolean isBankingNull() {
+		return getIban() == null || getBic() == null;
 	}
 }
