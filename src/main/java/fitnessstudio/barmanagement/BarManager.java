@@ -43,7 +43,7 @@ public class BarManager {
 		return inventory.findByExpirationDateAfterOrderByExpirationDateAsc(LocalDate.now());
 	}
 
-	public boolean addArticleToCart(Article article, Quantity quantity, Cart cart) {
+	public void addArticleToCart(Article article, Quantity quantity, Cart cart) {
 
 		Quantity inventoryQuantity = inventory.findByProduct(article).getTotalQuantity();
 
@@ -51,11 +51,11 @@ public class BarManager {
 				.equals(article)).findFirst().map(CartItem::getQuantity).orElse(Quantity.NONE);
 
 		// add the desired or amount to the cart, or nothing if not enough items in stock
-		Quantity addingQuantity = allreadyOrderedQuantity.add(quantity).isGreaterThan(inventoryQuantity) ? Quantity.NONE : quantity;
+		Quantity addingQuantity = allreadyOrderedQuantity.add(quantity).
+				isGreaterThan(inventoryQuantity) ? Quantity.NONE : quantity;
 
 		cart.addOrUpdateItem(article, addingQuantity);
 
-		return !addingQuantity.equals(Quantity.NONE);
 	}
 
 	public Iterable<Article> getAllArticles() {
@@ -65,7 +65,8 @@ public class BarManager {
 	// return articles, which are in stock and not expired
 	public Streamable<UniqueInventoryItem> getAvailableArticles() {
 		Streamable<UniqueInventoryItem> items = Streamable.of(catalog.findAll())
-				.map(x -> new UniqueInventoryItem(x, inventory.findByProductAndExpirationDateAfter(x, LocalDate.now()).getTotalQuantity()))
+				.map(x -> new UniqueInventoryItem(x, inventory.findByProductAndExpirationDateAfter(x, LocalDate.now())
+						.getTotalQuantity()))
 				.filter(x -> !x.getQuantity().isZeroOrNegative());
 
 		LOG.info(items.map(InventoryItem::toString).toList().toString());
@@ -74,7 +75,6 @@ public class BarManager {
 
 
 	public void checkoutCart(Member customer, PaymentMethod paymentMethod, Cart cart) {
-		//TODO implement this
 
 	}
 
@@ -83,7 +83,6 @@ public class BarManager {
 	}
 
 	public void removeArticleFromCatalog(ProductIdentifier id) {
-		// TODO check if this is necessary
 		inventory.deleteAll(inventory.findByProductIdentifier(id));
 		catalog.deleteById(id);
 	}
@@ -119,7 +118,7 @@ public class BarManager {
 		return catalog.findById(id).orElse(new Article());
 	}
 
-	void editArticle(ProductIdentifier id, String name, String type, String description,
+	public void editArticle(ProductIdentifier id, String name, String type, String description,
 					 MonetaryAmount price, Quantity sufficientQuantity, LocalDate startDate, int percent,
 					 LocalDate endDate) {
 		catalog.findAll().forEach(article -> {
@@ -141,7 +140,7 @@ public class BarManager {
 
 	}
 
-	boolean stockAvailable(ProductIdentifier id, Quantity quantity) {
+	public boolean stockAvailable(ProductIdentifier id, Quantity quantity) {
 		Article article = getById(id);
 		Quantity stockQuantity = getArticleQuantity(article);
 
@@ -149,12 +148,15 @@ public class BarManager {
 	}
 
 	// this will remove non-expired articles from the inventory
-	boolean removeStock(ProductIdentifier id, Quantity quantity) {
+	public void removeStock(ProductIdentifier id, Quantity quantity) {
 		// abort if there isnt enough Quantity anyway
-		if (!stockAvailable(id, quantity)) return false;
+		if (!stockAvailable(id, quantity)){
+			return;
+		}
 
 		Article article = getById(id);
-		InventoryItems<ExpiringInventoryItem> orderedItems = inventory.findByProductAndExpirationDateAfterOrderByExpirationDateAsc(article, LocalDate.now());
+		InventoryItems<ExpiringInventoryItem> orderedItems = inventory.
+				findByProductAndExpirationDateAfterOrderByExpirationDateAsc(article, LocalDate.now());
 		for (ExpiringInventoryItem item : orderedItems) {
 			Quantity itemQuantity = item.getQuantity();
 			if (itemQuantity.isLessThan(quantity)) {
@@ -170,7 +172,6 @@ public class BarManager {
 				break;
 			}
 		}
-		return true;
 	}
 
 }

@@ -4,8 +4,6 @@ package fitnessstudio.barmanagement;
 import org.javamoney.moneta.Money;
 import org.jetbrains.annotations.NotNull;
 import org.salespointframework.catalog.ProductIdentifier;
-import org.salespointframework.inventory.UniqueInventory;
-import org.salespointframework.inventory.UniqueInventoryItem;
 import org.salespointframework.quantity.Quantity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,8 +42,7 @@ public class InventoryController {
 	private
 	ApplicationEventPublisher applicationEventPublisher;
 
-	public InventoryController(UniqueInventory<UniqueInventoryItem> inventory, ArticleCatalog catalog,
-							   DiscountRepository discountRepository, BarManager barManager) {
+	public InventoryController(DiscountRepository discountRepository, BarManager barManager) {
 
 		this.barManager = barManager;
 		this.discountRepository = discountRepository;
@@ -71,8 +68,12 @@ public class InventoryController {
 	@PreAuthorize("hasRole('STAFF')")
 	@PostMapping("/article")
 	public String addArticle(@Valid CreateArticleForm form, Model model) throws DateTimeParseException {
-		if (getError((ArticleForm) form, model)) return ERROR;
-		if (getError((QuantityForm) form, model)) return ERROR;
+		if (getError((ArticleForm) form, model)) {
+			return ERROR;
+		}
+		if (getError((QuantityForm) form, model)) {
+			return ERROR;
+		}
 
 		Date date = new Date(form).invoke();
 		LocalDate startDate = date.getStartDate();
@@ -126,7 +127,9 @@ public class InventoryController {
 	@PreAuthorize("hasRole('STAFF')")
 	@PostMapping("/article/restock/{id}")
 	public String restockArticlePost(@PathVariable ProductIdentifier id, @Valid QuantityForm form, Model model) {
-		if (getError(form, model)) return ERROR;
+		if (getError(form, model)) {
+			return ERROR;
+		}
 		Article article = barManager.getById(id);
 
 		LocalDate expirationDate = passDate(form.getExpirationDate());
@@ -235,14 +238,11 @@ public class InventoryController {
 		if (percent.isBlank()) {
 			percent = "0";
 		}
-		if (Integer.parseInt(form.getSufficientQuantity()) < 0) {
-			model.addAttribute(ERROR, "Article should more than 0");
+		if (Integer.parseInt(form.getSufficientQuantity()) < 0 || Double.parseDouble(form.getPrice()) < 0) {
+			model.addAttribute(ERROR, "Article should more than 0 or Price should more than 0 EUR");
 			model.addAttribute(STATUS, "400");
 			return true;
-		} else if (Double.parseDouble(form.getPrice()) < 0) {
-			model.addAttribute(ERROR, "Price should more than 0 EUR");
-			model.addAttribute(STATUS, "400");
-			return true;
+
 		} else if (Integer.parseInt(percent) < 0 || Integer.parseInt(percent) > 100) {
 			model.addAttribute(ERROR, "Discount should in 0-100 percent");
 			model.addAttribute(STATUS, "400");
