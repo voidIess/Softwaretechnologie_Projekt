@@ -24,6 +24,17 @@
                 </button>
             </form>
         </div>
+        <div>
+            <h3>
+                Check-In
+            </h3>
+            <form class="ui form" th:action="@{/member/checkin}" method="post">
+                <label for="memberId">Member ID</label>
+                <input id="memberId" type="number" th:name="memberId">
+                <p></p>
+                <input class="ui blue button" type="submit">
+            </form>
+        </div>
     </div>
 </div>
 </html>
