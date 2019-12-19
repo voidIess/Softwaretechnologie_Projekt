@@ -123,12 +123,16 @@ public class Member {
 	}
 
 	boolean checkIn() {
+		if (isPaused) return false;
+
 		isAttendant = true;
 		checkInTime = LocalDateTime.now();
-		return true;
+		return isAttendant;
 	}
 
 	long checkOut() {
+		if (!isAttendant) return 0L;
+
 		isAttendant = false;
 		long duration = Duration.between(checkInTime, LocalDateTime.now()).toMinutes();
 		exerciseTime += duration;
