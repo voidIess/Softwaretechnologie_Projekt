@@ -84,7 +84,7 @@ public class InventoryController {
 				Money.of(new BigDecimal(form.getPrice()), "EUR"),
 				form.getType(),
 				form.getDescription(),
-				Quantity.of(10));
+				Quantity.of(Double.parseDouble(form.getSufficientQuantity())));
 
 		String percent = form.getPercentDiscount();
 		if (percent.isBlank()) {
@@ -139,7 +139,7 @@ public class InventoryController {
 		return REDIRECT_CATALOG;
 	}
 
-//----------------------------------------edit article-------------------------------------------------------------------
+//----------------------------------------edit article-----------------------------------------------------------------
 
 	@PreAuthorize("hasRole('STAFF')")
 	@GetMapping("/article/detail/{id}")
@@ -156,7 +156,9 @@ public class InventoryController {
 	@PreAuthorize("hasRole('STAFF')")
 	@PostMapping("/article/detail/{id}")
 	public String editArticle(@PathVariable ProductIdentifier id, @Valid ArticleForm form, Model model) {
-		if (getError(form, model)) return ERROR;
+		if (getError(form, model)) {
+			return ERROR;
+		}
 
 		String percent = form.getPercentDiscount();
 		if (percent.equals("")) {

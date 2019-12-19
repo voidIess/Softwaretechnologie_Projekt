@@ -1,13 +1,11 @@
 package fitnessstudio.barmanagement;
 
-import fitnessstudio.member.Member;
 import org.salespointframework.catalog.ProductIdentifier;
 import org.salespointframework.inventory.InventoryItem;
 import org.salespointframework.inventory.InventoryItems;
 import org.salespointframework.inventory.UniqueInventoryItem;
 import org.salespointframework.order.Cart;
 import org.salespointframework.order.CartItem;
-import org.salespointframework.payment.PaymentMethod;
 import org.salespointframework.quantity.Quantity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -73,11 +71,6 @@ public class BarManager {
 		return items;
 	}
 
-
-	public void checkoutCart(Member customer, PaymentMethod paymentMethod, Cart cart) {
-
-	}
-
 	public void addNewArticleToCatalog(Article article) {
 		catalog.save(article);
 	}
@@ -119,8 +112,8 @@ public class BarManager {
 	}
 
 	public void editArticle(ProductIdentifier id, String name, String type, String description,
-					 MonetaryAmount price, Quantity sufficientQuantity, LocalDate startDate, int percent,
-					 LocalDate endDate) {
+							MonetaryAmount price, Quantity sufficientQuantity, LocalDate startDate, int percent,
+							LocalDate endDate) {
 		catalog.findAll().forEach(article -> {
 			if (Objects.equals(article.getId(), id)) {
 
@@ -150,7 +143,7 @@ public class BarManager {
 	// this will remove non-expired articles from the inventory
 	public void removeStock(ProductIdentifier id, Quantity quantity) {
 		// abort if there isnt enough Quantity anyway
-		if (!stockAvailable(id, quantity)){
+		if (!stockAvailable(id, quantity)) {
 			return;
 		}
 
