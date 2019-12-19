@@ -86,10 +86,4 @@ public class StudioController {
 		studioService.saveStudio(studio);
 		return "redirect:/";
 	}
-
-	@PreAuthorize("hasRole('STAFF')")
-	@GetMapping("/checkin")
-	public String checkin() {
-		return "checkin";
-	}
 }
