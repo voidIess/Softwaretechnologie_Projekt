@@ -27,10 +27,7 @@ import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -214,6 +211,9 @@ public class MemberManagement {
 			.collect(Collectors.toList());
 	}
 
+	public List<Member> findAllAttendant() {
+		return findAll().filter(Member::isAttendant).toList();
+	}
 
 	public Optional<Member> findById(long id) {
 		return members.findById(id);
