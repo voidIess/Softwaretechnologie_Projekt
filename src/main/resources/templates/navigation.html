@@ -41,18 +41,22 @@
                 <a class="item" href="statistic/statistic.html" th:href="@{/admin/attendanceStatistic}"
                    sec:authorize="hasRole('BOSS')"
                    th:text="#{nav.admin.statistics}">Statistiken</a>
+
+                <a class="item" href="member/members.html" th:href="@{/admin/members}"
+                   sec:authorize="hasRole('BOSS') or hasRole('STAFF')"
+                   th:text="#{nav.admin.members}">Mitglieder</a>
             </div>
         </div>
 
-        <a class="item" th:href="@{/staffs}"
-           sec:authorize="hasRole('BOSS')"
+        <a class="item" th:href="@{/staffs}" sec:authorize="hasRole('BOSS')"
            th:text="#{staff.title}">Mitarbeiterliste</a>
 
-        <a class="item" href="member/members.html" th:href="@{/admin/members}"
-           sec:authorize="hasRole('BOSS') or hasRole('STAFF')"
-           th:text="#{nav.admin.members}">Mitglieder</a>
+        <a class="item" th:href="@{/checkin}" sec:authorize="hasRole('STAFF')"
+           th:text="#{checkin.title}">
+        </a>
 
-        <a class="item" href="roster/rosterView.html" th:href="@{/roster}" sec:authorize="hasRole('BOSS') or hasRole('STAFF')"
+        <a class="item" href="roster/rosterView.html" th:href="@{/roster}"
+           sec:authorize="hasRole('BOSS') or hasRole('STAFF')"
            th:text="#{roster.title}">Dienstplan</a>
 
         <div class="ui simple dropdown item" sec:authorize="hasRole('STAFF')">
@@ -73,7 +77,7 @@
 
         <div class="right menu">
             <a class="green item" sec:authorize="hasRole('STAFF')" th:href="@{/cart_items}">
-                <div class="ui green button"> <i class="cart icon"></i>
+                <div class="ui green button"><i class="cart icon"></i>
                 </div>
             </a>
 
@@ -82,7 +86,6 @@
                 <button type="submit" class="ui button" th:text="#{nav.logout}">Logout</button>
             </form>
         </div>
-
 
 
     </div>

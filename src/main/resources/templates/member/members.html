@@ -30,35 +30,20 @@
                 <th>Vertrag</th>
                 <th>Guthaben</th>
                 <th>Status</th>
-                <th>Check in/out</th>
             </tr>
             </thead>
             <tbody th:remove="all-but-first">
             <tr th:each=" customer : ${memberList}">
-                <td th:text="${customer.getMembershipStartDate()}"></td>
                 <td th:text="${customer.memberId}">MemberId</td>
+                <td th:text="${customer.getMembershipStartDate()}"></td>
                 <td th:text="${customer.firstName}">Vorname</td>
                 <td th:text="${customer.lastName}">Nachname</td>
                 <td th:text="${customer.getUserAccount().email}">Email</td>
                 <td th:text="${customer.contract.name}">Vertrag</td>
                 <td th:text="${customer.getCredit().toString()}">0,00</td>
-                <td th:if="${customer.isAttendant() and !customer.isPaused()}" th:text="#{members.isAttendant}">anwesend
-                </td>
-                <td th:if="${!customer.isAttendant() and !customer.isPaused()}" th:text="#{members.isNotAttendant}">
-                    nicht
-                    anwesend
-                </td>
-                <td th:if="${customer.isPaused()}" th:text="#{members.isPaused}">pausiert</td>
-                <td th:if="${customer.isAttendant() and !customer.isPaused()}">
-                    <a class="ui red button" th:href="@{/member/checkout/{id}/(id=${customer.getMemberId()})}">check
-                        out</a>
-                </td>
-                <td th:if="${!customer.isAttendant() and !customer.isPaused()}">
-                    <a class="ui green button" th:href="@{/member/checkin/{id}/(id=${customer.getMemberId()})}">check
-                        in</a>
-                </td>
-                <td th:if="${customer.isPaused()}">
-                    <span>&#10060;</span>
+                <td>
+                    <span th:if="${customer.isPaused()}">&#10060;</span>
+                    <span th:unless="${customer.isPaused()}">&#9989;</span>
                 </td>
             </tr>
             </tbody>

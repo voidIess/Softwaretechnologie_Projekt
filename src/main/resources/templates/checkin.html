@@ -25,15 +25,40 @@
             </form>
         </div>
         <div>
-            <h3>
-                Check-In
-            </h3>
-            <form class="ui form" th:action="@{/member/checkin}" method="post">
-                <label for="memberId">Member ID</label>
-                <input id="memberId" type="number" th:name="memberId">
-                <p></p>
-                <input class="ui blue button" type="submit">
-            </form>
+            <div id="checkIn">
+                <h3>
+                    Check-In
+                </h3>
+                <form class="ui form horizontally padded" th:action="@{/member/checkin}" method="post">
+                    <label for="memberId">Member ID</label>
+                    <input id="memberId" type="text" name="id">
+                    <button class="ui blue button" type="submit" style="margin-top: 5px">
+                        Check in
+                    </button>
+                </form>
+            </div>
+            <div id="attendants table" style="margin-top: 20px">
+                <table class="ui celled table">
+                    <thead>
+                    <tr>
+                        <th>Mitglieder Nummer</th>
+                        <th>Aktiv seit</th>
+                        <th>Check out</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="attendant : ${attendants}">
+                            <td th:text="${attendant.getMemberId()}"></td>
+                            <td th:text="${attendant.getCheckInTime()}"></td>
+                            <td>
+                                <a class="ui red button"
+                                   th:href="@{/member/checkout/{id}/(id=${attendant.getMemberId()})}">check out
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
