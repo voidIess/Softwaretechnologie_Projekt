@@ -21,6 +21,7 @@ public class MemberController {
 	private static final String REDIRECT_LOGIN = "redirect:/login";
 	private static final String REDIRECT_MEMBERS = "redirect:/admin/members";
 	private static final String REDIRECT_HOME = "redirect:/member/home";
+	private static final String REDIRECT_CHECKIN = "redirect:/checkin";
 
 	private final MemberManagement memberManagement;
 	private final ContractManagement contractManagement;
@@ -150,18 +151,25 @@ public class MemberController {
 		return "redirect:/admin/authorizeMember";
 	}
 
-	@GetMapping("/member/checkin/{id}")
 	@PreAuthorize("hasRole('STAFF')")
-	public String checkIn(@PathVariable long id, Model model) {
+	@GetMapping("/checkin")
+	public String showCheckIn(Model model) {
+		model.addAttribute("attendants", memberManagement.findAllAttendant());
+		return "checkin";
+	}
+
+	@PreAuthorize("hasRole('STAFF')")
+	@PostMapping("/member/checkin")
+	public String checkIn(@RequestParam long id, Model model) {
 		memberManagement.checkMemberIn(id);
-		return REDIRECT_MEMBERS;
+		return REDIRECT_CHECKIN;
 	}
 
 	@GetMapping("/member/checkout/{id}")
 	@PreAuthorize("hasRole('STAFF')")
 	public String checkOut(@PathVariable long id, Model model) {
 		memberManagement.checkMemberOut(id);
-		return REDIRECT_MEMBERS;
+		return REDIRECT_CHECKIN;
 	}
 
 	@PostMapping("/admin/member/payin")
@@ -169,7 +177,7 @@ public class MemberController {
 	public String barPayIn(@RequestParam long id, @RequestParam double amount) {
 		Money money = Money.of(amount, "EUR");
 		memberManagement.memberPayIn(id, money);
-		return REDIRECT_MEMBERS;
+		return REDIRECT_CHECKIN;
 	}
 
 	@PostMapping("/printPdfInvoice")
@@ -223,6 +231,7 @@ public class MemberController {
 	public String showPause() {
 		return "member/memberPause";
 	}
+
 
 	@GetMapping("/member/end")
 	public String end(@LoggedIn Optional<UserAccount> userAccount) {
