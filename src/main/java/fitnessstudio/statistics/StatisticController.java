@@ -6,6 +6,8 @@ import org.springframework.ui.Model;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.time.LocalDate;
+
 @Controller
 public class StatisticController {
 
@@ -24,6 +26,7 @@ public class StatisticController {
 		model.addAttribute("averageTimes", statisticManagement.getAverageTimesOfThisWeek());
 		model.addAttribute("memberAmounts", statisticManagement.getMemberAmountsOfThisWeek());
 		model.addAttribute("sellingEarnings", statisticManagement.getSellingEarningsOfThisWeek());
+		model.addAttribute("today", LocalDate.now().getDayOfWeek());
 		return "statistic/statistic";
 	}
 

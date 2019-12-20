@@ -20,4 +20,4 @@ Welche Aufgabe/Problemstellung löst die Anwendung.
 * Interaktion mit der Anwendung (Usability)
 
 == Verbesserungsvorschläge
-* Was kann noch weiter verbessert werden?
+* für das Änderen der Fitnessstudio Details wäre es nett, wenn die Felder mit den alten Werten vorgefüllt werden
