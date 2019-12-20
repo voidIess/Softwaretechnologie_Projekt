@@ -32,7 +32,8 @@ public class StudioInitializer implements DataInitializer {
 			String openingTimes = Arrays.toString(list.toArray()).replace("[", "").
 					replace("]", "").
 					replace(",", "\n");
-			Studio studio = new Studio(openingTimes, "20","Traumstraße 1, Dresden");
+			Studio studio = new Studio(openingTimes, "20", "Traumstraße 1, Dresden",
+					"Fitness Second");
 			studioRepository.save(studio);
 		}
 	}

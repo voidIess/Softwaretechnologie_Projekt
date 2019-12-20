@@ -11,5 +11,7 @@ public interface StudioForm {
 
 	@NotEmpty String getAddress();
 
+	@NotEmpty String getName();
+
 
 }

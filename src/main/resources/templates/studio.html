@@ -35,6 +35,14 @@
         </fieldset>
 
         <fieldset>
+            <text>Name</text>
+            <label for="name"></label><input type="text"
+                                                th:field="*{name}"
+                                                id="name"
+                                                required/>
+        </fieldset>
+
+        <fieldset>
             <text>Werbebonus</text>
             <label for="advertisingBonus"></label><input type="number" step="0.01"
                                                          th:field="*{advertisingBonus}"
