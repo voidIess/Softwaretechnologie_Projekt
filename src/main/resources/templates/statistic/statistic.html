@@ -4,6 +4,12 @@
       th:replace="site_template :: template(#{statistics.title}, ~{::statistics})">
 </html>
 
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Counter-Up/1.0.0/jquery.counterup.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.js"></script>
+</head>
+
 <html lang="de" xmlns:th="http://www.thymeleaf.org">
 <div th:fragment="statistics">
 
@@ -124,19 +130,19 @@
     <div class="ui items">
         <h2>Mitglieder Statistiken</h2>
         <p>Heutige Besucheranzahl:
-            <span th:text="${memberAmounts[0]}">3</span>
+            <span class = "num" th:text="${memberAmounts[0]}">3</span>
             <span th:if="${memberAmounts[0]==1}" th:text="Mitglied">3</span>
             <span th:if="${memberAmounts[0]!=1}" th:text="Mitglieder">3</span>
         </p>
         <p>Heutiger durchschnittlicher Aufenthalt:
-            <span th:text="${averageTimes[0]}">2</span>
+            <span class ="num" th:text="${averageTimes[0]}">2</span>
             <span th:if="${averageTimes[0]==1}" th:text="Minute">2</span>
             <span th:if="${averageTimes[0]!=1}" th:text="Minuten">2</span>
         </p>
         <div id="chartContainer1" style="height: 370px; width: 100%; margin-top: 15pt; margin-bottom:50pt"></div>
         <h2>Umsatz Statistiken</h2>
         <p>Heutige Verkaufseinnahmen:
-            <span th:text="${sellingEarnings[0]}">3</span>€
+            <span class = "num" th:text="${sellingEarnings[0]}">3</span><span>€</span>
         </p>
         <div id="chartContainer2" style="height: 370px; width: 100%; margin-top: 15pt; margin-bottom:50pt"></div>
     </div>
@@ -144,6 +150,9 @@
 
 
     <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    <script type="text/javascript">
+        $(".num").counterUp({delay:10,time:1000});
+    </script>
 
 
 </div>

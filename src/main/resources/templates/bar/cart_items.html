@@ -14,7 +14,7 @@
 <div th:fragment="cart_items">
     <div class="ui container">
         <div class="ui header">
-            <span th:text="#{cart_items.title}">Warenkorb</span>
+            <label data-th-bgcolor="white" th:text="#{cart_items.title}">Warenkorb</label>
             <div class="ui right floated menu">
                 <div class="ui header" th:text="#{cart_items.sum}+' '+${cart.getPrice()}">Summe: EUR 112.12</div>
                 <a class="ui button" th:href="@{/sell_catalog}">
@@ -23,7 +23,7 @@
                 </a>
                 <a class="ui green button" th:href="@{/checkout}">
                     <i class="check icon"></i>
-                    <span th:text="#{cart_items.checkout}">Bezahlen</span>
+                    <label th:text="#{cart_items.checkout}">Bezahlen</label>
                 </a>
             </div>
         </div>

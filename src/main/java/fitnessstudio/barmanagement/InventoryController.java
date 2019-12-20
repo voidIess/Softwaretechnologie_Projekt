@@ -268,7 +268,7 @@ public class InventoryController {
 
 		model.addAttribute("stock", barManager.getAvailableArticles());
 
-		return "/bar/stock";
+		return "bar/stock";
 	}
 
 	private LocalDate passDate(String input) {
