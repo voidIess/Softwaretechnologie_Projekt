@@ -25,7 +25,7 @@ Welche Aufgabe/Problemstellung löst die Anwendung.
 .Dienstplan
 * Startzeit nach Endzeit -> Whitelabel Error Page (System erkennt Problem)
 * Urlaubsantrag: Wenn ein Mitarbeiter arbeitet kann er keinen Antrag stellen. (logisch) Jedoch bekommt man keine Fehlermeldung weshalb es eine Weile gedauert hat herauszufinden woran es lag
-* Wenn man Datum bei der Schichterstellung in der Vergangenheit stellt, wird der Eintrag in der Zukunft erstellt. Der Eintrag hat bei den Details das richtige Datum gespeichert, jedoch wird er falsch angezeigt. Beispiel: Datum 21.12.2019:
+* Wenn man Datum bei der Schichterstellung in der Vergangenheit stellt, wird der Eintrag in der Zukunft erstellt. Der Eintrag hat bei den Details das richtige Datum gespeichert, jedoch wird er falsch angezeigt. Wenn der Tag bereits 2 Tage vorbei ist, wird der Eintrag am in der zweiten Spalte von hinten eingetragen. Beispiel: Datum 21.12.2019:
 
 image:crosstesting/dienstplan_schicht_vergangenheit.png[]
 
