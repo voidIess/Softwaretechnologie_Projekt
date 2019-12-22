@@ -98,3 +98,4 @@ white label error page mit exception
 
 == Verbesserungsvorschläge
 * Was kann noch weiter verbessert werden?
+Die Mitarbeiter sollen noch Rabatte verwalten können
