@@ -27,6 +27,7 @@ Welche Aufgabe/Problemstellung löst die Anwendung.
 == Fehlende Features
 .Training
 * Probetrainings können nicht abgelehnt werden
+* Probetrainings können nur vom Boss angenommen werden? (Kunde: harald@email.com, Mitarbeiter: hans@email.com)
 * Da Probetraining einen Trainer vorsieht, wieso ein normales Training nicht?
 
 .Kunden
@@ -56,11 +57,6 @@ image:crosstesting/dienstplan_probetraining.png[]
 |
 |schedule|Start 13:45, Ende 13:46| Dienstplaneinträge (zur gleichen Zeit) werden überdeckt. Wenn Zeitraum zu klein (z.b. 12:00-12:01) stimmt die Größe im Dienstplan nicht. (Da man es sonst natürlich überhaupt nicht sehen könnte)|
 |schedule/shift/15| Start 20:00, Ende 17:00| Startzeit nach Endzeit | White Label Error Page mit "Start must be before or equal to end"
-
-
-
-
-
 
 |===
 
