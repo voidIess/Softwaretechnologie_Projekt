@@ -104,7 +104,7 @@ image:crosstesting/boss_shop.png[]|
 
 |desk |Kundennummer = 12 |Ist ein Mitglied deaktiviert, kann es trotzdem eingecheckt werden. Kann aber auch gewünscht sein.|
 
-|shop/cart|Kundennummer = 2| Wenn die externe zufällige Kundennummer wird eingegeben, bekommt man White label error page.|white label error 500 page |
+|shop/cart|Kundennummer = 2| Wenn die externe zufällige Kundennummer eingegeben wird, bekommt man White label error page.|white label error 500 page |
 
 schedule|Datum = 24.12.2019| Man muss nur immer Datum als Input mit Format yyyy-MM-dddd eingeben. D.h wenn man in Chrome(oder andere Browser mit Date-Integration-Format in Inputfeld), bekommt man White label error page.image:crosstesting/DateFormat.png[]
 |white label error 500 page oder Text '' could not be parsed at index 0|
