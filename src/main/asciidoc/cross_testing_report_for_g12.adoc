@@ -104,6 +104,8 @@ image:crosstesting/boss_shop.png[]|
 
 |shop/cart|Kundennummer = 2| Wenn die externe zufällige Kundennummer wird eingegeben, bekommt man White label error page.|white label error 500 page |
 
+schedule|Datum = 24.12.2019| Man muss nur immer Datum als Input mit Format yyyy-MM-dddd eingeben. D.h wenn man in Chrome(oder andere Browser mit Date-Integration-Format in Inputfeld), bekommt man White label error page.|white label error 500 page oder Text '' could not be parsed at index 0|
+
 |===
 
 == Sonstiges
