@@ -70,7 +70,7 @@ image:crosstesting/dienstplan_probetraining.png[]
 |schedule| Urlaubs (akzeptiert von 26.12.2019-30.12.2019, 22.12.2019)| Wird am 28.12.2019 angezeigt?
 
 image:crosstesting/dienstplan_urlaub.png[]|
-| registrieren ||Anwerbungsprämie wird in das Guthaben nicht hinzugefügt, wenn man mit Kundennummer vom Anwerber erfolgreich registriert hat|-
+| registrieren |Kundennummer = 12|Anwerbungsprämie wird in das Guthaben nicht hinzugefügt, wenn man mit Kundennummer vom Anwerber erfolgreich registriert hat|-
 
 
 |===
