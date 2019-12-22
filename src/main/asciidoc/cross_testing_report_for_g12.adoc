@@ -22,10 +22,7 @@ Welche Aufgabe/Problemstellung löst die Anwendung.
 * Mitglieder haben eine Übersicht über ihre Trainings
 * Trainings können  bearbeitet und gelöscht werden
 
-.Dienstplan
-* Zeigt die Aufgabenverteilung für die nächsten 7 Tage.
-* Urlaube und Schichten werden dargestellt
-* Schichten können bearbeitet werden
+
 
 == Fehlende Features
 .Training
@@ -39,11 +36,21 @@ Welche Aufgabe/Problemstellung löst die Anwendung.
 .Verträge
 * Vertragslaufzeit fehlt bzw. nicht ersichtlich
 
+.Theken
+* Artikel können nicht neu hinzugefügt, bearbeitet und gelöscht werden
+* Rabatt hat keinen bestimmten Zeitraum
+
+.Guthaben
+* Boss/Mitarbeiter kann das Guthaben des Mitglieds nicht aufladen?
+
+
+
 == Fehler-Report
 // See http://asciidoctor.org/docs/user-manual/#tables
 [options="header"]
 |===
 |Pfad |Parameter |Beschreibung |Rückgabe
+
 | Konto | franz@email.com1 | Beim Ändern der Kundendaten wird man auf die Hauptseite geleitet und das Konto ist nicht
 mehr einsehbar. Jedoch wird die Email erfolgreich geändert. | (Konsole ohne Errors)
 |profiles| boss@email.com, hans@email.com| Mitarbeiter und Boss haben eine "Kundennummer". Nur Schönheitsfehler :D|
@@ -60,9 +67,11 @@ image:crosstesting/dienstplan_probetraining.png[]
 |
 |schedule|Start 13:45, Ende 13:46| Dienstplaneinträge (zur gleichen Zeit) werden überdeckt. Wenn Zeitraum zu klein (z.b. 12:00-12:01) stimmt die Größe im Dienstplan nicht. (Da man es sonst natürlich überhaupt nicht sehen könnte)|
 |schedule/shift/15| Start 20:00, Ende 17:00| Startzeit nach Endzeit | White Label Error Page mit "Start must be before or equal to end"
-|schedule| Urlaubsantrag (akzeptiert von 26.12.2019-30.12.2019, 22.12.2019)| Wird am 28.12.2019 angezeigt?
+|schedule| Urlaubs (akzeptiert von 26.12.2019-30.12.2019, 22.12.2019)| Wird am 28.12.2019 angezeigt?
 
-image:crosstesting/dienstplan_urlaub.png[]||
+image:crosstesting/dienstplan_urlaub.png[]|
+| registrieren ||Anwerbungsprämie wird in das Guthaben nicht hinzugefügt, wenn man mit Kundennummer vom Anwerber erfolgreich registriert hat|-
+
 
 |===
 
