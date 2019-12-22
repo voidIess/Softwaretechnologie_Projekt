@@ -6,6 +6,11 @@ __Anwendung von Gruppe:__ 12
 == Getestetes System
 Welche Aufgabe/Problemstellung löst die Anwendung.
 
+.Dienstplan
+* Zeigt die Aufgabenverteilung für die nächsten 7 Tage.
+* Urlaube und Schichten werden dargestellt
+* Schichten können bearbeitet werden
+
 .Verträge
 * können erstellt und bearbeitet werden
 * müssen beim Registrieren ausgewählt werden
