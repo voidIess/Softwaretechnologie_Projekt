@@ -33,6 +33,8 @@ image:crosstesting/dienstplan_schicht_vergangenheit.png[]
 
 image:crosstesting/dienstplan_probetraining.png[]
 
+* Dienstplaneinträge (zur gleichen Zeit) werden überdeckt. Wenn Zeitraum zu klein (z.b. 12:00-12:01) stimmt die Größe im Dienstplan nicht. (Da man es sonst natürlich überhaupt nicht sehen könnte)
+
 
 
 
