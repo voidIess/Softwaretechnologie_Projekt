@@ -49,7 +49,7 @@ mehr einsehbar. Jedoch wird die Email erfolgreich geändert. | (Konsole ohne Err
 
 image:crosstesting/dienstplan_schicht_vergangenheit.png[]|
 
-|schedule|01.01.2020 (am 22.12.2019) | Das gleiche geht auch in die andere Richtung (Datum in der Zukunft außerhalb des Dienstplans wird vermutlich mod 7 eingefügt)||
+|schedule|01.01.2020 (am 22.12.2019) | Das gleiche geht auch in die andere Richtung (Datum in der Zukunft außerhalb des Dienstplans wird vermutlich mod 7 eingefügt)|
 |schedule||Bei 100% kann man das Probetraining nicht sehen:
 
 image:crosstesting/dienstplan_probetraining.png[]
