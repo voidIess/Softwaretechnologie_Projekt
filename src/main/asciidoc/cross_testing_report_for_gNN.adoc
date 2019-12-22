@@ -22,6 +22,14 @@ Welche Aufgabe/Problemstellung löst die Anwendung.
 * Mitglieder haben eine Übersicht über ihre Trainings
 * Trainings können  bearbeitet und gelöscht werden
 
+.Shop
+* Verkauf von Artikeln
+* Zwischenspeichern durch einen Warenkorb
+* Verkauf durch drei Zahlungsarten
+* optionale Mindesthaltbarkeitsdaten
+* Auflistung der Artikel, der nachzubestellenden Artikel und abgelaufenen Artikel sowie Entfernen Letzterer
+
+
 == Fehlende Features
 .Training
 * Probetrainings können nicht abgelehnt werden
@@ -33,18 +41,34 @@ Welche Aufgabe/Problemstellung löst die Anwendung.
 .Verträge
 * Vertragslaufzeit fehlt bzw. nicht ersichtlich
 
+.Shop
+* Das Guthabenkonto kann nicht aufgefüllt werden, dadurch kann nur in Bar gezahlt werden
+* Artikel können nicht bearbeitet, entfernt oder hinzugefügt werden
+* Es können keine Discounts hinzugefügt werden
+* Getätigte Käufe können nicht aufgelistet werden
+
 == Fehler-Report
 // See http://asciidoctor.org/docs/user-manual/#tables
 [options="header"]
 |===
 |Pfad |Parameter |Beschreibung |Rückgabe
 | Konto | franz@email.com1 | Beim Ändern der Kundendaten wird man auf die Hauptseite geleitet und das Konto ist nicht
-mehr einsehbar. Jedoch wird die Email erfolgreich geändert. | (Konsole ohne Errors)|
+mehr einsehbar. Jedoch wird die Email erfolgreich geändert. | (Konsole ohne Errors)
+
+|Shop| Anzahl |
+durch mehrmaliges hinzufügen, können mehr Items im Warenkorb liegen als vorhanden sind,
+| white label error page beim auschecken
+
+|Shop|Anzahl| mehrer Mitarbeiter gleichzeitig ein Item verkaufen wollen, so wird, falls Vorrat nur
+für den ersten Verkauf reichen sollte, ausschecken durch den zweiten eine Exception auftreteny|
+white label error page mit exception
 |===
 
 == Sonstiges
 * Optik der Anwendung
+** sehr schick
 * Interaktion mit der Anwendung (Usability)
+** sehr gut verständliche Menüführung
 
 == Verbesserungsvorschläge
 * Was kann noch weiter verbessert werden?
