@@ -94,25 +94,31 @@ public class Training {
 		return day;
 	}
 
-	public void decline() {
+	public boolean decline() {
 		if (getState().equals(TrainingState.REQUESTED)) {
 			state = TrainingState.DECLINED;
 			if (type.equals(TrainingType.TRIAL)) {
 				member.setFreeTrained(false);
 			}
+			return true;
 		}
+		return false;
 	}
 
-	public void accept() {
+	public boolean accept() {
 		if (getState().equals(TrainingState.REQUESTED)) {
 			state = TrainingState.ACCEPTED;
+			return true;
 		}
+		return false;
 	}
 
-	public void end() {
+	public boolean end() {
 		if (getState().equals(TrainingState.ACCEPTED)) {
 			state = TrainingState.ENDED;
+			return true;
 		}
+		return false;
 	}
 
 	public String getDayAsString() {
