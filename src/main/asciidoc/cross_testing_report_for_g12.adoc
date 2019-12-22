@@ -50,8 +50,7 @@ Welche Aufgabe/Problemstellung löst die Anwendung.
 .Shop
 * Das Guthabenkonto kann nicht aufgefüllt werden, dadurch kann nur in Bar gezahlt werden
 * Artikel können nicht bearbeitet, entfernt oder hinzugefügt werden
-* Es können keine Discounts hinzugefügt werden
-* Getätigte Käufe können nicht aufgelistet werden
+* Rabatte haben keinen bestimmten Zeitraum
 
 == Fehler-Report
 // See http://asciidoctor.org/docs/user-manual/#tables
