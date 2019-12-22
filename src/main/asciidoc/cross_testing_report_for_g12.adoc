@@ -53,7 +53,7 @@ image:crosstesting/dienstplan_schicht_vergangenheit.png[]|
 |schedule||Bei 100% kann man das Probetraining nicht sehen:
 
 image:crosstesting/dienstplan_probetraining.png[]
-||
+|
 |schedule|Start 13:45, Ende 13:46| Dienstplaneinträge (zur gleichen Zeit) werden überdeckt. Wenn Zeitraum zu klein (z.b. 12:00-12:01) stimmt die Größe im Dienstplan nicht. (Da man es sonst natürlich überhaupt nicht sehen könnte)||
 
 
