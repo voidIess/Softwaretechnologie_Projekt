@@ -94,9 +94,11 @@ white label error page mit exception
 |Shop|- | Wenn man nicht erfolgreich auschecken kann, wird der Vorrat aber noch geändert, die abgeschlossenen Bestellungen werden noch im Kundenkonto angezeigt und das Guthaben des Kundenkontos wird abgezogen|
 
 |shop/stock ||ist man als Boss angemeldet überschneidet die rechte column den "Auffüllen" Button, sodass dieser nicht mehr geklickt werden kann:
-
 image:crosstesting/boss_shop.png[]|
 
+|statistics/customer ||in den Statistiken können für einen Kunden mehrere checkins nacheinander angezeigt werden |
+
+|desk |Kundennummer = 12 |Ist ein Mitglied deaktiviert, kann es trotzdem eingecheckt werden. Kann aber auch gewünscht sein.|
 
 |===
 
