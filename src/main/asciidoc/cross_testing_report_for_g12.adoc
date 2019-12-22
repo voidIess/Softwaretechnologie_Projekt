@@ -27,7 +27,7 @@ Welche Aufgabe/Problemstellung löst die Anwendung.
 * Urlaubsantrag: Wenn ein Mitarbeiter arbeitet kann er keinen Antrag stellen. (logisch) Jedoch bekommt man keine Fehlermeldung weshalb es eine Weile gedauert hat herauszufinden woran es lag
 * Wenn man Datum bei der Schichterstellung in der Vergangenheit stellt, wird der Eintrag in der Zukunft erstellt. Der Eintrag hat bei den Details das richtige Datum gespeichert, jedoch wird er falsch angezeigt. Beispiel: Datum 21.12.2019:
 
-image:crosstesting/dienstplan_schicht_vergangenheit[]
+image:crosstesting/dienstplan_schicht_vergangenheit.png[]
 
 * Bei 100% kann man das Probetraining nicht sehen:
 
