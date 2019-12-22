@@ -26,6 +26,8 @@ Dienstplan
 * Startzeit nach Endzeit -> Whitelabel Error Page (System erkennt Problem)
 * Bei 100% kann man das Probetraining nicht sehen:
 
+image:crosstesting/dienstplan_probetraining.png[]
+
 
 
 
