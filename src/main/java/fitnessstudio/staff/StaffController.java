@@ -129,6 +129,7 @@ public class StaffController {
 			staff.setFirstName(form.getFirstName());
 			staff.setLastName(form.getLastName());
 			staff.setSalary(Money.of(new BigDecimal(form.getSalary()), "EUR"));
+			staff.getUserAccount().setEmail(form.getEmail());
 			staffManagement.saveStaff(staff);
 			return REDIRECT_STAFFS;
 		}
