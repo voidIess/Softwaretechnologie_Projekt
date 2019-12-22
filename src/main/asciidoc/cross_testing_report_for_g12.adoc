@@ -34,8 +34,7 @@ Welche Aufgabe/Problemstellung löst die Anwendung.
 * optionale Mindesthaltbarkeitsdaten
 * Auflistung der Artikel, der nachzubestellenden Artikel und abgelaufenen Artikel sowie Entfernen Letzterer
 
-.PDF
-* Wo ist die Rechnung als PDF für Kunden?
+
 
 
 
@@ -54,6 +53,9 @@ Welche Aufgabe/Problemstellung löst die Anwendung.
 
 .Guthaben
 * Boss/Mitarbeiter kann das Guthaben des Mitglieds nicht aufladen?
+
+.PDF
+* Wo ist die Rechnung als PDF für Kunden?
 
 .Shop
 * Artikel können nicht bearbeitet, entfernt oder hinzugefügt werden
