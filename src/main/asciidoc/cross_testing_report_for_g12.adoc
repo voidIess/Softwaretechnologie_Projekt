@@ -86,6 +86,8 @@ durch mehrmaliges hinzufügen, können mehr Items im Warenkorb liegen als vorhan
 für den ersten Verkauf reichen sollte, ausschecken durch den zweiten eine Exception auftreteny|
 white label error page mit exception
 
+|Shop|- | Wenn man nicht erfolgreich auschecken kann, wird der Vorrat aber noch geändert, die abgeschlossenen Bestellungen werden noch im Kundenkonto angezeigt und das Guthaben des Kundenkontos wird abgezogen|
+
 |===
 
 == Sonstiges
