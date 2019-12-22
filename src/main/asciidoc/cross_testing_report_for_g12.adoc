@@ -53,7 +53,6 @@ Welche Aufgabe/Problemstellung löst die Anwendung.
 * Boss/Mitarbeiter kann das Guthaben des Mitglieds nicht aufladen?
 
 .Shop
-* Das Guthabenkonto kann nicht aufgefüllt werden, dadurch kann nur in Bar gezahlt werden
 * Artikel können nicht bearbeitet, entfernt oder hinzugefügt werden
 * Rabatte haben keinen bestimmten Zeitraum
 
