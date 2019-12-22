@@ -118,3 +118,5 @@ schedule|Datum = 24.12.2019| Man muss nur immer Datum als Input mit Format yyyy-
 == Verbesserungsvorschläge
 * Die Mitarbeiter sollen noch Rabatte verwalten können
 * auch englische Browser berücksichtigen, sodass die Eingabe von Datum und Zeit nicht zu einem Internal Server Error führt
+* mehrere Menge aber gleiches MHD in verschiedene Zeilen anzeigen. Wozu?
+image:crosstesting/Items.png[]|
