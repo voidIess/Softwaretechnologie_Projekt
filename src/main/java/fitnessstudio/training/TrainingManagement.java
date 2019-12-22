@@ -1,6 +1,7 @@
 package fitnessstudio.training;
 
 
+import fitnessstudio.email.EmailService;
 import fitnessstudio.member.Member;
 import fitnessstudio.member.MemberManagement;
 import fitnessstudio.roster.Roster;
@@ -28,23 +29,28 @@ import java.util.Optional;
 @Transactional
 public class TrainingManagement {
 
-	private static final Logger LOG = LoggerFactory.getLogger(MemberManagement.class);
+	private static final Logger LOG = LoggerFactory.getLogger(TrainingManagement.class);
 
 	private final TrainingRepository trainings;
 	private final MemberManagement memberManagement;
 	private final StaffManagement staffManagement;
 	private final RosterManagement rosterManagement;
+	private final EmailService emailService;
 
-	public TrainingManagement(TrainingRepository trainings, MemberManagement memberManagement, StaffManagement staffManagement, RosterManagement rosterManagement) {
+	public TrainingManagement(TrainingRepository trainings, MemberManagement memberManagement,
+							  StaffManagement staffManagement, RosterManagement rosterManagement,
+							  EmailService emailService) {
 		Assert.notNull(trainings, "TrainingRepository must not be null");
 		Assert.notNull(memberManagement, "MemberManagement must not be null");
 		Assert.notNull(staffManagement, "StaffManagement must not be null");
 		Assert.notNull(rosterManagement, "RosterManagement must not be null");
+		Assert.notNull(emailService, "EmailService must not be null");
 
 		this.trainings = trainings;
 		this.memberManagement = memberManagement;
 		this.staffManagement = staffManagement;
 		this.rosterManagement = rosterManagement;
+		this.emailService = emailService;
 	}
 
 	public Training createTraining(Member member, TrainingForm form, Errors result) {
@@ -92,7 +98,13 @@ public class TrainingManagement {
 
 	public void decline(Long trainingId) {
 		Optional<Training> trainingOptional = findById(trainingId);
-		trainingOptional.ifPresent(Training::decline);
+		trainingOptional.ifPresent(training -> {
+			if (training.decline()){
+				Member to = training.getMember();
+				emailService.sendTrainingStateUpdated(to.getUserAccount().getEmail(), to.getFirstName(), training.getTrainingId());
+			}
+			trainings.save(training);
+		});
 	}
 
 	public boolean accept(Long trainingId) {
@@ -109,7 +121,11 @@ public class TrainingManagement {
 			);
 			if (rosterManagement.isFree(rosterEntryForm)) {
 				rosterManagement.createEntry(rosterEntryForm, trainingId, null);
-				training.accept();
+				if(training.accept()){
+					Member to = training.getMember();
+					emailService.sendTrainingStateUpdated(to.getUserAccount().getEmail(), to.getFirstName(),
+						training.getTrainingId());
+				}
 				trainings.save(training);
 				return true;
 			}
@@ -118,7 +134,6 @@ public class TrainingManagement {
 	}
 
 	public void end(Long trainingId) {
-
 		Optional<Training> trainingOptional = findById(trainingId);
 		trainingOptional.ifPresent(Training::end);
 
