@@ -93,7 +93,7 @@ durch mehrmaliges hinzufügen, können mehr Items im Warenkorb liegen als vorhan
 für den ersten Verkauf reichen sollte, ausschecken durch den zweiten eine Exception auftreteny|
 white label error page mit exception
 
-|Shop|- | Wenn man nicht erfolgreich auschecken kann, wird der Vorrat aber noch geändert, die abgeschlossenen Bestellungen werden noch im Kundenkonto angezeigt und das Guthaben des Kundenkontos wird abgezogen|
+|Shop|Summe: 200, Guthaben = 0 | Wenn man nicht erfolgreich auschecken kann, wird der Vorrat aber noch geändert, die abgeschlossenen Bestellungen werden noch im Kundenkonto angezeigt und das Guthaben des Kundenkontos wird abgezogen|
 
 |shop/stock ||ist man als Boss angemeldet überschneidet die rechte column den "Auffüllen" Button, sodass dieser nicht mehr geklickt werden kann:
 image:crosstesting/boss_shop.png[]|
