@@ -22,7 +22,7 @@ Welche Aufgabe/Problemstellung löst die Anwendung.
 * Mitglieder haben eine Übersicht über ihre Trainings
 * Trainings können  bearbeitet und gelöscht werden
 
-Dienstplan
+.Dienstplan
 * Startzeit nach Endzeit -> Whitelabel Error Page (System erkennt Problem)
 * Bei 100% kann man das Probetraining nicht sehen:
 
