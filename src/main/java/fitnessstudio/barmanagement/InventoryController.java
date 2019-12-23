@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotEmpty;
@@ -67,6 +68,7 @@ public class InventoryController {
 
 	@PreAuthorize("hasRole('STAFF')")
 	@PostMapping("/article")
+	@Transactional
 	public String addArticle(@Valid CreateArticleForm form, Model model) throws DateTimeParseException {
 		if (getError((ArticleForm) form, model)) {
 			return ERROR;

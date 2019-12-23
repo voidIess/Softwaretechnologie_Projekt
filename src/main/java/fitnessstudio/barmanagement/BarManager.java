@@ -14,10 +14,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import javax.money.MonetaryAmount;
+import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.Objects;
 
 @Service
+@Transactional
 public class BarManager {
 
 	private static final Logger LOG = LoggerFactory.getLogger(CatalogDataInitializer.class);
@@ -99,8 +101,8 @@ public class BarManager {
 
 	public Streamable<Article> getLowStockArticles() {
 		return Streamable.of(catalog.findAll()).filter(
-				x -> inventory.findByProductAndExpirationDateAfter(x, LocalDate.now()).getTotalQuantity()
-						.isLessThan(x.getSufficientQuantity()));
+				article -> article.getSufficientQuantity().isGreaterThanOrEqualTo(
+					inventory.findByProductAndExpirationDateAfter(article, LocalDate.now()).getTotalQuantity()));
 	}
 
 	public Quantity getArticleQuantity(Article article) {
