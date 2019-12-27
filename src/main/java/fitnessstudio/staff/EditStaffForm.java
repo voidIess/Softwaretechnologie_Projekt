@@ -13,6 +13,5 @@ public interface EditStaffForm {
 	@NotEmpty(message = "Email ist leer.")
 	String getEmail();
 
-	@NotEmpty(message = "Gehalt ist leer.")
-	String getSalary();
+
 }

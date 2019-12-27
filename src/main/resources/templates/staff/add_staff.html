@@ -1,25 +1,17 @@
 <!DOCTYPE html>
 
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
-    <script th:src="@{/webjars/jquery/jquery.min.js}"
-            src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script th:src="@{/webjars/Semantic-UI/semantic.min.js}"
-            src="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.js"></script>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="site_template :: template(#{staff.add}, ~{::site_content})"></html>
+
+<html xmlns:th="http://www.thymeleaf.org" th:remove="tag">
+<head th:remove="all">
+    <meta content="text/html; charset=UTF-8" http-equiv="content-type"/>
     <link rel="stylesheet" href="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css" type="text/css"/>
-    <link th:href="@{/resources/css/style.css}" rel="stylesheet"
-          href="../static/resources/css/style.css" type="text/css"/>
     <link rel="stylesheet" type="text/css" th:href="@{/resources/css/toggle.css}"/>
-    <title th:text="#{register.title}">Registrierung</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/template.css}"/>
 </head>
 <body>
 <div class="ui container">
-    <nav th:include="navigation :: navigation"></nav>
-    <nav th:include="toggle :: toggle"></nav>
-    <header>
-        <h1 th:text="#{staff.add}">neuer Mitarbeiter</h1>
-    </header>
 
     <form method="post" role="form" class="ui form" id="form" th:action="@{/newStaff}" th:object="${form}">
 
@@ -27,11 +19,12 @@
             Einige Angaben sind nicht korrekt.
         </p>
 
+        <fieldset>
         <div class="field">
             <text th:text="#{register.firstName}"></text>
             <label for="firstName"></label>
             <input id="firstName" name="firstName" th:field="*{firstName}" th:errorclass="fieldError" type="text"
-                   required="required"/><br/>
+                   maxlength="32" placeholder="Vorname" required="required"/><br/>
             <div class="ui negative message" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">
                 <p>Der Vorname darf nicht leer sein</p>.
             </div>
@@ -41,7 +34,7 @@
             <text th:text="#{register.lastName}"></text>
             <label for="lastName"></label>
             <input id="lastName" name="lastName" th:field="*{lastName}" th:errorclass="fieldError" type="text"
-                   required="required"/><br/>
+                   maxlength="32" placeholder="Nachname" required="required"/><br/>
             <div class="ui negative message" th:if="${#fields.hasErrors('firstName')}" th:errors="*{lastName}">
                 <p>Der Nachname darf nicht leer sein.</p>
             </div>
@@ -50,8 +43,8 @@
         <div class="field">
             <text th:text="#{register.email}"></text>
             <label for="email"></label>
-            <input id="email" name="email" th:field="*{email}" th:errorclass="fieldError" type="text"
-                   required="required"/><br/>
+            <input id="email" name="email"  th:field="*{email}" th:errorclass="fieldError" type="text" maxlength="56"
+                   placeholder="Email" required="required"/><br/>
             <div class="ui negative message" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">
                 <p>Die Email Adresse darf nicht leer sein.</p>
             </div>
@@ -61,7 +54,7 @@
             <text>Gehalt</text>
             <label for="salary"></label>
             <input id="salary" name="salary" th:field="*{salary}" th:errorclass="fieldError" type="number" step="0.01"
-                   required="required"/>
+                   placeholder="Gehalt" min ="0" required="required"/>
             <div class="ui negative message" th:if="${#fields.hasErrors('salary')}" th:errors="*{salary}">
                 <p>Der Gehalt darf nicht leer sein.</p>
             </div>
@@ -72,7 +65,7 @@
             <text>Username</text>
             <label for="username"></label>
             <input id="username" name="name" th:field="*{username}" th:errorclass="fieldError" type="text"
-                   required="required"/><br/>
+                   placeholder="Username" maxlength="16" required="required"/><br/>
             <div class="ui negative message" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">
                 <p>Der Username darf nicht leer sein.</p>
             </div>
@@ -83,12 +76,13 @@
             <text th:text="#{register.password}"></text>
             <label for="password"></label>
             <input id="password" name="password" th:field="*{password}" th:errorclass="fieldError" type="password"
-                   required="required"/><br/>
+                   placeholder="passwort" required="required"/><br/>
             <div class="ui negative message" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">
                 <p> Das Passwort darf nicht leer sein. </p>
             </div>
         </div>
-
+        </fieldset>
+        <br>
         <button type="submit" class="ui button" th:text="#{register.submit}">Registrieren</button>
     </form>
 </div>

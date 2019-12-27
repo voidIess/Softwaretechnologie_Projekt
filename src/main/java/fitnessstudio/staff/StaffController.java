@@ -51,6 +51,12 @@ public class StaffController {
 		Optional<Staff> staff = staffManagement.findById(id);
 		if (staff.isPresent()) {
 			model.addAttribute(STAFF, staff.get());
+			model.addAttribute("form", new SalaryForm() {
+				@Override
+				public @NotEmpty(message = "Gehalt ist leer.") String getSalary() {
+					return staff.get().getSalary().getNumber().toString();
+				}
+			});
 			return "staff/staffDetail";
 		}
 		model.addAttribute(STATUS, "400");
@@ -79,9 +85,10 @@ public class StaffController {
 		}
 	}
 
-	@PreAuthorize("hasRole('BOSS') ")
+
+	@PreAuthorize("hasRole('STAFF') ")
 	@GetMapping("/staff/edit/{id}")
-	public String editStaff(@PathVariable long id, Model model, EditStaffForm form) {
+	public String editStaff(@PathVariable long id, Model model) {
 		Optional<Staff> staffs = staffManagement.findById(id);
 		if (staffs.isPresent()) {
 			Staff staff = staffs.get();
@@ -113,14 +120,10 @@ public class StaffController {
 				return staff.getUserAccount().getEmail();
 			}
 
-			@Override
-			public @NotEmpty(message = "Gehalt ist leer.") String getSalary() {
-				return staff.getSalary().getNumber().toString();
-			}
 		};
 	}
 
-	@PreAuthorize("hasRole('BOSS') ")
+	@PreAuthorize("hasRole('STAFF') ")
 	@PostMapping("/staff/edit/{id}")
 	public String editStaff(@PathVariable long id, @Valid EditStaffForm form, Model model) {
 		Optional<Staff> staffs = staffManagement.findById(id);
@@ -128,14 +131,28 @@ public class StaffController {
 			Staff staff = staffs.get();
 			staff.setFirstName(form.getFirstName());
 			staff.setLastName(form.getLastName());
-			staff.setSalary(Money.of(new BigDecimal(form.getSalary()), "EUR"));
+			//staff.setSalary(Money.of(new BigDecimal(form.getSalary()), "EUR"));
 			staff.getUserAccount().setEmail(form.getEmail());
 			staffManagement.saveStaff(staff);
-			return REDIRECT_STAFFS;
+			return "redirect:/staff/edit/" + staff.getStaffId();
 		}
 
 		return ERROR;
 	}
+
+	@PreAuthorize("hasRole('BOSS') ")
+	@PostMapping("/staff/update/{id}")
+	public String editSalary(@PathVariable long id, @Valid SalaryForm form) {
+		Optional<Staff> staffs = staffManagement.findById(id);
+		if (staffs.isPresent()) {
+			Staff staff = staffs.get();
+			staff.setSalary(Money.of(new BigDecimal(form.getSalary()), "EUR"));
+			staffManagement.saveStaff(staff);
+			return REDIRECT_STAFFS;
+		}
+		return ERROR;
+	}
+
 
 	@GetMapping("/staffDetail")
 	public String getAccount(@LoggedIn Optional<UserAccount> userAccount, Model model) {
