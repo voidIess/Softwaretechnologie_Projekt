@@ -1,5 +1,6 @@
 package fitnessstudio.studio;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -12,6 +13,8 @@ public class Studio {
 	@GeneratedValue
 	long id;
 
+
+	@Column( columnDefinition="LONGVARCHAR")
 	private String openingTimes;
 	private String advertisingBonus;
 	private String address;

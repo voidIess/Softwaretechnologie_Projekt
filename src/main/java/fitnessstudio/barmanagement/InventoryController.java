@@ -311,13 +311,12 @@ public class InventoryController {
 
 			try {
 				if (formStartDiscount.equals("")) {
-					formStartDiscount = "01.01.2000";
+					formStartDiscount = "2000-01-01";
 				}
 				if (formEndDiscount.equals("")) {
-					formEndDiscount = "01.01.2099";
+					formEndDiscount = "2099-01-01";
 				}
-
-				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 				startDate = LocalDate.parse(formStartDiscount, formatter);
 				endDate = LocalDate.parse(formEndDiscount, formatter);
 				return this;
@@ -325,12 +324,13 @@ public class InventoryController {
 			} catch (DateTimeParseException e) {
 
 				if (formStartDiscount.equals("")) {
-					formStartDiscount = "2000-01-01";
+					formStartDiscount = "01.01.2000";
 				}
 				if (formEndDiscount.equals("")) {
-					formEndDiscount = "2099-01-01";
+					formEndDiscount = "01.01.2099";
 				}
-				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 				startDate = LocalDate.parse(formStartDiscount, formatter);
 				endDate = LocalDate.parse(formEndDiscount, formatter);
 				return this;
