@@ -14,10 +14,11 @@
 <div class="ui container">
     <div class="ui header">
         <h2 th:text="#{sell_catalog.title}">Artikelübersicht</h2>
-        <a class="ui green right floated button"  th:href="@{/cart_items}">
+        <a class="ui right floated button" id="addbutton" th:href="@{/cart_items}">
             <i class="cart icon"></i>
             <label th:text="#{sell_catalog.cart_button_label}">Bestellung</label>
-        </a>
+        </a><br>
+
     </div>
     <br>
     <div th:remove="all-but-first">
@@ -26,27 +27,30 @@
                 <input name="pid" th:value="${item.getProduct().id}" type="hidden" value="0"/>
                 <div class="ui segment">
                     <div class="ui grid">
-                        <div class="ui three wide left aligned column">
-                            <div class="ui header" th:text="${item.getProduct().name}">Spinatsalat</div>
-                            <div th:text="#{sell_catalog.available}+' '+${{item.getQuantity()}}">Verfügbar: 42</div>
-                        </div>
+                        <text class="ui three wide left aligned column">
+                            <text class="ui-widget-header" th:text="${item.getProduct().name}" style="font-weight:bold">Spinatsalat</text>
+                            <br>
+                            <br>
+                            <text class="opa" th:text="#{sell_catalog.available}+' '+${{item.getQuantity()}}"  >Verfügbar: 42</text>
+                        </text>
                         <div class="ui two wide center aligned column">
-                            <div class="ui header" th:text="${item.getProduct().getPrice()}">
+                            <div class="ui-widget-header" th:text="${item.getProduct().getPrice()}" style="font-weight:bold">
                                 12,40 EUR
 
                             </div>
-                            <div th:text="${item.getProduct().getDiscountString()}">-12%</div>
+                            <br>
+                            <text class="special" th:text="${item.getProduct().getDiscountString()}">-12%</text>
 
                         </div>
                         <div class="ui six wide right floated column">
                             <div class="ui secondary menu">
                                 <div class="item">
-                                    <input class="ui input" id="number" min="1" name="number" step="1" type="number"
+                                    <input class="uiinput" id="number" min="1" name="number" step="1" type="number"
                                            value="1"/>
                                 </div>
                                 <div class="item">
-                                    <button class="ui button" type="submit">
-                                        <a>Hinzufügen</a>
+                                    <button class="ui button" type="submit" style="background-color:transparent">
+                                        <div class="btn" >Hinzufügen</div>
                                     </button>
                                 </div>
                             </div>

@@ -35,7 +35,7 @@ public class CatalogDataInitializer implements DataInitializer {
 		LOG.info("Creating default catalog entries.");
 		LocalDate startDate = LocalDate.of(2019, 12, 1);
 		LocalDate endDate = LocalDate.of(2020, 6, 15);
-		Discount discount = new Discount(startDate, endDate, 0);
+		Discount discount = new Discount(startDate, endDate, 50);
 		Discount discount2 = new Discount(startDate, endDate, 0);
 		discountRepository.save(discount);
 

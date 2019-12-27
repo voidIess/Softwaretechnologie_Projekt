@@ -14,24 +14,26 @@
 <div th:fragment="site_content">
 
     <div class="ui container">
-        <form method="post" role="form" class="ui form" id="form" th:action="@{/checkout}"
+        <form method="post" role="form" id="form" th:action="@{/checkout}"
               th:object="${form}">
             <h2 th:text="'Summe: '+${cart.getPrice()}">
                 Summe: EUR 13,37
             </h2>
 
+            <div>
 
-            <fieldset>
                 <text>Kundennummer</text>
-                <label for="customerId"></label><input type="text"
+                <label for="customerId"></label><input class="uiinput" type="text"
                                                        th:field="*{customerId}"
                                                        id="customerId"
+                                                       placeholder="z.B 2"
                                                        required/>
-            </fieldset>
+                <br>
+                <br>
+                <br>
 
-            <fieldset>
                 <text>Zahlungsart</text>
-                <select id="paymentMethod" th:field="*{paymentMethod}">
+                <select class="uiinput" id="paymentMethod" th:field="*{paymentMethod}">
                     <option value="0">
                         Mit Guthaben bezahlen
                     </option>
@@ -39,11 +41,13 @@
                         Bar bezahlen
                     </option>
                 </select>
-            </fieldset>
+                <br>
+                <br>
 
-            <fieldset>
-                <button name="submit" type="submit" id="contact-submit" data-submit="...Sending">Submit</button>
-            </fieldset>
+                <button class="ui button" id="sbmbutton" name="submit" type="submit" data-submit="...Sending"
+                ><label>SUBMIT</label>
+                </button>
+            </div>
         </form>
     </div>
 </div>

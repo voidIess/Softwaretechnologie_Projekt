@@ -51,14 +51,14 @@
             <div class="column">
                 <a href="studio" sec:authorize="hasRole('BOSS')">
                     <!-- Button to edit -->
-                    <button class="btn">Studio Bearbeiten</button>
+                    <button class="btn" id="sbmbutton">Studio Bearbeiten</button>
                 </a>
             </div>
 
             <div sec:authorize="hasRole('BOSS')" class="middle aligned column">
                 <a th:href="@{/newStaff}" sec:authorize="hasAnyRole('ROLE_BOSS')">
                     <!-- Button to add staff -->
-                    <button class="btn"> Mitarbeiter hinzufügen</button>
+                    <button class="btn" id="addbutton"> Mitarbeiter hinzufügen</button>
                 </a>
             </div>
 
@@ -92,7 +92,7 @@
     <h3>Unsere Öffnungszeiten : </h3>
 
     <div>
-        <textarea rows="7" cols="30" readonly th:text="${openingTimes}"></textarea>
+        <textarea rows="9" cols="31" readonly th:text="${openingTimes}"></textarea>
     </div>
     <h3>Alle Informationen : </h3>
     <label>Adresse:</label> <label th:text="${address}"></label> <br>

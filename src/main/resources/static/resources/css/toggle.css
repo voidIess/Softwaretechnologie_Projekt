@@ -3,7 +3,18 @@
     --secondary-color: #536390;
     --font-color: #424242;
     --bg-color: #fff;
-    --heading-color: default;
+    --heading-color: #121212;
+    --third-color:#ffffff;
+    --btn-color:#3700b3;
+    --hover-color: #ddd;
+    --hover-color2:#bbb;
+    --border-color: #ddd;
+    --ts-color: #ddd;
+    --th-color: black;
+    --special-color: #b00020;
+    --submit-button:#3700B3;
+    --add-button:#018786;
+
 }
 
 
@@ -12,8 +23,17 @@
     --secondary-color: #818cab;
     --font-color: #e1e1ff;
     --bg-color: #161625;
-    --heading-color: white;
-
+    --heading-color: #ffffff;
+    --third-color: #121220;
+    --btn-color: #bb86fc;
+    --hover-color: #181824;
+    --hover-color2: #383838;
+    --border-color: black;
+    --ts-color: #181824;
+    --th-color: #818cab;
+    --special-color: #cf6679;
+    --submit-button:#bb86fc;
+    --add-button:#03DAC5;
 }
 
 

@@ -13,7 +13,7 @@
 
 <div th:fragment="site_content">
     <div class="ui container">
-        <table class="ui celled table">
+        <table class="ui celled table" id="catalog">
             <thead>
             <tr>
                 <th>Artikelname</th>
@@ -32,15 +32,15 @@
             </tbody>
 
         </table>
+        <br>
         <!-- Button -->
-        <div class="ui one column centered grid">
-            <div class="column">
-                <a th:href="@{/article}">
-                    <button class="ui green button">
-                        <i class="plus icon"></i>Artikel hinzufügen
-                    </button>
-                </a>
-            </div>
+
+        <div class="column">
+            <a th:href="@{/article}" style="background-color:transparent">
+                <button class="ui right button" id="addbutton">
+                    <i class="plus icon"></i><label>Artikel hinzufügen</label>
+                </button>
+            </a>
         </div>
     </div>
 </div>
