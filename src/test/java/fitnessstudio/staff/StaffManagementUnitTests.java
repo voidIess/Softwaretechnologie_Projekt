@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -32,7 +33,7 @@ public class StaffManagementUnitTests {
 	@BeforeAll
 	void setUp() {
 		account = userAccounts.create("managementTestStaff", Password.UnencryptedPassword.of("123"), "managementTestStaff@email.de", Role.of("STAFF"));
-		staff = new Staff(account,"Markus", "Wieland", Money.of(100, "EUR"));
+		staff = new Staff(account, "Markus", "Wieland", Money.of(100, "EUR"));
 	}
 
 	@Test
@@ -42,6 +43,30 @@ public class StaffManagementUnitTests {
 		staffId = staff.getStaffId();
 		assertThat(repository.findById(staff.getStaffId())).isNotEmpty();
 	}
+
+	@Test
+	void setFirstNameTest() {
+		staff.setFirstName("cristiano");
+		assertNotNull(staff.getFirstName());
+	}
+
+	@Test
+	void setLastNameTest() {
+		staff.setLastName("ronaldo");
+		assertNotNull(staff.getLastName());
+	}
+
+	@Test
+	void setSalaryTest() {
+		staff.setSalary(Money.of(450000, "EUR"));
+		assertNotNull(staff.getLastName());
+	}
+
+	@Test
+	void getUsernameTest() {
+		assertNotNull(staff.getUserName());
+	}
+
 
 	@Test
 	@Order(2)
