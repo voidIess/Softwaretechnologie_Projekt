@@ -10,16 +10,20 @@
         <div id="authorize" style="float: left">
             <form th:action="@{/admin/authorizeMember}">
                 <label>Es sind <b><span th:text="${unauthorizedMember}"></span></b> freizuschalten</label>
-                <button type="submit" class="ui button blue">Freischalten</button>
+                <button id="sbmbutton" type="submit" class="ui button blue"><label>Freischalten</label></button>
             </form>
         </div>
         <div class="search" style="float: right; margin-bottom: 5px">
             <form th:action="@{/admin/members}" method="get" th:object="${form}">
-                <input class="search" id="search" name="search" type="text" th:field="*{search}"/>
-                <button type="submit" class="ui button">Suchen</button>
+
+                <div class="uiinput" style="border-radius: 30px">
+                    <input class="uiinput" id="search" name="search" type="text" placeholder="Suchen" >
+                    <i class="inverted circular search link icon" th:field="*{search}">
+                    </i>
+                </div>
             </form>
         </div>
-        <table class="ui celled table">
+        <table class="ui celled table" id="catalog">
             <thead>
             <tr>
                 <th>Mitglieder Nummer</th>

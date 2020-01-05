@@ -13,12 +13,13 @@
 
 <div th:fragment="site_content">
     <div class="ui container">
-        <table class="ui celled table" id="catalog">
+        <table id="catalog" class="ui striped table">
             <thead>
             <tr>
                 <th>Artikelname</th>
                 <th>Beschreibung</th>
                 <th>Art</th>
+                <th>Mindestmenge</th>
             </tr>
             </thead>
             <tbody th:remove="all-but-first">
@@ -26,6 +27,7 @@
                 <td><a th:href="@{/article/{id}(id=${article.id})}" th:text="${{article.name}}">Artikelname</a></td>
                 <td th:text="${article.description}">Beschreibung</td>
                 <td th:text="${article.type}">Art</td>
+                <td th:text="${article.sufficientQuantity.getAmount().intValue()}">Mindestmenge</td>
             </tr>
 
 

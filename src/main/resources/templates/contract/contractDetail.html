@@ -6,9 +6,10 @@
 
 <html lang="de" xmlns:th="http://www.thymeleaf.org">
 <div th:fragment="contract_detail">
-    <div class="ui container">
+    <div class="ui container" id="container-label">
         <form method="post" role="form" class="ui form" id="form"
               th:action="@{/admin/contract/detail/{id}(id=${contract.contractId})}" th:object="${form}">
+            <fieldset>
             <div class="field">
                 <label for="name">Name</label>
                 <input id="name" th:field="*{name}" th:errorclass="fieldError" type="text"
@@ -32,8 +33,11 @@
                 <input id="duration" name="duration" th:field="*{duration}" th:errorclass="fieldError"
                        type="number" step="1" min="1" required="required"/><br/>
             </div>
-
-            <button type="submit" class="ui button">Bearbeiten</button>
+            </fieldset>
+            <br>
+            <button id="sbmbutton" type="submit" class="ui button">
+                <b>Bearbeiten</b>
+            </button>
         </form>
     </div>
 </div>

@@ -26,45 +26,56 @@
                 <span th:text="${staff.getSalary()}"></span>
                 pro Monat.
             </p>
+
+
             <form class="ui form" method="post" th:action="@{/printPdfPayslip}" th:if="${staff.workedLastMonth()}">
                 <button class="ui button" th:text="#{staffDetail.printPdfPayslip}" type="submit">Rechnung anzeigen
                 </button>
             </form>
             <p th:if="${!staff.workedLastMonth()}">Ab nächstem Monat kannst Du hier Deine Gehaltsabrechnung sehen.</p>
+
+            <br>
+            <br>
+
+            <!-- Edit button for staff-->
+            <a sec:authorize="hasAnyRole('ROLE_STAFF')" th:href="@{/staff/edit/{id}(id=${staff.staffId})}">
+                <button class="ui button" id="sbmbutton">
+                    <i class="edit icon"></i><label>Info bearbeiten</label>
+                </button>
+            </a>
         </div>
         <br>
         <br>
-        <br>
-
-        <!-- Edit button for staff-->
-        <a sec:authorize="hasAnyRole('ROLE_STAFF')" th:href="@{/staff/edit/{id}(id=${staff.staffId})}">
-            <button class="ui button" id="sbmbutton">
-                <i class="edit icon"></i><label>Info bearbeiten</label>
-            </button>
-        </a>
-
         <form class="ui form" method="post" th:action="@{/staff/update/{id}(id=${staff.staffId})}"
               th:object="${form}">
 
-            <fieldset class="field" sec:authorize="hasAnyRole('ROLE_BOSS')">
-                <text>Gehalt</text>
-                <label for="salary"></label>
-                <input id="salary" min="0" name="salary" required="required" step="0.01"
-                       th:errorclass="fieldError"
-                       th:field="*{salary}" type="number"/>
-                <div class="ui negative message" th:errors="*{salary}" th:if="${#fields.hasErrors('salary')}">
-                    <p>Der Gehalt darf nicht leer sein.</p>
-                </div>
-                <br>
-                <br>
-            </fieldset>
+            <div class="field" sec:authorize="hasAnyRole('ROLE_BOSS')">
+                <div class="ui segment">
+                    <p>Gehalt</p>
+                    <label for="salary"></label>
 
-            <!-- Edit button for boss-->
-            <div class="column">
-                <button class="ui button" id="sbmbutton" type="submit">
-                    <i class="edit icon"></i><label>Gehalt Aktualisieren</label>
-                </button>
+                    <input id="salary" min="0" name="salary" required="required" step="0.01"
+                           th:errorclass="fieldError"
+                           th:field="*{salary}" type="number"/>
+                    <div class="ui negative message" th:errors="*{salary}" th:if="${#fields.hasErrors('salary')}">
+                        <p>Der Gehalt darf nicht leer sein.</p>
+                    </div>
+
+                    <br>
+                    <br>
+                </div>
+
+                    <!-- Edit button for boss-->
+
+                    <button class="ui button right floated" style="background-color:transparent" type="submit">
+                        <div class="btn">Gehalt aktualisieren</div>
+                    </button>
+
+
+
             </div>
+            <br>
+
         </form>
         <br>
         <!-- Delete button -->
@@ -72,7 +83,7 @@
         <form method="post" sec:authorize="hasAnyRole('ROLE_BOSS')"
               th:action="@{/staff/delete/{id}(id=${staff.staffId})}">
 
-            <button class="ui button right floated" id="dltbutton">
+            <button class="ui button" id="dltbutton">
                 <i class="trash icon"></i><label>Mitarbeiter löschen</label>
             </button>
         </form>

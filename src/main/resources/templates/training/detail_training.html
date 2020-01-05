@@ -9,27 +9,32 @@
     <div class="ui container">
 
         <div class="trainer">
-            <b><span>Trainer: </span></b>
+            <p>Trainer:
             <span th:text="${training.trainer.toString()}"></span>
+            </p>
         </div>
         <div class="description">
-            <b><span>Beschreibung: </span></b>
+            <p>Beschreibung:
             <span th:text="${training.description}"></span>
+            </p>
         </div>
 
         <div class="member">
-            <b><span>Mitglied: </span></b>
+            <p>Mitglied:
             <span th:text="${training.member.toString()}"></span>
+            </p>
         </div>
 
         <div class="state">
-            <b><span>Status: </span></b>
+            <p>Status:
             <span th:text="${training.getState()}"></span>
+            </p>
         </div>
 
         <div class="type">
-            <b><span>Typ: </span></b>
+           <p>Typ:
             <span th:text="${training.type}"></span>
+           </p>
         </div>
 
     </div>

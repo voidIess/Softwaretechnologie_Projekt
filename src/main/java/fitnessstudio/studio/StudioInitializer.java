@@ -25,21 +25,22 @@ public class StudioInitializer implements DataInitializer {
 		if (!studioRepository.findAll().iterator().hasNext()) {
 
 			Collection<String> list = new LinkedList<>();
-			IntStream.range(1, 8).forEach(i -> {
+			IntStream.range(1, 8).forEach(day -> {
+
 				// Monday closed
-				if (i == 1) {
-					list.add(DayOfWeek.of(i).getDisplayName(TextStyle.FULL, Locale.GERMAN) + ":  geschlossen ");
+				if (day == 1) {
+					list.add(DayOfWeek.of(day).getDisplayName(TextStyle.FULL, Locale.GERMAN) + ":  geschlossen ");
 					return;
 				}
 
-				// Wednesday lunch break 11am-02pm
-				if (i == 3) {
-					list.add(DayOfWeek.of(i).getDisplayName(TextStyle.FULL, Locale.GERMAN) + ":  0:00-11:00 Uhr " +
-							"\n und 14:00-22:00 Uhr");
+				// Wednesday lunch break 11am - 2pm
+				if (day == 3) {
+					list.add(DayOfWeek.of(day).getDisplayName(TextStyle.FULL, Locale.GERMAN) + ":  0:00 - 11:00 Uhr " +
+							"\n und 14:00 - 22:00 Uhr");
 					return;
 				}
 
-				list.add(DayOfWeek.of(i).getDisplayName(TextStyle.FULL, Locale.GERMAN) + ":  0:00 bis " +
+				list.add(DayOfWeek.of(day).getDisplayName(TextStyle.FULL, Locale.GERMAN) + ":  0:00 bis " +
 						"23:59 Uhr");
 			});
 			list.add("Feiertag" + ": geschlossen ");

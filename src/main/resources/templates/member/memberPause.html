@@ -14,8 +14,12 @@
                     Jedoch gehen dadurch <b>alle</b> reservierte Trainingsessions verloren!
                 </p>
                 <div class="buttons">
-                    <a class="ui button blue" th:href="@{/member/home}" style="float: left">Abbrechen</a>
-                    <a class="ui button red" th:href="@{/member/pause}" style="float: right">Pausieren</a>
+                    <a class="ui button blue" id="sbmbutton" th:href="@{/member/home}" style="float: left">
+                        <label>Abbrechen</label>
+                    </a>
+                    <a class="ui button red" id="dltbutton" th:href="@{/member/pause}" style="float: right">
+                        <label>Pausieren</label>
+                    </a>
                 </div>
             </div>
         </div>

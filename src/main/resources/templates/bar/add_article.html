@@ -15,83 +15,73 @@
     <div class="ui container">
         <form method="post" role="form" class="ui form" id="form" th:action="@{/article}" th:object="${form}">
 
-            <fieldset>
-                <text>Name</text>
-                <label for="name"></label><input class="uiinput" type="text" maxlength="32" th:field="*{name}"
-                                                 id="name"
-                                                 required/>
-            </fieldset>
+            <div class="ui segment">
+                <label for="name">Name</label>
+                <p></p>
+                <input class="uiinput" type="text" maxlength="32" th:field="*{name}" id="name"
+                       placeholder="Name eingeben" required/>
 
-            <fieldset>
-                <text>Preis in Euro</text>
-                <label for="price"></label><input class="uiinput" type="number" th:field="*{price}"
-                                                  id="price" step="0.01" min="0"
-                                                  required/>
-            </fieldset>
+                <br>
+                <br>
 
-            <fieldset>
-                <text>Art</text>
-                <label for="type"></label><input class="uiinput" type="text" th:field="*{type}"
-                                                 id="type"
-                                                 required/>
-            </fieldset>
+                <label for="price">Preis in Euro</label>
+                <p></p>
+                <input class="uiinput" type="number" th:field="*{price}" id="price" step="0.01" min="0"
+                       placeholder="Preis eingeben" required/>
 
-            <fieldset>
-                <text>Beschreibung</text>
-                <label for="description"></label><input class="uiinput" type="text" th:field="*{description}"
-                                                        id="description"
-                                                        required/>
-            </fieldset>
-
+                <br>
+                <br>
+                <label for="type">Art</label>
+                <p></p>
+                <input class="uiinput" type="text" th:field="*{type}" id="type" placeholder="Art eingeben" required/>
+                <br>
+                <br>
+                <label for="description">Beschreibung</label>
+                <p></p>
+                <input class="uiinput" type="text" th:field="*{description}" id="description"
+                       placeholder="Beschreibung eingeben" required/>
+                <br>
+                <br>
+            </div>
 
             <br>
-            <br>
 
-            <fieldset>
+            <div class="ui segment">
                 <p>Rabatt vom (optional)</p><label for="startDiscount"></label>
                 <input class="uiinput" type="date"
                        th:field="*{startDiscount}" placeholder="yyyy-mm-dd"
                        pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))"
                        id="startDiscount" max="2100-01-01" min="1900-01-01"/>
-            </fieldset>
-
-            <fieldset>
+                <p></p>
                 <p>Rabatt in Prozent (optional)</p><label for="percentDiscount"></label>
                 <input class="uiinput" type="number" min="0" max="100" step="1" value="1" th:field="*{percentDiscount}"
                        id="percentDiscount"/>
-
-            </fieldset>
-
-
-            <fieldset>
+                <p></p>
                 <p>Rabatt bis (optional)</p><label for="endDiscount"></label>
                 <input class="uiinput" type="date" th:field="*{endDiscount}" placeholder="yyyy-mm-dd"
                        pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))"
                        id="endDiscount" max="2100-01-01" min="1900-01-01"/>
-            </fieldset>
+            </div>
 
             <br>
             <br>
 
-            <fieldset>
-                <text>Mindestvorrat</text>
-                <label for="number"></label>
-                <input class="uiinput" type="number" min="0" th:field="*{sufficientQuantity}" id="number" required/>
-            </fieldset>
+            <div class="ui segment">
+                <label for="number">Mindestvorrat</label>
+                <p></p>
+                <input class="uiinput" type="number" min="0" th:field="*{sufficientQuantity}" id="number"
+                       placeholder="Mindestvorrat eingeben" required/>
 
-            <br>
-            <fieldset>
-                <text>Initialer Bestand</text>
-                <label for="amount"></label><input class="uiinput" type="number" min="0"
-                                                   th:field="*{amount}"
-                                                   id="amount"
-                                                   required/>
-            </fieldset>
-
-
-            <fieldset>
-                <text>Mindesthaltbarkeitsdatum des initialen Bestands</text>
-                <label for="expirationDate"></label>
+                <br>
+                <br>
+                <label for="amount">Initialer Bestand</label>
+                <p></p>
+                <input class="uiinput" type="number" min="0" th:field="*{amount}" id="amount"
+                       placeholder="Initialer Bestand eingeben" required/>
+                <br>
+                <br>
+                <label for="expirationDate">Mindesthaltbarkeitsdatum des initialen Bestands</label>
+                <p></p>
                 <input class="uiinput"
                        type="date"
                        th:field="*{expirationDate}" placeholder="yyyy-mm-dd"
@@ -99,13 +89,12 @@
                        id="expirationDate" max="2100-01-01" min="1900-01-01"
                        required/>
 
-            </fieldset>
+            </div>
 
 
-            <fieldset>
-                <button class="ui button" name="submit" type="submit" id="addbutton" data-submit="...Sending">Submit
-                </button>
-            </fieldset>
+            <button class="ui button" name="submit" type="submit" id="addbutton" data-submit="...Sending">
+                <label>SUBMIT</label>
+            </button>
         </form>
     </div>
 

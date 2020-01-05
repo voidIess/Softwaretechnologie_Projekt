@@ -11,10 +11,10 @@
         <div id="authorize" style="float: left; margin-bottom: 5px">
             <form th:action="@{/admin/training/authorize}">
                 <label>Es gibt <b><span th:text="${requestedTrainings}">0</span></b> neue Anfragen</label>
-                <button type="submit" class="ui button blue">Bearbeiten</button>
+                <button id="sbmbutton" type="submit" class="ui button blue"><label>Bearbeiten</label></button>
             </form>
         </div>
-        <table class="ui celled table">
+        <table class="ui celled table" id="catalog">
             <thead>
             <tr>
                 <th>ID</th>
@@ -35,7 +35,8 @@
                 <td th:text="${training.getDayAsString()}">Tag</td>
                 <td th:text="${training.startTime}">Time</td>
                 <td>
-                    <a class="ui red button" th:href="@{/training/end/{id}/(id=${training.trainingId})}">Absagen</a>
+                    <a id="dltbutton" class="ui red button" th:href="@{/training/end/{id}/(id=${training.trainingId})}">
+                        <label>Absagen</label></a>
                 </td>
             </tr>
             </tbody>

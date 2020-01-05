@@ -7,12 +7,12 @@
 <div th:fragment="trainings">
     <div class="ui container">
         <a th:if="${!member.isPaused()}" th:href="@{/member/training/create}">
-            <button class="ui blue button">
-                Training anfragen
+            <button id="sbmbutton" class="ui blue button">
+                <label>Training anfragen</label>
             </button>
         </a>
 
-        <table class="ui celled table">
+        <table class="ui celled table" id="catalog">
             <thead>
             <tr>
                 <th>ID</th>

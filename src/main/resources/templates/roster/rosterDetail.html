@@ -58,11 +58,14 @@
                                 th:selected="${role==rosterEntry.roleToString()}"></option>
                     </select>
                 </div>
+                <br>
 
-                <button th:if="${rosterEntry.getTraining() == -1}" type="submit" class="ui blue button">Speichern</button>
+                <button th:if="${rosterEntry.getTraining() == -1}" type="submit" class="ui blue button" id="sbmbutton">
+                    <label>Speichern</label></button>
                 <button th:unless="${rosterEntry.getTraining() == -1}" type="submit" class="ui blue button">Zurück</button>
-                <a th:if="${rosterEntry.getTraining() == -1}" class="ui red button"
-                   th:href="@{/roster/detail/delete/{week}/{shift}/{day}/{id}/(week=${week},shift=${shift},day=${day},id=${rosterEntry.rosterEntryId})}">Löschen</a>
+                <a th:if="${rosterEntry.getTraining() == -1}" class="ui red button" id="dltbutton"
+                   th:href="@{/roster/detail/delete/{week}/{shift}/{day}/{id}/(week=${week},shift=${shift},day=${day},id=${rosterEntry.rosterEntryId})}">
+                    <label>Löschen</label></a>
 
             </form>
 

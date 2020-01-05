@@ -1,3 +1,4 @@
+@import "https://use.fontawesome.com/releases/v5.5.0/css/all.css";
 body {
     margin: 0;
     padding: 0;
@@ -34,11 +35,27 @@ p {
     background: var(--third-color);
 }
 
+.box {
+    border:solid var(--bg-color);
+}
+
+div.active {
+    background-color:var(--actived-color);
+}
+
+div.paused {
+    background-color:var(--paused-color);
+}
+
 a {
     color: var(--btn-color);
     text-decoration: none;
     border-bottom: 3px solid transparent;
     font-weight: bold;
+}
+
+b {
+    color: var(--border-color);
 }
 
 span {
@@ -62,10 +79,42 @@ fieldset {
     background-color: var(--third-color);
     color: var(--font-color);
 }
+input{
+    border: 0;
+    padding: 3px 15px;
+    font: bold 14px/20px sans-serif;
+    border-radius:30px;
+}
+
+input{
+    border: 0;
+    padding: 3px 15px;
+    font: bold 14px/20px sans-serif;
+    border-radius:30px;
+}
 
 .uiinput {
-    background-color: var(--bg-color);
+    background-color: var(--input-color);
     color: var(--font-color);
+}
+
+button label{
+    color:var(--border-color);
+}
+
+a label{
+    color:var(--border-color);
+}
+
+input:hover {
+    border: 0 solid #888888;
+    -webkit-box-shadow: 1px 1px 1px rgba(0,0,0,.29), inset 0 0 2px rgba(0,0,0, .5);
+    box-shadow: 1px 1px 1px rgba(0,0,0,.29), inset 0 0 2px rgba(0,0,0, .5);
+}
+
+#rosterbutton {
+    background-color: var(--roster-button);
+    border-radius: 15px;
 }
 
 #addbutton {
@@ -73,8 +122,22 @@ fieldset {
     border-radius: 25px;
 }
 
-#addbutton label{
-    color:var(--border-color);
+#addbutton:hover {
+    background-color: var(--addhover-button);
+}
+
+#sbmbutton button{
+    background-color: var(--submit-button);
+    border-radius: 25px;
+}
+
+#sbmbutton:hover {
+    background-color: var(--submithover-button);;
+}
+
+#sbmbutton a{
+    background-color: var(--submit-button);
+    border-radius: 25px;
 }
 
 #sbmbutton {
@@ -82,41 +145,51 @@ fieldset {
     border-radius: 25px;
 }
 
-#sbmbutton label{
-    color:var(--border-color);
-}
-
 #dltbutton {
     background-color: var(--special-color);
     border-radius: 25px;
 }
 
-#dltbutton label{
-    color:var(--border-color);
+#dltbutton:hover {
+    background-color: var(--specialhover-color);
+}
+
+#rosterbutton  label{
+    color: var(--heading-color);
 }
 
 form.ui.form input[type='text'] {
-    background-color: var(--bg-color);
+    background-color: var(--input-color);
     color: var(--font-color);
 }
 
 form.ui.form input[type='number'] {
-    background-color: var(--bg-color);
+    background-color: var(--input-color);
     color: var(--font-color);
 }
 
 form.ui.form input[type='date'] {
-    background-color: var(--bg-color);
+    background-color: var(--input-color);
     color: var(--font-color);
 }
 
 form.ui.form input[type='password'] {
-    background-color: var(--bg-color);
+    background-color: var(--input-color);
     color: var(--font-color);
 }
 
 form.ui.form textarea {
     background-color: var(--bg-color);
+    color: var(--font-color);
+}
+
+form.ui.form select{
+    background-color: var(--input-color);
+    color: var(--font-color);
+}
+
+select{
+    background-color: var(--input-color);
     color: var(--font-color);
 }
 
@@ -150,13 +223,15 @@ textarea {
 }
 
 
+
+
 .btn {
     color: var(--btn-color);
-    font-size: 17px;
+    font-size: 18px;
 }
 
 .btn:hover {
-    background-color: var(--hover-color2);
+    border-bottom: 2px solid currentColor;
 }
 
 .special {
@@ -179,7 +254,7 @@ textarea {
 }
 
 .container a:hover {
-    background: var(--hover-color2);
+
 }
 
 .table.celled {
@@ -205,6 +280,10 @@ textarea {
 
 }
 
+#container-label label{
+    color: var(--heading-color);
+}
+
 #catalog {
     border-color: var(--border-color);
 }
@@ -215,8 +294,12 @@ textarea {
 
 }
 
-#catalog tr:nth-child(n) {
+#catalog tr:nth-child(2n+1) {
     background-color: var(--third-color);
+}
+
+#catalog tr:nth-child(2n) {
+    background-color: var(--th-color);
 }
 
 #catalog tr:hover {
@@ -230,4 +313,3 @@ textarea {
     background-color: var(--ts-color);
     color: var(--heading-color);
 }
-

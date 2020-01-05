@@ -9,25 +9,26 @@
     <div class="ui container">
         <div style="text-align: center">
             <div style="display: inline-block; width: available">
-                <div class="info" th:style="${member.isPaused() ? 'background:#ffcccd' : 'background:#ebffcf'}">
-                    <p class="box" style="border: solid #ffffff; border-radius: 10px; padding: 10px;"
+                    <div th:classappend="${member.isPaused()? 'paused' : 'active'}">
+                    <div class="box" style="border-radius: 10px; padding: 10px;"
                        th:text="${contractText}">
                         details
-                    </p>
+                    </div>
                 </div>
             </div>
-            <a th:if="${!member.isPaused()}" th:href="@{/member/memberPause}" class="ui button blue"
-               style="display: inline-block">
-                Pausieren
+            <a th:if="${!member.isPaused()}" th:href="@{/member/memberPause}" class="ui button blue" id="sbmbutton">
+                <label>Pausieren</label>
             </a>
             <div th:switch="${member.isEnded()}" style="display: inline-block">
                 <a th:case="true" th:href="@{/member/endMembership}" class="ui button red">Beenden</a>
-                <button disabled th:case="*" class="ui button red">Beenden</button>
+                <button disabled th:case="*" class="ui button red" id="dltbutton">Beenden</button>
             </div>
         </div>
         <div class="ui item">
             <form class="ui form" method="get" th:action="@{/member/edit}">
-                <button type="submit" class="ui labeled icon button"><i class="edit icon"></i>Bearbeiten</button>
+                <button id="sbmbutton" type="submit" class="ui button">
+                    <i class="edit icon"></i><label>Bearbeiten</label>
+                </button>
             </form>
             <h2 class="header">Benutzerdaten</h2>
             <p>Name:
@@ -56,14 +57,14 @@
             <h3>Aufladen</h3>
             <form class="ui form" method="post" th:action="@{/member/payin}">
                 <input type="hidden" name="memberId" value="0" th:value="${member.memberId}"/>
-                <fieldset class="field">
-                    <label for="amount">Betrag</label>
+                <fieldset id="container-label">
+                    <label id="label" for="amount">Betrag</label>
                     <input id="amount" type="number" name="amount" min="0.01" max="9999" value="0.01"
                            step="0.01"/>
                     <br/>
                 </fieldset>
-                <button type="submit" class="ui labeled icon button">
-                    <i class="money icon"></i> Aufladen
+                <button id="addbutton" type="submit" class="ui button">
+                    <i class="money icon"></i><label>Aufladen</label>
                 </button>
             </form>
             <h2>Rechnung</h2>

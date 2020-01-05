@@ -6,7 +6,6 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta content="text/html; charset=UTF-8" http-equiv="content-type"/>
-    <link rel="stylesheet" type="text/css" th:href="@{resources/css/roster.css}"/>
 
 </head>
 
@@ -31,7 +30,7 @@
         <p class="ui primary basic button">Trainer</p>
         <p class="ui positive basic button">Thekenkraft</p>
 
-        <table class="ui selectable celled table">
+        <table class="ui celled table" id="catalog">
             <thead>
             <tr>
                 <th>Zeit</th>
@@ -74,7 +73,8 @@
 
         </table>
 
-        <a class="fluid ui button" th:href="@{/roster/newRosterEntry/{week}/(week=${week})}">Eintrag hinzuf&uuml;gen</a><br>
+        <a class="fluid ui black inverted button" id="rosterbutton"
+           th:href="@{/roster/newRosterEntry/{week}/(week=${week})}"><label>Eintrag hinzuf&uuml;gen</label></a><br>
 
     </div>
 </div>

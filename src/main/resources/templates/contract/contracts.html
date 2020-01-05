@@ -8,11 +8,11 @@
 <div th:fragment="contracts">
     <div class="ui container">
         <a th:href="@{/admin/contract/create}">
-            <button class="ui blue button">
-                Vertrag erstellen
+            <button id="addbutton" class="ui blue button">
+                <label>Vertrag erstellen</label>
             </button>
         </a>
-        <table class="ui celled table">
+        <table class="ui celled table" id="catalog">
             <thead>
             <tr>
                 <th>ID</th>
@@ -20,7 +20,7 @@
                 <th>Beschreibung</th>
                 <th>Preis</th>
                 <th>Laufzeit (in Tagen)</th>
-                <th>Bearbeiten</th>
+                <th> </th>
             </tr>
             </thead>
             <tbody th:remove="all-but-first">
@@ -32,8 +32,8 @@
                 <td th:text="${contract.duration}">Dauer</td>
                 <td>
                     <a th:href="@{/admin/contract/detail/{id}/(id=${contract.contractId})}">
-                        <button class="ui blue button">
-                            <i class="edit icon"></i>
+                        <button class="ui button" type="submit" style="background-color:transparent">
+                            <div class="btn" style="font-size: 17px" >Bearbeiten</div>
                         </button>
                     </a>
                 </td>

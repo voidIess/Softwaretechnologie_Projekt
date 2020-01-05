@@ -17,25 +17,30 @@
         window.onload = function () {
 
             var chart1 = new CanvasJS.Chart("chartContainer1", {
+                backgroundColor: "transparent",
                 animationEnabled: true,
                 axisX: {
                     valueFormatString: "DDD",
                     min: new Date("[[${week[0]}]]"),
-                    max: new Date("[[${week[6]}]]")
+                    max: new Date("[[${week[6]}]]"),
+                    titleFontColor: "#ee6002",
+                    lineColor: "#ee6002",
+                    labelFontColor: "#ee6002",
+                    tickColor: "#ee6002"
                 },
                 axisY: {
                         title: "Zeit in Minuten",
-                    titleFontColor: "rgba(40,175,101,0.6)",
-                    lineColor: "rgba(40,175,101,0.6)",
-                    labelFontColor: "rgba(40,175,101,0.6)",
-                    tickColor: "rgba(40,175,101,0.6)"
+                    titleFontColor: "#34c759",
+                    lineColor: "#34c759",
+                    labelFontColor: "#34c759",
+                    tickColor: "#34c759"
                 },
                 axisY2: {
                     title: "Anzahl der Mitglieder",
-                    titleFontColor: "rgba(0,75,141,0.7)",
-                    lineColor: "rgba(0,75,141,0.7)",
-                    labelFontColor: "rgba(0,75,141,0.7)",
-                    tickColor: "rgba(0,75,141,0.7)",
+                    titleFontColor: "#0a84ff",
+                    lineColor: "#0a84ff",
+                    labelFontColor: "#0a84ff",
+                    tickColor: "#0a84ff",
                     min: 1,
 
                 },
@@ -51,7 +56,7 @@
                     showInLegend: true,
                     legendMarkerType: "square",
                     type: "area",
-                    color: "rgba(40,175,101,0.6)",
+                    color: "#34c759",
                     dataPoints: [
                         {x: new Date("[[${week[0]}]]"), y: [[${averageTimes[0]}]]},
                         {x: new Date("[[${week[1]}]]"), y: [[${averageTimes[1]}]]},
@@ -66,7 +71,7 @@
                     axisYType: "secondary",
                     showInLegend: true,
                     type: "line",
-                    color: "rgba(0,75,141,0.7)",
+                    color: "#0a84ff",
                     dataPoints: [
                         {x: new Date("[[${week[0]}]]"), y: [[${memberAmounts[0]}]]},
                         {x: new Date("[[${week[1]}]]"), y: [[${memberAmounts[1]}]]},
@@ -80,13 +85,22 @@
 
             var chart2 = new CanvasJS.Chart("chartContainer2", {
                 animationEnabled: true,
+                backgroundColor: "transparent",
                 axisX: {
                     valueFormatString: "DDD",
                     min: new Date("[[${week[0]}]]"),
-                    max: new Date("[[${week[6]}]]")
+                    max: new Date("[[${week[6]}]]"),
+                    titleFontColor: "#ee6002",
+                    lineColor: "#ee6002",
+                    labelFontColor: "#ee6002",
+                    tickColor: "#ee6002"
                 },
                 axisY: {
-                    title: "Preis in €"
+                    title: "Preis in €",
+                    titleFontColor: "#ff453a",
+                    lineColor: "#ff453a",
+                    labelFontColor: "#ff453a",
+                    tickColor: "#ff453a"
                 },
                 toolTip: {
                     shared: true
@@ -100,7 +114,7 @@
                     showInLegend: true,
                     legendMarkerType: "square",
                     type: "area",
-                    color: "rgba(40,175,101,0.6)",
+                    color: "#ff453a",
                     dataPoints: [
                         {x: new Date("[[${week[0]}]]"), y: [[${sellingEarnings[0]}]]},
                         {x: new Date("[[${week[1]}]]"), y: [[${sellingEarnings[1]}]]},
@@ -130,19 +144,20 @@
     <div class="ui items">
         <h2>Mitglieder Statistiken</h2>
         <p>Heutige Besucheranzahl:
-            <span class = "num" th:text="${memberAmounts[today]}">3</span>
-            <span th:if="${memberAmounts[today]==1}" th:text="Mitglied">3</span>
-            <span th:if="${memberAmounts[today]!=1}" th:text="Mitglieder">3</span>
+            <span class = "num" style="font-size: 25px" th:text="${memberAmounts[today]}">3</span>
+            <span style="font-size: 18px" th:if="${memberAmounts[today]==1}" th:text="Mitglied">3</span>
+            <span style="font-size: 18px" th:if="${memberAmounts[today]!=1}" th:text="Mitglieder">3</span>
         </p>
         <p>Heutiger durchschnittlicher Aufenthalt:
-            <span class ="num" th:text="${averageTimes[today]}">2</span>
-            <span th:if="${averageTimes[today]==1}" th:text="Minute">2</span>
-            <span th:if="${averageTimes[today]!=1}" th:text="Minuten">2</span>
+            <span class ="num" style="font-size: 25px" th:text="${averageTimes[today]}">2</span>
+            <span style="font-size: 18px" th:if="${averageTimes[today]==1}" th:text="Minute">2</span>
+            <span style="font-size: 18px" th:if="${averageTimes[today]!=1}" th:text="Minuten">2</span>
         </p>
         <div id="chartContainer1" style="height: 370px; width: 100%; margin-top: 15pt; margin-bottom:50pt"></div>
         <h2>Umsatz Statistiken</h2>
         <p>Heutige Verkaufseinnahmen:
-            <span class = "num" th:text="${sellingEarnings[0]}">3</span><span>€</span>
+            <span class = "num" style="font-size: 25px" th:text="${sellingEarnings[today]}">3</span>
+            <span style="font-size: 18px">€</span>
         </p>
         <div id="chartContainer2" style="height: 370px; width: 100%; margin-top: 15pt; margin-bottom:50pt"></div>
     </div>

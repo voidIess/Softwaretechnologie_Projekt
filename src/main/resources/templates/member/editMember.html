@@ -5,11 +5,11 @@
 
 <html lang="de" xmlns:th="http://www.thymeleaf.org">
 <div th:fragment="editMember">
-    <div class="ui container">
+    <div class="ui container" id="container-label">
 
         <form method="post" role="form" class="ui form" id="form" th:action="@{/member/edit}" th:object="${form}">
             <h2>Benutzerdaten</h2>
-
+            <fieldset>
             <div class="ui negative message" th:if="${#fields.hasErrors('*')}">
                 <p>Einige Angaben sind nicht korrekt.</p>
             </div>
@@ -35,9 +35,9 @@
                     <p>Email bereits vergeben.</p>
                 </div>
             </div>
-
+            </fieldset>
             <h2>Kontodaten</h2>
-
+            <fieldset>
             <div class="field">
                 <label for="iban">IBAN</label>
                 <input id="iban" name="iban" th:field="*{iban}" th:errorclass="fieldError" type="text"
@@ -56,7 +56,10 @@
                 </div>
             </div>
 
-            <button type="submit" class="ui button" th:text="#{editMember.submit}">Speichern</button>
+            <button id="sbmbutton" type="submit" class="ui button" >
+                <b th:text="#{editMember.submit}"></b>
+            </button>
+            </fieldset>
         </form>
     </div>
 </div>

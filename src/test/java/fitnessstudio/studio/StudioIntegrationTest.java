@@ -56,7 +56,7 @@ public class StudioIntegrationTest extends AbstractIntegrationTests {
 	@Test
 	void postEditStudioController() throws Exception {
 		mvc.perform(post(
-				"/studio?advertisingBonus=10&openingTimes=Mo-Fr&address=abcxyz&name=Fitness Second")
+				"/studio?advertisingBonus=10&openingTimes=Mo-Fr&address=abcxyz&name=Fitness Final")
 				.with(user("boss").roles("BOSS")).with(csrf()))
 				.andExpect(status().is(302)).andExpect(view().name("redirect:/"));
 	}

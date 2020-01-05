@@ -6,10 +6,10 @@
 
 <html lang="de" xmlns:th="http://www.thymeleaf.org">
 <div th:fragment="contract_create">
-    <div class="ui container">
+    <div class="ui container" id="container-label">
         <form method="post" role="form" class="ui form" id="form" th:action="@{/admin/contract/create}"
               th:object="${form}">
-
+<div class="ui segment">
             <div class="field">
                 <label for="name">Name</label>
                 <input id="name" th:field="*{name}" th:errorclass="fieldError" type="text"
@@ -36,8 +36,8 @@
                        required="required"/><br/>
             </div>
 
-            <button type="submit" class="ui button">Erstellen</button>
-        </form>
+            <button id="addbutton" type="submit" class="ui button"><b>Erstellen</b></button>
+</div></form>
     </div>
 </div>
 </html>

@@ -14,7 +14,7 @@
            th:text="${err}">
         </p>
 
-        <table class="ui celled table">
+        <table class="ui celled table" id="catalog">
             <thead>
             <tr>
                 <th>ID</th>
@@ -39,9 +39,10 @@
                 <td th:text="${training.getDayAsString()}">Tag</td>
                 <td th:text="${training.startTime}">Zeit</td>
                 <td>
-                    <a class="ui green button" th:href="@{/training/accept/{id}/(id=${training.trainingId})}">Akzeptieren</a>
-                    <a class="ui red button"
-                       th:href="@{/training/decline/{id}/(id=${training.trainingId})}">Ablehnen</a>
+                    <a id="addbutton" class="ui green button" th:href="@{/training/accept/{id}/(id=${training.trainingId})}">
+                        <label>Akzeptieren</label></a>
+                    <a id="dltbutton" class="ui red button"
+                       th:href="@{/training/decline/{id}/(id=${training.trainingId})}"><label>Ablehnen</label></a>
                 </td>
             </tr>
             </tbody>
