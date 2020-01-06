@@ -13,12 +13,13 @@
 
 <div th:fragment="site_content">
     <div class="ui container">
-        <table class="ui celled table">
+        <table id="catalog" class="ui striped table">
             <thead>
             <tr>
                 <th>Artikelname</th>
                 <th>Beschreibung</th>
                 <th>Art</th>
+                <th>Mindestmenge</th>
             </tr>
             </thead>
             <tbody th:remove="all-but-first">
@@ -26,21 +27,22 @@
                 <td><a th:href="@{/article/{id}(id=${article.id})}" th:text="${{article.name}}">Artikelname</a></td>
                 <td th:text="${article.description}">Beschreibung</td>
                 <td th:text="${article.type}">Art</td>
+                <td th:text="${article.sufficientQuantity.getAmount().intValue()}">Mindestmenge</td>
             </tr>
 
 
             </tbody>
 
         </table>
+        <br>
         <!-- Button -->
-        <div class="ui one column centered grid">
-            <div class="column">
-                <a th:href="@{/article}">
-                    <button class="ui green button">
-                        <i class="plus icon"></i>Artikel hinzufügen
-                    </button>
-                </a>
-            </div>
+
+        <div class="column">
+            <a th:href="@{/article}" style="background-color:transparent">
+                <button class="ui right button" id="addbutton">
+                    <i class="lbl plus icon"></i><label>Artikel hinzufügen</label>
+                </button>
+            </a>
         </div>
     </div>
 </div>

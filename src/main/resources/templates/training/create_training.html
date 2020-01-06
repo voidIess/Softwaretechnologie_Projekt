@@ -6,13 +6,13 @@
 
 <html lang="de" xmlns:th="http://www.thymeleaf.org">
 <div th:fragment="create_training">
-    <div class="ui container">
+    <div class="ui container" id="container-label">
         <form method="post" role="form" class="ui form" id="form" th:action="@{/member/training/create}"
               th:object="${form}">
             <div class="ui negative message" th:if="${#fields.hasErrors('*')}">
                 <p>Einige Angaben sind nicht korret.</p>
             </div>
-
+            <fieldset>
             <div class="field">
                 <label th:text="#{training.type}" for="type"></label>
                 <select th:field="*{type}" id="type" required="required">
@@ -79,14 +79,17 @@
             </div>
 
             <div class="field">
+
                 <label th:text="#{training.description}" for="description">Beschreibung</label>
                 <input id="description" type="text" th:field="*{description}" required="required"/>
                 <div class="ui negative message" th:if="${#fields.hasErrors('description')}" th:errors="*{description}">
                     <p>Die Beschreibung nicht leer sein.</p>
                 </div>
-            </div>
 
-            <button type="submit" class="ui button blue" th:text="#{training.create}">Erstellen</button>
+            </div>
+            </fieldset>
+            <button type="submit" class="ui button blue" id="addbutton">
+                <b class="lbl" th:text="#{training.create}">Erstellen</b></button>
         </form>
     </div>
 </div>

@@ -43,8 +43,9 @@ public class RosterEntry implements Comparable<RosterEntry> {
 	}
 
 	public void setRole(StaffRole role) {
-		if (role.equals(StaffRole.COUNTER))
+		if (role.equals(StaffRole.COUNTER)) {
 			Assert.isTrue(training == NONE, "Der Mitarbeiter hat zu dieser Zeit einen Termin.");
+		}
 		this.role = role;
 	}
 
@@ -67,8 +68,12 @@ public class RosterEntry implements Comparable<RosterEntry> {
 
 	@Override    // Um im Dienstplan die Einträge nach den Aufgaben zu sortieren
 	public int compareTo(RosterEntry rosterEntry) {
-		if (rosterEntry.getRole().equals(StaffRole.COUNTER)) return 1;
-		else return -1;
+		if (rosterEntry.getRole().equals(StaffRole.COUNTER)){
+			return 1;
+		}
+		else{
+			return -1;
+		}
 	}
 
 	public void setTraining(long training) {

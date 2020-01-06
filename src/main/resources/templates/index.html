@@ -35,7 +35,7 @@
     </h1>
     <div class="container">
         <span class="text1">Willkommen bei</span>
-        <span class="text2">Fitness Second</span>
+        <span class="text2" th:text="${studioName.toString()}"></span>
     </div>
 </header>
 
@@ -51,14 +51,14 @@
             <div class="column">
                 <a href="studio" sec:authorize="hasRole('BOSS')">
                     <!-- Button to edit -->
-                    <button class="btn">Studio Bearbeiten</button>
+                    <button class="btn" id="sbmbutton">Studio Bearbeiten</button>
                 </a>
             </div>
 
             <div sec:authorize="hasRole('BOSS')" class="middle aligned column">
                 <a th:href="@{/newStaff}" sec:authorize="hasAnyRole('ROLE_BOSS')">
                     <!-- Button to add staff -->
-                    <button class="btn"> Mitarbeiter hinzufügen</button>
+                    <button class="btn" id="addbutton"> Mitarbeiter hinzufügen</button>
                 </a>
             </div>
 
@@ -70,7 +70,7 @@
 <h1></h1>
 <div class="ui container">
 
-    <div class="ui container">
+    <div class="ui container" style="font-size: calc(1rem + 0.25vh);">
         <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque feugiat lacinia facilisis.
             Nulla pellentesque dui diam, eu volutpat arcu lacinia in.
@@ -88,22 +88,23 @@
 </div>
 <h1></h1>
 <div class="ui container"
-     style="position:relative; bottom: 50px; text-align: center; background: #d2e1f7; padding: 10px; ">
+     style="position:relative; bottom: 50px; text-align: center; background: rgba(210,225,247,0.67); padding: 10px;
+     font-size: calc(1rem + 0.25vh)">
     <h3>Unsere Öffnungszeiten : </h3>
 
     <div>
-        <textarea rows="7" cols="30" readonly th:text="${openingTimes}"></textarea>
+        <textarea rows="9" cols="31" readonly th:text="${openingTimes}"></textarea>
     </div>
     <h3>Alle Informationen : </h3>
     <label>Adresse:</label> <label th:text="${address}"></label> <br>
     <label>Werbebonus:</label> <label th:text="${advertisingBonus}"></label> <label>€</label> <br>
-    <ul>
-        <li th:each="contract : ${contractList}">
+    <div>
+        <div th:each="contract : ${contractList}">
             <label th:text="${contract.name}">Name</label>: <label th:text="${contract.price}">Preis</label>
             <label>(Vertragslaufzeit:</label> <label th:text="${contract.duration}">Dauer</label><label>
             Tagen)</label><br>
-        </li>
-    </ul>
+        </div>
+    </div>
 </div>
 
 </body>

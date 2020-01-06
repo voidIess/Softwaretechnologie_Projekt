@@ -62,7 +62,7 @@ class MemberControllerIntegrationTests {
 
 	@Test
 	void preventPublicAccessForMemberCheckIn() throws Exception {
-		mockMvc.perform(get("/member/checkin/{id}", "1"))
+		mockMvc.perform(get("/checkin"))
 				.andExpect(status().is3xxRedirection())
 				.andExpect(header().string(HttpHeaders.LOCATION, endsWith("/login")));
 	}

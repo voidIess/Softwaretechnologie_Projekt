@@ -144,6 +144,20 @@ public class RosterTest {
 		}
 
 		try {
+			roster.deleteEntry(-1,1, rosterEntryCounter.getRosterEntryId());
+			fail("Die Schicht darf nicht negativ sein");
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+
+		try {
+			roster.deleteEntry(1,-1,rosterEntryCounter.getRosterEntryId());
+			fail("Der Tag darf nicht negativ sein!");
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+
+		try {
 			roster.deleteEntry(2,2,rosterEntryTrainer.getRosterEntryId());
 			fail("Der RosterEntry befindet sich nicht in der Liste.");
 		} catch (Exception e) {

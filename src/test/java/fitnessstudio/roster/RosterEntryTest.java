@@ -29,7 +29,7 @@ public class RosterEntryTest {
 
 	private RosterEntry rosterEntryTrainer;
 	private RosterEntry rosterEntryCounter;
-	private RosterEntry rosterEntryTest;
+	private RosterEntry rosterEntryTrainerWithTrainig;
 
 	@BeforeAll
 	void setup () {
@@ -37,13 +37,15 @@ public class RosterEntryTest {
 		staff2 = new Staff(userAccounts.create("rosterEntryTestStaff2", Password.UnencryptedPassword.of("123"), "rosterEntryTestStaff2@email.de", Role.of("STAFF")),"Markus", "Wieland", Money.of(100, "EUR"));
 		rosterEntryTrainer = new RosterEntry(StaffRole.TRAINER,staff);
 		rosterEntryCounter = new RosterEntry(StaffRole.COUNTER, staff);
+		rosterEntryTrainerWithTrainig = new RosterEntry(StaffRole.TRAINER,staff);
+
 	}
 
 	@Test
 	@Order(1)
 	void constructorTest () {
 		try{
-			rosterEntryTest = new RosterEntry(StaffRole.TRAINER, null);
+			RosterEntry rosterEntry = new RosterEntry(StaffRole.TRAINER, null);
 			fail("Der Staff darf nicht null sein!");
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
@@ -70,6 +72,42 @@ public class RosterEntryTest {
 	void isTrainerTest () {
 		assertThat(rosterEntryTrainer.isTrainer()).isTrue();
 		assertThat(rosterEntryCounter.isTrainer()).isFalse();
+	}
+
+	//TODO die annotation für die Order
+
+	@Test
+	@Order(5)
+	void testSetTraining () {
+		try {
+			rosterEntryCounter.setTraining(123);
+			fail("Der RosterEntry hat den Typ Counter!");
+		} catch (Exception ignore) {
+			assertThat(rosterEntryCounter.getTraining() == RosterEntry.NONE).isTrue();
+		}
+
+	}
+
+	@Test
+	@Order(6)
+	void testSetRole() {
+		rosterEntryTrainerWithTrainig.setTraining(123);
+		try {
+			rosterEntryTrainerWithTrainig.setRole(StaffRole.COUNTER);
+			fail("Der Mitarbeiter hat zu dieser Zeit einen Termin!");
+		} catch(Exception ignore) {
+			assertThat(rosterEntryTrainerWithTrainig.getRole().equals(StaffRole.TRAINER)).isTrue();
+		}
+		rosterEntryTrainer.setRole(StaffRole.COUNTER);
+		assertThat(rosterEntryTrainer.getRole().equals(StaffRole.COUNTER)).isTrue();
+		rosterEntryTrainer.setRole(StaffRole.TRAINER);
+		assertThat(rosterEntryTrainer.getRole().equals(StaffRole.TRAINER)).isTrue();
+	}
+
+	@Test
+	@Order(7)
+	void roleToString () {
+		assertThat(rosterEntryTrainer.roleToString().equals(RosterDataConverter.roleToString(StaffRole.TRAINER))).isTrue();
 	}
 
 

@@ -6,10 +6,10 @@
 
 <html lang="de" xmlns:th="http://www.thymeleaf.org">
 <div th:fragment="register">
-    <div class="ui container">
+    <div class="ui container" id="container-label">
         <form method="post" role="form" class="ui form" id="form" th:action="@{/register}" th:object="${form}">
             <h2>Benutzerdaten</h2>
-
+            <fieldset>
             <div class="ui negative message" th:if="${#fields.hasErrors('*')}">
                 <p>Einige Angaben sind nicht korrekt.</p>
             </div>
@@ -58,9 +58,9 @@
                     <p> Das Passwort darf nicht leer sein. </p>
                 </div>
             </div>
-
+</fieldset>
             <h2>Kontodaten</h2>
-
+            <fieldset>
             <div class="field">
                 <label for="iban">IBAN</label>
                 <input id="iban" name="iban" th:field="*{iban}" th:errorclass="fieldError" type="text"
@@ -78,8 +78,9 @@
                     <p>BIC darf nicht leer sein.</p>
                 </div>
             </div>
-
+</fieldset>
             <h2>Vertrag</h2>
+            <fieldset>
             <label for="contract">Vertrag auswählen</label>
             <a th:href="@{/contract_information}" target="_blank">Details</a>
             <select id="contract" th:field="*{contract}">
@@ -97,8 +98,11 @@
                     <p>Bonus Code nicht gefunden.</p>
                 </div>
             </div>
-
-            <button type="submit" class="ui button" th:text="#{register.submit}">Registrieren</button>
+            </fieldset>
+            <br>
+            <button id="addbutton" type="submit" class="ui button">
+                <b class="lbl" th:text="#{register.submit}"></b>
+            </button>
         </form>
     </div>
 </div>

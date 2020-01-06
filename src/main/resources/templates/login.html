@@ -9,6 +9,7 @@
             src="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.js"></script>
 
     <link rel="stylesheet" type="text/css" th:href="@{/resources/css/login.css}" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" charset="utf-8"></script>
     <title th:text="#{home.title}">Gym</title>
 </head>
 <body>
@@ -20,22 +21,35 @@
 
     <form class="ui form" role="form" th:action="@{/login}" method="post">
 
-        <div class="textbox">
+        <div class="txtb">
             <i class="fas fa-user"></i>
-            <input type="text" placeholder="Username" id="username" name="username" autofocus="autofocus"/> <br/>
+            <input type="text" id="username" name="username">
+            <span data-placeholder="Benutzername"></span>
         </div>
 
-        <div class="textbox">
+        <div class="txtb">
             <i class="fas fa-lock"></i>
-            <input type="password" placeholder="Password" id="password" name="password"/> <br/>
+            <input type="password" id="password" name="password">
+            <span data-placeholder="Passwort"></span>
         </div>
 
-        <input type="submit" class="btn" value="Sign in">
-        <a th:href="@{~/register}">
-            <input type="button" class="btn" value="Sign up">
-        </a>
+        <input type="submit" class="btn" value="Anmelden">
+        <div class="bottom-text">
+           Noch kein Mitglied? <a th:href="@{~/register}"> Registrieren</a>
+        </div>
 
     </form>
 </div>
+<script type="text/javascript">
+    $(".txtb input").on("focus",function(){
+        $(this).addClass("focus");
+    });
+
+    $(".txtb input").on("blur",function(){
+        if($(this).val() == "")
+            $(this).removeClass("focus");
+    });
+
+</script>
 </body>
 </html>

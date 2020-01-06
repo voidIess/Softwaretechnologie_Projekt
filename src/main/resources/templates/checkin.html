@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+
+<html lang="de" xmlns:th="http://www.thymeleaf.org"
+      th:replace="site_template :: template(#{checkin.title}, ~{::checkin})">
+</html>
+
+<html lang="de" xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="checkin">
+    <div class="ui container">
+        <div style="margin-bottom: 40px">
+            <h3>Aufladen</h3>
+            <form class="ui form horizontally padded" method="post" th:action="@{/admin/member/payin}">
+                <div class="ui segment">  <div>
+                    <label for="id">Mitglieder ID</label>
+                    <input type="text" name="id" value="0" id="id"/>
+                </div>
+                    <br>
+                <div>
+                    <label for="amount">Betrag</label>
+                    <input id="amount" type="number" name="amount" min="0.01" max="9999" value="0.01"
+                           step="0.01"/>
+                </div>
+                    <br>
+
+                <button id="addbutton" type="submit" class="ui button" style="margin-top: 5px">
+                    <i class="lbl money icon"></i> <b class="lbl">Aufladen</b>
+                </button></div>
+            </form>
+            </div>
+        <div>
+
+            <div id="checkIn">
+                <h3>
+                    Check-In
+                </h3>
+
+                <form class="ui form horizontally padded" th:action="@{/member/checkin}" method="post">
+                    <div class="ui segment"> <label for="memberId">Member ID</label>
+                    <input id="memberId" type="text" name="id">
+                    <br>
+                    <br>
+
+                    <button id="sbmbutton" class="ui blue button" type="submit" style="margin-top: 5px">
+                        <b class="lbl">Check in</b>
+                    </button></div>
+                    </form>
+
+            <div id="attendants table" style="margin-top: 20px">
+                <table class="ui celled table" id="catalog">
+                    <thead>
+                    <tr>
+                        <th>Mitglieder Nummer</th>
+                        <th>Aktiv seit</th>
+                        <th>Check out</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="attendant : ${attendants}">
+                            <td th:text="${attendant.getMemberId()}"></td>
+                            <td th:text="${attendant.getCheckInTime()}"></td>
+                            <td>
+                                <a class="ui red button" id="dltbutton"
+                                   th:href="@{/member/checkout/{id}/(id=${attendant.getMemberId()})}"><label
+                                        >check out</label>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+             </div>
+    </div>
+</div>
+</div>
+</html>

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotEmpty;
@@ -67,6 +68,7 @@ public class InventoryController {
 
 	@PreAuthorize("hasRole('STAFF')")
 	@PostMapping("/article")
+	@Transactional
 	public String addArticle(@Valid CreateArticleForm form, Model model) throws DateTimeParseException {
 		if (getError((ArticleForm) form, model)) {
 			return ERROR;
@@ -268,7 +270,7 @@ public class InventoryController {
 
 		model.addAttribute("stock", barManager.getAvailableArticles());
 
-		return "/bar/stock";
+		return "bar/stock";
 	}
 
 	private LocalDate passDate(String input) {
@@ -309,13 +311,12 @@ public class InventoryController {
 
 			try {
 				if (formStartDiscount.equals("")) {
-					formStartDiscount = "01.01.2000";
+					formStartDiscount = "2000-01-01";
 				}
 				if (formEndDiscount.equals("")) {
-					formEndDiscount = "01.01.2099";
+					formEndDiscount = "2099-01-01";
 				}
-
-				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 				startDate = LocalDate.parse(formStartDiscount, formatter);
 				endDate = LocalDate.parse(formEndDiscount, formatter);
 				return this;
@@ -323,12 +324,13 @@ public class InventoryController {
 			} catch (DateTimeParseException e) {
 
 				if (formStartDiscount.equals("")) {
-					formStartDiscount = "2000-01-01";
+					formStartDiscount = "01.01.2000";
 				}
 				if (formEndDiscount.equals("")) {
-					formEndDiscount = "2099-01-01";
+					formEndDiscount = "01.01.2099";
 				}
-				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 				startDate = LocalDate.parse(formStartDiscount, formatter);
 				endDate = LocalDate.parse(formEndDiscount, formatter);
 				return this;

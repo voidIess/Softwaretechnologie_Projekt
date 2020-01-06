@@ -43,6 +43,9 @@ public class RosterManagementTest {
 	private RosterEntryForm rosterEntryError1;
 	private RosterEntryForm rosterEntryError2;
 	private RosterEntryForm rosterEntryError3;
+	private RosterEntryForm rosterEntryErrorNoStaff;
+	private RosterEntryForm rosterEntryErrorNoRoster;
+
 	private Staff staffTrainer;
 	private Staff staffCounter;
 	private List<String> times;
@@ -82,7 +85,6 @@ public class RosterManagementTest {
 			timeList,
 			week
 		);
-
 		rosterEntryTrainer = new RosterEntryForm(
 			staffCounter.getStaffId(),
 			RosterDataConverter.roleToString(StaffRole.TRAINER),
@@ -90,7 +92,6 @@ public class RosterManagementTest {
 			timeList,
 			week
 		);
-
 		rosterEntryCounterOtherStaff = new RosterEntryForm(
 			staffTrainer.getStaffId(),
 			RosterDataConverter.roleToString(StaffRole.COUNTER),
@@ -98,7 +99,6 @@ public class RosterManagementTest {
 			timeList,
 			week
 		);
-
 		rosterEntryError1 = new RosterEntryForm(
 			staffCounter.getStaffId(),
 			RosterDataConverter.roleToString(StaffRole.COUNTER),
@@ -106,7 +106,6 @@ public class RosterManagementTest {
 			timeList,
 			null
 		);
-
 		rosterEntryError2 = new RosterEntryForm(
 			staffCounter.getStaffId(),
 			RosterDataConverter.roleToString(StaffRole.COUNTER),
@@ -121,7 +120,20 @@ public class RosterManagementTest {
 			null,
 			week
 		);
-
+		rosterEntryErrorNoRoster = new RosterEntryForm(
+			staffCounter.getStaffId(),
+			RosterDataConverter.roleToString(StaffRole.COUNTER),
+			day,
+			times,
+			-1
+		);
+		rosterEntryErrorNoStaff = new RosterEntryForm(
+			-100L,
+			RosterDataConverter.roleToString(StaffRole.COUNTER),
+			day,
+			times,
+			week
+		);
 	}
 
 	@Test
@@ -152,7 +164,21 @@ public class RosterManagementTest {
 		rosterManagement.createEntry(rosterEntryCounter, RosterEntry.NONE, null);
 		rosterManagement.saveRoster(roster);
 		roster = rosterManagement.getRosterByWeek(rosterEntryCounter.getWeek());
-		assertThat(roster.getRows().get(rosterManagement.getTimeIndex(rosterEntryCounter.getTimes().get(0))).getSlots().get(rosterEntryCounter.getDay()).getEntries().size() == before+1).isTrue();
+		assertThat(roster.getRows().get(rosterManagement.getTimeIndex(rosterEntryCounter.getTimes().get(0))).getSlots().get(rosterEntryCounter.getDay()).getEntries().size() == before + 1).isTrue();
+
+		try {
+			rosterManagement.createEntry(rosterEntryErrorNoRoster, RosterEntry.NONE, null);
+			fail("Dieser Roster existiert nicht.");
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+
+		try {
+			rosterManagement.createEntry(rosterEntryErrorNoStaff, RosterEntry.NONE, null);
+			fail("Dieser Staff exisitiert nicht!");
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
 
 		try {
 			rosterManagement.createEntry(rosterEntryCounter, RosterEntry.NONE, null);
@@ -161,7 +187,6 @@ public class RosterManagementTest {
 			System.out.println(e.getMessage());
 		}
 		assertThat(roster.getRows().get(rosterManagement.getTimeIndex(rosterEntryCounter.getTimes().get(0))).getSlots().get(rosterEntryCounter.getDay()).getEntries().size() == 1).isTrue();
-
 
 		try {
 			rosterManagement.createEntry(null, RosterEntry.NONE, null);
@@ -196,7 +221,7 @@ public class RosterManagementTest {
 	@Order(4)
 	void testIsFree() {
 		assertThat(rosterManagement.isFree(rosterEntryCounterOtherStaff)).isTrue();
-		rosterManagement.createEntry(rosterEntryCounterOtherStaff,-1,null);
+		rosterManagement.createEntry(rosterEntryCounterOtherStaff, -1, null);
 		roster = rosterManagement.getRosterByWeek(rosterEntryCounterOtherStaff.getWeek());
 		assertThat(roster.getRows().get(rosterManagement.getTimeIndex(rosterEntryCounterOtherStaff.getTimes().get(0))).getSlots().get(rosterEntryCounterOtherStaff.getDay()).getEntries().size() == 1).isTrue();
 		Staff staff = roster.getRows().get(rosterManagement.getTimeIndex(rosterEntryCounterOtherStaff.getTimes().get(0))).getSlots().get(rosterEntryCounterOtherStaff.getDay()).getEntries().get(0).getStaff();
@@ -206,17 +231,17 @@ public class RosterManagementTest {
 
 	@Test
 	@Order(5)
-	void testGetNextWeeks () {
+	void testGetNextWeeks() {
 		List<Integer> list = rosterManagement.getNextWeeks();
 		List<Integer> compare = new ArrayList<>();
 		assertThat(list.size() == 6).isTrue();
-		for (int i = 0; i<list.size();i++){
+		for (int i = 0; i < list.size(); i++) {
 			Calendar c = Calendar.getInstance();
-			c.add(Calendar.WEEK_OF_YEAR,i);
+			c.add(Calendar.WEEK_OF_YEAR, i);
 			compare.add(c.get(Calendar.WEEK_OF_YEAR));
 		}
 
-		for (int i = 0; i<list.size();i++){
+		for (int i = 0; i < list.size(); i++) {
 			System.out.println(compare.get(i));
 			System.out.println(list.get(i));
 			assertThat(compare.get(i).equals(list.get(i))).isTrue();

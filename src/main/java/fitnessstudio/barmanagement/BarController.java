@@ -142,7 +142,7 @@ public class BarController {
 	public String addItem(@RequestParam("pid") Article article, @RequestParam("number")
 			int number, @ModelAttribute Cart cart) {
 		barManager.addArticleToCart(article, Quantity.of(number), cart);
-		return ("redirect:sell_catalog");
+		return "redirect:/sell_catalog";
 	}
 
 

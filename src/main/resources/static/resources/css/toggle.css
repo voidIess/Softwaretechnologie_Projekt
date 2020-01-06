@@ -3,7 +3,25 @@
     --secondary-color: #536390;
     --font-color: #424242;
     --bg-color: #fff;
-    --heading-color: default;
+    --heading-color: #121212;
+    --third-color:#ffffff;
+    --btn-color:#3700b3;
+    --hover-color: #ddd;
+    --hover-color2:#bbb;
+    --border-color: #ddd;
+    --ts-color: #f9fafb;
+    --th-color: #f0f0f0;
+    --special-color: #b00020;
+    --specialhover-color: rgba(176, 0, 32, 0.88);
+    --submit-button:#3700B3;
+    --submithover-button:rgba(55, 0, 179, 0.88);
+    --roster-button:#e0e1e2;
+    --add-button:#018786;
+    --addhover-button:rgba(1, 135, 134, 0.88);
+    --paused-color:#cf6679;
+    --actived-color:#ebffcf;
+    --input-color:#f0f0f0;
+
 }
 
 
@@ -12,8 +30,24 @@
     --secondary-color: #818cab;
     --font-color: #e1e1ff;
     --bg-color: #161625;
-    --heading-color: white;
-
+    --heading-color: #ffffff;
+    --third-color: #1e1e2c;
+    --btn-color: #bb86fc;
+    --hover-color: #181824;
+    --hover-color2: #383838;
+    --border-color: black;
+    --ts-color: #181824;
+    --th-color: #181824;
+    --special-color: #cf6679;
+    --specialhover-color: rgba(207, 102, 121, 0.68);
+    --submit-button: #bb86fc;
+    --submithover-button: rgba(187, 134, 252, 0.68);
+    --roster-button:black;
+    --add-button:#03DAC5;
+    --addhover-button:rgba(3, 218, 197, 0.67);
+    --paused-color:#fd345a ;
+    --actived-color:#4caf50;
+    --input-color:#121220;
 }
 
 

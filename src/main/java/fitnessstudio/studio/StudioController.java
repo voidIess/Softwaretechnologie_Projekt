@@ -35,6 +35,7 @@ public class StudioController {
 		model.addAttribute("openingTimes", studio.getOpeningTimes());
 		model.addAttribute("address", studio.getAddress());
 		model.addAttribute("advertisingBonus", studio.getAdvertisingBonus());
+		model.addAttribute("studioName", studio.getName());
 		model.addAttribute("contractList", contractManagement.getAllContracts());
 		return "index";
 	}
@@ -56,6 +57,11 @@ public class StudioController {
 			@Override
 			public @NotEmpty String getAddress() {
 				return studio.getAddress();
+			}
+
+			@Override
+			public @NotEmpty String getName() {
+				return studio.getName();
 			}
 		};
 	}
@@ -83,6 +89,7 @@ public class StudioController {
 		studio.setOpeningTimes(studioForm.getOpeningTimes());
 		studio.setAdvertisingBonus(studioForm.getAdvertisingBonus());
 		studio.setAddress(studioForm.getAddress());
+		studio.setName(studioForm.getName());
 		studioService.saveStudio(studio);
 		return "redirect:/";
 	}

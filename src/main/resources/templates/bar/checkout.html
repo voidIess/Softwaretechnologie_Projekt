@@ -13,37 +13,37 @@
 
 <div th:fragment="site_content">
 
-    <div class="ui container">
-        <form method="post" role="form" class="ui form" id="form" th:action="@{/checkout}"
+    <div th:if="${!cart.isEmpty()}" class="ui container">
+        <form method="post" role="form" id="form" th:action="@{/checkout}"
               th:object="${form}">
             <h2 th:text="'Summe: '+${cart.getPrice()}">
                 Summe: EUR 13,37
             </h2>
 
-
-            <fieldset>
-                <text>Kundennummer</text>
-                <label for="customerId"></label><input type="text"
+            <div>
+                <fieldset style="border-radius:30px;">
+                <text>Kundennummer</text>&nbsp &nbsp
+                <label for="customerId"></label><input class="uiinput" type="text"
                                                        th:field="*{customerId}"
                                                        id="customerId"
+                                                       placeholder="z.B 2"
                                                        required/>
-            </fieldset>
-
-            <fieldset>
-                <text>Zahlungsart</text>
-                <select id="paymentMethod" th:field="*{paymentMethod}">
-                    <option value="0">
-                        Mit Guthaben bezahlen
-                    </option>
-                    <option value="1">
-                        Bar bezahlen
-                    </option>
-                </select>
-            </fieldset>
-
-            <fieldset>
-                <button name="submit" type="submit" id="contact-submit" data-submit="...Sending">Submit</button>
-            </fieldset>
+                    &nbsp &nbsp &nbsp &nbsp
+                    <text>Zahlungsart</text>&nbsp &nbsp
+                    <select class="uiinput" id="paymentMethod" th:field="*{paymentMethod}">
+                        <option value="0">
+                            Mit Guthaben bezahlen
+                        </option>
+                        <option value="1">
+                            Bar bezahlen
+                        </option>
+                    </select>
+                </fieldset>
+                <br>
+                <button class="ui button" id="sbmbutton" name="submit" type="submit" data-submit="...Sending">
+                    <b class="lbl">SUBMIT</b>
+                </button>
+            </div>
         </form>
     </div>
 </div>

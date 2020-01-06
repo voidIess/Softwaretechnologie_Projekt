@@ -1,27 +1,18 @@
 <!DOCTYPE html>
 
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
-    <script th:src="@{/webjars/jquery/jquery.min.js}"
-            src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script th:src="@{/webjars/Semantic-UI/semantic.min.js}"
-            src="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.js"></script>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="site_template :: template('Mitarbeiterliste', ~{::site_content})"></html>
+
+<html xmlns:th="http://www.thymeleaf.org" th:remove="tag">
+<head th:remove="all">
+    <meta content="text/html; charset=UTF-8" http-equiv="content-type"/>
     <link rel="stylesheet" href="http://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css" type="text/css"/>
-    <link th:href="@{/resources/css/style.css}" rel="stylesheet"
-          href="../../static/resources/css/style.css" type="text/css"/>
     <link rel="stylesheet" type="text/css" th:href="@{/resources/css/toggle.css}"/>
-    <title>Mitgliederliste</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/css/template.css}"/>
 </head>
 <body>
 <div class="ui container">
-    <nav th:include="navigation :: navigation"></nav>
-    <nav th:include="toggle :: toggle"></nav>
-    <header>
-        <h1>Mitarbeiterliste</h1>
-    </header>
-
-    <table class="ui celled table">
+    <table class="ui celled table" id="catalog">
         <thead>
         <tr>
             <th>ID</th>
@@ -46,15 +37,13 @@
     </table>
 
     <!-- Button -->
-    <div class="ui one column centered grid">
         <div class="column">
-            <a th:href="@{/newStaff}">
-                <button class="ui green button">
-                    <i class="plus icon"></i>Mitarbeiter hinzufügen
+            <a th:href="@{/newStaff}" style="background-color:transparent">
+                <button class="ui button" id="addbutton">
+                    <i class="lbl plus icon"></i><label> Mitarbeiter hinzufügen</label>
                 </button>
             </a>
         </div>
-    </div>
 </div>
 </body>
 </html>

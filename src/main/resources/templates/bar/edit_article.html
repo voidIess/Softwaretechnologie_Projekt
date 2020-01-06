@@ -18,7 +18,7 @@
 
             <fieldset>
                 <text>Name</text>
-                <label for="name"></label><input type="text" th:field="*{name}"
+                <label for="name"></label><input type="text" maxlength="32" th:field="*{name}"
                                                  id="name"
                                                  required/>
             </fieldset>
@@ -26,7 +26,7 @@
             <fieldset>
                 <text>Preis in Euro</text>
                 <label for="price"></label><input type="number" th:field="*{price}"
-                                                  id="price" step="0.01"
+                                                  id="price" step="0.01" min="0"
                                                   required/>
             </fieldset>
 
@@ -51,8 +51,10 @@
             <fieldset>
                 <p>Rabatt vom (optional)</p><label for="startDiscount"></label>
                 <input type="date"
-                       th:field="*{startDiscount}"
-                       id="startDiscount"/>
+                       th:field="*{startDiscount}" placeholder="yyyy-mm-dd"
+                       pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|
+                       (?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))"
+                       id="startDiscount" max="2100-01-01" min="1900-01-01"/>
             </fieldset>
 
             <fieldset>
@@ -62,10 +64,12 @@
 
             </fieldset>
 
-
             <fieldset>
                 <p>Rabatt bis (optional)</p><label for="endDiscount"></label>
-                <input type="date" th:field="*{endDiscount}" id="endDiscount"/>
+                <input type="date" th:field="*{endDiscount}" placeholder="yyyy-mm-dd"
+                       pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|
+                       (?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))"
+                       id="endDiscount" max="2100-01-01" min="1900-01-01"/>
             </fieldset>
 
             <br>
@@ -74,7 +78,7 @@
 
             <fieldset>
                 <text>Mindestvorrat</text>
-                <label for="number"></label><input type="number"
+                <label for="number"></label><input type="number" min="0"
                                                    th:field="*{sufficientQuantity}"
                                                    id="number"
                                                    required/>
@@ -82,7 +86,9 @@
 
 
             <fieldset>
-                <button name="submit" type="submit" id="contact-submit" data-submit="...Sending">Submit</button>
+                <button class="ui button" id="sbmbutton">
+                    <b class="lbl" style="letter-spacing: 1px;font-size: 14px">SPEICHERN</b>
+                </button>
             </fieldset>
         </form>
     </div>

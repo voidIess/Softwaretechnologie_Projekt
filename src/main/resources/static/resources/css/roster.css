@@ -53,9 +53,7 @@ span {
     color: var(--heading-color);
 }
 
-label {
-    color: var(--heading-color);
-}
+
 
 br {
     color: var(--heading-color);
@@ -105,4 +103,5 @@ text {
     position: relative;
 
 }
+
 

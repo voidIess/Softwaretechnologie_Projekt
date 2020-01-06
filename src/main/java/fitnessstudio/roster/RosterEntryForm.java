@@ -21,7 +21,6 @@ public class RosterEntryForm {
 	@NotNull(message = "{roster.error.day}")
 	private final Integer day;
 
-
 	public RosterEntryForm(Long staff, String role, Integer day, List<String> times, Integer week) {
 		this.role = role;
 		this.staff = staff;
