@@ -6,7 +6,7 @@
 
 <html lang="de" xmlns:th="http://www.thymeleaf.org">
 <div th:fragment="checkin">
-    <div class="ui container" id="catalog">
+    <div class="ui container">
         <div style="margin-bottom: 40px">
             <h3>Aufladen</h3>
             <form class="ui form horizontally padded" method="post" th:action="@{/admin/member/payin}">
@@ -46,7 +46,7 @@
                     </form>
 
             <div id="attendants table" style="margin-top: 20px">
-                <table class="ui celled table">
+                <table class="ui celled table" id="catalog">
                     <thead>
                     <tr>
                         <th>Mitglieder Nummer</th>
