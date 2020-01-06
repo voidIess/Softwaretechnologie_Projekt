@@ -16,14 +16,14 @@
         <div class="ui header">
             <h2 th:if="${!cart.isEmpty()}" th:text="#{cart_items.title}">Warenkorb</h2>
             <h2 th:if="${cart.isEmpty()}" th:text="#{cart.empty}">Leer</h2>
-            <div class="ui right floated menu" style="background-color:transparent">
+            <div class="ui right floated" style="float: right;">
 
                 <a class="ui button" id="sbmbutton" th:href="@{/sell_catalog}">
-                    <i class="list icon"></i>
+                    <i class="lbl list icon"></i>
                     <label th:text="#{sell_catalog.title}">Artikeluebersicht</label>
                 </a>
                 <a  class="ui button" id="addbutton"  th:if="${!cart.empty}" th:href="@{/checkout}">
-                    <i class="check icon"></i>
+                    <i class="lbl check icon"></i>
                     <label th:text="#{cart_items.checkout}">Bezahlen</label>
                 </a>
             </div>
@@ -53,8 +53,9 @@
         </div>
 
         <br><br>
-        <div class="ui right floated menu" style="background-color:transparent; border:transparent">
-        <div class="ui-widget-header" th:if="${!cart.isEmpty()}" th:text="#{cart_items.sum}+' '+${cart.getPrice()}" style="font-size:23px">
+        <div class="ui right floated menu" style="background-color:transparent; border:none;box-shadow: none">
+        <div class="ui-widget-header" th:if="${!cart.isEmpty()}" th:text="#{cart_items.sum}+' '+${cart.getPrice()}"
+             style="font-size:23px">
             Summe: EUR 112.12</div>
         </div>
 

@@ -44,12 +44,12 @@
         <div class="column">
             <a style="background-color:transparent" th:href="@{/article/detail/{id}(id=${article.id})}">
                 <button class="ui button" id="sbmbutton">
-                    <i class="edit icon"></i><label>Artikel berarbeiten</label>
+                    <i class="lbl edit icon"></i><label>Artikel berarbeiten</label>
                 </button>
             </a>
             <a style="background-color:transparent" th:href="@{/article/restock/{id}(id=${article.id})}">
                 <button class="ui button" id="sbmbutton">
-                    <i class="edit icon"></i><label>Artikel aufstocken</label>
+                    <i class="lbl edit icon"></i><label>Artikel aufstocken</label>
                 </button>
             </a>
         </div>
@@ -57,7 +57,7 @@
         <!-- Delete button -->
         <form method="post" th:action="@{/article/delete/{id}(id=${article.id})}">
             <button class="ui button right floated" id="dltbutton">
-                <i class="trash icon"></i><label>Artikel löschen</label>
+                <i class="lbl trash icon"></i><b class="lbl">Artikel löschen</b>
             </button>
         </form>
 

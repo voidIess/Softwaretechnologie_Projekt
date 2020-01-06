@@ -40,7 +40,7 @@
             <!-- Edit button for staff-->
             <a sec:authorize="hasAnyRole('ROLE_STAFF')" th:href="@{/staff/edit/{id}(id=${staff.staffId})}">
                 <button class="ui button" id="sbmbutton">
-                    <i class="edit icon"></i><label>Info bearbeiten</label>
+                    <i class="lbl edit icon"></i><label>Info bearbeiten</label>
                 </button>
             </a>
         </div>
@@ -84,7 +84,7 @@
               th:action="@{/staff/delete/{id}(id=${staff.staffId})}">
 
             <button class="ui button" id="dltbutton">
-                <i class="trash icon"></i><label>Mitarbeiter löschen</label>
+                <i class="lbl trash icon"></i><b class="lbl">Mitarbeiter löschen</b>
             </button>
         </form>
 
