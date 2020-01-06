@@ -1,0 +1,59 @@
+= Protokoll Gruppe 16
+
+Treffen am 25.11.2019
+
+Ort:      APB +
+Beginn:   12:40 Uhr +
+Ende:     13:40 Uhr
+
+__Schriftführer: Markus Wieland__
+
+*Nächstes Treffen:* +
+07.01.2020, 16:40 Uhr, APB/Foyer
+
+__Teilnehmer:__
+//Tabellarisch oder Aufzählung, Kennzeichnung von Teilnehmern mit besonderer Rolle (z.B. Kunde)
+
+- Anita Fritzsche (Tutorin/Kundin)
+- Julius Schmitt
+- Bill Kippe
+- Markus Wieland
+- Quang Vu Ha
+- Lea Häusler
+
+== Bemerkungen
+Präsentation der Muss-Kriterien. Alles bis auf eine Kleinigkeit wurde implementiert (Man kann den Namen des Studios nicht bearbeiten).
+
+== Retrospektive des letzten Sprints
+*Issue referenziert die Issue ID von GitHub*
+// Wie ist der Status der im letzten Sprint erstellten Issues/veteilten Aufgaben?
+
+// See http://asciidoctor.org/docs/user-manual/=tables
+[option="headers"]
+|===
+|Issue |Aufgabe |Status |Bemerkung
+|…     |Musskriterien Dienstplan                                               |abgeschlossen|Markus
+|…     |Musskriterien Training, Member|abgeschlossen|Bill
+|…     |Musskriterien Statistiken & PDF             |abgeschlossen|Lea
+|…     |Musskriterien Theken                      |abgeschlossen|Julius & Vu           
+|===
+
+
+== Aktueller Stand
+Alles Muss-Kriterien sind erfüllt. Jetzt geht es ans Cross-Testing mit Gruppe 12. Bis: 22.12.2019
+
+
+== Planung des nächsten Sprints
+*Issue referenziert die Issue ID von GitHub*
+
+// See http://asciidoctor.org/docs/user-manual/=tables
+[option="headers"]
+|===
+|Issue |Titel |Beschreibung |Verantwortlicher |Status
+|…     |Cross-Testing  |…            |alle           |in Arbeit
+|…     |Benutzerhandbuch  |…            |alle           |in Arbeit
+|…     |Developer Documentation  |…            |alle           |in Arbeit
+|…     |JavaDoc  |…            |alle           |in Arbeit
+
+|===
+
