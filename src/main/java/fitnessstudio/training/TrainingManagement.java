@@ -100,7 +100,7 @@ public class TrainingManagement {
 	public void decline(Long trainingId) {
 		Optional<Training> trainingOptional = findById(trainingId);
 		trainingOptional.ifPresent(training -> {
-			if (training.decline()){
+			if (training.decline() && emailService != null){
 				Member to = training.getMember();
 				emailService.sendTrainingStateUpdated(to.getUserAccount().getEmail(), to.getFirstName(), training.getTrainingId());
 			}
@@ -122,7 +122,7 @@ public class TrainingManagement {
 			);
 			if (rosterManagement.isFree(rosterEntryForm)) {
 				rosterManagement.createEntry(rosterEntryForm, trainingId, null);
-				if(training.accept()){
+				if(training.accept() && emailService != null){
 					Member to = training.getMember();
 					emailService.sendTrainingStateUpdated(to.getUserAccount().getEmail(), to.getFirstName(),
 						training.getTrainingId());
