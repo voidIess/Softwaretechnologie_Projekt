@@ -25,7 +25,9 @@ public class StatisticManagement {
 	private final InvoiceManagement invoiceManagement;
 	private final StaffManagement staffManagement;
 
-	public StatisticManagement(AttendanceRepository attendances, InvoiceManagement invoiceManagement, StaffManagement staffManagement) {
+	public StatisticManagement(AttendanceRepository attendances, InvoiceManagement invoiceManagement,
+							   StaffManagement staffManagement) {
+
 		Assert.notNull(attendances, "AttendanceRepository must not be null!");
 		Assert.notNull(invoiceManagement, "InvoiceManagement must not be null!");
 
