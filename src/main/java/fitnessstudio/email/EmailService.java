@@ -3,13 +3,10 @@ package fitnessstudio.email;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.scheduling.annotation.Async;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
-import javax.transaction.Transactional;
-
-@Service
-@Transactional
+@Component
 public class EmailService {
 
 	private final JavaMailSender mailSender;
