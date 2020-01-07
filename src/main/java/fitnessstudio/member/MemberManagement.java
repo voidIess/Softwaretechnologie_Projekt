@@ -50,21 +50,21 @@ public class MemberManagement {
 	private final StudioService studioService;
 	private final StatisticManagement statisticManagement;
 	private final InvoiceManagement invoiceManagement;
-
-	@Autowired
-	private EmailService emailService;
+	private final EmailService emailService;
 
 	MemberManagement(MemberRepository members, UserAccountManager userAccounts, ContractManagement contractManagement,
 					 StudioService studioService, StatisticManagement statisticManagement,
-					 ApplicationEventPublisher applicationEventPublisher, InvoiceManagement invoiceManagement) {
+					 ApplicationEventPublisher applicationEventPublisher, InvoiceManagement invoiceManagement,
+					 EmailService emailService) {
 
 		Assert.notNull(members, "MemberRepository must not be null!");
 		Assert.notNull(userAccounts, "UserAccountManager must not be null!");
 		Assert.notNull(contractManagement, "ContractManagement must not be null!");
 		Assert.notNull(studioService, "StudioService must not be null!");
 		Assert.notNull(statisticManagement, "StatisticManagement must not be null!");
-		Assert.notNull(applicationEventPublisher, "ApplicationEventPublisher should not be null!");
-		Assert.notNull(invoiceManagement, "InvoiceManagement should not be null!");
+		Assert.notNull(applicationEventPublisher, "ApplicationEventPublisher must not be null!");
+		Assert.notNull(invoiceManagement, "InvoiceManagement must not be null!");
+		Assert.notNull(emailService, "EmailService must not be null!");
 
 		this.members = members;
 		this.userAccounts = userAccounts;
@@ -73,6 +73,7 @@ public class MemberManagement {
 		this.statisticManagement = statisticManagement;
 		this.applicationEventPublisher = applicationEventPublisher;
 		this.invoiceManagement = invoiceManagement;
+		this.emailService = emailService;
 	}
 
 	public Member createMember(RegistrationForm form, Errors result) {

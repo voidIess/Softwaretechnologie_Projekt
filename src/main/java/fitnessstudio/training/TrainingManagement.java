@@ -40,6 +40,7 @@ public class TrainingManagement {
 	public TrainingManagement(TrainingRepository trainings, MemberManagement memberManagement,
 							  StaffManagement staffManagement, RosterManagement rosterManagement,
 							  EmailService emailService) {
+
 		Assert.notNull(trainings, "TrainingRepository must not be null");
 		Assert.notNull(memberManagement, "MemberManagement must not be null");
 		Assert.notNull(staffManagement, "StaffManagement must not be null");
