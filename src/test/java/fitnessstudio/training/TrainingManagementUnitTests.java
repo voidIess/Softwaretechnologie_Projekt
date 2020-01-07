@@ -51,17 +51,13 @@ class TrainingManagementUnitTests {
 	void setUp() {
 		week = Calendar.getInstance().get(Calendar.WEEK_OF_YEAR);
 
-		if (members.findAll().isEmpty()) {
-			members.save(new Member(userAccountManager.create("manfred.meier",
-				Password.UnencryptedPassword.of("123"), "manfred.meier@email.de", Role.of("MEMBER")), "Manfred",
-				"Meier", "iban", "bic"));
-		}
-
 		if (staffs.findAll().isEmpty()) {
 			staffs.save(new Staff());
 		}
 
-		member = members.findAll().toList().get(0);
+		member = members.save(new Member(userAccountManager.create("manfred.meier",
+			Password.UnencryptedPassword.of("123"), "manfred.meier@email.de", Role.of("MEMBER")), "Manfred",
+			"Meier", "iban", "bic"));
 		staff = staffs.findAll().toList().get(0);
 
 		time = "10:00-12:00";
