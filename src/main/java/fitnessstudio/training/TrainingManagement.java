@@ -35,7 +35,9 @@ public class TrainingManagement {
 	private final StaffManagement staffManagement;
 	private final RosterManagement rosterManagement;
 
-	public TrainingManagement(TrainingRepository trainings, MemberManagement memberManagement, StaffManagement staffManagement, RosterManagement rosterManagement) {
+	public TrainingManagement(TrainingRepository trainings, MemberManagement memberManagement,
+							  StaffManagement staffManagement, RosterManagement rosterManagement) {
+
 		Assert.notNull(trainings, "TrainingRepository must not be null");
 		Assert.notNull(memberManagement, "MemberManagement must not be null");
 		Assert.notNull(staffManagement, "StaffManagement must not be null");

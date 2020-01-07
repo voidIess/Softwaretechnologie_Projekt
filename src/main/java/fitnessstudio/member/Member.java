@@ -123,7 +123,9 @@ public class Member {
 	}
 
 	boolean checkIn() {
-		if (isPaused) return false;
+		if (isPaused) {
+			return false;
+		}
 
 		isAttendant = true;
 		checkInTime = LocalDateTime.now();
@@ -131,12 +133,14 @@ public class Member {
 	}
 
 	long checkOut() {
-		if (!isAttendant) return 0L;
-
+		if (!isAttendant) {
+			return 0L;
+		}
 		isAttendant = false;
 		long duration = Duration.between(checkInTime, LocalDateTime.now()).toMinutes();
 		exerciseTime += duration;
 		checkInTime = null;
+
 		return duration;
 	}
 

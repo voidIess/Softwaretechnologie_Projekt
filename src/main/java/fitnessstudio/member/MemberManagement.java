@@ -201,7 +201,9 @@ public class MemberManagement {
 	}
 
 	public List<Member> findAllAuthorized(String search) {
-		if (search == null) { search = ""; }
+		if (search == null) {
+			search = "";
+		}
 		String finalSearch = search;
 
 		return userAccounts.findEnabled()
@@ -345,7 +347,9 @@ public class MemberManagement {
 	boolean emailExists(String email) {
 		for (UserAccount userAccount : userAccounts.findAll()) {
 			String userAccountEmail = userAccount.getEmail();
-			if (userAccountEmail != null && userAccountEmail.equalsIgnoreCase(email)) { return true; }
+			if (userAccountEmail != null && userAccountEmail.equalsIgnoreCase(email)) {
+				return true;
+			}
 		}
 		return false;
 	}
