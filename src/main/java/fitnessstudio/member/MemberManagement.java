@@ -2,6 +2,7 @@ package fitnessstudio.member;
 
 import fitnessstudio.contract.Contract;
 import fitnessstudio.contract.ContractManagement;
+import fitnessstudio.email.EmailService;
 import fitnessstudio.invoice.InvoiceEntry;
 import fitnessstudio.invoice.InvoiceEvent;
 import fitnessstudio.invoice.InvoiceManagement;
@@ -15,6 +16,7 @@ import org.salespointframework.useraccount.UserAccount;
 import org.salespointframework.useraccount.UserAccountManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.util.Streamable;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -27,7 +29,10 @@ import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -45,6 +50,9 @@ public class MemberManagement {
 	private final StudioService studioService;
 	private final StatisticManagement statisticManagement;
 	private final InvoiceManagement invoiceManagement;
+
+	@Autowired
+	private EmailService emailService;
 
 	MemberManagement(MemberRepository members, UserAccountManager userAccounts, ContractManagement contractManagement,
 					 StudioService studioService, StatisticManagement statisticManagement,
@@ -136,8 +144,11 @@ public class MemberManagement {
 	}
 
 	public void authorizeMember(Long memberId) {
-		Optional<Member> member = findById(memberId);
-		member.ifPresent(Member::authorize);
+		Optional<Member> optionalMember = findById(memberId);
+		optionalMember.ifPresent(member -> {
+			member.authorize();
+			emailService.sendAccountAcceptation(member.getUserAccount().getEmail(), member.getFirstName());
+		});
 	}
 
 	public void editMember(Long memberId, EditingForm form, Errors result) {
