@@ -1,12 +1,18 @@
-=Benutzerhandbuch
+= Benutzerhandbuch
 
 == Dienstplan
+
+=== Dienstplan sortieren
+
+=== Dienstplan einer anderen Woche
 
 === Dienstplaneintrag erstellen
 
 === Dienstplaneintrag bearbeiten/löschen
 
 Ein Dienstplaneintrag kann bearbeitet werden, in dem man auf den Eintrag im Dienstplan klickt. 
+
+Um die Änderungen zu speichern muss man auf den "Speichern"-Button drücken. Um einen Eintrag zu löschen muss man auf den "Löschen"-Button drücken. Gelöschte Einträge sind unwiderruflich gelöscht.
 
 Achtung: Sollte dem Eintrag ein Training zu geordnet sein, so kann dieser Eintrag nicht bearbeitet/gelöscht werden. Um solche Einträge zu löschen muss das dazugehörige Training abgesagt werden.
 
