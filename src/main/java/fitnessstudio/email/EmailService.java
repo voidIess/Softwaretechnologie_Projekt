@@ -38,10 +38,9 @@ public class EmailService {
 	public void sendAccountAcceptation(String emailTo, String name) {
 		sendSimpleMessage(emailTo, "Dein Mitgliedschaftsantrag wurde bearbeitet",
 			"Hallo " + name + ", \n\n"
-				+ "Wir haben soeben deinen Antrag zur Mitgliedschaft beabeitet. Absofort hast du ungegrenzten Zutritt "
-				+ "zu all unseren Diensten und forallem dem Studio. \n"
-				+ "Fang doch gleich morgen an zu trainieren :)! \n"
-				+ "(PS: Vergiss nicht dein Konto aufzuladen um damit an unserer Bar unbegrenzt Shoppen zu gehen!) \n\n"
+				+ "Wir haben soeben deinen Antrag zur Mitgliedschaft beabeitet. Absofort hast du unbegrenzten Zutritt "
+				+ "zu all unseren Diensten und vorallem dem Studio. \n"
+				+ "Fang doch gleich morgen an zu trainieren :)! \n\n"
 				+ "Dein Fitnessstudio-Team");
 	}
 }
