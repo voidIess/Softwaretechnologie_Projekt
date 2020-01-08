@@ -1,0 +1,15 @@
+=Benutzerhandbuch
+
+== Dienstplan
+
+=== Dienstplaneintrag erstellen
+
+=== Dienstplaneintrag bearbeiten/löschen
+
+Ein Dienstplaneintrag kann bearbeitet werden, in dem man auf den Eintrag im Dienstplan klickt. 
+
+Achtung: Sollte dem Eintrag ein Training zu geordnet sein, so kann dieser Eintrag nicht bearbeitet/gelöscht werden. Um solche Einträge zu löschen muss das dazugehörige Training abgesagt werden.
+
+=== Dienstplaneintrag Training zu ordnen
+
+Man kann nicht manuell einem Dienstplaneintrag ein Training zu ordnen. Es ist nur möglich die einen Mitarbeiter zu einer Zeit als Trainer einzuteilen. Wenn man ein Training annimmt, wird automatisch ein Eintrag im Dienstplan erstellt. Nur auf diesen Weg kann ein Training zu einem Eintrag hinzugefügt werden.
