@@ -1,1 +1,14 @@
+= Präsentation der Features
 
+[option="headers"]
+|===
+|Feature |Rolle |Vorbedingung
+|Dienstplaneintrag erstellen | Staff | -
+|Dienstplaneintrag bearbeiten | Staff | Kann nicht bearbeitet werden wenn Training dazu gehört. -> Training muss existieren
+|Dienstplaneintrag löschen | Staff | Kann nicht gelöscht werden wenn Training dazu gehört. -> Training muss existieren
+|Dienstplan verschiedene Wochen | Staff | -
+|Dienstplan nach Personen sortieren | Staff | mindestens 2 Personen müssen Dienst haben
+|Dienstplaneintrag nach Annahme von Training |Staff| Training muss angenommen werden
+|Dienstplaneintrag wird nicht erstellt wenn bereits arbeitend| Staff
+|Dienstplaneintrag wird gelöscht wenn Training abgesagt | Staff | Training absagen
+|===
