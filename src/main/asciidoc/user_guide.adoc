@@ -52,6 +52,14 @@ Um die Änderungen zu speichern muss man auf den "Speichern"-Button drücken. Um
 
 === Dienstplan filtern
 
+Standardmäßig sieht man alle Einträge der ausgewählten Woche. Möchte man jedoch nur die Einträge von sich selbst, oder einem anderen Mitarbeiter sehen, gibt es im obenen Teil der Seite eine Liste mit allen Mitarbeitern.
+
+image::user_guide/staffs_roster.png[]
+
+Wählt man einen Mitarbeiter aus, werden alle Einträge von anderen Mitarbeitern unsichtbar gemacht.
+
+image::user_guide/filter_roster.png[]
+
 === Dienstplan einer anderen Woche
 
 Öffnet man den Dienstplan sieht man standardmäßig den Dienstplan der derzeitigen Woche.
