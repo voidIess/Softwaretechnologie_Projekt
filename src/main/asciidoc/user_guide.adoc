@@ -37,6 +37,8 @@ Mit dem "Erstellen"-Button (6) wird der Eintrag erstellt.
 
 __Sollte der Mitarbeiter zu dieser Zeit bereits arbeiten, wird kein Eintrag erstellt. Sollte man mehrere Zeiten ausgewählt haben, und der Mitarbeiter kann an einer/mehreren dieser Zeiten nicht, so werden alle Einträge bis auf die enstprechenden erstellt.__
 
+Eine andere Möglichkeit einen Eintrag zu erstellen wird im Kapitel "Dienstplaneintrag Training zuordnen"
+
 === Dienstplaneintrag einsehen/bearbeiten/löschen
 
 Details über einen Eintrag erhält man, in dem man auf den Eintrag im Dienstplan klickt.
@@ -52,6 +54,6 @@ Um die Änderungen zu speichern muss man auf den "Speichern"-Button drücken. Um
 
 === Dienstplan einer anderen Woche
 
-=== Dienstplaneintrag Training zu ordnen
+=== Dienstplaneintrag Training zuordnen
 
-Man kann nicht manuell einem Dienstplaneintrag ein Training zu ordnen. Es ist nur möglich die einen Mitarbeiter zu einer Zeit als Trainer einzuteilen. Wenn man ein Training annimmt, wird automatisch ein Eintrag im Dienstplan erstellt. Nur auf diesen Weg kann ein Training zu einem Eintrag hinzugefügt werden.
+Es ist nicht möglich manuell einem Dienstplaneintrag ein Training zu ordnen. Es ist nur möglich einen Mitarbeiter zu einer Zeit als Trainer einzuteilen. Wenn man ein Training annimmt, wird automatisch ein Eintrag im Dienstplan erstellt. Dieser enthält die Informationen über das Training. Nur auf diesen Weg kann ein Training zu einem Eintrag hinzugefügt werden.
