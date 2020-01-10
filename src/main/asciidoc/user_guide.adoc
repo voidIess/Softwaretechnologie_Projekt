@@ -8,9 +8,13 @@ __Für dieses Feature benötigt man die Rolle "STAFF"__
 image::user_guide/overview_roster.png[]
 
 1 ... siehe "Dienstplan filtern"
+
 2 ... siehe "Dienstplan einer anderen Woche"
+
 3 ... siehe "Diesntplaneintrag einsehen/bearbeiten/löschen"
+
 4 ... siehe "Dienstplaneintrag erstellen"
+
 5 ... Legende. Blaue Felder beschreiben Einträge mit der Rolle "Trainer", grüne beschreiben Einträge mit der Rolle "Thekenkraft".
 
 === Dienstplaneintrag erstellen
