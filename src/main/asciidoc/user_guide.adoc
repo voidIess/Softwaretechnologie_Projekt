@@ -1,6 +1,7 @@
 = Benutzerhandbuch
 
 == Dienstplan
+''Für dieses Feature benötigt man die Rolle "STAFF"''
 
 === Dienstplan sortieren
 
