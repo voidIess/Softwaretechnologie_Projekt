@@ -13,6 +13,9 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Klasse zum managen des Dienstplans
+ */
 @Service
 public class RosterManagement {
 
@@ -27,6 +30,10 @@ public class RosterManagement {
 		this.rosterRepository = rosterRepository;
 	}
 
+	/**
+	 * Löscht alle Einträge aus allen Dienstplänen, die mit dem Staff mit der StaffId in Verbindung stehen
+	 * @param staffId ID des Staffs, dessen Einträge gelöscht werden sollen.
+	 */
 	public void deleteAllEntriesFromStaff(long staffId) {
 		Staff staff = staffManagement.findById(staffId).orElse(null);
 		if (staff == null) {
@@ -74,6 +81,14 @@ public class RosterManagement {
 		return true;
 	}
 
+	/**
+	 * Erstellt einen neuen Dienstplaneintrag
+	 * @param form Formular für einen neuen Eintrag von einem Mitarbeiter/Chef
+	 * @param training Sollte für den Eintrag ein Training vorgemerkt sein, wird die ID hier übergeben.
+	 *                    Sollte kein Training vorhanden wird RosterEntry.NONE übergeben. (Ja ich weiß auch nicht
+	 *                 warum ich nicht einfach ein Long genutzt habe und null übergeben lasse)
+	 * @param errors Zur Verifizierung des Formulars
+	 */
 	public void createEntry(RosterEntryForm form, long training, Errors errors) {
 		Assert.notNull(form, "RosterForm darf nicht 'null' sein.");
 		Assert.notNull(form.getTimes(), "Keine Liste gefunden.");
@@ -112,6 +127,14 @@ public class RosterManagement {
 		return training != RosterEntry.NONE && role.equals(StaffRole.TRAINER);
 	}
 
+	/**
+	 * Gibt einen RosterEntry anhand seiner ID zurück.
+	 * @param week Kalenderwoche des Dienstplans
+	 * @param shift (y-Koordinate im Dienstplan), Nummer der Schicht -> TableRow (nicht die ID!)
+	 * @param day (x-Koordinate im Dienstplan), Nummer des Tages -> Slot (0...6) (auch hier nicht die ID!)
+	 * @param id ID des gesuchten Dienstplaneintrages
+	 * @return RosterEntry mit der übergegeben ID
+	 */
 	public RosterEntry getRosterEntryById(int week, int shift, int day, long id) {
 		Roster roster = getRosterByWeek(week);
 		Assert.notNull(roster, "Es gibt keinen Dienstplan für diese Woche!");
@@ -124,6 +147,10 @@ public class RosterManagement {
 		return null;
 	}
 
+	/**
+	 * Erzeugt eine Liste aller vorhandenen Dienstpläne
+	 * @return Eine Liste aus Kalenderwochen Nummern
+	 */
 	public List<Integer> getNextWeeks() {
 		Iterable<Roster> rosters = rosterRepository.findAll();
 		List<Integer> weeks = new LinkedList<>();
@@ -133,14 +160,29 @@ public class RosterManagement {
 		return weeks;
 	}
 
+	/**
+	 * Speichert alle Änderungen an einem Dienstplan
+	 * @param roster Dienstplan der gespeichert werden soll
+	 */
 	public void saveRoster(Roster roster) {
 		rosterRepository.save(roster);
 	}
 
+	/**
+	 * Gibt einen Dienstplan anhand seiner Woche zurück
+	 * @param week Kalenderwochen Nummer
+	 * @return Dienstplan anhand einer Kalenderwoche
+	 */
 	public Roster getRosterByWeek(int week) {
 		return rosterRepository.findByWeek(week).orElse(null);
 	}
 
+	/**
+	 * Bearbeitet einen existierenden Dienstplaneintrag
+	 * @param form Formular mit den Änderungen des Eintrags
+	 * @param id Id des existierenden Dienstplaneintrags
+	 * @param errors Verifizierung der Änderungen
+	 */
 	public void editEntry(RosterEntryForm form, long id, Errors errors) {
 		Roster roster = getRosterByWeek(form.getWeek());
 		RosterEntry entry;
@@ -161,6 +203,13 @@ public class RosterManagement {
 		saveRoster(roster);
 	}
 
+	/**
+	 * Löscht Eintrag mit Training aus dem Dienstplan
+	 * @param week Woche aus der das Training stammt.
+	 * @param shift Schicht des Eintrags mit Training
+	 * @param day Slot des Eintrags mit Training
+	 * @param id ID des Eintrags
+	 */
 	public void deleteEntryByTraining(int week, int shift, int day, long id) {
 		Roster roster = getRosterByWeek(week);
 		Assert.notNull(roster, "Keinen Roster gefunden.");
@@ -174,6 +223,13 @@ public class RosterManagement {
 		saveRoster(roster);
 	}
 
+	/**
+	 * Löscht einen Eintrag anhand seiner ID aus dem Dienstplan
+	 * @param week Woche des Eintrags
+	 * @param shift Schicht des Eintrags
+	 * @param day Tag des Eintrags
+	 * @param id ID des Eintrags
+	 */
 	public void deleteEntry(int week, int shift, int day, long id) {
 		Roster roster = getRosterByWeek(week);
 		Assert.notNull(roster, "Es gibt keinen Roster für diese Woche!");
@@ -187,6 +243,10 @@ public class RosterManagement {
 		saveRoster(roster);
 	}
 
+	/**
+	 * Erzeugt eine Liste Strings. Diese Strings sind der Form hh:mm-hh:mm (für die erste Spalte)
+	 * @return List an Zeiten für die erste Spalte im Dienstplan
+	 */
 	public List<String> getTimes() {
 		Roster roster = rosterRepository.findAll().iterator().next();
 		if (roster == null) {
@@ -199,6 +259,12 @@ public class RosterManagement {
 		return times;
 	}
 
+	/**
+	 * Findet den Index eines Strings der form hh:mm-hh:mm aus den TableRows heraus.
+	 * @param time String mit die Einträge von getTimes() verglichen werden.
+	 * @return Sollte der String ungleich aller Strings der in getTimes erzeugten Strings sein,
+	 * so wird -1 returned. Sonst die Nummer (nicht ID!) der Reihe
+	 */
 	public int getTimeIndex(String time) {
 		List<String> times = getTimes();
 		for (int i = 0; i < getTimes().size(); i++) {
@@ -209,6 +275,12 @@ public class RosterManagement {
 		return -1;
 	}
 
+	/**
+	 * Überprüft ob ein Mitarbeiter zu einer bestimmten Zeit noch verfügbar ist.
+	 * @param form Formular aus dem ein neuer Eintrag entstehen soll, sollte es diesen "Test" bestehen.
+	 * @return true wenn der Mitarbeiter noch nicht arbeitet, false
+	 * wenn der Mitarbeiter zu dieser Zeit bereits verplant ist
+	 */
 	public boolean isFree(RosterEntryForm form) {
 		int shift = getTimeIndex(form.getTimes().get(0));
 		return !getRosterByWeek(form.getWeek()).getRows().get(shift).getSlots()
