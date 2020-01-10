@@ -68,10 +68,9 @@ public class RosterEntry implements Comparable<RosterEntry> {
 
 	@Override    // Um im Dienstplan die Einträge nach den Aufgaben zu sortieren
 	public int compareTo(RosterEntry rosterEntry) {
-		if (rosterEntry.getRole().equals(StaffRole.COUNTER)){
+		if (rosterEntry.getRole().equals(StaffRole.COUNTER)) {
 			return 1;
-		}
-		else{
+		} else {
 			return -1;
 		}
 	}
@@ -84,5 +83,4 @@ public class RosterEntry implements Comparable<RosterEntry> {
 	public long getTraining() {
 		return training;
 	}
-
 }

@@ -22,6 +22,7 @@ public class RosterDataConverter {
 		Calendar c = Calendar.getInstance();
 		SimpleDateFormat dateFormatWeekDates = new SimpleDateFormat("dd.MM.yyyy");
 		// Wenn derzeitige Woche größer als die gefordert ist (z.b. 52 und 1) -> Neues Jahr!
+		// Wenn aber z.B. 31.12.2019 in 1. Woche von 2020, dann wäre hier 1 == 1. Und wir würden auf die erste Woche von 2019 setzen
 		if (c.get(Calendar.WEEK_OF_YEAR) <= week) {
 			c.set(Calendar.WEEK_OF_YEAR, week);
 		} else {
