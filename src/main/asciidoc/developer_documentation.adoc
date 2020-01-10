@@ -321,15 +321,28 @@ image::models/design/staffmanagement.svg[]
 |=== 
 |Klasse/Enumeration | Beschreibung
 |StaffController | Ein Spring MVC Controller, welcher Anfragen auf den Dienstplan und Lohnschein bearbeitet.
-|RosterEntryForm | Eine Klasse, um die Eingaben des Mitarbeiters zu bearbeiten/validieren.
-|RosterManagement | Eine Klasse, mit der man aus den Eingaben eines Mitarbeiters ein _RosterEntry_ erzeugen kann und diesen dann dort auch bearbeiten.
-|RosterRepository | Ein Repository Interface zum Verwalten von RosterEntry Instanzen.
-|Roster | Fässt alle _RosterEntry's_ einer Woche zusammen.
-|RosterEntry | Eine Objekt um die Dienstplaneinträge im System zu verwalten.
 |StallRole | Eine Enumeration für die Aufgaben, welche ein Mitarbeiter in einer Schicht erledigen kann.
 |Staff| Das Objekt eines Mitarbeiters im System.
 |StaffManagement | Eine Klasse um die PDFs für den Lohnschein zu erstellen und zur Verwaltung der Mitarbeiter.
 |StaffRepository | Ein Repository Interface zum Verwalten von Mitarbeitern.
+|===
+
+=== Roster Package
+
+image::models/design/package_roster_v2.svg[]
+
+[options="header"]
+|=== 
+|Roster| Eine Klasse, welche den Dienstplan repräsentiert. Die Klasse Roster ist dabei die höchte Klasse dieses Konstrukts
+|TableRow | Eine Klasse, welche eine Zeile in einem Dienstplan repräsentiert. Standardmäßig hat ein Roster eine Liste acht TableRows. Die Anzahl ist jedoch variabel.
+| Slot | Eine Klasse, welche einen Spalte des Dienstplans repräsentiert. Jedoch ist der Begriff "Spalte" hier eventuell unangebracht. Eine Zeile enthält sieben Slots (für jeden Wochentag einen). Jedoch sind die Slots von jeder Zeile unterschiedlich.
+| RosterEntry | Eine Klasse, welche einen Eintag in den Dienstplan repräsentiert. Ein RosterEntry ist Teil einer Liste, welche ein Attribut von der Klasse Slot ist. Ein Slot kann unendlich viele Einträge besitzen.
+| RosterController | Ein Spring MVC Controller, welcher Anfragen auf den Dienstplan bearbeitet.
+| RosterDataConverter | Eine Klasse, welche zur Genierung bzw. Konvertierung von Strings und anderen Datentypen, die in Relation zu dem Dienstplan stehen, dient.
+| RosterDataInitializer | Eine Klasse, welche dazu da ist neue Dienstpläne zu initialisieren.
+| RosterEntryForm | Eine Klasse, um Eingaben eines Mitarbeiters für einen neuen Dienstplaneintrag im System zu erhalten und zu verfizieren.
+| RosterManagement | Eine Klasse, um Änderungen (hinzufügen, bearbeiten, löschen) und Anfragen auf einen Dienstplan zu verwalten.
+|RosterRepository|Ein Repository Interface zum Verwalten von Dienstplänen.
 |===
 
 === PDF Package
