@@ -3,19 +3,42 @@
 == Dienstplan
 __Für dieses Feature benötigt man die Rolle "STAFF"__
 
-=== Dienstplan sortieren
-
-=== Dienstplan einer anderen Woche
+=== Dienstplan Übersicht
 
 === Dienstplaneintrag erstellen
 
-=== Dienstplaneintrag bearbeiten/löschen
+Um einen Eintrag zu erstellen, muss man zunächst den Dienstplan der enstprechenden Woche auswählen. Mehr dazu unter "Dienstplan einer anderen Woche".
 
-Ein Dienstplaneintrag kann bearbeitet werden, in dem man auf den Eintrag im Dienstplan klickt. 
+Um nun einen neuen Dienstplaneintrag zu erstellen, drückt man auf den "Eintrag erstellen"-Button am Ende der Übersichtsseits. Dort gelangt man zu einem Formular.
+
+image::user_guide/create_entry_roster.png[]
+
+image::user_guide/create_entry_form_roster.png[]
+
+In der ersten Zeile steht die ausgewählte Woche. (1) Diese kann hier nicht mehr bearbeitet werden. Wenn man eine andere Woche möchte, muss man diese zunächst in der Übersicht auswählen.
+
+Als nächstes folgt eine Liste aller Mitarbeiter. Dort kann man einfach den gewünschten Mitarbeiter auswählen. (2) Diesem Mitarbeiter kann man mit der nächsten Liste eine Aufgabe zuordnen. (3)
+
+Nun muss noch die Zeit ausgewählt werden. Die Woche ist wie oben beschrieben bereits festgelegt. Als nächstes wählt man einen Wochentag aus. (4) Man kann nicht mehrere Tage auf einmal auswählen. Was jetzt noch fehlt sind die bereits festgeschriebenen Arbeitszeiten (Schichten). (5) Mit STRG (oder SHIFT) + Linksklick könnenn mehrere Schichten auf einmal ausgewählt werden. 
+
+Mit dem "Erstellen"-Button (6) wird der Eintrag erstellt.
+
+Sollte der Mitarbeiter zu dieser Zeit bereits arbeiten, wird kein Eintrag erstellt. Sollte man mehrere Zeiten ausgewählt haben, und der Mitarbeiter kann an einer/mehreren dieser Zeiten nicht, so werden alle Einträge bis auf die enstprechenden erstellt. 
+
+=== Dienstplaneintrag einsehen/bearbeiten/löschen
+
+Details über einen Eintrag erhält man, in dem man auf den Eintrag im Dienstplan klickt.
+Dort kann man auch den Eintrag bearbeiten/löschen.
+
+image::user_guide/details_roster.png[]
 
 Um die Änderungen zu speichern muss man auf den "Speichern"-Button drücken. Um einen Eintrag zu löschen muss man auf den "Löschen"-Button drücken. Gelöschte Einträge sind unwiderruflich gelöscht.
 
 Achtung: Sollte dem Eintrag ein Training zu geordnet sein, so kann dieser Eintrag nicht bearbeitet/gelöscht werden. Um solche Einträge zu löschen muss das dazugehörige Training abgesagt werden.
+
+=== Dienstplan sortieren
+
+=== Dienstplan einer anderen Woche
 
 === Dienstplaneintrag Training zu ordnen
 
