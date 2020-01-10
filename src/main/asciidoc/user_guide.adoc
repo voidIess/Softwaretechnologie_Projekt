@@ -54,6 +54,12 @@ Um die Änderungen zu speichern muss man auf den "Speichern"-Button drücken. Um
 
 === Dienstplan einer anderen Woche
 
+Öffnet man den Dienstplan sieht man standardmäßig den Dienstplan der derzeitigen Woche.
+
+image::user_guide/week_roster.png[]
+
+Um den Dienstplan einer anderen Woche auszuwählen, befindet sich im oberen Teil der Seite eine Liste. Diese beinhaltet die Dienstpläne der nächste sechs Wochen. Durch drücken auf einen der Einträge gelangt man automatisch zu dem Dienstplan der entsprechenden (Kalender)Woche. Der standardmäßig ausgewählte Einträge der Liste repräsentiert die Kalenderwoche des ausgewählten Dienstplans.
+
 === Dienstplaneintrag Training zuordnen
 
 Es ist nicht möglich manuell einem Dienstplaneintrag ein Training zu ordnen. Es ist nur möglich einen Mitarbeiter zu einer Zeit als Trainer einzuteilen. Wenn man ein Training annimmt, wird automatisch ein Eintrag im Dienstplan erstellt. Dieser enthält die Informationen über das Training. Nur auf diesen Weg kann ein Training zu einem Eintrag hinzugefügt werden.
