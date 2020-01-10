@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * @author Markus.
  * Klasse des wirklichen Diensplanobjekts.
- * **/
+ **/
 @Entity
 public class Roster {
 
@@ -25,8 +25,8 @@ public class Roster {
 	 * Beschreibt die Anzahl der Schichten.
 	 */
 	public static final int AMOUNT_ROWS = 8;
-	/**Beschreibt die Dauer einer Schicht (in Minuten)
-	 *
+	/**
+	 * Beschreibt die Dauer einer Schicht (in Minuten)
 	 */
 	public static final int DURATION = 120;
 	/**
@@ -39,7 +39,7 @@ public class Roster {
 		6,
 		0);
 
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.EAGER)
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
 	private List<TableRow> rows;
 
 	private Roster() {
@@ -48,6 +48,7 @@ public class Roster {
 
 	/**
 	 * Konstruktor der Klasse Roster
+	 *
 	 * @param week Beschreibt die Kalenderwoche des Rosters.
 	 */
 	public Roster(int week) {
@@ -67,9 +68,11 @@ public class Roster {
 		}
 	}
 
-	/** Fügt einen Eintrag dem Dienstplan hinzu.
-	 * @param shift Beschreibt die ausgewählte Schicht (Äquivalent zur Zeile)
-	 * @param day Beschreibt den ausgewählten Tag (Äquivalent zur Spalte)
+	/**
+	 * Fügt einen Eintrag dem Dienstplan hinzu.
+	 *
+	 * @param shift       Beschreibt die ausgewählte Schicht (Äquivalent zur Zeile)
+	 * @param day         Beschreibt den ausgewählten Tag (Äquivalent zur Spalte)
 	 * @param rosterEntry Der Eintrag der an die Koordinaten shift, day eingetragen werden soll.
 	 */
 	public void addEntry(int shift, int day, RosterEntry rosterEntry) {
@@ -83,8 +86,9 @@ public class Roster {
 
 	/**
 	 * Löscht einen Eintrag aus dem Dienstplan
-	 * @param shift Beschreibt die ausgewählte Schicht (äquivalent zur Zeile)
-	 * @param day Beschreibt den aktuell ausgewählten Tag (äquivalent zur Spalte)
+	 *
+	 * @param shift         Beschreibt die ausgewählte Schicht (äquivalent zur Zeile)
+	 * @param day           Beschreibt den aktuell ausgewählten Tag (äquivalent zur Spalte)
 	 * @param rosterEntryId Die ID des Dienstplaneintrags, der gelöscht werden soll. Die befindet sich an den Koordinaten (shift, day).
 	 */
 	public void deleteEntry(int shift, int day, long rosterEntryId) {
@@ -93,26 +97,38 @@ public class Roster {
 		Slot slot = rows.get(shift).getSlots().get(day);
 		Assert.isTrue(slot.deleteEntry(rosterEntryId),
 			"Der Eintrag konnte nicht gelöscht werden. Gehört zu diesem Eintrag ein Training?");
-
 	}
 
 	/* ========================================================================
 	* Getter
 	 ========================================================================*/
 
+	/**
+	 * @return ID des Dienstplans
+	 */
 	public long getRosterId() {
 		return rosterId;
 	}
 
+	/**
+	 * @return Kalenderwoche des Dienstplans
+	 */
 	public int getWeek() {
 		return week;
 	}
 
+	/**
+	 * @return Reihe des Dienstplans
+	 */
 	public List<TableRow> getRows() {
 		return rows;
 	}
 }
 
+
+/**
+ * Klasse einer Zeile des Dienstplans
+ */
 @Entity
 class TableRow {
 
@@ -123,13 +139,19 @@ class TableRow {
 	private LocalDateTime startTime;
 	private LocalDateTime endTime;
 
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.EAGER)
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
 	private List<Slot> slots;
 
-	TableRow() {
+	private TableRow() {
 		this.slots = new ArrayList<>();
 	}
 
+	/**
+	 * Konstruktor der Klasse TableRow
+	 *
+	 * @param start   Startzeit der Schicht, die zu der Zeile gehört.
+	 * @param shiftNo Schichtnummer (nicht die ID). Die erste Zeile ist die 0, danach +1
+	 */
 	TableRow(LocalDateTime start, int shiftNo) {
 		this();
 		Assert.notNull(start, "Keine Startzeit angegeben!");
@@ -150,14 +172,24 @@ class TableRow {
 	* Getter
 	 ========================================================================*/
 
+	/**
+	 * @return Datenbank ID der TableRow
+	 */
 	public long getRowId() {
 		return rowId;
 	}
 
+	/**
+	 * @return Liste aller Slots der Reihe (7 Stücke)
+	 */
 	public List<Slot> getSlots() {
 		return slots;
 	}
 
+	/**
+	 * @return Startzeit im Format hh:mm bis Endzeit im Format hh:mm. Die Differenz zwischen der End -und
+	 * Startzeit ist die in der Klasse Roster beschriebene DURATION
+	 */
 	@Override
 	public String toString() {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
@@ -166,6 +198,10 @@ class TableRow {
 
 }
 
+/**
+ * Klasse einer Spalte einer TableRow. Jede Zeile hat 7 Spalten. Die Anzahl ist zwar identisch, jedoch sind die Slots
+ * der anderen Zeilen nicht gleich der einer anderen Zeilen. Es sind immer andere eigenständige Objekte.
+ */
 @Entity
 class Slot {
 
@@ -173,16 +209,21 @@ class Slot {
 	@GeneratedValue
 	private long slotId;
 
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.EAGER)
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
 	private List<RosterEntry> entries;
 
 	private int[] coordinates;
 
-	Slot() {
+	private Slot() {
 		this.entries = new ArrayList<>();
 		this.coordinates = new int[2];
 	}
 
+	/**
+	 * Konstruktor der Klasse Slot
+	 * @param shift Die dazugehörige Zeile. (y-Koordinate)
+	 * 	 * @param day Die dem Tag entsprechende Zeile. (x-Koordinate)
+	 */
 	Slot(int shift, int day) {
 		this();
 		Assert.isTrue(shift >= 0 && shift < Roster.AMOUNT_ROWS, "Diese Schicht existiert nicht!");
@@ -191,14 +232,24 @@ class Slot {
 		this.coordinates[1] = day;
 	}
 
+	/** ID des Slots
+	 * @return Datenbank ID des Slots
+	 */
 	public long getSlotId() {
 		return slotId;
 	}
 
+	/** Koordinaten des Slots im Dienstplan
+	 * @return Koordinaten im Dienstplan des Slots. [0] ist die Zeile, [1] der Tag.
+	 */
 	public int[] getCoordinates() {
 		return coordinates;
 	}
 
+	/**
+	 * Liste aller Einträge zu dieser Zeit
+	 * @return Liste aller Einträge zu dieser Zeit. Jeder Mitarbeiter kann nur einmal pro Slot eingetragen sein.
+	 */
 	public List<RosterEntry> getEntries() {
 		entries.sort(RosterEntry::compareTo);
 		return entries;
@@ -211,7 +262,7 @@ class Slot {
 	 */
 	public boolean isTaken(Staff staff) {
 		for (RosterEntry rosterEntry : entries) {
-			if (rosterEntry.getStaff().getStaffId() == staff.getStaffId()){
+			if (rosterEntry.getStaff().getStaffId() == staff.getStaffId()) {
 				return true;
 			}
 		}
@@ -220,6 +271,7 @@ class Slot {
 
 	/**
 	 * Löscht einen Eintrag aus der Liste der Einträge des Slots.
+	 *
 	 * @param id Die ID des Dienstplaneintrags, der gelöscht werden soll.
 	 * @return Gibt zurück, ob der Eintrag erfolgreich gelöscht wurde.
 	 */
@@ -229,7 +281,7 @@ class Slot {
 				if (rosterEntry.getTraining() == RosterEntry.NONE) {
 					entries.remove(rosterEntry);
 					return true;
-				} else{
+				} else {
 					return false;
 				}
 			}
