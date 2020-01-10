@@ -1,0 +1,129 @@
+@startuml
+
+package roster <<Rectangle>> {
+    Roster o-- "1...*" TableRow : - rows
+    class Roster {
+    - rosterId: long
+    - week: int
+    + {static} AOUNT_ROWS: int
+    + {static} DURATION: int
+    + {static} STARTTIME: LocalDateTime
+    -initialize(): void
+    + addEntry(shift: int, day: int, rosterEntry: RosterEntry):void
+    + deleteEntry(shift:int, day: int, rosterEntryId: long):void
+    }
+  
+    TableRow o-- "7" Slot: - slots
+    class TableRow {
+    - rowId: long
+    - startTime: LocalDateTime
+    - endTime: LocalDateTime
+    - initialize()
+    }
+  
+    Slot o-- "0...*" RosterEntry: - entries
+    class Slot {
+    - slotId: long
+    - coordinates: int[]
+    + isTaken(staff: Staff): boolean
+    }
+
+    RosterEntry o-- "1" StaffRole: -role
+    RosterEntry o-- "1" staff.Staff: -staff
+    class RosterEntry {
+    + {static} NONE: long
+    - rosterEntryId: long
+    - training: long
+
+    }
+    
+    enum StaffRole {
+    TRAINER,
+    COUNTER
+    }
+    
+    RosterController ..> RosterEntryForm: <<use>> 
+    RosterController o-- "1" RosterManagement: rosterManagement
+    RosterController o-- "1" staff.StaffManagement: staffManagement
+    class RosterController {
+    - defaultLink: String
+    - staffs: String
+    
+    + defaultRoster(model: Model): String
+    + rosterView(week: int, model: Model): String
+    + rosterViewFiltered (id: long, week: int, model: Model): String
+    + newRosterEntry(week: int, model: Model, form: RosterEntryForm, errors: Errors): String
+    + createNewRosterEntry(model: Model, form: RosterEntryForm, errors Errors): String
+    + showDetail(week: int, shift: int, day: int, id: long, form: RosterEntryForm, model: Model):String
+    + editEntry(form: RosterEntryForm, errors: Errors, id: long, model: Model):String
+    + deleteStaff (id: long, model Model): String
+    + delete(week:int, shift:int, day: int, long: id): String
+    }
+    
+  RosterManagement ..> RosterDataConverter: <<use>>
+  RosterManagement ..> Roster: <<use>>
+  RosterManagement ..> staff.Staff: <<use>>
+  RosterManagement ..> RosterEntryForm: <<use>>
+  RosterManagement o-- "1" RosterRepository: -rosterRepo
+  RosterManagement o-- "1" staff.StaffManagement: -staffs
+    class RosterManagement {
+    +deleteAllEntriesFormStaff(id: long):void
+    +deleteByStaff(slot: Slot, staffId: long): void
+    +checkDate(staff: Staff, roster: Roster, form: RosterEntryForm, errors: Errors):boolean
+    +createEntry(form: RosterEntryForm, training: long, errors: Errors):void
+    +isTraining(training: long, role: StaffRole):boolean
+    +getRosterEntryById(week:int, shift: int, day:int, id:long): RosterEntry
+    +getNextWeeks():List<Integer>
+    +saveRoster(roster: Roster): void
+    +getRosterByWeek(week: int): RosterEntry
+    +editEntry(form: RosterEntryForm, id: long, errors: Errors):void
+    +deleteEntryByTraining(week: int, shift: int, day: int, id: long):void
+    +deleteEntry(week: int, shift: int, day: int, id: long):void
+    +getTimes(): List<String>
+    +getTimeIndex(time: String): int
+    +isFree(form: RosterEntryForm): boolean
+    
+    }
+    
+  RosterRepository --> Roster: <<use>>
+    interface RosterRepository {
+    +findByWeek(week: int)
+    }
+    
+    class RosterEntryForm {
+    -staff: Long
+    -week: Integer
+    -role: String
+    -times: List<String>
+    -day: Integer
+    }
+    
+    RosterDataConverter ..> StaffRole: <<use>>
+    
+    class RosterDataConverter {
+    - RosterDataConverter()
+    - {static} germanWeekDay: String[]
+    + {static} dayOfWeek: int[]
+    + {static} COUNTER: String
+    + {static} TRAINER: String
+    + {static} getWeekDatesByWeek(week: int): List<String>
+    }
+    
+    RosterDataInitializer o-- "1" staff.StaffManagement: - staffs
+    RosterDataInitializer o-- "1" RosterManagement: -rosters
+    RosterDataInitializer o-- "1" RosterRepository: -rosterRepo
+  
+   RosterDataInitializer..> RosterDataConverter: <<use>>
+    class RosterDataInitializer {
+    + initialize():void
+
+    }
+}
+
+package staff <<Rectangle>> {
+class StaffManagement {
+}
+class Staff {
+}
+ 
+@enduml
