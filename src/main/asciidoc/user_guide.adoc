@@ -57,3 +57,7 @@ Um die Änderungen zu speichern muss man auf den "Speichern"-Button drücken. Um
 === Dienstplaneintrag Training zuordnen
 
 Es ist nicht möglich manuell einem Dienstplaneintrag ein Training zu ordnen. Es ist nur möglich einen Mitarbeiter zu einer Zeit als Trainer einzuteilen. Wenn man ein Training annimmt, wird automatisch ein Eintrag im Dienstplan erstellt. Dieser enthält die Informationen über das Training. Nur auf diesen Weg kann ein Training zu einem Eintrag hinzugefügt werden.
+
+image::user_guide/details_training_roster.png[]
+
+Dieser Link ist nur bei Einträgen verfügbar, welche ein Training beinhalten.
