@@ -22,13 +22,14 @@
 
             <div>
                 <fieldset style="border-radius:30px;">
-                <text>Kundennummer</text>
+                <text>Kundennummer</text>&nbsp &nbsp
                 <label for="customerId"></label><input class="uiinput" type="text"
                                                        th:field="*{customerId}"
                                                        id="customerId"
                                                        placeholder="z.B 2"
                                                        required/>
-                    <text>Zahlungsart</text>
+                    &nbsp &nbsp &nbsp &nbsp
+                    <text>Zahlungsart</text>&nbsp &nbsp
                     <select class="uiinput" id="paymentMethod" th:field="*{paymentMethod}">
                         <option value="0">
                             Mit Guthaben bezahlen
@@ -39,9 +40,8 @@
                     </select>
                 </fieldset>
                 <br>
-                <br>
-                <button class="ui button" id="sbmbutton" name="submit" type="submit" data-submit="...Sending"
-                ><label>SUBMIT</label>
+                <button class="ui button" id="sbmbutton" name="submit" type="submit" data-submit="...Sending">
+                    <b class="lbl">SUBMIT</b>
                 </button>
             </div>
         </form>

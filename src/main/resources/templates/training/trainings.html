@@ -11,7 +11,7 @@
         <div id="authorize" style="float: left; margin-bottom: 5px">
             <form th:action="@{/admin/training/authorize}">
                 <label>Es gibt <b><span th:text="${requestedTrainings}">0</span></b> neue Anfragen</label>
-                <button id="sbmbutton" type="submit" class="ui button blue"><label>Bearbeiten</label></button>
+                <button id="sbmbutton" type="submit" class="ui button blue"><b class="lbl">Bearbeiten</b></button>
             </form>
         </div>
         <table class="ui celled table" id="catalog">

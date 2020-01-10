@@ -2,12 +2,12 @@ package fitnessstudio.training;
 
 import fitnessstudio.member.Member;
 import fitnessstudio.member.MemberRepository;
-import fitnessstudio.roster.Roster;
-import fitnessstudio.roster.RosterManagement;
-import fitnessstudio.roster.RosterRepository;
 import fitnessstudio.staff.Staff;
 import fitnessstudio.staff.StaffRepository;
 import org.junit.jupiter.api.*;
+import org.salespointframework.useraccount.Password;
+import org.salespointframework.useraccount.Role;
+import org.salespointframework.useraccount.UserAccountManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.validation.BeanPropertyBindingResult;
@@ -38,6 +38,9 @@ class TrainingManagementUnitTests {
 	@Autowired
 	private StaffRepository staffs;
 
+	@Autowired
+	private UserAccountManager userAccountManager;
+
 	private int week;
 	private Long trainingId;
 	private Member member;
@@ -48,20 +51,16 @@ class TrainingManagementUnitTests {
 	void setUp() {
 		week = Calendar.getInstance().get(Calendar.WEEK_OF_YEAR);
 
-		if (members.findAll().isEmpty()) {
-			members.save(new Member());
-		}
-
 		if (staffs.findAll().isEmpty()) {
 			staffs.save(new Staff());
 		}
 
-		member = members.findAll().toList().get(0);
+		member = members.save(new Member(userAccountManager.create("manfred.meier",
+			Password.UnencryptedPassword.of("123"), "manfred.meier@email.de", Role.of("MEMBER")), "Manfred",
+			"Meier", "iban", "bic"));
 		staff = staffs.findAll().toList().get(0);
 
 		time = "10:00-12:00";
-
-
 	}
 
 	@Test

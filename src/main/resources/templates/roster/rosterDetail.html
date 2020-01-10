@@ -61,7 +61,7 @@
                 <br>
 
                 <button th:if="${rosterEntry.getTraining() == -1}" type="submit" class="ui blue button" id="sbmbutton">
-                    <label>Speichern</label></button>
+                    <b class="lbl">Speichern</b></button>
                 <button th:unless="${rosterEntry.getTraining() == -1}" type="submit" class="ui blue button">Zurück</button>
                 <a th:if="${rosterEntry.getTraining() == -1}" class="ui red button" id="dltbutton"
                    th:href="@{/roster/detail/delete/{week}/{shift}/{day}/{id}/(week=${week},shift=${shift},day=${day},id=${rosterEntry.rosterEntryId})}">

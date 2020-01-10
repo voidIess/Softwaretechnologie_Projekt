@@ -155,6 +155,8 @@ class MemberManagementUnitTests {
 	@Order(12)
 	void testCannotPauseAgain() {
 		Member member = members.findById(memberId).get();
+		member.setLastPause(LocalDate.now());
+
 		management.pauseMembership(member);
 		assertThat(member.isPaused()).isFalse();
 	}
