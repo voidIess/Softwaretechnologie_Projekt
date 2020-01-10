@@ -315,7 +315,7 @@ image::models/design/membermanagement.svg[]
 
 === StaffManagement Package
 
-image::models/design/staffmanagement.svg[]
+image::models/design/package_staff_v2.svg[]
 
 [options="header"]
 |=== 
@@ -325,6 +325,9 @@ image::models/design/staffmanagement.svg[]
 |Staff| Das Objekt eines Mitarbeiters im System.
 |StaffManagement | Eine Klasse um die PDFs für den Lohnschein zu erstellen und zur Verwaltung der Mitarbeiter.
 |StaffRepository | Ein Repository Interface zum Verwalten von Mitarbeitern.
+|EditStaffForm|Ein Interface, um Änderungen an einem Mitarbeiter im System zu erhalten und zu verfizieren.
+|SalaryForm|Ein Interface, um Änderungen an dem Gehalt eines Mitarbeiter im System zu erhalten und zu verfizieren.
+|StaffForm| Ein Interface, um Eingaben des Chefs für einen neuen Mitarbeiter im System zu erhalten und zu verfizieren.
 |===
 
 === Roster Package
