@@ -17,6 +17,10 @@ image::user_guide/overview_roster.png[]
 
 5 ... Legende. Blaue Felder beschreiben Einträge mit der Rolle "Trainer", grüne beschreiben Einträge mit der Rolle "Thekenkraft".
 
+=== Neuen Dienstplan erstellen
+
+Die Dienstpläne werden automatisch erstellt. Es sind immer Dienstpläne für die nächsten 6 Wochen verfügbar. Dazu muss das System jedoch jede Woche neugestartet werden. 
+
 === Dienstplaneintrag erstellen
 
 Um einen Eintrag zu erstellen, muss man zunächst den Dienstplan der enstprechenden Woche auswählen. Mehr dazu unter "Dienstplan einer anderen Woche".
