@@ -412,7 +412,7 @@ image::models/design/MemberManagementSequenz1.jpg[]
 image::models/design/MemberManagementSequenz2.jpg[]
 image::models/design/MemberManagementSequenz3.jpg[]
 
-=== StaffManagement
+=== StaffManagement & RosterManagement
 
 image::models/design/staffManagementSequenz.jpg[]
 
