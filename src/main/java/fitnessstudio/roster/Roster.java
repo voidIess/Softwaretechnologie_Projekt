@@ -11,9 +11,8 @@ import java.util.List;
 
 /**
  * @author Markus.
+ * Klasse des wirklichen Diensplanobjekts.
  * **/
-
-
 @Entity
 public class Roster {
 
@@ -22,8 +21,17 @@ public class Roster {
 	private long rosterId;
 	private int week;
 
+	/**
+	 * Beschreibt die Anzahl der Schichten.
+	 */
 	public static final int AMOUNT_ROWS = 8;
+	/**Beschreibt die Dauer einer Schicht (in Minuten)
+	 *
+	 */
 	public static final int DURATION = 120;
+	/**
+	 * Startzeitpunkt, auf den die Duration addiert wird.
+	 */
 	public static final LocalDateTime STARTTIME = LocalDateTime.of(
 		2000,
 		1,
@@ -39,8 +47,8 @@ public class Roster {
 	}
 
 	/**
-	 *
-	 * @param week
+	 * Konstruktor der Klasse Roster
+	 * @param week Beschreibt die Kalenderwoche des Rosters.
 	 */
 	public Roster(int week) {
 		this();
@@ -49,6 +57,9 @@ public class Roster {
 		initialize();
 	}
 
+	/**
+	 * Initialisiert eine Anzahl von TableRows
+	 */
 	private void initialize() {
 		rows.clear();
 		for (int i = 0; i < AMOUNT_ROWS; i++) {
@@ -56,6 +67,11 @@ public class Roster {
 		}
 	}
 
+	/** Fügt einen Eintrag dem Dienstplan hinzu.
+	 * @param shift Beschreibt die ausgewählte Schicht (Äquivalent zur Zeile)
+	 * @param day Beschreibt den ausgewählten Tag (Äquivalent zur Spalte)
+	 * @param rosterEntry Der Eintrag der an die Koordinaten shift, day eingetragen werden soll.
+	 */
 	public void addEntry(int shift, int day, RosterEntry rosterEntry) {
 		Assert.isTrue(shift >= 0 && shift < rows.size(), "Diese Schichtnummer existiert nicht!");
 		Assert.isTrue(day >= 0 && day < 7, "Dieser Tag exisitiert nicht.");
@@ -65,6 +81,12 @@ public class Roster {
 		slot.getEntries().add(rosterEntry);
 	}
 
+	/**
+	 * Löscht einen Eintrag aus dem Dienstplan
+	 * @param shift Beschreibt die ausgewählte Schicht (äquivalent zur Zeile)
+	 * @param day Beschreibt den aktuell ausgewählten Tag (äquivalent zur Spalte)
+	 * @param rosterEntryId Die ID des Dienstplaneintrags, der gelöscht werden soll. Die befindet sich an den Koordinaten (shift, day).
+	 */
 	public void deleteEntry(int shift, int day, long rosterEntryId) {
 		Assert.isTrue(shift >= 0 && shift < rows.size(), "Diese Schicht existiert nicht!");
 		Assert.isTrue(day >= 0 && day < 7, "Dieser Tag exisitiert nicht.");
@@ -182,6 +204,11 @@ class Slot {
 		return entries;
 	}
 
+	/**
+	 * Überprüft ob ein Mitarbeiter zu dieser Zeit bereits arbeitet.
+	 * @param staff Der Mitarbeiter, der geprüft werden soll
+	 * @return Gibt zurück, ob der Mitarbeiter verfügbar ist.
+	 */
 	public boolean isTaken(Staff staff) {
 		for (RosterEntry rosterEntry : entries) {
 			if (rosterEntry.getStaff().getStaffId() == staff.getStaffId()){
@@ -191,6 +218,11 @@ class Slot {
 		return false;
 	}
 
+	/**
+	 * Löscht einen Eintrag aus der Liste der Einträge des Slots.
+	 * @param id Die ID des Dienstplaneintrags, der gelöscht werden soll.
+	 * @return Gibt zurück, ob der Eintrag erfolgreich gelöscht wurde.
+	 */
 	public boolean deleteEntry(long id) {
 		for (RosterEntry rosterEntry : entries) {
 			if (rosterEntry.getRosterEntryId() == id) {
