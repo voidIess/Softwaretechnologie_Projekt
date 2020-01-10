@@ -222,7 +222,7 @@ class Slot {
 	/**
 	 * Konstruktor der Klasse Slot
 	 * @param shift Die dazugehörige Zeile. (y-Koordinate)
-	 * 	 * @param day Die dem Tag entsprechende Zeile. (x-Koordinate)
+	 * @param day Die dem Tag entsprechende Zeile. (x-Koordinate)
 	 */
 	Slot(int shift, int day) {
 		this();

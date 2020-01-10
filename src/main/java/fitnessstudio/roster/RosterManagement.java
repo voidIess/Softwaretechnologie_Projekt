@@ -130,8 +130,8 @@ public class RosterManagement {
 	/**
 	 * Gibt einen RosterEntry anhand seiner ID zurück.
 	 * @param week Kalenderwoche des Dienstplans
-	 * @param shift (y-Koordinate im Dienstplan), Nummer der Schicht -> TableRow (nicht die ID!)
-	 * @param day (x-Koordinate im Dienstplan), Nummer des Tages -> Slot (0...6) (auch hier nicht die ID!)
+	 * @param shift (y-Koordinate im Dienstplan), Nummer der Schicht (TableRow) (nicht die ID!)
+	 * @param day (x-Koordinate im Dienstplan), Nummer des Tages (Slot) (0...6) (auch hier nicht die ID!)
 	 * @param id ID des gesuchten Dienstplaneintrages
 	 * @return RosterEntry mit der übergegeben ID
 	 */
