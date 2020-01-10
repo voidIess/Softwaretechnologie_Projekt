@@ -9,6 +9,11 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Markus.
+ * **/
+
+
 @Entity
 public class Roster {
 
@@ -33,6 +38,10 @@ public class Roster {
 		this.rows = new ArrayList<>();
 	}
 
+	/**
+	 *
+	 * @param week
+	 */
 	public Roster(int week) {
 		this();
 		Assert.isTrue(week > 0 && week < 53, "Diese Kalenderwoche existiert nicht! (1-52)");

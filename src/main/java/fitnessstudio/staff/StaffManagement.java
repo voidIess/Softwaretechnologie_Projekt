@@ -61,7 +61,6 @@ public class StaffManagement {
 		return staff;
 	}
 
-
 	public void saveStaff(Staff staff) {
 		staffRepo.save(staff);
 	}
