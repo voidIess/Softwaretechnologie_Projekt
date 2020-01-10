@@ -35,7 +35,7 @@ Nun muss noch die Zeit ausgewählt werden. Die Woche ist wie oben beschrieben be
 
 Mit dem "Erstellen"-Button (6) wird der Eintrag erstellt.
 
-Sollte der Mitarbeiter zu dieser Zeit bereits arbeiten, wird kein Eintrag erstellt. Sollte man mehrere Zeiten ausgewählt haben, und der Mitarbeiter kann an einer/mehreren dieser Zeiten nicht, so werden alle Einträge bis auf die enstprechenden erstellt. 
+__Sollte der Mitarbeiter zu dieser Zeit bereits arbeiten, wird kein Eintrag erstellt. Sollte man mehrere Zeiten ausgewählt haben, und der Mitarbeiter kann an einer/mehreren dieser Zeiten nicht, so werden alle Einträge bis auf die enstprechenden erstellt.__
 
 === Dienstplaneintrag einsehen/bearbeiten/löschen
 
@@ -46,7 +46,7 @@ image::user_guide/details_roster.png[]
 
 Um die Änderungen zu speichern muss man auf den "Speichern"-Button drücken. Um einen Eintrag zu löschen muss man auf den "Löschen"-Button drücken. Gelöschte Einträge sind unwiderruflich gelöscht.
 
-Achtung: Sollte dem Eintrag ein Training zu geordnet sein, so kann dieser Eintrag nicht bearbeitet/gelöscht werden. Um solche Einträge zu löschen muss das dazugehörige Training abgesagt werden.
+*Achtung*: Sollte dem Eintrag ein Training zu geordnet sein, so kann dieser Eintrag nicht bearbeitet/gelöscht werden. Um solche Einträge zu löschen muss das dazugehörige Training abgesagt werden.
 
 === Dienstplan filtern
 
