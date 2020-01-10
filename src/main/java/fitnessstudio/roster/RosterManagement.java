@@ -215,6 +215,4 @@ public class RosterManagement {
 				.get(form.getDay()).isTaken(staffManagement.findById(form.getStaff())
 				.orElse(null));
 	}
-
-
 }
