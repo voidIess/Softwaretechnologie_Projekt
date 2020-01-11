@@ -8,6 +8,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+/**
+ * @author Markus
+ * Dient zum konvertieren und generieren von Dienstplan spezifischen Listen & Informationen
+ */
 public class RosterDataConverter {
 
 	private static final String[] germanWeekDay = new String[]{"Sa.", "So.","Mo.", "Di.", "Mi.", "Do.", "Fr.", };
@@ -17,6 +21,12 @@ public class RosterDataConverter {
 
 	private RosterDataConverter () {}
 
+	/**
+	 * Generiert eine Liste der Form TT., (auf Deutsch, z.B. Mo.) DD.MM.YYYY für den Header des Dienstplans
+	 * anhand einer Woche
+	 * @param week Entsprechende Kalenderwoche
+	 * @return Liste von Strings mit Datum
+	 */
 	public static List<String> getWeekDatesByWeek (int week) {
 		List<String> weekDates = new ArrayList<>();
 		Calendar c = Calendar.getInstance();
@@ -38,6 +48,10 @@ public class RosterDataConverter {
 		return weekDates;
 	}
 
+	/**
+	 * Gibt eine Liste mit allen vorhanden StaffRoles zurück
+	 * @return Liste aller StaffRoles
+	 */
 	public static List<String> getRoleList(){
 		List<String> roles = new ArrayList<>();
 		roles.add(COUNTER);
@@ -45,6 +59,11 @@ public class RosterDataConverter {
 		return roles;
 	}
 
+	/**
+	 * Konvertiert den String (von roleToString) zu StaffRole
+	 * @param role String der Rolle (von roleToString)
+	 * @return StaffRole zu dem String
+	 */
 	public static StaffRole stringToRole (String role) {
 		Assert.notNull(role, "Die Rolle darf nicht 'null' sein!");
 		if (role.equals(TRAINER)){
@@ -56,6 +75,11 @@ public class RosterDataConverter {
 		}
 	}
 
+	/**
+	 * Konvertiert eine StaffRole zu einem String
+	 * @param role Entsprechende Rolle
+	 * @return Rolle als String
+	 */
 	public static String roleToString (StaffRole role) {
 		if (role == StaffRole.COUNTER){
 			return COUNTER;

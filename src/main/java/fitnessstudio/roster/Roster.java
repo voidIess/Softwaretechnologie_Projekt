@@ -48,7 +48,6 @@ public class Roster {
 
 	/**
 	 * Konstruktor der Klasse Roster
-	 *
 	 * @param week Beschreibt die Kalenderwoche des Rosters.
 	 */
 	public Roster(int week) {
@@ -104,6 +103,8 @@ public class Roster {
 	 ========================================================================*/
 
 	/**
+	 * ID des Dienstplans
+	 *
 	 * @return ID des Dienstplans
 	 */
 	public long getRosterId() {
@@ -111,6 +112,8 @@ public class Roster {
 	}
 
 	/**
+	 * Kalenderwoche des Dienstplan
+	 *
 	 * @return Kalenderwoche des Dienstplans
 	 */
 	public int getWeek() {
@@ -118,13 +121,14 @@ public class Roster {
 	}
 
 	/**
-	 * @return Reihe des Dienstplans
+	 * Reihen des Dienstplans
+	 *
+	 * @return Reihen des Dienstplans
 	 */
 	public List<TableRow> getRows() {
 		return rows;
 	}
 }
-
 
 /**
  * Klasse einer Zeile des Dienstplans
@@ -221,8 +225,9 @@ class Slot {
 
 	/**
 	 * Konstruktor der Klasse Slot
+	 *
 	 * @param shift Die dazugehörige Zeile. (y-Koordinate)
-	 * @param day Die dem Tag entsprechende Zeile. (x-Koordinate)
+	 * @param day   Die dem Tag entsprechende Zeile. (x-Koordinate)
 	 */
 	Slot(int shift, int day) {
 		this();
@@ -232,14 +237,18 @@ class Slot {
 		this.coordinates[1] = day;
 	}
 
-	/** ID des Slots
+	/**
+	 * ID des Slots
+	 *
 	 * @return Datenbank ID des Slots
 	 */
 	public long getSlotId() {
 		return slotId;
 	}
 
-	/** Koordinaten des Slots im Dienstplan
+	/**
+	 * Koordinaten des Slots im Dienstplan
+	 *
 	 * @return Koordinaten im Dienstplan des Slots. [0] ist die Zeile, [1] der Tag.
 	 */
 	public int[] getCoordinates() {
@@ -248,6 +257,7 @@ class Slot {
 
 	/**
 	 * Liste aller Einträge zu dieser Zeit
+	 *
 	 * @return Liste aller Einträge zu dieser Zeit. Jeder Mitarbeiter kann nur einmal pro Slot eingetragen sein.
 	 */
 	public List<RosterEntry> getEntries() {
@@ -257,6 +267,7 @@ class Slot {
 
 	/**
 	 * Überprüft ob ein Mitarbeiter zu dieser Zeit bereits arbeitet.
+	 *
 	 * @param staff Der Mitarbeiter, der geprüft werden soll
 	 * @return Gibt zurück, ob der Mitarbeiter verfügbar ist.
 	 */
