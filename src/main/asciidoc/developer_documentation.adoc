@@ -350,7 +350,7 @@ image::models/design/package_roster_v2.svg[]
 
 === PDF Package
 
-image::models/design/pdf.svg[]
+image::models/design/package_pdf_v2.svg[]
 
 [options="header"]
 |=== 
