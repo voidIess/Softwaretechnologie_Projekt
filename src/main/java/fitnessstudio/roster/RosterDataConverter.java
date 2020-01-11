@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  * @author Markus
- * Dient zum konvertieren und generieren von Dienstplan spezifischen Listen & Informationen
+ * Dient zum konvertieren und generieren von Dienstplan spezifischen Listen und Informationen
  */
 public class RosterDataConverter {
 
