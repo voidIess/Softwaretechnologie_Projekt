@@ -9,13 +9,13 @@ import java.time.LocalDate;
 @Component
 public class StatisticDataInitializer implements DataInitializer {
 
-	private final StatisticManagement statisticManagement;
+	private final AttendanceManagement attendanceManagement;
 
-	public StatisticDataInitializer(StatisticManagement statisticManagement) {
+	public StatisticDataInitializer(AttendanceManagement attendanceManagement) {
 
-		Assert.notNull(statisticManagement, "StatisticManagement must not be null");
+		Assert.notNull(attendanceManagement, "AttendanceManagement must not be null");
 
-		this.statisticManagement = statisticManagement;
+		this.attendanceManagement = attendanceManagement;
 	}
 
 	@Override
@@ -23,12 +23,12 @@ public class StatisticDataInitializer implements DataInitializer {
 
 		LocalDate today = LocalDate.now();
 
-		statisticManagement.addAttendance(today.minusDays(6), 0, 60);
-		statisticManagement.addAttendance(today.minusDays(5), 0, 40);
-		statisticManagement.addAttendance(today.minusDays(5), 1, 25);
-		statisticManagement.addAttendance(today.minusDays(4), 0, 30);
-		statisticManagement.addAttendance(today.minusDays(3), 0, 45);
-		statisticManagement.addAttendance(today.minusDays(1), 1, 10);
+		attendanceManagement.addAttendance(today.minusDays(6), 0, 60);
+		attendanceManagement.addAttendance(today.minusDays(5), 0, 40);
+		attendanceManagement.addAttendance(today.minusDays(5), 1, 25);
+		attendanceManagement.addAttendance(today.minusDays(4), 0, 30);
+		attendanceManagement.addAttendance(today.minusDays(3), 0, 45);
+		attendanceManagement.addAttendance(today.minusDays(1), 1, 10);
 
 	}
 }

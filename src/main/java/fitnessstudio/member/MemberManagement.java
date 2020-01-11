@@ -7,6 +7,7 @@ import fitnessstudio.invoice.InvoiceEntry;
 import fitnessstudio.invoice.InvoiceEvent;
 import fitnessstudio.invoice.InvoiceManagement;
 import fitnessstudio.invoice.InvoiceType;
+import fitnessstudio.statistics.AttendanceManagement;
 import fitnessstudio.statistics.StatisticManagement;
 import fitnessstudio.studio.StudioService;
 import org.javamoney.moneta.Money;
@@ -48,12 +49,12 @@ public class MemberManagement {
 	private final UserAccountManager userAccounts;
 	private final ContractManagement contractManagement;
 	private final StudioService studioService;
-	private final StatisticManagement statisticManagement;
+	private final AttendanceManagement attendanceManagement;
 	private final InvoiceManagement invoiceManagement;
 	private final EmailService emailService;
 
 	MemberManagement(MemberRepository members, UserAccountManager userAccounts, ContractManagement contractManagement,
-					 StudioService studioService, StatisticManagement statisticManagement,
+					 StudioService studioService, AttendanceManagement attendanceManagement,
 					 ApplicationEventPublisher applicationEventPublisher, InvoiceManagement invoiceManagement,
 					 EmailService emailService) {
 
@@ -61,7 +62,7 @@ public class MemberManagement {
 		Assert.notNull(userAccounts, "UserAccountManager must not be null!");
 		Assert.notNull(contractManagement, "ContractManagement must not be null!");
 		Assert.notNull(studioService, "StudioService must not be null!");
-		Assert.notNull(statisticManagement, "StatisticManagement must not be null!");
+		Assert.notNull(attendanceManagement, "AttendanceManagement must not be null!");
 		Assert.notNull(applicationEventPublisher, "ApplicationEventPublisher must not be null!");
 		Assert.notNull(invoiceManagement, "InvoiceManagement must not be null!");
 		Assert.notNull(emailService, "EmailService must not be null!");
@@ -70,7 +71,7 @@ public class MemberManagement {
 		this.userAccounts = userAccounts;
 		this.contractManagement = contractManagement;
 		this.studioService = studioService;
-		this.statisticManagement = statisticManagement;
+		this.attendanceManagement = attendanceManagement;
 		this.applicationEventPublisher = applicationEventPublisher;
 		this.invoiceManagement = invoiceManagement;
 		this.emailService = emailService;
@@ -310,7 +311,7 @@ public class MemberManagement {
 	public void checkMemberOut(Long memberId) {
 		Optional<Member> member = findById(memberId);
 		if (member.isPresent() && !member.get().isPaused() && member.get().isAttendant()) {
-			statisticManagement.addAttendance(memberId, member.get().checkOut());
+			attendanceManagement.addAttendance(memberId, member.get().checkOut());
 		}
 	}
 

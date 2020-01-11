@@ -63,7 +63,7 @@ public class RosterDataInitializer implements DataInitializer {
 		} else {
 			staff2 = new Staff(userAccounts.create(usernameObi, Password.UnencryptedPassword.of("123"),
 				"obi@mehralsbaumarkt.de", Role.of(staffrole)), "Obi", "Babobi",
-				Money.of(10000, "EUR"));
+				Money.of(1000, "EUR"));
 			String logObi = "Create Staff (username: " + usernameObi + ", passwort: 123)";
 			LOG.info(logObi);
 			staffs.saveStaff(staff2);

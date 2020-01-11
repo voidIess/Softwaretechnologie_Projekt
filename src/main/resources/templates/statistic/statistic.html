@@ -29,7 +29,7 @@
                     tickColor: "#ee6002"
                 },
                 axisY: {
-                        title: "Zeit in Minuten",
+                    title: "Zeit in Minuten",
                     titleFontColor: "#34c759",
                     lineColor: "#34c759",
                     labelFontColor: "#34c759",
@@ -41,7 +41,7 @@
                     lineColor: "#0a84ff",
                     labelFontColor: "#0a84ff",
                     tickColor: "#0a84ff",
-                    min: 1,
+                    min: 2,
 
                 },
                 toolTip: {
@@ -67,21 +67,21 @@
                         {x: new Date("[[${week[5]}]]"), y: [[${averageTimes[5]}]]},
                         {x: new Date("[[${week[6]}]]"), y: [[${averageTimes[6]}]]}]
                 },
-                {
-                    name: "anwesende Mitglieder",
-                    axisYType: "secondary",
-                    showInLegend: true,
-                    type: "line",
-                    color: "#0a84ff",
-                    dataPoints: [
-                        {x: new Date("[[${week[0]}]]"), y: [[${memberAmounts[0]}]]},
-                        {x: new Date("[[${week[1]}]]"), y: [[${memberAmounts[1]}]]},
-                        {x: new Date("[[${week[2]}]]"), y: [[${memberAmounts[2]}]]},
-                        {x: new Date("[[${week[3]}]]"), y: [[${memberAmounts[3]}]]},
-                        {x: new Date("[[${week[4]}]]"), y: [[${memberAmounts[4]}]]},
-                        {x: new Date("[[${week[5]}]]"), y: [[${memberAmounts[5]}]]},
-                        {x: new Date("[[${week[6]}]]"), y: [[${memberAmounts[6]}]]}]
-                }]
+                    {
+                        name: "anwesende Mitglieder",
+                        axisYType: "secondary",
+                        showInLegend: true,
+                        type: "line",
+                        color: "#0a84ff",
+                        dataPoints: [
+                            {x: new Date("[[${week[0]}]]"), y: [[${memberAmounts[0]}]]},
+                            {x: new Date("[[${week[1]}]]"), y: [[${memberAmounts[1]}]]},
+                            {x: new Date("[[${week[2]}]]"), y: [[${memberAmounts[2]}]]},
+                            {x: new Date("[[${week[3]}]]"), y: [[${memberAmounts[3]}]]},
+                            {x: new Date("[[${week[4]}]]"), y: [[${memberAmounts[4]}]]},
+                            {x: new Date("[[${week[5]}]]"), y: [[${memberAmounts[5]}]]},
+                            {x: new Date("[[${week[6]}]]"), y: [[${memberAmounts[6]}]]}]
+                    }]
             });
 
             var chart2 = new CanvasJS.Chart("chartContainer2", {
@@ -128,8 +128,23 @@
                 }]
             });
 
+            var chart3 = new CanvasJS.Chart("chartContainer3", {
+                animationEnabled: true,
+                data: [{
+                    type: "pie",
+                    startAngle: 240,
+                    yValueFormatString: "##0.00\"%\"",
+                    indexLabel: "{label} {y}",
+                    dataPoints: [
+                        {y: [[${revenuesPer}]], label: "Vertragseinnahmen", color: "#34c759"},
+                        {y: [[${expendituresPer}]], label: "Mitarbeitergehalte", color: "#0a84ff"}
+                    ]
+                }]
+            });
+
             chart1.render();
             chart2.render();
+            chart3.render();
 
             function toggleDataSeries(e) {
                 e.dataSeries.visible = !(typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible);
@@ -140,39 +155,49 @@
     </script>
 
 
-<div>
+    <div>
 
-<div class="ui container">
-    <div class="ui items">
-        <h2>Mitglieder Statistiken</h2>
-        <p>Heutige Besucheranzahl:
-            <span class = "num" style="font-size: 25px" th:text="${memberAmounts[today]}">3</span>
-            <span style="font-size: 18px" th:if="${memberAmounts[today]==1}" th:text="Mitglied">3</span>
-            <span style="font-size: 18px" th:if="${memberAmounts[today]!=1}" th:text="Mitglieder">3</span>
-        </p>
-        <p>Heutiger durchschnittlicher Aufenthalt:
-            <span class ="num" style="font-size: 25px" th:text="${averageTimes[today]}">2</span>
-            <span style="font-size: 18px" th:if="${averageTimes[today]==1}" th:text="Minute">2</span>
-            <span style="font-size: 18px" th:if="${averageTimes[today]!=1}" th:text="Minuten">2</span>
-        </p>
-        <div id="chartContainer1" style="height: 370px; width: 100%; margin-top: 15pt; margin-bottom:50pt"></div>
-        <h2>Umsatz Statistiken</h2>
-        <p>Heutige Verkaufseinnahmen:
-            <span class = "num" style="font-size: 25px" th:text="${sellingEarnings[today]}">3</span>
-            <span style="font-size: 18px">€</span>
-        </p>
-        <div id="chartContainer2" style="height: 370px; width: 100%; margin-top: 15pt; margin-bottom:50pt"></div>
+        <div class="ui container">
+            <div class="ui items">
+                <h2>Mitglieder Statistiken</h2>
+                <p>Heutige Besucheranzahl:
+                    <span class = "num" style="font-size: 25px" th:text="${memberAmounts[today]}">3</span>
+                    <span style="font-size: 18px" th:if="${memberAmounts[today]==1}" th:text="Mitglied">3</span>
+                    <span style="font-size: 18px" th:if="${memberAmounts[today]!=1}" th:text="Mitglieder">3</span>
+                </p>
+                <p>Heutiger durchschnittlicher Aufenthalt:
+                    <span class ="num" style="font-size: 25px" th:text="${averageTimes[today]}">2</span>
+                    <span style="font-size: 18px" th:if="${averageTimes[today]==1}" th:text="Minute">2</span>
+                    <span style="font-size: 18px" th:if="${averageTimes[today]!=1}" th:text="Minuten">2</span>
+                </p>
+                <div id="chartContainer1" style="height: 370px; width: 100%; margin-top: 15pt; margin-bottom:50pt"></div>
+                <h2>Umsatz Statistiken</h2>
+                <p>Heutige Verkaufseinnahmen:
+                    <span class = "num" style="font-size: 25px" th:text="${sellingEarnings[today]}">3</span>
+                    <span style="font-size: 18px">€</span>
+                </p>
+                <div id="chartContainer2" style="height: 370px; width: 100%; margin-top: 15pt; margin-bottom:50pt"></div>
+                <h2>Monatliche Bilanz</h2>
+                <p>Vertragseinnahmen:
+                    <span class = "num" style="font-size: 25px" th:text="${revenuesAbs}">3</span>
+                    <span style="font-size: 18px">€</span>
+                </p>
+                <p>Mitarbeitergehalte:
+                    <span class = "num" style="font-size: 25px" th:text="${expendituresAbs}">3</span>
+                    <span style="font-size: 18px">€</span>
+                </p>
+                <div id="chartContainer3" style="height: 370px; width: 100%; margin-top: 15pt; margin-bottom:50pt"></div>
+            </div>
+
+
+
+            <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+            <script type="text/javascript">
+                $(".num").counterUp({delay:10,time:1000});
+            </script>
+
+
+        </div>
     </div>
-
-
-
-    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-    <script type="text/javascript">
-        $(".num").counterUp({delay:10,time:1000});
-    </script>
-
-
-</div>
-</div>
 </div>
 </html>

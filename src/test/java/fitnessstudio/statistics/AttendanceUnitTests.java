@@ -15,10 +15,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class AttendanceUnitTests {
 
 	@Autowired
-	private StatisticManagement management;
+	private AttendanceManagement management;
 
 	@Autowired
 	private AttendanceRepository repository;
+
+	@Autowired
+	private StatisticManagement statistics;
 
 	private Member member;
 
@@ -50,7 +53,7 @@ public class AttendanceUnitTests {
 	@Test
 	@Order(4)
 	void testGetAverageTimeToday() {
-		assertThat(management.getAverageTimeOfToday()).isEqualTo(2);
+		assertThat(statistics.getAverageTimeOfToday()).isEqualTo(2);
 	}
 
 	@Test
@@ -65,13 +68,13 @@ public class AttendanceUnitTests {
 	@Test
 	@Order(6)
 	void testGetMemberAmountToday() {
-		assertThat(management.getMemberAmountOfToday()).isEqualTo(1);
+		assertThat(statistics.getMemberAmountOfToday()).isEqualTo(1);
 	}
 
 	@Test
 	@Order(7)
 	void testCalculateAverage() {
-		assertThat(management.getAverageTimeOfToday()).isEqualTo(3);
+		assertThat(statistics.getAverageTimeOfToday()).isEqualTo(3);
 	}
 
 }
