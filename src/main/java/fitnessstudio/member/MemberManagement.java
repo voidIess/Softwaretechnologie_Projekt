@@ -278,14 +278,15 @@ public class MemberManagement {
 
 		map.put("member", member);
 
-		LocalDate startDate = LocalDate.now().minusMonths(1);
-		startDate = startDate.minusDays(startDate.getDayOfMonth());
-		map.put("startDate", startDate);
-		map.put("startCredit", getMemberCreditOfDate(member, startDate));
-
 		LocalDate endDate = LocalDate.now().minusDays(LocalDate.now().getDayOfMonth());
+		System.out.println("e; "+endDate);
 		map.put("endDate", endDate);
 		map.put("endCredit", getMemberCreditOfDate(member, endDate));
+
+		LocalDate startDate = endDate.minusDays(endDate.getDayOfMonth()).plusDays(1);
+		map.put("startDate", startDate);
+		map.put("startCredit", getMemberCreditOfDate(member, startDate));
+		System.out.println("s; "+startDate);
 
 		map.put("invoiceEntries", invoiceManagement.getAllInvoiceForMemberOfLastMonth(member.getMemberId()));
 
@@ -357,11 +358,16 @@ public class MemberManagement {
 
 	public Money getMemberCreditOfDate(Member member, LocalDate date) {
 		Money credit = Money.of(0, "EUR");
+		if(date.isBefore(member.getMembershipStartDate())) {
+			return credit;
+		}
+
 		List<InvoiceEntry> entries = invoiceManagement.getAllEntriesForMemberBefore(member.getMemberId(), date);
 		for(InvoiceEntry entry : entries) {
 			if(entry.getType().equals(InvoiceType.WITHDRAW)) {
 				credit = credit.subtract(entry.getAmount());
-			} else {
+			}
+			if(entry.getType().equals(InvoiceType.DEPOSIT)) {
 				credit = credit.add(entry.getAmount());
 			}
 		}

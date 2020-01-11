@@ -16,6 +16,7 @@ import javax.money.format.MonetaryAmountFormat;
 import javax.money.format.MonetaryFormats;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -54,14 +55,28 @@ public class InvoicePdfGenerator implements PdfGenerator {
 		table2.setMarginBottom(15f);
 		table2.setMarginTop(15f);
 
-		if(!invoiceEntries.isEmpty()) {
+		Table table3 = new Table(3);
+		table3.setWidth(new UnitValue(UnitValue.PERCENT, 100));
+		table3.setMarginTop(15f);
+
+		List<InvoiceEntry> creditAccountEntries = new ArrayList<>();
+		List<InvoiceEntry> cashPayedEntries = new ArrayList<>();
+		for (InvoiceEntry entry : invoiceEntries) {
+			if(entry.getType().equals(InvoiceType.CASHPAYMENT)) {
+				cashPayedEntries.add(entry);
+			} else {
+				creditAccountEntries.add(entry);
+			}
+		}
+
+		if(!creditAccountEntries.isEmpty()) {
 			d.add(new Paragraph("Umsatz Ihres Guthabenkontos").setBold());
 
 			String startDate = ((LocalDate) invoice.get("startDate")).format(dateFormatter);
 			String startCredit = moneyFormat.format((Money) invoice.get("startCredit"));
 			d.add(new Paragraph("Kontostand vom " + startDate + ": " + startCredit));
 
-			for (InvoiceEntry entry: invoiceEntries) {
+			for (InvoiceEntry entry: creditAccountEntries) {
 
 				Money amount = entry.getAmount();
 				if(entry.getType().equals(InvoiceType.WITHDRAW)) {
@@ -78,6 +93,20 @@ public class InvoicePdfGenerator implements PdfGenerator {
 			String endDate = ((LocalDate) invoice.get("endDate")).format(dateFormatter);
 			String endCredit = moneyFormat.format((Money) invoice.get("endCredit"));
 			d.add(new Paragraph("Kontostand vom " + endDate + ": " + endCredit));
+
+		}
+
+		if(!cashPayedEntries.isEmpty()) {
+
+			for (InvoiceEntry entry: cashPayedEntries) {
+
+				table3.addCell(entry.getCreated().format(dateFormatter));
+				table3.addCell(entry.getDescription());
+				table3.addCell(moneyFormat.format(entry.getAmount()));
+			}
+
+			d.add(new Paragraph("Bar gezahlte Käufe").setBold());
+			d.add(table3);
 
 		}
 

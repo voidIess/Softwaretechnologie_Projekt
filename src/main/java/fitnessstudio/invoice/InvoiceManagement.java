@@ -34,7 +34,7 @@ public class InvoiceManagement {
 
 		if (month == 1) {
 			year--;
-			month = 12;
+			month = 13;
 		}
 
 		int finalMonth = month - 1;
