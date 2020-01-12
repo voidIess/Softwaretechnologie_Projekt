@@ -26,6 +26,15 @@ public class EmailService {
 	}
 
 	@Async
+	public void sendFriendInvite (String emailTo, String friendsName, long memberId) {
+		sendSimpleMessage(emailTo, "Du hast eine Einladung für Fitness Second bekommen!",
+			"Hallo!" + "\n\n" + friendsName + ", ein Mitglied unseres Fitnessstudios (und vermutlich ein Freund von dir), " +
+				"hat dich eingladen unser Fitnessstudio zu testen! \n\n" +
+				"Über diesen Link gelangst du zur Registrierung:\n\n" +
+				"http://localhost:8080/register/" + memberId);
+	}
+
+	@Async
 	public void sendTrainingStateUpdated(String emailTo, String name, Long trainingId) {
 		sendSimpleMessage(emailTo, "Eine deiner Traininganfragen wurde beabeitet",
 			"Hallo " + name + ", \n\n"

@@ -259,5 +259,46 @@ public class MemberController {
 	}
 
 
+	/**
+	 * Link zum Einladen eines Freundes. Pfad: /member/invite
+	 * @param form Formular fuer das Einladung
+	 * @param model Model der Seite
+	 * @param userAccount UserAccount des Einladenden
+	 * @return redirect auf member/home, wenn userAccount oder member nicht gefunden werden. friendInvite wenn vorhanden
+	 */
+	@PreAuthorize("hasRole('MEMBER')")
+	@GetMapping("/member/invite")
+	public String inviteFriend (FriendInviteForm form, Model model, @LoggedIn Optional<UserAccount> userAccount) {
+		UserAccount userAccountMember = userAccount.orElse(null);
+		if (userAccountMember == null) {
+			return REDIRECT_HOME;
+		}
+		Member member = memberManagement.findByUserAccount(userAccountMember).orElse(null);
+		if (member == null) {
+			return REDIRECT_HOME;
+		}
+		model.addAttribute("memberId", member.getMemberId());
+		model.addAttribute("memberName", member.getFirstName() + " " + member.getLastName());
+		model.addAttribute("form", form);
+		return "member/inviteFriend";
+	}
+
+	/**
+	 * Online Auftrag zum senden der Email
+	 * @param model Seite des Models
+	 * @param form Ausgefülltes Formular für Einladung
+	 * @param errors Fehler beim Erstellen der Einladung
+	 * @param userAccount UserAccount des angemeldeten Nutzers
+	 * @return
+	 */
+	@PostMapping("/member/inviteAction")
+	@PreAuthorize("hasRole('MEMBER')")
+	public String inviteFriend(Model model, @Valid @ModelAttribute("form") FriendInviteForm form, Errors errors, @LoggedIn Optional<UserAccount> userAccount) {
+		if (errors.hasErrors()) {
+			return  inviteFriend(form, model, userAccount);
+		}
+		memberManagement.inviteFriend(form);
+		return REDIRECT_HOME;
+	}
 
 }

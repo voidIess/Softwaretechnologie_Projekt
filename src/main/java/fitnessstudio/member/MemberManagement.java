@@ -139,6 +139,14 @@ public class MemberManagement {
 
 	}
 
+	/**
+	 * Senden der Email an den Freund mit der E-Mail
+	 * @param form Formular mit den Angaben zur Einladung
+	 */
+	public void inviteFriend(FriendInviteForm form){
+		emailService.sendFriendInvite(form.getEmail(), form.getFriendsname(), form.getFriendsId());
+	}
+
 	public void deleteMember(Long memberId) {
 		Optional<Member> member = findById(memberId);
 		member.ifPresent(members::delete);
