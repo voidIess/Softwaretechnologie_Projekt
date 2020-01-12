@@ -35,6 +35,7 @@ public class InventoryController {
 	private static final String REDIRECT_CATALOG = "redirect:/catalog";
 	private static final String ERROR = "error";
 	private static final String STATUS = "status";
+	private static final int MAX_PERCENT_DISCOUNT = 100;
 
 	private final BarManager barManager;
 	private final DiscountRepository discountRepository;
@@ -247,7 +248,7 @@ public class InventoryController {
 			model.addAttribute(STATUS, "400");
 			return true;
 
-		} else if (Integer.parseInt(percent) < 0 || Integer.parseInt(percent) > 100) {
+		} else if (Integer.parseInt(percent) < 0 || Integer.parseInt(percent) > MAX_PERCENT_DISCOUNT) {
 			model.addAttribute(ERROR, "Discount should in 0-100 percent");
 			model.addAttribute(STATUS, "400");
 			return true;
