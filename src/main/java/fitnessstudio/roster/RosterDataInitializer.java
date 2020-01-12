@@ -17,7 +17,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-
+/**
+ * Zum initialisieren von Dienstplaenen/Eintraegen
+ */
 @Component
 public class RosterDataInitializer implements DataInitializer {
 
@@ -40,6 +42,9 @@ public class RosterDataInitializer implements DataInitializer {
 		this.rosterRepository = rosterRepository;
 	}
 
+	/**
+	 * Initialisiert neue Dienstplaene. Muss jede Woche mindestens ein mal ausgefuehrt werden (mit Neustart des Systems)
+	 */
 	@Override
 	public void initialize() {
 		String staffrole = "STAFF";

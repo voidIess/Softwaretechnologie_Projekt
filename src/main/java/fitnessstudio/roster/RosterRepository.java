@@ -7,7 +7,7 @@ import java.util.Optional;
 
 /**
  * @author Markus
- * Repository zum speichern von Dienstplänen
+ * Repository zum speichern von Dienstplaenen
  */
 public interface RosterRepository extends CrudRepository<Roster, Long> {
 

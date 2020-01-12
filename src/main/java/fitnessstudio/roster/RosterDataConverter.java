@@ -9,8 +9,9 @@ import java.util.Calendar;
 import java.util.List;
 
 /**
- * @author Markus
  * Dient zum konvertieren und generieren von Dienstplan spezifischen Listen und Informationen
+ * @author Markus
+ *
  */
 public class RosterDataConverter {
 
@@ -22,7 +23,7 @@ public class RosterDataConverter {
 	private RosterDataConverter () {}
 
 	/**
-	 * Generiert eine Liste der Form TT., (auf Deutsch, z.B. Mo.) DD.MM.YYYY für den Header des Dienstplans
+	 * Generiert eine Liste der Form TT., (auf Deutsch, z.B. Mo.) DD.MM.YYYY fuer den Header des Dienstplans
 	 * anhand einer Woche
 	 * @param week Entsprechende Kalenderwoche
 	 * @return Liste von Strings mit Datum
@@ -49,7 +50,7 @@ public class RosterDataConverter {
 	}
 
 	/**
-	 * Gibt eine Liste mit allen vorhanden StaffRoles zurück
+	 * Gibt eine Liste mit allen vorhanden StaffRoles zurueck
 	 * @return Liste aller StaffRoles
 	 */
 	public static List<String> getRoleList(){

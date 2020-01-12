@@ -16,7 +16,7 @@ import java.util.Calendar;
 
 
 /**
- * Spring MVC Controller für Anfragen auf den Dienstplan
+ * Spring MVC Controller fuer Anfragen auf den Dienstplan
  * @author Markus.
  */
 @Controller
@@ -29,8 +29,8 @@ public class RosterController {
 
 	/**
 	 * Konstruktor des Controllers
-	 * @param rosterManagement Management für Dienstplan
-	 * @param staffManagement Management für Mitarbeiter
+	 * @param rosterManagement Management fuer Dienstplan
+	 * @param staffManagement Management fuer Mitarbeiter
 	 */
 	RosterController(RosterManagement rosterManagement, StaffManagement staffManagement) {
 		Assert.notNull(rosterManagement, "RosterManagement darf nicht 'null' sein!");
@@ -40,7 +40,7 @@ public class RosterController {
 	}
 
 	/**
-	 * Baut die Website für den Standard-Dienstplan. Der Standard-Dienstplan ist der der heutigen Woche.
+	 * Baut die Website fuer den Standard-Dienstplan. Der Standard-Dienstplan ist der der heutigen Woche.
 	 * Pfad: /roster
 	 * @return redirect zu Link zu dem Dienstplan der heutigen Woche.
 	 */
@@ -50,9 +50,9 @@ public class RosterController {
 	}
 
 	/**
-	 * Nur für Staffs oder Boss einsehbar. Baut den Dienstplan einer beliebigen Woche.
+	 * Nur fuer Staffs oder Boss einsehbar. Baut den Dienstplan einer beliebigen Woche.
 	 * Pfad: /roster/{week}
-	 * @param week Die Woche für die der Dienstplan gefunden werden soll
+	 * @param week Die Woche fuer die der Dienstplan gefunden werden soll
 	 * @param model Model der Seite
 	 * @return HTML-Template rosterView + Model
 	 */
@@ -69,13 +69,12 @@ public class RosterController {
 	}
 
 	/**
-	 * Nur für Staff oder Boss einsehbar.
-	 * Filtert den Dienstplan einer bestimmten Woche nach einem Mitarbeiter
+	 * Nur fuer Staff oder Boss einsehbar. Filtert den Dienstplan einer bestimmten Woche nach einem Mitarbeiter
 	 * Pfad: roster/{week}/{id}
 	 * @param id ID des zu filternden Mitarbeiters
 	 * @param week Woche des Dienstplans
 	 * @param model Model der Seite
-	 * @return HTML-Template rosterView mit nur den Eintrögen des Mitarbeiters mit der ID
+	 * @return HTML-Template rosterView mit nur den Eintraegen des Mitarbeiters mit der ID
 	 */
 	@PreAuthorize("hasRole('STAFF') or hasRole('BOSS')")
 	@GetMapping("/roster/{week}/{id}")
@@ -91,12 +90,12 @@ public class RosterController {
 	}
 
 	/**
-	 * Nur für Staffs oder Boss einsehbar.
+	 * Nur fuer Staffs oder Boss einsehbar.
 	 * Formular zur Erstellung eines neuen Dienstplaneintrags
 	 * Pfad: roster/newRoster/{week}
-	 * @param week Kalenderwoche, für die der Dienstplaneintrag erstellt werden soll
+	 * @param week Kalenderwoche, fuer die der Dienstplaneintrag erstellt werden soll
 	 * @param model Model der Seite.
-	 * @param form Formular für den neuen Eintrag
+	 * @param form Formular fuer den neuen Eintrag
 	 * @param errors Fehler bei der Erstellung des Eintrages
 	 * @return HTML-Template rosterNew mit Form im Model
 	 */
@@ -116,7 +115,7 @@ public class RosterController {
 	 * Online Auftrag zur Erstellung des neuen Eintrages
 	 * Pfad: roster/newRosterEntry
 	 * @param model Model der Seite
-	 * @param form Ausgefülltes Formular
+	 * @param form Ausgefuelltes Formular
 	 * @param errors Fehler beim Erstellen
 	 * @return Sollten Fehler aufgetreten sein, redirect zur Korrektur der Fehler. Wenn nicht redirect auf Seite
 	 * des Dienstplans.
@@ -132,14 +131,13 @@ public class RosterController {
 	}
 
 	/**
-	 * Nur für Staffs und Boss einsehbar.
-	 * Zeigt Details eines Eintrags im Dientsplan
+	 * Zeigt Details eines Eintrags im Dientsplan. Nur fuer Staffs und Boss einsehbar.
 	 * Pfad: /roster/detail/{week}/{shift}/{day}/{id}
 	 * @param week Kalenderwoche des Eintrags
 	 * @param shift Schichtnummer (nicht ID!) des Eintrags
 	 * @param day Tagesnummer (Nicht SlotID!) des Eintrags
 	 * @param id ID des Eintrages
-	 * @param form Formular mit Einträgen
+	 * @param form Formular mit Eintraegen
 	 * @param model Model der Seite
 	 * @return HTML-Template rosterDetail mit Details des Eintrages
 	 */
@@ -159,8 +157,8 @@ public class RosterController {
 	}
 
 	/**
-	 * Online Auftrag zur Bearbeitung eines Dienstplaneintrags.
-	 * @param form Formular mit enthaltenen Änderungen
+	 * Online Auftrag zur Bearbeitung eines Dienstplaneintrags. Pfad: /roster/editEntry/{id}
+	 * @param form Formular mit enthaltenen Aenderungen
 	 * @param errors Fehler beim Editieren des Eintrags
 	 * @param id ID des Dienstplaneintrages
 	 * @param model Model der Seite
@@ -180,8 +178,7 @@ public class RosterController {
 	}
 
 	/**
-	 * Löschen eines Eintrags
-	 * Pfad: /roster/detail/delete/{week}/{shift}/{day}/{id}
+	 * Loeschen eines Eintrags. Pfad: /roster/detail/delete/{week}/{shift}/{day}/{id}
 	 * @param week Woche des entsprechenden Eintrags
 	 * @param shift Schichtnummer (nicht ID!) des entsprechenden Eintrags
 	 * @param day Tag (Slotnummer, nicht ID) des entsprechenden Eintrags
@@ -197,10 +194,10 @@ public class RosterController {
 	}
 
 	/**
-	 *  Löscht einen Staff (Ist nur in diesem Package um Cycles zu vermeiden :P)
-	 * @param id ID des zu löschenden Staffs
+	 *  Loescht einen Staff (Ist nur in diesem Package um Cycles zu vermeiden :P)
+	 * @param id ID des zu loeschenden Staffs
 	 * @param model Model der Seite
-	 * @return redirect auf die /staffs (Übersicht aller Staffs)
+	 * @return redirect auf die /staffs (Uebersicht aller Staffs)
 	 */
 	@PreAuthorize("hasRole('BOSS') ")
 	@PostMapping("/staff/delete/{id}")

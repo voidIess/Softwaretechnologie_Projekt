@@ -68,10 +68,10 @@ public class Roster {
 	}
 
 	/**
-	 * Fügt einen Eintrag dem Dienstplan hinzu.
+	 * Fuegt einen Eintrag dem Dienstplan hinzu.
 	 *
-	 * @param shift       Beschreibt die ausgewählte Schicht (Äquivalent zur Zeile)
-	 * @param day         Beschreibt den ausgewählten Tag (Äquivalent zur Spalte)
+	 * @param shift       Beschreibt die ausgewaehlte Schicht (aequivalent zur Zeile)
+	 * @param day         Beschreibt den ausgewaehlten Tag (aequivalent zur Spalte)
 	 * @param rosterEntry Der Eintrag der an die Koordinaten shift, day eingetragen werden soll.
 	 */
 	public void addEntry(int shift, int day, RosterEntry rosterEntry) {
@@ -84,18 +84,18 @@ public class Roster {
 	}
 
 	/**
-	 * Löscht einen Eintrag aus dem Dienstplan
+	 * Loescht einen Eintrag aus dem Dienstplan
 	 *
-	 * @param shift         Beschreibt die ausgewählte Schicht (äquivalent zur Zeile)
-	 * @param day           Beschreibt den aktuell ausgewählten Tag (äquivalent zur Spalte)
-	 * @param rosterEntryId Die ID des Dienstplaneintrags, der gelöscht werden soll. Die befindet sich an den Koordinaten (shift, day).
+	 * @param shift         Beschreibt die ausgewaehlte Schicht (aequivalent zur Zeile)
+	 * @param day           Beschreibt den aktuell ausgewaehlten Tag (aequivalent zur Spalte)
+	 * @param rosterEntryId Die ID des Dienstplaneintrags, der geloescht werden soll. Die befindet sich an den Koordinaten (shift, day).
 	 */
 	public void deleteEntry(int shift, int day, long rosterEntryId) {
 		Assert.isTrue(shift >= 0 && shift < rows.size(), "Diese Schicht existiert nicht!");
 		Assert.isTrue(day >= 0 && day < 7, "Dieser Tag exisitiert nicht.");
 		Slot slot = rows.get(shift).getSlots().get(day);
 		Assert.isTrue(slot.deleteEntry(rosterEntryId),
-			"Der Eintrag konnte nicht gelöscht werden. Gehört zu diesem Eintrag ein Training?");
+			"Der Eintrag konnte nicht geloescht werden. Gehoert zu diesem Eintrag ein Training?");
 	}
 
 	/* ========================================================================
@@ -153,7 +153,7 @@ class TableRow {
 	/**
 	 * Konstruktor der Klasse TableRow
 	 *
-	 * @param start   Startzeit der Schicht, die zu der Zeile gehört.
+	 * @param start   Startzeit der Schicht, die zu der Zeile gehoert.
 	 * @param shiftNo Schichtnummer (nicht die ID). Die erste Zeile ist die 0, danach +1
 	 */
 	TableRow(LocalDateTime start, int shiftNo) {
@@ -184,7 +184,7 @@ class TableRow {
 	}
 
 	/**
-	 * @return Liste aller Slots der Reihe (7 Stücke)
+	 * @return Liste aller Slots der Reihe (7 Stuecke)
 	 */
 	public List<Slot> getSlots() {
 		return slots;
@@ -204,7 +204,7 @@ class TableRow {
 
 /**
  * Klasse einer Spalte einer TableRow. Jede Zeile hat 7 Spalten. Die Anzahl ist zwar identisch, jedoch sind die Slots
- * der anderen Zeilen nicht gleich der einer anderen Zeilen. Es sind immer andere eigenständige Objekte.
+ * der anderen Zeilen nicht gleich der einer anderen Zeilen. Es sind immer andere eigenstaendige Objekte.
  */
 @Entity
 class Slot {
@@ -226,7 +226,7 @@ class Slot {
 	/**
 	 * Konstruktor der Klasse Slot
 	 *
-	 * @param shift Die dazugehörige Zeile. (y-Koordinate)
+	 * @param shift Die dazugehoerige Zeile. (y-Koordinate)
 	 * @param day   Die dem Tag entsprechende Zeile. (x-Koordinate)
 	 */
 	Slot(int shift, int day) {
@@ -256,9 +256,9 @@ class Slot {
 	}
 
 	/**
-	 * Liste aller Einträge zu dieser Zeit
+	 * Liste aller Eintraege zu dieser Zeit
 	 *
-	 * @return Liste aller Einträge zu dieser Zeit. Jeder Mitarbeiter kann nur einmal pro Slot eingetragen sein.
+	 * @return Liste aller Eintraege zu dieser Zeit. Jeder Mitarbeiter kann nur einmal pro Slot eingetragen sein.
 	 */
 	public List<RosterEntry> getEntries() {
 		entries.sort(RosterEntry::compareTo);
@@ -266,10 +266,10 @@ class Slot {
 	}
 
 	/**
-	 * Überprüft ob ein Mitarbeiter zu dieser Zeit bereits arbeitet.
+	 * Ueberprueft ob ein Mitarbeiter zu dieser Zeit bereits arbeitet.
 	 *
-	 * @param staff Der Mitarbeiter, der geprüft werden soll
-	 * @return Gibt zurück, ob der Mitarbeiter verfügbar ist.
+	 * @param staff Der Mitarbeiter, der geprueft werden soll
+	 * @return Gibt zurueck, ob der Mitarbeiter verfuegbar ist.
 	 */
 	public boolean isTaken(Staff staff) {
 		for (RosterEntry rosterEntry : entries) {
@@ -281,10 +281,10 @@ class Slot {
 	}
 
 	/**
-	 * Löscht einen Eintrag aus der Liste der Einträge des Slots.
+	 * Loescht einen Eintrag aus der Liste der Eintraege des Slots.
 	 *
-	 * @param id Die ID des Dienstplaneintrags, der gelöscht werden soll.
-	 * @return Gibt zurück, ob der Eintrag erfolgreich gelöscht wurde.
+	 * @param id Die ID des Dienstplaneintrags, der geloescht werden soll.
+	 * @return Gibt zurueck, ob der Eintrag erfolgreich geloescht wurde.
 	 */
 	public boolean deleteEntry(long id) {
 		for (RosterEntry rosterEntry : entries) {
