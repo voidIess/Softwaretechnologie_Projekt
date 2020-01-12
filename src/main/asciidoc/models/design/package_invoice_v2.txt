@@ -1,0 +1,62 @@
+@startuml
+
+
+namespace invoice {
+    
+    org.javamoney.moneta.Money "1" -down-o InvoiceEntry: "- amount"
+    java.time.LocalDate "1" -down-o InvoiceEntry: "- created"
+    InvoiceType "1" --o InvoiceEntry: "- type"
+    class InvoiceEntry {
+        - invoiceEntryId: long
+        -  member: long
+        - description: String
+        + InvoiceEntry()
+        + InvoiceEntry(Long member, InvoiceType type, Money amount, String description)
+        + equals(Object o): boolean
+    }
+    
+    InvoiceRepository ..> InvoiceEntry: <<use>>
+    class InvoiceRepository {
+        
+    }
+    
+    Spring.ApplicationEvent <|-- InvoiceEvent
+    InvoiceType "1" --o InvoiceEvent: "- type"
+    org.javamoney.moneta.Money "1" -down-o InvoiceEvent: "- amount"
+    class InvoiceEvent {
+        - member: long
+        - description: String
+        + InvoiceEvent(Object source, Long member, InvoiceType type, 
+            Money amount, String description)
+    }
+    
+    Spring.ApplicationListener <|.. InvoiceEventListener
+    org.slf4j.Logger ..o InvoiceEventListener: "- {static} LOG: Logger"
+    InvoiceManagement .down.o InvoiceEventListener: "invoiceManagement"
+    class InvoiceEventListener {
+        + InvoiceEventListener(InvoiceManagement invoiceManagement)
+        + onApplicationEvent(InvoiceEvent event): void
+    }
+    
+    InvoiceEntryRepository "1" --o InvoiceManagement: "- invoiceEntries"
+    class InvoiceManagement {
+        + InvoiceManagement(InvoiceEntryRepository invoiceEntries)
+        + createInvoiceEntry(InvoiceEvent event): InvoiceEntry
+        + getAllInvoicesForMember(Long member): List<InvoiceEntry>
+        + getAllInvoiceForMemberOfLastMonth(Long member): List<InvoiceEntry>
+        + getAllInvoicesOfDate(LocalDate date): List<InvoiceEntry>
+        + getAllEntriesForMemberBefore(Long member, LocalDate date): List<InvoiceEntry>
+    }
+    
+     enum InvoiceType {
+        DEPOSIT
+        WITHDRAW
+        CASHPAYMENT
+        - displayValue: String
+        ~ InvoiceType(String displayValue)
+     }
+    
+}
+
+  
+@enduml
