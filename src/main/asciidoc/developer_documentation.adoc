@@ -362,6 +362,21 @@ image::models/design/Studiomanagement.svg[]
 |StudioForm | Eine Klasse, um die Eingaben im System für die globalen Variablen des Fitnessstudios zu bearbeiten.
 |===
 
+=== Invoice Package
+
+image::models/design/package_invoice_v2.svg[]
+
+[options="header"]
+|=== 
+|Klasse/Enumeration | Beschreibung
+|InvoiceEntry | Ein Klasse, welche eine Einnahme/Ausgabe des Studios repräsentiert.
+|InvoiceType | Eine Enumeration, welche die verschiedenen Arten einer Invoice Instanz repräsentiert.
+|InvoiceRepository | Ein Interface, um Invoice Instanzen zu speichern.
+|InvoiceManagement | Eine Klasse, um die  Einnahmen/Ausgaben des Studios zu bearbeiten/auszuwerten.
+|InvoiceEvent | Ein Event, welches ausgelöst wird wenn Einnahmen/Ausgaben getätigt werden.
+|InvoiceEventListener | Ein Listener, welcher beim Auslösen des InvoiceEvents einen InvoiceEntry erstellt.
+|===
+
 === Statistics Package
 
 image::models/design/package_statistics_v2.svg[]
@@ -370,7 +385,7 @@ image::models/design/package_statistics_v2.svg[]
 |=== 
 |Klasse/Enumeration | Beschreibung
 |StatisticManagement | Eine Klasse für die Verwaltung und Analyse von Statistiken.
-|AttendanceManagement | Eine Klasse, um die Anwesenheitszeiten des Studios zu bearbeiten/validieren.
+|AttendanceManagement | Eine Klasse, um die Anwesenheitszeiten des Studios zu bearbeiten/auszuwerten.
 |StatisticController | Ein Spring MVC Controller, welcher Anfragen auf die Statistiken bearbeitet.
 |Attendance | Ein Klasse, welche die täglichen Anwesenheitszeiten der Mitglieder beinhaltet.
 |AttendanceRepository | Ein Interface, um Attendance Instanzen hinzu zu fügen und zu speichern.
