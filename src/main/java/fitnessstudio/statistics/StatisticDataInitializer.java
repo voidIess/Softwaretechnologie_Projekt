@@ -27,9 +27,9 @@ public class StatisticDataInitializer implements DataInitializer {
 
 		statisticManagement.addAttendance(today.minusDays(6), 0, 60);
 		statisticManagement.addAttendance(today.minusDays(5), 0, 40);
-		statisticManagement.addAttendance(today.minusDays(5), 1, 25);
 		statisticManagement.addAttendance(today.minusDays(4), 0, 30);
 		statisticManagement.addAttendance(today.minusDays(3), 0, 45);
+		statisticManagement.addAttendance(today.minusDays(1), 1, 25);
 		statisticManagement.addAttendance(today.minusDays(1), 1, 10);
 
 	}

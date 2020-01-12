@@ -54,6 +54,10 @@ public class StatisticManagement {
 		revenueManagement.addRevenue(memberId, contractId);
 	}
 
+	public void deleteRevenue(long memberId) {
+		revenueManagement.deleteRevenue(memberId);
+	}
+
 	public Streamable<Attendance> findAllAttendances() {
 		return attendanceManagement.findAll();
 	}

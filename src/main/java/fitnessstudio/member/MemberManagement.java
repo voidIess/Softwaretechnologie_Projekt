@@ -331,9 +331,11 @@ public class MemberManagement {
 		for (Member member : findAllAuthorized(null)) {
 			if (member.getEndDate().equals(LocalDate.now())) {
 				member.disable();
+				statisticManagement.deleteRevenue(member.getMemberId());
 			}
 			if (member.isPaused() && member.getLastPause().plusDays(31).isBefore(LocalDate.now())) {
 				member.unPause();
+				statisticManagement.addRevenue(member.getMemberId(), member.getContract().getContractId());
 			}
 		}
 	}
@@ -353,6 +355,7 @@ public class MemberManagement {
 				InvoiceType.DEPOSIT, member.getContract().getPrice(), "Rückerstattung Pausierung Vertrag"));
 
 			members.save(member);
+			statisticManagement.deleteRevenue(member.getMemberId());
 		}
 	}
 

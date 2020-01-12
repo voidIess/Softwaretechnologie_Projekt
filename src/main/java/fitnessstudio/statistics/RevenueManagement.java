@@ -30,6 +30,10 @@ class RevenueManagement {
 		}
 	}
 
+	void deleteRevenue(long member) {
+		revenues.findByMember(member).ifPresent(revenues::delete);
+	}
+
 	Streamable<Revenue> findAll() {
 		return revenues.findAll();
 	}
