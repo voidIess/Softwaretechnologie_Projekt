@@ -1,6 +1,7 @@
 package fitnessstudio.member;
 
 import fitnessstudio.contract.ContractManagement;
+import fitnessstudio.statistics.StatisticManagement;
 import org.salespointframework.core.DataInitializer;
 import org.salespointframework.useraccount.Password;
 import org.salespointframework.useraccount.Role;
@@ -20,18 +21,21 @@ public class MemberDataInitializer implements DataInitializer {
 	private final UserAccountManager userAccountManager;
 	private final MemberManagement memberManagement;
 	private final ContractManagement contractManagement;
+	private  final StatisticManagement statisticManagement;
 
 
 	MemberDataInitializer(UserAccountManager userAccountManager, MemberManagement memberManagement,
-						  ContractManagement contractManagement) {
+						  ContractManagement contractManagement, StatisticManagement statisticManagement) {
 
 		Assert.notNull(userAccountManager, "UserAccountManager must not be null");
 		Assert.notNull(memberManagement, "MemberManagement must not be null");
 		Assert.notNull(contractManagement, "ContractManagement must not be null");
+		Assert.notNull(statisticManagement, "StatisticManagement must not be null");
 
 		this.memberManagement = memberManagement;
 		this.userAccountManager = userAccountManager;
 		this.contractManagement = contractManagement;
+		this.statisticManagement = statisticManagement;
 	}
 
 	@Override
@@ -49,6 +53,11 @@ public class MemberDataInitializer implements DataInitializer {
 			memberManagement.createMember(new RegistrationForm("Ulli", "Bulli", "email@email.de", "member",
 				"123", "0123456789012345678912", "0123456789",
 				contractManagement.getAllContracts().get(0).getContractId(), ""), null).authorize();
+
+			//save contract price of default member(s)
+			for(Member member : memberManagement.findAll()) {
+				statisticManagement.addRevenue(member.getMemberId(), member.getContract().getContractId());
+			}
 		}
 	}
 }

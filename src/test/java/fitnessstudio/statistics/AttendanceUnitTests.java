@@ -15,9 +15,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class AttendanceUnitTests {
 
 	@Autowired
-	private AttendanceManagement management;
-
-	@Autowired
 	private AttendanceRepository repository;
 
 	@Autowired
@@ -34,20 +31,20 @@ public class AttendanceUnitTests {
 	@Order(1)
 	void testCreateAttendance() {
 		long size = repository.count();
-		management.addAttendance(member.getMemberId(),2);
+		statistics.addAttendance(member.getMemberId(),2);
 		assertThat(repository.count()).isEqualTo(size+1);
 	}
 
 	@Test
 	@Order(2)
 	void testFindAll() {
-		assertThat(management.findAll().isEmpty()).isFalse();
+		assertThat(statistics.findAllAttendances().isEmpty()).isFalse();
 	}
 
 	@Test
 	@Order(3)
 	void testFindById() {
-		assertThat(management.findById(LocalDate.now()).isPresent()).isTrue();
+		assertThat(statistics.findAttendanceById(LocalDate.now()).isPresent()).isTrue();
 	}
 
 	@Test
@@ -61,7 +58,7 @@ public class AttendanceUnitTests {
 	void testAddAttendanceWithSameDate() {
 		//size shouldn't change (one attendance per day)
 		long size = repository.count();
-		management.addAttendance(member.getMemberId(), 4);
+		statistics.addAttendance(member.getMemberId(), 4);
 		assertThat(repository.count()).isEqualTo(size);
 	}
 

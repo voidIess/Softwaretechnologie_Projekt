@@ -3,11 +3,10 @@ package fitnessstudio.statistics;
 import fitnessstudio.invoice.InvoiceEntry;
 import fitnessstudio.invoice.InvoiceManagement;
 import fitnessstudio.invoice.InvoiceType;
-import fitnessstudio.member.Member;
-import fitnessstudio.member.MemberManagement;
 import fitnessstudio.staff.Staff;
 import fitnessstudio.staff.StaffManagement;
 import org.javamoney.moneta.Money;
+import org.springframework.data.util.Streamable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -26,21 +25,45 @@ public class StatisticManagement {
 
 	private final AttendanceManagement attendanceManagement;
 	private final InvoiceManagement invoiceManagement;
+	private final RevenueManagement revenueManagement;
 	private final StaffManagement staffManagement;
-	private final MemberManagement memberManagement;
 
 	public StatisticManagement(AttendanceManagement attendanceManagement, InvoiceManagement invoiceManagement,
-							   StaffManagement staffManagement, MemberManagement memberManagement) {
+							   RevenueManagement revenueManagement, StaffManagement staffManagement) {
 
 		Assert.notNull(attendanceManagement, "AttendanceManagement must not be null!");
 		Assert.notNull(invoiceManagement, "InvoiceManagement must not be null!");
+		Assert.notNull(revenueManagement, "RevenueRepository must not be null!");
 		Assert.notNull(staffManagement, "StaffManagement must not be null!");
-		Assert.notNull(memberManagement, "MemberManagement must not be null!");
 
 		this.attendanceManagement = attendanceManagement;
 		this.invoiceManagement = invoiceManagement;
+		this.revenueManagement = revenueManagement;
 		this.staffManagement = staffManagement;
-		this.memberManagement = memberManagement;
+	}
+
+	public void addAttendance(LocalDate date, long memberId, long duration) {
+		attendanceManagement.addAttendance(date, memberId, duration);
+	}
+
+	public void addAttendance(long memberId, long duration) {
+		attendanceManagement.addAttendance(memberId, duration);
+	}
+
+	public void addRevenue(long memberId, long contractId) {
+		revenueManagement.addRevenue(memberId, contractId);
+	}
+
+	public Streamable<Attendance> findAllAttendances() {
+		return attendanceManagement.findAll();
+	}
+
+	public Optional<Attendance> findAttendanceById(LocalDate date) {
+		return attendanceManagement.findById(date);
+	}
+
+	public Streamable<Revenue> findAllRevenues() {
+		return  revenueManagement.findAll();
 	}
 
 	public long getAverageTimeOfToday() {
@@ -129,15 +152,7 @@ public class StatisticManagement {
 	}
 
 	public double getMemberRevenuePerMonth() {
-		Money revenues = Money.of(0, "EUR");
-
-		for(Member member : memberManagement.findAll()) {
-			if (member.getUserAccount().isEnabled()) {
-				revenues = revenues.add(member.getContract().getPrice());
-			}
-		}
-
-		return revenues.getNumberStripped().doubleValue();
+		return revenueManagement.getMonthlyRevenue().getNumberStripped().doubleValue();
 	}
 
 	public double getPercentageExpenditure() {

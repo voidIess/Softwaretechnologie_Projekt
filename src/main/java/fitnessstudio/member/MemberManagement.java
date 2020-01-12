@@ -44,17 +44,17 @@ public class MemberManagement {
 	public static final Role MEMBER_ROLE = Role.of("MEMBER");
 	private static final Logger LOG = LoggerFactory.getLogger(MemberManagement.class);
 
-	private final ApplicationEventPublisher applicationEventPublisher;
 	private final MemberRepository members;
 	private final UserAccountManager userAccounts;
 	private final ContractManagement contractManagement;
 	private final StudioService studioService;
-	private final AttendanceManagement attendanceManagement;
+	private final StatisticManagement statisticManagement;
+	private final ApplicationEventPublisher applicationEventPublisher;
 	private final InvoiceManagement invoiceManagement;
 	private final EmailService emailService;
 
 	MemberManagement(MemberRepository members, UserAccountManager userAccounts, ContractManagement contractManagement,
-					 StudioService studioService, AttendanceManagement attendanceManagement,
+					 StudioService studioService, StatisticManagement statisticManagement,
 					 ApplicationEventPublisher applicationEventPublisher, InvoiceManagement invoiceManagement,
 					 EmailService emailService) {
 
@@ -62,7 +62,7 @@ public class MemberManagement {
 		Assert.notNull(userAccounts, "UserAccountManager must not be null!");
 		Assert.notNull(contractManagement, "ContractManagement must not be null!");
 		Assert.notNull(studioService, "StudioService must not be null!");
-		Assert.notNull(attendanceManagement, "AttendanceManagement must not be null!");
+		Assert.notNull(statisticManagement, "StatisticManagement must not be null!");
 		Assert.notNull(applicationEventPublisher, "ApplicationEventPublisher must not be null!");
 		Assert.notNull(invoiceManagement, "InvoiceManagement must not be null!");
 		Assert.notNull(emailService, "EmailService must not be null!");
@@ -71,7 +71,7 @@ public class MemberManagement {
 		this.userAccounts = userAccounts;
 		this.contractManagement = contractManagement;
 		this.studioService = studioService;
-		this.attendanceManagement = attendanceManagement;
+		this.statisticManagement = statisticManagement;
 		this.applicationEventPublisher = applicationEventPublisher;
 		this.invoiceManagement = invoiceManagement;
 		this.emailService = emailService;
@@ -149,7 +149,8 @@ public class MemberManagement {
 		Optional<Member> optionalMember = findById(memberId);
 		optionalMember.ifPresent(member -> {
 			member.authorize();
-			emailService.sendAccountAcceptation(member.getUserAccount().getEmail(), member.getFirstName());
+			//emailService.sendAccountAcceptation(member.getUserAccount().getEmail(), member.getFirstName());
+			statisticManagement.addRevenue(memberId, member.getContract().getContractId());
 		});
 	}
 
@@ -311,7 +312,7 @@ public class MemberManagement {
 	public void checkMemberOut(Long memberId) {
 		Optional<Member> member = findById(memberId);
 		if (member.isPresent() && !member.get().isPaused() && member.get().isAttendant()) {
-			attendanceManagement.addAttendance(memberId, member.get().checkOut());
+			statisticManagement.addAttendance(memberId, member.get().checkOut());
 		}
 	}
 

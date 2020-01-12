@@ -14,12 +14,12 @@ public class AttendanceManagement {
 
 	private final AttendanceRepository attendances;
 
-	public AttendanceManagement(AttendanceRepository attendances) {
+	AttendanceManagement(AttendanceRepository attendances) {
 		Assert.notNull(attendances, "AttendanceRepository must not be null!");
 		this.attendances = attendances;
 	}
 
-	public void addAttendance(LocalDate date, long memberId, long duration) {
+	void addAttendance(LocalDate date, long memberId, long duration) {
 		if(attendances.findById(date).isEmpty()) {
 			attendances.save(new Attendance(date));
 		}
@@ -28,15 +28,15 @@ public class AttendanceManagement {
 		attendance.addTime(duration);
 	}
 
-	public void addAttendance(long memberId, long duration) {
+	void addAttendance(long memberId, long duration) {
 		addAttendance(LocalDate.now(), memberId, duration);
 	}
 
-	public Streamable<Attendance> findAll() {
+	Streamable<Attendance> findAll() {
 		return attendances.findAll();
 	}
 
-	public Optional<Attendance> findById(LocalDate date) {
+	Optional<Attendance> findById(LocalDate date) {
 		return attendances.findById(date);
 	}
 
