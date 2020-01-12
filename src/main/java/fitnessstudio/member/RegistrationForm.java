@@ -14,7 +14,7 @@ class RegistrationForm extends MemberForm {
 	@NotNull(message = "{RegistrationForm.contract.NotNull}")
 	private final Long contract;
 
-	private final String bonusCode;
+	private String bonusCode;
 
 	public RegistrationForm(String firstName, String lastName, String email, String userName, String password,
 							String iban, String bic, Long contract, String bonusCode) {
@@ -22,6 +22,10 @@ class RegistrationForm extends MemberForm {
 		this.userName = userName;
 		this.password = password;
 		this.contract = contract;
+		this.bonusCode = bonusCode;
+	}
+
+	public void setBonusCode (String bonusCode) {
 		this.bonusCode = bonusCode;
 	}
 

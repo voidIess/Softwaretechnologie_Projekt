@@ -47,6 +47,16 @@ public class MemberController {
 		return "register";
 	}
 
+	@GetMapping("/register/{id}")
+	public String registerFromFriend(@PathVariable String id, Model model, RegistrationForm form, Errors results) {
+		form.setBonusCode(id);
+		model.addAttribute("form", form);
+		model.addAttribute("error", results);
+		model.addAttribute("friendCode", id);
+		model.addAttribute("contractList", contractManagement.getAllContracts());
+		return "register";
+	}
+
 	@PostMapping("/register")
 	public String registerNew(@Valid @ModelAttribute("form") RegistrationForm form, Model model, Errors result) {
 
@@ -247,4 +257,7 @@ public class MemberController {
 	public String showEnd() {
 		return "member/endMembership";
 	}
+
+
+
 }
