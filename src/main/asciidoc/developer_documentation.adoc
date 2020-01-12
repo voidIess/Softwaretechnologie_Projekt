@@ -236,20 +236,6 @@ image::models/analysis/Mitglied.png[]
 
 == Bausteinsicht
 
-=== AdminManagement Package 
-
-image::models/design/adminmanagement.svg[]
-
-[options="header"]
-|=== 
-|Klasse/Enumeration | Beschreibung
-|StatisticManagement | Eine Klasse für die Verwaltung und Analyse von Statistiken.
-|EarningsForm | Eine Klasse, um die Einnahmen des Studios zu bearbeiten/validieren.
-|AttendanceForm | Eine Klasse, um die Anwesenheit von Nutzern zu bearbeiten/validieren.
-|StatisticController | Ein Spring MVC Controller, welcher Anfragen auf die Statistiken bearbeitet.
-|User | Eine Klasse um einen User im System zu repräsentieren.
-|===
-
 === BarManagement Package
 
 image::models/design/barmanagement.svg[]
@@ -364,6 +350,7 @@ image::models/design/package_pdf_v2.svg[]
 === StudioManagnement Package
 
 image::models/design/Studiomanagement.svg[]
+
 [options="header"]
 |=== 
 |Klasse/Enumeration | Beschreibung
@@ -371,9 +358,25 @@ image::models/design/Studiomanagement.svg[]
 |StudioRepository | Ein Interface, um Studio Instanzen zu speichern/verwalten.
 |StudioService | Eine Klasse, zum logischen Verwaltung des Studiorepositories.
 |StudioInitializer | Eine Klasse, welche Einträge in das Studio initializiert (beim Start des Systems).
-|StudioController | Ein Interface, zum Verwalten von globalen Variablen des Fitnessstudios. 
+|StudioController |  Ein Spring MVC Controller, welcher 
 |StudioForm | Eine Klasse, um die Eingaben im System für die globalen Variablen des Fitnessstudios zu bearbeiten.
 |===
+
+=== Statistics Package
+
+image::models/design/package_statistics_v2.svg[]
+
+[options="header"]
+|=== 
+|Klasse/Enumeration | Beschreibung
+|StatisticManagement | Eine Klasse für die Verwaltung und Analyse von Statistiken.
+|AttendanceManagement | Eine Klasse, um die Anwesenheitszeiten des Studios zu bearbeiten/validieren.
+|StatisticController | Ein Spring MVC Controller, welcher Anfragen auf die Statistiken bearbeitet.
+|Attendance | Ein Klasse, welche die täglichen Anwesenheitszeiten der Mitglieder beinhaltet.
+|AttendanceRepository | Ein Interface, um Attendance Instanzen hinzu zu fügen und zu speichern.
+|StatisticDataInitializer | Eine Klasse, welche beispielhafte Anwesenheitszeiten initialisiert.
+|===
+
 
 === Rückverfolgbarkeit zwischen Analyse- und Entwurfsmodell
 

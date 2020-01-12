@@ -1,0 +1,66 @@
+@startuml
+
+
+namespace statistics {
+     
+     StatisticController o-- "1" StatisticManagement: "- statisticManagement"
+     class StatisticController {
+        + StatisticController(statisticsManagement: StatisticManagement)
+        + showStatistics(Model model): String
+     }
+     
+     org.salespoint.OrderManager <.. StatisticManagement: <<use>>
+     StatisticManagement o-- "1" AttendanceManagement: "- attendanceManagement"
+     StatisticManagement o-- "1" invoice.InvoiceManagement: "- invoiceManagement"
+     StatisticManagement o-- "1" staff.StaffManagement: "- staffManagement"
+     class StatisticManagement {
+        + StatisticManagement(AttendanceRepository attendances, InvoiceManagement invoiceManagement,
+							   StaffManagement staffManagement)
+        + getAverageTimeOfToday(): long
+        + getAverageTimesOfThisWeek(): long[]
+        + getMemberAmountOfToday(): long
+        + getMemberAmountsOfThisWeek(): long[]
+        + getSellingEarningsOfDate(LocalDate date): NumberValue
+        + getSellingEarningsOfThisWeek(): NumberValue[]
+        + getStaffExpenditurePerMonth(): double
+        + getMemberRevenuePerMonth(): double
+        + getPercentageExpenditure(): double
+        + getPercentageRevenue(): double
+        - getLastMonday(LocalDate date): LocalDate
+        + getDaysOfWeek(): String[]
+     }
+     
+     StatisticDataInitializer o-- "1" AttendanceManagement: "- attendanceManagement"
+     class StatisticDataInitializer {
+        + StatisticDataInitializer(AttendanceManagement attendanceManagement)
+        + initialize(): void
+     }
+     
+     AttendanceManagement o-- "1" AttendanceRepository: "- attendances"
+     class AttendanceManagement {
+        + AttendanceManagement(AttendanceRepository attendances)
+        + addAttendance(LocalDate date, long memberId, long duration): void
+        + addAttendance(long memberId, long duration): void
+        + findAll(): Streamable<Attendance>
+        + findById(LocalDate date): Optional<Attendance>
+     }
+
+    AttendanceRepository ..> Attendance: <<use>>
+    Attendance o-- "1" java.time.LocalDate: "- date"
+    class Attendance {
+        - date: LocalDate
+        - memberIds:Set<Long>
+        - attendanceTimes: List<Long>
+        + Attendance()
+        + Attendance(LocalDate date)
+        + getMemberAmount(): int
+        + getAverageTime(): long
+        + getDate(): LocalDate
+        + addMember(Long memberId): boolean
+        + addTime(long time): void
+    }
+
+}
+
+  
+@enduml
