@@ -1,7 +1,14 @@
 package fitnessstudio.training;
 
+/**
+ * Enum to represent current training state.
+ *
+ * @author Bill Kippe
+ * @version 1.0
+ */
 enum TrainingState {
-	REQUESTED("ANGEFRAGT"), ACCEPTED("AKZEPTIERT"), DECLINED("ABGELEHNT"), ENDED("BEENDET");
+	REQUESTED("ANGEFRAGT"), ACCEPTED("AKZEPTIERT"),
+	DECLINED("ABGELEHNT"), ENDED("BEENDET");
 
 	private final String displayValue;
 
