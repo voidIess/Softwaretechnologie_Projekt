@@ -49,6 +49,7 @@
                 },
                 legend: {
                     cursor: "pointer",
+                    fontColor:"#9b9b9b",
                     itemclick: toggleDataSeries
                 },
                 data: [{
@@ -108,6 +109,7 @@
                 },
                 legend: {
                     cursor: "pointer",
+                    fontColor:"#9b9b9b",
                     itemclick: toggleDataSeries
                 },
                 data: [{
@@ -130,14 +132,15 @@
 
             var chart3 = new CanvasJS.Chart("chartContainer3", {
                 animationEnabled: true,
+                backgroundColor: "transparent",
                 data: [{
                     type: "pie",
                     startAngle: 240,
                     yValueFormatString: "##0.00\"%\"",
                     indexLabel: "{label} {y}",
                     dataPoints: [
-                        {y: [[${revenuesPer}]], label: "Vertragseinnahmen", color: "#34c759"},
-                        {y: [[${expendituresPer}]], label: "Mitarbeitergehalte", color: "#0a84ff"}
+                        {y: [[${revenuesPer}]], label: "Vertragseinnahmen", indexLabelFontColor:"#9b9b9b", color: "#34c759"},
+                        {y: [[${expendituresPer}]], label: "Mitarbeitergehalte", indexLabelFontColor:"#9b9b9b", color: "#0a84ff"}
                     ]
                 }]
             });
