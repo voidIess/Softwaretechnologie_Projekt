@@ -12,6 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import javax.money.NumberValue;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.List;
@@ -21,42 +23,55 @@ import java.util.Optional;
 @Transactional
 public class StatisticManagement {
 
-	private final AttendanceRepository attendances;
+	private final AttendanceManagement attendanceManagement;
 	private final InvoiceManagement invoiceManagement;
+	private final RevenueManagement revenueManagement;
 	private final StaffManagement staffManagement;
 
-	public StatisticManagement(AttendanceRepository attendances, InvoiceManagement invoiceManagement, StaffManagement staffManagement) {
-		Assert.notNull(attendances, "AttendanceRepository must not be null!");
-		Assert.notNull(invoiceManagement, "InvoiceManagement must not be null!");
+	public StatisticManagement(AttendanceManagement attendanceManagement, InvoiceManagement invoiceManagement,
+							   RevenueManagement revenueManagement, StaffManagement staffManagement) {
 
-		this.attendances = attendances;
+		Assert.notNull(attendanceManagement, "AttendanceManagement must not be null!");
+		Assert.notNull(invoiceManagement, "InvoiceManagement must not be null!");
+		Assert.notNull(revenueManagement, "RevenueRepository must not be null!");
+		Assert.notNull(staffManagement, "StaffManagement must not be null!");
+
+		this.attendanceManagement = attendanceManagement;
 		this.invoiceManagement = invoiceManagement;
+		this.revenueManagement = revenueManagement;
 		this.staffManagement = staffManagement;
 	}
 
 	public void addAttendance(LocalDate date, long memberId, long duration) {
-		if(attendances.findById(date).isEmpty()) {
-			attendances.save(new Attendance(date));
-		}
-		Attendance attendance = attendances.findById(date).get();
-		attendance.addMember(memberId);
-		attendance.addTime(duration);
+		attendanceManagement.addAttendance(date, memberId, duration);
 	}
 
 	public void addAttendance(long memberId, long duration) {
-		addAttendance(LocalDate.now(), memberId, duration);
+		attendanceManagement.addAttendance(memberId, duration);
 	}
 
-	public Streamable<Attendance> findAll() {
-		return attendances.findAll();
+	public void addRevenue(long memberId, long contractId) {
+		revenueManagement.addRevenue(memberId, contractId);
 	}
 
-	public Optional<Attendance> findById(LocalDate date) {
-		return attendances.findById(date);
+	public void deleteRevenue(long memberId) {
+		revenueManagement.deleteRevenue(memberId);
+	}
+
+	public Streamable<Attendance> findAllAttendances() {
+		return attendanceManagement.findAll();
+	}
+
+	public Optional<Attendance> findAttendanceById(LocalDate date) {
+		return attendanceManagement.findById(date);
+	}
+
+	public Streamable<Revenue> findAllRevenues() {
+		return  revenueManagement.findAll();
 	}
 
 	public long getAverageTimeOfToday() {
-		Optional<Attendance> attendance = attendances.findById(LocalDate.now());
+		Optional<Attendance> attendance = attendanceManagement.findById(LocalDate.now());
 		if(attendance.isEmpty()) {
 			return 0;
 		} else {
@@ -70,7 +85,7 @@ public class StatisticManagement {
 
 		for(int i=0; i<7; i++) {
 			LocalDate date = getLastMonday(today).plusDays(i);
-			Optional<Attendance> attendance = findById(date);
+			Optional<Attendance> attendance = attendanceManagement.findById(date);
 			if(attendance.isPresent()) {
 				times[i] = attendance.get().getAverageTime();
 			}
@@ -83,7 +98,7 @@ public class StatisticManagement {
 	}
 
 	public long getMemberAmountOfToday() {
-		Optional<Attendance> attendance = attendances.findById(LocalDate.now());
+		Optional<Attendance> attendance = attendanceManagement.findById(LocalDate.now());
 		if(attendance.isEmpty()) {
 			return 0;
 		} else {
@@ -97,7 +112,7 @@ public class StatisticManagement {
 
 		for(int i=0; i<7; i++) {
 			LocalDate date = getLastMonday(today).plusDays(i);
-			Optional<Attendance> attendance = findById(date);
+			Optional<Attendance> attendance = attendanceManagement.findById(date);
 			if(attendance.isPresent()) {
 				amounts[i] = attendance.get().getMemberAmount();
 			}
@@ -130,12 +145,36 @@ public class StatisticManagement {
 		return earnings;
 	}
 
-	public Money getStaffExpenditureOfThisWeek() {
+	public double getStaffExpenditurePerMonth() {
 		Money earnings = Money.of(0, "EUR");
+
 		for(Staff staff : staffManagement.getAllStaffs()) {
-			earnings.add(staff.getSalary());
+			earnings = earnings.add(staff.getSalary());
 		}
-		return earnings.divide(4);
+
+		return earnings.getNumberStripped().doubleValue();
+	}
+
+	public double getMemberRevenuePerMonth() {
+		return revenueManagement.getMonthlyRevenue().getNumberStripped().doubleValue();
+	}
+
+	public double getPercentageExpenditure() {
+		BigDecimal total =  BigDecimal.valueOf(getStaffExpenditurePerMonth() + getMemberRevenuePerMonth());
+		BigDecimal expenditure = BigDecimal.valueOf(getStaffExpenditurePerMonth());
+		if (expenditure.compareTo(BigDecimal.ZERO) == 0) {
+			return 0;
+		}
+		return expenditure.divide(total, 4, RoundingMode.UP).doubleValue()*100;
+	}
+
+	public double getPercentageRevenue() {
+		BigDecimal total = BigDecimal.valueOf(getStaffExpenditurePerMonth() + (getMemberRevenuePerMonth()));
+		BigDecimal revenue = BigDecimal.valueOf(getMemberRevenuePerMonth());
+		if (revenue.compareTo(BigDecimal.ZERO) == 0) {
+			return 0;
+		}
+		return revenue.divide(total, 4, RoundingMode.DOWN).doubleValue()*100;
 	}
 
 	private LocalDate getLastMonday(LocalDate date) {

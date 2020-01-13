@@ -7,6 +7,7 @@ import fitnessstudio.invoice.InvoiceEntry;
 import fitnessstudio.invoice.InvoiceEvent;
 import fitnessstudio.invoice.InvoiceManagement;
 import fitnessstudio.invoice.InvoiceType;
+import fitnessstudio.statistics.AttendanceManagement;
 import fitnessstudio.statistics.StatisticManagement;
 import fitnessstudio.studio.StudioService;
 import org.javamoney.moneta.Money;
@@ -43,12 +44,12 @@ public class MemberManagement {
 	public static final Role MEMBER_ROLE = Role.of("MEMBER");
 	private static final Logger LOG = LoggerFactory.getLogger(MemberManagement.class);
 
-	private final ApplicationEventPublisher applicationEventPublisher;
 	private final MemberRepository members;
 	private final UserAccountManager userAccounts;
 	private final ContractManagement contractManagement;
 	private final StudioService studioService;
 	private final StatisticManagement statisticManagement;
+	private final ApplicationEventPublisher applicationEventPublisher;
 	private final InvoiceManagement invoiceManagement;
 	private final EmailService emailService;
 
@@ -156,7 +157,8 @@ public class MemberManagement {
 		Optional<Member> optionalMember = findById(memberId);
 		optionalMember.ifPresent(member -> {
 			member.authorize();
-			emailService.sendAccountAcceptation(member.getUserAccount().getEmail(), member.getFirstName());
+			//emailService.sendAccountAcceptation(member.getUserAccount().getEmail(), member.getFirstName());
+			statisticManagement.addRevenue(memberId, member.getContract().getContractId());
 		});
 	}
 
@@ -337,9 +339,11 @@ public class MemberManagement {
 		for (Member member : findAllAuthorized(null)) {
 			if (member.getEndDate().equals(LocalDate.now())) {
 				member.disable();
+				statisticManagement.deleteRevenue(member.getMemberId());
 			}
 			if (member.isPaused() && member.getLastPause().plusDays(31).isBefore(LocalDate.now())) {
 				member.unPause();
+				statisticManagement.addRevenue(member.getMemberId(), member.getContract().getContractId());
 			}
 		}
 	}
@@ -359,6 +363,7 @@ public class MemberManagement {
 				InvoiceType.DEPOSIT, member.getContract().getPrice(), "Rückerstattung Pausierung Vertrag"));
 
 			members.save(member);
+			statisticManagement.deleteRevenue(member.getMemberId());
 		}
 	}
 

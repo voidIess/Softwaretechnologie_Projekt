@@ -26,6 +26,10 @@ public class StatisticController {
 		model.addAttribute("averageTimes", statisticManagement.getAverageTimesOfThisWeek());
 		model.addAttribute("memberAmounts", statisticManagement.getMemberAmountsOfThisWeek());
 		model.addAttribute("sellingEarnings", statisticManagement.getSellingEarningsOfThisWeek());
+		model.addAttribute("expendituresPer", statisticManagement.getPercentageExpenditure());
+		model.addAttribute("revenuesPer", statisticManagement.getPercentageRevenue());
+		model.addAttribute("expendituresAbs", statisticManagement.getStaffExpenditurePerMonth());
+		model.addAttribute("revenuesAbs", statisticManagement.getMemberRevenuePerMonth());
 		model.addAttribute("today", LocalDate.now().getDayOfWeek());
 		return "statistic/statistic";
 	}
