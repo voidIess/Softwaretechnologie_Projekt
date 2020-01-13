@@ -1,10 +1,14 @@
 package fitnessstudio.training;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
+/**
+ * Represents the {@link Training} as form for creation.
+ *
+ * @author Bill Kippe
+ * @version 1.0
+ */
 class TrainingForm {
 
 	//@NotEmpty(message = "{TrainingForm.type.NotEmpty}")
@@ -26,6 +30,16 @@ class TrainingForm {
 	@NotNull(message = "{TrainingsForm.week.NotEmpty}")
 	private final Integer week;
 
+	/**
+	 * Creates a new {@link TrainingForm} with given variables.
+	 *
+	 * @param type			type of training
+	 * @param staff			staff (trainer) of training
+	 * @param day			day of training (1-7)
+	 * @param time			start time of training
+	 * @param description	description of training
+	 * @param week			week of training
+	 */
 	public TrainingForm(String type, String staff, String day, String time, String description, Integer week) {
 		this.type = type;
 		this.staff = staff;
@@ -35,7 +49,10 @@ class TrainingForm {
 		this.description = description;
 	}
 
-	public Integer getWeek() {return week;}
+	public Integer getWeek() {
+		return week;
+	}
+
 	public String getType() {
 		return type;
 	}
