@@ -1,14 +1,14 @@
 package fitnessstudio.statistics;
 
-import fitnessstudio.contract.ContractManagement;
-import fitnessstudio.member.Member;
-import fitnessstudio.member.MemberManagement;
 import org.salespointframework.core.DataInitializer;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
 import java.time.LocalDate;
 
+/**
+ * Initializes some start entries in the statistics.
+ */
 @Component
 public class StatisticDataInitializer implements DataInitializer {
 
@@ -20,6 +20,10 @@ public class StatisticDataInitializer implements DataInitializer {
 		this.statisticManagement = statisticManagement;
 	}
 
+	/**
+	 * Overwrites the {@link DataInitializer#initialize()} Method
+	 * and adds some start {@link Attendance}s.
+	 */
 	@Override
 	public void initialize() {
 

@@ -19,6 +19,11 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Implementation of the logic to analyse and manage the statistic data.
+ *
+ * @author Lea Haeusler
+ */
 @Service
 @Transactional
 public class StatisticManagement {
@@ -28,6 +33,14 @@ public class StatisticManagement {
 	private final RevenueManagement revenueManagement;
 	private final StaffManagement staffManagement;
 
+	/**
+	 * Creates a new {@link StatisticManagement} instance with the given parameters.
+	 *
+	 * @param attendanceManagement	must not be {@literal null}
+	 * @param invoiceManagement		must not be {@literal null}
+	 * @param revenueManagement		must not be {@literal null}
+	 * @param staffManagement		must not be {@literal null}
+	 */
 	public StatisticManagement(AttendanceManagement attendanceManagement, InvoiceManagement invoiceManagement,
 							   RevenueManagement revenueManagement, StaffManagement staffManagement) {
 
@@ -70,6 +83,11 @@ public class StatisticManagement {
 		return  revenueManagement.findAll();
 	}
 
+	/**
+	 * Returns the average duration a member stayed in the studio today in minutes.
+	 *
+	 * @return average visit duration of today
+	 */
 	public long getAverageTimeOfToday() {
 		Optional<Attendance> attendance = attendanceManagement.findById(LocalDate.now());
 		if(attendance.isEmpty()) {
@@ -79,6 +97,12 @@ public class StatisticManagement {
 		}
 	}
 
+	/**
+	 * Returns an Array of the daily average durations a member stayed in the studio
+	 * for this week in minutes.
+	 *
+	 * @return average visit durations of this week
+	 */
 	public long[] getAverageTimesOfThisWeek() {
 		long[] times = new long[7];
 		LocalDate today = LocalDate.now();
@@ -97,6 +121,11 @@ public class StatisticManagement {
 		return times;
 	}
 
+	/**
+	 * Returns the amount of members who visited the studio today.
+	 *
+	 * @return amount of members who visited the studio today
+	 */
 	public long getMemberAmountOfToday() {
 		Optional<Attendance> attendance = attendanceManagement.findById(LocalDate.now());
 		if(attendance.isEmpty()) {
@@ -106,6 +135,11 @@ public class StatisticManagement {
 		}
 	}
 
+	/**
+	 * Returns an Array of the daily amounts of members who visited the studio for this week.
+	 *
+	 * @return amounts of members who visited the studio this week
+	 */
 	public long[] getMemberAmountsOfThisWeek() {
 		long[] amounts = new long[7];
 		LocalDate today = LocalDate.now();
@@ -124,6 +158,12 @@ public class StatisticManagement {
 		return amounts;
 	}
 
+	/**
+	 * Returns the earnings through article sales of the given date in euros.
+	 *
+	 * @param date	date
+	 * @return earnings of the given date
+	 */
 	public NumberValue getSellingEarningsOfDate(LocalDate date) {
 		List<InvoiceEntry> invoice = invoiceManagement.getAllInvoicesOfDate(date);
 		Money earnings = Money.of(0, "EUR");
@@ -135,6 +175,11 @@ public class StatisticManagement {
 		return earnings.getNumber();
 	}
 
+	/**
+	 * Returns an Array of the daily earnings through article sales of this week in euros.
+	 *
+	 * @return earnings of the given date
+	 */
 	public NumberValue[] getSellingEarningsOfThisWeek() {
 		NumberValue[] earnings = new NumberValue[7];
 		LocalDate date = getLastMonday(LocalDate.now());
@@ -145,6 +190,11 @@ public class StatisticManagement {
 		return earnings;
 	}
 
+	/**
+	 * Returns the monthly costs of staff salaries as an absolute value in euros.
+	 *
+	 * @return monthly costs of staff salaries
+	 */
 	public double getStaffExpenditurePerMonth() {
 		Money earnings = Money.of(0, "EUR");
 
@@ -155,10 +205,21 @@ public class StatisticManagement {
 		return earnings.getNumberStripped().doubleValue();
 	}
 
+	/**
+	 * Returns the monthly income through membership contracts as an absolute value in euros.
+	 *
+	 * @return monthly income through membership contracts
+	 */
 	public double getMemberRevenuePerMonth() {
 		return revenueManagement.getMonthlyRevenue().getNumberStripped().doubleValue();
 	}
 
+	/**
+	 * Returns the monthly costs of staff salaries
+	 * compared to the monthly income through membership contracts as a percentage value.
+	 *
+	 * @return monthly costs of staff salaries
+	 */
 	public double getPercentageExpenditure() {
 		BigDecimal total =  BigDecimal.valueOf(getStaffExpenditurePerMonth() + getMemberRevenuePerMonth());
 		BigDecimal expenditure = BigDecimal.valueOf(getStaffExpenditurePerMonth());
@@ -168,6 +229,12 @@ public class StatisticManagement {
 		return expenditure.divide(total, 4, RoundingMode.UP).doubleValue()*100;
 	}
 
+	/**
+	 * Returns the monthly income through membership contracts
+	 * compared to the monthly costs of staff salaries as a percentage value.
+	 *
+	 * @return monthly costs of staff salaries
+	 */
 	public double getPercentageRevenue() {
 		BigDecimal total = BigDecimal.valueOf(getStaffExpenditurePerMonth() + (getMemberRevenuePerMonth()));
 		BigDecimal revenue = BigDecimal.valueOf(getMemberRevenuePerMonth());

@@ -22,7 +22,7 @@ public class AttendanceManagement {
 	/**
 	 * Creates a new {@link AttendanceManagement} instance with then given {@link AttendanceRepository}.
 	 *
-	 * @param attendances 	must not be {@literal null}.
+	 * @param attendances 	must not be {@literal null}
 	 */
 	AttendanceManagement(AttendanceRepository attendances) {
 		Assert.notNull(attendances, "AttendanceRepository must not be null!");
