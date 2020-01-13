@@ -78,9 +78,9 @@ public class StudioController {
 
 	@PreAuthorize("hasRole('ROLE_BOSS')")
 	@PostMapping("/studio")
-	public String editStudio(@Valid StudioForm studioForm, Model model, Errors errors) {
+	public String editStudio(@Valid StudioForm studioForm, Model model) {
 		if (Double.parseDouble(studioForm.getAdvertisingBonus()) < 0) {
-			model.addAttribute(ERROR, "Contract term, monthly fees, advertising bonus should be positive");
+			model.addAttribute(ERROR, "Advertising bonus should be positive");
 			model.addAttribute(STATUS, "400");
 			return ERROR;
 		}

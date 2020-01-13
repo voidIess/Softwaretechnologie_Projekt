@@ -147,7 +147,6 @@ class MemberManagementUnitTests {
 	@Order(11)
 	void testCheckMembershipsUnPause(){
 		management.checkMemberships();
-
 		Member member = members.findById(memberId).get();
 		assertThat(member.isPaused()).isFalse();
 	}

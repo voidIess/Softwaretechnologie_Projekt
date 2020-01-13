@@ -12,53 +12,84 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import javax.money.NumberValue;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Implementation of the logic to analyse and manage the statistic data.
+ *
+ * @author Lea Haeusler
+ */
 @Service
 @Transactional
 public class StatisticManagement {
 
-	private final AttendanceRepository attendances;
+	private final AttendanceManagement attendanceManagement;
 	private final InvoiceManagement invoiceManagement;
+	private final RevenueManagement revenueManagement;
 	private final StaffManagement staffManagement;
 
-	public StatisticManagement(AttendanceRepository attendances, InvoiceManagement invoiceManagement,
-							   StaffManagement staffManagement) {
+	/**
+	 * Creates a new {@link StatisticManagement} instance with the given parameters.
+	 *
+	 * @param attendanceManagement	must not be {@literal null}
+	 * @param invoiceManagement		must not be {@literal null}
+	 * @param revenueManagement		must not be {@literal null}
+	 * @param staffManagement		must not be {@literal null}
+	 */
+	public StatisticManagement(AttendanceManagement attendanceManagement, InvoiceManagement invoiceManagement,
+							   RevenueManagement revenueManagement, StaffManagement staffManagement) {
 
-		Assert.notNull(attendances, "AttendanceRepository must not be null!");
+		Assert.notNull(attendanceManagement, "AttendanceManagement must not be null!");
 		Assert.notNull(invoiceManagement, "InvoiceManagement must not be null!");
+		Assert.notNull(revenueManagement, "RevenueRepository must not be null!");
+		Assert.notNull(staffManagement, "StaffManagement must not be null!");
 
-		this.attendances = attendances;
+		this.attendanceManagement = attendanceManagement;
 		this.invoiceManagement = invoiceManagement;
+		this.revenueManagement = revenueManagement;
 		this.staffManagement = staffManagement;
 	}
 
 	public void addAttendance(LocalDate date, long memberId, long duration) {
-		if(attendances.findById(date).isEmpty()) {
-			attendances.save(new Attendance(date));
-		}
-		Attendance attendance = attendances.findById(date).get();
-		attendance.addMember(memberId);
-		attendance.addTime(duration);
+		attendanceManagement.addAttendance(date, memberId, duration);
 	}
 
 	public void addAttendance(long memberId, long duration) {
-		addAttendance(LocalDate.now(), memberId, duration);
+		attendanceManagement.addAttendance(memberId, duration);
 	}
 
-	public Streamable<Attendance> findAll() {
-		return attendances.findAll();
+	public void addRevenue(long memberId, long contractId) {
+		revenueManagement.addRevenue(memberId, contractId);
 	}
 
-	public Optional<Attendance> findById(LocalDate date) {
-		return attendances.findById(date);
+	public void deleteRevenue(long memberId) {
+		revenueManagement.deleteRevenue(memberId);
 	}
 
+	public Streamable<Attendance> findAllAttendances() {
+		return attendanceManagement.findAll();
+	}
+
+	public Optional<Attendance> findAttendanceById(LocalDate date) {
+		return attendanceManagement.findById(date);
+	}
+
+	public Streamable<Revenue> findAllRevenues() {
+		return  revenueManagement.findAll();
+	}
+
+	/**
+	 * Returns the average duration a member stayed in the studio today in minutes.
+	 *
+	 * @return average visit duration of today
+	 */
 	public long getAverageTimeOfToday() {
-		Optional<Attendance> attendance = attendances.findById(LocalDate.now());
+		Optional<Attendance> attendance = attendanceManagement.findById(LocalDate.now());
 		if(attendance.isEmpty()) {
 			return 0;
 		} else {
@@ -66,13 +97,19 @@ public class StatisticManagement {
 		}
 	}
 
+	/**
+	 * Returns an Array of the daily average durations a member stayed in the studio
+	 * for this week in minutes.
+	 *
+	 * @return average visit durations of this week
+	 */
 	public long[] getAverageTimesOfThisWeek() {
 		long[] times = new long[7];
 		LocalDate today = LocalDate.now();
 
 		for(int i=0; i<7; i++) {
 			LocalDate date = getLastMonday(today).plusDays(i);
-			Optional<Attendance> attendance = findById(date);
+			Optional<Attendance> attendance = attendanceManagement.findById(date);
 			if(attendance.isPresent()) {
 				times[i] = attendance.get().getAverageTime();
 			}
@@ -84,8 +121,13 @@ public class StatisticManagement {
 		return times;
 	}
 
+	/**
+	 * Returns the amount of members who visited the studio today.
+	 *
+	 * @return amount of members who visited the studio today
+	 */
 	public long getMemberAmountOfToday() {
-		Optional<Attendance> attendance = attendances.findById(LocalDate.now());
+		Optional<Attendance> attendance = attendanceManagement.findById(LocalDate.now());
 		if(attendance.isEmpty()) {
 			return 0;
 		} else {
@@ -93,13 +135,18 @@ public class StatisticManagement {
 		}
 	}
 
+	/**
+	 * Returns an Array of the daily amounts of members who visited the studio for this week.
+	 *
+	 * @return amounts of members who visited the studio this week
+	 */
 	public long[] getMemberAmountsOfThisWeek() {
 		long[] amounts = new long[7];
 		LocalDate today = LocalDate.now();
 
 		for(int i=0; i<7; i++) {
 			LocalDate date = getLastMonday(today).plusDays(i);
-			Optional<Attendance> attendance = findById(date);
+			Optional<Attendance> attendance = attendanceManagement.findById(date);
 			if(attendance.isPresent()) {
 				amounts[i] = attendance.get().getMemberAmount();
 			}
@@ -111,6 +158,12 @@ public class StatisticManagement {
 		return amounts;
 	}
 
+	/**
+	 * Returns the earnings through article sales of the given date in euros.
+	 *
+	 * @param date	date
+	 * @return earnings of the given date
+	 */
 	public NumberValue getSellingEarningsOfDate(LocalDate date) {
 		List<InvoiceEntry> invoice = invoiceManagement.getAllInvoicesOfDate(date);
 		Money earnings = Money.of(0, "EUR");
@@ -122,6 +175,11 @@ public class StatisticManagement {
 		return earnings.getNumber();
 	}
 
+	/**
+	 * Returns an Array of the daily earnings through article sales of this week in euros.
+	 *
+	 * @return earnings of the given date
+	 */
 	public NumberValue[] getSellingEarningsOfThisWeek() {
 		NumberValue[] earnings = new NumberValue[7];
 		LocalDate date = getLastMonday(LocalDate.now());
@@ -132,12 +190,58 @@ public class StatisticManagement {
 		return earnings;
 	}
 
-	public Money getStaffExpenditureOfThisWeek() {
+	/**
+	 * Returns the monthly costs of staff salaries as an absolute value in euros.
+	 *
+	 * @return monthly costs of staff salaries
+	 */
+	public double getStaffExpenditurePerMonth() {
 		Money earnings = Money.of(0, "EUR");
+
 		for(Staff staff : staffManagement.getAllStaffs()) {
-			earnings.add(staff.getSalary());
+			earnings = earnings.add(staff.getSalary());
 		}
-		return earnings.divide(4);
+
+		return earnings.getNumberStripped().doubleValue();
+	}
+
+	/**
+	 * Returns the monthly income through membership contracts as an absolute value in euros.
+	 *
+	 * @return monthly income through membership contracts
+	 */
+	public double getMemberRevenuePerMonth() {
+		return revenueManagement.getMonthlyRevenue().getNumberStripped().doubleValue();
+	}
+
+	/**
+	 * Returns the monthly costs of staff salaries
+	 * compared to the monthly income through membership contracts as a percentage value.
+	 *
+	 * @return monthly costs of staff salaries
+	 */
+	public double getPercentageExpenditure() {
+		BigDecimal total =  BigDecimal.valueOf(getStaffExpenditurePerMonth() + getMemberRevenuePerMonth());
+		BigDecimal expenditure = BigDecimal.valueOf(getStaffExpenditurePerMonth());
+		if (expenditure.compareTo(BigDecimal.ZERO) == 0) {
+			return 0;
+		}
+		return expenditure.divide(total, 4, RoundingMode.UP).doubleValue()*100;
+	}
+
+	/**
+	 * Returns the monthly income through membership contracts
+	 * compared to the monthly costs of staff salaries as a percentage value.
+	 *
+	 * @return monthly costs of staff salaries
+	 */
+	public double getPercentageRevenue() {
+		BigDecimal total = BigDecimal.valueOf(getStaffExpenditurePerMonth() + (getMemberRevenuePerMonth()));
+		BigDecimal revenue = BigDecimal.valueOf(getMemberRevenuePerMonth());
+		if (revenue.compareTo(BigDecimal.ZERO) == 0) {
+			return 0;
+		}
+		return revenue.divide(total, 4, RoundingMode.DOWN).doubleValue()*100;
 	}
 
 	private LocalDate getLastMonday(LocalDate date) {

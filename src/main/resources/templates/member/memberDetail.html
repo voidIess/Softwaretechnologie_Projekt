@@ -19,6 +19,9 @@
             <a th:if="${!member.isPaused()}" th:href="@{/member/memberPause}" class="ui button blue" id="sbmbutton">
                 <label>Pausieren</label>
             </a>
+            <a th:href="@{/member/invite}" class="ui button">
+                <label>Freund einladen</label>
+            </a>
             <div th:switch="${member.isEnded()}" style="display: inline-block">
                 <a th:case="true" th:href="@{/member/endMembership}" class="ui button red">Beenden</a>
                 <button disabled th:case="*" class="ui button red" id="dltbutton">Beenden</button>

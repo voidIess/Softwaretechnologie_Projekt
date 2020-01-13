@@ -19,32 +19,35 @@
 <header>
 
     <h1 class="text middle">
-        <span>F</span>
+        <span class="hidden">F</span>
         <span class="hidden">i</span>
         <span class="hidden">t</span>
         <span class="hidden">n</span>
         <span class="hidden">e</span>
         <span class="hidden">s</span>
-        <span class="hidden">s&nbsp;</span>
-        <span>S</span>
-        <span class="hidden">e</span>
-        <span class="hidden">c</span>
-        <span class="hidden">o</span>
-        <span class="hidden">n</span>
+        <span class="hidden">s</span>
+        <span class="hidden">s</span>
+        <span class="hidden">t</span>
+        <span class="hidden">u</span>
         <span class="hidden">d</span>
+        <span class="hidden">i</span>
+        <span class="hidden">o</span>
     </h1>
-    <div class="container">
+    <br>
+    <div class="container" id="title">
         <span class="text1">Willkommen bei</span>
+        <br>
         <span class="text2" th:text="${studioName.toString()}"></span>
     </div>
 </header>
+<br>
 
 
 <h2 sec:authorize="isAuthenticated()" th:text="${'Schön dich wiederzusehen ' + #authentication?.name} + '!'">
 </h2>
 <br/>
 
-<div class="ui two column centered grid">
+<div class="ui two column centered" style=" display: flex; justify-content: center;">
     <div class="column">
 
         <div class="ui two column very relaxed stackable grid">
@@ -83,17 +86,23 @@
             Sed a libero at augue laoreet tempus eget eu lorem. Donec nec elementum odio, sed eros urna varius orci,
             nec fringilla est nibh vel lorem. Suspendisse potenti.
             Donec est tellus, venenatis nec dignissim et, viverra eget nisi.
+            Curabitur ligula sapien, tincidunt non, euismod vitae, posuere imperdiet, leo. Maecenas malesuada. Praesent
+            congue erat at massa. Sed cursus turpis vitae tortor. Donec posuere vulputate arcu. Phasellus accumsan
+            cursus velit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Sed
+            aliquam, nisi quis porttitor congue, elit erat euismod orci, ac placerat dolor lectus quis orci. Phasellus
+            consectetuer vestibulum elit. Aenean tellus metus, bibendum sed, posuere ac, mattis non, nunc. Vestibulum
+            fringilla pede sit amet augue. In turpis. Pellentesque posuere. Praesent turpis.
         </p>
     </div>
 </div>
+<br>
 <h1></h1>
-<div class="ui container"
-     style="position:relative; bottom: 50px; text-align: center; background: rgba(210,225,247,0.67); padding: 10px;
-     font-size: calc(1rem + 0.25vh)">
+<div class="ui container" id="footer"
+     style="position:relative; bottom: 50px; text-align: center; padding: 10px;">
     <h3>Unsere Öffnungszeiten : </h3>
 
     <div>
-        <textarea rows="9" cols="31" readonly th:text="${openingTimes}"></textarea>
+        <textarea rows="8" cols="31" readonly th:text="${openingTimes}"></textarea>
     </div>
     <h3>Alle Informationen : </h3>
     <label>Adresse:</label> <label th:text="${address}"></label> <br>

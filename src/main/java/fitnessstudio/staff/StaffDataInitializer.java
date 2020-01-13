@@ -37,7 +37,7 @@ public class StaffDataInitializer implements DataInitializer {
 				Password.UnencryptedPassword.of("123"), "obi@mehralsbaumarkt.de",
 				Role.of("STAFF")),
 				"Obi", "Babobi",
-				Money.of(10000, "EUR"));
+				Money.of(1000, "EUR"));
 		LOG.info("Create Staff (username: obi, password: 123)");
 
 		staffs.saveStaff(staff);

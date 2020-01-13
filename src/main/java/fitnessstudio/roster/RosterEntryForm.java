@@ -4,6 +4,10 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
+
+/**
+ * Formular fuer Dienstplaneintraege (RosterEntry)
+ */
 public class RosterEntryForm {
 
 	@NotNull(message = "{roster.error.staff}")

@@ -61,7 +61,8 @@ class RosterDataConverterTest {
 			c.set(Calendar.DAY_OF_WEEK, RosterDataConverter.dayOfWeek[i]);
 			System.out.println(sdf.format(c.getTime()));
 			try {
-				assertThat(rightDate(times.get(i), c)).isTrue();
+				boolean test = rightDate(times.get(i), c);
+				assertThat(test).isTrue();
 			} catch (Exception e) {
 				fail(i + " ist falsch!");
 			}

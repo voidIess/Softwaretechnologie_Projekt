@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -15,10 +16,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class AttendanceUnitTests {
 
 	@Autowired
-	private StatisticManagement management;
+	private AttendanceRepository repository;
 
 	@Autowired
-	private AttendanceRepository repository;
+	private StatisticManagement statistics;
 
 	private Member member;
 
@@ -31,26 +32,26 @@ public class AttendanceUnitTests {
 	@Order(1)
 	void testCreateAttendance() {
 		long size = repository.count();
-		management.addAttendance(member.getMemberId(),2);
+		statistics.addAttendance(member.getMemberId(),2);
 		assertThat(repository.count()).isEqualTo(size+1);
 	}
 
 	@Test
 	@Order(2)
 	void testFindAll() {
-		assertThat(management.findAll().isEmpty()).isFalse();
+		assertThat(statistics.findAllAttendances().isEmpty()).isFalse();
 	}
 
 	@Test
 	@Order(3)
 	void testFindById() {
-		assertThat(management.findById(LocalDate.now()).isPresent()).isTrue();
+		assertThat(statistics.findAttendanceById(LocalDate.now()).isPresent()).isTrue();
 	}
 
 	@Test
 	@Order(4)
 	void testGetAverageTimeToday() {
-		assertThat(management.getAverageTimeOfToday()).isEqualTo(2);
+		assertThat(statistics.getAverageTimeOfToday()).isEqualTo(2);
 	}
 
 	@Test
@@ -58,20 +59,41 @@ public class AttendanceUnitTests {
 	void testAddAttendanceWithSameDate() {
 		//size shouldn't change (one attendance per day)
 		long size = repository.count();
-		management.addAttendance(member.getMemberId(), 4);
+		statistics.addAttendance(member.getMemberId(), 4);
 		assertThat(repository.count()).isEqualTo(size);
 	}
 
 	@Test
 	@Order(6)
 	void testGetMemberAmountToday() {
-		assertThat(management.getMemberAmountOfToday()).isEqualTo(1);
+		assertThat(statistics.getMemberAmountOfToday()).isEqualTo(1);
 	}
 
 	@Test
 	@Order(7)
 	void testCalculateAverage() {
-		assertThat(management.getAverageTimeOfToday()).isEqualTo(3);
+		assertThat(statistics.getAverageTimeOfToday()).isEqualTo(3);
+	}
+
+	@Test
+	@Order(8)
+	void testGetAverageTimesOfThisWeek() {
+		assertThat(statistics.getAverageTimesOfThisWeek().length).isEqualTo(7);
+		assertThat(statistics.getAverageTimesOfThisWeek()[LocalDate.now().getDayOfWeek().getValue()-1]).isEqualTo(3);
+	}
+
+	@Test
+	@Order(9)
+	void testGetMemberAmountsOfThisWeek() {
+		assertThat(statistics.getMemberAmountsOfThisWeek().length).isEqualTo(7);
+		assertThat(statistics.getMemberAmountsOfThisWeek()[LocalDate.now().getDayOfWeek().getValue()-1]).isEqualTo(1);
+	}
+
+	@Test
+	@Order(10)
+	void testGetDaysOfWeek() {
+		String[] week = statistics.getDaysOfWeek();
+		assertThat(Arrays.stream(week).anyMatch(day -> day.equals(LocalDate.now().toString()))).isTrue();
 	}
 
 }

@@ -39,7 +39,7 @@ public class BarManager {
 		this.catalog = catalog;
 	}
 
-	public InventoryItems<ExpiringInventoryItem> getExipredItems() {
+	public InventoryItems<ExpiringInventoryItem> getExpiredItems() {
 		return inventory.findByExpirationDateAfterOrderByExpirationDateAsc(LocalDate.now());
 	}
 
@@ -83,7 +83,7 @@ public class BarManager {
 	}
 
 	public void removeExpiredArticlesFromInventory() {
-		inventory.deleteAll(this.getExipredItems());
+		inventory.deleteAll(this.getExpiredItems());
 
 	}
 

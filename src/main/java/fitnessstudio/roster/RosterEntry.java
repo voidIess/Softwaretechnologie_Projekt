@@ -8,9 +8,16 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 
+
+/**
+ * Klasse eines Dienstplaneintrags
+ */
 @Entity
 public class RosterEntry implements Comparable<RosterEntry> {
 
+	/**
+	 * Repraesentiert "kein" Training. Ja ich weiß auch nicht warum ich nicht einfach mit Long gearbeitet habe.
+	 */
 	public static final long NONE = -1;
 
 	@Id
@@ -23,7 +30,7 @@ public class RosterEntry implements Comparable<RosterEntry> {
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Staff staff;
 
-	RosterEntry() {
+	private RosterEntry() {
 		this.training = -1;
 	}
 
@@ -49,6 +56,10 @@ public class RosterEntry implements Comparable<RosterEntry> {
 		this.role = role;
 	}
 
+	/**
+	 * Überprueft ob der Mitarbeiter zu dieser Zeit als Trainer arbeitet
+	 * @return true, wenn der Mitarbeiter als Trainer arbeitet, false wenn nicht.
+	 */
 	public boolean isTrainer() {
 		return role == StaffRole.TRAINER;
 	}
@@ -66,12 +77,16 @@ public class RosterEntry implements Comparable<RosterEntry> {
 		return staff.getLastName() + ", " + staff.getFirstName() + " " + staff.getStaffId();
 	}
 
+	/**
+	 * Zum sortieren innerhalb des Dienstplans. Einträge mit COUNTER werden immer über Einträgen mit TRAINER angezeigt.
+	 * @param rosterEntry RosterEintrag der verglichen werden
+	 * @return 1 wenn Countern, -1 wenn Trainer
+	 */
 	@Override    // Um im Dienstplan die Einträge nach den Aufgaben zu sortieren
 	public int compareTo(RosterEntry rosterEntry) {
-		if (rosterEntry.getRole().equals(StaffRole.COUNTER)){
+		if (rosterEntry.getRole().equals(StaffRole.COUNTER)) {
 			return 1;
-		}
-		else{
+		} else {
 			return -1;
 		}
 	}
@@ -84,5 +99,4 @@ public class RosterEntry implements Comparable<RosterEntry> {
 	public long getTraining() {
 		return training;
 	}
-
 }

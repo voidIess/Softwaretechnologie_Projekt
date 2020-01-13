@@ -61,7 +61,6 @@
 			<type>pom</type>
 		</dependency>
 
-
 		<dependency>
 			<groupId>org.jetbrains</groupId>
 			<artifactId>annotations</artifactId>

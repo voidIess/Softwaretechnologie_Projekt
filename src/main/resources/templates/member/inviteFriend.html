@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="site_template :: template(#{members.invite}, ~{::invite})"></html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta content="text/html; charset=UTF-8" http-equiv="content-type"/>
+
+</head>
+
+<div th:fragment="roster">
+    <div class="ui container">
+
+
+        <div class="card">
+
+            <form method="post" role="form" class="ui form" id="form" th:action="@{/member/inviteAction}"
+                  th:object="${form}">
+
+                <p class="ui negative message" th:if="${#fields.hasErrors('*')}"
+                   th:each="err : ${#fields.errors('*')}"
+                   th:text="${err}">
+                </p>
+
+                <div class="field">
+                    <input class="form-control" name="friendsId" type="hidden" id="friendsId"
+                           th:value="${memberId}"/>
+                    <b><span th:text="${memberId}"></span></b>
+                </div>
+
+                <div class="field">
+                    <input class="form-control" name="friendsname" type="hidden" id="friendsname"
+                           th:value="${memberName}"/>
+                    <b><span th:text="${memberName}"></span></b>
+                </div>
+
+                <fieldset class="field">
+                    <p for="email">Email deines Freundes.</p>
+                    <input id="email" name="email" th:field="*{email}" th:errorclass="fieldError"
+                           type="text"/><br/>
+                    <div class="ui negative message" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">
+                        <p>Email nicht gefunden.</p>
+                    </div>
+                </fieldset>
+
+                <button type="submit" class="ui blue button" id="sbmbutton">
+                    <b class="lbl">Einladen</b>
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+</html>
