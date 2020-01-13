@@ -18,6 +18,18 @@
 |Staff PDF | Staff | - | nächster Monat
 |Member PDF | Member | Artikel gekauft +
  Konto aufgeladen +
- Anwerbebonus erhalten+
+ Anwerbebonus erhalten +
  Mitgliedschaft pausiert | nächster Monat
+|Registrierung | user | ausgeloggt sein | NaN
+|Aktivierung von neuen Mitgliedern | staff | jemand muss sich registrieren | NaN
+|Aufladen von Nutzerkonto | member | NaN | NaN
+|Bearbeiten von Nutzerkonto | member | NaN | NaN
+|Trainings anfragen und verwalten | member | NaN | NaN
+|Traininganfragen beabeiten | staff | Member muss Anfrage stellen | NaN
+|Trainings verwalten | staff | Ein Training muss angenommen werden | NaN
+|Verträge erstellen und bearbeiten | boss | NaN | NaN
+|Mitglieschaft pausieren | member | laufende Trainings (werden nach max. einer Minute beendet) | NaN
+|Nutzerkonto bar aufladen | staff  | NaN | NaN
+|Member ein-/auschecken | staff | NaN | NaN
+
 |===
