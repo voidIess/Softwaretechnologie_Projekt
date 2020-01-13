@@ -9,7 +9,7 @@ import java.time.LocalDate;
 import java.util.Optional;
 
 /**
- * Manager to interact with the {@link AttendanceRepository}
+ * Management class to interact with the {@link AttendanceRepository}
  *
  * @author Lea Haeusler
  */
@@ -22,7 +22,7 @@ public class AttendanceManagement {
 	/**
 	 * Creates a new {@link AttendanceManagement} instance with then given {@link AttendanceRepository}.
 	 *
-	 * @param attendances must not be {@literal null}.
+	 * @param attendances 	must not be {@literal null}.
 	 */
 	AttendanceManagement(AttendanceRepository attendances) {
 		Assert.notNull(attendances, "AttendanceRepository must not be null!");
