@@ -21,12 +21,14 @@ h1 {
 
 h2 {
     color: var(--secondary-color);
+    animation: p 5s 1;
 }
 
 
 p {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif;
     color: var(--font-color);
+    animation: p 5s 1;
 }
 
 label {
@@ -57,6 +59,7 @@ br {
     cursor: pointer;
     font-size: 16px;
     position: relative;
+
 }
 
 .btn::before, .btn::after {
@@ -138,7 +141,7 @@ br {
 }
 
 .text2 {
-    font-size: 25px;
+    font-size: 30px;
     color: #6ab04c;
     text-align: center;
 
@@ -151,20 +154,71 @@ textarea {
 
 }
 
+#title{
+    text-align: center;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 100%;
+
+}
+
+
+
 
 @keyframes text {
     0% {
-        color: var(--bg-color);;
-        margin-bottom: -20px;
+        color: var(--bg-color);
+        margin-bottom: -45px;
+        padding: 15px;
     }
     30% {
-        letter-spacing: 17px;
-        margin-bottom: -20px;
-
+        letter-spacing: 25px;
+        margin-bottom: -45px;
+        padding: 15px;
     }
     85% {
         letter-spacing: 8px;
-        margin-bottom: -20px;
+        margin-bottom: -45px;
+        padding: 15px;
+    }
+}
+
+@keyframes p {
+    0% {
+        color: var(--bg-color);
+    }
+    60% {
+        color: var(--bg-color);
 
     }
+
+}
+
+@keyframes h2 {
+    0% {
+        color: var(--bg-color);
+    }
+    60% {
+        color: var(--bg-color);
+
+    }
+
+}
+
+#footer{
+    background: var(--footer-color);
+}
+
+#footer h3{
+    color: var(--heading-color);
+}
+
+#footer label{
+    color: var(--heading-color);
+}
+
+#footer textarea{
+    background: var(--textarea-color);
+    color: var(--heading-color);
 }
