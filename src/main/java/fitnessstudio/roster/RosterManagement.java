@@ -124,6 +124,7 @@ public class RosterManagement {
 		saveRoster(roster);
 	}
 
+
 	private boolean isTraining(long training, StaffRole role){
 		return training != RosterEntry.NONE && role.equals(StaffRole.TRAINER);
 	}

@@ -65,8 +65,8 @@ public class RosterDataInitializer implements DataInitializer {
 			LOG.info(logStaff);
 			staffs.saveStaff(staff);
 		}
-		if (userAccounts.findByUsername("obi").isPresent()) {
-			staff2 = staffs.findByUserAccount(userAccounts.findByUsername("obi").orElse(null)).orElse(null);
+		if (userAccounts.findByUsername("Obi").isPresent()) {
+			staff2 = staffs.findByUserAccount(userAccounts.findByUsername("Obi").orElse(null)).orElse(null);
 		} else {
 			staff2 = new Staff(userAccounts.create(usernameObi, Password.UnencryptedPassword.of("123"),
 				"obi@mehralsbaumarkt.de", Role.of(staffrole)), "Obi", "Babobi",

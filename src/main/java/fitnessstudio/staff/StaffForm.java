@@ -3,6 +3,9 @@ package fitnessstudio.staff;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
+/**
+ * Formular mit Angaben zum Erstellen eines neuen Mitarbeiters
+ */
 public interface StaffForm {
 
 	@NotEmpty(message = "Username ist leer.")
