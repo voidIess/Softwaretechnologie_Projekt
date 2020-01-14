@@ -1,7 +1,7 @@
 package fitnessstudio.training;
 
 /**
- * Enum to represent current training state.
+ * Enum to represent current {@link Training} state.
  *
  * @author Bill Kippe
  * @version 1.0
