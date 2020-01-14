@@ -2,8 +2,11 @@ package fitnessstudio.training;
 
 
 import fitnessstudio.member.Member;
+import fitnessstudio.roster.RosterDataInitializer;
 import org.salespointframework.useraccount.UserAccount;
 import org.salespointframework.useraccount.web.LoggedIn;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,7 +23,7 @@ import java.util.Optional;
 @Controller
 public class TrainingController {
 	private static final String REDIRECT_LOGIN = "redirect:/login";
-
+	private static final Logger LOG = LoggerFactory.getLogger(TrainingController.class);
 
 	private final TrainingManagement trainingManagement;
 
@@ -99,9 +102,7 @@ public class TrainingController {
 	@PreAuthorize("hasRole('STAFF')")
 	public String accept(@PathVariable long id, Model model) {
 		if (!trainingManagement.accept(id)) {
-
-			//TODO: Error message
-			//TODO: tabelle um week erweitern
+			LOG.info("Failed to accept Training.");
 		}
 		return "redirect:/admin/training/authorize";
 	}

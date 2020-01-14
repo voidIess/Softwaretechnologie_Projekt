@@ -8,6 +8,7 @@ import java.util.Optional;
 /**
  * A repository interface to manage {@link Revenue} instances.
  *
+ * @version 1.0
  * @author Lea Haeusler
  */
 public interface RevenueRepository extends CrudRepository<Revenue, Long> {

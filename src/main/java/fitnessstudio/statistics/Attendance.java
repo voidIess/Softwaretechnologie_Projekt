@@ -10,6 +10,7 @@ import java.util.Set;
 /**
  * Class which represents the behavior of the members on a certain day.
  *
+ * @version 1.0
  * @author Lea Haeusler
  */
 @Entity
