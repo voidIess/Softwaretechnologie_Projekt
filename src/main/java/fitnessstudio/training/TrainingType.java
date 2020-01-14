@@ -1,7 +1,7 @@
 package fitnessstudio.training;
 
 /**
- * Enum to represent training type.
+ * Enum to represent {@link Training} type.
  *
  * @author Bill Kippe
  * @version 1.0
