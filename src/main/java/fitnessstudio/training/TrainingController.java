@@ -99,7 +99,6 @@ public class TrainingController {
 	@PreAuthorize("hasRole('STAFF')")
 	public String accept(@PathVariable long id, Model model) {
 		if (!trainingManagement.accept(id)) {
-
 			//TODO: Error message
 			//TODO: tabelle um week erweitern
 		}

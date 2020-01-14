@@ -64,21 +64,22 @@ public class RosterManagement {
 	}
 
 	private boolean checkData(Staff staff, Roster roster, RosterEntryForm form, Errors errors) {
+		boolean noError =true;
 		if (staff == null) {
 			errors.rejectValue("roster.error.staff", "Dieser Staff existiert nicht!");
-			return false ;
+			noError = false;
 		}
 
 		if (roster == null) {
 			errors.rejectValue("week", "Für diese Woche gibt es keinen Roster.");
-			return false ;
+			noError = false;
 		}
 
 		if (form.getTimes().isEmpty()) {
 			errors.reject("time", "Bitte wähle mindestens eine Zeit aus!");
-			return false ;
+			noError = false ;
 		}
-		return true;
+		return noError;
 	}
 
 	/**

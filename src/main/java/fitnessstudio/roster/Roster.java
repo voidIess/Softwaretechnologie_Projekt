@@ -88,7 +88,8 @@ public class Roster {
 	 *
 	 * @param shift         Beschreibt die ausgewaehlte Schicht (aequivalent zur Zeile)
 	 * @param day           Beschreibt den aktuell ausgewaehlten Tag (aequivalent zur Spalte)
-	 * @param rosterEntryId Die ID des Dienstplaneintrags, der geloescht werden soll. Die befindet sich an den Koordinaten (shift, day).
+	 * @param rosterEntryId Die ID des Dienstplaneintrags, der geloescht werden soll.
+	 *                         Die befindet sich an den Koordinaten (shift, day).
 	 */
 	public void deleteEntry(int shift, int day, long rosterEntryId) {
 		Assert.isTrue(shift >= 0 && shift < rows.size(), "Diese Schicht existiert nicht!");
