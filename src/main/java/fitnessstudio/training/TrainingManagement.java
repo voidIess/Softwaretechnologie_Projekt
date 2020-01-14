@@ -80,7 +80,6 @@ public class TrainingManagement {
 	public Training createTraining(Member member, TrainingForm form, Errors result) {
 		Assert.notNull(member, "Member must not be null!");
 		Assert.notNull(form, "TrainingForm must not be null!");
-		Assert.notNull(result, "Results must not be null!");
 
 		var trainer = form.getStaff();
 		var time = form.getTime();
