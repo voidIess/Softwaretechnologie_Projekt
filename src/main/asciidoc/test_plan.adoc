@@ -279,6 +279,7 @@ a|
 |U-3-06 
 |Roster.constructor 
 |Die Kalenderwoche darf nicht größer als 52, aber auch nicht kleiner als 1 sein.
+|0, 53
 |true
 
 |U-3-07
