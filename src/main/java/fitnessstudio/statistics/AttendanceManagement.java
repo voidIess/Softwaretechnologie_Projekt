@@ -11,6 +11,7 @@ import java.util.Optional;
 /**
  * Management class to interact with the {@link AttendanceRepository}
  *
+ * @version 1.0
  * @author Lea Haeusler
  */
 @Service

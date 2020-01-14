@@ -8,6 +8,9 @@ import java.time.LocalDate;
 
 /**
  * Initializes some start entries in the statistics.
+ *
+ * @version 1.0
+ * @author Lea Haeusler
  */
 @Component
 public class StatisticDataInitializer implements DataInitializer {

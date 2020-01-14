@@ -8,6 +8,7 @@ import java.time.LocalDate;
 /**
  * A repository interface to manage {@link Attendance} instances.
  *
+ * @version 1.0
  * @author Lea Haeusler
  */
 public interface AttendanceRepository extends CrudRepository<Attendance, LocalDate> {

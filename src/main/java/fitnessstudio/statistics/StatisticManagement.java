@@ -22,6 +22,7 @@ import java.util.Optional;
 /**
  * Implementation of the logic to analyse and manage the statistic data.
  *
+ * @version 1.0
  * @author Lea Haeusler
  */
 @Service
