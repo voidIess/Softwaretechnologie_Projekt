@@ -12,6 +12,13 @@ import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
+/**
+ * Initializes default members, when none are already existent.
+ * <ul>
+ *     <li>user: 'boss', pass: '123'</li>
+ *     <li>user: 'member', pass: '123'</li>
+ * </ul>
+ */
 @Component
 @Order(100)
 public class MemberDataInitializer implements DataInitializer {
@@ -23,7 +30,14 @@ public class MemberDataInitializer implements DataInitializer {
 	private final ContractManagement contractManagement;
 	private  final StatisticManagement statisticManagement;
 
-
+	/**
+	 * Creates a new {@link MemberDataInitializer} instance with the given parameters.
+	 *
+	 * @param userAccountManager	Must not be {@literal null}.
+	 * @param memberManagement		Must not be {@literal null}.
+	 * @param contractManagement	Must not be {@literal null}.
+	 * @param statisticManagement	Must not be {@literal null}.
+	 */
 	MemberDataInitializer(UserAccountManager userAccountManager, MemberManagement memberManagement,
 						  ContractManagement contractManagement, StatisticManagement statisticManagement) {
 
@@ -38,6 +52,10 @@ public class MemberDataInitializer implements DataInitializer {
 		this.statisticManagement = statisticManagement;
 	}
 
+	/**
+	 * Overwrites the {@link DataInitializer#initialize()} Method
+	 * and adds {@link org.salespointframework.useraccount.UserAccount}s for default member and boss.
+	 */
 	@Override
 	public void initialize() {
 		if (userAccountManager.findByUsername("boss").isPresent()) {
