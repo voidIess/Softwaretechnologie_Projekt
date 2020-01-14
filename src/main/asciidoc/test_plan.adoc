@@ -277,21 +277,52 @@ a|
 |false
 
 |U-3-06 
-|Roster.constructor |
+|Roster.constructor 
 |Die Kalenderwoche darf nicht größer als 52, aber auch nicht kleiner als 1 sein.
 |true
 
-|I-3-01
-|RosterManagement.deleteRosterEntry
-|der gegebene Eintrag existiert in dem Dienstplan
-|EintragsID
+|U-3-07
+|Slot.constructor 
+|Schichtnummer darf nicht negativ sein und auch nicht größer als Roster.AMOUNT_ROWS
 |true
 
-|U-3-02
-|RosterManagement.deleteRosterEntry
-|der gegebene Eintrag existiert nicht in dem Dienstplan
-|EintragsID
-|false
+|U-3-08
+|Slot.constructor 
+|Tag darf nicht kleiner als 0, aber auch nicht größer als 6 sein.
+|true
+
+|U-3-09
+|Slot.delete
+|Wenn Eintrag aus Slot gelöscht wird soll er auch verschwinden.
+|true
+
+|U-3-10
+|Slot.delete
+|Wenn Eintrag im Slot nicht exisitiert, dann muss ein Fehler auftreten.
+|true
+
+|U-3-11
+|Slot.isTaken
+|Wenn ein Mitarbeiter bereits arbeitet soll true zurück gegeben werden.
+|true
+
+|U-3-12
+|Slot.sortList
+|Einträge mit Rolle COUNTER sollen vor Einträgen mit Rolle TRAINER kommen.
+|true
+
+|U-3-13
+|Slot.coordinates
+|Beim Erstellen eines Slots, soll dieser die richtigen Koordinaten zugewiesen bekommen.
+|true
+
+|U-3-14
+|TableRow.constructor
+| Schichtnummer darf nicht negativ sein und startZeit darf nicht null sein
+|true
+
+
+
 
 |===
 
