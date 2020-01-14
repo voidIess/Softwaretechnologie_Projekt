@@ -56,11 +56,11 @@ public class TrainingManagement {
 							  StaffManagement staffManagement, RosterManagement rosterManagement,
 							  EmailService emailService) {
 
-		Assert.notNull(trainings, "TrainingRepository must not be null");
-		Assert.notNull(memberManagement, "MemberManagement must not be null");
-		Assert.notNull(staffManagement, "StaffManagement must not be null");
-		Assert.notNull(rosterManagement, "RosterManagement must not be null");
-		Assert.notNull(emailService, "EmailService must not be null");
+		Assert.notNull(trainings, "TrainingRepository must not be null!");
+		Assert.notNull(memberManagement, "MemberManagement must not be null!");
+		Assert.notNull(staffManagement, "StaffManagement must not be null!");
+		Assert.notNull(rosterManagement, "RosterManagement must not be null!");
+		Assert.notNull(emailService, "EmailService must not be null!");
 
 		this.trainings = trainings;
 		this.memberManagement = memberManagement;
@@ -78,6 +78,10 @@ public class TrainingManagement {
 	 * @return the new {@link Training} instance.
 	 */
 	public Training createTraining(Member member, TrainingForm form, Errors result) {
+		Assert.notNull(member, "Member must not be null!");
+		Assert.notNull(form, "TrainingForm must not be null!");
+		Assert.notNull(result, "Results must not be null!");
+
 		var trainer = form.getStaff();
 		var time = form.getTime();
 		var day = form.getDay();
