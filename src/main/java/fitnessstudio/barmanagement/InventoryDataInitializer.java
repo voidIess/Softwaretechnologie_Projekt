@@ -21,6 +21,9 @@ public class InventoryDataInitializer implements DataInitializer {
 	}
 
 
+	/**
+	 * fill the repository with sample data, if its empty in the beginning
+	 */
 	@Override
 	public void initialize() {
 		catalog.findAll().forEach(article ->

@@ -17,6 +17,11 @@ public class Discount {
 	public Discount() {
 	}
 
+	/**
+	 * @param startDate the first day this discount should be applied
+	 * @param endDate the last day, this discount should be applied
+	 * @param percent the amount of reduction to the corresponding {@link Article}
+	 */
 	public Discount(LocalDate startDate, LocalDate endDate, int percent) {
 		this.startDate = startDate;
 		this.endDate = endDate;

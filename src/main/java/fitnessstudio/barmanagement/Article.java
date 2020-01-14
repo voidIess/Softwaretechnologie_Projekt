@@ -27,6 +27,14 @@ public class Article extends Product {
 	public Article() {
 	}
 
+	/**
+	 * generates an Article which is the
+	 * @param name Name of the article
+	 * @param price Unreduced price of the article
+	 * @param type Category for our article
+	 * @param description Description of the article
+	 * @param sufficientQuantity If the stock gets below this quantity, it will be shown as an article, which needs to be restock
+	 */
 	public Article(String name, MonetaryAmount price, String type, String description, Quantity sufficientQuantity) {
 		super(name, price);
 		this.type = type;
@@ -34,6 +42,9 @@ public class Article extends Product {
 		this.sufficientQuantity = sufficientQuantity;
 	}
 
+	/**
+	 * @return returns current price with the reductions allready applied
+	 */
 	@NotNull
 	@Override
 	public MonetaryAmount getPrice() {
@@ -45,8 +56,6 @@ public class Article extends Product {
 		}
 
 	}
-
-
 	public String getType() {
 		return type;
 	}

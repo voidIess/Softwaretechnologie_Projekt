@@ -7,6 +7,10 @@ import org.springframework.data.util.Streamable;
 
 import java.time.LocalDate;
 
+
+/**
+ * this inventory is a Salespoint MultiInventory. Each instance of an {@link ExpiringInventoryItem} reprents a pile of products which will expire simultaneously
+ */
 public interface ExpiringInventory extends MultiInventory<ExpiringInventoryItem> {
 	Streamable<ExpiringInventoryItem> findByExpirationDate(LocalDate localDate);
 

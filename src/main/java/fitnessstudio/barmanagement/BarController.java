@@ -43,13 +43,22 @@ public class BarController {
 	private
 	ApplicationEventPublisher applicationEventPublisher;
 
+	/**
+	 * @param barManager The bar manager is used as database backend for our stock
+	 * @param orderManager The order manager is used as database backend for the orders
+	 * @param memberManagement This used for payment transactions
+	 */
 	public BarController(BarManager barManager, OrderManager<Order> orderManager, MemberManagement memberManagement) {
 		this.barManager = barManager;
 		this.orderManager = orderManager;
 		this.memberManagement = memberManagement;
 	}
 
-
+	/**
+	 * an overview about the articles wich can be than added to the cart
+	 * @param model
+	 * @return
+	 */
 	@PreAuthorize("hasRole('STAFF')")
 	@GetMapping("/sell_catalog")
 	public String SellingCatalog(Model model) {
@@ -58,6 +67,13 @@ public class BarController {
 		return "bar/sell_catalog";
 	}
 
+	/**
+	 * the final page of selling an {@link Article} before a completed {@link Order} is placed
+	 * @param cart
+	 * @param form
+	 * @param model
+	 * @return
+	 */
 	@PreAuthorize("hasRole('STAFF')")
 	@GetMapping("/checkout")
 	public String checkout(@ModelAttribute Cart cart, CheckoutForm form, Model model) {
@@ -66,6 +82,14 @@ public class BarController {
 		return "bar/checkout";
 	}
 
+	/**
+	 * this post mapping will place the order and do all neccesarry steps
+	 * @param cart
+	 * @param form
+	 * @param status
+	 * @param model
+	 * @return
+	 */
 	@PreAuthorize("hasRole('STAFF')")
 	@PostMapping("/checkout")
 	public String postCheckout(@ModelAttribute Cart cart, @Valid CheckoutForm form, SessionStatus status, Model model) {
@@ -137,6 +161,13 @@ public class BarController {
 		return new Cart();
 	}
 
+	/**
+	 * the post mapping, which will add an {@link Article} to the {@link Cart}
+	 * @param article
+	 * @param number
+	 * @param cart
+	 * @return
+	 */
 	@PreAuthorize("hasRole('STAFF')")
 	@PostMapping("/addItemToCart")
 	public String addItem(@RequestParam("pid") Article article, @RequestParam("number")
@@ -146,6 +177,11 @@ public class BarController {
 	}
 
 
+	/**
+	 * get an overview about all completed orders
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("/orders")
 	@PreAuthorize("hasRole('STAFF')")
 	public String orders(Model model) {
@@ -153,6 +189,10 @@ public class BarController {
 		return "bar/orders";
 	}
 
+	/**
+	 * get an overview about all items which are currently added to the cart
+	 * @return
+	 */
 	@PreAuthorize("hasRole('STAFF')")
 	@GetMapping("/cart_items")
 	public String cartItems() {
