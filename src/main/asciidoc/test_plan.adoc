@@ -293,22 +293,22 @@ a|
 
 |U-3-09
 |Slot.delete
-|Wenn Eintrag aus Slot gelöscht wird soll er auch verschwinden.
+|Slot existiert.
 |true
 
 |U-3-10
 |Slot.delete
-|Wenn Eintrag im Slot nicht exisitiert, dann muss ein Fehler auftreten.
+|Slot existiert nicht.
 |true
 
 |U-3-11
 |Slot.isTaken
-|Wenn ein Mitarbeiter bereits arbeitet soll true zurück gegeben werden.
+|Mitarbeiter muss in dieser Schicht bereits arbeiten.
 |true
 
 |U-3-12
 |Slot.sortList
-|Einträge mit Rolle COUNTER sollen vor Einträgen mit Rolle TRAINER kommen.
+|Einträge mit Rolle COUNTER sollen vor Einträgen mit Rolle TRAINER kommen. Dafür muss es eine min. 1 Eintrag geben
 |true
 
 |U-3-13
@@ -318,7 +318,77 @@ a|
 
 |U-3-14
 |TableRow.constructor
-| Schichtnummer darf nicht negativ sein und startZeit darf nicht null sein
+| Schichtnummer darf nicht negativ sein und startZeit darf nicht null sein.
+|true
+
+|U-3-15
+|RosterManagement.getTimes
+|Die Strings der Schichtdauer sollen richtig erzeugt werden. 
+|true
+
+|U-3-16
+|RosterManagement.getTimeIndex
+|Anhand eines Strings soll die richtige Schichtnummer herausgefunden werden. Schichten müssen dafür exisiteren.
+|true
+
+|U-3-17
+|RosterManagement.createEntry
+|Sollten falsche Angaben angegeben wurden sein, soll kein Eintrag erstellt werden.
+|true
+
+|U-3-18
+|RosterManagement.isFree
+|Wenn ein Mitarbeiter bereits arbeitet, soll false zurückgegeben werden
+|false
+
+|U-3-19
+|RosterManagement.getNextWeeks
+|Es soll eine vollständige Liste an allen verfügbaren Dienstplänen zurück gegeben werden
+|false
+
+|I-3-01
+|RosterController.default
+|Staffs sollen mit /roster auf Dienstplan der jetzigen Woche
+|true
+
+|I-3-02
+|Roster.rosterView
+|Staffs sollen mit /roster/{week} auf einen speziellen Dienstplan kommen.
+|true
+
+|I-3-03
+|Roster.rosterViewFiltered
+|Staffs sollen mit /roster/{week}/{id} einen beliebigen Dienstplan nach einem Staff filtern
+|true
+
+|I-3-04
+|RosterController.newRosterEntry
+|Staffs sollen auf ein Formular kommen um einen Eintrag zu erstellen. Dafür muss ein Dienstplan existieren
+|true
+
+|I-3-05
+|RosterController.showDetails
+|Staffs sollen Details eines Eintrags sehen können. Dafür muss ein Eintrag existieren.
+|true
+
+|I-3-06
+|RosterController.delete
+|Eintrag soll gelöscht werden. Dafür muss ein Eintrag existieren.
+|true
+
+|I-3-07
+|RosterController.postEditEntry
+|Änderungen müssen vorgenommen wurden sein.
+|true
+
+|I-3-08
+|RosterController.createNewRosterEntry
+|Formular muss ausgefüllt sein.
+|true
+
+|I-3-09
+|RosterController.deleteStaff
+|Staff muss existieren.
 |true
 
 
