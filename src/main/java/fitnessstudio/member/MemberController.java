@@ -293,7 +293,8 @@ public class MemberController {
 	 */
 	@PostMapping("/member/inviteAction")
 	@PreAuthorize("hasRole('MEMBER')")
-	public String inviteFriend(Model model, @Valid @ModelAttribute("form") FriendInviteForm form, Errors errors, @LoggedIn Optional<UserAccount> userAccount) {
+	public String inviteFriend(Model model, @Valid @ModelAttribute("form") FriendInviteForm form,
+							   Errors errors, @LoggedIn Optional<UserAccount> userAccount) {
 		if (errors.hasErrors()) {
 			return  inviteFriend(form, model, userAccount);
 		}
