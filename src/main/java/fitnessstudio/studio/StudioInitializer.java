@@ -15,6 +15,9 @@ import java.util.stream.IntStream;
 public class StudioInitializer implements DataInitializer {
 
 	private final StudioRepository studioRepository;
+	private static final int SUNDAY = 7;
+	private static final int WEDNESDAY = 3;
+	private static final int MAX_DAY_OF_WEEK = 8;
 
 	public StudioInitializer(StudioRepository studioRepository) {
 		this.studioRepository = studioRepository;
@@ -25,25 +28,22 @@ public class StudioInitializer implements DataInitializer {
 		if (!studioRepository.findAll().iterator().hasNext()) {
 
 			Collection<String> list = new LinkedList<>();
-			IntStream.range(1, 8).forEach(day -> {
+			IntStream.range(1, MAX_DAY_OF_WEEK).forEach(day -> {
 
-				// Monday closed
-				if (day == 1) {
-					list.add(DayOfWeek.of(day).getDisplayName(TextStyle.FULL, Locale.GERMAN) + ":  geschlossen ");
+				if (day == WEDNESDAY) {
+					list.add(DayOfWeek.of(day).getDisplayName(TextStyle.FULL, Locale.GERMAN) + ":  0:00 - 11:00 Uhr " +
+							"\n und 14:00 - 22:00 Uhr");
 					return;
 				}
 
-				// Wednesday lunch break 11am - 2pm
-				if (day == 3) {
-					list.add(DayOfWeek.of(day).getDisplayName(TextStyle.FULL, Locale.GERMAN) + ":  0:00 - 11:00 Uhr " +
-							"\n und 14:00 - 22:00 Uhr");
+				if (day == SUNDAY) {
+					list.add(DayOfWeek.of(day).getDisplayName(TextStyle.FULL, Locale.GERMAN) + ":  geschlossen ");
 					return;
 				}
 
 				list.add(DayOfWeek.of(day).getDisplayName(TextStyle.FULL, Locale.GERMAN) + ":  0:00 bis " +
 						"23:59 Uhr");
 			});
-			list.add("Feiertag" + ": geschlossen ");
 			String openingTimes = Arrays.toString(list.toArray()).replace("[", "").
 					replace("]", "").
 					replace(",", "\n");

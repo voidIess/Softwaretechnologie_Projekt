@@ -236,20 +236,6 @@ image::models/analysis/Mitglied.png[]
 
 == Bausteinsicht
 
-=== AdminManagement Package 
-
-image::models/design/adminmanagement.svg[]
-
-[options="header"]
-|=== 
-|Klasse/Enumeration | Beschreibung
-|StatisticManagement | Eine Klasse für die Verwaltung und Analyse von Statistiken.
-|EarningsForm | Eine Klasse, um die Einnahmen des Studios zu bearbeiten/validieren.
-|AttendanceForm | Eine Klasse, um die Anwesenheit von Nutzern zu bearbeiten/validieren.
-|StatisticController | Ein Spring MVC Controller, welcher Anfragen auf die Statistiken bearbeitet.
-|User | Eine Klasse um einen User im System zu repräsentieren.
-|===
-
 === BarManagement Package
 
 image::models/design/barmanagement.svg[]
@@ -315,26 +301,42 @@ image::models/design/membermanagement.svg[]
 
 === StaffManagement Package
 
-image::models/design/staffmanagement.svg[]
+image::models/design/package_staff_v2.svg[]
 
 [options="header"]
 |=== 
 |Klasse/Enumeration | Beschreibung
 |StaffController | Ein Spring MVC Controller, welcher Anfragen auf den Dienstplan und Lohnschein bearbeitet.
-|RosterEntryForm | Eine Klasse, um die Eingaben des Mitarbeiters zu bearbeiten/validieren.
-|RosterManagement | Eine Klasse, mit der man aus den Eingaben eines Mitarbeiters ein _RosterEntry_ erzeugen kann und diesen dann dort auch bearbeiten.
-|RosterRepository | Ein Repository Interface zum Verwalten von RosterEntry Instanzen.
-|Roster | Fässt alle _RosterEntry's_ einer Woche zusammen.
-|RosterEntry | Eine Objekt um die Dienstplaneinträge im System zu verwalten.
 |StallRole | Eine Enumeration für die Aufgaben, welche ein Mitarbeiter in einer Schicht erledigen kann.
 |Staff| Das Objekt eines Mitarbeiters im System.
 |StaffManagement | Eine Klasse um die PDFs für den Lohnschein zu erstellen und zur Verwaltung der Mitarbeiter.
 |StaffRepository | Ein Repository Interface zum Verwalten von Mitarbeitern.
+|EditStaffForm|Ein Interface, um Änderungen an einem Mitarbeiter im System zu erhalten und zu verfizieren.
+|SalaryForm|Ein Interface, um Änderungen an dem Gehalt eines Mitarbeiter im System zu erhalten und zu verfizieren.
+|StaffForm| Ein Interface, um Eingaben des Chefs für einen neuen Mitarbeiter im System zu erhalten und zu verfizieren.
+|===
+
+=== Roster Package
+
+image::models/design/package_roster_v2.svg[]
+
+[options="header"]
+|=== 
+|Roster| Eine Klasse, welche den Dienstplan repräsentiert. Die Klasse Roster ist dabei die höchte Klasse dieses Konstrukts
+|TableRow | Eine Klasse, welche eine Zeile in einem Dienstplan repräsentiert. Standardmäßig hat ein Roster eine Liste acht TableRows. Die Anzahl ist jedoch variabel.
+| Slot | Eine Klasse, welche einen Spalte des Dienstplans repräsentiert. Jedoch ist der Begriff "Spalte" hier eventuell unangebracht. Eine Zeile enthält sieben Slots (für jeden Wochentag einen). Jedoch sind die Slots von jeder Zeile unterschiedlich.
+| RosterEntry | Eine Klasse, welche einen Eintag in den Dienstplan repräsentiert. Ein RosterEntry ist Teil einer Liste, welche ein Attribut von der Klasse Slot ist. Ein Slot kann unendlich viele Einträge besitzen.
+| RosterController | Ein Spring MVC Controller, welcher Anfragen auf den Dienstplan bearbeitet.
+| RosterDataConverter | Eine Klasse, welche zur Genierung bzw. Konvertierung von Strings und anderen Datentypen, die in Relation zu dem Dienstplan stehen, dient.
+| RosterDataInitializer | Eine Klasse, welche dazu da ist neue Dienstpläne zu initialisieren.
+| RosterEntryForm | Eine Klasse, um Eingaben eines Mitarbeiters für einen neuen Dienstplaneintrag im System zu erhalten und zu verfizieren.
+| RosterManagement | Eine Klasse, um Änderungen (hinzufügen, bearbeiten, löschen) und Anfragen auf einen Dienstplan zu verwalten.
+|RosterRepository|Ein Repository Interface zum Verwalten von Dienstplänen.
 |===
 
 === PDF Package
 
-image::models/design/pdf.svg[]
+image::models/design/package_pdf_v2.svg[]
 
 [options="header"]
 |=== 
@@ -348,6 +350,7 @@ image::models/design/pdf.svg[]
 === StudioManagnement Package
 
 image::models/design/Studiomanagement.svg[]
+
 [options="header"]
 |=== 
 |Klasse/Enumeration | Beschreibung
@@ -355,9 +358,40 @@ image::models/design/Studiomanagement.svg[]
 |StudioRepository | Ein Interface, um Studio Instanzen zu speichern/verwalten.
 |StudioService | Eine Klasse, zum logischen Verwaltung des Studiorepositories.
 |StudioInitializer | Eine Klasse, welche Einträge in das Studio initializiert (beim Start des Systems).
-|StudioController | Ein Interface, zum Verwalten von globalen Variablen des Fitnessstudios. 
+|StudioController |  Ein Spring MVC Controller, welcher 
 |StudioForm | Eine Klasse, um die Eingaben im System für die globalen Variablen des Fitnessstudios zu bearbeiten.
 |===
+
+=== Invoice Package
+
+image::models/design/package_invoice_v2.svg[]
+
+[options="header"]
+|=== 
+|Klasse/Enumeration | Beschreibung
+|InvoiceEntry | Ein Klasse, welche eine Einnahme/Ausgabe des Studios repräsentiert.
+|InvoiceType | Eine Enumeration, welche die verschiedenen Arten einer Invoice Instanz repräsentiert.
+|InvoiceRepository | Ein Interface, um Invoice Instanzen zu speichern.
+|InvoiceManagement | Eine Klasse, um die  Einnahmen/Ausgaben des Studios zu bearbeiten/auszuwerten.
+|InvoiceEvent | Ein Event, welches ausgelöst wird wenn Einnahmen/Ausgaben getätigt werden.
+|InvoiceEventListener | Ein Listener, welcher beim Auslösen des InvoiceEvents einen InvoiceEntry erstellt.
+|===
+
+=== Statistics Package
+
+image::models/design/package_statistics_v2.svg[]
+
+[options="header"]
+|=== 
+|Klasse/Enumeration | Beschreibung
+|StatisticManagement | Eine Klasse für die Verwaltung und Analyse von Statistiken.
+|AttendanceManagement | Eine Klasse, um die Anwesenheitszeiten des Studios zu bearbeiten/auszuwerten.
+|StatisticController | Ein Spring MVC Controller, welcher Anfragen auf die Statistiken bearbeitet.
+|Attendance | Ein Klasse, welche die täglichen Anwesenheitszeiten der Mitglieder beinhaltet.
+|AttendanceRepository | Ein Interface, um Attendance Instanzen hinzu zu fügen und zu speichern.
+|StatisticDataInitializer | Eine Klasse, welche beispielhafte Anwesenheitszeiten initialisiert.
+|===
+
 
 === Rückverfolgbarkeit zwischen Analyse- und Entwurfsmodell
 
@@ -396,7 +430,7 @@ image::models/design/MemberManagementSequenz1.jpg[]
 image::models/design/MemberManagementSequenz2.jpg[]
 image::models/design/MemberManagementSequenz3.jpg[]
 
-=== StaffManagement
+=== StaffManagement & RosterManagement
 
 image::models/design/staffManagementSequenz.jpg[]
 

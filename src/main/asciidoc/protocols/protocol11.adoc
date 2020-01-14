@@ -1,0 +1,58 @@
+= Protokoll Gruppe 16
+
+Treffen am 07.01.2020
+
+Ort:      APB +
+Beginn:   16:35 Uhr +
+Ende:     17:00 Uhr
+
+__Schriftführer: Markus Wieland__
+
+*Nächstes Treffen:* +
+14.01.2020, 16:40 Uhr, APB/Foyer
+
+__Teilnehmer:__
+//Tabellarisch oder Aufzählung, Kennzeichnung von Teilnehmern mit besonderer Rolle (z.B. Kunde)
+
+- Anita Fritzsche (Tutorin/Kundin)
+- Julius Schmitt
+- Bill Kippe
+- Markus Wieland
+- Quang Vu Ha
+- Lea Häusler
+
+== Bemerkungen
+Wir haben einen neuen Kundenwunsch. Man soll Freunde über einen Button einladen können. Dieser bekommt einen Email mit einem Link, mit dem der Anwerbercode direkt vergegeben wird.
+
+== Retrospektive des letzten Sprints
+*Issue referenziert die Issue ID von GitHub*
+// Wie ist der Status der im letzten Sprint erstellten Issues/veteilten Aufgaben?
+
+// See http://asciidoctor.org/docs/user-manual/=tables
+[option="headers"]
+|===
+|Issue |Aufgabe |Status |Bemerkung
+|…     |Auswertung Crosstesting|abgeschlossen|alle        
+|===
+
+
+== Aktueller Stand
+So weit ist das Projekt fertig. Es fehlt nur noch der Kundenwunsch & Dokumentation.
+
+
+== Planung des nächsten Sprints
+*Issue referenziert die Issue ID von GitHub*
+
+// See http://asciidoctor.org/docs/user-manual/=tables
+[option="headers"]
+|===
+|Issue |Titel |Beschreibung |Verantwortlicher |Status
+|…     |Benutzerhandbuch  |…            |alle           |in Arbeit
+|…     |Developer Documentation  |…            |alle           |in Arbeit
+|…     |JavaDoc  |…            |alle           |in Arbeit
+|…     |Kundenwunsch|… |alle|in Arbeit
+|… | Vorbereitung Präsentation|alle|in Arbeit
+
+|===
+
+

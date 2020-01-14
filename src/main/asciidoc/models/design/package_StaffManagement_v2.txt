@@ -1,0 +1,83 @@
+@startuml
+
+package staff <<Rectangle>> {
+   enum StaffRole {
+   TRAINER,
+   COUNTER
+   }
+   
+   StaffRepository ..> Staff: <<use>>
+   interface StaffRepository {
+   + findByUserAccount(userAccount: UserAccount):Optional<Staff>
+   + findById(staffId: long):Optional<Staff>
+   + findAll():Streamable<Staff>
+   }
+   
+   StaffManagement o-- "1" StaffRepository: -staffRepo
+   StaffManagement ..> Staff: <<use>>
+   class StaffManagement{
+   + getAllStaffs(): List<Staff>
+   + createStaff(form: StaffForm, result: Errors): Staff
+   + saveStaff(staff: Staff):void
+   + removeStaff(id:long):void
+   + findByUserAccount(userAccount: UserAccount):Optional<Staff>
+   + findById(staffId: long):Optional<Staff>
+   + emailExists(email: String):boolean
+  
+   }
+   
+   interface StaffForm {
+   }
+   
+   StaffDataInitializer o-- "1" StaffManagement: -staffs
+   class StaffDataInitializer {
+   }
+   
+   
+   StaffController ..> StaffForm: <<use>>
+   StaffController ..> SalaryForm: <<use>>
+   StaffController ..> EditStaffForm: <<use>>
+   StaffController o-- "1" StaffManagement: -staffManagement
+   class StaffController {
+   - {static} REDIRECT: String
+   - {static} REDIRECT_HOME: String
+   - {static} REDIRECT_STAFFS: String
+   - {static} STATUS: String
+   - {static} ERROR: String
+   - {static} STAFFS: String
+   - {static} STAFF: String
+   +getAllStaffs(model: Model):String
+   +detail(id: long, model: Model):String
+   +addStaff(model: Model, form: StaffForm, result: Errors):String
+   +editStaff(id:long, model: Model):String
+   -getEditStaffForm(staff: Staff): EditStaffForm
+   +editStaff(id:long, form: EditStaffForm, model: Model):String
+   +editSalary(id:long, form: SalaryForm):String
+   +getAccount(userAccount: Optional<userAccount>, model: Model):String
+   +printPdfPayslip(userAccount: Optional<userAccount>, model: Model):String
+   }
+   
+   class Staff {
+   - staffId: long
+   - salary: Money
+   - userAccount: UserAccount
+   - startDate: LocalDate
+   
+   + workedLastMonth():boolean
+   
+   }
+   
+   interface SalaryForm {
+   }
+   
+   interface EditStaffForm {
+   }
+}
+
+package roster <<Rectangle>> {
+RosterEntry o-- "1" StaffRole: -role
+class RosterEntry {
+    }
+}
+ 
+@enduml

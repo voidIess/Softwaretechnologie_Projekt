@@ -1,0 +1,35 @@
+= Präsentation der Features
+
+[option="header"]
+|===
+|*Feature* |*Rolle* |*Vorbedingung* |*Simulierte Zeit*
+|Dienstplaneintrag erstellen | Staff | - |
+|Dienstplaneintrag bearbeiten | Staff | Kann nicht bearbeitet werden wenn Training dazu gehört. -> Training muss existieren |
+|Dienstplaneintrag löschen | Staff | Kann nicht gelöscht werden wenn Training dazu gehört. -> Training muss existieren |
+|Dienstplan verschiedene Wochen | Staff | - |
+|Dienstplan nach Personen sortieren | Staff | mindestens 2 Personen müssen Dienst haben |
+|Dienstplaneintrag nach Annahme von Training |Staff| Training muss angenommen werden |
+|Dienstplaneintrag wird nicht erstellt wenn bereits arbeitend| Staff | - |
+|Dienstplaneintrag wird gelöscht wenn Training abgesagt | Staff | Training absagen |
+|Statistiken zu Beginn | Boss | - |
+|Statistiken Mitgliederverhalten | Boss | Mitglied ein und aus checken |
+|Statistiken Verkauf | Boss | Artikel verkaufen |
+|Statistiken Bilanz | Boss | neues Mitglied hinzugefügt |
+|Staff PDF | Staff | - | nächster Monat
+|Member PDF | Member | Artikel gekauft +
+ Konto aufgeladen +
+ Anwerbebonus erhalten +
+ Mitgliedschaft pausiert | nächster Monat
+|Registrierung | user | ausgeloggt sein | NaN
+|Aktivierung von neuen Mitgliedern | staff | jemand muss sich registrieren | NaN
+|Aufladen von Nutzerkonto | member | NaN | NaN
+|Bearbeiten von Nutzerkonto | member | NaN | NaN
+|Trainings anfragen und verwalten | member | NaN | NaN
+|Traininganfragen beabeiten | staff | Member muss Anfrage stellen | NaN
+|Trainings verwalten | staff | Ein Training muss angenommen werden | NaN
+|Verträge erstellen und bearbeiten | boss | NaN | NaN
+|Mitglieschaft pausieren | member | laufende Trainings (werden nach max. einer Minute beendet) | NaN
+|Nutzerkonto bar aufladen | staff  | NaN | NaN
+|Member ein-/auschecken | staff | NaN | NaN
+
+|===

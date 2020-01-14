@@ -1,0 +1,29 @@
+namespace pdf {
+
+    org.springframework.AbstractView <|-- PdfView
+    PdfGenerator <.. PdfView : "use"
+    class PdfView {
+        # renderMergedOutputModel(Map<String, Object> map, HttpServletRequest httpServletRequest,
+										   HttpServletResponse httpServletResponse): void
+    }
+
+    interface PdfGenerator {
+        ~ {abstract} {static} generatePdf(o: Object, document: Document): void
+        ~ {static} getGermanMonth(int num): String
+    }
+
+
+    PdfGenerator <|.. InvoicePdfGenerator
+    class InvoicePdfGenerator {
+        - InvoicePdfGenerator()
+        + {static} generatePdf(Map<String, Object> invoice, com.itextpdf.layout.Document d): Document
+    }
+
+    PdfGenerator <|.. PayslipPdfGenerator
+    class PayslipPdfGenerator {
+         - PayslipPdfGenerator()
+         + {static} generatePdf(Map<String, Object> payslip, Document d): Document
+    }
+
+
+}
