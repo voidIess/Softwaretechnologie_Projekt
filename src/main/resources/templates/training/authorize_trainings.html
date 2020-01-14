@@ -7,9 +7,13 @@
 <html lang="de" xmlns:th="http://www.thymeleaf.org">
 <div th:fragment="authorize_trainings">
     <div class="ui container">
-        <a class="ui button" th:href="@{/admin/trainings}">
-            Zurück
+        <a class="ui animated button" th:href="@{/admin/trainings}">
+            <div class="visible content">Zurück</div>
+            <div class="hidden content">
+                <i class="left arrow icon"></i>
+            </div>
         </a>
+
         <p class="ui negative message" th:if="${#fields.hasErrors('*')}" th:each="err : ${#fields.errors('*')}"
            th:text="${err}">
         </p>

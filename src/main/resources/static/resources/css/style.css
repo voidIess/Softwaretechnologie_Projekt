@@ -117,7 +117,7 @@ br {
 }
 
 .text:hover .hidden {
-    opacity: 1;
+    opacity: 0;
     max-width: 1em;
 }
 

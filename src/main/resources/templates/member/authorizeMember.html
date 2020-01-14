@@ -7,8 +7,11 @@
 <html lang="de" xmlns:th="http://www.thymeleaf.org">
 <div th:fragment="member_authorize">
     <div class="ui container">
-        <a class="ui button" th:href="@{/admin/members}" style="margin-bottom: 10px">
-            Zurück
+        <a class="ui animated button" th:href="@{/admin/members}" style="margin-bottom: 10px">
+            <div class="visible content">Zurück</div>
+            <div class="hidden content">
+                <i class="left arrow icon"></i>
+            </div>
         </a>
         <table class="ui celled table" id="catalog">
             <thead>
