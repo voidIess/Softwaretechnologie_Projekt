@@ -37,6 +37,9 @@ import java.util.stream.Stream;
 
 /**
  * Implementation of business logic related to {@link Member}s.
+ *
+ * @author Bill Kippe
+ * @author Lea Häusler
  */
 @Service
 @Transactional
