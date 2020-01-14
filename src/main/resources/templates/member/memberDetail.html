@@ -9,7 +9,7 @@
     <div class="ui container">
         <div style="text-align: center">
             <div style="display: inline-block; width: available">
-                    <div th:classappend="${member.isPaused()? 'paused' : 'active'}">
+                <div th:classappend="${member.isPaused()? 'paused' : 'active'}">
                     <div class="box" style="border-radius: 10px; padding: 10px;"
                        th:text="${contractText}">
                         details
@@ -19,12 +19,16 @@
             <a th:if="${!member.isPaused()}" th:href="@{/member/memberPause}" class="ui button blue" id="sbmbutton">
                 <label>Pausieren</label>
             </a>
-            <a th:href="@{/member/invite}" class="ui button">
-                <label>Freund einladen</label>
-            </a>
             <div th:switch="${member.isEnded()}" style="display: inline-block">
                 <a th:case="true" th:href="@{/member/endMembership}" class="ui button red">Beenden</a>
                 <button disabled th:case="*" class="ui button red" id="dltbutton">Beenden</button>
+            </div>
+            <div style="display: inline-block">
+                <form class="ui form" th:action="@{/member/invite}">
+                    <button id="addbutton"  class="ui button">
+                        <i class="lbl mail icon"></i><b class="lbl">Freund einladen</b>
+                    </button>
+                </form>
             </div>
         </div>
         <div class="ui item">

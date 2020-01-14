@@ -7,6 +7,7 @@ import javax.persistence.Id;
 /**
  * Class which represents the income through one member contract per month.
  *
+ * @version 1.0
  * @author Lea Haeusler
  */
 @Entity

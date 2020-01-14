@@ -169,7 +169,7 @@ public class MemberManagement {
 	 * @param form Formular mit den Angaben zur Einladung
 	 */
 	public void inviteFriend(FriendInviteForm form){
-		emailService.sendFriendInvite(form.getEmail(), form.getFriendsname(), form.getFriendsId());
+		emailService.sendFriendInvite(form.getEmail(), form.getFriendsName(), form.getFriendsId());
 	}
 
 	/**
@@ -319,7 +319,7 @@ public class MemberManagement {
 	}
 
 	/**
-	 * Method to deposit money from member's {@link CreditAccount}.
+	 * Method to deposit money to member's {@link CreditAccount}.
 	 *
 	 * @param memberId ID of member
 	 * @param amount   amount of money to deposit
@@ -338,7 +338,7 @@ public class MemberManagement {
 	}
 
 	/**
-	 * Method to withdraw money to member's {@link CreditAccount}.
+	 * Method to withdraw money from member's {@link CreditAccount}.
 	 *
 	 * @param memberId    ID of member
 	 * @param amount      amount of money to withdraw

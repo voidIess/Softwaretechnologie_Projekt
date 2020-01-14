@@ -3,7 +3,9 @@ package fitnessstudio.member;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * Formular  fuer Freundeseinladungen
+ * The in-/output form for a {@link Member} to invite a friend.
+ *
+ * @version 1.0
  */
 public class FriendInviteForm {
 
@@ -11,14 +13,21 @@ public class FriendInviteForm {
 	private final String email;
 
 	@NotNull
-	private final String friendsname;
+	private final String friendsName;
 
 	@NotNull
 	private final Long friendsId;
 
-	public FriendInviteForm(String email,String friendsname, Long friendsId) {
+	/**
+	 * Creates a new {@link FriendInviteForm} instance with the given parameters.
+	 *
+	 * @param email			email address of friend
+	 * @param friendsName	name of member
+	 * @param friendsId		ID of member
+	 */
+	public FriendInviteForm(String email,String friendsName, Long friendsId) {
 		this.email = email;
-		this.friendsname = friendsname;
+		this.friendsName = friendsName;
 		this.friendsId = friendsId;
 	}
 
@@ -26,8 +35,8 @@ public class FriendInviteForm {
 		return email;
 	}
 
-	public String getFriendsname() {
-		return friendsname;
+	public String getFriendsName() {
+		return friendsName;
 	}
 
 	public Long getFriendsId() {
