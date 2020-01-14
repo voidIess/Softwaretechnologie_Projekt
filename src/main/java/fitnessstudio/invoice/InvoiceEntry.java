@@ -10,6 +10,12 @@ import javax.persistence.Lob;
 import java.time.LocalDate;
 import java.util.Objects;
 
+/**
+ * Represents an entry on invoice PDF for {@link fitnessstudio.member.Member}s
+ *
+ * @author Bill Kippe
+ * @version 1.0
+ */
 @Entity
 public class InvoiceEntry {
 
@@ -32,6 +38,14 @@ public class InvoiceEntry {
 	public InvoiceEntry() {
 	}
 
+	/**
+	 * Creates a new {@link InvoiceEntry} instance with given variables.
+	 *
+	 * @param member		member of {@link InvoiceEntry}
+	 * @param type			type of {@link InvoiceEntry}
+	 * @param amount		{@link javax.money.MonetaryAmount} of {@link InvoiceEntry}
+	 * @param description	description of {@link InvoiceEntry}
+	 */
 	public InvoiceEntry(Long member, InvoiceType type, Money amount, String description) {
 		this.member = member;
 		this.type = type;
