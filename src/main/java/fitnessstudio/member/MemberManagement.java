@@ -169,7 +169,7 @@ public class MemberManagement {
 	 * @param form Formular mit den Angaben zur Einladung
 	 */
 	public void inviteFriend(FriendInviteForm form){
-		emailService.sendFriendInvite(form.getEmail(), form.getFriendsname(), form.getFriendsId());
+		emailService.sendFriendInvite(form.getEmail(), form.getFriendsName(), form.getFriendsId());
 	}
 
 	/**
