@@ -59,42 +59,62 @@ public class StaffManagementUnitTests {
 		assertNotNull(staff.getFirstName());
 	}
 
+	/**
+	 * U-7-03
+	 */
 	@Test
 	void setLastNameTest() {
 		staff.setLastName("ronaldo");
 		assertNotNull(staff.getLastName());
 	}
 
+	/**
+	 * U-7-04
+	 */
 	@Test
 	void setSalaryTest() {
 		staff.setSalary(Money.of(450000, "EUR"));
 		assertNotNull(staff.getLastName());
 	}
 
+	/**
+	 * U-7-05
+	 */
 	@Test
 	void getUsernameTest() {
 		assertNotNull(staff.getUserName());
 	}
 
-
+	/**
+	 * U-7-06
+	 */
 	@Test
 	@Order(2)
 	void testGetAllStaff() {
 		assertThat(management.getAllStaffs().size() == repository.findAll().toList().size()).isTrue();
 	}
 
+	/**
+	 * U-7-07
+	 */
 	@Test
 	@Order(3)
 	void testFindByUserAccount() {
 		assertThat(management.findByUserAccount(account)).isNotEmpty();
 	}
 
+	/**
+	 * U-7-08
+	 */
 	@Test
 	@Order(4)
 	void testFindById() {
 		assertThat(management.findById(staffId)).isNotEmpty();
 	}
 
+	/**
+	 * U-7-09
+	 */
 	@Test
 	@Order(6)
 	void testRemoveStaff() {
