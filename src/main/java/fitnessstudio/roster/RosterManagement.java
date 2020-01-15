@@ -12,6 +12,7 @@ import org.springframework.validation.Errors;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.IntStream;
 
 /**
  * Klasse zum managen des Dienstplans
@@ -104,24 +105,25 @@ public class RosterManagement {
 			return;
 		}
 
-		for (String time : form.getTimes()) {
-			for (int i = 0; i < Roster.AMOUNT_ROWS; i++) {
-				if (roster.getRows().get(i).toString().equals(time)) {
-					try {
-						RosterEntry rosterEntry = new RosterEntry(role, staff);
-						roster.addEntry(i, day, rosterEntry);
-						if (isTraining(training, role)) {
-							rosterEntry.setTraining(training);
-						}
-
-					} catch (Exception e) {
-						errors.reject("times", "Der Mitarbeiter arbeitet von " + time + " schon.");
-					}
+		form.getTimes().forEach(time -> IntStream.range(0,Roster.AMOUNT_ROWS).forEach(i-> {
+			if(roster.getRows().get(i).toString().equals(time)){
+				try{
+					RosterEntry rosterEntry = new RosterEntry(role, staff);
+					roster.addEntry(i, day, rosterEntry);
+					setTraining(training, role, rosterEntry);
+				} catch (Exception e) {
+					errors.reject("times", "Der Mitarbeiter arbeitet von " + time + " schon.");
 				}
 			}
-		}
+		}));
 
 		saveRoster(roster);
+	}
+
+	private void setTraining(long training, StaffRole role, RosterEntry rosterEntry) {
+		if (isTraining(training, role)) {
+			rosterEntry.setTraining(training);
+		}
 	}
 
 
