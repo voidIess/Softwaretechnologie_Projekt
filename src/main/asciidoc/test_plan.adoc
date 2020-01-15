@@ -236,7 +236,7 @@ a|
 
 |===
 
-=== Mitarbeiterverwaltung
+=== Dienstplanverwaltung
 
 Ansprechpartner: Markus
 
@@ -265,7 +265,7 @@ a|
 |Fehlermeldung
 
 |U-3-04
-|Roster.removeEntry
+|Roster.deleteEntry
 |der gegebene Eintrag existiert in dem Dienstplan
 |Dienstplaneintrag
 |true
@@ -276,17 +276,144 @@ a|
 |Dienstplaneintrag
 |false
 
-|I-3-01
-|RosterManagement.deleteRosterEntry
-|der gegebene Eintrag existiert in dem Dienstplan
-|EintragsID
+|U-3-06 
+|Roster.constructor 
+|Die Kalenderwoche darf nicht größer als 52, aber auch nicht kleiner als 1 sein.
+|0, 53
 |true
 
-|U-3-02
-|RosterManagement.deleteRosterEntry
-|der gegebene Eintrag existiert nicht in dem Dienstplan
-|EintragsID
+|U-3-07
+|Slot.constructor 
+|Schichtnummer darf nicht negativ sein und auch nicht größer als Roster.AMOUNT_ROWS
+| -1, 0, Roster.AMOUNT_ROWS
+|true
+
+|U-3-08
+|Slot.constructor 
+|Tag darf nicht kleiner als 0, aber auch nicht größer als 6 sein.
+|0, -1, 7
+|true
+
+|U-3-09
+|Slot.delete
+|Slot existiert.
+|-
+|true
+
+|U-3-10
+|Slot.delete
+|Slot existiert nicht.
+|-
+|IllegalArgumentException
+
+|U-3-11
+|Slot.isTaken
+|Mitarbeiter muss in dieser Schicht bereits arbeiten.
+|-
+|true
+
+|U-3-12
+|Slot.sortList
+|Einträge mit Rolle COUNTER sollen vor Einträgen mit Rolle TRAINER kommen. Dafür muss es eine min. 1 Eintrag geben
+|Eintrag mit Counter und Trainer
+|true
+
+|U-3-13
+|Slot.coordinates
+|Beim Erstellen eines Slots, soll dieser die richtigen Koordinaten zugewiesen bekommen.
+|1, 1
+|true
+
+|U-3-14
+|TableRow.constructor
+| Schichtnummer darf nicht negativ sein und startZeit darf nicht null sein.
+| Schichtnummer -1, startZeit null
+|true
+
+|U-3-15
+|RosterManagement.getTimes
+|Die Strings der Schichtdauer sollen richtig erzeugt werden. 
+|-
+|true
+
+|U-3-16
+|RosterManagement.getTimeIndex
+|Anhand eines Strings soll die richtige Schichtnummer herausgefunden werden. Schichten müssen dafür exisiteren.
+|String
+|true
+
+|U-3-17
+|RosterManagement.createEntry
+|Sollten falsche Angaben angegeben wurden sein, soll kein Eintrag erstellt werden.
+|Formular mit Angaben
+|true
+
+|U-3-18
+|RosterManagement.isFree
+|Wenn ein Mitarbeiter bereits arbeitet, soll false zurückgegeben werden
+|Eintrag mit Mitarbeiter
 |false
+
+|U-3-19
+|RosterManagement.getNextWeeks
+|Es soll eine vollständige Liste an allen verfügbaren Dienstplänen zurück gegeben werden. Dienstpläne müssen exsitieren
+|-
+|false
+
+|I-3-01
+|RosterController.default
+|Staffs sollen mit /roster auf Dienstplan der jetzigen Woche
+|-
+|-
+
+|I-3-02
+|Roster.rosterView
+|Staffs sollen mit /roster/{week} auf einen speziellen Dienstplan kommen.
+|Woche
+|-
+
+|I-3-03
+|Roster.rosterViewFiltered
+|Staffs sollen mit /roster/{week}/{id} einen beliebigen Dienstplan nach einem Staff filtern
+| Woche und ID
+|-
+
+|I-3-04
+|RosterController.newRosterEntry
+|Staffs sollen auf ein Formular kommen um einen Eintrag zu erstellen. Dafür muss ein Dienstplan existieren
+|-
+|-
+
+|I-3-05
+|RosterController.showDetails
+|Staffs sollen Details eines Eintrags sehen können. Dafür muss ein Eintrag existieren.
+|ID Eintrag
+|-
+
+|I-3-06
+|RosterController.delete
+|Eintrag soll gelöscht werden. Dafür muss ein Eintrag existieren.
+|Eintrag ID
+|-
+
+|I-3-07
+|RosterController.postEditEntry
+|Änderungen müssen vorgenommen wurden sein.
+| Änderungen an Form, Eintrag ID
+|-
+
+|I-3-08
+|RosterController.createNewRosterEntry
+|Formular muss ausgefüllt sein.
+|Eintrag in Form
+|-
+
+|I-3-09
+|RosterController.deleteStaff
+|Staff muss existieren.
+|Staff ID
+|-
+
 
 |===
 
