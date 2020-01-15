@@ -16,7 +16,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.fail;
 
-
+/**
+ * Test fuer RosterEntry
+ */
 @SpringBootTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class RosterEntryTest {
@@ -41,6 +43,9 @@ public class RosterEntryTest {
 
 	}
 
+	/**
+	 * U-3-20
+	 */
 	@Test
 	@Order(1)
 	void constructorTest () {
@@ -52,6 +57,9 @@ public class RosterEntryTest {
 		}
 	}
 
+	/**
+	 * U-3-21
+	 */
 	@Test
 	@Order(2)
 	void compareToTest(){
@@ -59,6 +67,9 @@ public class RosterEntryTest {
 		assertThat(rosterEntryCounter.compareTo(rosterEntryTrainer) < 0).isTrue();
 	}
 
+	/**
+	 * U-3-22
+	 */
 	@Test
 	@Order(3)
 	void toStringTest () {
@@ -67,6 +78,9 @@ public class RosterEntryTest {
 		+ " " + rosterEntryTrainer.getStaff().getStaffId())).isTrue();
 	}
 
+	/**
+	 * U-3-23
+	 */
 	@Test
 	@Order(4)
 	void isTrainerTest () {
@@ -76,6 +90,9 @@ public class RosterEntryTest {
 
 	//TODO die annotation für die Order
 
+	/**
+	 * U-3-24
+	 */
 	@Test
 	@Order(5)
 	void testSetTraining () {
@@ -88,6 +105,9 @@ public class RosterEntryTest {
 
 	}
 
+	/**
+	 * U-3-25
+	 */
 	@Test
 	@Order(6)
 	void testSetRole() {
@@ -104,12 +124,13 @@ public class RosterEntryTest {
 		assertThat(rosterEntryTrainer.getRole().equals(StaffRole.TRAINER)).isTrue();
 	}
 
+	/**
+	 * U-3-26
+	 */
 	@Test
 	@Order(7)
 	void roleToString () {
 		assertThat(rosterEntryTrainer.roleToString().equals(RosterDataConverter.roleToString(StaffRole.TRAINER))).isTrue();
 	}
-
-
 
 }

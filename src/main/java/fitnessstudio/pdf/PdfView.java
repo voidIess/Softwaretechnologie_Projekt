@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 
+/**
+ * @see AbstractView#renderMergedOutputModel(Map, HttpServletRequest, HttpServletResponse)
+ */
 @Component("pdfView")
 public class PdfView extends AbstractView {
 

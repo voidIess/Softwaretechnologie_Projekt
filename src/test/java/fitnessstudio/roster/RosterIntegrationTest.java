@@ -15,6 +15,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+/**
+ * IntegrationTest fuer Dienstplan
+ */
 public class RosterIntegrationTest extends AbstractIntegrationTests {
 
 	@Autowired
@@ -23,6 +26,10 @@ public class RosterIntegrationTest extends AbstractIntegrationTests {
 	@Autowired
 	StaffManagement staffManagement;
 
+	/**
+	 * I-3-01
+	 * @throws Exception
+	 */
 	@Test
 	void defaultRosterTest() throws Exception {
 		mvc.perform(get("/roster").with(user("staff").roles("STAFF")))
@@ -31,6 +38,10 @@ public class RosterIntegrationTest extends AbstractIntegrationTests {
 				.andExpect(view().name("redirect:/roster/" + Calendar.getInstance().get(Calendar.WEEK_OF_YEAR)));
 	}
 
+	/**
+	 * I-3-02
+	 * @throws Exception
+	 */
 	@Test
 	void getRosterViewTest() throws Exception {
 		mvc.perform(get("/roster/" + Calendar.getInstance().get(Calendar.WEEK_OF_YEAR))
@@ -39,6 +50,10 @@ public class RosterIntegrationTest extends AbstractIntegrationTests {
 				.andExpect(view().name("roster/rosterView"));
 	}
 
+	/**
+	 * I-3-03
+	 * @throws Exception
+	 */
 	@Test
 	void getRosterViewFilteredTest() throws Exception {
 		Staff staff = staffManagement.getAllStaffs().iterator().next();
@@ -48,6 +63,10 @@ public class RosterIntegrationTest extends AbstractIntegrationTests {
 				.andExpect(view().name("roster/rosterView"));
 	}
 
+	/**
+	 * I-3-04
+	 * @throws Exception
+	 */
 	@Test
 	void getNewRosterEntryTest() throws Exception {
 		mvc.perform(get("/roster/newRosterEntry/" + Calendar.getInstance().get(Calendar.WEEK_OF_YEAR))
@@ -57,6 +76,10 @@ public class RosterIntegrationTest extends AbstractIntegrationTests {
 				.andExpect(view().name("roster/rosterNew"));
 	}
 
+	/**
+	 * I-3-05
+	 * @throws Exception
+	 */
 	@Test
 	void getShowDetailTest() throws Exception {
 		mvc.perform(get("/roster/detail/" + Calendar.getInstance().get(Calendar.WEEK_OF_YEAR) + "/1/1/72")
@@ -66,6 +89,10 @@ public class RosterIntegrationTest extends AbstractIntegrationTests {
 				.andExpect(view().name("roster/rosterDetail"));
 	}
 
+	/**
+	 * I-3-06
+	 * @throws Exception
+	 */
 	@Test
 	void getDeleteTest() throws Exception {
 		mvc.perform(get("/roster/detail/delete/" + Calendar.getInstance().get(Calendar.WEEK_OF_YEAR) + "/1/1/72")
@@ -74,6 +101,10 @@ public class RosterIntegrationTest extends AbstractIntegrationTests {
 				.andExpect(view().name("redirect:/roster/" + Calendar.getInstance().get(Calendar.WEEK_OF_YEAR)));
 	}
 
+	/**
+	 * I-3-07
+	 * @throws Exception
+	 */
 	@Test
 	void postEditEntryTest() throws Exception {
 		//	mvc.perform(post("/roster/editEntry/72")
@@ -81,6 +112,10 @@ public class RosterIntegrationTest extends AbstractIntegrationTests {
 		//			.andExpect(view().name("redirect:/roster/" + Calendar.getInstance().get(Calendar.WEEK_OF_YEAR)));
 	}
 
+	/**
+	 * I-3-08
+	 * @throws Exception
+	 */
 	@Test
 	void postCreateNewRosterEntryTest() throws Exception {
 		//mvc.perform(post("/roster/newRosterEntry?staff=1&week=1&roles=COUNTER&times=06:00-08:00&day=1")
@@ -88,7 +123,10 @@ public class RosterIntegrationTest extends AbstractIntegrationTests {
 		//		.andExpect(view().name("redirect:/roster/1"));
 	}
 
-
+	/**
+	 * I-3-09
+	 * @throws Exception
+	 */
 	@Test
 	void postDeleteStaffTest() throws Exception {
 		Staff staff = staffManagement.getAllStaffs().iterator().next();

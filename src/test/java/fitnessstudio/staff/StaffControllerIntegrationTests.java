@@ -15,6 +15,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+/**
+ * Integretationtest für StaffController
+ */
 @SpringBootTest
 @AutoConfigureMockMvc
 public class StaffControllerIntegrationTests {
@@ -25,6 +28,10 @@ public class StaffControllerIntegrationTests {
 	@Autowired
 	StaffManagement staffManagement;
 
+	/**
+	 * I-7-01
+	 * @throws Exception
+	 */
 	@Test
 	void preventsPublicAccessToStaffs() throws Exception {
 		mockMvc.perform(get("/staffs"))
@@ -32,6 +39,10 @@ public class StaffControllerIntegrationTests {
 				.andExpect(header().string(HttpHeaders.LOCATION, endsWith("/login")));
 	}
 
+	/**
+	 * I-7-02
+	 * @throws Exception
+	 */
 	@Test
 	@WithMockUser(username = "boss", roles = "BOSS")
 	void staffsIsAccessibleForAdmin() throws Exception {
@@ -40,6 +51,10 @@ public class StaffControllerIntegrationTests {
 				.andExpect(model().attributeExists("staffs"));
 	}
 
+	/**
+	 * I-7-03
+	 * @throws Exception
+	 */
 	@Test
 	void preventsPublicAccessToStaffDetail() throws Exception {
 		mockMvc.perform(get("/staff/{id}", 1))
@@ -47,6 +62,10 @@ public class StaffControllerIntegrationTests {
 				.andExpect(header().string(HttpHeaders.LOCATION, endsWith("/login")));
 	}
 
+	/**
+	 * I-7-04
+	 * @throws Exception
+	 */
 	@Test
 	@WithMockUser(username = "staff", roles = "STAFF")
 	void staffDetailIsAccessibleForStaff() throws Exception {
@@ -55,6 +74,10 @@ public class StaffControllerIntegrationTests {
 				.andExpect(model().attributeExists("staff"));
 	}
 
+	/**
+	 * I-7-05
+	 * @throws Exception
+	 */
 	@Test
 	void preventsPublicAccessToNewStaff() throws Exception {
 		mockMvc.perform(get("/newStaff"))
@@ -62,6 +85,10 @@ public class StaffControllerIntegrationTests {
 				.andExpect(header().string(HttpHeaders.LOCATION, endsWith("/login")));
 	}
 
+	/**
+	 * I-7-06
+	 * @throws Exception
+	 */
 	@Test
 	@WithMockUser(username = "boss", roles = "BOSS")
 	void newStaffIsAccessibleForAdmin() throws Exception {
@@ -71,24 +98,40 @@ public class StaffControllerIntegrationTests {
 				.andExpect(model().attributeExists("error"));
 	}
 
+	/**
+	 * I-7-07
+	 * @throws Exception
+	 */
 	@Test
 	void preventPublicAccessForPrintPdfPayslip() throws Exception {
 		mockMvc.perform(post("/printPdfPayslip"))
 				.andExpect(status().isForbidden());
 	}
 
+	/**
+	 * I-7-08
+	 * @throws Exception
+	 */
 	@Test
 	void postAddStaffTest() throws Exception {
 		mockMvc.perform(post("/newStaff?username=cr7&email=cr7@yahoo.com&password=123&firstName=ronaldo&lastName=cristiano&salary=450000").
 				with(user("boss").roles("BOSS")).with(csrf())).andExpect(status().is(302)).andExpect(view().name("redirect:/"));
 	}
 
+	/**
+	 * I-7-09
+	 * @throws Exception
+	 */
 	@Test
 	void postAddStaffErrorTest() throws Exception {
 		mockMvc.perform(post("/newStaff?username=staff&email=managementTestStaff@email.de&password=123&firstName=ronaldo&lastName=cristiano&salary=450000").
 				with(user("boss").roles("BOSS")).with(csrf())).andExpect(status().is(200)).andExpect(view().name("staff/add_staff"));
 	}
 
+	/**
+	 * I-7-10
+	 * @throws Exception
+	 */
 	@Test
 	void getEditStaffTest() throws Exception {
 		Staff staff = staffManagement.getAllStaffs().iterator().next();
@@ -97,12 +140,20 @@ public class StaffControllerIntegrationTests {
 				.andExpect(model().attribute("id", staff.getStaffId())).andExpect(model().attributeExists("form")).andExpect(model().size(3));
 	}
 
+	/**
+	 * I-7-11
+	 * @throws Exception
+	 */
 	@Test
 	void getEditStaffErrorTest() throws Exception {
 		mockMvc.perform(get("/staff/edit/6969").with(user("staff").roles("STAFF")))
 				.andExpect(status().is(200)).andExpect(view().name("error"));
 	}
 
+	/**
+	 * I-7-12
+	 * @throws Exception
+	 */
 	@Test
 	void postEditStaffTest() throws Exception {
 		Staff staff = staffManagement.getAllStaffs().iterator().next();
@@ -112,6 +163,10 @@ public class StaffControllerIntegrationTests {
 
 	}
 
+	/**
+	 * I-7-13
+	 * @throws Exception
+	 */
 	@Test
 	void postEditErrorStaffTest() throws Exception {
 		mockMvc.perform(post("/staff/edit/6969?username=cr7&email=abcxyz@yahoo.com&password=123&firstName=abc&lastName=xyz")
@@ -119,6 +174,10 @@ public class StaffControllerIntegrationTests {
 				.with(csrf())).andExpect(status().is(200)).andExpect(view().name("error"));
 	}
 
+	/**
+	 * I-7-14
+	 * @throws Exception
+	 */
 	@Test
 	void detailTest() throws Exception {
 		Staff staff = staffManagement.getAllStaffs().iterator().next();
@@ -127,6 +186,10 @@ public class StaffControllerIntegrationTests {
 				.andExpect(model().attributeExists("form")).andExpect(model().size(2));
 	}
 
+	/**
+	 * I-7-15
+	 * @throws Exception
+	 */
 	@Test
 	void detailErrorTest() throws Exception {
 		mockMvc.perform(get("/staff/6969").with(user("boss").roles("BOSS"))).andExpect(status().isOk())
@@ -134,6 +197,10 @@ public class StaffControllerIntegrationTests {
 				.andExpect(model().attribute("error", "ID NOT FOUND"));
 	}
 
+	/**
+	 * I-7-16
+	 * @throws Exception
+	 */
 	@Test
 	void postEditSalaryTest() throws Exception {
 		Staff staff = staffManagement.getAllStaffs().iterator().next();
@@ -142,6 +209,10 @@ public class StaffControllerIntegrationTests {
 				.andExpect(view().name("redirect:/staffs"));
 	}
 
+	/**
+	 * I-7-17
+	 * @throws Exception
+	 */
 	@Test
 	void postEditSalaryErrorTest() throws Exception {
 		mockMvc.perform(post("/staff/update/6969?salary=300000")
@@ -149,6 +220,10 @@ public class StaffControllerIntegrationTests {
 				.andExpect(view().name("error"));
 	}
 
+	/**
+	 * I-7-18
+	 * @throws Exception
+	 */
 	@Test
 	void postPrintPayslip() throws Exception {
 		mockMvc.perform(post("/printPdfPayslip")
