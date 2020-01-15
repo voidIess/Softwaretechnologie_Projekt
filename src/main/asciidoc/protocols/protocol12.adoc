@@ -1,4 +1,4 @@
-= Protokoll Gruppe 12
+= Protokoll Gruppe 16
 
 Treffen am 07.01.2020
 
@@ -32,13 +32,12 @@ Wir haben einen neuen Kundenwunsch. Man soll Freunde über einen Button einladen
 [option="headers"]
 |===
 |Issue |Aufgabe |Status |Bemerkung
-|…     |Auswertung Crosstesting|abgeschlossen|alle        
+|…     ||abgeschlossen|alle        
 |===
 
 
 == Aktueller Stand
 So weit ist das Projekt fertig. Es fehlt nur noch der Kundenwunsch & Dokumentation.
-
 
 == Planung des nächsten Sprints
 *Issue referenziert die Issue ID von GitHub*
@@ -47,11 +46,10 @@ So weit ist das Projekt fertig. Es fehlt nur noch der Kundenwunsch & Dokumentati
 [option="headers"]
 |===
 |Issue |Titel |Beschreibung |Verantwortlicher |Status
-|…     |Benutzerhandbuch  |…            |alle           |in Arbeit
+|…     |Vorbereitung Präsentation  |…            |alle           |in Arbeit
 |…     |Developer Documentation  |…            |alle           |in Arbeit
 |…     |JavaDoc  |…            |alle           |in Arbeit
-|…     |Kundenwunsch|… |alle|in Arbeit
-|… | Vorbereitung Präsentation|alle|in Arbeit
+|…     |Testplan aktualisieren|… |alle|in Arbeit
 
 |===
 
