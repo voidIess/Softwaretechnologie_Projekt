@@ -396,6 +396,35 @@ a|
 |StaffRole.Trainer
 |true
 
+|U-3-26
+|RosterEntry.roleToString
+|-
+|StaffRole.COUNTER, StaffRole.TRAINER
+|"Thekenkraft", "Trainer"
+
+|U-3-27
+|RosterEntry.roleToString
+|-
+|StaffRole.COUNTER, StaffRole.TRAINER
+|"Thekenkraft", "Trainer"
+
+|U-3-28
+|RosterEntry.stringToRole
+|-
+|"Thekenkraft", "Trainer"
+|StaffRole.COUNTER, StaffRole.TRAINER
+
+|U-3-29
+|RosterEntry.getRoleList
+|-
+|-
+|Liste mit StaffRole.COUNTER, StaffRole.TRAINER
+
+|U-3-30
+|RosterEntry.getWeekDatesByWeek
+|-
+|Derzeitige Kalenderwoche
+|Liste Datum der einzelnen Wochentage
 
 |I-3-01
 |RosterController.default
@@ -451,8 +480,6 @@ a|
 |Staff ID
 |-
 |===
-
-=== Mitarbeiterverwaltung
 
 === Artikelverwaltung
 
@@ -543,3 +570,6 @@ Ansprechpartner: Markus, Bill
 |Anwesenheitszeiten des Tages
 
 |===
+
+=== Mitarbeiterverwaltung
+
