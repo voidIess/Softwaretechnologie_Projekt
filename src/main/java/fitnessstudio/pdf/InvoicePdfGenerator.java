@@ -8,6 +8,7 @@ import fitnessstudio.contract.Contract;
 import fitnessstudio.invoice.InvoiceEntry;
 import fitnessstudio.invoice.InvoiceType;
 import fitnessstudio.member.Member;
+import fitnessstudio.staff.Staff;
 import org.javamoney.moneta.Money;
 
 import javax.money.format.MonetaryAmountFormat;
@@ -19,10 +20,23 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+/**
+ * Implementation of the general PDF generator to create a {@link Member}s invoice.
+ *
+ * @version 1.0
+ * @author Lea Haeusler
+ */
 public class InvoicePdfGenerator implements PdfGenerator {
 
 	public InvoicePdfGenerator() {}
 
+	/**
+	 * Generates and returns the invoice PDF document of the last month.
+	 *
+	 * @param invoice	needs keys type, member, startDate, startCredit, endDate and endCredit
+	 * @param d			document
+	 * @return payslip PDF document
+	 */
 	public static Document generatePdf(Map<String, Object> invoice, com.itextpdf.layout.Document d){
 
 		Member member = (Member) invoice.get("member");
