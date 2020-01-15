@@ -10,6 +10,9 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import java.time.LocalDate;
 
+/**
+ * Objekt eines Mitarbeiters im System
+ */
 @Entity
 public class Staff {
 
@@ -77,6 +80,10 @@ public class Staff {
 		return this.userAccount.getFirstname() + ", " + this.userAccount.getLastname();
 	}
 
+	/**
+	 * Ueberprueft, ob ein Mitarbeiter im letzten Monat gearbeitet hat.
+	 * @return true wenn er bereits gearbeitet hat, false wenn nicht.
+	 */
 	public boolean workedLastMonth() {
 		if (startDate == null) {    //staff wasn't saved yet
 			return false;

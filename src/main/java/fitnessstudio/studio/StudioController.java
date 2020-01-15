@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -29,6 +28,10 @@ public class StudioController {
 		this.contractManagement = contractManagement;
 	}
 
+	/**
+	 * @param model will never be {@literal null}.
+	 * @return the home page
+	 */
 	@GetMapping("/")
 	public String index(Model model) {
 		Studio studio = studioService.getStudio();
@@ -39,6 +42,7 @@ public class StudioController {
 		model.addAttribute("contractList", contractManagement.getAllContracts());
 		return "index";
 	}
+
 
 	// for keeping previous value in input field
 	@NotNull
@@ -66,6 +70,10 @@ public class StudioController {
 		};
 	}
 
+	/**
+	 * @param model will never be {@literal null}.
+	 * @return the edit studio page
+	 */
 	@PreAuthorize("hasRole('ROLE_BOSS')")
 	@GetMapping("/studio")
 	public String editStudio(Model model) {
@@ -76,6 +84,11 @@ public class StudioController {
 		return "studio";
 	}
 
+	/**
+	 * @param studioForm a template to enter the general information of the studio
+	 * @param model      will never be {@literal null}.
+	 * @return the studio page otherwise an error if the input is not correct (the advertising bonus is less than 0)
+	 */
 	@PreAuthorize("hasRole('ROLE_BOSS')")
 	@PostMapping("/studio")
 	public String editStudio(@Valid StudioForm studioForm, Model model) {

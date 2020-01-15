@@ -25,6 +25,12 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Implementation of business logic related to {@link Training}s.
+ * @author Bill Kippe
+ * @author Markus Wieland
+ * @version 1.0
+ */
 @Service
 @Transactional
 public class TrainingManagement {
@@ -37,15 +43,24 @@ public class TrainingManagement {
 	private final RosterManagement rosterManagement;
 	private final EmailService emailService;
 
+	/**
+	 * Creates a new {@link TrainingManagement} with then given variables.
+	 *
+	 * @param trainings must not be {@literal null}.
+	 * @param memberManagement must not be {@literal null}.
+	 * @param staffManagement must not be {@literal null}.
+	 * @param rosterManagement must not be {@literal null}.
+	 * @param emailService must not be {@literal null}.
+	 */
 	public TrainingManagement(TrainingRepository trainings, MemberManagement memberManagement,
 							  StaffManagement staffManagement, RosterManagement rosterManagement,
 							  EmailService emailService) {
 
-		Assert.notNull(trainings, "TrainingRepository must not be null");
-		Assert.notNull(memberManagement, "MemberManagement must not be null");
-		Assert.notNull(staffManagement, "StaffManagement must not be null");
-		Assert.notNull(rosterManagement, "RosterManagement must not be null");
-		Assert.notNull(emailService, "EmailService must not be null");
+		Assert.notNull(trainings, "TrainingRepository must not be null!");
+		Assert.notNull(memberManagement, "MemberManagement must not be null!");
+		Assert.notNull(staffManagement, "StaffManagement must not be null!");
+		Assert.notNull(rosterManagement, "RosterManagement must not be null!");
+		Assert.notNull(emailService, "EmailService must not be null!");
 
 		this.trainings = trainings;
 		this.memberManagement = memberManagement;
@@ -54,7 +69,18 @@ public class TrainingManagement {
 		this.emailService = emailService;
 	}
 
+	/**
+	 * Creates a new {@link Training} using the information given in the {@link TrainingForm} and the related member.
+	 *
+	 * @param member	member of training
+	 * @param form		form for creation
+	 * @param result	saves errors
+	 * @return the new {@link Training} instance.
+	 */
 	public Training createTraining(Member member, TrainingForm form, Errors result) {
+		Assert.notNull(member, "Member must not be null!");
+		Assert.notNull(form, "TrainingForm must not be null!");
+
 		var trainer = form.getStaff();
 		var time = form.getTime();
 		var day = form.getDay();
@@ -97,6 +123,11 @@ public class TrainingManagement {
 			time, Roster.DURATION, form.getDescription(), form.getWeek()));
 	}
 
+	/**
+	 * Declines the given Training with its ID.
+	 *
+	 * @param trainingId	ID of training
+	 */
 	public void decline(Long trainingId) {
 		Optional<Training> trainingOptional = findById(trainingId);
 		trainingOptional.ifPresent(training -> {
@@ -108,6 +139,12 @@ public class TrainingManagement {
 		});
 	}
 
+	/**
+	 * Accepts the given training when its requested.
+	 *
+	 * @param trainingId	ID of training
+	 * @return if its able to be declined.
+	 */
 	public boolean accept(Long trainingId) {
 		Training training = findById(trainingId).orElse(null);
 		if (training != null) {
@@ -134,6 +171,11 @@ public class TrainingManagement {
 		return false;
 	}
 
+	/**
+	 * Ends the given training when its already accepted.
+	 *
+	 * @param trainingId	ID of training
+	 */
 	public void end(Long trainingId) {
 		Optional<Training> trainingOptional = findById(trainingId);
 		trainingOptional.ifPresent(Training::end);
@@ -186,6 +228,9 @@ public class TrainingManagement {
 		return rosterManagement;
 	}
 
+	/**
+	 * Scheduled method to test every minute if trainings exists though membership is paused.
+	 */
 	@Scheduled(cron = "0 * * * * *")
 	public void checkTrainings() {
 		LOG.info("Updating trainings ..");

@@ -35,6 +35,12 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * Implementation of business logic related to {@link Member}s.
+ *
+ * @author Bill Kippe
+ * @author Lea Häusler
+ */
 @Service
 @Transactional
 public class MemberManagement {
@@ -51,6 +57,18 @@ public class MemberManagement {
 	private final InvoiceManagement invoiceManagement;
 	private final EmailService emailService;
 
+	/**
+	 * Creates a new {@link MemberManagement} instance with the given parameters.
+	 *
+	 * @param members 					Must not be {@literal null}.
+	 * @param userAccounts				Must not be {@literal null}.
+	 * @param contractManagement		Must not be {@literal null}.
+	 * @param studioService				Must not be {@literal null}.
+	 * @param statisticManagement		Must not be {@literal null}.
+	 * @param applicationEventPublisher	Must not be {@literal null}.
+	 * @param invoiceManagement			Must not be {@literal null}.
+	 * @param emailService				Must not be {@literal null}.
+	 */
 	MemberManagement(MemberRepository members, UserAccountManager userAccounts, ContractManagement contractManagement,
 					 StudioService studioService, StatisticManagement statisticManagement,
 					 ApplicationEventPublisher applicationEventPublisher, InvoiceManagement invoiceManagement,
@@ -75,6 +93,14 @@ public class MemberManagement {
 		this.emailService = emailService;
 	}
 
+	/**
+	 * Method which saves a new {@link Member} instance with parameters of the given form to the {@link MemberRepository}
+	 * or adds errors to the given result.
+	 *
+	 * @param form		form of the registration input
+	 * @param result	errors
+	 * @return created {@link Member} instance
+	 */
 	public Member createMember(RegistrationForm form, Errors result) {
 		Assert.notNull(form, "Registration form must not be null");
 
@@ -143,23 +169,39 @@ public class MemberManagement {
 	 * @param form Formular mit den Angaben zur Einladung
 	 */
 	public void inviteFriend(FriendInviteForm form){
-		emailService.sendFriendInvite(form.getEmail(), form.getFriendsname(), form.getFriendsId());
+		emailService.sendFriendInvite(form.getEmail(), form.getFriendsName(), form.getFriendsId());
 	}
 
+	/**
+	 * Deletes the given member from the {@link MemberRepository}.
+	 * @param memberId ID of member
+	 */
 	public void deleteMember(Long memberId) {
 		Optional<Member> member = findById(memberId);
 		member.ifPresent(members::delete);
 	}
 
+	/**
+	 * Enables member and sends acceptation email.
+	 * @param memberId ID of member
+	 */
 	public void authorizeMember(Long memberId) {
 		Optional<Member> optionalMember = findById(memberId);
 		optionalMember.ifPresent(member -> {
 			member.authorize();
-			//emailService.sendAccountAcceptation(member.getUserAccount().getEmail(), member.getFirstName());
+			emailService.sendAccountAcceptation(member.getUserAccount().getEmail(), member.getFirstName());
 			statisticManagement.addRevenue(memberId, member.getContract().getContractId());
 		});
 	}
 
+	/**
+	 * Changes attributes of member to inputs from the given form
+	 * or adds errors to the given result.
+	 *
+	 * @param memberId	ID of member
+	 * @param form		form of input to edit member
+	 * @param result	errors
+	 */
 	public void editMember(Long memberId, EditingForm form, Errors result) {
 		Assert.notNull(form, "EditingForm form must not be null");
 
@@ -197,6 +239,13 @@ public class MemberManagement {
 		}
 	}
 
+	/**
+	 * Returns an editing form with the current member attributes.
+	 *
+	 * @param member	member
+	 * @param form		input form to edit member
+	 * @return form with current member attributes
+	 */
 	EditingForm preFillMember(Member member, EditingForm form) {
 		if (form.isEmpty()) {
 			return new EditingForm(
@@ -209,10 +258,18 @@ public class MemberManagement {
 		return form;
 	}
 
+	/**
+	 * Returns all {@link Member}s saved in the {@link MemberRepository}.
+	 * @return all {@link Member}s
+	 */
 	public Streamable<Member> findAll() {
 		return members.findAll();
 	}
 
+	/**
+	 * Returns all {@link Member}s saved in the {@link MemberRepository} who aren't enabled.
+	 * @return all not enabled {@link Member}s
+	 */
 	public List<Member> findAllUnauthorized() {
 		return userAccounts.findDisabled()
 			.stream().map(this::findByUserAccount)
@@ -220,6 +277,10 @@ public class MemberManagement {
 				.flatMap(Stream::of)).collect(Collectors.toList());
 	}
 
+	/**
+	 * Returns all enabled {@link Member}s saved in the {@link MemberRepository}.
+	 * @return all enabled {@link Member}s
+	 */
 	public List<Member> findAllAuthorized(String search) {
 		if (search == null) {
 			search = "";
@@ -233,20 +294,32 @@ public class MemberManagement {
 			.collect(Collectors.toList());
 	}
 
+	/**
+	 * Returns all attendant {@link Member}s saved in the {@link MemberRepository}.
+	 * @return all attendant {@link Member}s
+	 */
 	public List<Member> findAllAttendant() {
 		return findAll().filter(Member::isAttendant).toList();
 	}
 
+	/**
+	 * Returns {@link Member} with the given memberId if saved in the {@link MemberRepository}.
+	 * @return {@link Member} with given memberId
+	 */
 	public Optional<Member> findById(long id) {
 		return members.findById(id);
 	}
 
+	/**
+	 * Returns {@link Member} referred to the given user account if saved in the {@link MemberRepository}.
+	 * @return {@link Member} with given user account
+	 */
 	public Optional<Member> findByUserAccount(UserAccount userAccount) {
 		return members.findByUserAccount(userAccount);
 	}
 
 	/**
-	 * Method to deposit money from member's {@link CreditAccount}.
+	 * Method to deposit money to member's {@link CreditAccount}.
 	 *
 	 * @param memberId ID of member
 	 * @param amount   amount of money to deposit
@@ -265,7 +338,7 @@ public class MemberManagement {
 	}
 
 	/**
-	 * Method to withdraw money to member's {@link CreditAccount}.
+	 * Method to withdraw money from member's {@link CreditAccount}.
 	 *
 	 * @param memberId    ID of member
 	 * @param amount      amount of money to withdraw
@@ -284,6 +357,14 @@ public class MemberManagement {
 		}
 	}
 
+	/**
+	 * Creates and returns the values to be printed on the invoice PDF
+	 * of the member referred to the given user account.
+	 * @see fitnessstudio.pdf.InvoicePdfGenerator
+	 *
+	 * @param account logged in account
+	 * @return values to be printed on invoice PDF
+	 */
 	Map<String, Object> createPdfInvoice(UserAccount account) {
 
 		Optional<Member> opt = members.findByUserAccount(account);
@@ -295,21 +376,22 @@ public class MemberManagement {
 		map.put("member", member);
 
 		LocalDate endDate = LocalDate.now().minusDays(LocalDate.now().getDayOfMonth());
-		System.out.println("e; " + endDate);
 		map.put("endDate", endDate);
 		map.put("endCredit", getMemberCreditOfDate(member, endDate));
 
 		LocalDate startDate = endDate.minusDays(endDate.getDayOfMonth()).plusDays(1);
 		map.put("startDate", startDate);
 		map.put("startCredit", getMemberCreditOfDate(member, startDate));
-		System.out.println("s; " + startDate);
 
 		map.put("invoiceEntries", invoiceManagement.getAllInvoiceForMemberOfLastMonth(member.getMemberId()));
 
 		return map;
 	}
 
-
+	/**
+	 * Sets member with the given ID to attendant.
+	 * @param memberId ID of member
+	 */
 	public void checkMemberIn(Long memberId) {
 		Optional<Member> member = findById(memberId);
 		if (member.isPresent() && !member.get().isPaused() && !member.get().isAttendant()) {
@@ -317,6 +399,10 @@ public class MemberManagement {
 		}
 	}
 
+	/**
+	 * Sets member with the given ID to not attendant.
+	 * @param memberId ID of member
+	 */
 	public void checkMemberOut(Long memberId) {
 		Optional<Member> member = findById(memberId);
 		if (member.isPresent() && !member.get().isPaused() && member.get().isAttendant()) {
@@ -324,6 +410,10 @@ public class MemberManagement {
 		}
 	}
 
+	/**
+	 * Calls {@link Member#trainFree()} of given member and saves in {@link MemberRepository}.
+	 * @param member member to be trail trained
+	 */
 	public void trainFree(Member member) {
 		member.trainFree();
 		members.save(member);
@@ -348,6 +438,12 @@ public class MemberManagement {
 		}
 	}
 
+	/**
+	 * Returns text with current state of {@link Contract} of the given member.
+	 *
+	 * @param member member
+	 * @return "Mitgliedschaft pausiert bis &lt;date&gt;" or "Mitglied bis &lt;date&gt;"
+	 */
 	public String getContractTextOfMember(Member member) {
 		DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 		if (member.isPaused()) {
@@ -357,6 +453,10 @@ public class MemberManagement {
 		}
 	}
 
+	/**
+	 * Pauses the membership of the given member for 31 days and saves to {@link MemberRepository}.
+	 * @param member member to pause
+	 */
 	public void pauseMembership(Member member) {
 		if (member.pause(LocalDate.now())) {
 			applicationEventPublisher.publishEvent(new InvoiceEvent(this, member.getMemberId(),
@@ -367,6 +467,12 @@ public class MemberManagement {
 		}
 	}
 
+	/**
+	 * Checks if user account with the given email exists in the {@link MemberRepository}.
+	 *
+	 * @param email email address to be checked
+	 * @return boolean whether email exists
+	 */
 	boolean emailExists(String email) {
 		for (UserAccount userAccount : userAccounts.findAll()) {
 			String userAccountEmail = userAccount.getEmail();
@@ -377,6 +483,13 @@ public class MemberManagement {
 		return false;
 	}
 
+	/**
+	 * Returns the {@link CreditAccount} balance of the given member on the given date in euro.
+	 *
+	 * @param member	member to get credit
+	 * @param date		date to get credit
+	 * @return balance of {@link CreditAccount}
+	 */
 	public Money getMemberCreditOfDate(Member member, LocalDate date) {
 		Money credit = Money.of(0, "EUR");
 		if (date.isBefore(member.getMembershipStartDate())) {

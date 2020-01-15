@@ -20,6 +20,9 @@ import javax.validation.constraints.NotEmpty;
 import java.math.BigDecimal;
 import java.util.Optional;
 
+/**
+ * Spring MVC Controller fuer Anfragen auf Mitarbeiter
+ */
 @Controller
 public class StaffController {
 
@@ -38,6 +41,11 @@ public class StaffController {
 		this.staffManagement = staffManagement;
 	}
 
+	/**
+	 * Liste aller bestehenden Mitarbeiter
+	 * @param model Model der Seite
+	 * @return HTML-Template staffList mit allen Mitarbeitern
+	 */
 	@PreAuthorize("hasRole('BOSS') ")
 	@GetMapping("/staffs")
 	public String getAllStaffs(Model model) {
@@ -45,6 +53,12 @@ public class StaffController {
 		return STAFFS;
 	}
 
+	/**
+	 * Details eines Mitarbeiters
+	 * @param id ID des Mitarbeiters
+	 * @param model Model der Seite
+	 * @return HTML-Templatae staffDetail mit Details des Mitarbeiters. ERROR bei Fehler.
+	 */
 	@PreAuthorize("hasRole('BOSS') ")
 	@GetMapping("/staff/{id}")
 	public String detail(@PathVariable long id, Model model) {
@@ -64,6 +78,13 @@ public class StaffController {
 		return ERROR;
 	}
 
+	/**
+	 * Mitarbeiter hinzufuegen
+	 * @param model Model der Seite mit Formular
+	 * @param form Formular fuer die Angaben zum Mitarbeiter
+	 * @param results Fehler beim Erstellen des Mitarbeiters.
+	 * @return HTML-Template add_staff
+	 */
 	@PreAuthorize("hasRole('BOSS') ")
 	@GetMapping("/newStaff")
 	public String addStaff(Model model, StaffForm form, Errors results) {
@@ -73,6 +94,13 @@ public class StaffController {
 	}
 
 
+	/**
+	 * Onlineauftrag zum Erstellen des Mitarbeiters
+	 * @param form Formular mit Angaben zum Mitarbeiter
+	 * @param model Model der Seite für eventuelle Korrekturen
+	 * @param result Fehler, die beim Erstellen aufgetreten sind
+	 * @return Bei Fehlern redirect auf addStaff, wenn nicht redirect auf Startseite
+	 */
 	@PreAuthorize("hasRole('BOSS') ")
 	@PostMapping("/newStaff")
 	public String addStaff(@Valid @ModelAttribute("form") StaffForm form, Model model, Errors result) {
@@ -86,6 +114,12 @@ public class StaffController {
 	}
 
 
+	/**
+	 * Mitarbeiter bearbeiten
+	 * @param id ID des Mitarbeiters
+	 * @param model Model der Seite
+	 * @return ERROR wenn Mitarbeiter nicht exisitiert, sonst HTML-Template editStaff
+	 */
 	@PreAuthorize("hasRole('STAFF') ")
 	@GetMapping("/staff/edit/{id}")
 	public String editStaff(@PathVariable long id, Model model) {
@@ -123,6 +157,13 @@ public class StaffController {
 		};
 	}
 
+	/**
+	 * Online Auftrag zum Bearbeiten des Mitarbeiters
+	 * @param id ID des Mitarbeiters
+	 * @param form Formular mit Aenderungen am Mitarbeiter
+	 * @param model Model der Seite
+	 * @return Wenn Änderungen erfolgreich redirect zum Bearbeiten, sonst ERROR
+	 */
 	@PreAuthorize("hasRole('STAFF') ")
 	@PostMapping("/staff/edit/{id}")
 	public String editStaff(@PathVariable long id, @Valid EditStaffForm form, Model model) {
@@ -140,6 +181,12 @@ public class StaffController {
 		return ERROR;
 	}
 
+	/**
+	 * Gehalt des Mitarbeiters bearbeiten
+	 * @param id ID des Mitarbeiters
+	 * @param form Formular mit Aenderungen
+	 * @return ERROR bei Fehler, sonst redirect zu Mitarbeiter Uebersicht
+	 */
 	@PreAuthorize("hasRole('BOSS') ")
 	@PostMapping("/staff/update/{id}")
 	public String editSalary(@PathVariable long id, @Valid SalaryForm form) {
@@ -154,6 +201,12 @@ public class StaffController {
 	}
 
 
+	/**
+	 * Details des eingeloggten Mitarbeiters anzeigen
+	 * @param userAccount userAccount des derzeitig eingeloggten Mitarbeiters
+	 * @param model Model der Seite
+	 * @return HTML-Template staffDetail, bei Fehlern redirect aufs Login
+	 */
 	@GetMapping("/staffDetail")
 	public String getAccount(@LoggedIn Optional<UserAccount> userAccount, Model model) {
 
@@ -169,6 +222,13 @@ public class StaffController {
 		}).orElse(REDIRECT);
 	}
 
+	/**
+	 * Zeigt den Gehaltsschein des eingeloggten Mitarbeiters als PDF an
+	 * @param userAccount derzeitig eingeloggter userAccount
+	 * @param model Model der Seite
+	 * @return HTML-Template pdfView wenn es einen Lohnschein gibt. Redirect auf staffDetail wenn es keinen gibt.
+	 * Redirect zu Login wenn es UserAccount nicht gibt
+	 */
 	@PreAuthorize("hasRole('STAFF')")
 	@PostMapping("/printPdfPayslip")
 	public String printPdfPayslip(@LoggedIn Optional<UserAccount> userAccount, Model model) {

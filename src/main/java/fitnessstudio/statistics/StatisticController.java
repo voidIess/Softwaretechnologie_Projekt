@@ -11,6 +11,7 @@ import java.time.LocalDate;
 /**
  * Spring MVC Controller to show the statistics.
  *
+ * @version 1.0
  * @author Lea Haeusler
  */
 @Controller

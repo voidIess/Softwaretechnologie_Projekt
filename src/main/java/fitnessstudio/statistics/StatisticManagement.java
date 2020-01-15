@@ -22,6 +22,7 @@ import java.util.Optional;
 /**
  * Implementation of the logic to analyse and manage the statistic data.
  *
+ * @version 1.0
  * @author Lea Haeusler
  */
 @Service
@@ -159,7 +160,7 @@ public class StatisticManagement {
 	}
 
 	/**
-	 * Returns the earnings through article sales of the given date in euros.
+	 * Returns the earnings through article sales of the given date in euro.
 	 *
 	 * @param date	date
 	 * @return earnings of the given date
@@ -176,7 +177,7 @@ public class StatisticManagement {
 	}
 
 	/**
-	 * Returns an Array of the daily earnings through article sales of this week in euros.
+	 * Returns an Array of the daily earnings through article sales of this week in euro.
 	 *
 	 * @return earnings of the given date
 	 */
@@ -191,7 +192,7 @@ public class StatisticManagement {
 	}
 
 	/**
-	 * Returns the monthly costs of staff salaries as an absolute value in euros.
+	 * Returns the monthly costs of staff salaries as an absolute value in euro.
 	 *
 	 * @return monthly costs of staff salaries
 	 */
@@ -206,7 +207,7 @@ public class StatisticManagement {
 	}
 
 	/**
-	 * Returns the monthly income through membership contracts as an absolute value in euros.
+	 * Returns the monthly income through membership contracts as an absolute value in euro.
 	 *
 	 * @return monthly income through membership contracts
 	 */

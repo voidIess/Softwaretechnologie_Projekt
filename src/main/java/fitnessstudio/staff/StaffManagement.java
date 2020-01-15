@@ -11,6 +11,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+
+/**
+ * Verwaltet Mitarbeiter
+ */
 @Service
 @Transactional
 public class StaffManagement {
@@ -35,6 +39,12 @@ public class StaffManagement {
 		return staffs;
 	}
 
+	/**
+	 * Einen neuen Mitarbeiter erstellen
+	 * @param form Ausgefülltes Formular mit Angaben zum Mitarbeiter
+	 * @param result Fehler, die beim Erstellen des Mitarbeiters auftreten
+	 * @return Objekt des erstellten Mitarbeiters.
+	 */
 	public Staff createStaff(StaffForm form, Errors result) {
 		Staff staff = null;
 		try {
@@ -61,10 +71,18 @@ public class StaffManagement {
 		return staff;
 	}
 
+	/**
+	 * Speichert Aenderungen an einem Mitarbeiter im Repository
+	 * @param staff Mitarbeiter mit Aenderungen
+	 */
 	public void saveStaff(Staff staff) {
 		staffRepo.save(staff);
 	}
 
+	/**
+	 * Entfernt Mitarbeiter
+	 * @param id ID des Mitarbeiters
+	 */
 	public void removeStaff(long id) {
 		Optional<Staff> staffs = this.findById(id);
 		if (staffs.isPresent()) {
@@ -77,14 +95,29 @@ public class StaffManagement {
 		}
 	}
 
+	/**
+	 * Findet einen Mitarbeiter anhand seines Spring UserAccounts.
+	 * @param userAccount userAccount, nachdem gesucht wird.
+	 * @return Ergebnis der Suche
+	 */
 	public Optional<Staff> findByUserAccount(UserAccount userAccount) {
 		return staffRepo.findByUserAccount(userAccount);
 	}
 
+	/**
+	 * Findet einen Mitarbeiter anhand seiner ID
+	 * @param staffId ID des Mitarbeiters
+	 * @return
+	 */
 	public Optional<Staff> findById(Long staffId) {
 		return staffRepo.findById(staffId);
 	}
 
+	/**
+	 * Ueberprueft, ob es bereits einen Mitarbeiter mit einer bestimmten Email Adresse gibt
+	 * @param email Email Adresse mit der die existierenden verglichen werden sollen.
+	 * @return true wenn vorhanden, false wenn noch nicht vorhanden.
+	 */
 	boolean emailExists(String email) {
 		for (UserAccount userAccount : userAccountManager.findAll()) {
 			String userAccountEmail = userAccount.getEmail();

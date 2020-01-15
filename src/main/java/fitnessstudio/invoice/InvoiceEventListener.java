@@ -8,6 +8,12 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
+/**
+ * {@link ApplicationListener} for {@link InvoiceEvent}s, creates new {@link InvoiceEntry}s.
+ *
+ * @author Bill Kippe
+ * @version 1.0
+ */
 @Component
 public class InvoiceEventListener implements ApplicationListener<InvoiceEvent> {
 	private static final Logger LOG = LoggerFactory.getLogger(InvoiceEventListener.class);

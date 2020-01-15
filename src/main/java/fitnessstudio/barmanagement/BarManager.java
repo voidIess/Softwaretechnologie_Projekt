@@ -18,6 +18,10 @@ import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.Objects;
 
+
+/**
+ * This manager acts as a backend for the stock management
+ */
 @Service
 @Transactional
 public class BarManager {
@@ -39,10 +43,18 @@ public class BarManager {
 		this.catalog = catalog;
 	}
 
+	/**
+	 * @return all items which are expired by the time of this call
+	 */
 	public InventoryItems<ExpiringInventoryItem> getExpiredItems() {
 		return inventory.findByExpirationDateAfterOrderByExpirationDateAsc(LocalDate.now());
 	}
 
+	/**
+	 * @param article article to add
+	 * @param quantity in which quantity to add the article to the cart
+	 * @param cart the in which the items should be added
+	 */
 	public void addArticleToCart(Article article, Quantity quantity, Cart cart) {
 
 		Quantity inventoryQuantity = inventory.findByProduct(article).getTotalQuantity();
@@ -58,11 +70,16 @@ public class BarManager {
 
 	}
 
+	/**
+	 * @return get all kinds of articles in the database
+	 */
 	public Iterable<Article> getAllArticles() {
 		return catalog.findAll();
 	}
 
-	// return articles, which are in stock and not expired
+	/**
+	 * @return articles, which are in stock and not expired
+	 */
 	public Streamable<UniqueInventoryItem> getAvailableArticles() {
 		Streamable<UniqueInventoryItem> items = Streamable.of(catalog.findAll())
 				.map(x -> new UniqueInventoryItem(x, inventory.findByProductAndExpirationDateAfter(x, LocalDate.now())
@@ -73,21 +90,37 @@ public class BarManager {
 		return items;
 	}
 
+	/**
+	 * this will add a new kind of article
+	 * @param article the article to add to the database
+	 */
 	public void addNewArticleToCatalog(Article article) {
 		catalog.save(article);
 	}
 
+	/**
+	 * remove an article and its corresponding stock
+ 	 * @param id id of the article to be removed
+	 */
 	public void removeArticleFromCatalog(ProductIdentifier id) {
 		inventory.deleteAll(inventory.findByProductIdentifier(id));
 		catalog.deleteById(id);
 	}
 
+	/**
+	 * remove the items which are expired by the time of the call
+	 */
 	public void removeExpiredArticlesFromInventory() {
 		inventory.deleteAll(this.getExpiredItems());
 
 	}
 
-
+	/**
+	 * this will restoch the corresponding article register their expiration date
+	 * @param quantity the amount which will be added again
+	 * @param article the article which is gone be restocked
+	 * @param expirationDate when will this pile of stock be expired
+	 */
 	public void restockInventory(Quantity quantity, Article article, LocalDate expirationDate) {
 		if (!quantity.equals(Quantity.NONE)) {
 			ExpiringInventoryItem item = inventory.findByProduct(article).stream()
@@ -99,12 +132,19 @@ public class BarManager {
 		}
 	}
 
+	/**
+	 * @return a list of {@link Article}, where the omonunt of non expired items is below the specific sufficient quantity
+	 */
 	public Streamable<Article> getLowStockArticles() {
 		return Streamable.of(catalog.findAll()).filter(
 				article -> article.getSufficientQuantity().isGreaterThanOrEqualTo(
 					inventory.findByProductAndExpirationDateAfter(article, LocalDate.now()).getTotalQuantity()));
 	}
 
+	/**
+	 * @param article the article to gather information about
+	 * @return the {@link Quantity} of non expired stock
+	 */
 	public Quantity getArticleQuantity(Article article) {
 		return inventory.findByProductAndExpirationDateAfter(article, LocalDate.now()).getTotalQuantity();
 	}
@@ -113,6 +153,18 @@ public class BarManager {
 		return catalog.findById(id).orElse(new Article());
 	}
 
+	/**
+	 * this will edit information about an existing article and save it to the database
+	 * @param id
+	 * @param name
+	 * @param type
+	 * @param description
+	 * @param price
+	 * @param sufficientQuantity
+	 * @param startDate
+	 * @param percent
+	 * @param endDate
+	 */
 	public void editArticle(ProductIdentifier id, String name, String type, String description,
 							MonetaryAmount price, Quantity sufficientQuantity, LocalDate startDate, int percent,
 							LocalDate endDate) {
@@ -135,6 +187,12 @@ public class BarManager {
 
 	}
 
+	/**
+	 *
+	 * @param id of the corresponding {@link Article}
+	 * @param quantity
+	 * @return true if there is more stock available than given
+	 */
 	public boolean stockAvailable(ProductIdentifier id, Quantity quantity) {
 		Article article = getById(id);
 		Quantity stockQuantity = getArticleQuantity(article);
@@ -142,7 +200,10 @@ public class BarManager {
 		return !stockQuantity.isLessThan(quantity);
 	}
 
-	// this will remove non-expired articles from the inventory
+	/** this will remove a pile non-expired articles from the inventory
+	 * @param id of the corresponding {@link Article}
+	 * @param quantity
+	 */
 	public void removeStock(ProductIdentifier id, Quantity quantity) {
 		// abort if there isnt enough Quantity anyway
 		if (!stockAvailable(id, quantity)) {

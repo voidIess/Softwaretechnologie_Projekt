@@ -2,6 +2,9 @@ package fitnessstudio.staff;
 
 import javax.validation.constraints.NotEmpty;
 
+/**
+ * Formular fuer Angaben zu Aenderungen am Mitarbeiter
+ */
 public interface EditStaffForm {
 
 	@NotEmpty(message = "Vorname ist leer.")

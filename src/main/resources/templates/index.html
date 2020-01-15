@@ -102,14 +102,16 @@
     <h3>Unsere Öffnungszeiten : </h3>
 
     <div>
-        <textarea rows="8" cols="31" readonly th:text="${openingTimes}"></textarea>
+        <label>
+            <textarea rows="8" cols="31" readonly th:text="${openingTimes}"></textarea>
+        </label>
     </div>
     <h3>Alle Informationen : </h3>
     <label>Adresse:</label> <label th:text="${address}"></label> <br>
     <label>Werbebonus:</label> <label th:text="${advertisingBonus}"></label> <label>€</label> <br>
     <div>
         <div th:each="contract : ${contractList}">
-            <label th:text="${contract.name}">Name</label>: <label th:text="${contract.price}">Preis</label>
+            <label th:text="${contract.name}">Name</label><label>:</label> <label th:text="${contract.price}">Preis</label>
             <label>(Vertragslaufzeit:</label> <label th:text="${contract.duration}">Dauer</label><label>
             Tagen)</label><br>
         </div>
