@@ -16,6 +16,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.fail;
 
+/**
+ * Tests fuer Roster
+ */
 @SpringBootTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class RosterTest {
@@ -36,6 +39,9 @@ public class RosterTest {
 		rosterEntryTrainerOtherStaff = new RosterEntry(StaffRole.TRAINER, staff2);
 	}
 
+	/**
+	 * U-3-06
+	 */
 	@Test
 	@Order(1)
 	void constructorTest () {
@@ -65,6 +71,11 @@ public class RosterTest {
 
 	}
 
+	/**
+	 * U-3-01
+	 * U-3-02
+	 * U-3-03
+	 */
 	@Test
 	@Order(2)
 	void addEntry () {
@@ -116,6 +127,10 @@ public class RosterTest {
 
 	}
 
+	/**
+	 * U-3-04
+	 * U-3-05
+	 */
 	@Test
 	@Order(3)
 	void testDelete() {

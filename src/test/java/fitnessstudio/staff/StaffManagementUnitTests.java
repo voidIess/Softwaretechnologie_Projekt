@@ -12,6 +12,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+/**
+ * UnitTests fuer Staff Package
+ */
 @SpringBootTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -36,6 +39,9 @@ public class StaffManagementUnitTests {
 		staff = new Staff(account, "Markus", "Wieland", Money.of(100, "EUR"));
 	}
 
+	/**
+	 * U-7-01
+	 */
 	@Test
 	@Order(1)
 	void testCreateStaff() {
@@ -44,6 +50,9 @@ public class StaffManagementUnitTests {
 		assertThat(repository.findById(staff.getStaffId())).isNotEmpty();
 	}
 
+	/**
+	 * U-7-02
+	 */
 	@Test
 	void setFirstNameTest() {
 		staff.setFirstName("cristiano");
