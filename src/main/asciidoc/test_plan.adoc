@@ -360,6 +360,43 @@ a|
 |-
 |false
 
+|U-3-20
+|RosterEntry.constructor
+|-
+| null
+| IllegalArgumentException
+
+|U-3-21
+|RosterEntry.compareToTest
+|-
+|RosterEntry Counter, RosterEntry Trainer
+|true
+
+|U-3-22
+|RosterEntry.toString
+|-
+|RosterEntry Counter, RosterEntry Trainer
+|true
+
+|U-3-23
+|RosterEntry.isTrainer
+|RosterEntry mit Rolle Counter
+|RosterEntry Counter
+|false
+
+|U-3-24
+|RosterEntry.setTraining
+|RosterEntry mit Rolle Counter
+|RosterEntry Counter
+|IllegalArgumentExcpetion
+
+|U-3-25
+|RosterEntry.setRole
+|RosterEntry mit Rolle Counter
+|StaffRole.Trainer
+|true
+
+
 |I-3-01
 |RosterController.default
 |Staffs sollen mit /roster auf Dienstplan der jetzigen Woche
@@ -413,9 +450,9 @@ a|
 |Staff muss existieren.
 |Staff ID
 |-
-
-
 |===
+
+=== Mitarbeiterverwaltung
 
 === Artikelverwaltung
 
