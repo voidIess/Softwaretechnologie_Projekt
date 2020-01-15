@@ -3,7 +3,6 @@ package fitnessstudio.pdf;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
-import com.itextpdf.layout.property.TextAlignment;
 import com.itextpdf.layout.property.UnitValue;
 import fitnessstudio.contract.Contract;
 import fitnessstudio.invoice.InvoiceEntry;
@@ -11,7 +10,6 @@ import fitnessstudio.invoice.InvoiceType;
 import fitnessstudio.member.Member;
 import org.javamoney.moneta.Money;
 
-import javax.money.MonetaryAmount;
 import javax.money.format.MonetaryAmountFormat;
 import javax.money.format.MonetaryFormats;
 import java.time.LocalDate;
@@ -23,7 +21,7 @@ import java.util.Map;
 
 public class InvoicePdfGenerator implements PdfGenerator {
 
-	private InvoicePdfGenerator() {}
+	public InvoicePdfGenerator() {}
 
 	public static Document generatePdf(Map<String, Object> invoice, com.itextpdf.layout.Document d){
 

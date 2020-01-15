@@ -240,12 +240,11 @@ public class MemberController {
 	 * Redirects the user to the activated members overview.
 	 *
 	 * @param id	member id
-	 * @param model	page model
 	 * @return activated members overview
 	 */
 	@GetMapping("/member/delete/{id}")
 	@PreAuthorize("hasRole('STAFF')")
-	public String delete(@PathVariable long id, Model model) {
+	public String delete(@PathVariable long id) {
 		memberManagement.deleteMember(id);
 		return "redirect:/admin/authorizeMember";
 	}
@@ -255,12 +254,11 @@ public class MemberController {
 	 * Redirects the user to the activated members overview.
 	 *
 	 * @param id	ID of member
-	 * @param model page model
 	 * @return activated members overview
 	 */
 	@GetMapping("/member/authorize/{id}")
 	@PreAuthorize("hasRole('STAFF')")
-	public String authorize(@PathVariable long id, Model model) {
+	public String authorize(@PathVariable long id) {
 		memberManagement.authorizeMember(id);
 		return "redirect:/admin/authorizeMember";
 	}

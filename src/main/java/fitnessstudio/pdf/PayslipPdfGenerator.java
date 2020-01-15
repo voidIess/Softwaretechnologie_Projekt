@@ -15,7 +15,7 @@ import java.util.Map;
 
 public class PayslipPdfGenerator implements PdfGenerator {
 
-	private PayslipPdfGenerator() {}
+	public PayslipPdfGenerator() {}
 
 	public static Document generatePdf(Map<String, Object> payslip, Document d) {
 
