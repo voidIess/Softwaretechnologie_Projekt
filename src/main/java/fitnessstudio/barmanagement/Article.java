@@ -12,6 +12,9 @@ import javax.persistence.FetchType;
 import javax.persistence.OneToOne;
 import java.util.Optional;
 
+/**
+ * represents an article in the bar
+ */
 @Entity
 public class Article extends Product {
 
@@ -27,6 +30,16 @@ public class Article extends Product {
 	public Article() {
 	}
 
+	/**
+	 * generates an Article which is the
+	 *
+	 * @param name               Name of the article
+	 * @param price              Unreduced price of the article
+	 * @param type               Category for our article
+	 * @param description        Description of the article
+	 * @param sufficientQuantity If the stock gets below this quantity,
+	 *                           it will be shown as an article, which needs to be restock
+	 */
 	public Article(String name, MonetaryAmount price, String type, String description, Quantity sufficientQuantity) {
 		super(name, price);
 		this.type = type;
@@ -34,6 +47,10 @@ public class Article extends Product {
 		this.sufficientQuantity = sufficientQuantity;
 	}
 
+	/**
+	 * @return returns current price with the reductions already applied
+	 * @see org.salespointframework.catalog.Product#getPrice()
+	 */
 	@NotNull
 	@Override
 	public MonetaryAmount getPrice() {
@@ -46,44 +63,72 @@ public class Article extends Product {
 
 	}
 
-
+	/**
+	 * @return type
+	 */
 	public String getType() {
 		return type;
 	}
 
-
+	/**
+	 * @param type set the type of article
+	 */
 	public void setType(String type) {
 		this.type = type;
 	}
 
+	/**
+	 * @return description of article
+	 */
 	public String getDescription() {
 		return description;
 	}
 
+	/**
+	 * @param description set the description of article
+	 */
 	public void setDescription(String description) {
 		this.description = description;
 	}
 
+	/**
+	 * @return sufficient quantity of article
+	 */
 	public Quantity getSufficientQuantity() {
 		return sufficientQuantity;
 	}
 
+	/**
+	 * @param sufficientQuantity sets the sufficientQuantity of article
+	 */
 	public void setSufficientQuantity(Quantity sufficientQuantity) {
 		this.sufficientQuantity = sufficientQuantity;
 	}
 
+	/**
+	 * @return OptionalDiscount
+	 */
 	public Optional<Discount> getOptDiscount() {
 		return Optional.ofNullable(discount);
 	}
 
+	/**
+	 * @return discount of the article
+	 */
 	public Discount getDiscount() {
 		return discount;
 	}
 
+	/**
+	 * @param discount sets the discount of article
+	 */
 	public void setDiscount(Discount discount) {
 		this.discount = discount;
 	}
 
+	/**
+	 * @return string of the discount
+	 */
 	public String getDiscountString() {
 		return hasDiscount() ? discount.toString() : "";
 	}

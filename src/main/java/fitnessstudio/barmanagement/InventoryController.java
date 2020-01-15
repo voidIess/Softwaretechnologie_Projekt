@@ -50,6 +50,11 @@ public class InventoryController {
 		this.discountRepository = discountRepository;
 	}
 
+	/**
+	 * list all items which need to be reordered
+	 * @param model
+	 * @return
+	 */
 	@PreAuthorize("hasRole('STAFF')")
 	@GetMapping("/reorders")
 	public String reorders(Model model) {
@@ -60,6 +65,12 @@ public class InventoryController {
 
 //----------------------------------------Add article-------------------------------------------------------------------
 
+	/**
+	 * formu for adding a new article
+	 * @param model
+	 * @param form
+	 * @return
+	 */
 	@PreAuthorize("hasRole('STAFF')")
 	@GetMapping("/article")
 	public String addArticle(Model model, CreateArticleForm form) {
@@ -67,6 +78,13 @@ public class InventoryController {
 		return "bar/add_article";
 	}
 
+	/**
+	 * Post mapping which will add a new article
+	 * @param form
+	 * @param model
+	 * @return
+	 * @throws DateTimeParseException
+	 */
 	@PreAuthorize("hasRole('STAFF')")
 	@PostMapping("/article")
 	@Transactional
@@ -108,6 +126,11 @@ public class InventoryController {
 
 //----------------------------------------delete article----------------------------------------------------------------
 
+	/**
+	 * post mapping wich will delete an article
+	 * @param id
+	 * @return
+	 */
 	@PreAuthorize("hasRole('STAFF')")
 	@PostMapping("/article/delete/{id}")
 	public String removeArticle(@PathVariable ProductIdentifier id) {
@@ -117,6 +140,13 @@ public class InventoryController {
 	}
 	//-------------------------------------restockArticle---------------------------------------------------------------
 
+	/**
+	 * the ui dialog for restoching an article
+	 * @param id
+	 * @param form
+	 * @param model
+	 * @return
+	 */
 	@PreAuthorize("hasRole('STAFF')")
 	@GetMapping("/article/restock/{id}")
 	public String restockArticle(@PathVariable ProductIdentifier id, QuantityForm form, Model model) {
@@ -127,6 +157,13 @@ public class InventoryController {
 		return "bar/restock_article";
 	}
 
+	/**
+	 * the post mapping for restocking an article
+	 * @param id
+	 * @param form
+	 * @param model
+	 * @return
+	 */
 	@PreAuthorize("hasRole('STAFF')")
 	@PostMapping("/article/restock/{id}")
 	public String restockArticlePost(@PathVariable ProductIdentifier id, @Valid QuantityForm form, Model model) {
@@ -144,6 +181,12 @@ public class InventoryController {
 
 //----------------------------------------edit article-----------------------------------------------------------------
 
+	/**
+	 * overview of the details of an article
+	 * @param id
+	 * @param model
+	 * @return
+	 */
 	@PreAuthorize("hasRole('STAFF')")
 	@GetMapping("/article/detail/{id}")
 	public String editArticle(@PathVariable ProductIdentifier id, Model model) {
@@ -155,7 +198,13 @@ public class InventoryController {
 		return "bar/edit_article";
 	}
 
-	// post mapping for editing
+	/**
+	 * post mapping for editing
+	 * @param id
+	 * @param form
+	 * @param model
+	 * @return
+	 */
 	@PreAuthorize("hasRole('STAFF')")
 	@PostMapping("/article/detail/{id}")
 	public String editArticle(@PathVariable ProductIdentifier id, @Valid ArticleForm form, Model model) {
@@ -265,6 +314,11 @@ public class InventoryController {
 		return false;
 	}
 
+	/**
+	 * overview about the stock of all articles
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("/stock")
 	@PreAuthorize("hasRole('STAFF')")
 	public String stock(Model model) {
@@ -305,7 +359,8 @@ public class InventoryController {
 		}
 
 
-		public Date invoke() {
+
+		private Date invoke() {
 
 			String formStartDiscount = articleForm.getStartDiscount();
 			String formEndDiscount = articleForm.getEndDiscount();

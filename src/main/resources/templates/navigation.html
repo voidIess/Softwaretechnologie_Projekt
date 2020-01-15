@@ -26,6 +26,11 @@
            sec:authorize="hasRole('MEMBER')"
            th:text="#{nav.member.training}">Trainings</a>
 
+        <a th:href="@{/member/invite}" class=" ui button item" sec:authorize="hasRole('MEMBER')">
+            <i class="user icon"></i>
+            <b>Freund einladen</b>
+        </a>
+
         <div class="ui simple dropdown item" sec:authorize="hasRole('BOSS') or hasRole('STAFF')">
             Adminbereich
             <i class="dropdown icon"></i>
@@ -45,6 +50,7 @@
                 <a class="item" href="member/members.html" th:href="@{/admin/members}"
                    sec:authorize="hasRole('BOSS') or hasRole('STAFF')"
                    th:text="#{nav.admin.members}">Mitglieder</a>
+
             </div>
         </div>
 
@@ -77,7 +83,10 @@
 
         <div class="right menu">
             <a class="green item" sec:authorize="hasRole('STAFF')" th:href="@{/cart_items}">
-                <div class="ui button"><i class="cart icon"></i>
+                <div class="ui vertical animated button" style="width: 80px">
+                    <div class="hidden content">Warenkorb</div>
+                    <div class="visible content">
+                    <i class="cart icon"></i></div>
                 </div>
             </a>
 

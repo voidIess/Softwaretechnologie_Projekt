@@ -38,7 +38,7 @@
                 <fieldset class="field">
                     <p for="email">Email deines Freundes.</p>
                     <input id="email" name="email" th:field="*{email}" th:errorclass="fieldError"
-                           type="text"/><br/>
+                           type="email" pattern="^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$" required="required"/><br/>
                     <div class="ui negative message" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">
                         <p>Email nicht gefunden.</p>
                     </div>

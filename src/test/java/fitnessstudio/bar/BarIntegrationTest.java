@@ -2,6 +2,8 @@ package fitnessstudio.bar;
 
 import fitnessstudio.AbstractIntegrationTests;
 import fitnessstudio.barmanagement.*;
+import fitnessstudio.member.Member;
+import fitnessstudio.member.MemberManagement;
 import org.javamoney.moneta.Money;
 import org.junit.jupiter.api.Test;
 import org.salespointframework.catalog.ProductIdentifier;
@@ -30,6 +32,9 @@ public class BarIntegrationTest extends AbstractIntegrationTests {
 
 	@Autowired
 	BarManager barManager;
+
+	@Autowired
+	MemberManagement memberManagement;
 
 	@Test
 	void setNameArticleTest() {
@@ -321,14 +326,40 @@ public class BarIntegrationTest extends AbstractIntegrationTests {
 	}
 
 	@Test
-	void postCheckoutBarController() throws Exception {
-		mvc.perform(post("/checkout?customerId=2&paymentMethod=1").with(user("staff").roles("STAFF")).with(csrf()))
+	void postCheckoutCashBarController() throws Exception {
+		Member member = memberManagement.findAll().iterator().next();
+		mvc.perform(post("/checkout?customerId=" + member.getMemberId() + "&paymentMethod=1").with(user("staff").roles("STAFF")).with(csrf()))
 				.andExpect(status().is(302)).andExpect(view().name("redirect:/"));
-
 	}
 
 	@Test
-	void AddItemBarController() throws Exception {
+	void postCheckoutIdErrorBarController() throws Exception {
+		mvc.perform(post("/checkout?customerId=6969&paymentMethod=1").with(user("staff").roles("STAFF")).with(csrf()))
+				.andExpect(status().is(200)).andExpect(view().name("error"));
+	}
+
+	@Test
+	void postCheckoutCreditBarController() throws Exception {
+		Member member = memberManagement.findAll().iterator().next();
+
+		mvc.perform(post("/checkout?customerId=" + member.getMemberId() + "&paymentMethod=0").with(user("staff").roles("STAFF")).with(csrf()))
+				.andExpect(status().is(302)).andExpect(view().name("redirect:/"));
+	}
+
+
+	@Test
+	void postCheckoutCreditErrorBarController() {
+		//Member member = memberManagement.findAll().iterator().next();
+		//	Cart cart =new Cart();
+		//	Article article = new Article("unnamed", Money.of(100, "EUR"), "type", "description", Quantity.of(0));
+		//	barManager.restockInventory(Quantity.of(1),article,LocalDate.now().plusDays(30));
+		//	barManager.addArticleToCart(article,Quantity.of(1),cart);
+		//	mvc.perform(post("/checkout?customerId="+ member.getMemberId() +"&paymentMethod=0").with(user("staff").roles("STAFF")).with(csrf()))
+		//			.andExpect(status().is(200)).andExpect(view().name("error"));
+	}
+
+	@Test
+	void addItemBarController() throws Exception {
 		ProductIdentifier pid = catalog.findAll().iterator().next().getId();
 		mvc.perform(post("/addItemToCart?pid=" + pid + "&number=" + 1).with(user("staff").roles("STAFF")).with(csrf()))
 				.andExpect(status().is(302)).andExpect(view().name("redirect:/sell_catalog"));

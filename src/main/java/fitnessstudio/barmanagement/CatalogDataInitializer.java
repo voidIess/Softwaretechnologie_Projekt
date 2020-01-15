@@ -26,6 +26,9 @@ public class CatalogDataInitializer implements DataInitializer {
 	}
 
 
+	/**
+	 * fill the catalog repository with sample data if its empty
+	 */
 	@Override
 	public void initialize() {
 		if (catalog.findAll().iterator().hasNext()) {

@@ -7,6 +7,9 @@ import org.salespointframework.quantity.Quantity;
 import javax.persistence.Entity;
 import java.time.LocalDate;
 
+/**
+ * This is a pile of items, which will expire simultaneously
+ */
 @Entity
 public class ExpiringInventoryItem extends MultiInventoryItem {
 
