@@ -22,7 +22,7 @@ __Teilnehmer:__
 - Lea Häusler
 
 == Bemerkungen
-Wir haben einen neuen Kundenwunsch. Man soll Freunde über einen Button einladen können. Dieser bekommt einen Email mit einem Link, mit dem der Anwerbercode direkt vergegeben wird.
+Kundenwunsch wurde zufriedenstellend erfüllt. 
 
 == Retrospektive des letzten Sprints
 *Issue referenziert die Issue ID von GitHub*
@@ -32,7 +32,7 @@ Wir haben einen neuen Kundenwunsch. Man soll Freunde über einen Button einladen
 [option="headers"]
 |===
 |Issue |Aufgabe |Status |Bemerkung
-|…     ||abgeschlossen|alle        
+|…     |Kundenwunsch|abgeschlossen|alle        
 |===
 
 
