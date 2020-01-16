@@ -360,6 +360,72 @@ a|
 |-
 |false
 
+|U-3-20
+|RosterEntry.constructor
+|-
+| null
+| IllegalArgumentException
+
+|U-3-21
+|RosterEntry.compareToTest
+|-
+|RosterEntry Counter, RosterEntry Trainer
+|true
+
+|U-3-22
+|RosterEntry.toString
+|-
+|RosterEntry Counter, RosterEntry Trainer
+|true
+
+|U-3-23
+|RosterEntry.isTrainer
+|RosterEntry mit Rolle Counter
+|RosterEntry Counter
+|false
+
+|U-3-24
+|RosterEntry.setTraining
+|RosterEntry mit Rolle Counter
+|RosterEntry Counter
+|IllegalArgumentExcpetion
+
+|U-3-25
+|RosterEntry.setRole
+|RosterEntry mit Rolle Counter
+|StaffRole.Trainer
+|true
+
+|U-3-26
+|RosterEntry.roleToString
+|-
+|StaffRole.COUNTER, StaffRole.TRAINER
+|"Thekenkraft", "Trainer"
+
+|U-3-27
+|RosterEntry.roleToString
+|-
+|StaffRole.COUNTER, StaffRole.TRAINER
+|"Thekenkraft", "Trainer"
+
+|U-3-28
+|RosterEntry.stringToRole
+|-
+|"Thekenkraft", "Trainer"
+|StaffRole.COUNTER, StaffRole.TRAINER
+
+|U-3-29
+|RosterEntry.getRoleList
+|-
+|-
+|Liste mit StaffRole.COUNTER, StaffRole.TRAINER
+
+|U-3-30
+|RosterEntry.getWeekDatesByWeek
+|-
+|Derzeitige Kalenderwoche
+|Liste Datum der einzelnen Wochentage
+
 |I-3-01
 |RosterController.default
 |Staffs sollen mit /roster auf Dienstplan der jetzigen Woche
@@ -413,8 +479,6 @@ a|
 |Staff muss existieren.
 |Staff ID
 |-
-
-
 |===
 
 === Artikelverwaltung
@@ -506,3 +570,175 @@ Ansprechpartner: Markus, Bill
 |Anwesenheitszeiten des Tages
 
 |===
+
+=== Mitarbeiterverwaltung
+
+|U-7-01
+|StaffManagement.createStaff
+|-
+|Staff Objekt
+|true
+
+|U-7-02
+|StaffManagement.setFirstName
+|-
+|"Christiano"
+|true
+
+|U-7-03
+|StaffManagement.setLastName
+|Staff exisitiert.
+|"Ronaldo"
+|true
+
+|U-7-03
+|StaffManagement.setLastName
+|Staff existiert
+|"Ronaldo"
+|true
+
+|U-7-04
+|StaffManagement.setSalary
+|Staff existiert
+|45000
+|true
+
+|U-7-05
+|StaffManagement.getUsername
+|Staff existiert
+|-
+|true
+
+|U-7-06
+|StaffManagement.getAllStaffs
+|Staffs existieren
+|-
+|true
+
+|U-7-07
+|StaffManagement.finByUseraccount
+|Staff existiert
+|Staff.userAccount
+|true
+
+|U-7-08
+|StaffManagement.findById
+|Staff existiert
+|Staff.staffId
+|true
+
+|U-7-09
+|StaffManagement.removeStaff
+|Staff existiert
+|Staff.staffId
+|true
+
+|I-7-01
+|StaffController.staffs
+|-
+|Angemeldet ohne Rolle
+|"/login"
+
+|I-7-02
+|StaffController.staffs
+|-
+|Angemeldet als Boss
+|"staffs"
+
+|I-7-03
+|StaffController.staffDetail
+|-
+|Angemeldet ohne Rolle
+|"/login"
+
+
+|I-7-04
+|StaffController.staffDetail
+|-
+|Angemeldet als Boss
+|"staffDetail"
+
+
+|I-7-05
+|StaffController.newStaff
+|-
+|Angemeldet ohne Rolle
+|"/login"
+
+|I-7-06
+|StaffController.newStaff
+|-
+|Angemeldet als Boss
+|"newStaff"
+
+|I-7-07
+|StaffController.payslip
+|-
+|Angemeldet ohne Rolle
+|isForbidden
+
+|I-7-08
+|StaffController.newStaff (post)
+|-
+|Form
+|isOk
+
+|I-7-09
+|StaffController.newStaff (post)
+|-
+|Form
+|Error
+
+|I-7-10
+|StaffController.editStaff
+|-
+|EditStaffForm
+|isok
+
+|I-7-11
+|StaffController.editStaff
+|-
+|EditStaffForm
+|Error
+
+|I-7-12
+|StaffController.editStaff (post)
+|-
+|EditStaffForm
+|isok
+
+|I-7-13
+|StaffController.editStaff (post)
+|-
+|EditStaffForm
+|Error
+
+|I-7-14
+|StaffController.detailStaff
+|-
+|Staff staff
+|isOk
+
+|I-7-15
+|StaffController.detailStaff
+|-
+|Staff staff
+|Error
+
+|I-7-16
+|StaffController.editsalary (post)
+|-
+|SalaryForm
+|isOk
+
+|I-7-17
+|StaffController.editSalary (post
+|-
+|SalaryForm 
+|Error
+
+|I-7-18
+|StaffController.payslip
+|-
+|Payslip
+|isOk
