@@ -36,23 +36,42 @@
 |===
 
 -> Member
+
 Zuerst Member (Training anfragen, Konto aufladen, Rechnung, Mitgliedschaft beenden, etc.)
+
 Email senden (Gmail)
+
 Danach Registrieren (über diesen Link)
+
 -> Staff
+
 Aktivierung des neuen Nutzers
+
 -> Login mit neuem Nutzer
+
 -> Staff
+
 Training erstellen
+
 Nutzerkonto aufladen
+
 Nutzer einchecken
+
 Lohnschein (Monat umstellen)
+
 Dienstplan (Markus)
+
 Training absagen (Markus)
+
 Theke (Verkaufen, hinzufügen)
+
 Nutzer auschecken
+
 -> Boss
+
 Studio bearbeiten
+
 Staffs verwalten, hinzufügen
+
 Statistiken einsehen
 
