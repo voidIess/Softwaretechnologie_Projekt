@@ -255,7 +255,7 @@ image::models/final/main.svg[]
 
 === 6.2 BarManagement Package
 
-image::models/design/barmanagement.svg[]
+image::models/final/barmanagement_package.svg[]
 
 [options="header"]
 |=== 
