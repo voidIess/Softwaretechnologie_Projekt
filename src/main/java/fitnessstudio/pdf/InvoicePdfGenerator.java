@@ -28,7 +28,7 @@ import java.util.Map;
  */
 public class InvoicePdfGenerator implements PdfGenerator {
 
-	public InvoicePdfGenerator() {}
+	private InvoicePdfGenerator() {}
 
 	/**
 	 * Generates and returns the invoice PDF document of the last month.

@@ -45,24 +45,18 @@ public class pdfUnitTest {
 	@Autowired
 	PdfView pdfView;
 
-	private InvoicePdfGenerator invoice;
-	private PayslipPdfGenerator payslip;
-
 	@BeforeAll
 	void setUp() throws IOException {
 		httpServletResponse.setHeader("Content-Disposition", "test");
 		PdfWriter pdfWriter = new PdfWriter(httpServletResponse.getOutputStream());
 		PdfDocument pdf = new PdfDocument(pdfWriter);
 		document = new Document(pdf);
-
-		invoice = new InvoicePdfGenerator();
-		payslip = new PayslipPdfGenerator();
 	}
 
 	@Test
 	void testPdfGeneratorIsInterface() {
-		assertThat(PdfGenerator.class.isAssignableFrom(invoice.getClass())).isTrue();
-		assertThat(PdfGenerator.class.isAssignableFrom(payslip.getClass())).isTrue();
+		assertThat(PdfGenerator.class.isAssignableFrom(InvoicePdfGenerator.class)).isTrue();
+		assertThat(PdfGenerator.class.isAssignableFrom(PayslipPdfGenerator.class)).isTrue();
 	}
 
 	@Test
