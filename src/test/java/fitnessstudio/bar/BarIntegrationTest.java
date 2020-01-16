@@ -14,8 +14,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.time.LocalDate;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.hibernate.validator.internal.util.Contracts.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -161,6 +162,13 @@ public class BarIntegrationTest extends AbstractIntegrationTests {
 		// barManager.restockInventory(Quantity.of(100), article, expireDate);
 		// barManager.removeStock(article.getId(), Quantity.of(30));
 		// assertEquals(Quantity.of(70), barManager.getArticleQuantity(article));
+	}
+
+	@Test
+	void stockAvailableTest() {
+		Article article = new Article("unnamed", Money.of(10, "EUR"), "type", "description",
+				Quantity.of(0));
+		assertFalse(barManager.stockAvailable(article.getId(), Quantity.of(1)));
 	}
 
 	@Test
