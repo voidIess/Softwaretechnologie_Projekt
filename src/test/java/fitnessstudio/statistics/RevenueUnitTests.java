@@ -66,6 +66,9 @@ public class RevenueUnitTests {
 		}
 	}
 
+	/**
+	 * U-6-08
+	 */
 	@Test
 	@Order(1)
 	void testCreateRevenue() {
@@ -74,12 +77,18 @@ public class RevenueUnitTests {
 		assertThat(repository.count()).isEqualTo(size+1);
 	}
 
+	/**
+	 * U-6-09
+	 */
 	@Test
 	@Order(2)
 	void testFindAll() {
 		assertThat(statistics.findAllRevenues().isEmpty()).isFalse();
 	}
 
+	/**
+	 * U-6-10
+	 */
 	@Test
 	@Order(4)
 	void testGetSellingEarningsOfDate() {
@@ -92,6 +101,9 @@ public class RevenueUnitTests {
 		assertThat(statistics.getSellingEarningsOfDate(LocalDate.now()).doubleValueExact()).isCloseTo(nextValue, PRECISION);
 	}
 
+	/**
+	 * U-6-11
+	 */
 	@Test
 	@Order(5)
 	void testGetSellingEarningsOfThisWeek() {
@@ -100,6 +112,9 @@ public class RevenueUnitTests {
 				.compareTo(statistics.getSellingEarningsOfDate(LocalDate.now()))).isZero();
 	}
 
+	/**
+	 * U-6-12
+	 */
 	@Test
 	@Order(6)
 	void testDeleteRevenue() {
@@ -109,6 +124,9 @@ public class RevenueUnitTests {
 		assertThat(repository.findByMember(testMember.getMemberId()).isEmpty()).isTrue();
 	}
 
+	/**
+	 * U-6-13
+	 */
 	@Test
 	@Order(7)
 	void testGetPercentageExpenditure() {
@@ -116,6 +134,9 @@ public class RevenueUnitTests {
 		assertThat(statistics.getPercentageExpenditure()).isCloseTo(percentageExpenditure, PRECISION);
 	}
 
+	/**
+	 * U-6-14
+	 */
 	@Test
 	@Order(8)
 	void testGetPercentageRevenue() {

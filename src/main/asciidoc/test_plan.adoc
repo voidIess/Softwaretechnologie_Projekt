@@ -236,6 +236,186 @@ a|
 
 |===
 
+=== Mitarbeiterverwaltung
+
+Ansprechpartner: Markus
+
+[options="headers"]
+|===
+|ID |Anwendungsfall |Vorbedingungen |Eingabe |Ausgabe
+
+|U-7-01
+|StaffManagement.createStaff
+|-
+|Staff Objekt
+|true
+
+|U-7-02
+|StaffManagement.setFirstName
+|-
+|"Christiano"
+|true
+
+|U-7-03
+|StaffManagement.setLastName
+|Staff exisitiert.
+|"Ronaldo"
+|true
+
+|U-7-03
+|StaffManagement.setLastName
+|Staff existiert
+|"Ronaldo"
+|true
+
+|U-7-04
+|StaffManagement.setSalary
+|Staff existiert
+|45000
+|true
+
+|U-7-05
+|StaffManagement.getUsername
+|Staff existiert
+|-
+|true
+
+|U-7-06
+|StaffManagement.getAllStaffs
+|Staffs existieren
+|-
+|true
+
+|U-7-07
+|StaffManagement.finByUseraccount
+|Staff existiert
+|Staff.userAccount
+|true
+
+|U-7-08
+|StaffManagement.findById
+|Staff existiert
+|Staff.staffId
+|true
+
+|U-7-09
+|StaffManagement.removeStaff
+|Staff existiert
+|Staff.staffId
+|true
+
+|I-7-01
+|StaffController.staffs
+|-
+|Angemeldet ohne Rolle
+|"/login"
+
+|I-7-02
+|StaffController.staffs
+|-
+|Angemeldet als Boss
+|"staffs"
+
+|I-7-03
+|StaffController.staffDetail
+|-
+|Angemeldet ohne Rolle
+|"/login"
+
+
+|I-7-04
+|StaffController.staffDetail
+|-
+|Angemeldet als Boss
+|"staffDetail"
+
+
+|I-7-05
+|StaffController.newStaff
+|-
+|Angemeldet ohne Rolle
+|"/login"
+
+|I-7-06
+|StaffController.newStaff
+|-
+|Angemeldet als Boss
+|"newStaff"
+
+|I-7-07
+|StaffController.payslip
+|-
+|Angemeldet ohne Rolle
+|isForbidden
+
+|I-7-08
+|StaffController.newStaff (post)
+|-
+|Form
+|isOk
+
+|I-7-09
+|StaffController.newStaff (post)
+|-
+|Form
+|Error
+
+|I-7-10
+|StaffController.editStaff
+|-
+|EditStaffForm
+|isok
+
+|I-7-11
+|StaffController.editStaff
+|-
+|EditStaffForm
+|Error
+
+|I-7-12
+|StaffController.editStaff (post)
+|-
+|EditStaffForm
+|isok
+
+|I-7-13
+|StaffController.editStaff (post)
+|-
+|EditStaffForm
+|Error
+
+|I-7-14
+|StaffController.detailStaff
+|-
+|Staff staff
+|isOk
+
+|I-7-15
+|StaffController.detailStaff
+|-
+|Staff staff
+|Error
+
+|I-7-16
+|StaffController.editsalary (post)
+|-
+|SalaryForm
+|isOk
+
+|I-7-17
+|StaffController.editSalary (post
+|-
+|SalaryForm 
+|Error
+
+|I-7-18
+|StaffController.payslip
+|-
+|Payslip
+|isOk
+
+|===
+
 === Dienstplanverwaltung
 
 Ansprechpartner: Markus
@@ -479,11 +659,12 @@ a|
 |Staff muss existieren.
 |Staff ID
 |-
+
 |===
 
 === Artikelverwaltung
 
-Ansprechpartner: Julius, Vu, Lea
+Ansprechpartner: Julius, Vu
 
 [options="headers"]
 |===
@@ -535,210 +716,129 @@ Ansprechpartner: Bill, Lea
 |===
 |ID |Anwendungsfall |Vorbedingungen |Eingabe |Ausgabe
 
-|I-5-01
-|StaffManagement.createPDF
+|U-5-01
+|PayslipPdfGenertaor.createPDF
 |es existiert ein Mitarbeiter zu der gegebenen ID
 |MitarbeiterID
 |Document
 
-|I-5-02
-|StaffManagement.createPDF
-|es existiert kein Mitarbeiter zu der gegebenen ID
-|MitarbeiterID
+|U-5-02
+|InvoicePdfGenertaor.createPDF
+|es existiert ein Mitglied zu der gegebenen ID
+|MitgliedsID
+|Document
+
+|U-5-03
+|PdfView.testPdfView
+|-
+|falsche Rechnungsdaten
 |Fehlermeldung
 
 |===
 
 === Statistiken verwalten
 
-Ansprechpartner: Markus, Bill
+Ansprechpartner: Lea
 
 [options="headers"]
 |===
 |ID |Anwendungsfall |Vorbedingungen |Eingabe |Ausgabe
 
 |U-6-01
-|StatisticManagement.getEarnings
+|StatisticManagement.addAttendance
 |-
+|attendance
 |-
-|Einnahmen des Tages
 
 |U-6-02
-|StatisticManagement.getAttendance
+|StatisticManagement.findAllAttendances()
+|min eine attendance in AttendanceRepository
 |-
 |-
-|Anwesenheitszeiten des Tages
+
+|U-6-03
+|StatisticManagement.findAttendanceById
+|min eine attendance in AttendanceRepository
+|ID der attendance
+|attendance
+
+|U-6-04
+|StatisticManagement.getAverageTimeOfToday()
+|-
+|-
+|durchschnittliche Anwesenheitszeit des Tages
+
+|U-6-05
+|StatisticManagement.getMemberAmountOfToday()
+|-
+|-
+|Anzahl der Mitglieder, die heute das Studio besucht haben
+
+|U-6-06
+|StatisticManagement.getAverageTimesOfThisWeek()
+|-
+|-
+|Liste der durchschnittlichen Anwesenheitszeiten
+
+|U-6-07
+|StatisticManagement.getMemberAmountsOfThisWeek()
+|-
+|-
+|Liste der Mitglieder, die das Studio besucht haben
+
+|U-6-08
+|StatisticManagement.addRevenue
+|-
+|revenue
+|-
+
+|U-6-09
+|StatisticManagement.findAllRevenues()
+|min eine revenue in AttendanceRepository
+|-
+|-
+
+|U-6-10
+|StatisticManagement.getSellingEarningsOfDate()
+|-
+|Datum
+|Verkaufseinnahmen des gegebenen Tages
+
+|U-6-11
+|StatisticManagement.getSellingEarningsOfThisWeek()
+|-
+|-
+|Liste der Verkaufseinnahmen dieser Woche
+
+|U-6-12
+|StatisticManagement.deleteRevenue()
+|min eine revenue in RevenueRepository
+|ID des Mitgliedes
+|-
+
+|U-6-13
+|StatisticManagement.getPercentageExpenditure()
+|-
+|-
+|Prozentwert der Vertragseinnahmen
+
+|U-6-14
+|StatisticManagement.getPercentageRevenue()
+|-
+|-
+|Prozentwert der Mitarbeitergehälter
+
+|I-6-01
+|StatisticController.showAttendanceStatistic()
+|User ist nicht als Boss eingeloggt
+|-
+|Fehlermeldung
+
+|I-6-02
+|StatisticController.showAttendanceStatistic()
+|User ist als Boss eingeloggt
+|-
+|Statistiken Ansicht
 
 |===
 
-=== Mitarbeiterverwaltung
-
-|U-7-01
-|StaffManagement.createStaff
-|-
-|Staff Objekt
-|true
-
-|U-7-02
-|StaffManagement.setFirstName
-|-
-|"Christiano"
-|true
-
-|U-7-03
-|StaffManagement.setLastName
-|Staff exisitiert.
-|"Ronaldo"
-|true
-
-|U-7-03
-|StaffManagement.setLastName
-|Staff existiert
-|"Ronaldo"
-|true
-
-|U-7-04
-|StaffManagement.setSalary
-|Staff existiert
-|45000
-|true
-
-|U-7-05
-|StaffManagement.getUsername
-|Staff existiert
-|-
-|true
-
-|U-7-06
-|StaffManagement.getAllStaffs
-|Staffs existieren
-|-
-|true
-
-|U-7-07
-|StaffManagement.finByUseraccount
-|Staff existiert
-|Staff.userAccount
-|true
-
-|U-7-08
-|StaffManagement.findById
-|Staff existiert
-|Staff.staffId
-|true
-
-|U-7-09
-|StaffManagement.removeStaff
-|Staff existiert
-|Staff.staffId
-|true
-
-|I-7-01
-|StaffController.staffs
-|-
-|Angemeldet ohne Rolle
-|"/login"
-
-|I-7-02
-|StaffController.staffs
-|-
-|Angemeldet als Boss
-|"staffs"
-
-|I-7-03
-|StaffController.staffDetail
-|-
-|Angemeldet ohne Rolle
-|"/login"
-
-
-|I-7-04
-|StaffController.staffDetail
-|-
-|Angemeldet als Boss
-|"staffDetail"
-
-
-|I-7-05
-|StaffController.newStaff
-|-
-|Angemeldet ohne Rolle
-|"/login"
-
-|I-7-06
-|StaffController.newStaff
-|-
-|Angemeldet als Boss
-|"newStaff"
-
-|I-7-07
-|StaffController.payslip
-|-
-|Angemeldet ohne Rolle
-|isForbidden
-
-|I-7-08
-|StaffController.newStaff (post)
-|-
-|Form
-|isOk
-
-|I-7-09
-|StaffController.newStaff (post)
-|-
-|Form
-|Error
-
-|I-7-10
-|StaffController.editStaff
-|-
-|EditStaffForm
-|isok
-
-|I-7-11
-|StaffController.editStaff
-|-
-|EditStaffForm
-|Error
-
-|I-7-12
-|StaffController.editStaff (post)
-|-
-|EditStaffForm
-|isok
-
-|I-7-13
-|StaffController.editStaff (post)
-|-
-|EditStaffForm
-|Error
-
-|I-7-14
-|StaffController.detailStaff
-|-
-|Staff staff
-|isOk
-
-|I-7-15
-|StaffController.detailStaff
-|-
-|Staff staff
-|Error
-
-|I-7-16
-|StaffController.editsalary (post)
-|-
-|SalaryForm
-|isOk
-
-|I-7-17
-|StaffController.editSalary (post
-|-
-|SalaryForm 
-|Error
-
-|I-7-18
-|StaffController.payslip
-|-
-|Payslip
-|isOk

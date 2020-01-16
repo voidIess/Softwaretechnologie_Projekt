@@ -17,12 +17,18 @@ public class StatisticControllerIntegrationTest extends AbstractIntegrationTests
 	@Autowired
 	StatisticController controller;
 
+	/**
+	 * I-6-01
+	 */
 	@Test
 	void rejectsUnauthenticatedAccessToController() {
 		assertThatExceptionOfType(AuthenticationException.class) //
 				.isThrownBy(() -> controller.showAttendanceStatistic(new ExtendedModelMap()));
 	}
 
+	/**
+	 * I-6-02
+	 */
 	@Test
 	@WithMockUser(roles = "BOSS")
 	void allowsAuthenticatedAccessToController() {

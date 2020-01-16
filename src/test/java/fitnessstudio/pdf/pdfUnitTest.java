@@ -6,6 +6,8 @@ import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
 import fitnessstudio.contract.Contract;
 import fitnessstudio.invoice.InvoiceEntry;
+import fitnessstudio.invoice.InvoiceManagement;
+import fitnessstudio.invoice.InvoiceType;
 import fitnessstudio.member.Member;
 import fitnessstudio.staff.Staff;
 import org.javamoney.moneta.Money;
@@ -17,6 +19,7 @@ import org.salespointframework.useraccount.UserAccount;
 import org.salespointframework.useraccount.UserAccountManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.ApplicationEventPublisher;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -38,6 +41,12 @@ public class pdfUnitTest {
 	HttpServletRequest httpServletRequest;
 
 	Document document;
+
+	@Autowired
+	ApplicationEventPublisher applicationEventPublisher;
+
+	@Autowired
+	InvoiceManagement invoiceManagement;
 
 	@Autowired
 	UserAccountManager accounts;
@@ -68,11 +77,23 @@ public class pdfUnitTest {
 		}
 	}
 
+	/**
+	 * U-5-02
+	 */
 	@Test
 	void testGeneratePdfInvoice() {
+		Money money =  Money.of(0, "EUR");
+		LocalDate date = LocalDate.now();
+
 		Member member = new Member();
-		member.setContract(new Contract("name", "description", Money.of(0, "EUR"), 3));
+		member.setContract(new Contract("name", "description", money, 3));
+
 		java.util.List<InvoiceEntry> entries = new LinkedList<>();
+		entries.add(new InvoiceEntry(member.getMemberId(), InvoiceType.DEPOSIT, money, ""));
+		entries.add(new InvoiceEntry(member.getMemberId(), InvoiceType.CASHPAYMENT, money, ""));
+		for (InvoiceEntry entry : entries) {
+			entry.setCreated(date);
+		}
 
 		Map<String, Object> map = new HashMap<>();
 		map.put("type", "invoice");
@@ -87,6 +108,9 @@ public class pdfUnitTest {
 
 	}
 
+	/**
+	 * U-5-01
+	 */
 	@Test
 	void testGeneratePdfPayslip() {
 		UserAccount account = accounts.create("pdfTestStaff", Password.UnencryptedPassword.of("123"), "pdfTestStaff@email.de", Role.of("STAFF"));
@@ -100,6 +124,9 @@ public class pdfUnitTest {
 
 	}
 
+	/**
+	 * U-5-03
+	 */
 	@Test
 	void testPdfView() {
 		assertThrows(NullPointerException.class, () -> {
