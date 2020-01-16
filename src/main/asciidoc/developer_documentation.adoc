@@ -384,7 +384,7 @@ image::models/final/roster_package.svg[]
 
 === 6.10 PDF Package
 
-image::models/final/pdf_package.svg.svg[]
+image::models/final/pdf_package.svg[]
 
 [options="header"]
 |=== 
