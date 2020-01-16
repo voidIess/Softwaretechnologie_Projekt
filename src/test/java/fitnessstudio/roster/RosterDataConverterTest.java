@@ -13,18 +13,27 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.fail;
 
+/**
+ * Unit Tests fuer RosterDataConverter
+ */
 @SpringBootTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class RosterDataConverterTest {
 
 	private SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
 
+	/**
+	 * U-3-27
+	 */
 	@Test
 	void testRoleToString() {
 		assertThat(RosterDataConverter.roleToString(StaffRole.TRAINER)).isEqualTo("Trainer");
 		assertThat(RosterDataConverter.roleToString(StaffRole.COUNTER)).isEqualTo("Thekenkraft");
 	}
 
+	/**
+	 * U-3-29
+	 */
 	@Test
 	void testGetRoleList() {
 		List<String> roles = RosterDataConverter.getRoleList();
@@ -33,6 +42,9 @@ class RosterDataConverterTest {
 		assertThat(roles.size() == 2).isTrue();
 	}
 
+	/**
+	 * U-3-28
+	 */
 	@Test
 	void testStringToRole() {
 		StaffRole role;
@@ -52,6 +64,9 @@ class RosterDataConverterTest {
 		}
 	}
 
+	/**
+	 * U-3-30
+	 */
 	@Test
 	void testGetWeekDatesByWeek() {
 		Calendar c = Calendar.getInstance();

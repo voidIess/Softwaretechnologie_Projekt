@@ -3,6 +3,7 @@
 [option="header"]
 |===
 |*Feature* |*Rolle* |*Vorbedingung* |*Simulierte Zeit*
+|Email senden |Member | - | -
 |Dienstplaneintrag erstellen | Staff | - |
 |Dienstplaneintrag bearbeiten | Staff | Kann nicht bearbeitet werden wenn Training dazu gehört. -> Training muss existieren |
 |Dienstplaneintrag löschen | Staff | Kann nicht gelöscht werden wenn Training dazu gehört. -> Training muss existieren |

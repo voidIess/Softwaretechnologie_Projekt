@@ -189,6 +189,11 @@ form.ui.form input[type='number'] {
     color: var(--font-color);
 }
 
+form.ui.form input[type='email'] {
+    background-color: var(--input-color);
+    color: var(--font-color);
+}
+
 form.ui.form input[type='date'] {
     background-color: var(--input-color);
     color: var(--font-color);

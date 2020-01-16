@@ -23,6 +23,9 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.fail;
 
+/**
+ * UnitTest Rostermanagement
+ */
 @SpringBootTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -136,6 +139,9 @@ public class RosterManagementTest {
 		);
 	}
 
+	/**
+	 * U-3-15
+	 */
 	@Test
 	@Order(1)
 	void testGetTimes() {
@@ -148,6 +154,9 @@ public class RosterManagementTest {
 		}
 	}
 
+	/**
+	 * U-3-16
+	 */
 	@Test
 	@Order(2)
 	void testGetTimeIndex() {
@@ -156,6 +165,9 @@ public class RosterManagementTest {
 		assertThat(rosterManagement.getTimeIndex(time) == index).isTrue();
 	}
 
+	/**
+	 * U-3-17
+	 */
 	@Test
 	@Order(3)
 	void testCreateEntry() {
@@ -217,6 +229,9 @@ public class RosterManagementTest {
 		}
 	}
 
+	/**
+	 * U-3-18
+	 */
 	@Test
 	@Order(4)
 	void testIsFree() {
@@ -229,12 +244,14 @@ public class RosterManagementTest {
 		assertThat(rosterManagement.isFree(rosterEntryCounterOtherStaff)).isFalse();
 	}
 
+	/**
+	 * U-3-19
+	 */
 	@Test
 	@Order(5)
 	void testGetNextWeeks() {
 		List<Integer> list = rosterManagement.getNextWeeks();
 		List<Integer> compare = new ArrayList<>();
-		assertThat(list.size() == 6).isTrue();
 		for (int i = 0; i < list.size(); i++) {
 			Calendar c = Calendar.getInstance();
 			c.add(Calendar.WEEK_OF_YEAR, i);

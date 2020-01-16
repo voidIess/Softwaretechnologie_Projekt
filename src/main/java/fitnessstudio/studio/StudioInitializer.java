@@ -11,18 +11,26 @@ import java.util.LinkedList;
 import java.util.Locale;
 import java.util.stream.IntStream;
 
+/**
+ * A {@link DataInitializer} implementation that will create dummy data for the application on application startup.
+ *
+ * @see DataInitializer
+ */
 @Component
 public class StudioInitializer implements DataInitializer {
 
-	private final StudioRepository studioRepository;
 	private static final int SUNDAY = 7;
 	private static final int WEDNESDAY = 3;
 	private static final int MAX_DAY_OF_WEEK = 8;
+	private final StudioRepository studioRepository;
 
 	public StudioInitializer(StudioRepository studioRepository) {
 		this.studioRepository = studioRepository;
 	}
 
+	/**
+	 * @see org.salespointframework.core.DataInitializer#initialize()
+	 */
 	@Override
 	public void initialize() {
 		if (!studioRepository.findAll().iterator().hasNext()) {

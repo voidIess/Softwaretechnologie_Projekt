@@ -13,10 +13,23 @@ import java.util.Arrays;
 import java.util.Locale;
 import java.util.Map;
 
+/**
+ * Implementation of the general PDF generator to create a {@link Staff}s payslip.
+ *
+ * @version 1.0
+ * @author Lea Haeusler
+ */
 public class PayslipPdfGenerator implements PdfGenerator {
 
-	private PayslipPdfGenerator() {}
+	public PayslipPdfGenerator() {}
 
+	/**
+	 * Generates and returns the payslip PDF document of the last month.
+	 *
+	 * @param payslip	needs keys type and staff
+	 * @param d			document
+	 * @return payslip PDF document
+	 */
 	public static Document generatePdf(Map<String, Object> payslip, Document d) {
 
 		MonetaryAmountFormat moneyFormat = MonetaryFormats.getAmountFormat(Locale.GERMANY);

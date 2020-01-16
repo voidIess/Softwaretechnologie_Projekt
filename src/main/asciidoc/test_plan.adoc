@@ -236,7 +236,7 @@ a|
 
 |===
 
-=== Mitarbeiterverwaltung
+=== Dienstplanverwaltung
 
 Ansprechpartner: Markus
 
@@ -265,7 +265,7 @@ a|
 |Fehlermeldung
 
 |U-3-04
-|Roster.removeEntry
+|Roster.deleteEntry
 |der gegebene Eintrag existiert in dem Dienstplan
 |Dienstplaneintrag
 |true
@@ -276,18 +276,209 @@ a|
 |Dienstplaneintrag
 |false
 
-|I-3-01
-|RosterManagement.deleteRosterEntry
-|der gegebene Eintrag existiert in dem Dienstplan
-|EintragsID
+|U-3-06 
+|Roster.constructor 
+|Die Kalenderwoche darf nicht größer als 52, aber auch nicht kleiner als 1 sein.
+|0, 53
 |true
 
-|U-3-02
-|RosterManagement.deleteRosterEntry
-|der gegebene Eintrag existiert nicht in dem Dienstplan
-|EintragsID
+|U-3-07
+|Slot.constructor 
+|Schichtnummer darf nicht negativ sein und auch nicht größer als Roster.AMOUNT_ROWS
+| -1, 0, Roster.AMOUNT_ROWS
+|true
+
+|U-3-08
+|Slot.constructor 
+|Tag darf nicht kleiner als 0, aber auch nicht größer als 6 sein.
+|0, -1, 7
+|true
+
+|U-3-09
+|Slot.delete
+|Slot existiert.
+|-
+|true
+
+|U-3-10
+|Slot.delete
+|Slot existiert nicht.
+|-
+|IllegalArgumentException
+
+|U-3-11
+|Slot.isTaken
+|Mitarbeiter muss in dieser Schicht bereits arbeiten.
+|-
+|true
+
+|U-3-12
+|Slot.sortList
+|Einträge mit Rolle COUNTER sollen vor Einträgen mit Rolle TRAINER kommen. Dafür muss es eine min. 1 Eintrag geben
+|Eintrag mit Counter und Trainer
+|true
+
+|U-3-13
+|Slot.coordinates
+|Beim Erstellen eines Slots, soll dieser die richtigen Koordinaten zugewiesen bekommen.
+|1, 1
+|true
+
+|U-3-14
+|TableRow.constructor
+| Schichtnummer darf nicht negativ sein und startZeit darf nicht null sein.
+| Schichtnummer -1, startZeit null
+|true
+
+|U-3-15
+|RosterManagement.getTimes
+|Die Strings der Schichtdauer sollen richtig erzeugt werden. 
+|-
+|true
+
+|U-3-16
+|RosterManagement.getTimeIndex
+|Anhand eines Strings soll die richtige Schichtnummer herausgefunden werden. Schichten müssen dafür exisiteren.
+|String
+|true
+
+|U-3-17
+|RosterManagement.createEntry
+|Sollten falsche Angaben angegeben wurden sein, soll kein Eintrag erstellt werden.
+|Formular mit Angaben
+|true
+
+|U-3-18
+|RosterManagement.isFree
+|Wenn ein Mitarbeiter bereits arbeitet, soll false zurückgegeben werden
+|Eintrag mit Mitarbeiter
 |false
 
+|U-3-19
+|RosterManagement.getNextWeeks
+|Es soll eine vollständige Liste an allen verfügbaren Dienstplänen zurück gegeben werden. Dienstpläne müssen exsitieren
+|-
+|false
+
+|U-3-20
+|RosterEntry.constructor
+|-
+| null
+| IllegalArgumentException
+
+|U-3-21
+|RosterEntry.compareToTest
+|-
+|RosterEntry Counter, RosterEntry Trainer
+|true
+
+|U-3-22
+|RosterEntry.toString
+|-
+|RosterEntry Counter, RosterEntry Trainer
+|true
+
+|U-3-23
+|RosterEntry.isTrainer
+|RosterEntry mit Rolle Counter
+|RosterEntry Counter
+|false
+
+|U-3-24
+|RosterEntry.setTraining
+|RosterEntry mit Rolle Counter
+|RosterEntry Counter
+|IllegalArgumentExcpetion
+
+|U-3-25
+|RosterEntry.setRole
+|RosterEntry mit Rolle Counter
+|StaffRole.Trainer
+|true
+
+|U-3-26
+|RosterEntry.roleToString
+|-
+|StaffRole.COUNTER, StaffRole.TRAINER
+|"Thekenkraft", "Trainer"
+
+|U-3-27
+|RosterEntry.roleToString
+|-
+|StaffRole.COUNTER, StaffRole.TRAINER
+|"Thekenkraft", "Trainer"
+
+|U-3-28
+|RosterEntry.stringToRole
+|-
+|"Thekenkraft", "Trainer"
+|StaffRole.COUNTER, StaffRole.TRAINER
+
+|U-3-29
+|RosterEntry.getRoleList
+|-
+|-
+|Liste mit StaffRole.COUNTER, StaffRole.TRAINER
+
+|U-3-30
+|RosterEntry.getWeekDatesByWeek
+|-
+|Derzeitige Kalenderwoche
+|Liste Datum der einzelnen Wochentage
+
+|I-3-01
+|RosterController.default
+|Staffs sollen mit /roster auf Dienstplan der jetzigen Woche
+|-
+|-
+
+|I-3-02
+|Roster.rosterView
+|Staffs sollen mit /roster/{week} auf einen speziellen Dienstplan kommen.
+|Woche
+|-
+
+|I-3-03
+|Roster.rosterViewFiltered
+|Staffs sollen mit /roster/{week}/{id} einen beliebigen Dienstplan nach einem Staff filtern
+| Woche und ID
+|-
+
+|I-3-04
+|RosterController.newRosterEntry
+|Staffs sollen auf ein Formular kommen um einen Eintrag zu erstellen. Dafür muss ein Dienstplan existieren
+|-
+|-
+
+|I-3-05
+|RosterController.showDetails
+|Staffs sollen Details eines Eintrags sehen können. Dafür muss ein Eintrag existieren.
+|ID Eintrag
+|-
+
+|I-3-06
+|RosterController.delete
+|Eintrag soll gelöscht werden. Dafür muss ein Eintrag existieren.
+|Eintrag ID
+|-
+
+|I-3-07
+|RosterController.postEditEntry
+|Änderungen müssen vorgenommen wurden sein.
+| Änderungen an Form, Eintrag ID
+|-
+
+|I-3-08
+|RosterController.createNewRosterEntry
+|Formular muss ausgefüllt sein.
+|Eintrag in Form
+|-
+
+|I-3-09
+|RosterController.deleteStaff
+|Staff muss existieren.
+|Staff ID
+|-
 |===
 
 === Artikelverwaltung
@@ -379,3 +570,175 @@ Ansprechpartner: Markus, Bill
 |Anwesenheitszeiten des Tages
 
 |===
+
+=== Mitarbeiterverwaltung
+
+|U-7-01
+|StaffManagement.createStaff
+|-
+|Staff Objekt
+|true
+
+|U-7-02
+|StaffManagement.setFirstName
+|-
+|"Christiano"
+|true
+
+|U-7-03
+|StaffManagement.setLastName
+|Staff exisitiert.
+|"Ronaldo"
+|true
+
+|U-7-03
+|StaffManagement.setLastName
+|Staff existiert
+|"Ronaldo"
+|true
+
+|U-7-04
+|StaffManagement.setSalary
+|Staff existiert
+|45000
+|true
+
+|U-7-05
+|StaffManagement.getUsername
+|Staff existiert
+|-
+|true
+
+|U-7-06
+|StaffManagement.getAllStaffs
+|Staffs existieren
+|-
+|true
+
+|U-7-07
+|StaffManagement.finByUseraccount
+|Staff existiert
+|Staff.userAccount
+|true
+
+|U-7-08
+|StaffManagement.findById
+|Staff existiert
+|Staff.staffId
+|true
+
+|U-7-09
+|StaffManagement.removeStaff
+|Staff existiert
+|Staff.staffId
+|true
+
+|I-7-01
+|StaffController.staffs
+|-
+|Angemeldet ohne Rolle
+|"/login"
+
+|I-7-02
+|StaffController.staffs
+|-
+|Angemeldet als Boss
+|"staffs"
+
+|I-7-03
+|StaffController.staffDetail
+|-
+|Angemeldet ohne Rolle
+|"/login"
+
+
+|I-7-04
+|StaffController.staffDetail
+|-
+|Angemeldet als Boss
+|"staffDetail"
+
+
+|I-7-05
+|StaffController.newStaff
+|-
+|Angemeldet ohne Rolle
+|"/login"
+
+|I-7-06
+|StaffController.newStaff
+|-
+|Angemeldet als Boss
+|"newStaff"
+
+|I-7-07
+|StaffController.payslip
+|-
+|Angemeldet ohne Rolle
+|isForbidden
+
+|I-7-08
+|StaffController.newStaff (post)
+|-
+|Form
+|isOk
+
+|I-7-09
+|StaffController.newStaff (post)
+|-
+|Form
+|Error
+
+|I-7-10
+|StaffController.editStaff
+|-
+|EditStaffForm
+|isok
+
+|I-7-11
+|StaffController.editStaff
+|-
+|EditStaffForm
+|Error
+
+|I-7-12
+|StaffController.editStaff (post)
+|-
+|EditStaffForm
+|isok
+
+|I-7-13
+|StaffController.editStaff (post)
+|-
+|EditStaffForm
+|Error
+
+|I-7-14
+|StaffController.detailStaff
+|-
+|Staff staff
+|isOk
+
+|I-7-15
+|StaffController.detailStaff
+|-
+|Staff staff
+|Error
+
+|I-7-16
+|StaffController.editsalary (post)
+|-
+|SalaryForm
+|isOk
+
+|I-7-17
+|StaffController.editSalary (post
+|-
+|SalaryForm 
+|Error
+
+|I-7-18
+|StaffController.payslip
+|-
+|Payslip
+|isOk

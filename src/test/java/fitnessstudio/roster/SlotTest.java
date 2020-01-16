@@ -18,6 +18,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.fail;
 
+/**
+ * UnitTests Slots
+ */
 @SpringBootTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class SlotTest {
@@ -44,6 +47,10 @@ public class SlotTest {
 		rosterEntry2 = new RosterEntry(StaffRole.COUNTER, staff);
 	}
 
+	/**
+	 * U-3-07
+	 * U-3-08
+	 */
 	@Test
 	@Order(1)
 	void constructorTest () {
@@ -76,6 +83,10 @@ public class SlotTest {
 
 	}
 
+	/**
+	 * U-3-09
+	 * U-3-10
+	 */
 	@Test
 	@Order(2)
 	void testDeleted () {
@@ -94,6 +105,9 @@ public class SlotTest {
 		assertThat(slot.deleteEntry(rosterEntry.getRosterEntryId())).isFalse();
 	}
 
+	/**
+	 * U-3-11
+	 */
 	@Test
 	@Order(3)
 	void isTaken () {
@@ -104,6 +118,9 @@ public class SlotTest {
 		assertThat(slot.isTaken(staff2)).isFalse();
 	}
 
+	/**
+	 * U-3-12
+	 */
 	@Test
 	@Order(4)
 	void testSortedList () {
@@ -120,6 +137,9 @@ public class SlotTest {
 		assertThat(slot.getEntries().get(0).equals(rosterEntry2)).isTrue();
 	}
 
+	/**
+	 * U-3-13
+	 */
 	@Test
 	@Order(5)
 	void testCoordinates () {

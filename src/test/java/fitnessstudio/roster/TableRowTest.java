@@ -9,10 +9,16 @@ import java.time.LocalDateTime;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.fail;
 
+/**
+ * UnitTest TableRows
+ */
 @SpringBootTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class TableRowTest {
 
+	/**
+	 * U-3-14
+	 */
 	@Test
 	void constructorTest () {
 		TableRow tableRow = new TableRow(LocalDateTime.now(),1);

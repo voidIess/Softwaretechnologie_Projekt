@@ -5,6 +5,7 @@ import fitnessstudio.invoice.InvoiceType;
 import fitnessstudio.member.Member;
 import fitnessstudio.member.MemberManagement;
 import org.javamoney.moneta.Money;
+import org.jetbrains.annotations.NotNull;
 import org.salespointframework.order.*;
 import org.salespointframework.payment.Cash;
 import org.salespointframework.quantity.Quantity;
@@ -44,8 +45,8 @@ public class BarController {
 	ApplicationEventPublisher applicationEventPublisher;
 
 	/**
-	 * @param barManager The bar manager is used as database backend for our stock
-	 * @param orderManager The order manager is used as database backend for the orders
+	 * @param barManager       The bar manager is used as database backend for our stock
+	 * @param orderManager     The order manager is used as database backend for the orders
 	 * @param memberManagement This used for payment transactions
 	 */
 	public BarController(BarManager barManager, OrderManager<Order> orderManager, MemberManagement memberManagement) {
@@ -56,6 +57,7 @@ public class BarController {
 
 	/**
 	 * an overview about the articles wich can be than added to the cart
+	 *
 	 * @param model
 	 * @return
 	 */
@@ -69,6 +71,7 @@ public class BarController {
 
 	/**
 	 * the final page of selling an {@link Article} before a completed {@link Order} is placed
+	 *
 	 * @param cart
 	 * @param form
 	 * @param model
@@ -83,7 +86,8 @@ public class BarController {
 	}
 
 	/**
-	 * this post mapping will place the order and do all neccesarry steps
+	 * this post mapping will place the order and do all necessary steps
+	 *
 	 * @param cart
 	 * @param form
 	 * @param status
@@ -99,16 +103,7 @@ public class BarController {
 
 		//check that selling is possible with the given parameters
 		Optional<Member> optionalCustomer = memberManagement.findById(customerId);
-		if (optionalCustomer.isEmpty()) {
-			model.addAttribute(ERROR, "A Customer with this id couldn't be found");
-			model.addAttribute(STATUS, 400);
-			return ERROR;
-		}
-
-		if (!cart.stream().map(cartItem -> barManager.stockAvailable(cartItem.getProduct().getId(),
-				cartItem.getQuantity())).reduce(true, (x, y) -> x && y)) {
-			model.addAttribute(ERROR, "Not enough stock, to do this");
-			model.addAttribute(STATUS, 400);
+		if (getErrors(cart, model, optionalCustomer) || optionalCustomer.isEmpty()) {
 			return ERROR;
 		}
 
@@ -116,22 +111,8 @@ public class BarController {
 		Money price = Money.from(cart.getPrice());
 
 		// for Invoice or for statistic
-		Iterator<CartItem> iterator = cart.iterator();
-		List<CartItem> cartItemList = new ArrayList<>();
-		while (iterator.hasNext()) {
-			CartItem cartItem = iterator.next();
-			cartItemList.add(cartItem);
-		}
+		StringBuilder articles = getCartItemsStringBuilder(cart);
 
-		StringBuilder articles = new StringBuilder();
-		try {
-			for (CartItem cartItem : cartItemList) {
-				articles.append(" ").append(cartItem.getQuantity().getAmount().intValue()).append("x ")
-						.append(cartItem.getProductName());
-			}
-		} catch (Exception e) {
-			// No CartItem given
-		}
 		if (payCash) {
 			applicationEventPublisher.publishEvent(new InvoiceEvent(this, customerId, InvoiceType.CASHPAYMENT,
 					price, articles.toString()));
@@ -155,6 +136,45 @@ public class BarController {
 		return "redirect:/";
 	}
 
+	@NotNull
+	private StringBuilder getCartItemsStringBuilder(@ModelAttribute Cart cart) {
+		Iterator<CartItem> iterator = cart.iterator();
+		List<CartItem> cartItemList = new ArrayList<>();
+		while (iterator.hasNext()) {
+			CartItem cartItem = iterator.next();
+			cartItemList.add(cartItem);
+		}
+
+		StringBuilder articles = new StringBuilder();
+		try {
+			for (CartItem cartItem : cartItemList) {
+				articles.append(" ").append(cartItem.getQuantity().getAmount().intValue()).append("x ")
+						.append(cartItem.getProductName());
+			}
+		} catch (Exception e) {
+			// No CartItem given
+		}
+		return articles;
+	}
+
+	private boolean getErrors(@ModelAttribute Cart cart, Model model, Optional<Member> optionalCustomer) {
+		boolean hasError = false;
+		if (optionalCustomer.isEmpty()) {
+			model.addAttribute(ERROR, "A Customer with this id couldn't be found");
+			model.addAttribute(STATUS, 400);
+			hasError = true;
+		}
+
+		if (!cart.stream().map(cartItem -> barManager.stockAvailable(cartItem.getProduct().getId(),
+				cartItem.getQuantity())).reduce(true, (x, y) -> x && y)) {
+			model.addAttribute(ERROR, "Not enough stock, to do this");
+			model.addAttribute(STATUS, 400);
+			hasError = true;
+		}
+
+		return hasError;
+	}
+
 	// the cart is will stay in the controller, as it has an 1:1 relation to session(?)
 	@ModelAttribute("cart")
 	Cart initializeCart() {
@@ -163,6 +183,7 @@ public class BarController {
 
 	/**
 	 * the post mapping, which will add an {@link Article} to the {@link Cart}
+	 *
 	 * @param article
 	 * @param number
 	 * @param cart
@@ -179,6 +200,7 @@ public class BarController {
 
 	/**
 	 * get an overview about all completed orders
+	 *
 	 * @param model
 	 * @return
 	 */
@@ -191,6 +213,7 @@ public class BarController {
 
 	/**
 	 * get an overview about all items which are currently added to the cart
+	 *
 	 * @return
 	 */
 	@PreAuthorize("hasRole('STAFF')")

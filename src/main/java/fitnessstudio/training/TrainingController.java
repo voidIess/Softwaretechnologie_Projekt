@@ -2,7 +2,6 @@ package fitnessstudio.training;
 
 
 import fitnessstudio.member.Member;
-import fitnessstudio.roster.RosterDataInitializer;
 import org.salespointframework.useraccount.UserAccount;
 import org.salespointframework.useraccount.web.LoggedIn;
 import org.slf4j.Logger;
