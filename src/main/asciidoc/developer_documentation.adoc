@@ -132,6 +132,12 @@ image::models/design/ClientServerModel.jpg[]
 _Client Server Model_
 
 == Entwurfsentscheidungen
+=== Verwendung von Salespoint in der Barverwaltung
+Zum Verwalten des Bestandes wurde das MultiInventory von Salespoint verwendet.
+In diesem kann ein Salespoint.Product mehren Inventory Items zugeordnet werden. Ein Item
+repräsentiert in eine Gruppe von konkreten Produkten im Lager mit dem selben Verfallsdatum.
+
+
 === Verwendete Muster
 
 * Spring MVC
