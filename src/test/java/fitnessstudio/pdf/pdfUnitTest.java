@@ -6,6 +6,7 @@ import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
 import fitnessstudio.contract.Contract;
 import fitnessstudio.invoice.InvoiceEntry;
+import fitnessstudio.invoice.InvoiceType;
 import fitnessstudio.member.Member;
 import fitnessstudio.staff.Staff;
 import org.javamoney.moneta.Money;
@@ -25,6 +26,7 @@ import java.time.LocalDate;
 import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
@@ -47,6 +49,8 @@ public class pdfUnitTest {
 
 	private InvoicePdfGenerator invoice;
 	private PayslipPdfGenerator payslip;
+	Map<String, Object> invoiceMap;
+	Map<String, Object> payslipMap;
 
 	@BeforeAll
 	void setUp() throws IOException {
@@ -57,6 +61,35 @@ public class pdfUnitTest {
 
 		invoice = new InvoicePdfGenerator();
 		payslip = new PayslipPdfGenerator();
+
+		Money money = Money.of(0, "EUR");
+
+		Member member = new Member();
+		member.setContract(new Contract("name", "description", money, 3));
+
+		UserAccount account = accounts.create("pdfTestStaff", Password.UnencryptedPassword.of("123"), "pdfTestStaff@email.de", Role.of("STAFF"));
+		Staff staff = new Staff(account, "firstName", "lastName", money);
+
+		// create invoice data
+		List<InvoiceEntry> entries = new LinkedList<>();
+		entries.add(new InvoiceEntry(member.getMemberId(), InvoiceType.DEPOSIT, money, ""));
+		entries.add(new InvoiceEntry(member.getMemberId(), InvoiceType.CASHPAYMENT, money, ""));
+		for (InvoiceEntry entry : entries) {
+			entry.setCreated(LocalDate.now());
+		}
+		invoiceMap = new HashMap<>();
+		invoiceMap.put("type", "invoice");
+		invoiceMap.put("member", member);
+		invoiceMap.put("endDate", LocalDate.now());
+		invoiceMap.put("endCredit", money);
+		invoiceMap.put("startDate", LocalDate.now());
+		invoiceMap.put("startCredit", money);
+		invoiceMap.put("invoiceEntries", entries);
+
+		//create payslip data
+		payslipMap = new HashMap<>();
+		payslipMap.put("type", "payslip");
+		payslipMap.put("staff", staff);
 	}
 
 	@Test
@@ -75,41 +108,41 @@ public class pdfUnitTest {
 	}
 
 	@Test
+	void testGetGermanMonthException() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			PdfGenerator.getGermanMonth(13);
+		});
+	}
+
+	@Test
 	void testGeneratePdfInvoice() {
-		Member member = new Member();
-		member.setContract(new Contract("name", "description", Money.of(0, "EUR"), 3));
-		java.util.List<InvoiceEntry> entries = new LinkedList<>();
-
-		Map<String, Object> map = new HashMap<>();
-		map.put("type", "invoice");
-		map.put("member", member);
-		map.put("endDate", LocalDate.now());
-		map.put("endCredit", Money.of(0, "EUR"));
-		map.put("startDate", LocalDate.now());
-		map.put("startCredit", Money.of(100, "EUR"));
-		map.put("invoiceEntries", entries);
-
-		assertThat(PdfGenerator.generatePdf(map, document)).isNotNull();
-
+		assertThat(PdfGenerator.generatePdf(invoiceMap, document)).isNotNull();
 	}
 
 	@Test
 	void testGeneratePdfPayslip() {
-		UserAccount account = accounts.create("pdfTestStaff", Password.UnencryptedPassword.of("123"), "pdfTestStaff@email.de", Role.of("STAFF"));
-		Staff staff = new Staff(account, "firstName", "lastName", Money.of(0, "EUR"));
-
-		Map<String, Object> map = new HashMap<>();
-		map.put("type", "payslip");
-		map.put("staff", staff);
-
-		assertThat(PdfGenerator.generatePdf(map, document)).isNotNull();
+		assertThat(PdfGenerator.generatePdf(payslipMap, document)).isNotNull();
 
 	}
 
 	@Test
-	void testPdfView() {
+	void testPdfViewException() {
 		assertThrows(NullPointerException.class, () -> {
 			pdfView.renderMergedOutputModel(Map.of("type", "payslip"), httpServletRequest, httpServletResponse);
+		});
+	}
+
+	@Test
+	void testPdfViewInvoice() {
+		assertDoesNotThrow(() -> {
+			pdfView.renderMergedOutputModel(invoiceMap, httpServletRequest, httpServletResponse);
+		});
+	}
+
+	@Test
+	void testPdfViewPayslip() {
+		assertDoesNotThrow(() -> {
+			pdfView.renderMergedOutputModel(payslipMap, httpServletRequest, httpServletResponse);
 		});
 	}
 

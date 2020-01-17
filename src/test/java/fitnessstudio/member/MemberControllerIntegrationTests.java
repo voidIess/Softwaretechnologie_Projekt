@@ -10,6 +10,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.hamcrest.CoreMatchers.endsWith;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -233,5 +234,12 @@ class MemberControllerIntegrationTests extends AbstractIntegrationTests {
 				.andExpect(view().name("redirect:/login"));
 	}
 
+	@Test
+	void postPrintPdfInvoice() throws Exception {
+		mockMvc.perform(post("/printPdfInvoice")
+				.with(user("member").roles("MEMBER")).with(csrf()))
+				.andExpect(status().is(302))
+				.andExpect(view().name("redirect:/member/home"));
+	}
 
 }
