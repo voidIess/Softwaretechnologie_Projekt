@@ -95,9 +95,11 @@ Die folgende (oder neuere) Java Version wird benötgit:
 
 Die folgende (oder neuere) Suchmaschinen-Version wird benötigt:
 
-* Internet Explorer/ Edge 10.0
+* Internet Explorer (nicht empfohlen)
+* Microsoft Edge Chrominium 79.0.309.65 (empfohlen)
 * Firefox 4.0
-* Google Chrome 4.0
+* Safari
+* Google Chrome 79.0.3945.117 (empfohlen)
 * Opera 9.6
 
 
