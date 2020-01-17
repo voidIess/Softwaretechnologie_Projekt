@@ -21,7 +21,7 @@ import java.util.Map;
  */
 public class PayslipPdfGenerator implements PdfGenerator {
 
-	public PayslipPdfGenerator() {}
+	private PayslipPdfGenerator() {}
 
 	/**
 	 * Generates and returns the payslip PDF document of the last month.

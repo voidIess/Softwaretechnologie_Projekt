@@ -31,7 +31,11 @@ class ContractControllerIntegrationTests extends AbstractIntegrationTests {
 	@Autowired
 	ContractManagement contractManagement;
 
-
+	/**
+	 * I-2-01
+	 *
+	 * @throws Exception
+	 */
 	@Test
 	void preventsPublicAccessForContractCreate() throws Exception {
 		mockMvc.perform(get("/admin/contract/create"))
@@ -39,6 +43,11 @@ class ContractControllerIntegrationTests extends AbstractIntegrationTests {
 				.andExpect(header().string(HttpHeaders.LOCATION, endsWith("/login")));
 	}
 
+	/**
+	 * I-2-02
+	 *
+	 * @throws Exception
+	 */
 	@Test
 	@WithMockUser(username = "staff", roles = "STAFF")
 	void preventStaffAccessForContractCreate() throws Exception {
@@ -46,6 +55,11 @@ class ContractControllerIntegrationTests extends AbstractIntegrationTests {
 				.andExpect(status().isForbidden());
 	}
 
+	/**
+	 * I-2-03
+	 *
+	 * @throws Exception
+	 */
 	@Test
 	@WithMockUser(username = "boss", roles = "BOSS")
 	void contractCreateIsAccessibleForAdmin() throws Exception {
@@ -54,6 +68,11 @@ class ContractControllerIntegrationTests extends AbstractIntegrationTests {
 				.andExpect(model().attributeExists("form"));
 	}
 
+	/**
+	 * I-2-04
+	 *
+	 * @throws Exception
+	 */
 	@Test
 	void preventsPublicAccessForContracts() throws Exception {
 		mockMvc.perform(get("/admin/contracts"))
@@ -61,6 +80,11 @@ class ContractControllerIntegrationTests extends AbstractIntegrationTests {
 				.andExpect(header().string(HttpHeaders.LOCATION, endsWith("/login")));
 	}
 
+	/**
+	 * I-2-05
+	 *
+	 * @throws Exception
+	 */
 	@Test
 	@WithMockUser(username = "boss", roles = "BOSS")
 	void contractsIsAccessibleForAdmin() throws Exception {
@@ -69,6 +93,11 @@ class ContractControllerIntegrationTests extends AbstractIntegrationTests {
 				.andExpect(model().attributeExists("contractList"));
 	}
 
+	/**
+	 * I-2-06
+	 *
+	 * @throws Exception
+	 */
 	@Test
 	void preventsPublicAccessForContractDelete() throws Exception {
 		mockMvc.perform(get("/admin/contract/delete/{id}", "1"))
@@ -76,6 +105,11 @@ class ContractControllerIntegrationTests extends AbstractIntegrationTests {
 				.andExpect(header().string(HttpHeaders.LOCATION, endsWith("/login")));
 	}
 
+	/**
+	 * I-2-07
+	 *
+	 * @throws Exception
+	 */
 	@Test
 	@WithMockUser(username = "staff", roles = "STAFF")
 	void preventStaffAccessForContractDelete() throws Exception {
@@ -83,6 +117,11 @@ class ContractControllerIntegrationTests extends AbstractIntegrationTests {
 				.andExpect(status().isForbidden());
 	}
 
+	/**
+	 * I-2-08
+	 *
+	 * @throws Exception
+	 */
 	@Test
 	void preventsPublicAccessForContractDetail() throws Exception {
 		mockMvc.perform(get("/admin/contract/detail/{id}", "1"))
@@ -90,6 +129,11 @@ class ContractControllerIntegrationTests extends AbstractIntegrationTests {
 				.andExpect(header().string(HttpHeaders.LOCATION, endsWith("/login")));
 	}
 
+	/**
+	 * I-2-09
+	 *
+	 * @throws Exception
+	 */
 	@Test
 	@WithMockUser(username = "staff", roles = "STAFF")
 	void preventStaffAccessForContractDetail() throws Exception {
@@ -97,6 +141,11 @@ class ContractControllerIntegrationTests extends AbstractIntegrationTests {
 				.andExpect(status().isForbidden());
 	}
 
+	/**
+	 * I-2-10
+	 *
+	 * @throws Exception
+	 */
 	@Test
 	void contractInformationIsAccessibleForPublic() throws Exception {
 		mockMvc.perform(get("/contract_information"))
@@ -104,6 +153,11 @@ class ContractControllerIntegrationTests extends AbstractIntegrationTests {
 				.andExpect(model().attributeExists("contractList"));
 	}
 
+	/**
+	 * I-2-11
+	 *
+	 * @throws Exception
+	 */
 	@Test
 	@WithMockUser(username = "boss", roles = "BOSS")
 	void getContractsController() throws Exception {
@@ -113,6 +167,11 @@ class ContractControllerIntegrationTests extends AbstractIntegrationTests {
 				.andExpect(view().name("contract/contracts"));
 	}
 
+	/**
+	 * I-2-12
+	 *
+	 * @throws Exception
+	 */
 	@Test
 	@WithMockUser(username = "boss", roles = "BOSS")
 	void getDeleteContractController() throws Exception {
@@ -122,6 +181,11 @@ class ContractControllerIntegrationTests extends AbstractIntegrationTests {
 				.andExpect(view().name("redirect:/admin/contracts"));
 	}
 
+	/**
+	 * I-2-13
+	 *
+	 * @throws Exception
+	 */
 	@Test
 	void postCreateNewContractController() throws Exception {
 		mockMvc.perform(post("/admin/contract/create?name=Student&description=abcd123&price=10&duration=300")
@@ -129,6 +193,11 @@ class ContractControllerIntegrationTests extends AbstractIntegrationTests {
 				.andExpect(view().name("redirect:/admin/contracts"));
 	}
 
+	/**
+	 * I-2-14
+	 *
+	 * @throws Exception
+	 */
 	@Test
 	void postEditContractController() throws Exception {
 		Contract contract = contractManagement.getAllContracts().iterator().next();
@@ -139,6 +208,11 @@ class ContractControllerIntegrationTests extends AbstractIntegrationTests {
 	}
 
 
+	/**
+	 * I-2-15
+	 *
+	 * @throws Exception
+	 */
 	@Test
 	@WithMockUser(username = "boss", roles = "BOSS")
 	void getDetailController() throws Exception {
@@ -150,6 +224,11 @@ class ContractControllerIntegrationTests extends AbstractIntegrationTests {
 				.andExpect(view().name("contract/contractDetail"));
 	}
 
+	/**
+	 * I-2-16
+	 *
+	 * @throws Exception
+	 */
 	@Test
 	@WithMockUser(username = "boss", roles = "BOSS")
 	void getContractInfoController() throws Exception {

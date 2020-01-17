@@ -17,23 +17,13 @@ Die individuell erfasste Zeit beinhaltet auch das Lesen von Dokumentationen, Bes
 |8                 |1020  |380     |1260  |860    |1400    |35
 |9                 |900   |840     |800   |1560   |1000    |120
 |10                |120   |110     |240   |480    |200     |40
-|11                |…     |…       |600   |…      |1200    |25
-|12                |…     |…       |…     |…      |600     |90
+|11                |1080  |20      |600   |200    |1200    |25
+|12                |720   |200     |900   |1300   |600     |90
 |                  |      |        |      |       |        |
-|Summe             |…     |…       |…     |…      |9290    |1430
-|Summe(mit Meeting)|…     |…       |…     |…      |10.720  | -
-|Stunden je Woche  |…     |…       |…     |…      |893,33  | -
+|Summe             |8460  |5860    |8480  |10930      |9290    |1430
+|Summe(mit Meeting)|9890  |6290    |9910  |12360      |10.720  | -
+|Minuten je Woche  |824,17|524,17  |826   |1030      |893,33  | -
+|Stunden je Woche  |13,74 |8,73    |14    |17,17      |14,89   | -
 |===
 
-Bitte tragen Sie am Ende des Praktikums noch folgende weitere Werte ein:
-Summe der Arbeitsstunden pro Student:
-
-SUMME(SPALTE(DevX))
-
-Arbeitsstunden pro Woche pro Student:
-
-SUMME(SPALTE(DevX)) / 12
-
-Durchschnittliche Arbeitzeit aller Studenten pro Woche:
-
-(SUMME(SPALTE(Dev1)) + SUMME(SPALTE(Dev2)) + SUMME(SPALTE(Dev3)) + SUMME(SPALTE(Dev4)) + SUMME(SPALTE(Dev5)) +SUMME(SPALTE(Dev6))) / 6
+Durchschnittliche Arbeitzeit aller Studenten pro Woche: 13,71

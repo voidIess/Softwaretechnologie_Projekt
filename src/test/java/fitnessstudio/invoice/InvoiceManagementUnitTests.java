@@ -11,7 +11,11 @@ import java.time.LocalDate;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-
+/**
+ * Unit tests for {@link fitnessstudio.invoice.InvoiceManagement}.
+ *
+ * @author Bill Kippe
+ */
 @SpringBootTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -38,6 +42,9 @@ class InvoiceManagementUnitTests {
 	}
 
 
+	/**
+	 * U-90-01
+	 */
 	@Test
 	@Order(1)
 	void createInvoiceEntry() {
@@ -50,12 +57,18 @@ class InvoiceManagementUnitTests {
 		assertThat(invoiceEntryRepository.findAllByMember(member)).contains(entry);
 	}
 
+	/**
+	 * U-90-02
+	 */
 	@Test
 	@Order(2)
 	void getAllInvoicesForMember() {
 		assertThat(invoiceManagement.getAllInvoicesForMember(member)).contains(entry);
 	}
 
+	/**
+	 * U-90-03
+	 */
 	@Test
 	@Order(3)
 	void getAllInvoiceForMemberOfLastMonth() {
@@ -68,6 +81,9 @@ class InvoiceManagementUnitTests {
 		assertThat(invoiceManagement.getAllInvoiceForMemberOfLastMonth(member)).contains(entry);
 	}
 
+	/**
+	 * U-90-04
+	 */
 	@Test
 	@Order(4)
 	void getAllEntriesForMemberBefore() {

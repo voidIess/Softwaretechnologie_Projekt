@@ -28,6 +28,9 @@ public class AttendanceUnitTests {
 		member = new Member();
 	}
 
+	/**
+	 * U-6-01
+	 */
 	@Test
 	@Order(1)
 	void testCreateAttendance() {
@@ -36,18 +39,27 @@ public class AttendanceUnitTests {
 		assertThat(repository.count()).isEqualTo(size+1);
 	}
 
+	/**
+	 * U-6-02
+	 */
 	@Test
 	@Order(2)
 	void testFindAll() {
 		assertThat(statistics.findAllAttendances().isEmpty()).isFalse();
 	}
 
+	/**
+	 * U-6-03
+	 */
 	@Test
 	@Order(3)
 	void testFindById() {
 		assertThat(statistics.findAttendanceById(LocalDate.now()).isPresent()).isTrue();
 	}
 
+	/**
+	 * U-6-04
+	 */
 	@Test
 	@Order(4)
 	void testGetAverageTimeToday() {
@@ -63,6 +75,9 @@ public class AttendanceUnitTests {
 		assertThat(repository.count()).isEqualTo(size);
 	}
 
+	/**
+	 * U-6-05
+	 */
 	@Test
 	@Order(6)
 	void testGetMemberAmountToday() {
@@ -75,6 +90,9 @@ public class AttendanceUnitTests {
 		assertThat(statistics.getAverageTimeOfToday()).isEqualTo(3);
 	}
 
+	/**
+	 * U-6-06
+	 */
 	@Test
 	@Order(8)
 	void testGetAverageTimesOfThisWeek() {
@@ -82,6 +100,9 @@ public class AttendanceUnitTests {
 		assertThat(statistics.getAverageTimesOfThisWeek()[LocalDate.now().getDayOfWeek().getValue()-1]).isEqualTo(3);
 	}
 
+	/**
+	 * U-6-07
+	 */
 	@Test
 	@Order(9)
 	void testGetMemberAmountsOfThisWeek() {

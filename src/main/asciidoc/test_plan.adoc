@@ -55,40 +55,114 @@ Ansprechpartner: Vu
 |ID |Anwendungsfall |Vorbedingungen |Eingabe |Ausgabe
 
 |U-1-01
-|StudioService.saveStudio
+|getStudio
 |das gegebene Studio ist nicht null
-|Studio
+|
 |-
 
 |U-1-02
-|StudioService.saveStudio
-|das gegebene Studio ist null
-|Studio
-|NullPointerException
-
-|U-1-03
-|StudioService.getStudio
-|-
-|-
-|NullPointerException
-
-|U-1-04
-|StudioService.getStudio
+|saveStudioTest
 |-
 |-
 |Studio
 
 |I-1-01
-|StudioController.editStudio
+|getStudioController
 |-
-|Studiovariablen
-|-
+|get("/")
+|view().name("index")
 
 |I-1-02
-|StudioController.editStudio
+|getEditStudioController
 |-
-|Studiovariablen, Errors
-|Fehlernachrichten
+|get("/studio")
+|view().name("studio")
+
+|I-1-03
+|postEditStudioController
+|-
+|post("/studio?advertisingBonus=10&openingTimes=Mo-Fr&address=abcxyz&name=Fitness Final")
+|view().name("redirect:/")
+
+|I-1-04
+|postErrorEditStudioController
+|-
+|post("/studio?advertisingBonus=-1&openingTimes=Mo-Fr&address=abcxyz&name=Fitness Second")
+|view().name("error")
+
+|===
+
+=== Verträge
+
+Ansprechpartner: Bill
+
+[options="headers"]
+|===
+|ID |Anwendungsfall |Vorbedingungen |Eingabe |Ausgabe
+
+|U-2-01
+|ContractManagement.createContract
+| -
+|Name, Beschreibung, Preis und Laufzeit
+| -
+
+|U-2-02
+|ContractManagement.findById
+|Ein Vertrag muss existieren
+|ID des existierenden Vertrages
+| -
+
+|U-2-03
+|ContractManagement.findAll
+|Ein Vertrag muss existieren
+| -
+| -
+
+|U-2-04
+|ContractManagement.editContract
+|es existiert ein Vertrag mit dieser ID
+|ID, Name, Beschreibung, monatlicher Beitrag, Laufzeit
+| -
+
+|U-2-05
+|ContractManagement.deleteContract
+|ein Vertrag mit der gegebenen ID existiert
+|VertragsID
+|-
+
+|===
+
+=== Rechnungsverwaltung
+
+Ansprechpartner: Bill & Lea
+
+[options="headers"]
+|===
+|ID |Anwendungsfall |Vorbedingungen |Eingabe |Ausgabe
+
+|U-90-01
+|InvoiceManagement.createInvoiceEntry
+|existierendes Mitglied
+|ID des Mitgliedes, InvoiceType, Betrag, Beschreibung
+| -
+
+|U-90-02
+|InvoiceManagement.getAllInvoicesForMember
+|existierendes Mitglied
+|ID des existierenden Mitgliedes
+| -
+
+|U-90-03
+|InvoiceManagement.getAllInvoiceForMemberOfLastMonth
+|Ein InvoiceEntry für ein existierendes Mitglied
+|ID des Mitgliedes
+| -
+
+|U-2-04
+|InvoiceManagement.getAllEntriesForMemberBefore
+|Ein InvoiceEntry für ein existierendes Mitglied
+|ID des Mitgliedes
+| -
 
 |===
 
@@ -109,48 +183,6 @@ Ansprechpartner: Bill
 |U-2-02
 |Member.confirm
 |der Mitarbeiter wurde ohne Parameter angelegt
-|-
-|Fehlermeldung
-
-|I-2-01
-|Member.requestTrainig
-a|
-- der Mitarbeiter existiert im System
-- das Datum liegt in der Zukunft
-- Zeit und Datum liegen innerhalb der Öffnungszeiten
-|Zeit und Datum, Mitarbeiter
-|-
-
-|I-2-02
-|Member.requestTrainig
-a|
-- der Mitarbeiter existiert nicht im System oder
-- das Datum liegt in der Vergangenheit oder
-- Zeit und Datum liegen außerhalb der Öffnungszeiten
-|Zeit und Datum, Mitarbeiter
-|Fehlermeldung
-
-|I-2-03
-|Member.changeContract
-|der neue Vertrag ist nicht null
-|neuer Vertrag
-|-
-
-|I-2-04
-|Member.changeContract
-|der neue Vertrag ist null
-|neuer Vertrag
-|NullPointerException
-
-|U-2-03
-|Training.reject
-|der Trainingsstautus ist nicht ACCEPTED
-|-
-|-
-
-|U-2-04
-|Training.reject
-|der Trainingsstautus ist ACCEPTED
 |-
 |Fehlermeldung
 
@@ -182,57 +214,179 @@ a|
 |MitgliedsID
 |Fehlermeldung
 
-|U-2-07
-|Contract.update
-|keine Nullobjekte werden übergeben
-|Name, Beschreibung, monatlicher Beitrag, Auslaufdatum
+|===
+
+=== Mitarbeiterverwaltung
+
+Ansprechpartner: Markus
+
+[options="headers"]
+|===
+|ID |Anwendungsfall |Vorbedingungen |Eingabe |Ausgabe
+
+|U-7-01
+|StaffManagement.createStaff
 |-
+|Staff Objekt
+|true
 
-|U-2-08
-|Contract.update
-|es wird min ein Nullobjekt übergeben
-|Name, Beschreibung, monatlicher Beitrag, Auslaufdatum
-|NullPointerException
-
-|I-2-09
-|ContractManagement.editContract
-|es existiert ein Vertrag mit dieser ID
-|ID, Name, Beschreibung, monatlicher Beitrag, Auslaufdatum
-|alter Vertrag
-
-|I-2-10
-|ContractManagement.editContract
-|es existiert kein Vertrag mit dieser ID
-|ID, Name, Beschreibung, monatlicher Beitrag, Auslaufdatum
-|Fehlermeldung
-
-|I-2-11
-|ContractManagement.createContract
-a|
-- es existiert kein Vertrag mit diesem Namen
-- das Auslaufdatum liegt in der Zukunft
-|Name, Beschreibung, monatlicher Beitrag, Auslaufdatum
-|Vertrag
-
-|I-2-12
-|ContractManagement.createContract
-a|
-- es existiert ein Vertrag mit diesem Namen oder
-- das Auslaufdatum liegt in der Vergangenheit
-|Name, Beschreibung, monatlicher Beitrag, Auslaufdatum
-|Fehlermeldung
-
-|I-2-13
-|ContractManagement.deleteContract
-|ein Vertrag mit der gegebenen ID existiert
-|VertragsID
+|U-7-02
+|StaffManagement.setFirstName
 |-
+|"Christiano"
+|true
 
-|I-2-14
-|ContractManagement.deleteContract
-|ein Vertrag mit der gegebenen ID existiert nicht
-|VertragsID
-|Fehlermeldung
+|U-7-03
+|StaffManagement.setLastName
+|Staff exisitiert.
+|"Ronaldo"
+|true
+
+|U-7-04
+|StaffManagement.setSalary
+|Staff existiert
+|45000
+|true
+
+|U-7-05
+|StaffManagement.getUsername
+|Staff existiert
+|-
+|true
+
+|U-7-06
+|StaffManagement.getAllStaffs
+|Staffs existieren
+|-
+|true
+
+|U-7-07
+|StaffManagement.finByUseraccount
+|Staff existiert
+|Staff.userAccount
+|true
+
+|U-7-08
+|StaffManagement.findById
+|Staff existiert
+|Staff.staffId
+|true
+
+|U-7-09
+|StaffManagement.removeStaff
+|Staff existiert
+|Staff.staffId
+|true
+
+|I-7-01
+|StaffController.staffs
+|-
+|Angemeldet ohne Rolle
+|"/login"
+
+|I-7-02
+|StaffController.staffs
+|-
+|Angemeldet als Boss
+|"staffs"
+
+|I-7-03
+|StaffController.staffDetail
+|-
+|Angemeldet ohne Rolle
+|"/login"
+
+
+|I-7-04
+|StaffController.staffDetail
+|-
+|Angemeldet als Boss
+|"staffDetail"
+
+
+|I-7-05
+|StaffController.newStaff
+|-
+|Angemeldet ohne Rolle
+|"/login"
+
+|I-7-06
+|StaffController.newStaff
+|-
+|Angemeldet als Boss
+|"newStaff"
+
+|I-7-07
+|StaffController.payslip
+|-
+|Angemeldet ohne Rolle
+|Exception
+
+|I-7-08
+|StaffController.newStaff (post)
+|-
+|StaffForm
+|true
+
+|I-7-09
+|StaffController.newStaff (post)
+|-
+|StaffForm
+|Exception
+
+|I-7-10
+|StaffController.editStaff
+|-
+|EditStaffForm
+|true
+
+|I-7-11
+|StaffController.editStaff
+|-
+|EditStaffForm
+|Exception
+
+|I-7-12
+|StaffController.editStaff (post)
+|-
+|EditStaffForm
+|true
+
+|I-7-13
+|StaffController.editStaff (post)
+|-
+|EditStaffForm
+|Exception
+
+|I-7-14
+|StaffController.detailStaff
+|-
+|Staff staff
+|true
+
+|I-7-15
+|StaffController.detailStaff
+|-
+|Staff staff
+|Exception
+
+|I-7-16
+|StaffController.editsalary (post)
+|-
+|SalaryForm
+|true
+
+|I-7-17
+|StaffController.editSalary (post
+|-
+|SalaryForm 
+|Exception
+
+|I-7-18
+|StaffController.payslip
+|-
+|Payslip
+|true
 
 |===
 
@@ -262,7 +416,7 @@ a|
 |Roster.addEntry
 |es existiert ein anderer Eintrag mit diesem Mitarbeiter zur selben Zeit
 |Dienstplaneintrag
-|Fehlermeldung
+|false
 
 |U-3-04
 |Roster.deleteEntry
@@ -430,100 +584,204 @@ a|
 |RosterController.default
 |Staffs sollen mit /roster auf Dienstplan der jetzigen Woche
 |-
-|-
+|true
 
 |I-3-02
 |Roster.rosterView
 |Staffs sollen mit /roster/{week} auf einen speziellen Dienstplan kommen.
 |Woche
-|-
+|true
 
 |I-3-03
 |Roster.rosterViewFiltered
 |Staffs sollen mit /roster/{week}/{id} einen beliebigen Dienstplan nach einem Staff filtern
 | Woche und ID
-|-
+|true
 
 |I-3-04
 |RosterController.newRosterEntry
 |Staffs sollen auf ein Formular kommen um einen Eintrag zu erstellen. Dafür muss ein Dienstplan existieren
 |-
-|-
+|true
 
 |I-3-05
 |RosterController.showDetails
 |Staffs sollen Details eines Eintrags sehen können. Dafür muss ein Eintrag existieren.
 |ID Eintrag
-|-
+|true
 
 |I-3-06
 |RosterController.delete
 |Eintrag soll gelöscht werden. Dafür muss ein Eintrag existieren.
 |Eintrag ID
-|-
+|true
 
 |I-3-07
 |RosterController.postEditEntry
 |Änderungen müssen vorgenommen wurden sein.
 | Änderungen an Form, Eintrag ID
-|-
+|true
 
 |I-3-08
 |RosterController.createNewRosterEntry
 |Formular muss ausgefüllt sein.
 |Eintrag in Form
-|-
+|true
 
 |I-3-09
 |RosterController.deleteStaff
 |Staff muss existieren.
 |Staff ID
-|-
+|true
+
 |===
 
 === Artikelverwaltung
 
-Ansprechpartner: Julius, Vu, Lea
+Ansprechpartner: Julius, Vu
 
 [options="headers"]
 |===
 |ID |Anwendungsfall |Vorbedingungen |Eingabe |Ausgabe
 
 |U-4-01
-|Discount.isAvailable
-|aktuelles Datum liegt zwischen Start- und Enddatum des Rabattes
+|setNameArticleTest
+|Article not null
 |-
-|true
+|-
 
 |U-4-02
-|Discount.isAvailable
-|aktuelles Datum liegt nicht zwischen Start- und Enddatum des Rabattes
+|getPriceArticleTest
 |-
-|false
+|-
+|price
+
+|U-4-03
+|setArtArticleTest
+|Article not null
+|-
+|-
+
+|U-4-04
+|setDescriptionArticleTest
+|Article not null
+|-
+|-
+
+|U-4-05
+|setSufficientQuantityArticleTest
+|Article not null
+|-
+|-
+
+|U-4-06
+|setDiscountArticleTest
+|Article,Discount not null
+|-
+|-
+
+|U-4-07
+|setStartDiscountTest
+|Discount not null
+|-
+|-
+
+|U-4-08
+|setEndDiscountTest
+|Discount not null
+|-
+|-
+
+|U-4-09
+|setPercentDiscountTest
+|Discount not null
+|-
+|-
+
+|U-4-10
+|getPriceWithDiscountTest
+|-
+|price = 100 ,  percent = 30
+|true
+
+|U-4-11
+|getDiscountStringTest
+|-
+|"30%"
+|true
+
+|U-4-12
+|getExpireTest
+|-
+|
+|expirationDate
+
+|U-4-13
+|stockAvailableTest
+|article not null
+|-
+|-
+
+
+|I-4
+|detailCatalogController
+|
+|get("/article/" + id)
+|bar/detail
+
+|I-4-00
+|catalogCatalogController
+|catalog not null
+|get("/catalog")
+|"bar/catalog"
 
 |I-4-01
-|Article.addDiscount
-|es existierte noch kein Rabatt für diesen Artikel
-|ein bestimmter Rabatt (enthält Start-, Enddatum und Prozentwert)
-|null
+|stockInventoryController
+|catalog not null
+|get("/stock")
+|"bar/stock"
 
 |I-4-02
-|Article.addDiscount
-|es existierte bereits ein Rabatt für diesen Artikel
-|ein bestimmter Rabatt (enthält Start-, Enddatum und Prozentwert)
-|alter Rabatt
+|getRestockArticleInventoryController
+|catalog not null
+|get("/article/restock/" + id)
+|"bar/restock_article"
 
 |I-4-03
-|Article.removeDiscount
-|es existierte bereits ein Rabatt für diesen Artikel
-|-
-|alter Rabatt
+|deleteInventoryController
+|catalog not null
+|post("/article/delete/" + id)
+|"redirect:/catalog"
 
 |I-4-04
-|Article.removeDiscount
-|es existierte noch kein Rabatt für diesen Artikel
-|-
-|null
+|getAddArticleInventoryController
+|catalog not null
+|get("/article")
+|"bar/add_article"
+
+|I-4-05
+|getEditArticleInventoryController
+|catalog not null
+|get("/article/detail/" + id)
+|"bar/edit_article"
+
+|I-4-06
+|postEditArticleInventoryController
+|catalog not null
+|post("/article/detail/" + id + "?name=name&type=type&description=des&price=50&sufficientQuantity=50&percentDiscount=&startDiscount=&endDiscount=")
+|"redirect:/catalog"
+
+|I-4-07
+|postEditArticleErrorInventoryController
+|catalog not null
+|post("/article/detail/" + id + "?name=name&type=type&description=des&price=50&sufficientQuantity=-50&percentDiscount=&startDiscount=&endDiscount=")
+|"error"
+
+|I-4-08
+|postAddArticleErrorPriceInventoryController
+|catalog not null
+|post("/article?name=name&type=type&description=des&price=-30&sufficientQuantity=50&percentDiscount=50&startDiscount=&endDiscount=&expirationDate=2050-10-03&amount=100")
+|"error"
 
 |===
 
@@ -535,210 +793,180 @@ Ansprechpartner: Bill, Lea
 |===
 |ID |Anwendungsfall |Vorbedingungen |Eingabe |Ausgabe
 
-|I-5-01
-|StaffManagement.createPDF
+|U-5-01
+|PayslipPdfGenertaor.createPDF
 |es existiert ein Mitarbeiter zu der gegebenen ID
 |MitarbeiterID
 |Document
 
-|I-5-02
-|StaffManagement.createPDF
-|es existiert kein Mitarbeiter zu der gegebenen ID
-|MitarbeiterID
+|U-5-02
+|InvoicePdfGenertaor.createPDF
+|es existiert ein Mitglied zu der gegebenen ID
+|MitgliedsID
+|Document
+
+|U-5-03
+|PdfView.testPdfView
+|-
+|falsche Rechnungsdaten
 |Fehlermeldung
 
 |===
 
 === Statistiken verwalten
 
-Ansprechpartner: Markus, Bill
+Ansprechpartner: Lea
 
 [options="headers"]
 |===
 |ID |Anwendungsfall |Vorbedingungen |Eingabe |Ausgabe
 
 |U-6-01
-|StatisticManagement.getEarnings
+|StatisticManagement.addAttendance
 |-
+|attendance
 |-
-|Einnahmen des Tages
 
 |U-6-02
-|StatisticManagement.getAttendance
+|StatisticManagement.findAllAttendances()
+|min eine attendance in AttendanceRepository
 |-
 |-
-|Anwesenheitszeiten des Tages
+
+|U-6-03
+|StatisticManagement.findAttendanceById
+|min eine attendance in AttendanceRepository
+|ID der attendance
+|attendance
+
+|U-6-04
+|StatisticManagement.getAverageTimeOfToday()
+|-
+|-
+|durchschnittliche Anwesenheitszeit des Tages
+
+|U-6-05
+|StatisticManagement.getMemberAmountOfToday()
+|-
+|-
+|Anzahl der Mitglieder, die heute das Studio besucht haben
+
+|U-6-06
+|StatisticManagement.getAverageTimesOfThisWeek()
+|-
+|-
+|Liste der durchschnittlichen Anwesenheitszeiten
+
+|U-6-07
+|StatisticManagement.getMemberAmountsOfThisWeek()
+|-
+|-
+|Liste der Mitglieder, die das Studio besucht haben
+
+|U-6-08
+|StatisticManagement.addRevenue
+|-
+|revenue
+|-
+
+|U-6-09
+|StatisticManagement.findAllRevenues()
+|min eine revenue in AttendanceRepository
+|-
+|-
+
+|U-6-10
+|StatisticManagement.getSellingEarningsOfDate()
+|-
+|Datum
+|Verkaufseinnahmen des gegebenen Tages
+
+|U-6-11
+|StatisticManagement.getSellingEarningsOfThisWeek()
+|-
+|-
+|Liste der Verkaufseinnahmen dieser Woche
+
+|U-6-12
+|StatisticManagement.deleteRevenue()
+|min eine revenue in RevenueRepository
+|ID des Mitgliedes
+|-
+
+|U-6-13
+|StatisticManagement.getPercentageExpenditure()
+|-
+|-
+|Prozentwert der Vertragseinnahmen
+
+|U-6-14
+|StatisticManagement.getPercentageRevenue()
+|-
+|-
+|Prozentwert der Mitarbeitergehälter
+
+|I-6-01
+|StatisticController.showAttendanceStatistic()
+|User ist nicht als Boss eingeloggt
+|-
+|Fehlermeldung
+
+|I-6-02
+|StatisticController.showAttendanceStatistic()
+|User ist als Boss eingeloggt
+|-
+|Statistiken Ansicht
 
 |===
 
-=== Mitarbeiterverwaltung
+=== Trainings verwalten
 
-|U-7-01
-|StaffManagement.createStaff
+Ansprechpartner: Bill
+
+[options="headers"]
+|===
+|ID |Anwendungsfall |Vorbedingungen |Eingabe |Ausgabe
+
+|U-99-01
+|TrainingManagement.createTraining
+|existierendes Mitglied und Mitarbeiter
+|ID des Mitgliedes und des Mitarbeiters,  Woche, Tag, Zeit und Beschreibung
+| -
+
+|U-99-02
+|TrainingManagement.acceptTraining
+|Angefragtes Training eines Mitgliedes
+|ID des angefragten Trainings
 |-
-|Staff Objekt
-|true
 
-|U-7-02
-|StaffManagement.setFirstName
+|U-99-03
+|TrainingManagement.endTraining
+|Akzeptiertes Training
+|ID des akzeptierten Trainings
 |-
-|"Christiano"
-|true
 
-|U-7-03
-|StaffManagement.setLastName
-|Staff exisitiert.
-|"Ronaldo"
-|true
-
-|U-7-03
-|StaffManagement.setLastName
-|Staff existiert
-|"Ronaldo"
-|true
-
-|U-7-04
-|StaffManagement.setSalary
-|Staff existiert
-|45000
-|true
-
-|U-7-05
-|StaffManagement.getUsername
-|Staff existiert
+|U-99-04
+|TrainingManagement.getAllTrainingByMember
+|Mitglied mit mind. einen angefragten Training
+|ID des Mitgliedes
 |-
-|true
 
-|U-7-06
-|StaffManagement.getAllStaffs
-|Staffs existieren
+|U-99-05
+|TrainingManagement.createTrialTraining
+|existierendes Mitglied und Mitarbeiter
+|ID des Mitgliedes und des Mitarbeiters,  Woche, Tag, Zeit und Beschreibung
 |-
-|true
 
-|U-7-07
-|StaffManagement.finByUseraccount
-|Staff existiert
-|Staff.userAccount
-|true
+|U-99-06
+|TrainingManagement.declineTraining
+|Angefragtes Training
+|ID des angefragten Trainings
+| -
 
-|U-7-08
-|StaffManagement.findById
-|Staff existiert
-|Staff.staffId
-|true
+|U-99-07
+|TrainingManagement.createTrialTraining
+|existierendes bereits kostenlos trainiertes Mitglied und Mitarbeiter
+|ID des Mitgliedes und des Mitarbeiters,  Woche, Tag, Zeit und Beschreibung
+|Fehler, da bereits Probe-Training absolviert.
+|===
 
-|U-7-09
-|StaffManagement.removeStaff
-|Staff existiert
-|Staff.staffId
-|true
-
-|I-7-01
-|StaffController.staffs
-|-
-|Angemeldet ohne Rolle
-|"/login"
-
-|I-7-02
-|StaffController.staffs
-|-
-|Angemeldet als Boss
-|"staffs"
-
-|I-7-03
-|StaffController.staffDetail
-|-
-|Angemeldet ohne Rolle
-|"/login"
-
-
-|I-7-04
-|StaffController.staffDetail
-|-
-|Angemeldet als Boss
-|"staffDetail"
-
-
-|I-7-05
-|StaffController.newStaff
-|-
-|Angemeldet ohne Rolle
-|"/login"
-
-|I-7-06
-|StaffController.newStaff
-|-
-|Angemeldet als Boss
-|"newStaff"
-
-|I-7-07
-|StaffController.payslip
-|-
-|Angemeldet ohne Rolle
-|isForbidden
-
-|I-7-08
-|StaffController.newStaff (post)
-|-
-|Form
-|isOk
-
-|I-7-09
-|StaffController.newStaff (post)
-|-
-|Form
-|Error
-
-|I-7-10
-|StaffController.editStaff
-|-
-|EditStaffForm
-|isok
-
-|I-7-11
-|StaffController.editStaff
-|-
-|EditStaffForm
-|Error
-
-|I-7-12
-|StaffController.editStaff (post)
-|-
-|EditStaffForm
-|isok
-
-|I-7-13
-|StaffController.editStaff (post)
-|-
-|EditStaffForm
-|Error
-
-|I-7-14
-|StaffController.detailStaff
-|-
-|Staff staff
-|isOk
-
-|I-7-15
-|StaffController.detailStaff
-|-
-|Staff staff
-|Error
-
-|I-7-16
-|StaffController.editsalary (post)
-|-
-|SalaryForm
-|isOk
-
-|I-7-17
-|StaffController.editSalary (post
-|-
-|SalaryForm 
-|Error
-
-|I-7-18
-|StaffController.payslip
-|-
-|Payslip
-|isOk

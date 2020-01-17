@@ -63,6 +63,9 @@ class TrainingManagementUnitTests {
 		time = "10:00-12:00";
 	}
 
+	/**
+	 * U-99-01
+	 */
 	@Test
 	@Order(1)
 	void testCreateNormalTraining() {
@@ -75,6 +78,9 @@ class TrainingManagementUnitTests {
 		assertThat(training.getState()).isEqualTo(TrainingState.REQUESTED);
 	}
 
+	/**
+	 * U-99-02
+	 */
 	@Test
 	@Order(2)
 	void testAcceptTraining() {
@@ -82,6 +88,9 @@ class TrainingManagementUnitTests {
 		assertThat(trainings.findById(trainingId).get().getState()).isEqualTo(TrainingState.ACCEPTED);
 	}
 
+	/**
+	 * U-99-03
+	 */
 	@Test
 	@Order(3)
 	void testEndTraining() {
@@ -89,12 +98,18 @@ class TrainingManagementUnitTests {
 		assertThat(trainings.findById(trainingId).get().getState()).isEqualTo(TrainingState.ENDED);
 	}
 
+	/**
+	 * U-99-04
+	 */
 	@Test
 	@Order(4)
 	void testGetAllTrainingsOfMember() {
 		assertThat(management.getAllTrainingByMember(member).size()).isEqualTo(1);
 	}
 
+	/**
+	 * U-99-05
+	 */
 	@Test
 	@Order(5)
 	void testCreatTrialTraining() {
@@ -107,6 +122,9 @@ class TrainingManagementUnitTests {
 		assertThat(training.getState()).isEqualTo(TrainingState.REQUESTED);
 	}
 
+	/**
+	 * U-99-01
+	 */
 	@Test
 	@Order(6)
 	void testDeclineTraining() {
@@ -114,6 +132,9 @@ class TrainingManagementUnitTests {
 		assertThat(trainings.findById(trainingId).get().getState()).isEqualTo(TrainingState.DECLINED);
 	}
 
+	/**
+	 * U-99-01
+	 */
 	@Test
 	@Order(7)
 	void testDontCreateTrialTrainingWhenAlreadyFreeTrained() {

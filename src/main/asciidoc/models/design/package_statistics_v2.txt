@@ -12,18 +12,26 @@ namespace statistics {
      org.salespoint.OrderManager <.. StatisticManagement: <<use>>
      StatisticManagement o-- "1" AttendanceManagement: "- attendanceManagement"
      StatisticManagement o-- "1" invoice.InvoiceManagement: "- invoiceManagement"
+     StatisticManagement o-- "1" RevenueManagement: "- revenueManagement"
      StatisticManagement o-- "1" staff.StaffManagement: "- staffManagement"
      class StatisticManagement {
         + StatisticManagement(AttendanceRepository attendances, InvoiceManagement invoiceManagement,
-							   StaffManagement staffManagement)
+							   RevenueManagement revenueManagement, StaffManagement staffManagement)
+        + addAttendance(LocalDate date, long memberId, long duration): void
+        + addAttendance(long memberId, long duration): void
+        + addRevenue(long memberId, long contractId): void
+        + deleteRevenue(long memberId): void
+        + findAllAttendances(): Streamable<Attendance>
+        + findAttendanceById(LocalDate date): Optional<Attendance>
+        + findAllRevenues(): Streamable<Revenue>
         + getAverageTimeOfToday(): long
         + getAverageTimesOfThisWeek(): long[]
         + getMemberAmountOfToday(): long
         + getMemberAmountsOfThisWeek(): long[]
         + getSellingEarningsOfDate(LocalDate date): NumberValue
         + getSellingEarningsOfThisWeek(): NumberValue[]
-        + getStaffExpenditurePerMonth(): double
-        + getMemberRevenuePerMonth(): double
+        - getStaffExpenditurePerMonth(): double
+        - getMemberRevenuePerMonth(): double
         + getPercentageExpenditure(): double
         + getPercentageRevenue(): double
         - getLastMonday(LocalDate date): LocalDate
@@ -59,7 +67,22 @@ namespace statistics {
         + addMember(Long memberId): boolean
         + addTime(long time): void
     }
-
+    
+    RevenueRepository ..> Revenue: <<use>>
+    class Revenue {
+        - id: long
+        - member: long
+        - contact: long
+        + Revenue(long memberId, long contractId)
+    }
+    
+    RevenueManagement o-- "1" RevenueRepository: "- revenues"
+    RevenueManagement o-- "1" contract.ContractManagement: "- contracts"
+    class RevenueManagement {
+        + RevenueManagement(RevenueRepository revenues, ContractManagement contracts)
+        ~ addRevenue(long member, long contract): void
+    }
+    
 }
 
   
