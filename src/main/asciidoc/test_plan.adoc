@@ -81,16 +81,10 @@ Ansprechpartner: Vu
 |I-1-03
 |postEditStudioController
 |-
-|get("/studio")
-|view().name("studio")
-
-|I-1-04
-|postEditStudioController
-|-
 |post("/studio?advertisingBonus=10&openingTimes=Mo-Fr&address=abcxyz&name=Fitness Final")
 |view().name("redirect:/")
 
-|I-1-05
+|I-1-04
 |postErrorEditStudioController
 |-
 |post("/studio?advertisingBonus=-1&openingTimes=Mo-Fr&address=abcxyz&name=Fitness Second")
@@ -651,40 +645,143 @@ Ansprechpartner: Julius, Vu
 |ID |Anwendungsfall |Vorbedingungen |Eingabe |Ausgabe
 
 |U-4-01
-|Discount.isAvailable
-|aktuelles Datum liegt zwischen Start- und Enddatum des Rabattes
+|setNameArticleTest
+|Article not null
 |-
-|true
+|-
 
 |U-4-02
-|Discount.isAvailable
-|aktuelles Datum liegt nicht zwischen Start- und Enddatum des Rabattes
+|getPriceArticleTest
 |-
-|false
+|-
+|price
+
+|U-4-03
+|setArtArticleTest
+|Article not null
+|-
+|-
+
+|U-4-04
+|setDescriptionArticleTest
+|Article not null
+|-
+|-
+
+|U-4-05
+|setSufficientQuantityArticleTest
+|Article not null
+|-
+|-
+
+|U-4-06
+|setDiscountArticleTest
+|Article,Discount not null
+|-
+|-
+
+|U-4-07
+|setStartDiscountTest
+|Discount not null
+|-
+|-
+
+|U-4-08
+|setEndDiscountTest
+|Discount not null
+|-
+|-
+
+|U-4-09
+|setPercentDiscountTest
+|Discount not null
+|-
+|-
+
+|U-4-10
+|getPriceWithDiscountTest
+|-
+|price = 100 ,  percent = 30
+|true
+
+|U-4-11
+|getDiscountStringTest
+|-
+|"30%"
+|true
+
+|U-4-12
+|getExpireTest
+|-
+|
+|expirationDate
+
+|U-4-13
+|stockAvailableTest
+|article not null
+|-
+|-
+
+
+|I-4
+|detailCatalogController
+|
+|get("/article/" + id)
+|bar/detail
+
+|I-4-00
+|catalogCatalogController
+|catalog not null
+|get("/catalog")
+|"bar/catalog"
 
 |I-4-01
-|Article.addDiscount
-|es existierte noch kein Rabatt für diesen Artikel
-|ein bestimmter Rabatt (enthält Start-, Enddatum und Prozentwert)
-|null
+|stockInventoryController
+|catalog not null
+|get("/stock")
+|"bar/stock"
 
 |I-4-02
-|Article.addDiscount
-|es existierte bereits ein Rabatt für diesen Artikel
-|ein bestimmter Rabatt (enthält Start-, Enddatum und Prozentwert)
-|alter Rabatt
+|getRestockArticleInventoryController
+|catalog not null
+|get("/article/restock/" + id)
+|"bar/restock_article"
 
 |I-4-03
-|Article.removeDiscount
-|es existierte bereits ein Rabatt für diesen Artikel
-|-
-|alter Rabatt
+|deleteInventoryController
+|catalog not null
+|post("/article/delete/" + id)
+|"redirect:/catalog"
 
 |I-4-04
-|Article.removeDiscount
-|es existierte noch kein Rabatt für diesen Artikel
-|-
-|null
+|getAddArticleInventoryController
+|catalog not null
+|get("/article")
+|"bar/add_article"
+
+|I-4-05
+|getEditArticleInventoryController
+|catalog not null
+|get("/article/detail/" + id)
+|"bar/edit_article"
+
+|I-4-06
+|postEditArticleInventoryController
+|catalog not null
+|post("/article/detail/" + id + "?name=name&type=type&description=des&price=50&sufficientQuantity=50&percentDiscount=&startDiscount=&endDiscount=")
+|"redirect:/catalog"
+
+|I-4-07
+|postEditArticleErrorInventoryController
+|catalog not null
+|post("/article/detail/" + id + "?name=name&type=type&description=des&price=50&sufficientQuantity=-50&percentDiscount=&startDiscount=&endDiscount=")
+|"error"
+
+|I-4-08
+|postAddArticleErrorPriceInventoryController
+|catalog not null
+|post("/article?name=name&type=type&description=des&price=-30&sufficientQuantity=50&percentDiscount=50&startDiscount=&endDiscount=&expirationDate=2050-10-03&amount=100")
+|"error"
 
 |===
 
