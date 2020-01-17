@@ -20,10 +20,10 @@ Die individuell erfasste Zeit beinhaltet auch das Lesen von Dokumentationen, Bes
 |11                |1080  |20      |600   |…      |1200    |25
 |12                |720   |200     |900   |…      |600     |90
 |                  |      |        |      |       |        |
-|Summe             |8460  |…       |8480  |…      |9290    |1430
-|Summe(mit Meeting)|9890  |…       |9910  |…      |10.720  | -
-|Minuten je Woche  |824,17|…       |826   |…      |893,33  | -
-|Stunden je Woche  |13,74 |…       |14    |…      |14,89   | -
+|Summe             |8460  |5860    |8480  |…      |9290    |1430
+|Summe(mit Meeting)|9890  |6290    |9910  |…      |10.720  | -
+|Minuten je Woche  |824,17|524,17  |826   |…      |893,33  | -
+|Stunden je Woche  |13,74 |8,73    |14    |…      |14,89   | -
 |===
 
 Bitte tragen Sie am Ende des Praktikums noch folgende weitere Werte ein:
