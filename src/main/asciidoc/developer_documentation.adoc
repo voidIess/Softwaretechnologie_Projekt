@@ -136,7 +136,6 @@ image::models/design/ClientServerModel.jpg[]
 
 _Client Server Model_
 
-=== Verwendete Muster
 == 5 Entwurfsentscheidungen
 === 5.1 Verwendete Muster
 
