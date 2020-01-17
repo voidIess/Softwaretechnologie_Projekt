@@ -28,6 +28,7 @@ import java.time.LocalDate;
 import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
@@ -54,12 +55,45 @@ public class pdfUnitTest {
 	@Autowired
 	PdfView pdfView;
 
+	private InvoicePdfGenerator invoice;
+	private PayslipPdfGenerator payslip;
+	Map<String, Object> invoiceMap;
+	Map<String, Object> payslipMap;
+
 	@BeforeAll
 	void setUp() throws IOException {
 		httpServletResponse.setHeader("Content-Disposition", "test");
 		PdfWriter pdfWriter = new PdfWriter(httpServletResponse.getOutputStream());
 		PdfDocument pdf = new PdfDocument(pdfWriter);
 		document = new Document(pdf);
+		Money money = Money.of(0, "EUR");
+
+		Member member = new Member();
+		member.setContract(new Contract("name", "description", money, 3));
+
+		UserAccount account = accounts.create("pdfTestStaff", Password.UnencryptedPassword.of("123"), "pdfTestStaff@email.de", Role.of("STAFF"));
+		Staff staff = new Staff(account, "firstName", "lastName", money);
+
+		// create invoice data
+		List<InvoiceEntry> entries = new LinkedList<>();
+		entries.add(new InvoiceEntry(member.getMemberId(), InvoiceType.DEPOSIT, money, ""));
+		entries.add(new InvoiceEntry(member.getMemberId(), InvoiceType.CASHPAYMENT, money, ""));
+		for (InvoiceEntry entry : entries) {
+			entry.setCreated(LocalDate.now());
+		}
+		invoiceMap = new HashMap<>();
+		invoiceMap.put("type", "invoice");
+		invoiceMap.put("member", member);
+		invoiceMap.put("endDate", LocalDate.now());
+		invoiceMap.put("endCredit", money);
+		invoiceMap.put("startDate", LocalDate.now());
+		invoiceMap.put("startCredit", money);
+		invoiceMap.put("invoiceEntries", entries);
+
+		//create payslip data
+		payslipMap = new HashMap<>();
+		payslipMap.put("type", "payslip");
+		payslipMap.put("staff", staff);
 	}
 
 	@Test
@@ -81,62 +115,53 @@ public class pdfUnitTest {
 	 * U-5-02
 	 */
 	@Test
-	void testGeneratePdfInvoice() {
-		Money money =  Money.of(0, "EUR");
-		LocalDate date = LocalDate.now();
-
-		Member member = new Member();
-		member.setContract(new Contract("name", "description", money, 3));
-
-		java.util.List<InvoiceEntry> entries = new LinkedList<>();
-		entries.add(new InvoiceEntry(member.getMemberId(), InvoiceType.DEPOSIT, money, ""));
-		entries.add(new InvoiceEntry(member.getMemberId(), InvoiceType.CASHPAYMENT, money, ""));
-		for (InvoiceEntry entry : entries) {
-			entry.setCreated(date);
+		void testGetGermanMonthException() {
+			assertThrows(IllegalArgumentException.class, () -> {
+				PdfGenerator.getGermanMonth(13);
+			});
 		}
 
-		Map<String, Object> map = new HashMap<>();
-		map.put("type", "invoice");
-		map.put("member", member);
-		map.put("endDate", LocalDate.now());
-		map.put("endCredit", Money.of(0, "EUR"));
-		map.put("startDate", LocalDate.now());
-		map.put("startCredit", Money.of(100, "EUR"));
-		map.put("invoiceEntries", entries);
+		@Test
+		void testGeneratePdfInvoice() {
+			assertThat(PdfGenerator.generatePdf(invoiceMap, document)).isNotNull();
+		}
 
-		assertThat(PdfGenerator.generatePdf(map, document)).isNotNull();
+		/**
+		 * U-5-01
+		 */
+		@Test
+		void testGeneratePdfPayslip() {
+			assertThat(PdfGenerator.generatePdf(payslipMap, document)).isNotNull();
+
+		}
+
+		/**
+		 * U-5-03
+		 */
+		@Test
+		void testPdfViewException() {
+			assertThrows(NullPointerException.class, () -> {
+				pdfView.renderMergedOutputModel(Map.of("type", "payslip"), httpServletRequest, httpServletResponse);
+			});
+		}
+
+		@Test
+		void testPdfViewInvoice() {
+			assertDoesNotThrow(() -> {
+				pdfView.renderMergedOutputModel(invoiceMap, httpServletRequest, httpServletResponse);
+			});
+		}
+
+		@Test
+		void testPdfViewPayslip() {
+			assertDoesNotThrow(() -> {
+				pdfView.renderMergedOutputModel(payslipMap, httpServletRequest, httpServletResponse);
+			});
+		}
+
+		@AfterAll
+		void cleanUp() {
+			document.close();
+		}
 
 	}
-
-	/**
-	 * U-5-01
-	 */
-	@Test
-	void testGeneratePdfPayslip() {
-		UserAccount account = accounts.create("pdfTestStaff", Password.UnencryptedPassword.of("123"), "pdfTestStaff@email.de", Role.of("STAFF"));
-		Staff staff = new Staff(account, "firstName", "lastName", Money.of(0, "EUR"));
-
-		Map<String, Object> map = new HashMap<>();
-		map.put("type", "payslip");
-		map.put("staff", staff);
-
-		assertThat(PdfGenerator.generatePdf(map, document)).isNotNull();
-
-	}
-
-	/**
-	 * U-5-03
-	 */
-	@Test
-	void testPdfView() {
-		assertThrows(NullPointerException.class, () -> {
-			pdfView.renderMergedOutputModel(Map.of("type", "payslip"), httpServletRequest, httpServletResponse);
-		});
-	}
-
-	@AfterAll
-	void cleanUp() {
-		document.close();
-	}
-
-}
