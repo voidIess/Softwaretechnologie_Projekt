@@ -326,73 +326,73 @@ Ansprechpartner: Markus
 |StaffController.payslip
 |-
 |Angemeldet ohne Rolle
-|isForbidden
+|Exception
 
 |I-7-08
 |StaffController.newStaff (post)
 |-
-|Form
-|isOk
+|StaffForm
+|true
 
 |I-7-09
 |StaffController.newStaff (post)
 |-
-|Form
-|Error
+|StaffForm
+|Exception
 
 |I-7-10
 |StaffController.editStaff
 |-
 |EditStaffForm
-|isok
+|true
 
 |I-7-11
 |StaffController.editStaff
 |-
 |EditStaffForm
-|Error
+|Exception
 
 |I-7-12
 |StaffController.editStaff (post)
 |-
 |EditStaffForm
-|isok
+|true
 
 |I-7-13
 |StaffController.editStaff (post)
 |-
 |EditStaffForm
-|Error
+|Exception
 
 |I-7-14
 |StaffController.detailStaff
 |-
 |Staff staff
-|isOk
+|true
 
 |I-7-15
 |StaffController.detailStaff
 |-
 |Staff staff
-|Error
+|Exception
 
 |I-7-16
 |StaffController.editsalary (post)
 |-
 |SalaryForm
-|isOk
+|true
 
 |I-7-17
 |StaffController.editSalary (post
 |-
 |SalaryForm 
-|Error
+|Exception
 
 |I-7-18
 |StaffController.payslip
 |-
 |Payslip
-|isOk
+|true
 
 |===
 
@@ -422,7 +422,7 @@ a|
 |Roster.addEntry
 |es existiert ein anderer Eintrag mit diesem Mitarbeiter zur selben Zeit
 |Dienstplaneintrag
-|Fehlermeldung
+|false
 
 |U-3-04
 |Roster.deleteEntry
@@ -590,55 +590,55 @@ a|
 |RosterController.default
 |Staffs sollen mit /roster auf Dienstplan der jetzigen Woche
 |-
-|-
+|true
 
 |I-3-02
 |Roster.rosterView
 |Staffs sollen mit /roster/{week} auf einen speziellen Dienstplan kommen.
 |Woche
-|-
+|true
 
 |I-3-03
 |Roster.rosterViewFiltered
 |Staffs sollen mit /roster/{week}/{id} einen beliebigen Dienstplan nach einem Staff filtern
 | Woche und ID
-|-
+|true
 
 |I-3-04
 |RosterController.newRosterEntry
 |Staffs sollen auf ein Formular kommen um einen Eintrag zu erstellen. Dafür muss ein Dienstplan existieren
 |-
-|-
+|true
 
 |I-3-05
 |RosterController.showDetails
 |Staffs sollen Details eines Eintrags sehen können. Dafür muss ein Eintrag existieren.
 |ID Eintrag
-|-
+|true
 
 |I-3-06
 |RosterController.delete
 |Eintrag soll gelöscht werden. Dafür muss ein Eintrag existieren.
 |Eintrag ID
-|-
+|true
 
 |I-3-07
 |RosterController.postEditEntry
 |Änderungen müssen vorgenommen wurden sein.
 | Änderungen an Form, Eintrag ID
-|-
+|true
 
 |I-3-08
 |RosterController.createNewRosterEntry
 |Formular muss ausgefüllt sein.
 |Eintrag in Form
-|-
+|true
 
 |I-3-09
 |RosterController.deleteStaff
 |Staff muss existieren.
 |Staff ID
-|-
+|true
 
 |===
 
