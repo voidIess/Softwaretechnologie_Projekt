@@ -178,6 +178,10 @@ image::models/analysis/Mitglied.png[]
 
 === 5.4 Verwendung externer Frameworks
 
+==== iTextPdf
+
+In unserer Anwendung sollen an zwei Stellen PDFs generiert werden. Für den Kunden eine Rechnung und für die Mitarbeiter ein Lohnschein. Insofern benötigen wir ein Framework, was uns dabei unterstützen kann. Bei unserer Recherche sind wir dabei auf iText gestoßen. Dieses Framework bietet alle Funktionen, die wir benötigen und hat allgemein einen guten Ruf. So ist unsere Wahl auf iText gefallen.
+
 [options="header", cols="1,3,3"]
 |===
 |Externe Klasse |Pfad der externen Klasse |Verwendet von (Klasse der eigenen Anwendung)
