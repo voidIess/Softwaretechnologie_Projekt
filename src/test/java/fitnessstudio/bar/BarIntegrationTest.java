@@ -214,7 +214,7 @@ public class BarIntegrationTest extends AbstractIntegrationTests {
 
 
 	/**
-	 * U-4-14
+	 * I-4
 	 *
 	 * @throws Exception
 	 */
@@ -228,7 +228,7 @@ public class BarIntegrationTest extends AbstractIntegrationTests {
 	}
 
 	/**
-	 * U-4-15
+	 * I-4-00
 	 *
 	 * @throws Exception
 	 */
