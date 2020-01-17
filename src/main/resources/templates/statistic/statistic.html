@@ -5,9 +5,9 @@
 </html>
 
 <head>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Counter-Up/1.0.0/jquery.counterup.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/2.0.3/waypoints.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Counter-Up/1.0.0/jquery.counterup.min.js"></script>
 </head>
 
 <html lang="de" xmlns:th="http://www.thymeleaf.org">
@@ -175,19 +175,19 @@
                 </p>
                 <div id="chartContainer1" style="height: 370px; width: 100%; margin-top: 15pt; margin-bottom:50pt"></div>
                 <h2>Umsatz Statistiken</h2>
-                <p>Heutige Verkaufseinnahmen:
-                    <span class = "num" style="font-size: 25px" th:text="${sellingEarnings[today]}">3</span>
-                    <span style="font-size: 18px">€</span>
+                <p>Heutige Verkaufseinnahmen: &nbsp
+                    <span style="font-size: 25px">€</span><span class = "num" style="font-size: 25px"
+                                                                th:text="${sellingEarnings[today]}">3</span>
                 </p>
                 <div id="chartContainer2" style="height: 370px; width: 100%; margin-top: 15pt; margin-bottom:50pt"></div>
                 <h2>Feste Monatliche Bilanz</h2>
-                <p>Vertragseinnahmen:
-                    <span class = "num" style="font-size: 25px" th:text="${revenuesAbs}">3</span>
-                    <span style="font-size: 18px">€</span>
+                <p>Vertragseinnahmen: &nbsp
+                    <span style="font-size: 25px">€</span><span class = "num" style="font-size: 25px"
+                                                                th:text="${revenuesAbs}">3</span>
                 </p>
-                <p>Mitarbeitergehalte:
-                    <span class = "num" style="font-size: 25px" th:text="${expendituresAbs}">3</span>
-                    <span style="font-size: 18px">€</span>
+                <p>Mitarbeitergehalte: &nbsp
+                    <span style="font-size: 25px">€</span><span class = "num" style="font-size: 25px"
+                                                                th:text="${expendituresAbs}">3</span>
                 </p>
                 <div id="chartContainer3" style="height: 370px; width: 100%; margin-top: 15pt; margin-bottom:50pt"></div>
             </div>
@@ -196,7 +196,12 @@
 
             <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
             <script type="text/javascript">
-                $(".num").counterUp({delay:10,time:1000});
+                jQuery(document).ready(function($) {
+                    $('.num').counterUp({
+                        delay: 10,
+                        time: 3000,
+                    });
+                });
             </script>
 
 
