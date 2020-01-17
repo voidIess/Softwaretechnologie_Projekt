@@ -1,15 +1,20 @@
-[options="header"]
-[cols="1, 3, 3"]
-|===
-|Version | Bearbeitungsdatum   | Autor 
-|v1.0	| 11.11.2019  | Julius Schmitt, Bill Kippe, Markus Wieland, Quang Vu Ha, Lea Häusler
-|===
+:toc: macro
+:toc-title: Inhaltsverzeichnis
 
 = Entwicklerdokumentation
 
-== Einführung und Ziele
+[options="header"]
+[cols="1, 3, 3"]
+|===
+|Version | Bearbeitungsdatum   | Autor
+|v1.0	| 11.11.2019  | Julius Schmitt, Bill Kippe, Markus Wieland, Quang Vu Ha, Lea Häusler
+|===
 
-=== Aufgabenstellung
+toc::[]
+
+== 1 Einführung und Ziele
+
+=== 1.1 Aufgabenstellung
 Es soll eine Software für den Einsatz in einem Fitnessstudio entwickelt werden. Dabei sollen verschiedene
 Geschäftsfelder berücksichtigt werden. In der Mitarbeiterverwaltung können die Mitarbeiter(_Staff_) des Fitnessstudios eingestellt,
 bearbeitet und entlassen werden. Die Mitarbeiter haben verschiedene Aufgaben (Thekenkraft/Trainer) und Löhne.
@@ -44,7 +49,7 @@ einen Rabatt (_Discount_) angeben können.
 Online und nur für den Chef (_Boss_) sind Statistiken (_Statistic_) über laufende Kosten, Einnahmen, Kundenverhalten und Verkaufsartikel grafisch dargestellt.
 Sowie verschiedene Einstellungen wie Vertragslaufzeit, monatliche Gebühren, Einladungsprämie, Öffnungszeiten usw. verwaltbar.
 
-=== Qualitätsziele
+=== 1.2 Qualitätsziele
 
 ==== Qualitätsanforderungen
 Die folgende Tabelle zeigt, welche Qualitätsanforderungen in welchem Umfang erfüllt werden müssen.
@@ -67,9 +72,9 @@ Die zugewiesene Priorität muss bei der Formulierung der konkreten nichtfunktion
 |Erreichbarkeit        |   | x |   |   |
 |===
 
-== Randbedingungen
+== 2 Randbedingungen
 
-=== Hardware - Vorgaben
+=== 2.1 Hardware - Vorgaben
 
 Eine Liste an benötigter Hardware, welche man zur Bedienung des Systems benötigt.
 
@@ -80,7 +85,7 @@ Eine Liste an benötigter Hardware, welche man zur Bedienung des Systems benöti
 * Monitor
 * Internetanschluss
 
-=== Software - Vorgaben 
+=== 2.2 Software - Vorgaben
 
 Eine Liste der Software, welche benötigt wird um die Anwendung zu benutzen.
 
@@ -96,7 +101,7 @@ Die folgende (oder neuere) Suchmaschinen-Version wird benötigt:
 * Opera 9.6
 
 
-=== Produktnutzung
+=== 2.3 Produktnutzung
 Die Software (_System_) soll auf einem Server laufen und dabei durchgängig über das Internet mit einem Browser
 (z. B. Google Chrome, Firefox oder Safari) erreichbar sein. Hauptnutzungsgebiete sind dabei die Mitarbeiterverwaltung,
 die Verkaufsstelle (_Bar_) und die Mitgliederverwaltung. Alle Felder sind über die gleiche Applikation mit verschiedenen
@@ -106,12 +111,12 @@ Alle sich anhäufende Daten sollen dabei dauerhaft in Form einer Datenbank gespe
 Vertrauliche Daten, wie z. B. Passwörter, sollen verschlüsselt gesichert werden. Für den Umgang mit der Datenbank wird kein technisches
 Verständnis verausgesetzt, denn deren Verwaltung wird in der Website nutzerfreundlich dargestellt. 
 
-== Kontextabgrenzung
+== 3 Kontextabgrenzung
 image:models/analysis/fitnessstudio_context.svg[fitnessstudio_context]
 
-== Lösungsstrategie
+== 4 Lösungsstrategie
 
-=== Erfüllung der Qualitätsziele
+=== 4.1 Erfüllung der Qualitätsziele
 [options="header"]
 |=== 
 |Qualitätsziel |Lösungsansatz
@@ -122,7 +127,7 @@ image:models/analysis/fitnessstudio_context.svg[fitnessstudio_context]
 |Funktionalität|Das System soll niemals abstürzen und alle Funktionen soll richtig funktionieren.
 |===
 
-=== Softwarearchitektur
+=== 4.2 Softwarearchitektur
 image::models/analysis/fitnessstudio_top_level.svg[fitnessstudio_top_level]
 
 _Top Level Architektur_
@@ -131,18 +136,19 @@ image::models/design/ClientServerModel.jpg[]
 
 _Client Server Model_
 
-== Entwurfsentscheidungen
-=== Verwendung von Salespoint in der Barverwaltung
+=== Verwendete Muster
+== 5 Entwurfsentscheidungen
+=== 5.1 Verwendete Muster
+
+* Spring MVC
+
+=== 5.2 Verwendung von Salespoint in der Barverwaltung
 Zum Verwalten des Bestandes wurde das MultiInventory von Salespoint verwendet.
 In diesem kann ein Salespoint.Product mehren Inventory Items zugeordnet werden. Ein Item
 repräsentiert in eine Gruppe von konkreten Produkten im Lager mit dem selben Verfallsdatum.
 
 
-=== Verwendete Muster
-
-* Spring MVC
-
-=== Persistenz
+=== 5.3 Persistenz
 
 Die Anwendung verwendet *Hibernate annotation based mapping*. Damit lassen sich Java Klassen in Datenbank-Tabellen umwandeln. Derzeit ist die Persistenz deaktiviert. Zum Aktivieren des persistenten Speichers, muss der Kommentar der folgende zwei Zeilen in der Datei _application.properties_ entfernt werden. 
 
@@ -151,7 +157,7 @@ Die Anwendung verwendet *Hibernate annotation based mapping*. Damit lassen sich 
 # spring.jpa.hibernate.ddl-auto=update
 ....
 
-=== Benutzeroberfläche
+=== 5.4 Benutzeroberfläche
 
 Im  folgenden wird eine Übersicht über die Dialoge des in der Webanwendung gegeben.
 Jedes Rechteck stellt eine Ansicht, also ein HTML Dokument da. Zwischen diesen wird durch den
@@ -177,7 +183,11 @@ Dialogoptionen eines _member_
 
 image::models/analysis/Mitglied.png[]
 
-=== Verwendung externer Frameworks
+=== 5.5 Verwendung externer Frameworks
+
+==== iTextPdf
+
+In unserer Anwendung sollen an zwei Stellen PDFs generiert werden. Für den Kunden eine Rechnung und für die Mitarbeiter ein Lohnschein. Insofern benötigen wir ein Framework, was uns dabei unterstützen kann. Bei unserer Recherche sind wir dabei auf iText gestoßen. Dieses Framework bietet alle Funktionen, die wir benötigen und hat allgemein einen guten Ruf. So ist unsere Wahl auf iText gefallen.
 
 [options="header", cols="1,3,3"]
 |===
@@ -240,11 +250,23 @@ image::models/analysis/Mitglied.png[]
 * pdf.PdfView
 |===
 
-== Bausteinsicht
+== 6 Bausteinsicht
 
-=== BarManagement Package
+=== 6.1 Application Class
 
-image::models/design/barmanagement.svg[]
+image::models/final/main.svg[]
+
+[options="header"]
+|===
+|Klasse/Enumeration | Beschreibung
+|Application | Zentrale Klasse des Systems.
+|GymWebConfiguration  | Klasse um den Pfad "/login" direkt zu dem Template login.html zu führen.
+|WebSecurityConfiguration|Konfigurationsklasse um zentrale Sicherheit und Login/Logout Optionen.
+|===
+
+=== 6.2 BarManagement Package
+
+image::models/final/barmanagement_package.svg[]
 
 [options="header"]
 |=== 
@@ -261,53 +283,84 @@ image::models/design/barmanagement.svg[]
 |BarForm | Eine Klasse, um den Nutzer im System zu bekommen.
 |===
 
-=== Gym Package 
+=== 6.3 Member Package
 
-image::models/design/gympackage.svg[]
+image::models/final/member_package.svg[]
 
 [options="header"]
 |=== 
 |Klasse/Enumeration | Beschreibung
-|Application | Zentrale Klasse des Systems.
-|GymWebConfiguration  | Klasse um den Pfad "/login" direkt zu dem Template login.html zu führen.
-|WebSecurityConfiguration|Konfigurationsklasse um zentrale Sicherheit und Login/Logout Optionen.
+|MemberRepository | Ein Interface, um Mitglieder Instanzen zu speichern/verwalten.
+|MemberManagement | Eine Klasse, um Mitgliederdaten zu bearbeiten.
+|MemberForm | Eine Klasse, die allgemeine Daten des Mitgliedes enthält
+|EditingForm | Erbt von MemberForm und fügt Methoden hinzu um die Eingabe zu kontrollieren.
+|RegistrationForm | Erbt von MemberForm und fügt weitere Informationen für die Registrierung hinzu.
+|SearchForm | Eine Klasse, um Eingaben in der Suchleiste zu verwalten.
+|Member | Eine Klasse, welche Mitglieder im System repräsentieren.
+|CreditAccount| Eine Klasse, welche ein Guthabenkonto eines Nutzers im System repräsentiert.
+|MemberController | Ein Spring MVC Controller, welcher Mitgliederänderungen in der Anwendung verwaltet.
+|FriendInviteForm | Eine Klasse, um die Bonuscode-Eingabe beim Registrieren zu verwalten.
+|MemberDataInitializer | Eine Klasse, um fiktive Mitglieder zu erstellen.
 |===
 
-=== MemberManagement Package
+=== 6.4 Contract Package
 
-image::models/design/membermanagement.svg[]
-
+image::models/final/contract_package.svg[]
 [options="header"]
-|=== 
+|===
 |Klasse/Enumeration | Beschreibung
 |ContractRepository| Ein Interface, um Vertrags-Instanzen zu speichern und zu verwalten.
 |ContractManagement| Eine Klasse, um Verträge zu verwalten.
 |ContractController |Ein Spring MVC Controller, welcher Vertragsänderungen in der Anwendung verwaltet.
-|MemberRepository | Ein Interface, um Mitglieder Instanzen zu speichern/verwalten.
 |Contract| Eine Klasse, welche die Verträge im System repräsentiert.
-|TrainingsManagement | Eine Klasse um Trainingseinträge zu bearbeiten.
-|MemberManagement | Eine Klasse, um Mitgliederdaten zu bearbeiten.
-|RegistrationForm | Eine Klasse, um Eingaben eines neuen Mitglieds im System im System zu erhalten.
-|InvoiceManagement| Eine Klasse, welche Rechnungen von Mitgliedern bearbeitet und verwaltet.
-|Invoice| Eine Klasse, welche Rechnungen einens Mitglieds repräsentiert.
-|ChargeEntry| Eine Klasse, welche Aufladungen auf das Guthabenkonto repräsentiert.
-|Member | Eine Klasse, welche Mitglieder im System repräsentieren.
-|TrainingRepository| Ein Interface, um Training Instanzen zu speichern/verwalten.
-|CreditAccount| Eine Klasse, welche ein Guthabenkonto eines Nutzers im System repräsentiert.
-|TrainingState| Eine Enumeration, welche den aktuellen Status der Anfrage auf ein Training repräsentiert.
-|TrainingType| Eine Enumeration, welche die verschiedenen Arten eines Trainings repräsentiert.
-|TrainingController| Ein Spring MVC Controller, welcher Trainingsänderungen in der Anwendung verwaltet.
-|OrderEntry| Eine Klasse, welche Bestellungseinträge im System repräsentiert.
-|InvoiceEntryRepository| Ein Interface, um Rechnungseinträge Instanzen zu speichern/verwalten.
-|InvoiceEntry| Eine Klasse, welche Rechnungseinträge im System repräsentiert.
-|Training| Eine Klasse, welche Trainings im System repräsentiert.
-|MemberController | Ein Spring MVC Controller, welcher Mitgliederänderungen in der Anwendung verwaltet.
-
+|ContractForm | Eine Klasse, um Benutzereingaben zur Erstellung/Bearbeitung eines Vertrages zu verwalten.
+|ContractDataInitializer | Eine Klasse, um fiktive Verträge zu erstellen.
 |===
 
-=== StaffManagement Package
+=== 6.5 Email Package
 
-image::models/design/package_staff_v2.svg[]
+image::models/final/email_service.svg[]
+[options="header"]
+|===
+|Klasse/Enumeration | Beschreibung
+|EmailService | Klasse, mit der Emailtexte geschrieben und per JavaMailSender an Mitglieder geschickt werden.
+|===
+
+
+=== 6.6 Invoice Package
+
+image::models/final/invoice_package.svg[]
+[options="header"]
+|===
+|Klasse/Enumeration | Beschreibung
+|InvoiceEntryRepository| Ein Interface, um Rechnungseinträge Instanzen zu speichern/verwalten.
+|InvoiceEntry| Eine Klasse, welche Rechnungseinträge im System repräsentiert.
+|InvoiceManagement| Eine Klasse, welche Rechnungen von Mitgliedern bearbeitet und verwaltet.
+|InvoiceType | Enum, das die Art der Guthabenänderung repräsentiert.
+|InvoiceEvent | ApplicationEvent, das "gepublished" wird, wenn irgendwo im System Guthaben verwaltet wird um einen
+InvoiceEntry zu erstellen.
+|InvoiceEventListener | EventListener, der mit den Informationen aus InvoiceEvent einen InvoiceEntry erstellt.
+|===
+
+
+=== 6.7 Training Package
+
+image::models/final/training_package.svg[]
+[options="header"]
+|===
+|Klasse/Enumeration | Beschreibung
+|Training| Eine Klasse, welche Trainings im System repräsentiert.
+|TrainingState| Eine Enumeration, welche den aktuellen Status der Anfrage auf ein Training repräsentiert.
+|TrainingType| Eine Enumeration, welche die verschiedenen Arten eines Trainings repräsentiert.
+|TrainingsManagement | Eine Klasse um Trainingseinträge zu bearbeiten.
+|TrainingController | Ein Spring MVC Controller, welcher Trainingsänderungen in der Anwendung verwaltet.
+|TrainingRepository | Ein Interface, um Training Instanzen zu speichern/verwalten.
+|TrainingForm | Eine Klasse, um Benutzereingaben zu Erstellung/Bearbeitung eines Trainings zu verwalten.
+|===
+
+=== 6.8 StaffManagement Package
+
+image::models/final/staff_package.svg[]
 
 [options="header"]
 |=== 
@@ -322,9 +375,9 @@ image::models/design/package_staff_v2.svg[]
 |StaffForm| Ein Interface, um Eingaben des Chefs für einen neuen Mitarbeiter im System zu erhalten und zu verfizieren.
 |===
 
-=== Roster Package
+=== 6.9 Roster Package
 
-image::models/design/package_roster_v2.svg[]
+image::models/final/roster_package.svg[]
 
 [options="header"]
 |=== 
@@ -340,9 +393,9 @@ image::models/design/package_roster_v2.svg[]
 |RosterRepository|Ein Repository Interface zum Verwalten von Dienstplänen.
 |===
 
-=== PDF Package
+=== 6.10 PDF Package
 
-image::models/design/package_pdf_v2.svg[]
+image::models/final/pdf_package.svg[]
 
 [options="header"]
 |=== 
@@ -353,9 +406,9 @@ image::models/design/package_pdf_v2.svg[]
 |InvoicePdfGenerator| Eine Klasse, welche Rechnung PDFs erstellt.
 |===
 
-=== StudioManagnement Package
+=== 6.11 StudioManagement Package
 
-image::models/design/Studiomanagement.svg[]
+image::models/final/studio_package.svg[]
 
 [options="header"]
 |=== 
@@ -368,24 +421,9 @@ image::models/design/Studiomanagement.svg[]
 |StudioForm | Eine Klasse, um die Eingaben im System für die globalen Variablen des Fitnessstudios zu bearbeiten.
 |===
 
-=== Invoice Package
+=== 6.12 Statistics Package
 
-image::models/design/package_invoice_v2.svg[]
-
-[options="header"]
-|=== 
-|Klasse/Enumeration | Beschreibung
-|InvoiceEntry | Ein Klasse, welche eine Einnahme/Ausgabe des Studios repräsentiert.
-|InvoiceType | Eine Enumeration, welche die verschiedenen Arten einer Invoice Instanz repräsentiert.
-|InvoiceRepository | Ein Interface, um Invoice Instanzen zu speichern.
-|InvoiceManagement | Eine Klasse, um die  Einnahmen/Ausgaben des Studios zu bearbeiten/auszuwerten.
-|InvoiceEvent | Ein Event, welches ausgelöst wird wenn Einnahmen/Ausgaben getätigt werden.
-|InvoiceEventListener | Ein Listener, welcher beim Auslösen des InvoiceEvents einen InvoiceEntry erstellt.
-|===
-
-=== Statistics Package
-
-image::models/design/package_statistics_v2.svg[]
+image::models/final/statistics_package.svg[]
 
 [options="header"]
 |=== 
@@ -399,7 +437,7 @@ image::models/design/package_statistics_v2.svg[]
 |===
 
 
-=== Rückverfolgbarkeit zwischen Analyse- und Entwurfsmodell
+=== 6.13 Rückverfolgbarkeit zwischen Analyse- und Entwurfsmodell
 
 [options="header"]
 |===
@@ -419,27 +457,27 @@ image::models/design/package_statistics_v2.svg[]
 |Statistics|adminmanagement.StatisticController
 |===
 
-== Laufzeitsicht
+== 7 Laufzeitsicht
 
-=== AdminManagement
+=== 7.1 AdminManagement
 
 image::models/design/adminManagementSequenz.jpg[]
 
-=== BarManagement
+=== 7.2 BarManagement
 
 image::models/design/barSequenz1.jpg[]
 image::models/design/barSequenz2.jpg[]
 
-=== MemberManagement
+=== 7.3 MemberManagement
 
 image::models/design/MemberManagementSequenz1.jpg[]
 image::models/design/MemberManagementSequenz2.jpg[]
 image::models/design/MemberManagementSequenz3.jpg[]
 
-=== StaffManagement & RosterManagement
+=== 7.4 StaffManagement & RosterManagement
 
 image::models/design/staffManagementSequenz.jpg[]
 
-== Technische Schulden
+== 8 Technische Schulden
 * Auflistung der nicht erreichten Quality Gates und der zugehörigen SonarQube Issues
 
