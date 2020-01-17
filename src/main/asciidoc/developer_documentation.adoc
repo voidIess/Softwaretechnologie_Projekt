@@ -142,6 +142,11 @@ _Client Server Model_
 === 5.1 Verwendete Muster
 
 * Spring MVC
+* Strategy Pattern:
+	- interface PdfGenerator wird von InvoicePdfGenerator und PayslipPdfGenerator implementiert
+	- beide Klassen besitzen eine generatePdf Methode, der PdfGenerator wählt welche Funktion ausgeführt wird
+* Observer Pattern im ApplicationListener aus dem Springframework
+	- um InvoiceEntry zu erstellen wenn Artikel gekauft wird
 
 === 5.2 Verwendung von Salespoint in der Barverwaltung
 Zum Verwalten des Bestandes wurde das MultiInventory von Salespoint verwendet.
