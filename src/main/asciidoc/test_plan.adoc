@@ -55,40 +55,46 @@ Ansprechpartner: Vu
 |ID |Anwendungsfall |Vorbedingungen |Eingabe |Ausgabe
 
 |U-1-01
-|StudioService.saveStudio
+|getStudio
 |das gegebene Studio ist nicht null
-|Studio
+|
 |-
 
 |U-1-02
-|StudioService.saveStudio
-|das gegebene Studio ist null
-|Studio
-|NullPointerException
-
-|U-1-03
-|StudioService.getStudio
-|-
-|-
-|NullPointerException
-
-|U-1-04
-|StudioService.getStudio
+|saveStudioTest
 |-
 |-
 |Studio
 
 |I-1-01
-|StudioController.editStudio
+|getStudioController
 |-
-|Studiovariablen
-|-
+|get("/")
+|view().name("index")
 
 |I-1-02
-|StudioController.editStudio
+|getEditStudioController
 |-
-|Studiovariablen, Errors
-|Fehlernachrichten
+|get("/studio")
+|view().name("studio")
+
+|I-1-03
+|postEditStudioController
+|-
+|get("/studio")
+|view().name("studio")
+
+|I-1-04
+|postEditStudioController
+|-
+|post("/studio?advertisingBonus=10&openingTimes=Mo-Fr&address=abcxyz&name=Fitness Final")
+|view().name("redirect:/")
+
+|I-1-05
+|postErrorEditStudioController
+|-
+|post("/studio?advertisingBonus=-1&openingTimes=Mo-Fr&address=abcxyz&name=Fitness Second")
+|view().name("error")
 
 |===
 
