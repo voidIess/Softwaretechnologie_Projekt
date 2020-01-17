@@ -242,4 +242,13 @@ class MemberControllerIntegrationTests extends AbstractIntegrationTests {
 				.andExpect(view().name("redirect:/member/home"));
 	}
 
+	@Test
+	void postInviteFriendController() throws Exception {
+		mockMvc.perform(post("/member/inviteAction?friendsId=69")
+				.with(user("member").roles("MEMBER"))
+				.with(csrf())).andExpect(status().is(302))
+				.andExpect(view().name("redirect:/member/home"));
+	}
+
+
 }
