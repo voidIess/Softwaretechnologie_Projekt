@@ -248,12 +248,6 @@ Ansprechpartner: Markus
 |"Ronaldo"
 |true
 
-|U-7-03
-|StaffManagement.setLastName
-|Staff existiert
-|"Ronaldo"
-|true
-
 |U-7-04
 |StaffManagement.setSalary
 |Staff existiert
