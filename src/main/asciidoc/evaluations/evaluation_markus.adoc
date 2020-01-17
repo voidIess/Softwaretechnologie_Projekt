@@ -5,32 +5,37 @@
 
 **Von:** Markus Wieland 
 
-**Gruppe:** 12
+**Gruppe:** 16
 
 == Was habe ich gelernt?
 // Ausführung der positiven und negativen Erfahrungen, die im Softwarepraktikum gesammelt wurden
-Nix
+* Herangehensweise an ein Software-Projekt
+* Spring
+* Richtig testen
+* Html/JavaScript/css
 
 
 == Welche Erfahrungen habe ich mit der Zusammenarbeit im Team gemacht?
 // Kurze Beschreibung der Zusammenarbeit im Team. Was lief gut? Was war verbesserungswürdig? Was würden Sie das nächste Mal anders machen?
-
+* Absprache kann Prozess verlängern
+* Sehr kompetente Teammitglieder
+* Verlass auf die Arbeit der anderen
 
 == Welche Erfahrungen habe ich bei der Wiederverwendung von Bibliotheken/Frameworks (insbesondere SalesPoint) gemacht?
 // Einschätzung der Arbeit mit den bereitgestellten und zusätzlich genutzten Frameworks. Was War gut? Was war verbesserungswürdig?
-
+* Ich habe nicht mit Salespoint gearbeitet (Nicht passend für Dienstplan)
 
 
 == Welche Vorschläge zur weiteren Verbesserung des Softwarepraktikums gibt es?
 // Möglichst mit Beschreibung, warum die Umsetzung des von Ihnen angebrachten Vorschlages nötig ist.
-
+-
 
 
 == Feedback für den Tutor
 // Fühlten Sie sich durch den vom Lehrstuhl bereitgestellten Tutor gut betreut? Was war positiv? Was war verbesserungswürdig?
-
+* Super. Einfach genauso weiter machen :)
 
 == Sonstiges und Anmerkungen
 // Welche Aspekte fanden in den oben genannten Punkten keine Erwähnung?
 
-
+-
