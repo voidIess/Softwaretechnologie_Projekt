@@ -151,8 +151,13 @@ repräsentiert in eine Gruppe von konkreten Produkten im Lager mit dem selben Ve
 
 Die Anwendung verwendet *Hibernate annotation based mapping*. Damit lassen sich Java Klassen in Datenbank-Tabellen umwandeln. Derzeit ist die Persistenz deaktiviert. Zum Aktivieren des persistenten Speichers, muss der Kommentar der folgende zwei Zeilen in der Datei _application.properties_ entfernt werden. 
 
+ER diagram
+
+
+image::models/final/entityManagerFactory(EntityManagerFactoryBuilder).svg[]
+
 ....
-# spring.datasource.url=jdbc:h2:./db/videoshop
+# spring.datasource.url=jdbc:h2:./db/gym
 # spring.jpa.hibernate.ddl-auto=update
 ....
 
