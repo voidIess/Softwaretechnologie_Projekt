@@ -26,15 +26,4 @@ Die individuell erfasste Zeit beinhaltet auch das Lesen von Dokumentationen, Bes
 |Stunden je Woche  |13,74 |8,73    |14    |17,17      |14,89   | -
 |===
 
-Bitte tragen Sie am Ende des Praktikums noch folgende weitere Werte ein:
-Summe der Arbeitsstunden pro Student:
-
-SUMME(SPALTE(DevX))
-
-Arbeitsstunden pro Woche pro Student:
-
-SUMME(SPALTE(DevX)) / 12
-
-Durchschnittliche Arbeitzeit aller Studenten pro Woche:
-
-(SUMME(SPALTE(Dev1)) + SUMME(SPALTE(Dev2)) + SUMME(SPALTE(Dev3)) + SUMME(SPALTE(Dev4)) + SUMME(SPALTE(Dev5)) +SUMME(SPALTE(Dev6))) / 6
+Durchschnittliche Arbeitzeit aller Studenten pro Woche: 13,71
