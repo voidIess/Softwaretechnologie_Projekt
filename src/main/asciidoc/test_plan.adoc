@@ -92,6 +92,80 @@ Ansprechpartner: Vu
 
 |===
 
+=== Verträge
+
+Ansprechpartner: Bill
+
+[options="headers"]
+|===
+|ID |Anwendungsfall |Vorbedingungen |Eingabe |Ausgabe
+
+|U-2-01
+|ContractManagement.createContract
+| -
+|Name, Beschreibung, Preis und Laufzeit
+| -
+
+|U-2-02
+|ContractManagement.findById
+|Ein Vertrag muss existieren
+|ID des existierenden Vertrages
+| -
+
+|U-2-03
+|ContractManagement.findAll
+|Ein Vertrag muss existieren
+| -
+| -
+
+|U-2-04
+|ContractManagement.editContract
+|es existiert ein Vertrag mit dieser ID
+|ID, Name, Beschreibung, monatlicher Beitrag, Laufzeit
+| -
+
+|U-2-05
+|ContractManagement.deleteContract
+|ein Vertrag mit der gegebenen ID existiert
+|VertragsID
+|-
+
+|===
+
+=== Rechnungsverwaltung
+
+Ansprechpartner: Bill & Lea
+
+[options="headers"]
+|===
+|ID |Anwendungsfall |Vorbedingungen |Eingabe |Ausgabe
+
+|U-90-01
+|InvoiceManagement.createInvoiceEntry
+|existierendes Mitglied
+|ID des Mitgliedes, InvoiceType, Betrag, Beschreibung
+| -
+
+|U-90-02
+|InvoiceManagement.getAllInvoicesForMember
+|existierendes Mitglied
+|ID des existierenden Mitgliedes
+| -
+
+|U-90-03
+|InvoiceManagement.getAllInvoiceForMemberOfLastMonth
+|Ein InvoiceEntry für ein existierendes Mitglied
+|ID des Mitgliedes
+| -
+
+|U-2-04
+|InvoiceManagement.getAllEntriesForMemberBefore
+|Ein InvoiceEntry für ein existierendes Mitglied
+|ID des Mitgliedes
+| -
+
+|===
+
 === Mitgliederverwaltung 
 
 Ansprechpartner: Bill
@@ -109,48 +183,6 @@ Ansprechpartner: Bill
 |U-2-02
 |Member.confirm
 |der Mitarbeiter wurde ohne Parameter angelegt
-|-
-|Fehlermeldung
-
-|I-2-01
-|Member.requestTrainig
-a|
-- der Mitarbeiter existiert im System
-- das Datum liegt in der Zukunft
-- Zeit und Datum liegen innerhalb der Öffnungszeiten
-|Zeit und Datum, Mitarbeiter
-|-
-
-|I-2-02
-|Member.requestTrainig
-a|
-- der Mitarbeiter existiert nicht im System oder
-- das Datum liegt in der Vergangenheit oder
-- Zeit und Datum liegen außerhalb der Öffnungszeiten
-|Zeit und Datum, Mitarbeiter
-|Fehlermeldung
-
-|I-2-03
-|Member.changeContract
-|der neue Vertrag ist nicht null
-|neuer Vertrag
-|-
-
-|I-2-04
-|Member.changeContract
-|der neue Vertrag ist null
-|neuer Vertrag
-|NullPointerException
-
-|U-2-03
-|Training.reject
-|der Trainingsstautus ist nicht ACCEPTED
-|-
-|-
-
-|U-2-04
-|Training.reject
-|der Trainingsstautus ist ACCEPTED
 |-
 |Fehlermeldung
 
@@ -180,58 +212,6 @@ a|
 |MemberManagement.checkMemberIn/Out
 |ein zur ID zugehöriges Mitglied existiert nicht
 |MitgliedsID
-|Fehlermeldung
-
-|U-2-07
-|Contract.update
-|keine Nullobjekte werden übergeben
-|Name, Beschreibung, monatlicher Beitrag, Auslaufdatum
-|-
-
-|U-2-08
-|Contract.update
-|es wird min ein Nullobjekt übergeben
-|Name, Beschreibung, monatlicher Beitrag, Auslaufdatum
-|NullPointerException
-
-|I-2-09
-|ContractManagement.editContract
-|es existiert ein Vertrag mit dieser ID
-|ID, Name, Beschreibung, monatlicher Beitrag, Auslaufdatum
-|alter Vertrag
-
-|I-2-10
-|ContractManagement.editContract
-|es existiert kein Vertrag mit dieser ID
-|ID, Name, Beschreibung, monatlicher Beitrag, Auslaufdatum
-|Fehlermeldung
-
-|I-2-11
-|ContractManagement.createContract
-a|
-- es existiert kein Vertrag mit diesem Namen
-- das Auslaufdatum liegt in der Zukunft
-|Name, Beschreibung, monatlicher Beitrag, Auslaufdatum
-|Vertrag
-
-|I-2-12
-|ContractManagement.createContract
-a|
-- es existiert ein Vertrag mit diesem Namen oder
-- das Auslaufdatum liegt in der Vergangenheit
-|Name, Beschreibung, monatlicher Beitrag, Auslaufdatum
-|Fehlermeldung
-
-|I-2-13
-|ContractManagement.deleteContract
-|ein Vertrag mit der gegebenen ID existiert
-|VertragsID
-|-
-
-|I-2-14
-|ContractManagement.deleteContract
-|ein Vertrag mit der gegebenen ID existiert nicht
-|VertragsID
 |Fehlermeldung
 
 |===
@@ -840,5 +820,56 @@ Ansprechpartner: Lea
 |-
 |Statistiken Ansicht
 
+|===
+
+=== Trainings verwalten
+
+Ansprechpartner: Bill
+
+[options="headers"]
+|===
+|ID |Anwendungsfall |Vorbedingungen |Eingabe |Ausgabe
+
+|U-99-01
+|TrainingManagement.createTraining
+|existierendes Mitglied und Mitarbeiter
+|ID des Mitgliedes und des Mitarbeiters,  Woche, Tag, Zeit und Beschreibung
+| -
+
+|U-99-02
+|TrainingManagement.acceptTraining
+|Angefragtes Training eines Mitgliedes
+|ID des angefragten Trainings
+|-
+
+|U-99-03
+|TrainingManagement.endTraining
+|Akzeptiertes Training
+|ID des akzeptierten Trainings
+|-
+
+|U-99-04
+|TrainingManagement.getAllTrainingByMember
+|Mitglied mit mind. einen angefragten Training
+|ID des Mitgliedes
+|-
+
+|U-99-05
+|TrainingManagement.createTrialTraining
+|existierendes Mitglied und Mitarbeiter
+|ID des Mitgliedes und des Mitarbeiters,  Woche, Tag, Zeit und Beschreibung
+|-
+
+|U-99-06
+|TrainingManagement.declineTraining
+|Angefragtes Training
+|ID des angefragten Trainings
+| -
+
+|U-99-07
+|TrainingManagement.createTrialTraining
+|existierendes bereits kostenlos trainiertes Mitglied und Mitarbeiter
+|ID des Mitgliedes und des Mitarbeiters,  Woche, Tag, Zeit und Beschreibung
+|Fehler, da bereits Probe-Training absolviert.
 |===
 
