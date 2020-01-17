@@ -32,6 +32,14 @@
 |Mitglieschaft pausieren | member | laufende Trainings (werden nach max. einer Minute beendet) | NaN
 |Nutzerkonto bar aufladen | staff  | NaN | NaN
 |Member ein-/auschecken | staff | NaN | NaN
+|Artikel zum Warenkorb hinzufügen | staff | Bestand des Artikels muss ausreichen |
+|Warenkorb verkaufen | staff | Es muss mindestens ein Artikel im Warenkorb |
+|Übersicht Abgeschlossene Verkäufe | staff | Es müssen Verkäufe getätiggt worden sein |
+|Erstellung von neuen Artikeln | staff | |
+|Hinzufügen eines Discounts | staff | Es muss einen Artikel ohen Discount geben |
+|Bestand aufstocken | staff ||
+|Nachbestellliste anschauen|staff||
+
 
 |===
 

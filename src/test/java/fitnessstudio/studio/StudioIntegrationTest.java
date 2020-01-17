@@ -23,11 +23,17 @@ public class StudioIntegrationTest extends AbstractIntegrationTests {
 	@Autowired
 	MockMvc mvc;
 
+	/**
+	 * U-1-01
+	 */
 	@Test
 	void getStudioTest() {
 		assertNotNull(studioService.getStudio());
 	}
 
+	/**
+	 * U-1-02
+	 */
 	@Test
 	void saveStudioTest() {
 		Studio studio2 = new Studio();
@@ -35,6 +41,9 @@ public class StudioIntegrationTest extends AbstractIntegrationTests {
 		assertNotEquals(studioService.getStudio(), studio2);
 	}
 
+	/**
+	 * I-1-01
+	 */
 	@Test
 	void getStudioController() throws Exception {
 		mvc.perform(get("/")).andExpect(status().isOk()).andExpect(view().name("index"))
@@ -45,6 +54,10 @@ public class StudioIntegrationTest extends AbstractIntegrationTests {
 				.andExpect(model().attributeExists("advertisingBonus")).andExpect(model().size(5));
 	}
 
+
+	/**
+	 * I-1-02
+	 */
 	@Test
 	void getEditStudioController() throws Exception {
 		mvc.perform(get("/studio").with(user("boss").roles("BOSS"))).andExpect(status().isOk())
@@ -53,6 +66,9 @@ public class StudioIntegrationTest extends AbstractIntegrationTests {
 				.andExpect(model().size(2));
 	}
 
+	/**
+	 * I-1-03
+	 */
 	@Test
 	void postEditStudioController() throws Exception {
 		mvc.perform(post(
@@ -61,6 +77,9 @@ public class StudioIntegrationTest extends AbstractIntegrationTests {
 				.andExpect(status().is(302)).andExpect(view().name("redirect:/"));
 	}
 
+	/**
+	 * I-1-04
+	 */
 	@Test
 	void postErrorEditStudioController() throws Exception {
 		mvc.perform(post(
