@@ -8,7 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Integration tests for {@link fitnessstudio.contract.ContractManagement}.
+ * Unit tests for {@link fitnessstudio.contract.ContractManagement}.
  *
  * @author Bill Kippe
  */
@@ -25,6 +25,9 @@ class ContractManagementUnitTests {
 
 	private Long contractId;
 
+	/**
+	 * U-2-01
+	 */
 	@Test
 	@Order(1)
 	void testCreateContract() {
@@ -34,18 +37,27 @@ class ContractManagementUnitTests {
 		assertThat(contracts.findById(contractId)).isNotEmpty();
 	}
 
+	/**
+	 * U-2-02
+	 */
 	@Test
 	@Order(2)
 	void testFindById() {
 		assertThat(management.findById(contractId).isPresent()).isTrue();
 	}
 
+	/**
+	 * U-2-03
+	 */
 	@Test
 	@Order(3)
 	void testFindAll() {
 		assertThat(management.getAllContracts().size()).isGreaterThan(0);
 	}
 
+	/**
+	 * U-2-04
+	 */
 	@Test
 	@Order(4)
 	void testEditContract() {
@@ -66,6 +78,9 @@ class ContractManagementUnitTests {
 		assertThat(newContract.getDuration()).isEqualTo(newDuration);
 	}
 
+	/**
+	 * U-2-05
+	 */
 	@Test
 	@Order(5)
 	void testDeleteContract() {
