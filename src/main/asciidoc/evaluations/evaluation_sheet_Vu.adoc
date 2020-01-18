@@ -12,22 +12,30 @@ Quang Vu Ha
 == Was habe ich gelernt?
 // Ausführung der positiven und negativen Erfahrungen, die im Softwarepraktikum gesammelt wurden
 Wiederverwendung von Bibliotheken/Frameworks
-Zussammenarbeit mit team
+
+Zussammenarbeit mit Team
+
 Arbeit mit git
+
 ein bisschen mit Frontend wie html/css
+
 Spring Framework
+
 Erfahrung mit grosser Software mit harten Termin
 
 
 == Welche Erfahrungen habe ich mit der Zusammenarbeit im Team gemacht?
 // Kurze Beschreibung der Zusammenarbeit im Team. Was lief gut? Was war verbesserungswürdig? Was würden Sie das nächste Mal anders machen?
 ich bin zufrieden mit meinen Teammitglieder
+
 kompetente fleissige Teammitglieder
+
 Verteilen von Aufgaben  klar genau kommunizieren
 
 == Welche Erfahrungen habe ich bei der Wiederverwendung von Bibliotheken/Frameworks (insbesondere SalesPoint) gemacht?
 // Einschätzung der Arbeit mit den bereitgestellten und zusätzlich genutzten Frameworks. Was War gut? Was war verbesserungswürdig?
 Dokumente lesen
+
 Salepoints Framework ist sehr hilfreich für das SWP
 
 
