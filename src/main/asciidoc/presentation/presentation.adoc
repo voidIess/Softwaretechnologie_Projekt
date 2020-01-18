@@ -45,41 +45,45 @@
 
 -> Member
 
-Zuerst Member (Training anfragen, Konto aufladen, Rechnung, Mitgliedschaft beenden, etc.)
+(Bill) Zuerst Member (Training anfragen, Konto aufladen, Rechnung, Mitgliedschaft beenden, etc.)
 
-Email senden (Gmail)
+(Bill) Email senden um Freund einzuladen (Gmail)
 
-Danach Registrieren (über diesen Link)
+(Markus) Danach Registrieren (über diesen Link) in Email
 
 -> Staff
 
-Aktivierung des neuen Nutzers
+(Markus) Aktivierung des neuen Nutzers
 
 -> Login mit neuem Nutzer
 
 -> Staff
 
-Training erstellen
+(Markus) Training annehmmen
 
-Nutzerkonto aufladen
+(Markus) Dienstplan 
 
-Nutzer einchecken
+(Markus) Training absagen 
 
-Lohnschein (Monat umstellen)
+(Lea) Nutzerkonto aufladen
 
-Dienstplan (Markus)
+(Lea) Nutzer einchecken
 
-Training absagen (Markus)
+(Lea) Lohnschein (Monat umstellen)
 
-Theke (Verkaufen, hinzufügen)
 
-Nutzer auschecken
+
+(Julius) Theke (Verkaufen, hinzufügen)
+
+(Lea) Nutzer auschecken
 
 -> Boss
 
-Studio bearbeiten
+(Lea) Statistiken einsehen
 
-Staffs verwalten, hinzufügen
+(Vu) Studio bearbeiten
 
-Statistiken einsehen
+(Vu) Staffs verwalten, hinzufügen
+
+
 
