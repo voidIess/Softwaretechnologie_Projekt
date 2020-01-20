@@ -155,4 +155,8 @@ public class Training {
 		return false;
 	}
 
+	public String getDayAsString(){
+		return DayOfWeek.of(getDay()+1).getDisplayName(TextStyle.FULL, Locale.GERMAN);
+	}
+
 }
