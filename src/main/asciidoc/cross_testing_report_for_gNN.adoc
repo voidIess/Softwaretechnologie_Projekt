@@ -1,22 +1,49 @@
 = Cross-Testing Feedback
 
-__Durchführende Gruppe:__
-__Anwendung von Gruppe:__
+__Durchführende Gruppe:__ 16
+__Anwendung von Gruppe:__ 12
 
 == Getestetes System
 Welche Aufgabe/Problemstellung löst die Anwendung.
+
+.Verträge
+* können erstellt und bearbeitet werden
+* müssen beim Registrieren ausgewählt werden
+
+.Kunden
+* Registrierung
+* Log in/out
+* Daten ändern (mit kleinen Error)
+* Guthaben einsehbar
+* manuelles Aufladen von Guthaben
+
+.Training
+* (Probe-)Trainings können angefragt werden
+* Mitglieder haben eine Übersicht über ihre Trainings
+* Trainings können  bearbeitet und gelöscht werden
+
+== Fehlende Features
+.Training
+* Probetrainings können nicht abgelehnt werden
+* Da Probetraining einen Trainer vorsieht, wieso ein normales Training nicht?
+
+.Kunden
+* Pausierung wird nach einem Monat nicht aufgehoben
+
+.Verträge
+* Vertragslaufzeit fehlt bzw. nicht ersichtlich
 
 == Fehler-Report
 // See http://asciidoctor.org/docs/user-manual/#tables
 [options="header"]
 |===
 |Pfad |Parameter |Beschreibung |Rückgabe
-| … | … | … | … |
+| Konto | franz@email.com1 | Beim Ändern der Kundendaten wird man auf die Hauptseite geleitet und das Konto ist nicht
+mehr einsehbar. Jedoch wird die Email erfolgreich geändert. | (Konsole ohne Errors)|
 |===
 
 == Sonstiges
 * Optik der Anwendung
-* Fehlende Features
 * Interaktion mit der Anwendung (Usability)
 
 == Verbesserungsvorschläge
